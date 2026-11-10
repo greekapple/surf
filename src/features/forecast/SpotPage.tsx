@@ -184,7 +184,7 @@ function StationTideNext({spot, bundle, p, now}: {spot: SurfSpot; bundle: OceanB
   return <>
     <ul className="sp-tn" aria-label={`Next tides at ${st.station.name}`}>{next.map((e) => <li key={e.timestamp}><b>{e.type}</b> {weekdayPT(e.timestamp, tz)} {timeLabelPT(e.timestamp, tz)} · {e.height.value! < 0 ? '−' : ''}{ht(Math.abs(e.height.value!), p)} {p.heightUnit}</li>)}</ul>
     <p className="sp-f">NOAA CO-OPS prediction at {st.station.name}, {st.distanceKm} km away, not at the beach</p>
-    {st.fallback && <p className="sp-f" role="note"><b>Inlet or bay-side station:</b> times and range differ from the open beach (no open-coast station is within 40 km).</p>}
+    {st.fallback && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> times and range differ from the open beach (no open-coast station is within 40 km).</p>}
   </>;
 }
 function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; extrema: {timestamp: string; v: number; type: string}[]; p: UserProfile}) {

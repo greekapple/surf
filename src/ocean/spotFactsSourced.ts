@@ -16360,6 +16360,5186 @@ export const guideFacts: GuideFacts[] = [
    "\"Expect some runoff pollution after heavy rain.\" (surfnerd)"
   ],
   "notes": "town: Isle of Palms (surfnerd); no surf-forecast page matched within 6 km by name Sources give different facings (S, SE, SSE); none is recorded."
+ },
+ {
+  "spotId": "w-hawaii-kaena-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kaena-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kaena Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kaena-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kaena Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to ENE",
+   "fromDeg": 157.5,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to ENE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 67.5
+  },
+  "idealSwell": "West-northwest (surf-forecast)",
+  "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); East-northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 10,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips, rocks and locals (surf-forecast)",
+   "Respect the hazards, which include large waves, strong current, sharks, and the reef itself. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kaena Point is the westernmost tip of Oahu, a torrential convergence zone where North and South Pacific swell energy collides with spectacular force. It breaks over reef and rock, with lava and coral in the mix, and throws both rights and lefts as a reef and point setup. On the big N or NW swells that light it up, it stacks giant righthanders around the west side of the island and careens them down along the southern edge of the headland. Further down the point sits Yokohama Bay, where the waves run a touch tamer but can still reach serious, heavy proportions. This is expert-only terrain. Skill (surfnerd): Expert. Surf-forecast Kaena-Point: \"Kaena Point in Oahu is an exposed reef break that usually has waves and can work at any time of the year. Works best in offshore wi"
+ },
+ {
+  "spotId": "w-hawaii-yokohama",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/yokohama",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Yokohama",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/yokohama-bay-keawaula",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Yokohama",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Yokohama-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Yokohama",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/yokohama_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Yokohama",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to NW, best SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surfnerd); West-northwest (surf-forecast); North, NorthWest, West, SouthWest, South (wannasurf)",
+  "windOffshore": "NE (surfnerd wind exposure N - E, \"Offshore from NE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); East-northeast (surf-forecast); East, NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Mid and high tide, Rising tide (wannasurf)",
+  "bottom": "Live Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips, rocks and locals (surf-forecast)",
+   "Rips / undertow, Rocks, Localism (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Yokohama sits at the far end of the Farrington Highway, in a southwest-facing bay near Kaena Point on Oahu's leeward side. The drive out is relaxing, past rock-shrouded sands at Keaau Beach Park and Makua, but the wave itself is high-octane. Fast, thumping lefts and just as angry rights break over a mosaic of live coral heads, and it takes speed to get in and race the section cleanly. Surfnerd lists this break twice (yokohama, yokohama-bay-keawaula); merged, same facing. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/yokohama-bay-keawaula: workable swell S - NW , offshore None, 5ft - 10ft, Lava, Rock, Coral, Sand, Reef, Right, Left, Mid, High, Expert, Autumn, Winter, Spring, Summer, Shortboard, Bodyboard, Skimming. Skill (surfnerd): Expert. Surf-forecast Yo"
+ },
+ {
+  "spotId": "w-hawaii-makaha-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/makaha-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Makaha Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/makaha-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Makaha Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Makaha",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Makaha Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/makaha/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Makaha Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to NW",
+   "fromDeg": 157.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to N, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 0
+  },
+  "idealSwell": "W (surfnerd); West (surf-forecast); NorthWest, West (wannasurf)",
+  "windOffshore": "NE (surfnerd wind exposure N - E, \"Offshore from NE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast); East, NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); Mid and high tide, Rising tide (wannasurf)",
+  "bottom": "Dead Coral (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 25
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "Urchins, Rocks, Localism (wannasurf)",
+   "Below about 10 ft (3 m) there is something for everyone: inside rollers for the groms, a nice left off the middle peak for goofyfooters, long wrapping walls for longboarders and short, sharp barrels for shredders. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Makaha Point is a very consistent right-hand point that breaks over dead coral, and it is really four distinct breaks in one: the Point, the Bowl, the Blowhole and the Inside Reef. That variety is a big part of the appeal, since there is usually a wave on offer for whoever paddles out. Surfnerd lists this break twice (makaha-point, makaha-hawaii); merged, same facing. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/makaha-hawaii: workable swell SSW - NNW , offshore None, 2ft - 8ft, Lava, Rock, Coral, Reef, Point, Right, Mid, High, Intermediate, Expert, Autumn, Winter, Spring, Summer, Shortboard, Funboard, Longboard, Fish, Bodyboard, Gun. Skill (surfnerd): Expert. Surf-forecast Makaha: \"Makaha in Oahu is an exposed beach and reef break that has reliable surf "
+ },
+ {
+  "spotId": "w-hawaii-maili-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/maili-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Maili Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Maili-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Maili Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to NNW",
+   "fromDeg": 157.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surfnerd); West-northwest (surf-forecast)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); East-northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Dead Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "sharks and rocks (surf-forecast)",
+   "Currents and sharks patrol the point and the takeoff shifts, so it rewards surfers who know it, and the locals are usually on it. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Maili Point is a fast, shifting left that breaks over dead coral a long way offshore. When a solid swell lines up with the trades, it throws screaming-fast lefts, though the peak moves around and regular clean-up sets sweep through. Skill (surfnerd): Expert. Surf-forecast Maili-Point: \"Maili Point in Oahu is an exposed reef and point break that usually has waves and can work at any time of the year. Offshore winds are from the east northeast. Clean groundswells prevail and the ideal swell direction is from the west northwest. A left hand reef break. A fairly popluar wave that can sometimes get crowded Beware of sharks and rocks.\" Access (surfnerd): Getting in and out is a real rock dance, so time your entry and exit carefully. There's a car park with free parking. Other "
+ },
+ {
+  "spotId": "w-hawaii-maili",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/maili",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ma'ili",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW to NNW (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 337.5
+  },
+  "idealSwell": null,
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "On big winter swells the whole beach park can wash through with surf and strong currents become a real factor, with getting caught inside a risk on the bigger days. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Ma'ili spreads across the 40-acre Ma'ili Beach Park, where a couple of fun reef waves break at either end. At the north end, beside the jetty at the mouth of Ma'ili'ili Stream, sits Green Lanterns, a right-hander. Down at the south end you'll find Tumbleland, a left-breaking reef that carries more power and throws faster, more technical lines over a shallower, sharper bottom. Between the two, the park gives you a broad playing field with both rights and lefts to choose from. Skill (surfnerd): Beginner, Intermediate, Expert. Access (surfnerd): Getting in is easy, straight from Ma'ili Beach Park."
+ },
+ {
+  "spotId": "w-hawaii-tracks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tracks-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Tracks",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Nanakuli-Tracks",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Tracks",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Tracks-Nanakuli",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Tracks",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/nanakuli_tracks/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Tracks",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to NW",
+   "fromDeg": 157.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "idealSwell": "SW (surfnerd); Southwest, West (surf-forecast); NorthWest, West (wannasurf)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); East-northeast, Northeast (surf-forecast); NorthWest, West (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Dead Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins - Rocks - Localism - Sharks (surf-forecast)",
+   "Urchins, Rocks, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Tracks is a long reef with a sandy inside in Kahe Beach Park, breaking over dead coral close to the shore. It throws both lefts and rights: the lefts show up on south to southwest swells, while punchy rights fire on north to northwest swells. The main peak sits down near the power plant, producing electric rights and longer lefts, and a handful of lesser peaks stretch north toward Nanakuli. With everything breaking so close in, it is also a great spot to watch the action. Skill (surfnerd): Beginner. Surf-forecast Nanakuli-Tracks: \"Nanakuli Tracks in Oahu is an exposed reef break that has unreliable waves with no particular seasonal pattern. Works best in offshore winds from the east northeast. Most of the surf here comes from groundswells and the optimum swell angle is f"
+ },
+ {
+  "spotId": "w-hawaii-kahuku",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kahuku",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kahuku",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to SE",
+   "fromDeg": 315,
+   "toDeg": 135,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNW to ESE (surfnerd)",
+   "fromDeg": 337.5,
+   "toDeg": 112.5
+  },
+  "idealSwell": null,
+  "windOffshore": "WSW (surfnerd wind exposure SSW - WNW, \"Offshore from WSW\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5,
+   "max": 10
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Watch for the reef, urchins, sharks, and currents. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kahuku, also known as 7th Hole, sits off the 7th hole of the Kahuku Golf Course at the start of the Windward Side, just around the bend from the North Shore. It's a reef break that offers both a powerful left and right, split by a deep channel that's often sharky. When a solid northeast swell lines up with offshore winds from a passing front, it's one of the best spots on the Windward Side, with long rides and barrels, though catching it that good isn't all that common. Skill (surfnerd): Beginner, Intermediate, Expert. Access (surfnerd): Cross the golf course at or near the 7th hole to reach the break. It's a long paddle out, though you get to use the channel, and the long rides mean long paddles back. When the spot's working, you'll figure out the way easily enough."
+ },
+ {
+  "spotId": "w-hawaii-laie-beach-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/laie-beach-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Laie Beach Park",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE to SE",
+   "fromDeg": 22.5,
+   "toDeg": 135,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "W (surfnerd wind exposure SW - NW, \"Offshore from W\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Laie Beach Park is a surf spot on the coast of the United States. There isn't detailed condition data for it yet, so check the live forecast for swell, wind, and tide before you paddle out."
+ },
+ {
+  "spotId": "w-hawaii-crouching-lion",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/crouching-lion",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Crouching Lion",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Crouching-Lion",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Crouching Lion",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to ESE",
+   "fromDeg": 337.5,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNW to ESE (surfnerd)",
+   "fromDeg": 337.5,
+   "toDeg": 112.5
+  },
+  "idealSwell": "Northeast (surf-forecast)",
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\"); South-southwest (surf-forecast)",
+  "tide": "Low, Mid (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks/rips (surf-forecast)",
+   "Watch for reef, urchins, sharks, and currents. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Crouching Lion is a reef and point setup on the south side of Kahana Bay, sitting out in front of the rock formation of the same name on the mountain ridge above the bay. The main draw is a racey, hollow right that peels toward Kahana Bay, and tube-riding skills are essential when it's on. There are also some lefts on the far side of the reef outcrop, though they tend to be short. The wave breaks over lava, rock, and coral. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Crouching-Lion: \"Crouching Lion in Oahu is an exposed point break that has unreliable waves with no particular seasonal pattern. The best wind direction is from the south southwest. Most of the surf here comes from groundswells and the ideal swell direction is from the northeast. A right "
+ },
+ {
+  "spotId": "w-hawaii-north-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/north-beach-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: North Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/north_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: North Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "North, East, NorthEast (wannasurf)",
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\"); SouthWest, South (wannasurf)",
+  "tide": "Mid and high tide, Rising and falling tides (wannasurf)",
+  "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "Private beach, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: North Beach is cleanest when the wind blows offshore from the north , grooming the wave faces for a smoother ride. Wannasurf north_beach: quality Regional Classic; experience All surfers; wave Reef-coral, Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; crowd weekday Few surfers, weekend Ultra crowded. Other guide pins from this position: wannasurf north_beach 0.5 km."
+ },
+ {
+  "spotId": "w-hawaii-kailua",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kailua",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kailua",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kailua-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kailua",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE to ESE",
+   "fromDeg": 22.5,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "Northeast (surf-forecast)",
+  "windOffshore": "WSW (surfnerd wind exposure SSW - WNW, \"Offshore from WSW\"); Southwest (surf-forecast)",
+  "tide": null,
+  "bottom": null,
+  "waveType": "point",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "jellyfsih and rocks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Kailua is a surf spot in the United States. Surf-forecast Kailua-Beach: \"Kailua Beach in Oahu is an exposed point break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the southwest. Clean groundswells prevail and the optimum swell angle is from the northeast.. When the surf is up, it can get quite busy in the water. Beware of jellyfsih and rocks.\" Other guide pins from this position: surf-forecast Kailua-Beach 0.6 km."
+ },
+ {
+  "spotId": "w-hawaii-castles",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/castles-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Castles",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Castles_1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Castles",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE to ESE",
+   "fromDeg": 45,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "Northeast (surf-forecast)",
+  "windOffshore": "WNW (surfnerd wind exposure WSW - NNW, \"Offshore from WNW\"); West (surf-forecast)",
+  "tide": null,
+  "bottom": null,
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "rocks,etc (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Castles is a surf spot in the United States. There isn't enough detail on record yet to describe how the wave breaks or the conditions that suit it best, so check the live forecast before you commit to a session. Surf-forecast Castles_1: \"Castles in Oahu is an exposed beach and reef break. Summer offers the optimum conditions for surfing. Works best in offshore winds from the north northeast. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the south southeast. A reef breaks left. Even when there are waves, it's not likley to be crowded. Beware of rocks,etc.\" Other guide pins from this position: surf-forecast Castles_1 0.2 km."
+ },
+ {
+  "spotId": "w-hawaii-makapuu",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/makapuu",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Makapu’u",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/makapuu-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Makapu’u",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Makapu",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Makapu’u",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/makapuu/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Makapu’u",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/Makapuu_Beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Makapu’u",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE to SE, best NE (surfnerd)",
+   "fromDeg": 45,
+   "toDeg": 135,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NE to SE, best NE (surfnerd)",
+   "fromDeg": 45,
+   "toDeg": 135
+  },
+  "idealSwell": "NE (surfnerd); East-southeast (surf-forecast); SouthEast, East, NorthEast (wannasurf)",
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\"); SW (surfnerd guide text: \"southwest (SW) offshore wind\"); West-southwest (surf-forecast); NorthWest, West, SouthWest (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Low tide only, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef, Sand (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks/crowds (surf-forecast)",
+   "Local Tips Makapu'u is approachable for beginners, though strong currents run through here and keep the lifeguards busy. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Makapu'u is arguably Oahu's best bodysurf and bodyboard spot, known for long, trundling lefts that end in a huge shorebreak barrel. It breaks over uneven reef and sand and throws both lefts and rights. The Beach Park enforces a no-surfboards policy, which the lifeguards police, but stand-ups are allowed to take on the heavy, barreling right that peels over the lava shelf at Makapu'u Point, in front of Sea Life Park. Surfnerd lists this break twice (makapuu, makapuu-hawaii); merged, same facing. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/makapuu-hawaii: workable swell NNE - E , offshore None, 4ft - 8ft, Lava, Rock, Coral, Sand, Beach, Reef, Point, Right, Left, Low, Mid, High, Intermediate, Expert, Autumn, Winter, Spring, Summer, Shortboard, Bodyboard, Sk"
+ },
+ {
+  "spotId": "w-hawaii-honolua-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honolua-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honolua Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Honolua-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Honolua Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/honolua_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Honolua Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NE, best NW (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to NE, best NW (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 45
+  },
+  "idealSwell": "NW (surfnerd); North-northwest (surf-forecast); North, NorthWest, West (wannasurf)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Southeast (surf-forecast); SouthEast, East (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Best around mid tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rips (surf-forecast)",
+   "Urchins, Rips / undertow (wannasurf)",
+   "Watch the shallow reef and sea urchins, and be aware of current and sharks. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Honolua Bay is a world-class right-hand pointbreak set in a cliff-lined amphitheatre on Maui's northwest coast, and it ranks among the best waves on the planet. The right peels over an uneven reef through a series of barrel and turn sections that can run for the better part of a quarter-mile. Surfers break it down by zone: Coconuts is the outermost takeoff with the most size, Outside stands up into the first hollow wall, Cave delivers the thickest and most high-performance barrels, and the inside Keiki Bowl finishes racy over shallow reef. This is a wave for experienced surfers only. Skill (surfnerd): Expert. Surf-forecast Honolua-Bay: \"Honolua Bay in Maui is a quite exposed reef and point break that has very reliable surf. Winter is the optimum time of year for surfing "
+ },
+ {
+  "spotId": "w-hawaii-windmills",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/windmills-maui",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Windmills - Maui",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Windmills-1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Windmills - Maui",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Windmills/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Windmills - Maui",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NE, best N (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to NE, best N (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North-northwest (surf-forecast); North, NorthWest, West, NorthEast (wannasurf)",
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\"); S (surfnerd guide text: \"south (S) offshore wind\"); South-southeast (surf-forecast); South, SouthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Mid tide, Don't know (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rocks - Localism - Sharks (surf-forecast)",
+   "Rocks, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Windmills is a north-facing set of reefs on Maui, breaking over uneven reef and throwing long lefts along with a couple of rights against a rocky shoreline. It sits very exposed to all wind and swell, so it takes size and power in stride. Skill (surfnerd): Expert. Surf-forecast Windmills-1: \"Windmills in Maui is a fairly exposed reef break that has fairly consistent surf. Winter is the favoured time of year for surfing here. Works best in offshore winds from the south southeast. Most of the surf here comes from groundswells and the best swell direction is from the north northwest. Likely to be crowded if working. Beware of - Rocks - Localism - Sharks.\" Wannasurf Windmills: quality Regional Classic; experience Experienced surfers; wave Reef-rocky, Left; swell size Starts "
+ },
+ {
+  "spotId": "w-hawaii-honokohau",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honokohau",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honokohau",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Honokohau",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Honokohau",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NNE",
+   "fromDeg": 315,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North (surf-forecast)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Boulders, Sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rips (surf-forecast)",
+   "It works from 0.9 m / 3 ft to 3.7 m / 12 ft and maxes out once it climbs above double overhead, when strong rips start to run. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Honokohau is a boulder-and-sand reef break tucked into a deep crescent bay on Maui's lush Upper Westside, about three miles east of Honolua Bay. It makes a solid alternative to Honolua with a mellower lineup, offering both rights and lefts. The right is the standout: powerful, fairly long walls that can peel toward the cobble shore, though they are often broken up by fat-then-fast sections. The left usually is not as good, but it lines up better on a solid north-northwest swell. Skill (surfnerd): Expert. Surf-forecast Honokohau: \"Honokohau in Maui is a fairly exposed reef and point break that has reliable surf. Winter is the favoured time of year for surfing here. Offshore winds are from the south southeast. Clean groundswells prevail and the ideal swell direction is fro"
+ },
+ {
+  "spotId": "w-hawaii-peahi-jaws",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/peahi-jaws",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Peahi - Jaws",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/peahi-jaws-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Peahi - Jaws",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Jaws",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Peahi - Jaws",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/jaws/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Peahi - Jaws",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WNW to E",
+   "fromDeg": 292.5,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NW (surfnerd); North-northeast (surf-forecast); North (wannasurf)",
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South-southwest (surf-forecast); South (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 12,
+   "max": 30
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips and rocks (surf-forecast)",
+   "Rips / undertow, Rocks, Sharks (wannasurf)",
+   "The hazards are severe: trade-wind cross-chop and large speed-bump ribs run across the face, and the impact zone churns all the way to the cliffs, regularly pulverizing boards, skis, and bodies, then punishing anyone who tries to rescue equipment off the slippery boulders. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Peahi - Jaws is Maui's most notorious wave, a big-wave reef that most surfers will only ever watch. It broke into wider view in the early 1990s as tow-in surfing developed, and it has held its biggest-and-baddest reputation ever since, supplying a string of XXL award winners over the years. The wave breaks over an uneven reef and is famous above all for its perfect, house-sized right-hand tubes. Surfnerd lists this break twice (peahi-jaws, peahi-jaws-hawaii); merged, same facing. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/peahi-jaws-hawaii: workable swell NW - NE , offshore None, 20ft - 50ft, Lava, Rock, Coral, Reef, Point, Offshore, Right, Left, Low, Mid, High, Expert, Autumn, Winter, Spring, Gun, Tow. Skill (surfnerd): Expert. Surf-forecast Jaws: \"Jaw"
+ },
+ {
+  "spotId": "w-hawaii-hookipa",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hookipa",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hookipa",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hookipa",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Hookipa",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/hookipa/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Hookipa",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/hookipa_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Hookipa",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to E, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 90
+  },
+  "idealSwell": "NW (surfnerd); North-northeast (surf-forecast); North, NorthWest, West, East, NorthEast (wannasurf); North (wannasurf)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South (surf-forecast); SouthWest, South, SouthEast (wannasurf); NorthWest (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 20
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, locals and sharks (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)",
+   "Rocks, Localism, Sharks (wannasurf)",
+   "Keep an eye out for the reef, rips, currents, drop-ins, and the occasional outside clean-up set. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Hookipa is a cluster of quality reefbreaks on Maui's north-central coast, working both left and right over uneven reef. It sits at the heart of Hawai'i's wind and kitesurfing scene, but on calm mornings the peaks belong to surfers. The break splits into several distinct spots spread along Ho'okipa Beach Park: Pavilions, Middles, the Point, and Lane. Skill (surfnerd): Intermediate. Surf-forecast Hookipa: \"Hookipa (Ho'okipa) in Maui is an exposed reef break that has fairly consistent surf. Winter is the optimum time of year for surfing at Ho'okipa. Offshore winds are from the south. Clean groundswells prevail and the best swell direction is from the north northeast. There are left and right breaking reefs. Surfable at all stages of the tide. It's sometimes crowded here. Wa"
+ },
+ {
+  "spotId": "w-hawaii-pavilions",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pavilions",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pavilions",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pavillions",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Pavilions",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North-northeast (surf-forecast)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, locals and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Pavilions is a right-hand reef break that runs down the eastern point, tucked out of the wind and walling up beautifully into a defined channel. That channel makes the paddle back out easy, and the wave has a fun, ripable feel that keeps people coming back. Skill (surfnerd): Intermediate. Surf-forecast Pavillions: \"Pavillions in Maui is an exposed reef break that has consistent surf. Winter is the best time of year for surfing here. The best wind direction is from the south. Most of the surf here comes from groundswells and the best swell direction is from the north northeast. A left hand reef break. Good surf at all stages of the tide. A fairly popluar wave that can sometimes get crowded Watch out for urchins, rips, rocks, locals and sharks.\" Access (surfnerd): There's "
+ },
+ {
+  "spotId": "w-hawaii-kuau",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kuau",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kuau",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kuau-Pipes",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kuau",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/kuau_pipes/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kuau",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North-northeast (surf-forecast); North, NorthWest, West, NorthEast (wannasurf)",
+  "windOffshore": "SE (surfnerd wind exposure E - S, \"Offshore from SE\"); S (surfnerd guide text: \"south (S) offshore wind\"); Southeast (surf-forecast); SouthEast, East (wannasurf)",
+  "tide": "Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rips (surf-forecast)",
+   "Urchins, Rips / undertow (wannasurf)",
+   "Currents can lash the lineup, so expect to work for your position. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kuau is a proper, all-out barrelling left that breaks over a shallow, uneven reef. It challenges even accomplished surfers and often wins them, thanks to its shallow, unpredictable nature. This is the kind of break where keeping your feet up seems like a smart idea, so treat it as expert-only water. Skill (surfnerd): Expert. Surf-forecast Kuau-Pipes: \"Kuau Pipes in Maui is an exposed reef break that has reasonably consistent surf. Winter is the optimum time of year for surfing here. Offshore winds are from the southeast. Most of the surf here comes from groundswells and the ideal swell angle is from the north northeast. A reef breaks left. Surfable at all stages of the tide. It very rarely gets crowded here. Beware of urchins and rips.\" Wannasurf kuau_pipes: quality Norm"
+ },
+ {
+  "spotId": "w-hawaii-tavares-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tavares-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Tavares Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NNE",
+   "fromDeg": 315,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "SE (surfnerd wind exposure E - S, \"Offshore from SE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Tavares Bay is best when the wind blows offshore from the north , cleaning up the surface for a smoother ride."
+ },
+ {
+  "spotId": "w-hawaii-sprecklesville",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sprecklesville",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sprecklesville",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sprecklesville",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sprecklesville",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North-northeast (surf-forecast)",
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\"); S (surfnerd guide text: \"south (S) offshore wind\"); South (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Access Keep an eye out for rocks, urchins, and rips. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Sprecklesville is a set of offshore reefs that breaks both left and right over uneven reef. It's often busy with the windsurf crowd making the most of the cross-shore trades, but there's a genuine wave here for surfers when the conditions line up. Skill (surfnerd): Intermediate. Surf-forecast Sprecklesville: \"Sprecklesville in Maui is an exposed reef break that has reasonably consistent surf. Winter is the best time of year for surfing here. Offshore winds blow from the south. Clean groundswells prevail and the optimum swell angle is from the north northeast. The reef provides both left and right breaks. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Take care of rips, sharks and rocks.\" Access (surfnerd): Keep an eye out fo"
+ },
+ {
+  "spotId": "w-hawaii-baldwin-beach-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/baldwin-beach-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Baldwin Beach Park",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Baldwin-Beach-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Baldwin Beach Park",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Baldwin_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Baldwin Beach Park",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best NE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NE (surfnerd); North-northeast (surf-forecast)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); S (surfnerd guide text: \"south (S) offshore wind\"); South (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks/sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Baldwin Beach Park is a beach break running over a mix of uneven reef and sand, throwing both lefts and rights. It serves up a real assortment of waves for every craft and ability, from mushy longboard peaks to crunching shoredump, so there is usually something to ride whatever you are on. Check: surfnerd states facing NNW but best swell NE (67.5 degrees apart); both are as published. Skill (surfnerd): Beginner. Surf-forecast Baldwin-Beach-Park: \"Baldwin Beach Park in Maui is an exposed reef and point break that has very consistent surf. Winter is the favoured time of year for surfing here. Offshore winds blow from the south. Groundswells are more common than windswells and the best swell direction is from the north northeast. A choice of left and right reefs. When the s"
+ },
+ {
+  "spotId": "w-hawaii-kanaha",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kanaha",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kanaha",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kanaha-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kanaha",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kanaha",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kanaha",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Kanaha/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kanaha",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North-northeast (surf-forecast); North, NorthWest, East, NorthEast (wannasurf)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); S (surfnerd guide text: \"south (S) offshore wind\"); Southeast (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Sharks (surf-forecast)",
+   "Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Kanaha is a consistent right-hand reef break at the start of Maui's wind corridor, on a north-facing stretch of coast near the airport. The wind that funnels through here draws kite and windsurfers, and the outside reefs usually throw up messy, wild peaks. When kona winds blow, both Kanaha and the better reefs up at Sprecklesville can clean up into picture-perfect left and right walls with the odd tube. Surfnerd lists this break twice (kanaha, kanaha-hawaii); merged, same facing. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/kanaha-hawaii: workable swell NW - ENE , offshore None, 3ft - 10ft, Lava, Rock, Coral, Reef, Right, Left, Low, Mid, High, Beginner, Intermediate, Autumn, Winter, Spring, Shortboard, Funboard, Longboard, Fish, Bodyboard, Kiteboard. Skil"
+ },
+ {
+  "spotId": "w-hawaii-kahului-harbor",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kahului-harbor",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kahului Harbor",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kahului-Harbor",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kahului Harbor",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/kahului_harbor/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kahului Harbor",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to ENE",
+   "fromDeg": 337.5,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to ENE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 67.5
+  },
+  "idealSwell": "North-northeast (surf-forecast); NorthEast (wannasurf)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); South (surf-forecast); SouthWest (wannasurf)",
+  "tide": "Low, Mid (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Lava, Rock, Coral, Sand (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 7
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, locals, pollution and sharks (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Localism, Pollution, Sharks (wannasurf)",
+   "The paddle out is straightforward, though the current can make it tough to hold your position once you are in the spot. (surfnerd)",
+   "Keep in mind you are surfing inside a working harbor with noticeable pollution, and watch for the shallow bottom on the right wedge, urchins, rocks, sharks, and shifting rips. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kahului Harbor sits on the north-central coast of Maui and is a genuinely fun place to score, with several breaks firing inside and outside the harbor. The standout is the right on the west side. When a large swell pushes through the wide entrance, energy refracts out of the deeper channel and crosses up with swell bouncing off the jetty, stacking into a powerful roll-in wedge over shallow water. It is a mini-Box-style wedge that rewards surfers and bodyboarders who can handle abrupt steps and throw into barrels. There is a left off the same peak, but it dumps straight into the deep channel and does not offer much. Treat it as more of a novelty than a world-beater, though it is a blast when it turns on. Skill (surfnerd): Intermediate, Expert. Surf-forecast Kahului-Harbor"
+ },
+ {
+  "spotId": "w-hawaii-waiehu",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/waiehu",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Waiehu",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Waiehubeachpark",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Waiehu",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/waiehu_beach_park/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Waiehu",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NE",
+   "deg": 45,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE, best NE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE, best NE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NE (surfnerd); North-northeast (surf-forecast); North, NorthWest (wannasurf)",
+  "windOffshore": "SW (surfnerd wind exposure S - W, \"Offshore from SW\"); SW (surfnerd guide text: \"southwest (SW) offshore wind\"); South-southwest (surf-forecast); North (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 18
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, locals and sharks (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Waiehu sits in the built-up area of Kahului, where a few basic boulder beach peaks break close to town. The real draw is just to the south, where a brace of heavy, localised reefs fire over uneven reef. Water quality in this part of the coast is not great. Skill (surfnerd): Expert. Surf-forecast Waiehubeachpark: \"Waiehu beach park in Maui is an exposed reef and point break that has reliable surf. Winter is the best time of year for surfing here. Offshore winds are from the south southwest. Most of the surf here comes from groundswells and the ideal swell direction is from the north northeast.There is a left hand point break here. Likely to be crowded if working. Hazards include urchins, rips, rocks, locals and sharks.\" Wannasurf waiehu_beach_park: quality Regional Classi"
+ },
+ {
+  "spotId": "w-hawaii-waihee",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/waihee",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Waihee",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Waihee",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Waihee",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NE",
+   "deg": 45,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to E",
+   "fromDeg": 337.5,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best NE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NE (surfnerd); North-northeast (surf-forecast)",
+  "windOffshore": "SW (surfnerd wind exposure S - W, \"Offshore from SW\"); SW (surfnerd guide text: \"southwest (SW) offshore wind\"); South-southwest (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rips (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Waihee is a broad amalgam of reefy peaks just off the golf course north of Kahului. The swell breaks over uneven reef and sand, peeling both left and right, and it suits intermediate surfers. Skill (surfnerd): Intermediate. Surf-forecast Waihee: \"Waihee in Maui is an exposed reef and point break that has reasonably consistent surf. Winter is the optimum time of year for surfing here. The best wind direction is from the south southwest. Tends to receive distant groundswells and the ideal swell direction is from the north northeast. Both left and right reef breaks. Sometimes crowded. Hazards include urchins and rips.\" Other guide pins from this position: surf-forecast Waihee 1.1 km."
+ },
+ {
+  "spotId": "w-hawaii-honomanu-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honomanu-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honomanu Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/honomanu_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Honomanu Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N to E",
+   "fromDeg": 0,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNW to E (surfnerd)",
+   "fromDeg": 337.5,
+   "toDeg": 90
+  },
+  "idealSwell": "NorthWest, NorthEast (wannasurf)",
+  "windOffshore": "WSW (surfnerd wind exposure SSW - WNW, \"Offshore from WSW\"); SouthWest, South, SouthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5,
+   "max": 10
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Honomanu Bay is a reef and point setup notched into the sea cliffs of northeast Maui, about twenty miles east of Ho'okipa on the Road to Hana. The main wave is a long, peeling left on the rocky western shore, which faces almost directly east and sits exposed to the tradewind. A shorter right breaks on the east side of the bay, more sheltered from that wind, though its quality leans heavily on swell direction. The bottom is a mix of lava, rock, and coral. Skill (surfnerd): Intermediate, Expert. Wannasurf honomanu_bay: quality World Class; experience Experienced surfers; wave Beach-break, Right and left; swell size Starts working at  and holds up to; crowd weekday Empty, weekend Few surfers. Access (surfnerd): Getting down to the parking lot depends on road conditions, whi"
+ },
+ {
+  "spotId": "w-hawaii-hana-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hana-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hana Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE to ESE",
+   "fromDeg": 45,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE to SE (surfnerd)",
+   "fromDeg": 22.5,
+   "toDeg": 135
+  },
+  "idealSwell": null,
+  "windOffshore": "W (surfnerd wind exposure SW - NW, \"Offshore from W\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Keep an eye on the reef, and note that currents can keep you paddling to hold your position in the lineup. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Hana Bay sits on the far eastern edge of Maui, in the town of Hana. A reef off each side of the bay shelters it from most swells, so it takes the right setup to break. When it does, a fun peak forms near the center of the beach in front of the rivermouth, peeling both right and left over a bottom of lava, rock, and coral. It rates below average overall, but has its worthwhile windows. Skill (surfnerd): Beginner, Intermediate, Expert. Access (surfnerd): Getting out is easy, with a short paddle from just about anywhere in the bay, and Hana Beach Park sits on the southern end. Keep an eye on the reef, and note that currents can keep you paddling to hold your position in the lineup."
+ },
+ {
+  "spotId": "w-hawaii-maalaea-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/maalaea-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ma'alaea Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/maalaea-harbor",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ma'alaea Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Maalaea",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Ma'alaea Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/maalaea/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Ma'alaea Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SE",
+   "deg": 135,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to S",
+   "fromDeg": 157.5,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to SW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "S (surfnerd); South (surf-forecast); South (wannasurf)",
+  "windOffshore": "NW (surfnerd wind exposure W - N, \"Offshore from NW\"); NW (surfnerd guide text: \"northwest (NW) offshore wind\"); North-northwest (surf-forecast)",
+  "tide": "Mid, High (surfnerd); Best around mid tide. (surf-forecast); Mid tide, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks/boats (surf-forecast)",
+   "Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Ma'alaea is one of Hawai'i's most famous summer spots, a right-hander that peels off a harbour breakwall and is widely considered the fastest wave in the world. It breaks over an uneven reef. Local activists and environmental groups have repeatedly blocked proposed extensions of the Ma'alaea jetty that would destroy this world-class wave. Surfnerd lists this break twice (maalaea-bay, maalaea-harbor); merged, same facing. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/maalaea-harbor: workable swell SSE - SW , offshore None, 4ft - 7ft, Lava, Rock, Coral, Jetty, Reef, Point, Right, Low, Mid, High, Beginner, Intermediate, Expert, Spring, Summer, Autumn, Shortboard, Funboard, Longboard, Fish, Bodyboard, Kiteboard. Skill (surfnerd): Expert. Surf-forecast Maalaea:"
+ },
+ {
+  "spotId": "w-hawaii-la-perouse-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/la-perouse-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: La Perouse Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/La-Perouse-Bay-The-Dumps",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: La Perouse Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/la_perouse_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: La Perouse Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WSW",
+   "fromDeg": 180,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSE to WNW (surfnerd)",
+   "fromDeg": 157.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": "South (surf-forecast)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); North-northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5,
+   "max": 15
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "rocks (surf-forecast)",
+   "Access The road leads right down to the bay, though you may need a 4WD depending on current road conditions. (surfnerd)",
+   "Watch for shallow reef, strong currents, and the occasional shark sighting. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: La Perouse Bay is a very rocky bay tucked into the desolate, beautiful southern corner of Maui, and it serves up powerful, clean lefts. The break sits over a mix of lava, rock, and coral in a pristine setting. On its day it delivers a long, workable left, though the shoulders can turn slopey and fat. Skill (surfnerd): Intermediate, Expert. Surf-forecast La-Perouse-Bay-The-Dumps: \"La Perouse Bay/The Dumps in Maui is a reasonably exposed reef break that only works once in a while. Summer offers the best conditions for surfing. Offshore winds are from the north northeast. Groundswells and windswells are equally likely and the best swell direction is from the south. A left hand reef break. Sometimes crowded. Watch out for rocks.\" Wannasurf la_perouse_bay: quality Normal; exp"
+ },
+ {
+  "spotId": "w-hawaii-halawa-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/halawa-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Halawa Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Halawa",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Halawa Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NE",
+   "deg": 45,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N to E",
+   "fromDeg": 0,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "North-northwest (surf-forecast)",
+  "windOffshore": "SW (surfnerd wind exposure S - W, \"Offshore from SW\"); South (surf-forecast)",
+  "tide": null,
+  "bottom": null,
+  "waveType": "point",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "rocks, rips and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Halawa Bay is at its best when the wind blows offshore from the south-southwest . Surf-forecast Halawa: \"Halawa in Molokai is an exposed reef/rivermouth break that has quite reliable surf and can work at any time of the year. Offshore winds are from the south. Clean groundswells prevail and the ideal swell direction is from the north northwest. The right hand reef break is better than the left.. When it's working here, it can get crowded. Hazards include rocks, rips and sharks.\" Other guide pins from this position: surf-forecast Halawa 1.6 km."
+ },
+ {
+  "spotId": "w-hawaii-kalaupapa",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kalaupapa",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kalaupapa",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NNE",
+   "fromDeg": 270,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Kalaupapa is a surf spot in the United States."
+ },
+ {
+  "spotId": "w-hawaii-kawa",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kawa",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kawa",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WNW to E",
+   "fromDeg": 292.5,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Kawa is at its best when the wind blows offshore from the north . That offshore direction is really the main detail to line up before you paddle out."
+ },
+ {
+  "spotId": "w-hawaii-kaiolohia-bay-shipwreck-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kaiolohia-bay-shipwreck-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kaiolohia Bay/Shipwreck Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE to ENE",
+   "fromDeg": 45,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NE to ENE (surfnerd)",
+   "fromDeg": 45,
+   "toDeg": 67.5
+  },
+  "idealSwell": null,
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Watch for reef, sharks, current, and the genuine risk of getting lost along this remote coast. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kaiolohia Bay, also known as Shipwreck Beach, is an 8-mile stretch of windswept coastline on the north side of Lanai, about a half-hour drive from Lanai City. It faces the Kalohi Channel, the shallow, 10-mile band of sea separating Lanai and Molokai. The sheer scale of the place means plenty of reefs to choose from, all breaking roughly 500 to 600 yards offshore over lava, rock, and coral. It stays pristine and largely empty, and the peaks throw both rights and lefts. Skill (surfnerd): Beginner, Intermediate, Expert. Access (surfnerd): Getting here means dirt roads only, so a 4x4 is a must."
+ },
+ {
+  "spotId": "w-hawaii-manele-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/manele-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Manele Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSE to W (surfnerd)",
+   "fromDeg": 157.5,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "windOffshore": "N (surfnerd wind exposure NW - NE, \"Offshore from N\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Keep an eye on the reef and current. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Manele Bay is a left-hand reef point on the eastern rim of the bay, on the south side of Lanai. It's a fickle spot, but when it turns on it's genuinely good. The wave breaks over lava, rock and coral in a pristine, protected setting. Skill (surfnerd): Intermediate, Expert. Access (surfnerd): Reach it through Hulopo'e Beach Park, the bay just west of the Manele boat harbor on the south side of Lanai."
+ },
+ {
+  "spotId": "w-hawaii-hanalei-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hanalei-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hanalei Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hanalei-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Hanalei Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/hanalei_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Hanalei Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WNW to N",
+   "fromDeg": 292.5,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North (surf-forecast); NorthWest, West (wannasurf)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South-southeast (surf-forecast)",
+  "tide": "Low, Mid (surfnerd); There is a right hand reef break Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Live Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "locals and sharks (surf-forecast)",
+   "Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Hanalei Bay is the heart of surfing on Kauai, and its main draw is a long right-hand point that peels along the eastern side of the bay for up to 300 yards over lava reef. It's a powerful wave with occasional barrel sections, and the ride finishes on an inside bowl section in the middle of the bay. The reef here is live coral. Check: surfnerd states facing W but best swell N (90 degrees apart); both are as published. Skill (surfnerd): Beginner. Surf-forecast Hanalei-Bay: \"Hanalei Bay in Kauai is an exposed reef and point break that has consistent surf, although summer tends to be mostly flat. The best wind direction is from the south southeast. Tends to receive distant groundswells and the optimum swell angle is from the north. There is a right hand reef break Good surf "
+ },
+ {
+  "spotId": "w-hawaii-hideaways",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hideaways",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hideaways",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hideaways",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Hideaways",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NE",
+   "fromDeg": 270,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best NE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NE (surfnerd); North (surf-forecast)",
+  "windOffshore": "SE (surfnerd wind exposure E - S, \"Offshore from SE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South-southeast (surf-forecast)",
+  "tide": "Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "locals and sharks (surf-forecast)",
+   "It has had a shark attack, so it's worth keeping in the back of your mind. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Hideaways is a cluster of scattered reefbreaks tucked further east in Princeville, sitting at the base of high cliffs. It breaks over uneven reef and peels both left and right, holding fun waves when the surf is small and the wind stays down. It has had a shark attack, so it's worth keeping in the back of your mind. Check: surfnerd states facing NW but best swell NE (90 degrees apart); both are as published. Skill (surfnerd): Beginner. Surf-forecast Hideaways: \"Hideaways in Kauai is an exposed reef break that has fairly consistent surf. Winter is the favoured time of year for surfing here. The best wind direction is from the south southeast. Tends to receive distant groundswells and the ideal swell direction is from the north. A reef breaks right. When the surf is up, cr"
+ },
+ {
+  "spotId": "w-hawaii-tunnels",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tunnels",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Tunnels",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Tunnels",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Tunnels",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/tunnels/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Tunnels",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NE",
+   "fromDeg": 270,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NW (surfnerd); North (surf-forecast); North, NorthWest, NorthEast (wannasurf)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South-southeast (surf-forecast); South, SouthEast, East (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Live Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 20
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips, sharks and rocks (surf-forecast)",
+   "Rips / undertow, Sharks (wannasurf)",
+   "Keep an eye on shallow reef, currents, and sharks. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Tunnels is a right-hand reef break on Kauai's North Shore, near Ha'ena where the road ends at the start of the Na Pali Coast. It breaks over live coral a long way from shore, so the paddle out is long rather than hard. As a point break, the longer the ride, the longer the paddle back. It's one of the best waves on the island and offers a barreling right when it's on. Skill (surfnerd): Expert. Surf-forecast Tunnels: \"Tunnels in Kauai is an exposed reef break that has reliable surf. Winter is the best time of year for surfing here. The best wind direction is from the south southeast. Tends to receive distant groundswells and the optimum swell angle is from the north. There are left and right breaking reefs. Surfable at all stages of the tide. It's sometimes crowded here. B"
+ },
+ {
+  "spotId": "w-hawaii-kalihiwai",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kalihiwai",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kalihiwai",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kalihiwai",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kalihiwai",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/kalihiwai_point/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kalihiwai",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WNW to NNE",
+   "fromDeg": 292.5,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North (surf-forecast); North, NorthWest, West, NorthEast (wannasurf)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); South (surf-forecast); North, NorthWest, West, NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Falling tide (wannasurf)",
+  "bottom": "Uneven Reef, Sand (surfnerd); Boulders (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2,
+   "max": 20
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips, sharks and rocks (surf-forecast)",
+   "Rips / undertow, Rocks, Localism, Nudist colony (France only!) (wannasurf)",
+   "Local Tips This is an expert-only wave, and misjudging the take-off or the barrel section has real consequences. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kalihiwai is a right-hand point that breaks beneath a set of impressive cliffs. It featured in the Kauai Boyz video, and for good reason: the elevator-drop take-off and the intense, disproportionately massive barrels can thrash even the best surfers who misjudge them. Skill (surfnerd): Expert. Surf-forecast Kalihiwai: \"Kalihiwai in Kauai is an exposed reef break that has quite reliable surf. Winter is the optimum time of year for surfing here. Works best in offshore winds from the south. Clean groundswells prevail and the best swell direction is from the north. Both left and right reef breaks. Good surf at all stages of the tide. Often Crowded. Beware of rips, sharks and rocks.\" Wannasurf kalihiwai_point: quality Totally Epic; experience Experienced surfers; wave Point-b"
+ },
+ {
+  "spotId": "w-hawaii-kauapea-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kauapea-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kauapea Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NE",
+   "fromDeg": 270,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Kauapea Beach is a surf spot in the United States. There aren't detailed conditions to share for it yet, so check the live forecast for the latest swell, wind, and tide before you paddle out."
+ },
+ {
+  "spotId": "w-hawaii-anahola-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/anahola-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Anahola Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/anahola_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Anahola Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to ENE",
+   "fromDeg": 337.5,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N to E (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 90
+  },
+  "idealSwell": "NorthEast (wannasurf)",
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\"); West, SouthWest (wannasurf)",
+  "tide": "Low, Mid (surfnerd); Low and mid tide, Rising and falling tides (wannasurf)",
+  "bottom": "Lava, Rock, Coral, Sand (surfnerd); Sandy (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5,
+   "max": 8
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow, Localism (wannasurf)",
+   "Keep an eye out for sections of shallow reef, currents, and sharks. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Anahola Bay is a mellow spot on the northeastern lobe of the island, where the swell breaks well beyond a calm inside section on the northern edge of a barrier reef. The main wave peels over reef, while the inside of the bay is sand. It can suit all levels depending on the swell, but the point itself is really one for intermediate to experienced surfers once it starts pumping. Skill (surfnerd): Beginner, Intermediate, Expert. Wannasurf anahola_bay: quality Normal; experience Pros or kamikaze only...; wave Sand-bar, Right and left; swell size Starts working at 1.5m-2m /5ft-6ft and holds up to 2.5m+ / 8ft+; crowd weekday Empty, weekend Few surfers. Access (surfnerd): Access is easy: you can enter the water from anywhere along the sandy beach in the bay. Keep an eye out for"
+ },
+ {
+  "spotId": "w-hawaii-unreals",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/unreals",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Unreals",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Unreals",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Unreals",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to ESE",
+   "fromDeg": 337.5,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to E, best E (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 90
+  },
+  "idealSwell": "E (surfnerd); East-northeast (surf-forecast)",
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\"); SW (surfnerd guide text: \"southwest (SW) offshore wind\"); Southwest (surf-forecast)",
+  "tide": "Low, Mid (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Live Coral (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips and rocks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Unreals is a right-hand pointbreak at Anahola that peels over live coral. It serves up fast, fun park walls with the odd bowl to hit, and a wide swell window means it catches more swell than most spots around here. Check: surfnerd states facing NNE but best swell E (67.5 degrees apart); both are as published. Skill (surfnerd): Beginner. Surf-forecast Unreals: \"Unreals in Kauai is an exposed reef and point break that has fairly consistent surf and can work at any time of the year. The best wind direction is from the southwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the east northeast. Surfable at all stages of the tide. It's often crowded here. Hazards include rips and rocks.\" Access (surfnerd): Parkin"
+ },
+ {
+  "spotId": "w-hawaii-kealia",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kealia",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kealia",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kealia",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kealia",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/kealia/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kealia",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE to S",
+   "fromDeg": 45,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best NE (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "NE (surfnerd); Northeast (surf-forecast); SouthEast, East, NorthEast (wannasurf)",
+  "windOffshore": "WNW (surfnerd wind exposure WSW - NNW, \"Offshore from WNW\"); W (surfnerd guide text: \"west (W) offshore wind\"); West-southwest (surf-forecast); NorthWest, West, SouthWest (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef, Sand (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips and rocks (surf-forecast)",
+   "Rips / undertow, Rocks (wannasurf)",
+   "Lefts tend to dominate on north swells and rights on south swells, with rip channels separating the peaks. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kealia is a golden sand bay north of Kapaa, where the Kuhio Hwy skirts the shore. The waves break over uneven reef and sand, and the bay is usually a mess of onshore peaks that churn up the sand. Lefts tend to dominate on north swells and rights on south swells, with rip channels separating the peaks. Check: surfnerd states facing ESE but best swell NE (67.5 degrees apart); both are as published. Skill (surfnerd): Beginner. Surf-forecast Kealia: \"Kealia in Kauai is an exposed beach and reef break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the west southwest. Windswells and groundswells in equal measure and the best swell direction is from the northeast. The beach breaks offer lefts and rights and in addition "
+ },
+ {
+  "spotId": "w-hawaii-horners",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/horners",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Horners",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Wailua-Horners",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Horners",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/horners/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Horners",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SE",
+   "deg": 135,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N to SE, best N (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 135,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "N to SE, best N (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "N (surfnerd); North (surf-forecast); SouthEast, East, NorthEast (wannasurf)",
+  "windOffshore": "NW (surfnerd wind exposure W - N, \"Offshore from NW\"); NW (surfnerd guide text: \"northwest (NW) offshore wind\"); West-southwest (surf-forecast); West (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Mid tide, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef, Sand (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rips / undertow, Rocks, Sharks (wannasurf)",
+   "Keep in mind there has been a tiger shark attack on a surfer here. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Horners is a fickle left that swings around the reef off the Kauai Sands Hotel in Wailua. It has been a surfing spot for centuries, though it sees less and less use these days. The wave breaks over a mix of uneven reef and sand, and it is often inconsequential when it does come to life. Check: surfnerd states facing SE but best swell N (135 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast Wailua-Horners: \"Wailua/Horners in Kauai is an exposed reef break that does not work very often. Winter is the best time of year for surfing here. Offshore winds blow from the west southwest. Most of the surf here comes from groundswells and the optimum swell angle is from the north. There is a left hand reef break. Likely to be crowded if working. Ta"
+ },
+ {
+  "spotId": "w-hawaii-kalapaki",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kalapaki",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kalapaki",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kalapaki-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kalapaki",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/kalapaki_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kalapaki",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to S, best SE (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 180,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SE to S, best SE (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 180
+  },
+  "idealSwell": "SE (surfnerd); South-southeast (surf-forecast); South, SouthEast (wannasurf)",
+  "windOffshore": "NNW (surfnerd wind exposure WNW - NNE, \"Offshore from NNW\"); N (surfnerd guide text: \"north (N) offshore wind\"); Northwest (surf-forecast); North, NorthWest (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef, Sand (surfnerd); Flat rocks (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1,
+   "max": 4
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Kalapaki is a gentle, forgiving break tucked deep inside Nawiliwili Bay, with the Marriott sitting right on the beach. Waves peel both left and right over a mix of uneven reef and sand, which makes it an easy-going place for beginners and longboarders to get in the water. Skill (surfnerd): Beginner. Surf-forecast Kalapaki-Beach: \"Kalapaki Beach in Kauai is an exposed reef break that has quite reliable surf. Summer offers the optimum conditions for surfing. Offshore winds blow from the northwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the south southeast. A choice of left and right reefs. Often Crowded. Take care of rocks in the line up.\" Wannasurf kalapaki_beach: quality Normal; experience All surfers"
+ },
+ {
+  "spotId": "w-hawaii-p-ks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/p-ks",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: PK's",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/P-Ks",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: PK's",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/pks/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: PK's",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE to W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE to SW, best SE (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": "SE (surfnerd); South (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); North-northeast (surf-forecast); North, NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Live Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins, Rips / undertow, Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: PK's, short for Prince Kuhio Condos and named after the 19th-century Hawaiian surfing pioneer, is a coral-and-lava reef that peels both left and right. The wave starts outside with an approachable take-off, then travels and reforms on its way to an inside right that breaks close to the seawall. Check: surfnerd states facing SSW but best swell SE (67.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast P-Ks: \"PKs in Kauai is an exposed reef break that has fairly consistent surf. Summer offers the best conditions for surfing. Offshore winds are from the north northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south. The reef provides both left and right breaks. Surfable at all stages o"
+ },
+ {
+  "spotId": "w-hawaii-acid-drop",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/acid-drop",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Acid Drop",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Acid-Drops",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Acid Drop",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/acid_drop/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Acid Drop",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE to W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE to SW, best SW (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": "SW (surfnerd); South (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast); North, East, NorthEast (wannasurf)",
+  "tide": "Mid (Best at Mid, Better on rising) (surfnerd); Best around mid tide. (surf-forecast); Mid tide, Rising and falling tides (wannasurf)",
+  "bottom": "Live Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks and sharks (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Acid Drop is an aptly named right-hand reef that jacks up severely and throws a short, throaty barrel before it shuts down over the coral heads on the inside. It breaks over live coral, so making the drop takes plenty of skill and plenty of respect. Skill (surfnerd): Expert. Surf-forecast Acid-Drops: \"Acid Drops in Kauai is an exposed reef break that has consistent surf and can work at any time of the year. Works best in offshore winds from the northeast. Windswells and groundswells in equal measure and the best swell direction is from the south. A choice of left and right reefs. Best around mid tide. Sometimes crowded. Beware of urchins, rips, rocks and sharks.\" Wannasurf acid_drop: quality Regional Classic; experience Experienced surfers; wave Reef-coral, Right and lef"
+ },
+ {
+  "spotId": "w-hawaii-brenneckes",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/brenneckes",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Brenneckes",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Brenneckes",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Brenneckes",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE to SW, best S (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": "S (surfnerd); South (surf-forecast)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); North-northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips and rocks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Brenneckes is a beach break on Kauai's Poipu coast, throwing up lefts and rights over a mix of uneven reef and sand. The tight cove holds punchy peaks, but it's a bodyboarding-only spot, so anyone hoping to stand up should look at the neighboring Poipu Beach breaks instead. Inside Waiohai is a sucky peak that comes alive on higher tide, while First Break serves up outside reef action best left to experts. Beginners can slide over to Lemon Drops for rolling walls over rock and sand. Skill (surfnerd): Beginner. Surf-forecast Brenneckes: \"Brenneckes in Kauai is an exposed reef break that has reasonably consistent surf. Summer offers the best conditions for surfing. Offshore winds are from the north northeast. Waves just as likely from local windswells as from distant ground"
+ },
+ {
+  "spotId": "w-hawaii-poipu-outer-reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/poipu-outer-reef",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Poipu Outer Reef",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE to W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE to W (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\")",
+  "tide": "Mid, High (surfnerd)",
+  "bottom": "Rock, Coral, Lava (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5,
+   "max": 10
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Keep the shallow reef and the chance of sharks in mind before you paddle out. (surfnerd)",
+   "Be ready for a long paddle, and note that currents can get bad at times. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Poipu Outer Reef is a heavy, expert-level reef break on Kauai's south shore, throwing a shallow left barrel alongside a longer, more sloped right. The bottom is a mix of rock, coral and lava sitting very shallow, so it demands respect and rewards experience. Mellower, more popular waves break closer to the beach at Lemon Drops and Waiohai, and heading west past Poipu you'll find PKs, Centers, Heroins and Acid Drop, each with its own mood but all carrying the same shallow-reef risk. Skill (surfnerd): Expert. Access (surfnerd): Paddle straight out to the outside reef from Kiahuna Beach, where there's also a parking lot. Be ready for a long paddle, and note that currents can get bad at times."
+ },
+ {
+  "spotId": "w-hawaii-shipwrecks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shipwrecks-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shipwrecks",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Shipwrecks-Hyatt-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Shipwrecks",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/shipwrecks_-_hyatt_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Shipwrecks",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E to SW",
+   "fromDeg": 90,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "South-southeast (surf-forecast); South, SouthEast (wannasurf)",
+  "windOffshore": "NNW (surfnerd wind exposure WNW - NNE, \"Offshore from NNW\"); North (surf-forecast)",
+  "tide": "The quality of the surf isn't affected by the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Sandy with rock (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "rocks and locals (surf-forecast)",
+   "Rocks, Localism (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Shipwrecks is a surf spot in the United States. Surf-forecast Shipwrecks-Hyatt-Beach: \"Shipwrecks - Hyatt Beach in Kaua'i is an exposed beach and reef break that has very consistent surf. Summer offers the best conditions for surfing. Ideal winds are from the north. Most of the surf here comes from groundswells and the best swell direction is from the south southeast. The quality of the surf isn't affected by the tide. Even when there are waves, it's not likley to be crowded. Beware of rocks and locals.\" Wannasurf shipwrecks_-_hyatt_beach: quality Regional Classic; experience Experienced surfers; wave Reef-coral, Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 5m / 16 ft and over; crowd weekday Empty, weekend Few surfers. Other guide pins "
+ },
+ {
+  "spotId": "w-hawaii-davidson-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/davidson-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Davidson Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Davidson-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Davidson Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "South (surf-forecast)",
+  "windOffshore": "N (surfnerd wind exposure NW - NE, \"Offshore from N\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "Surfnerd overview: Davidson Point is one of a handful of mixed-quality reefs scattered along the coast near Kekaha, tucked close to Ole Kamaole's Beach House. It breaks over an uneven reef and throws both lefts and rights. Skill (surfnerd): Intermediate. Surf-forecast Davidson-Point: \"Davidson Point in Kauai is an exposed reef break that has reasonably consistent surf and can work at any time of the year. Works best in offshore winds from the northeast. Clean groundswells prevail and the best swell direction is from the south. There are left and right breaking reefs. Sometimes crowded. Take care of the strong rips here.\" Other guide pins from this position: surf-forecast Davidson-Point 2.8 km."
+ },
+ {
+  "spotId": "w-hawaii-polihale",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/polihale-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Polihale",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/polihale",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Polihale",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Polihale",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Polihale",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/Polihale/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Polihale",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": null,
+  "swellWindow": {
+   "text": "WSW to NNE",
+   "fromDeg": 247.5,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to N (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "Northwest (surf-forecast); North, NorthWest, West, SouthWest (wannasurf)",
+  "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); Southeast (surf-forecast); SouthEast, East, NorthEast (wannasurf)",
+  "tide": "Low, Mid (surfnerd); All tides, Rising tide (wannasurf)",
+  "bottom": "Lava, Rock, Coral, Sand (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Strong rips (surf-forecast)",
+   "Rips / undertow, Rocks (wannasurf)",
+   "During larger swells, watch for shifty surf and strong currents. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Polihale is a long, sweeping beachbreak with numerous setups strung out along the sand. The bottom is mostly sand with occasional reef sections, and the beach is so wide that peaks scatter up and down its length. Combo swells spread the fun across the whole stretch, so it pays to walk the sand and find a good peak. During larger swells, watch for shifty surf and strong currents. Surfnerd has 2 entries for this break with different stated facings (polihale-hawaii=WNW, polihale=NW); seaward uses the primary entry (polihale-hawaii), both kept. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/polihale: workable swell S - N (Best from N), offshore None, 2ft - 8ft, Sand, Beach, Left, Right, Low, Mid, High, Intermediate. Skill (surfnerd): Beginner, Intermediate, Exp"
+ },
+ {
+  "spotId": "w-hawaii-banyans",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/banyans",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Banyans",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Banyons",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Banyans",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/banyons/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Banyans",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surfnerd); Northwest (surf-forecast)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); East (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Mid and high tide, More details (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchin and locals (surf-forecast)",
+   "Urchins, Localism (wannasurf)",
+   "Watch for the uneven reef and urchins. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Banyans is one of the most popular breaks on the Kona side of Hawaii's Big Island, a year-round A-frame reef sitting right in the heart of Kailua-Kona. It has real range: the right stands up and holds its line, serving clean turn sections and even a decent barrel before emptying into deeper water, while the left can throw a wide-open barrel off the takeoff and then close out over shallower reef. Its central location and versatility make it a genuine local favourite. Skill (surfnerd): Expert. Surf-forecast Banyons: \"Banyons in Big Island is an exposed reef break that has consistent surf and can work at any time of the year. The best wind direction is from the east. Tends to receive distant groundswells and the ideal swell direction is from the northwest. Reef breaks provi"
+ },
+ {
+  "spotId": "w-hawaii-lymans",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lymans",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lymans",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lymans",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Lymans",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/lymans/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Lymans",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SW (surfnerd); West-northwest (surf-forecast); NorthWest, SouthWest (wannasurf)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East (surf-forecast); SouthEast, East (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rocks (surf-forecast)",
+   "Urchins, Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Lymans is a left-hand point that breaks over uneven reef. The point sits about 400 m south, where wrapping summer swells shoulder and wall up into a rolling, user-friendly wall that longboarders and SUP riders will enjoy. Skill (surfnerd): Intermediate. Surf-forecast Lymans: \"Lymans in Big Island is a fairly exposed reef and point break that has reasonably consistent surf. Winter is the optimum time of year for surfing here. Offshore winds are from the east. Clean groundswells prevail and the ideal swell angle is from the west northwest.The waves is a point break that peels left. When it's working here, it can get crowded. Watch out for urchins and rocks.\" Wannasurf lymans: quality Regional Classic; experience All surfers; wave Reef-rocky, Left; swell size Starts working"
+ },
+ {
+  "spotId": "w-hawaii-pinetrees",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pinetrees",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pinetrees",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pine-Trees",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Pinetrees",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/pine_trees/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Pinetrees",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to NNW",
+   "fromDeg": 157.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "idealSwell": "W (surfnerd); West-northwest (surf-forecast); NorthWest, West, SouthWest (wannasurf)",
+  "windOffshore": "NE (surfnerd wind exposure N - E, \"Offshore from NE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 7
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks and locals (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Localism (wannasurf)",
+   "Keep in mind the bottom is reef, with rocks and urchins to watch for. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Pinetrees is a reef break that serves up both left and right peaks over an uneven, rocky reef. It rarely turns on perfect, but it's a dependable spot for intermediate surfers after rideable walls rather than flawless ones. Skill (surfnerd): Intermediate. Surf-forecast Pine-Trees: \"Pine Trees in Big Island is a quite exposed reef break that has very consistent surf and works all around the year. The best wind direction is from the east. Clean groundswells prevail and the best swell direction is from the west northwest. Right and better left hand reef breaks.. Surfable at all stages of the tide. It's sometimes crowded here. Watch out for urchins, rips, rocks and locals.\" Wannasurf pine_trees: quality Regional Classic; experience Experienced surfers; wave Reef-rocky, Right;"
+ },
+ {
+  "spotId": "w-hawaii-honls",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honls",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honls",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Honls",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Honls",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/honls/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Honls",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "South-southwest (surf-forecast); West, SouthWest, South (wannasurf)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast); North, NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Mid tide, Rising tide (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rocks (surf-forecast)",
+   "Urchins, Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Honls is a flexible, reliable wave with something for just about everyone. It breaks close to shore over an uneven reef and peels both left and right, so it stays easy to reach while still holding some shape. Surf-forecast Honls: \"Honls in Big Island is an exposed reef break that has pretty consitent surf. Summer offers the best conditions for surfing. Ideal winds are from the northeast. Most of the surf here comes from groundswells and the ideal swell direction is from the south southwest. The reef provides both left and right breaks. It's sometimes crowded here. Hazards include urchins and rocks.\" Wannasurf honls: quality Totally Epic; experience Experienced surfers; wave Reef-coral, Right and left; swell size Starts working at Less than 1m / 3ft and holds up to 2m+ / "
+ },
+ {
+  "spotId": "w-hawaii-kahaluu-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kahaluu-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kahalu'u Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kahalu-u",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kahalu'u Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kahaluu-Beach-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kahalu'u Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/kahalu_u/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kahalu'u Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to WNW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": "West, Southwest (surf-forecast)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); East-southeast, East (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast); Surfable at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins - Rips / undertow - Rocks - Localism (surf-forecast)",
+   "urchins, rips, rocks and locals (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Localism (wannasurf)",
+   "Locals are usually friendly, so keep it that way, and watch out for other surfers and their boards in the crowd. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kahalu'u Bay is a mellow reef break with a handful of rolling peaks to choose from, breaking over a mix of lava, rock, and coral. Most of the time it serves up forgiving rights and lefts that suit beginners, but when a solid swell fills in, the outermost peak turns on with a semi-steep drop and rippable lines that keep intermediate surfers busy. The surroundings are pristine. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Kahalu-u: \"Kahalu'u in Big Island is an exposed reef break that is often working and works all around the year. The best wind direction is from the east southeast. Tends to receive distant groundswells and the best swell direction is from the west. The quality of the surf isn't affected by the tide. When it's working here, it can get cr"
+ },
+ {
+  "spotId": "w-hawaii-laaloa-beach-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/laaloa-beach-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: La'aloa Beach Park",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); E (surfnerd guide text: \"east (E) offshore wind\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge, Sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: La'aloa Beach Park, better known as Magic Sands or White Sands, is a rare Big Island beachbreak whose true Hawaiian name means \"very sacred.\" It earns its Disappearing Sands nickname during large winter swells between December and March, when the golden bay-shore sand washes out to sea overnight and leaves bare lava rock behind. That happens because a deep, sand-bottomed scoop in the reef runs straight out to deep water just offshore. Skill (surfnerd): Beginner. Access (surfnerd): Getting in is easy, with free parking at La'aloa Beach Park and roadside spots along Ali'i Drive. It's a very short paddle out, and you'll find restrooms and a lifeguard on hand."
+ },
+ {
+  "spotId": "w-hawaii-hulihee-palace",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hulihee-palace",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hulihee Palace",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hulihee-Palace",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Hulihee Palace",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WSW",
+   "fromDeg": 180,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "SW (surfnerd); South-southwest (surf-forecast)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Best around high tide. (surf-forecast)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks and locals (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Hulihee Palace fronts a feisty left-hander that peels right out the front of the former holiday house of Hawaiian royalty. It's a shallow, fast and temperamental wave breaking over uneven reef, with coral heads scattered amongst the lava, so it rewards precise, committed surfing. Skill (surfnerd): Expert. Surf-forecast Hulihee-Palace: \"Hulihee Palace in Big Island is an exposed reef break that is usually a safe bet. Summer offers the best conditions for surfing. Works best in offshore winds from the east. Most of the surf here comes from groundswells and the ideal swell direction is from the south southwest. A left hand reef break. Best around high tide. A fairly popluar wave that can sometimes get crowded Watch out for urchins, rips, rocks and locals.\" Access (surfnerd)"
+ },
+ {
+  "spotId": "w-hawaii-old-kona-airport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/old-kona-airport",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Old Kona Airport",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Old-Kona-Airport-State",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Old Kona Airport",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WNW",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "West-northwest (surf-forecast)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); East (surf-forecast)",
+  "tide": "Best around high tide. (surf-forecast)",
+  "bottom": null,
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "urchins, rips, rocks and locals (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Old Kona Airport is a surf spot in the United States. Surf-forecast Old-Kona-Airport-State: \"Old Kona Airport State Park in Big Island is a reasonably exposed beach and reef break that is usually a safe bet and works all around the year. The best wind direction is from the east. Tends to receive distant groundswells and the ideal swell direction is from the west northwest. Waves at the beach are both lefts and rights. Best around high tide. Sometimes crowded. Hazards include urchins, rips, rocks and locals.\" Other guide pins from this position: surf-forecast Old-Kona-Airport-State 2.3 km."
+ },
+ {
+  "spotId": "w-hawaii-kaiwi-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kaiwi-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kaiwi Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Kaiwi Point works best when the wind comes offshore from the west (W) , cleaning up the surface for the cleanest ride."
+ },
+ {
+  "spotId": "w-hawaii-honokohau-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honokohau-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honokohau Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to NW",
+   "fromDeg": 202.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Honokohau Beach is a surf spot on the United States coast. There aren't detailed swell, wind, or tide notes for this break yet, so lean on the live forecast to judge the conditions and decide when it's worth a paddle out."
+ },
+ {
+  "spotId": "w-hawaii-mahaiula-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/mahaiula-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Mahaiula Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Mahaiula-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Mahaiula Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/mahaiula_bay/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Mahaiula Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW to NNW",
+   "fromDeg": 247.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); West-northwest (surf-forecast); North, NorthWest, West (wannasurf)",
+  "windOffshore": "SE (surfnerd wind exposure E - S, \"Offshore from SE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, More details (wannasurf)",
+  "bottom": "Dead Coral (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Mahaiula Bay is a right-hand reef break tucked inside Kekaha Kai State Park, one of a handful of quiet waves peeling over dead coral in pristine, lava-framed surroundings. When a west swell fills in, the wave wakes up and breaks hard and fast. Skill (surfnerd): Intermediate. Surf-forecast Mahaiula-Bay: \"Mahai'ula Bay in Big Island is a fairly exposed beach break that has reasonably consistent surf. Winter is the favoured time of year for surfing here. The best wind direction is from the east southeast. Groundswells are more common than windswells and the ideal swell direction is from the northwest. Prevailing right breaking waves at the beach break. Good surf at all stages of the tide. Sometimes crowded. Take care of rocks in the line up.\" Wannasurf mahaiula_bay: quality"
+ },
+ {
+  "spotId": "w-hawaii-kiholo-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kiholo-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kiholo Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kiholo-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kiholo Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to N",
+   "fromDeg": 270,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to N, best NW (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "NW (surfnerd); West-northwest (surf-forecast)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); East-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Kiholo Bay is a scenic reef setup with a choice of waves, tucked into pristine landscape alongside the Four Seasons resort. The peak in the middle of the bay is the obvious draw and hard to miss, while a right-hand pointbreak sits at the north end and is easy to overlook. Everything breaks over uneven reef, with the middle peak offering both lefts and rights. Skill (surfnerd): Beginner. Surf-forecast Kiholo-Bay: \"Kiholo Bay in Big Island is a fairly exposed beach and point break that has consistent surf. Winter is the optimum time of year for surfing here. Works best in offshore winds from the east southeast. Clean groundswells prevail and the ideal swell angle is from the northwest. Waves at the beach break both left and right Sometimes crowded. Watch out for rips and s"
+ },
+ {
+  "spotId": "w-hawaii-keawaiki-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/keawaiki-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Keawaiki Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Keawaiki-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Keawaiki Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW to N",
+   "fromDeg": 247.5,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW to NW, best W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "W (surfnerd); West-northwest (surf-forecast)",
+  "windOffshore": "SE (surfnerd wind exposure E - S, \"Offshore from SE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); East-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "rips and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Keawaiki Bay is a reef break that peels both left and right over an uneven fringe of coral and lava. Any west swell should reach that reef and open up quick barrel sections in both directions, making it a fun, playful set-up when the pieces line up. Skill (surfnerd): Intermediate. Surf-forecast Keawaiki-Bay: \"Keawaiki Bay in Big Island is a reasonably exposed beach and reef break that has reliable surf. Winter is the best time of year for surfing here. The best wind direction is from the east southeast. Groundswells are more common than windswells and the best swell direction is from the northwest. Reef breaks provide lefts and rights. Sometimes crowded. Beware of rips and sharks.\" Access (surfnerd): There is free roadside parking near the highway, but reaching the water"
+ },
+ {
+  "spotId": "w-hawaii-anaehoomalu-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/anaehoomalu-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Anaehoomalu Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Anaehoomalu-Bay_A-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Anaehoomalu Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to N",
+   "fromDeg": 225,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W to N, best W (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "W (surfnerd); West-northwest (surf-forecast)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); E (surfnerd guide text: \"east (E) offshore wind\"); East-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Anaehoomalu Bay is a point setup that breaks over an uneven reef, tucked right in front of the Hilton. It draws a steady wind and kitesurfing crowd too, so the surfers rarely have the water to themselves. Skill (surfnerd): Intermediate. Surf-forecast Anaehoomalu-Bay_A-Bay: \"Anaehoomalu Bay_A-Bay in Big Island is a fairly exposed reef and point break that has dependable surf. Winter is the best time of year for surfing here. Offshore winds blow from the east southeast. Tends to receive distant groundswells and the best swell direction is from the northwest. There is a left breaking reef It's sometimes crowded here. Beware of rips and sharks.\" Access (surfnerd): Parking is roadside. Other guide pins from this position: surf-forecast Anaehoomalu-Bay_A-Bay 0.6 km."
+ },
+ {
+  "spotId": "w-hawaii-hapuna-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hapuna-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hapuna Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hapuna",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Hapuna Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/hapuna/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Hapuna Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to NNW",
+   "fromDeg": 225,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "idealSwell": "NW (surfnerd); West (surf-forecast); NorthWest (wannasurf)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); East-northeast (surf-forecast); SouthEast, East (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Sandy (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "rips and sharks (surf-forecast)",
+   "Rips / undertow, Localism (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Hapuna Point sits at the southern edge of Hapuna Bay, a few miles south of Kawaihae Harbor on the Big Island, fronting one of the island's largest and whitest sand beaches. Most of the time this is a beach shorepound breaking over sand, with an outer wave that breaks over shallow, uneven reef. It isn't the standout surf spot on the coast, but it can turn on: a big winter swell transforms the bay's southern edge into a spectacular left-hand point. Skill (surfnerd): Expert. Surf-forecast Hapuna: \"Hapuna in Big Island is a reasonably exposed beach break that has quite reliable surf. Winter is the best time of year for surfing here. Offshore winds blow from the east northeast. Tends to receive distant groundswells and the best swell direction is from the northwest. The beach"
+ },
+ {
+  "spotId": "w-hawaii-kawaihae-breakwater",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kawaihae-breakwater",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kawaihae Breakwater",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kawaihae",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kawaihae Breakwater",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kawaihae-Breakwater",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kawaihae Breakwater",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": null,
+  "swellWindow": {
+   "text": "SW to NW",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "idealSwell": "NW (surfnerd); West (surf-forecast)",
+  "windOffshore": "NE (surfnerd wind exposure N - E, \"Offshore from NE\"); E (surfnerd guide text: \"east (E) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rocks, rips and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Kawaihae Breakwater is an uneven-reef break sitting right beside the harbor breakwater on Hawai'i's Kona Coast, peeling both left and right. Several beginner-friendly reefs line up alongside the breakwater, and the harbor itself is the island's official tidal measurement location. Surfnerd has 2 entries for this break with different stated facings (kawaihae-breakwater=SW, kawaihae=WSW); seaward uses the primary entry (kawaihae-breakwater), both kept. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/kawaihae: workable swell SW - WNW , offshore None, 4ft - 7ft, Lava, Rock, Coral, Jetty, Reef, Right, Left, Low, Mid, High, Beginner, Intermediate, Expert, Spring, Summer, Autumn, Winter, Shortboard, Funboard, Longboard, Fish, Bodyboard, Sup. Check: surfnerd states "
+ },
+ {
+  "spotId": "w-hawaii-kohala-lighthouse",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kohala-lighthouse",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kohala Lighthouse",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kohala-Lighthouse",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kohala Lighthouse",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/kohala_lighthouse/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kohala Lighthouse",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WNW to NE",
+   "fromDeg": 292.5,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best N (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "N (surfnerd); North (surf-forecast); North, NorthWest, NorthEast (wannasurf)",
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\"); S (surfnerd guide text: \"south (S) offshore wind\"); South (surf-forecast); South, SouthEast, East (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Flat rocks (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, private, locals and sharks (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Private beach, Localism, Sharks (wannasurf)",
+   "Around the other side of the headland there's a second lefthander, but the water here is spooky, with a reputation for tiger sharks. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kohala Lighthouse is a secluded, localised reef break tucked below the cliffs. The main peak holds a grunty left that peels across the inside of the bay and gets some shelter from the northeast trades thanks to the headland. The right off the same peak can barrel hard, though rocky outcrops start popping up and shorten the ride. Around the other side of the headland there's a second lefthander, but the water here is spooky, with a reputation for tiger sharks. A handful of other spots work nearby along the coast. Skill (surfnerd): Expert. Surf-forecast Kohala-Lighthouse: \"Kohala Lighthouse in Big Island is an exposed reef break that has consistent surf. Winter is the best time of year for surfing here. Ideal winds are from the south. Clean groundswells prevail There is a "
+ },
+ {
+  "spotId": "w-hawaii-waipio-valley",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/waipio-valley",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Waipio Valley",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Waipio-Valley",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Waipio Valley",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/Waipio_Valley/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Waipio Valley",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to ENE",
+   "fromDeg": 315,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW to NE, best NE (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NE (surfnerd); North (surf-forecast); North (wannasurf)",
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\"); S (surfnerd guide text: \"south (S) offshore wind\"); South-southwest (surf-forecast); South (wannasurf)",
+  "tide": "Low, Mid (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Sand (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rips / undertow, Rocks, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Waipio Valley is a black-sand beachbreak that finally cuts some relief into the long, cliff-lined stretch of the Hamakua Coast. Rivermouth flow carves the sandbars into lefts and rights separated by clean channels, and the peaks are forgiving enough for beginners while still holding fun waves for stronger surfers. Everything breaks over sand. Skill (surfnerd): Beginner. Surf-forecast Waipio-Valley: \"Waipio Valley in Big Island is an exposed river break that has fairly consistent surf and can work at any time of the year. Offshore winds are from the south southwest. Tends to receive distant groundswells and the best swell direction is from the north. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Take care of - Rips / under"
+ },
+ {
+  "spotId": "w-hawaii-kolekole",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kolekole",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kolekole",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kolekole",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kolekole",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/Kolekole/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kolekole",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NE",
+   "deg": 45,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to ESE",
+   "fromDeg": 337.5,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N to ESE (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 112.5
+  },
+  "idealSwell": "East-northeast (surf-forecast); East, NorthEast (wannasurf)",
+  "windOffshore": "SW (surfnerd wind exposure S - W, \"Offshore from SW\"); West-southwest (surf-forecast); Don't know (wannasurf)",
+  "tide": "Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast); All tides, Don't know (wannasurf)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Boulders (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rips / undertow - Rocks - Man-made danger (buoys etc (surf-forecast)",
+   "Rips / undertow, Rocks, Man-made danger (buoys etc..), Pollution, Sharks (wannasurf)",
+   "Keep an eye on the currents, which can get strong at times, and watch for the reef and large boulders. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Kolekole is a right and left dumping reef peak, shaped in part by the Kolekole Stream that feeds down from Akaka Falls. It breaks over a bottom of lava, rock, and coral, with boulders scattered underneath. Both the right and the left suit bodysurfing and bodyboarding more than surfing, though the spot still has its moments. A rivermouth flows out here, so quality drops off after heavy rain, but it is usually okay. Overall it rates as a below-average wave that saves its best days for the right setup. Skill (surfnerd): Intermediate, Expert. Surf-forecast Kolekole: \"Kolekole in Big Island is an exposed river break that has quite reliable surf. Winter is the best time of year for surfing here. The best wind direction is from the west southwest. Most of the surf here comes fr"
+ },
+ {
+  "spotId": "w-hawaii-honolii-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honolii-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honolii Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Honolii-Beach-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Honolii Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/honolii/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Honolii Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/honoli_i/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Honolii Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE to ESE",
+   "fromDeg": 22.5,
+   "toDeg": 112.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N to SE, best NE (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "NE (surfnerd); Northeast (surf-forecast); East, NorthEast (wannasurf); North, NorthWest, South, SouthEast, NorthEast (wannasurf)",
+  "windOffshore": "W (surfnerd wind exposure SW - NW, \"Offshore from W\"); SW (surfnerd guide text: \"southwest (SW) offshore wind\"); Southwest (surf-forecast); West, SouthWest, South (wannasurf); West, South (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast); All tides, Rising tide (wannasurf); Mid tide, Falling tide (wannasurf)",
+  "bottom": "Boulders (surfnerd); Boulders (wannasurf); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Rocks, Localism, Sharks (wannasurf)",
+   "Rips / undertow, Rocks, Localism (wannasurf)",
+   "Mind the reef and boulder bottom, and note that currents can get strong, especially off the point. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Honolii Point sits on the Big Island's east coast just north of Hilo, a reliable rivermouth break also known as Honoli'i Beach Park. It serves up lefts and rights that break over boulders, with a fun lefthander peeling off the point on the north side of the rivermouth. When a sizable swell lines up on a lower tide, the walls can turn hollow and powerful. Because it's a rivermouth, the bottom shifts as boulders move with the flow, and water quality dips after heavy rain, though it's usually fine. Skill (surfnerd): Intermediate. Surf-forecast Honolii-Beach-Park: \"Honolii Beach Park in Big Island is an exposed reef break that has very consistent surf. Winter is the best time of year for surfing here. Offshore winds are from the southwest. Clean groundswells prevail and the "
+ },
+ {
+  "spotId": "w-hawaii-richardsons",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/richardsons",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Richardsons",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Richardsons",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Richardsons",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/Richardsons/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Richardsons",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW to NE",
+   "fromDeg": 337.5,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N to E, best E (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 90
+  },
+  "idealSwell": "E (surfnerd); Northeast (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "windOffshore": "SSE (surfnerd wind exposure ESE - SSW, \"Offshore from SSE\"); SW (surfnerd guide text: \"southwest (SW) offshore wind\"); Southwest (surf-forecast); East (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Mid and high tide, Don't know (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Boulders (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Richardsons is a mellow reefbreak just outside Hilo that makes a friendly learning ground for surfers finding their feet. Scattered peaks break over black sand and rock, throwing up both lefts and rights across an uneven reef. It's a relaxed spot with a welcoming feel, and the local wave-riding community keeps things easygoing in the water. Check: surfnerd states facing NNW but best swell E (112.5 degrees apart); both are as published. Skill (surfnerd): Beginner. Surf-forecast Richardsons: \"Richardsons in Big Island is an exposed reef break that has fairly consistent surf and can work at any time of the year. Ideal winds are from the southwest. Most of the surf here comes from groundswells and the best swell direction is from the east southeast. Reef breaks provide lefts"
+ },
+ {
+  "spotId": "w-hawaii-kapoho-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kapoho-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kapoho Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kapoho-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kapoho Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N to S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NE to S, best SE (surfnerd)",
+   "fromDeg": 45,
+   "toDeg": 180
+  },
+  "idealSwell": "SE (surfnerd); Southeast (surf-forecast)",
+  "windOffshore": "W (surfnerd wind exposure SW - NW, \"Offshore from W\"); W (surfnerd guide text: \"west (W) offshore wind\"); West-northwest (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rocks, locals and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Kapoho Bay is a reef break spread across plenty of shallow reef, peeling both left and right over an uneven bottom. There's room here to suit most abilities, but it's not one for beginners. Skill (surfnerd): Intermediate. Surf-forecast Kapoho-Bay: \"Kapoho Bay in Big Island is an exposed reef break that does not work very often with no particular seasonal pattern. Offshore winds blow from the west northwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the southeast. The reef provides both left and right breaks. When it's working here, it can get crowded. Beware of urchins, rocks, locals and sharks.\" Access (surfnerd): There's free parking, including roadside spots. Other guide pins from this position: surf-"
+ },
+ {
+  "spotId": "w-hawaii-pohoiki",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pohoiki",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pohoiki",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pohoiki",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Pohoiki",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/pohiki/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Pohoiki",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ENE to SW",
+   "fromDeg": 67.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to S, best NE (surfnerd)",
+   "fromDeg": 90,
+   "toDeg": 180
+  },
+  "idealSwell": "NE (surfnerd); East (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "windOffshore": "NNW (surfnerd wind exposure WNW - NNE, \"Offshore from NNW\"); NW (surfnerd guide text: \"northwest (NW) offshore wind\"); West-northwest (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins, Rocks, Localism, Sharks (wannasurf)",
+   "The bottom is extremely sharp lava rock dotted with urchins, so it pays to avoid contact at all times. (surfnerd)",
+   "Keep the sharp lava and urchins in mind every time you paddle out. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Pohoiki is a lava-reef spot with three separate bays, each offering a different wave over an uneven reef. The bottom is extremely sharp lava rock dotted with urchins, so it pays to avoid contact at all times. The three bays give you options. First Bay sits closest to the boat ramp, with a wave that suits all levels and warm water from nearby volcanic springs. Second Bay lies a little further out in slightly cooler water and throws a more hollow, faster wave for advanced surfers. Third Bay, around a small rocky outcrop to the south, is hollow and fast over shallow water, and can turn into a solid big-wave spot when a strong swell meets west-to-north wind. Check: surfnerd states facing SSE but best swell NE (112.5 degrees apart); both are as published. Skill (surfnerd): In"
+ },
+ {
+  "spotId": "w-hawaii-keauhou-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/keauhou-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Keauhou Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Keauhou-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Keauhou Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE to SW",
+   "fromDeg": 112.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to S, best S (surfnerd)",
+   "fromDeg": 90,
+   "toDeg": 180
+  },
+  "idealSwell": "S (surfnerd); South-southeast (surf-forecast)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); N (surfnerd guide text: \"north (N) offshore wind\"); Northwest (surf-forecast)",
+  "tide": "Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 8
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips, rocks and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Keauhou Point is a left-hand point break that breaks over uneven reef, set along a remote stretch of coast with incredible scenery. Rivers of lava hit the coast here, which gives you a clue to what the bottom is like. Skill (surfnerd): Intermediate. Surf-forecast Keauhou-Point: \"Keauhou Point in Big Island is an exposed reef break that has consistent surf. Summer offers the best conditions for surfing. Works best in offshore winds from the northwest. Groundswells are more common than windswells and the best swell direction is from the south southeast. A left hand reef break. Even when there are waves, it's not likley to be crowded. Beware of rips, rocks and sharks.\" Access (surfnerd): Getting here takes some effort: register first with the Kilauea Visitor Center in Hawai"
+ },
+ {
+  "spotId": "w-hawaii-punaluu",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/punaluu",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Punaluu",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SE",
+   "deg": 135,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ENE to SSW",
+   "fromDeg": 67.5,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to SW, best SE (surfnerd)",
+   "fromDeg": 90,
+   "toDeg": 225
+  },
+  "idealSwell": "SE (surfnerd)",
+  "windOffshore": "NW (surfnerd wind exposure W - N, \"Offshore from NW\"); NW (surfnerd guide text: \"northwest (NW) offshore wind\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Punaluu is a black sand beach break and the last road-accessible spot before the hike-in breaks along the Puna Trail. It breaks both left and right over a patchy mix of uneven reef and volcanic sand. Most days it runs messy and blown out, but the ride stays fairly mellow. Skill (surfnerd): Intermediate. Access (surfnerd): There is free roadside parking right by the beach park."
+ },
+ {
+  "spotId": "w-hawaii-honuapo-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/honuapo-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Honuapo Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ENE to S",
+   "fromDeg": 67.5,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to S, best SE (surfnerd)",
+   "fromDeg": 90,
+   "toDeg": 180
+  },
+  "idealSwell": "SE (surfnerd)",
+  "windOffshore": "NNW (surfnerd wind exposure WNW - NNE, \"Offshore from NNW\"); N (surfnerd guide text: \"north (N) offshore wind\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 12
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Honuapo Bay is a left-hand point that peels down a base of jumbled lava rocks and black sand. The wave breaks over a mix of uneven reef and sand, tucked right beside Whittington Beach Park. Skill (surfnerd): Intermediate. Access (surfnerd): Getting here is easy, with the Hawaii Belt Road running close to the bay. You'll find free roadside parking nearby."
+ },
+ {
+  "spotId": "w-hawaii-kaalualu-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kaalualu-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kaalualu Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kaalualu-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kaalualu Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ENE to SW",
+   "fromDeg": 67.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to SW, best S (surfnerd)",
+   "fromDeg": 90,
+   "toDeg": 225
+  },
+  "idealSwell": "S (surfnerd); Southeast (surf-forecast)",
+  "windOffshore": "N (surfnerd wind exposure NW - NE, \"Offshore from N\"); N (surfnerd guide text: \"north (N) offshore wind\"); Northwest (surf-forecast)",
+  "tide": "Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks and locals (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Kaalualu Point is a lonely left pointbreak tucked along the cliffy south coast, with the point itself sheltering the lineup from the trade winds. A mix of rock and sand shapes fast walls over an uneven reef, and it's the first spot in the area to start picking up swell from the east. Skill (surfnerd): Expert. Surf-forecast Kaalualu-Point: \"Kaalualu Point in Big Island is an exposed reef break that has reasonably consistent surf. Summer offers the optimum conditions for surfing. Works best in offshore winds from the northwest with some shelter here from northeast winds. Most of the surf here comes from groundswells and the ideal swell angle is from the southeast. There is a left breaking reef. Beware of urchins, rips, rocks and locals.\" Access (surfnerd): Getting out here"
+ },
+ {
+  "spotId": "w-hawaii-south-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-point-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: South Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ENE to W",
+   "fromDeg": 67.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "N (surfnerd wind exposure NW - NE, \"Offshore from N\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: South Point is best surfed when the wind is offshore from the south . Watch for a southerly breeze and plan your sessions around it."
+ },
+ {
+  "spotId": "w-hawaii-kahuku-ranch",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kahuku-ranch",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kahuku Ranch",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kahuku-Ranch",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kahuku Ranch",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to W, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to W, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "S (surfnerd); Southwest (surf-forecast)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks and locals (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Kahuku Ranch is a reef break on the west side of the Kau coast, out toward South Point on Hawaii's southern tip. It throws big, hairy peaks over an uneven reef, breaking both left and right when a solid swell is running. Check: surfnerd states facing W but best swell S (90 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast Kahuku-Ranch: \"Kahuku Ranch in Big Island is an exposed reef break that has reasonably consistent surf. Summer offers the favoured conditions for surfing. Ideal winds are from the northeast. Tends to receive distant groundswells and the optimum swell angle is from the southwest. Both left and right reef breaks. Good surf at all stages of the tide. Sometimes crowded. Hazards include urchins, rips, rocks and locals.\" Acc"
+ },
+ {
+  "spotId": "w-hawaii-pohue-bay-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pohue-bay-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pohue Bay Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to W",
+   "fromDeg": 157.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Pohue Bay Beach is a surf spot in the United States. There isn't much detailed break information on record here yet, so lean on the live Surfnerd forecast for up-to-date swell, wind, and tide before deciding to paddle out."
+ },
+ {
+  "spotId": "w-hawaii-keei",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/keei",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Keei",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Hawaii_Island/ke_ei__shark_point_/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Keei",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to NW",
+   "fromDeg": 202.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to N, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "idealSwell": "SW (surfnerd); East (wannasurf)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); E (surfnerd guide text: \"east (E) offshore wind\"); West (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Live Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Private beach, Localism, Sharks (wannasurf)",
+   "Overview Keei is a remote left-hand reef break in Hawaii, tucked away to the south and also known as Shark Point or Palemano Point. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Keei is a remote left-hand reef break in Hawaii, tucked away to the south and also known as Shark Point or Palemano Point. It offers fast, small-size lefts that break over shallow live coral, and reaching the lineup means a long paddle out to the point. Skill (surfnerd): Expert. Wannasurf ke_ei__shark_point_: quality Regional Classic; experience Experienced surfers; wave Reef-coral, Left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; crowd weekday Few surfers, weekend Few surfers; page has no GPS position. Access (surfnerd): Parking is free and roadside."
+ },
+ {
+  "spotId": "w-hawaii-sandy-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sandys-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sandy-Beach-3",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/sandy_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": null,
+  "swellWindow": {
+   "text": "ENE to E, ESE to SW",
+   "fromDeg": 67.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to SW, best S (surfnerd)",
+   "fromDeg": 90,
+   "toDeg": 225
+  },
+  "idealSwell": "S (surfnerd); East-southeast (surf-forecast)",
+  "windOffshore": "NNW (surfnerd wind exposure WNW - NNE, \"Offshore from NNW\"); NW (surfnerd guide text: \"northwest (NW) offshore wind\"); Northwest (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Sand (surfnerd); Sandy with rock (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 6
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "rips, rocks and locals (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: Sandy Beach is a punishing beach break that throws its waves over sand. This is a neck-breaking shorebreak, one for talented, committed bodyboarders and bodysurfers who can handle a heavy pounding on any east-to-south swell. If you're on a board, your best option is to paddle outside to the shallow left reef, though it's usually blown to pieces by the trades. Surfnerd has 2 entries for this break with different stated facings (sandy-beach=SSE, sandy-beach-hawaii=SE); seaward uses the primary entry (sandy-beach), both kept. Second Surfnerd entry https://www.surfnerd.com/surf-forecast/sandy-beach-hawaii: workable swell ENE - SSW , offshore None, 2ft - 6ft, Lava, Rock, Coral, Sand, Beach, Reef, Left, Right, Low, Mid, High, Intermediate, Expert, Autumn, Winter, Spring, Summe"
+ },
+ {
+  "spotId": "w-hawaii-popoia-island-kailua",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/popoia-island-kailua",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Popoia Island Kailua",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/Popoia_Island/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Popoia Island Kailua",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N to E, ESE to SE",
+   "fromDeg": 0,
+   "toDeg": 135,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N to E (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 90
+  },
+  "idealSwell": "North, East, NorthEast (wannasurf)",
+  "windOffshore": "SSW (surfnerd wind exposure SSE - WSW, \"Offshore from SSW\"); West, South (wannasurf)",
+  "tide": "Mid, High (surfnerd); Low and mid tide, Rising tide (wannasurf)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 5
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Urchins, Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Popoia Island, also known as Flat Island, is a small four-acre isle sitting about a quarter-mile off Kailua Beach Park. The main wave is a left point that breaks over reef and wraps around the island on the best days, with a shorter right peeling off the other side. Both waves stay mellow, which makes Popoia a friendly place for beginners and longboarders. Skill (surfnerd): Beginner, Intermediate. Wannasurf Popoia_Island: quality Sloppy; experience All surfers; wave Reef-coral, Left; swell size Starts working at Less than 1m / 3ft and holds up to 2.5m+ / 8ft+; crowd weekday Empty, weekend Few surfers. Access (surfnerd): Getting here is easy enough, but there is a long paddle out to the island from Kailua Beach Park. Long rides also mean long paddles back, so pace yoursel"
+ },
+ {
+  "spotId": "w-hawaii-dumps",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/dumps",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Dumps",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Dumps-1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Dumps",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Dumps/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Dumps",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to WNW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to WNW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": "South-southwest (surf-forecast); South (wannasurf)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); East-northeast (surf-forecast); NorthEast (wannasurf)",
+  "tide": "Low, Mid (surfnerd); Low and mid tide, Don't know (wannasurf)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins, Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Dumps is a left-hand reef point on the remote Makena Coast, at the southern corner of Maui. It sits in pristine, desolate countryside and can turn really good when a sizable swell arrives. The wave breaks fast over a bottom of lava, rock, and coral, throwing up barrel sections on moderate to large swells. On smaller days it slows down and fattens out noticeably. Skill (surfnerd): Intermediate, Expert. Surf-forecast Dumps-1: \"Dumps in Maui is a fairly exposed reef break that does not work very often. Summer offers the best conditions for surfing. Offshore winds blow from the east northeast. Tends to receive a mix of groundswells and windswells and the best swell direction is from the south southwest. Even when the surf is up, crowds are unknown. Take care of - Urchins - R"
+ },
+ {
+  "spotId": "w-hawaii-kaanapali-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kaanapali-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ka'anapali Point",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kaanapali-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Ka'anapali Point",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": "Northwest (surf-forecast)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); East-southeast (surf-forecast)",
+  "tide": null,
+  "bottom": null,
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "rocks and locals (surf-forecast)",
+   "Ka'anapali Point is a surf spot with no confirmed details for break type, swell, wind, tide, access, hazards, or facilities. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Ka'anapali Point is a surf spot with no confirmed details for break type, swell, wind, tide, access, hazards, or facilities. Surf-forecast Kaanapali-Point: \"Ka'anapali Point in Maui is a fairly exposed reef break that has consistent surf. Winter is the best time of year for surfing here. Offshore winds are from the east southeast. Groundswells more frequent than windswells and the ideal swell angle is from the northwest. There are left and right breaking reefs. Often Crowded. Hazards include rocks and locals.\" Other guide pins from this position: surf-forecast Kaanapali-Point 4.1 km."
+ },
+ {
+  "spotId": "w-hawaii-lahaina-breakwall",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lahaina-breakwall",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lahaina Breakwall",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lahaina-Harbor-Break-Wall",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Lahaina Breakwall",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lahaina-Breakwall-Harbour",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Lahaina Breakwall",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to SW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "SW (surfnerd); Southwest, West-southwest (surf-forecast)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); E (surfnerd guide text: \"east (E) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 15
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins - Rocks (surf-forecast)",
+   "rocks,urchins,boats (surf-forecast)",
+   "The paddle isn't too bad, though currents can pick up on solid swells. (surfnerd)",
+   "Watch for the reef, along with urchins and sharp coral, and keep in mind that the harbor water is often suspect. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Lahaina Breakwall is a reef break at Lahaina Harbor on the west coast of Maui. This side of the island sits in the swell shadow of Moloka'i, Lana'i and Kaho'olawe, so finding surf here often takes patience, yet the harbor breakwater manages to pull in waves all year long. Depending on the swell, it can serve up either a quality left or a quality right, both capable of barreling and holding open. Skill (surfnerd): Intermediate. Surf-forecast Lahaina-Harbor-Break-Wall: \"Lahaina Harbor Break Wall in Maui is a fairly exposed reef break that has very reliable surf and works all around the year. Offshore winds blow from the northeast. Clean groundswells prevail and the ideal swell direction is from the southwest. It's often crowded here. Beware of - Urchins - Rocks.\" Surf-fore"
+ },
+ {
+  "spotId": "w-hawaii-lahaina-harbour",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lahaina-harbour",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lahaina Harbour",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to SW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "SW (surfnerd)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Live Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 12
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "The left prefers the tide on the high side of mid, which covers the coral and urchin-carpeted lava, while the right is much better at low. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Lahaina Harbour is a coral reef that peels right beside a busy boat channel running into the harbour. It works over live coral and throws up both a left and a right, each with its own personality. Skill (surfnerd): Intermediate. Access (surfnerd): Parking is tight anywhere near the waves. There's a car park with free parking, along with paid, metered, roadside, and restricted parking nearby."
+ },
+ {
+  "spotId": "w-hawaii-launiupoko",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/launiupoko",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Launiupoko",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/loniopokoh/",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Launiupoko",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Launiupoko is a surf spot in the United States. There aren't detailed condition notes for it yet, so lean on the live Surfnerd forecast for the latest swell, wind, and tide before you decide when to paddle out."
+ },
+ {
+  "spotId": "w-hawaii-little-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/little-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Little Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Little-Beach-1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Little Beach",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/little_beach/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Little Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WNW (surfnerd)",
+   "fromDeg": 157.5,
+   "toDeg": 292.5,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SSE to WNW (surfnerd)",
+   "fromDeg": 157.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": "South-southwest (surf-forecast); South (wannasurf)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); East-northeast (surf-forecast); NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Low tide only, Rising tide (wannasurf)",
+  "bottom": "Sand, Rock (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 7
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)",
+   "Watch the shorepound, which is dangerous, and mind the rocks on either side of the cove. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Little Beach, also known as Pu'u Ola'i Beach, sits on the southern end of Maui right next to Big Beach, a scenic cove that mostly serves up shorepound. Most days it is skimboarding, bodysurfing, and bodyboarding territory, with beach break that can turn sizeable and strong and throw closeout barrels. On bigger, longer-period swells a surfboard option can open up off the rocks on the sides of the cove. It is also the only generally accepted clothing-optional beach on Maui. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Little-Beach-1: \"Little Beach in Maui is a quite exposed reef break that only works once in a while. Summer offers the best conditions for surfing. Ideal winds are from the east northeast. Waves just as likely from local windswells as from "
+ },
+ {
+  "spotId": "w-hawaii-little-makaha",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/little-makaha",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Little Makaha",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Little-Makaha_1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Little Makaha",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/little_makaha/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Little Makaha",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to N, best N (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 0,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to N, best N (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "N (surfnerd); Northwest (surf-forecast); NorthWest, West (wannasurf)",
+  "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); East-southeast (surf-forecast); SouthEast, East (wannasurf)",
+  "tide": "Mid, High (surfnerd); Mid tide, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef, Sand (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 15
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "rocks and locals (surf-forecast)",
+   "Rips / undertow, Rocks, Localism, Sharks (wannasurf)",
+   "Waves reel off a point-style reef that runs for some distance, starting with a sharp drop into bowly sections and offering tubes along the way. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Little Makaha is a right-hand point sitting at the north end of Napili Bay, and it does a fair impression of its Oahu namesake. Waves reel off a point-style reef that runs for some distance, starting with a sharp drop into bowly sections and offering tubes along the way. Check: surfnerd states facing WNW but best swell N (67.5 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast Little-Makaha_1: \"Little Makaha_1 in Maui is a reasonably exposed reef break that usually has waves. Winter is the favoured time of year for surfing here. Works best in offshore winds from the east southeast. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. A reef breaks right. Often Crowded. Beware of rocks and locals.\" "
+ },
+ {
+  "spotId": "w-hawaii-mala-wharf",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/mala-wharf",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Mala Wharf",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Malawharf",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Mala Wharf",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/mala_wharf/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Mala Wharf",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to SW, best S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "S (surfnerd); West-southwest (surf-forecast); SouthWest, South (wannasurf)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); SE (surfnerd guide text: \"southeast (SE) offshore wind\"); Northeast (surf-forecast); South, SouthEast, East (wannasurf)",
+  "tide": "Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, locals and sharks (surf-forecast)",
+   "Urchins, Rips / undertow, Rocks, Localism, Sharks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Mala Wharf is a popular left-hander that peels around an uneven reef opposite the disused concrete pier before shouldering off into deeper water. It's a favorite with longboarders and intermediate surfers. Check: surfnerd states facing W but best swell S (90 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast Malawharf: \"Mala wharf in Maui is a fairly exposed reef break that usually has waves and can work at any time of the year. The best wind direction is from the northeast. Groundswells more frequent than windswells and the ideal swell angle is from the west southwest. A left hand reef. Good surf at all stages of the tide. When the surf is up, it can get quite busy in the water. Beware of urchins, rips, rocks, locals and sharks.\" Wannas"
+ },
+ {
+  "spotId": "w-hawaii-olowalu",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/olowalu",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Olowalu",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/olowalu/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Olowalu",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW to WSW (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 247.5,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SSW to WSW (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 247.5
+  },
+  "idealSwell": "South, SouthEast (wannasurf)",
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\"); North, NorthEast (wannasurf)",
+  "tide": "Low, Mid, High (surfnerd); Low and mid tide, Rising and falling tides (wannasurf)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rocks, Localism, Sharks (wannasurf)",
+   "Paddling isn't too bad, but currents can turn nasty during solid swells, and the reef is the main hazard to keep in mind. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Olowalu is a reef break about six miles south of Lahaina Harbor, tucked around a jetty spit. The bottom is a mix of lava, rock, and coral, and the surroundings stay pristine. It's a decent setup with a genuinely fun left, plus a scatter of right and left peaks nearby to spread the pack out. Skill (surfnerd): Beginner, Intermediate, Expert. Wannasurf olowalu: quality Normal; experience All surfers; wave None, None; swell size Starts working at  and holds up to; crowd weekday Few surfers, weekend Ultra crowded. Access (surfnerd): Getting in is easy, right off the road. Other guide pins from this position: wannasurf olowalu 0.9 km."
+ },
+ {
+  "spotId": "w-hawaii-rainbows",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rainbows",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Rainbows",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Osterizers-Rainbows",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Rainbows",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NW (surfnerd); Northwest (surf-forecast)",
+  "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "urchins, rips, rocks, locals and sharks (surf-forecast)",
+   "It gets shallow and powerful with plenty of current on bigger days, which is when it asks for more experience. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Rainbows is a collection of reef peaks on the far western edge of Maui, tucked into the Kaanapali resort area below the Kaanapali Beach Club. It breaks both left and right over uneven reef and is usually a mellow, easygoing wave, though the right can turn into a good barrel on solid north swells. Just south, Osterizers is another crisp A-frame peak that tends to have takers of its own. Skill (surfnerd): Intermediate. Surf-forecast Osterizers-Rainbows: \"Osterizers/Rainbows in Maui is a reasonably exposed reef break that has consistent surf. Winter is the favoured time of year for surfing here. Offshore winds blow from the east southeast. Tends to receive distant groundswells and the ideal swell angle is from the northwest. A choice of left and right reefs. Good surf at al"
+ },
+ {
+  "spotId": "w-hawaii-s-turns",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/s-turns",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: S-Turns",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/S-Turns_1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: S-Turns",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE, best NW (surfnerd)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "NW (surfnerd); Northwest (surf-forecast)",
+  "windOffshore": "ESE (surfnerd wind exposure ENE - SSE, \"Offshore from ESE\"); E (surfnerd guide text: \"east (E) offshore wind\"); East-southeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips, rocks, locals and sharks (surf-forecast)"
+  ],
+  "notes": "Surfnerd overview: S-Turns is a cluster of lava and coral reefs tucked between Honokowai and Kahana. It throws up some nice peaks even in less than perfect conditions, and it sits away from the heavy crowds of the better-known spots nearby. The uneven reef serves up both lefts and rights. Skill (surfnerd): Intermediate. Surf-forecast S-Turns_1: \"S-Turns_1 in Maui is a fairly exposed reef break that has dependable surf. Winter is the best time of year for surfing here. Offshore winds blow from the east southeast. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. A left hand reef break. Sometimes crowded. Watch out for urchins, rips, rocks, locals and sharks.\" Other guide pins from this position: surf-forecast S-Turns_1 1.7 km."
+ },
+ {
+  "spotId": "w-hawaii-shark-pit",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shark-pit",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shark Pit",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Shark-Pit",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Shark Pit",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/sharkpit/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Shark Pit",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to SW, best SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "SW (surfnerd); West-southwest (surf-forecast); South (wannasurf)",
+  "windOffshore": "NE (surfnerd wind exposure N - E, \"Offshore from NE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Best around mid tide. (surf-forecast); Mid and high tide, Rising tide (wannasurf)",
+  "bottom": "Uneven Reef (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3,
+   "max": 12
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins, Rocks, Localism, Sharks (wannasurf)",
+   "Shark Pit is a shallow reef break near Lahaina that peels both left and right over uneven reef. (surfnerd)",
+   "Shark Pit can work through low, mid, and high tide, with a rising tide generally the better call. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Shark Pit is a shallow reef break near Lahaina that peels both left and right over uneven reef. The name is a warning worth heeding, so stay vigilant in the water. This one is strictly for expert surfers. Skill (surfnerd): Expert. Surf-forecast Shark-Pit: \"Shark Pit in Maui is a fairly exposed reef break that has reasonably consistent surf and can work at any time of the year. The best wind direction is from the northeast. Most of the surf here comes from groundswells and the best swell direction is from the west southwest. Both left and right reef breaks. Best around mid tide. When the surf is up, it can get quite busy in the water. Take care of rocks,urchins and sharks.\" Wannasurf sharkpit: quality Totally Epic; experience Experienced surfers; wave Reef-coral, Right an"
+ },
+ {
+  "spotId": "w-hawaii-the-cove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-cove-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Cove",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kihei-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: The Cove",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/kihei_cove/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: The Cove",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to SSW, SW to W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "West-southwest (surf-forecast); West, SouthWest (wannasurf)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast); All tides, Rising and falling tides (wannasurf)",
+  "bottom": "Lava, Rock, Coral (surfnerd); Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 2,
+   "max": 5
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins and rocks (surf-forecast)",
+   "Urchins, Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: The Cove is a mellow, slow-rolling left at the southern end of Kalama Park, fronting Cove Park, and one of the best places to learn to surf on Maui. The wave peels over a reef of lava, rock and coral, and it stays user-friendly even though the overall rating sits on the modest side. It's usually small and packed with surf schools, but it can genuinely turn on when a bigger swell arrives. Skill (surfnerd): Beginner, Intermediate, Expert. Surf-forecast Kihei-Cove: \"Kihei Cove in Maui is a fairly exposed reef break that is often working. Summer offers the best conditions for surfing. The best wind direction is from the northeast. Clean groundswells prevail and the ideal swell angle is from the west southwest. Good surf at all stages of the tide. When the surf is up, crowds "
+ },
+ {
+  "spotId": "w-hawaii-ukumehame",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ukumehame",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ukumehame",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to S, SSW to WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "NNE (surfnerd wind exposure NNW - ENE, \"Offshore from NNE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Ukumehame is a surf spot with limited published details for now. Check the live Surfnerd forecast for the latest swell, wind, and tide before you paddle out."
+ },
+ {
+  "spotId": "w-hawaii-halena-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/halena-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Halena Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E to ESE, SE to WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "N (surfnerd wind exposure NW - NE, \"Offshore from N\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Halena Beach is at its cleanest when the wind blows offshore from the south (S) , so a southerly breeze is the main thing to look for before you paddle out here."
+ },
+ {
+  "spotId": "w-hawaii-kepuhi-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kepuhi-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kepuhi Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kepuhi-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Kepuhi Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Maui/Kepuhi_Beach_-_Molokai/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Kepuhi Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW to W, WNW to NNW",
+   "fromDeg": 225,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "West-northwest (surf-forecast)",
+  "windOffshore": "E (surfnerd wind exposure NE - SE, \"Offshore from E\"); East-southeast (surf-forecast)",
+  "tide": "High tide only, Rising tide (wannasurf)",
+  "bottom": null,
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "rocks, rips and sharks (surf-forecast)",
+   "Rocks (wannasurf)"
+  ],
+  "notes": "Surfnerd overview: Kepuhi Bay works best when the wind turns offshore from the northwest (NW) . Keep an eye on that direction before you paddle out here. Surf-forecast Kepuhi-Beach: \"Kepuhi Beach/Sheraton's in Molokai is an exposed beach and reef break that has quite reliable surf and can work at any time of the year. Offshore winds are from the east southeast. Clean groundswells prevail and the ideal swell direction is from the west northwest. The reef provides both left and right breaks. When the surf is up, crowds are likely Beware of rocks, rips and sharks.\" Wannasurf Kepuhi_Beach_-_Molokai: quality Regional Classic; experience All surfers; wave Reef-rocky, Right; swell size Starts working at 1.0m-1.5m / 3ft-5ft and holds up to 5m / 16 ft and over; crowd weekday Few surfers, weekend Fe"
+ },
+ {
+  "spotId": "w-hawaii-lopa-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lopa-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lopa Beach",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE to SE, SSE to SSW",
+   "fromDeg": 112.5,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE to SSW (surfnerd)",
+   "fromDeg": 22.5,
+   "toDeg": 202.5
+  },
+  "idealSwell": null,
+  "windOffshore": "WNW (surfnerd wind exposure WSW - NNW, \"Offshore from WNW\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4,
+   "max": 7
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Lopa Beach is a long, white-sand beach on the east coast of Lanai, with a stretch of reef just offshore that serves up a variety of peaks and sections. The reef breaks both right and left over lava, rock, and coral, and there's enough on offer for surfers of every ability. It's a pristine setting, though this rates as a below-average spot overall: it can get genuinely fun when swell and wind line up, but that combination doesn't come together all that often. Skill (surfnerd): Beginner, Intermediate, Expert. Access (surfnerd): Getting here takes some effort: Lopa Beach is only reachable via 4X4-only dirt roads that branch off Keomuku Road, so a regular vehicle won't cut it. Mind the reef beneath you."
+ },
+ {
+  "spotId": "w-hawaii-pohakuloa",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pohakuloa",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pohakuloa",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to ENE (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 67.5,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to ENE (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 67.5
+  },
+  "idealSwell": null,
+  "windOffshore": "S (surfnerd wind exposure SE - SW, \"Offshore from S\")",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4,
+   "max": 8
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Stay aware of the reef, sharks, current, and the real chance of getting lost out here. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Pohakuloa sits on the northern edge of Lanai, just outside Lanai City, along a raw, sandy beach-fringed coastline. A series of reef points here throws out both lefts and rights, breaking over lava, rock, and coral. It's a decent setup with plenty of individual peaks to pick from. Skill (surfnerd): Intermediate, Expert. Access (surfnerd): Getting in means dirt roads only, so a 4x4 is a must. The surrounding environment is pristine."
+ },
+ {
+  "spotId": "w-hawaii-infinities",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/infinities",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Infinities",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Infinities_1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Infinities",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to W, WNW",
+   "fromDeg": 135,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S to NW, best SE (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "SE (surfnerd); South (surf-forecast)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); NE (surfnerd guide text: \"northeast (NE) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Sharks, locals, and a sharp reef all help keep the crowd in check, so take a moment to read the lineup before paddling out. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Infinities serves up long, near-perfect lefts tucked into the southwest corner at Pakala. It's a point break peeling over an uneven reef, and it comes into its own on the bigger summer south swells. Check: surfnerd states facing WSW but best swell SE (112.5 degrees apart); both are as published. Skill (surfnerd): Intermediate. Surf-forecast Infinities_1: \"Infinities in Kauai is an exposed reef and point break that has pretty consitent surf and can work at any time of the year. The best wind direction is from the northeast. Clean groundswells prevail and the best swell direction is from the south.There is a left breaking point here. When the surf is up, it can get quite busy in the water. Take care of the strong rips here.\" Access (surfnerd): There's a car park at the spo"
+ },
+ {
+  "spotId": "w-hawaii-pakala",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pakala",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pakala",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pakalas",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Pakala",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/pakala/index.html",
+    "site": "wannasurf",
+    "title": "wannasurf spot guide: Pakala",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE to WNW (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 292.5,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SE to WNW (surfnerd)",
+   "fromDeg": 135,
+   "toDeg": 292.5
+  },
+  "idealSwell": "South (surf-forecast); SouthWest, South, SouthEast (wannasurf)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); North-northeast (surf-forecast); North, NorthWest, East, NorthEast (wannasurf)",
+  "tide": "Low, Mid (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Rock, Coral, Lava (surfnerd); Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "urchins, rips and rocks (surf-forecast)",
+   "Urchins, Rocks, Man-made danger (buoys etc..), Private beach, Localism, Pollution, Sharks (wannasurf)",
+   "Expect a fair bit of paddling, since long rides mean long paddles back, and the current can get strong when the swell is solid. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Pakala, also known as Pakalas, is a long, powerful left that wraps and barrels around the point on the south side of the bay. It is fast and at its best on an overhead swell, when the wave stands up and runs down the point. The lower the tide, the hollower it gets, though the bottom is coral reef, so it pays to be careful. On weaker swells it turns mellower and far less hollow, making for a more relaxed surf. Skill (surfnerd): Intermediate, Expert. Surf-forecast Pakalas: \"Pakalas in Kauai is an exposed reef and point break that has pretty consitent surf. Summer offers the best conditions for surfing. Ideal winds are from the north northeast. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the south.Surfers rid"
+ },
+ {
+  "spotId": "w-hawaii-majors-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/majors-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Majors Bay",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Majors-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com spot guide: Majors Bay",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S to N, best N (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S to N, best N (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "idealSwell": "N (surfnerd); South (surf-forecast)",
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\"); E (surfnerd guide text: \"east (E) offshore wind\"); Northeast (surf-forecast)",
+  "tide": "Low, Mid, High (surfnerd)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2,
+   "max": 10
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "The surf here is all about rights, and the whole stretch is known for serious power and terrifying rips, where a single long ride can turn into a long walk back down the beach. (surfnerd)",
+   "Strong currents and the chance of sharks come with the territory. (surfnerd)",
+   "Local Tips This is an expert-level wave that rewards surfers comfortable with power and current. (surfnerd)"
+  ],
+  "notes": "Surfnerd overview: Majors Bay is a powerful, exposed break on the long, empty west coast of Kauai. It faces open ocean and pulls in energy from both the North and South Pacific, so there's swell potential across autumn, winter, spring, and summer. The surf here is all about rights, and the whole stretch is known for serious power and terrifying rips, where a single long ride can turn into a long walk back down the beach. Strong currents and the chance of sharks come with the territory. Check: surfnerd states facing WSW but best swell N (112.5 degrees apart); both are as published. Skill (surfnerd): Expert. Surf-forecast Majors-Bay: \"Majors Bay in Kauai is an exposed beach and point break that has quite consistent surf and can work at any time of the year. Works best in offshore winds from "
+ },
+ {
+  "spotId": "w-hawaii-kamalino-niihau",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kamalino-niihau",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kamalino, Niihau",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE to WSW, WSW to NNW",
+   "fromDeg": 157.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "windOffshore": "ENE (surfnerd wind exposure NNE - ESE, \"Offshore from ENE\")",
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "Surfnerd overview: Kamalino is a surf break on Niihau. Offshore wind here comes from the west-southwest (WSW) , so a WSW breeze is what you want for cleaner faces."
  }
 ];
 export const guideFactsFor = (spotId: string) => guideFacts.find((f) => f.spotId === spotId) ?? null;

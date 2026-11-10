@@ -17,6 +17,12 @@ const range = (t: string | null | undefined): [number, number] | null => {
   return [rs[0][0], rs[rs.length - 1][1]];
 };
 const span = ([a, b]: [number, number]) => cw(a, b);
+/** The directions the guides call ideal ("South-southwest", "SouthWest, South"), as degrees on the 16-point rose. Text with no compass word gives none. */
+const FULL: Record<string, number> = Object.fromEntries(Object.entries({north: 0, northnortheast: 22.5, northeast: 45, eastnortheast: 67.5, east: 90, eastsoutheast: 112.5, southeast: 135, southsoutheast: 157.5, south: 180, southsouthwest: 202.5, southwest: 225, westsouthwest: 247.5, west: 270, westnorthwest: 292.5, northwest: 315, northnorthwest: 337.5}));
+const idealDegs = (t: string | null | undefined): number[] => String(t ?? '').replace(/\([^)]*\)/g, '').split(/[;,]/).map((x) => x.trim().toLowerCase().replace(/[^a-z]/g, '')).map((x) => FULL[x] ?? WORD[x.toUpperCase()]).filter((x): x is number => typeof x === 'number');
+// The workable-over-exposure rule below is scoped to the Hawaii rows added in the rest-of-Hawaii round (Maui, Big Island, Kauai, Molokai, Lanai, Niihau, Oahu East and West): applying it to the older rows would move the windows of existing spots (5 California rows and 6 Oahu rows would change), and the ratings of existing spots must stay byte-identical.
+const WORKABLE_RULE_IDS = new Set((JSON.parse(fs.readFileSync(new URL('./world-spots/hawaii.json', import.meta.url), 'utf8')).spots as any[]).filter((x) => !/Oahu (North|South) Shore$/.test(x.region)).map((x) => x.id));
+const inside = (d: number, [a, b]: [number, number]) => cw(a, d) <= cw(a, b);
 /** Swell exposure from the guides' free text. Clauses that talk only about WIND ("sheltered from N and S winds", "not wind protected") are dropped first: wind shelter is not swell shelter. */
 const exposureOf = (t: string): string => {
   const s = String(t ?? '').split(/[;()]/).filter((c) => !/wind/i.test(c) || /swell/i.test(c)).join(' ').toLowerCase();
@@ -48,7 +54,9 @@ const SITE: Record<string, string> = {surfnerd: 'Surfnerd', 'surf-forecast': 'Su
 const out: any[] = [];
 for (const r of input) {
   const e = range(r.swellExposure), w = r.swellWorkable && Number.isFinite(r.swellWorkable.fromDeg) ? [r.swellWorkable.fromDeg, r.swellWorkable.toDeg] as [number, number] : null;
-  const win = e && span(e) >= 22.5 ? {text: String(r.swellExposure).replace(/\s*\([^)]*\)/g, ''), fromDeg: e[0], toDeg: e[1], basis: 'exposure'} : w && span(w) >= 45 ? {text: r.swellWorkable.text, fromDeg: w[0], toDeg: w[1], basis: 'workable'} : null;
+  // Where the workable range holds every direction the guides call ideal and the exposure does not (Dumps: exposure W-NW, ideal S/SSW, workable S-WNW), the exposure alone would refuse the swells the spot is surfed on: use the workable range.
+  const ideal = idealDegs(r.idealSwell), useWorkable = !!(WORKABLE_RULE_IDS.has(r.spotId) && e && w && ideal.length && span(w) >= 45 && ideal.every((d) => inside(d, w)) && !ideal.every((d) => inside(d, e)));
+  const win = !useWorkable && e && span(e) >= 22.5 ? {text: String(r.swellExposure).replace(/\s*\([^)]*\)/g, ''), fromDeg: e[0], toDeg: e[1], basis: 'exposure'} : w && span(w) >= 45 ? {text: r.swellWorkable.text, fromDeg: w[0], toDeg: w[1], basis: 'workable'} : null;
   const wt = String(r.waveType ?? '').toLowerCase(), type = /point|river|mouth/.test(wt) ? 'point' : /reef/.test(wt) ? 'reef' : /jetty/.test(wt) ? 'jetty' : /beach/.test(wt) ? 'beach' : null;
   const stated = facingOf(r.facing), derived = !(stated && 'deg' in stated) && r.facingFromCoastline ? deriveFacing(r.spotId) : null;
   const facing = stated && 'deg' in stated ? {...stated, basis: 'guide'} : derived;

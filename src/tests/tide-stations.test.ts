@@ -100,3 +100,14 @@ test('OR/WA review: reviewed overrides beat the words, one station per spot near
   // the map point panel's pick: US points only, never a closed station
   assert.equal(pointInUs(45.976, -123.947), true); assert.equal(pointInUs(38.7, -9.4), false); assert.equal(tideStationForSpot(45.976, -123.947)?.station.id, 'TWC0881');
 });
+
+test('Hawaii review round: harbour gauges whose predicted times match their open-coast neighbours are open, so Maui north shore uses Kahului (not Makena, 70+ min later), Lahaina spots use Lahaina and Oahu west uses Waianae; a harbour-gauge fallback is labelled as one', async () => {
+  const {pickTideStation, tideStations: st, fallbackLabel, tideStationExposure} = await import('../ocean/tideStations.ts');
+  const pick = (lat: number, lon: number) => pickTideStation(lat, lon, st)!;
+  assert.equal(pick(20.934, -156.356).station.name.toUpperCase(), 'KAHULUI');   // Hookipa
+  assert.equal(pick(20.8756, -156.6785).station.name, 'Lahaina');   // Mala Wharf
+  assert.equal(pick(21.45, -158.19).station.name, 'Waianae');   // Makaha Point area
+  assert.equal(tideStationExposure('x', '1615680').exposure, 'open'); assert.match(tideStationExposure('x', '1615680').why, /Hana|Lahaina|Makena/);
+  assert.equal(tideStationExposure('x', '1611347').exposure, 'closed-if-alternative');
+  assert.equal(fallbackLabel('1611347'), 'Harbour gauge'); assert.equal(fallbackLabel('8515186'), 'Inlet or bay-side station');
+});

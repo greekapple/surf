@@ -11,7 +11,7 @@ export const SHORE_WIND_MAX_KM = 4;
 export const SHORE_WIND_WINDOW_DAYS = 7;
 /** A reading older than this is shown as missing, never as now. */
 export const SHORE_WIND_STALE_MS = 2 * 3600000;
-export const SHORE_WIND_RULE = `The nearest fixed NDBC/NOS met station or West Coast / Hawaii airport ASOS (the CA, OR, WA and HI networks; no East Coast airports, because the enclosed-water mask is West-only) within ${SHORE_WIND_MAX_KM} km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last ${SHORE_WIND_WINDOW_DAYS} days at build time. No latitude band. A spot with no such station shows no measured wind.`;
+export const SHORE_WIND_RULE = `The nearest fixed NDBC/NOS met station or West Coast airport ASOS (the CA, OR, WA networks; no Hawaii or East Coast airports, because the enclosed-water mask is West Coast only) within ${SHORE_WIND_MAX_KM} km of the spot, outside enclosed water (src/map/enclosed.ts, both kinds), not in a harbour basin or estuary (an NDBC/NOS station only once its siting is checked, NDBC_EXPOSURE), that reported wind in the last ${SHORE_WIND_WINDOW_DAYS} days at build time (an entry already in the registry is kept while its station is still listed and within the radius, and for up to 30 days after it last reported). No latitude band. A spot with no such station shows no measured wind.`;
 const MS_TO_MPH = 2.2369362921, KMH_TO_MPH = 0.6213711922;
 
 /** Where a station's anemometer stands. An airport ASOS is always 'airfield'. An NDBC/NOS station is shown only once its siting is checked
@@ -43,7 +43,7 @@ export const exposureOf = (s: {id: string; kind: 'ndbc' | 'asos'}): Exposure | n
 export const exposureShown = (e: Exposure | null) => e === 'airfield' || e === 'pier' || e === 'cove';
 
 export interface ShoreStation {id: string; name: string; kind: 'ndbc' | 'asos'; lat: number; lon: number; distanceKm?: number}
-export interface ShoreAssignment {spotId: string; spotName: string; stationId: string; stationName: string; kind: 'ndbc' | 'asos'; exposure: Exposure; lat: number; lon: number; distanceKm: number; url: string}
+export interface ShoreAssignment {spotId: string; spotName: string; stationId: string; stationName: string; kind: 'ndbc' | 'asos'; exposure: Exposure; lat: number; lon: number; distanceKm: number; url: string; /** ISO time of the last build at which this station reported wind (kept entries carry it forward) */ lastSeen?: string}
 export interface ShoreWindRegistry {builtAt: string; maxKm: number; windowDays: number; rule: string; spotsChecked: number; assignments: ShoreAssignment[]}
 export const shoreWindRegistry = registry as ShoreWindRegistry;
 
@@ -107,4 +107,16 @@ export function normalizeNwsWind(body: string | any, st: ShoreStation, now: numb
     return build(st, t, now, mph, typeof gs === 'number' && gs >= mph ? gs : null, wd !== null && Number.isFinite(wd) && wd >= 0 && wd <= 360 ? wd : null, nwsObservationURL(st.id), native, `NWS observation K${st.id}`);
   }
   return null;
+}
+
+/** A kept entry that has been silent this long is dropped: a quiet week is no reason to lose a station, a quiet month is. */
+export const SHORE_WIND_KEEP_DAYS = 30;
+/** Rebuild rule: an assignment already in the registry is kept when the build finds no new one for that spot, if its station is still in the live station lists (not decommissioned or offline), is still within the radius of the spot's CURRENT coordinates (a moved pin drops a too-far station), its siting is still shown, and it last reported wind (`lastSeen`, else the previous build) no more than SHORE_WIND_KEEP_DAYS ago. */
+export function keepExistingAssignments(previous: ShoreAssignment[], fresh: ShoreAssignment[], available: ShoreStation[], spots: {id: string; latitude: number; longitude: number}[], km: (aLat: number, aLon: number, bLat: number, bLon: number) => number, now: number, previousBuiltAt: string, maxKm = SHORE_WIND_MAX_KM): ShoreAssignment[] {
+  const have = new Set(fresh.map((a) => a.spotId)), live = new Map(available.map((s) => [s.kind + s.id, s])), at = new Map(spots.map((s) => [s.id, s]));
+  return [...fresh, ...previous.filter((a) => {
+    if (have.has(a.spotId)) return false;
+    const st = live.get(a.kind + a.stationId), sp = at.get(a.spotId), seen = Date.parse(a.lastSeen ?? previousBuiltAt);
+    return !!st && !!sp && km(sp.latitude, sp.longitude, st.lat, st.lon) <= maxKm && exposureShown(exposureOf({id: a.stationId, kind: a.kind})) && Number.isFinite(seen) && now - seen <= SHORE_WIND_KEEP_DAYS * 86400000;
+  }).map((a) => ({...a, lastSeen: a.lastSeen ?? previousBuiltAt}))];
 }

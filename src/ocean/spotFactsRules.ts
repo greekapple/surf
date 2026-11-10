@@ -39,6 +39,7 @@ export function enablement(f: GuideFacts): Enablement {
   if (!f.swellWindow) reasons.push('no source gives the swell directions that work');
   if (f.exposure === 'sheltered' && !openSector(f)) reasons.push('a source calls the spot sheltered, and no source lists the swell directions it is open to');
   else if (f.exposure !== 'sheltered' && f.waveType && f.waveType !== 'beach' && f.exposure !== 'exposed') reasons.push(`a ${f.waveType} break needs a source that says it is exposed`);
+  if (/isn.t much detailed break information/i.test(f.notes)) reasons.push('its only source page says it has no detailed break information on record');
   if (f.facing && wraps(f)) reasons.push(`the guides' working swell (${f.workable!.text}) lies entirely outside 60° of the ${f.facing.text} facing: it wraps around the point or reef, which the straight-shore estimate cannot represent`);
   return {estimate: reasons.length === 0, shelter: reasons.length === 0 ? (openSector(f) ? 0 : 1) : null, reasons};
 }

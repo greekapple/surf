@@ -13,7 +13,8 @@ const spread = () => Response.json({hourly: {time: [instant / 1000], swell_wave_
 test('every spot\'s model-spread URL is routed to the Worker\'s saved-copy provider, and the Worker has that target with the same request', () => {
   const keys = new Map(ingestionTargets(instant).map((t: any) => [t.key, t.url as string]));
   for (const s of evidenceSpots) {
-    assert.equal(serverProviderPath(modelSpreadURL(s)), '/api/provider?key=spread-' + s.id, `${s.id} routed`);
+    const first = evidenceSpots.find((o) => modelSpreadURL(o) === modelSpreadURL(s))!; // two spots on the same marine point (Acid Drop and PK's, Kauai) share one request: the first one's key serves both, with the same data
+    assert.equal(serverProviderPath(modelSpreadURL(s)), '/api/provider?key=spread-' + first.id, `${s.id} routed`);
     const url = keys.get('spread-' + s.id); assert.ok(url, `${s.id} has a spread target`);
     const a = new URL(url!), b = new URL(modelSpreadURL(s)); assert.equal(a.searchParams.get('models'), b.searchParams.get('models')); assert.equal(a.searchParams.get('hourly'), b.searchParams.get('hourly'));
   }

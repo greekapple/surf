@@ -103,12 +103,34 @@ export const tideStations: TideStation[] = [
   {id: '8723080', name: "Haulover Pier, N. Miami Beach", lat: 25.90330, lon: -80.12000, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=8723080'},
   {id: '8723170', name: "Miami Harbor Entrance", lat: 25.76830, lon: -80.13170, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=8723170'},
   {id: '8723178', name: "GOVERNMENT CUT, MIAMI HARBOR ENTRANCE", lat: 25.76330, lon: -80.13000, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=8723178'},
+  {id: '1611400', name: "NAWILIWILI", lat: 21.95440, lon: -159.35610, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1611400'},
+  {id: '1610367', name: "Nonopapa, Niihau Island", lat: 21.87000, lon: -160.23500, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1610367'},
+  {id: '1612482', name: "Waianae", lat: 21.44500, lon: -158.19200, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1612482'},
+  {id: '1612480', name: "MOKU O LOE", lat: 21.43306, lon: -157.79000, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1612480'},
+  {id: '1613226', name: "Kolo", lat: 21.09330, lon: -157.19700, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1613226'},
+  {id: '1613198', name: "Kaunakakai", lat: 21.08500, lon: -157.03200, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1613198'},
+  {id: '1613155', name: "Pukoo Harbor", lat: 21.07170, lon: -156.80000, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1613155'},
+  {id: 'TPT2799', name: "Lahaina", lat: 20.88333, lon: -156.68333, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TPT2799'},
+  {id: '1615680', name: "KAHULUI", lat: 20.89494, lon: -156.46900, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1615680'},
+  {id: '1614465', name: "Kaumalapau, Lanai Island", lat: 20.79000, lon: -156.99500, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1614465'},
+  {id: '1613077', name: "Kamalo Harbor", lat: 21.04830, lon: -156.87700, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1613077'},
+  {id: '1615395', name: "Hana", lat: 20.76170, lon: -155.98700, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1615395'},
+  {id: '1615202', name: "Makena", lat: 20.65670, lon: -156.44500, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1615202'},
+  {id: '1617277', name: "Mahukona", lat: 20.18670, lon: -155.90300, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1617277'},
+  {id: '1617433', name: "Kawaihae", lat: 20.03660, lon: -155.82940, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1617433'},
+  {id: '1617760', name: "HILO", lat: 19.73028, lon: -155.05556, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1617760'},
+  {id: '1617846', name: "Kailua Kona", lat: 19.64330, lon: -156.00000, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1617846'},
+  {id: '1618578', name: "Honuapo", lat: 19.08830, lon: -155.55300, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1618578'},
+  {id: '1611683', name: "Hanalei Bay", lat: 22.21500, lon: -159.50200, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1611683'},
+  {id: '1611443', name: "Hanamaulu Bay", lat: 21.99500, lon: -159.33500, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1611443'},
+  {id: '1611401', name: "Waimea Bay", lat: 21.95670, lon: -159.67300, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=1611401'},
+  {id: 'TPT2779', name: "Laie Bay", lat: 21.65000, lon: -157.93333, retrievedOn: '2026-11-09', url: 'https://tidesandcurrents.noaa.gov/stationhome.html?id=TPT2779'},
 ];
 export const SF_STATION = '9414290';
 /** Stations whose predictions the server ingests in addition to the existing San Francisco feed. Kept in sync with services/forecast-service.mjs by a test. */
 export const extraTideStationIds = ['9414131', '9415020'];
 /** T-082: stations ingested for high/low predictions only (the nearest station of every covered spot). Kept in sync with services/forecast-service.mjs by a test. */
-export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340',  '9442861',  '9442388',  '9441102',  '9440581',  'TWC0881',  'TWC0857',  '9434132',  '9431647',  '9430104',  '9437585',  '9435380',  '9432436',  '1612366',  '1612340',  '1612376',  '1612668',  '8459681',  '8515186',  '8531680',  '8532337',  '8533071',  '8534720',  '8639168',  '8639428',  '8651370',  '8651605',  '8652226',  'TEC2789',  '8654400',  'TEC2837',  '8657419',  '8658163',  '8658559',  '8659897',  '8659182',  '8663101',  '8665494',  'TEC3047',  'TEC3127',  '8667630',  '8669625',  '8670892',  '8677344',  '8679997',  '8720194',  '8720259',  '8720291',  '8720587',  '8721120',  'TEC3693',  '8721604',  '8721649',  '8721727',  '8721804',  '8722105',  '8722212',  '8722366',  '8722862',  '8722899',  '8722979',  '8723080',  '8723170',  '8723178'];
+export const hiloTideStationIds = ['9410120',  '9410230',  '9410580',  '9410599',  '9410738',  '9410777',  '9410840',  '9411189',  '9411270',  '9412110',  '9412802',  '9413375',  '9413450',  '9413616',  '9413663',  '9413745',  '9413878',  '9414275',  '9414958',  '9415469',  '9415625',  '9416841',  '9418024',  '9418767',  '9419059',  '9419750',  'TWC0413',  'TWC0419',  'TWC0445',  'TWC0473',  '9411340',  '9442861',  '9442388',  '9441102',  '9440581',  'TWC0881',  'TWC0857',  '9434132',  '9431647',  '9430104',  '9437585',  '9435380',  '9432436',  '1612366',  '1612340',  '1612376',  '1612668',  '8459681',  '8515186',  '8531680',  '8532337',  '8533071',  '8534720',  '8639168',  '8639428',  '8651370',  '8651605',  '8652226',  'TEC2789',  '8654400',  'TEC2837',  '8657419',  '8658163',  '8658559',  '8659897',  '8659182',  '8663101',  '8665494',  'TEC3047',  'TEC3127',  '8667630',  '8669625',  '8670892',  '8677344',  '8679997',  '8720194',  '8720259',  '8720291',  '8720587',  '8721120',  'TEC3693',  '8721604',  '8721649',  '8721727',  '8721804',  '8722105',  '8722212',  '8722366',  '8722862',  '8722899',  '8722979',  '8723080',  '8723170',  '8723178',  '1611400',  '1610367',  '1612482',  '1612480',  '1613226',  '1613198',  '1613155',  'TPT2799',  '1615680',  '1614465',  '1613077',  '1615395',  '1615202',  '1617277',  '1617433',  '1617760',  '1617846',  '1618578',  '1611683',  '1611443',  '1611401',  'TPT2779'];
 /** Open-coast rule for choosing a tide station for a spot (spot expansion): a CO-OPS station far up a river, slough or lagoon, in an estuary bay or inside a harbour basin, says little about the beach (Seaside's nearest station was Cathcart Landing on Youngs River, 19.8 km;
  *  Pacific Beach's was Quivira Basin in Mission Bay; Blackies' was "Santa Ana River entrance (inside)"; Long Beach WA's was Tarlatt Slough, then "Ilwaco, Baker Bay"). CO-OPS metadata (mdapi) has no open-coast flag, so the rule is explicit and reads the station NAME, in this order:
  *    1. "inside" in the name: closed.
@@ -149,8 +171,40 @@ const EAST_REVIEWED: [string[], 'open' | 'closed' | 'closed-if-alternative', str
 /** US East: the open-coast stations (name says ocean, outer coast, pier, jetty, light, point or beach on the Atlantic shore, and the position is on the ocean side of the barrier island or cape; CO-OPS station home page). Only these count as open on the East Coast: any other East station (id 8xxxxxx or TECnnnn) is treated as closed, because on this coast most stations sit in bays, harbours, sounds, creeks and the Intracoastal Waterway behind barrier islands. */
 const EAST_OPEN = ['8531680', '8534720', '8450768', '8451351', '8453999', '8454658', '8448875', '8448942', '8459681', '8532337', '8533071', '8639168', '8639428', '8651370', '8651605', '8652226', 'TEC2789', '8654400', '8657419', '8658163', '8658559', '8659897', '8659182', '8663101', '8665494', 'TEC3047', 'TEC3127', '8667630', '8669625', '8670892', '8677344', '8679997', '8720194', '8720259', '8720291', '8720587', '8721120', 'TEC3693', '8721604', '8721649', '8721727', '8721804', '8722105', '8722212', '8722366', '8722862', '8722899', '8722979', '8723080', '8723170', '8723178'];
 for (const id of EAST_OPEN) TIDE_EXPOSURE_OVERRIDES[id] = {exposure: 'open', reason: `reviewed open Atlantic coast: the station's own name and position are on the ocean side (${COOPS(id)})`};
+/** Hawaii (2026-11-09, corrected after the data-honesty review): the CO-OPS stations the importer can pick in the islands, classed from the station name and position (the CO-OPS station home page) and checked against each other with NOAA's own predicted high/low times for 2026-11-10 (datagetter hilo, MLLW).
+ *  The word rule is wrong both ways here ("Bay" is usually an open roadstead) and predicted range cannot separate the stations (all predict about 2-3 ft); TIMING does. The first pass treated the island harbour gauges as sheltered and sent spots to a far "open" station: that was 1-2 h wrong (Maui north shore -> Makena runs 69-81 min after Kahului; Oahu west -> Haleiwa runs 82-143 min before Waianae).
+ *  The harbour gauges whose water follows the open coast within minutes of their neighbours are 'open'; only those with no such evidence stay 'closed-if-alternative' (used when nothing open is in range, and then labelled with the reason). Honolulu, Waimanalo and Haleiwa/Pearl Harbor are not covered here (unknown or classed by name). */
+const HAWAII_REVIEWED: Record<string, ['open' | 'closed' | 'closed-if-alternative', string]> = {
+  '1610367': ['open', 'Nonopapa anchorage on the open west coast of Niihau'],
+  '1613226': ['open', 'Kolo wharf on the open south coast of Molokai'],
+  '1615395': ['open', 'Hana Bay, an open roadstead on the east Maui coast'],
+  '1615202': ['open', 'Makena, the open south-west Maui coast; Lahaina runs only 6 min from it'],
+  '1617277': ['open', 'Mahukona, an open-coast landing on the Kohala coast'],
+  '1617846': ['open', 'Kailua Kona pier on the open Kona coast'],
+  '1618578': ['open', 'Honuapo pier on the open south Hawaii coast'],
+  '1611683': ['open', 'Hanalei Bay pier, an open roadstead exposed to the north swell'],
+  '1611401': ['open', 'Waimea (Kauai) pier on the open south-west coast; Nawiliwili is within 12 min'],
+  '1611443': ['open', 'Hanamaulu Bay, an open bay on the east Kauai coast; Nawiliwili is within 7 min'],
+  'TPT2779': ['open', 'Laie Bay on the open north-east Oahu coast'],
+  '1615680': ['open', 'Kahului harbour gauge at the harbour entrance: NOAA predictions 29 min from Hana and 70 min from Lahaina, but the nearest open-coast stations to north-shore Maui are further off; it is the best local tide for the north shore (Makena runs 69-81 min after it)'],
+  '1612482': ['open', 'Waianae harbour gauge: its predicted times match Pearl Harbor Entrance (8 min) and Honolulu (19 min), while Haleiwa runs 82-143 min before it, so it is the right gauge for Oahu west'],
+  '1611400': ['open', 'Nawiliwili harbour gauge: predicted times within 7 min of Hanamaulu Bay and 12 min of Waimea (Kauai), ranges 2.29 against 2.28 and 1.97 ft'],
+  '1617433': ['open', 'Kawaihae harbour gauge: predicted times within 26-28 min of Mahukona and Kailua Kona, ranges 2.54 against 2.36 ft'],
+  'TPT2799': ['open', 'Lahaina roadstead gauge: predicted times within 6 min of Makena, ranges 2.59 against 2.09 ft'],
+  '1617760': ['open', 'Hilo harbour gauge: predicted times within 36 min of Honuapo and 22 min of Hana, ranges 2.98 against 3.0 and 2.94 ft'],
+  '1613198': ['closed-if-alternative', 'Kaunakakai harbour gauge behind the reef (13 min from Kolo, range 2.51 against 2.26 ft): kept only when no open station is within range'],
+  '1613155': ['open', 'Pukoo Harbor is the only gauge on the east Molokai coast: its predicted times run 46-58 min from Kaunakakai and Kolo and about 80 min from Lahaina, so a far gauge is no substitute and the local one is used (a small-boat harbour gauge, labelled as such in its reason)'],
+  '1614465': ['open', 'Kaumalapau harbour gauge: predicted times match Kolo (0 min), ranges 2.46 against 2.26 ft; Lahaina runs 47 min from it, so it is the right gauge for the Lanai coast'],
+  '1613077': ['closed-if-alternative', 'Kamalo Harbor, a small-boat harbour: no open-coast station to compare with, kept only when none is within range'],
+  '1611347': ['closed-if-alternative', 'Port Allen harbour gauge (28 min from Waimea, Kauai): kept only when no open station is within range'],
+  '1612480': ['closed', 'Moku O Loe is inside Kaneohe Bay, a reef-fringed lagoon: its tide is the lagoon\'s'],
+  'TPT2777': ['closed', 'Waikane is inside Kaneohe Bay, a reef-fringed lagoon: its tide is the lagoon\'s'],
+};
+for (const [id, [exposure, reason]] of Object.entries(HAWAII_REVIEWED)) TIDE_EXPOSURE_OVERRIDES[id] = {exposure, reason: `${reason} (${COOPS(id)})`};
 export const isEastStationId = (id: string) => /^(8\d{6}|TEC\d+)$/.test(id);
 for (const [ids, exposure, reason] of EAST_REVIEWED) for (const id of ids) TIDE_EXPOSURE_OVERRIDES[id] = {exposure, reason: `${reason} (${COOPS(id)})`};
+/** What a fallback station is, for the note on the tide card: a harbour gauge in Hawaii, an inlet or bay-side station elsewhere. */
+export const fallbackLabel = (id?: string): string => (id && HAWAII_REVIEWED[id] ? 'Harbour gauge' : 'Inlet or bay-side station');
 export function tideStationExposure(name: string, id?: string): {exposure: TideExposure | 'closed-if-alternative'; why: string} {
   const o = id ? TIDE_EXPOSURE_OVERRIDES[id] : undefined; if (o) return {exposure: o.exposure, why: `reviewed: ${o.reason}`};
   if (/\binside\b/i.test(name)) return {exposure: 'closed', why: 'its name says "inside"'};
@@ -162,10 +216,10 @@ export function tideStationExposure(name: string, id?: string): {exposure: TideE
   return {exposure: 'unknown', why: 'nothing in its name says open coast or enclosed (a town or harbour name)'};
 }
 /** The station a spot uses: the nearest one within `maxKm` that is not closed (a 'closed-if-alternative' one only when no open station is in range). `stations` are {id?, name, lat, lon, ...}. */
-export function pickTideStation<T extends {id?: string; name: string; lat: number; lon: number}>(spotLat: number, spotLon: number, stations: T[], maxKm = 40): {station: T; distanceKm: number; exposure: TideExposure} | null {
+export function pickTideStation<T extends {id?: string; name: string; lat: number; lon: number}>(spotLat: number, spotLon: number, stations: T[], maxKm = 40): {station: T; distanceKm: number; exposure: TideExposure; fallback?: boolean; fallbackLabel?: string} | null {
   const all = stations.map((s) => ({station: s, distanceKm: Math.round(km(spotLat, spotLon, s.lat, s.lon) * 10) / 10, exposure: tideStationExposure(s.name, s.id).exposure})).filter((x) => x.distanceKm <= maxKm).sort((a, b) => a.distanceKm - b.distanceKm);
   const anyOpen = all.some((x) => x.exposure === 'open');
-  const ok = all.filter((x) => x.exposure === 'open' || x.exposure === 'unknown' || (x.exposure === 'closed-if-alternative' && !anyOpen)).map((x) => ({...x, fallback: x.exposure === 'closed-if-alternative', exposure: (x.exposure === 'closed-if-alternative' ? 'unknown' : x.exposure) as TideExposure}));
+  const ok = all.filter((x) => x.exposure === 'open' || x.exposure === 'unknown' || (x.exposure === 'closed-if-alternative' && !anyOpen)).map((x) => ({...x, fallback: x.exposure === 'closed-if-alternative', ...(x.exposure === 'closed-if-alternative' ? {fallbackLabel: fallbackLabel(x.station.id)} : {}), exposure: (x.exposure === 'closed-if-alternative' ? 'unknown' : x.exposure) as TideExposure}));
   return ok[0] ?? null;
 }
 /** The registry station a SPOT uses for its "next tide": the nearest that is not closed (see tideStationExposure), within 40 km. Same shape as nearestTideStations()[0]. */
@@ -182,7 +236,7 @@ const km = (aLat: number, aLon: number, bLat: number, bLon: number) => { const r
 /** A spot with no genuinely local station (none within this many km) near San Francisco uses the SF regional reference for its "next tide" too, because its hourly tide series IS that station (pipeline.ts attaches it within the Bay radius):
  *  one station per spot on every surface (Bolinas and Stinson, whose lagoon station was dropped by the open-coast rule). The SF station must itself be within 40 km and not much farther (10 km) than the pick it replaces (Pescadero, 61 km from SF, keeps Ano Nuevo). Spots with a local station keep it (Ocean Beach, Linda Mar, Montara...: their hourly series stays labelled the regional reference). */
 export const SF_LOCAL_KM = 15;
-export function tideStationFor(spot: {id: string; country?: string; latitude: number; longitude: number}): {station: TideStation; distanceKm: number; /** an inlet-mouth or bay-side station used only because no open-coast station is in range: its times and range differ from the open beach */ fallback?: boolean} | null {
+export function tideStationFor(spot: {id: string; country?: string; latitude: number; longitude: number}): {station: TideStation; distanceKm: number; /** an inlet-mouth or bay-side station used only because no open-coast station is in range: its times and range differ from the open beach */ fallback?: boolean; fallbackLabel?: string} | null {
   if (!hasUsData(spot)) return null;
   const pick = tideStationForSpot(spot.latitude, spot.longitude);
   if (nearSanFrancisco(spot.latitude, spot.longitude) && (!pick || pick.distanceKm > SF_LOCAL_KM)) { const sf = tideStations.find((s) => s.id === SF_STATION); if (sf) { const d = Math.round(km(spot.latitude, spot.longitude, sf.lat, sf.lon) * 10) / 10; if (d <= 40 && (!pick || d <= pick.distanceKm + 10)) return {station: sf, distanceKm: d}; } }

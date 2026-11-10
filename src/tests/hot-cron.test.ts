@@ -32,7 +32,8 @@ test('spotOfKey names the spot of a per-spot Open-Meteo key and nothing else', (
   assert.equal(spotOfKey('tides'), null); assert.equal(spotOfKey('ndbc-46012'), null); assert.equal(spotOfKey('nearshore-MOP123'), null);
 });
 // 429 = every app spot (146 + 283 US East): all of them hot is the worst case; the cron counts the newest 180 only, so it costs the same as 180 hot
-for (const [n, h] of [[254, 100], [500, 150], [1000, 150], [429, 429]] as const) {
+// 492 = the catalogue after the rest-of-Hawaii round: the production path (hot/cold) with a realistic hot set (150) and the cap (180).
+for (const [n, h] of [[254, 100], [492, 150], [492, 180], [500, 150], [1000, 150], [429, 429]] as const) {
   test(`hot-only cron at ${n} spots, ${h} hot: only hot spots' Open-Meteo targets are fetched, every hot target stays inside its TTL (+20 min), each run under 1,000 subrequests`, async () => {
     const t = rig(n, h), {peak, last, clock} = await t.run();
     if (process.env.SHOW) console.log(`${n} spots, ${h} hot: peak ${peak} subrequests/run; ${JSON.stringify(last.hot)}; ${JSON.stringify(hotBudget(n, h))}`);
