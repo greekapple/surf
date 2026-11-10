@@ -171,32 +171,35 @@ const EAST_REVIEWED: [string[], 'open' | 'closed' | 'closed-if-alternative', str
 /** US East: the open-coast stations (name says ocean, outer coast, pier, jetty, light, point or beach on the Atlantic shore, and the position is on the ocean side of the barrier island or cape; CO-OPS station home page). Only these count as open on the East Coast: any other East station (id 8xxxxxx or TECnnnn) is treated as closed, because on this coast most stations sit in bays, harbours, sounds, creeks and the Intracoastal Waterway behind barrier islands. */
 const EAST_OPEN = ['8531680', '8534720', '8450768', '8451351', '8453999', '8454658', '8448875', '8448942', '8459681', '8532337', '8533071', '8639168', '8639428', '8651370', '8651605', '8652226', 'TEC2789', '8654400', '8657419', '8658163', '8658559', '8659897', '8659182', '8663101', '8665494', 'TEC3047', 'TEC3127', '8667630', '8669625', '8670892', '8677344', '8679997', '8720194', '8720259', '8720291', '8720587', '8721120', 'TEC3693', '8721604', '8721649', '8721727', '8721804', '8722105', '8722212', '8722366', '8722862', '8722899', '8722979', '8723080', '8723170', '8723178'];
 for (const id of EAST_OPEN) TIDE_EXPOSURE_OVERRIDES[id] = {exposure: 'open', reason: `reviewed open Atlantic coast: the station's own name and position are on the ocean side (${COOPS(id)})`};
-/** Hawaii (2026-11-09, corrected after the data-honesty review): the CO-OPS stations the importer can pick in the islands, classed from the station name and position (the CO-OPS station home page) and checked against each other with NOAA's own predicted high/low times for 2026-11-10 (datagetter hilo, MLLW).
+/** Hawaii (2026-11-10, timing re-checked over 7 days: NOAA predicted high/low times 2026-11-10..16, mean offset of each station against its neighbours, nearest same-type extremum within 3 h; the first pass used 2 days. No class changed: the 7-day means agree with the first pass, and only the numbers in the reasons moved) (first written 2026-11-09, corrected after the data-honesty review): the CO-OPS stations the importer can pick in the islands, classed from the station name and position (the CO-OPS station home page) and checked against each other with NOAA's own predicted high/low times for 2026-11-10 (datagetter hilo, MLLW).
  *  The word rule is wrong both ways here ("Bay" is usually an open roadstead) and predicted range cannot separate the stations (all predict about 2-3 ft); TIMING does. The first pass treated the island harbour gauges as sheltered and sent spots to a far "open" station: that was 1-2 h wrong (Maui north shore -> Makena runs 69-81 min after Kahului; Oahu west -> Haleiwa runs 82-143 min before Waianae).
- *  The harbour gauges whose water follows the open coast within minutes of their neighbours are 'open'; only those with no such evidence stay 'closed-if-alternative' (used when nothing open is in range, and then labelled with the reason). Honolulu, Waimanalo and Haleiwa/Pearl Harbor are not covered here (unknown or classed by name). */
+ *  The harbour gauges whose water follows the open coast within minutes of their neighbours are 'open'; only those with no such evidence stay 'closed-if-alternative' (used when nothing open is in range, and then labelled with the reason). Haleiwa keeps its own override above (the open north shore). */
 const HAWAII_REVIEWED: Record<string, ['open' | 'closed' | 'closed-if-alternative', string]> = {
+  '1612340': ['open', 'Honolulu, the Oahu reference station at the harbour entrance on the south shore: 7-day mean offset 7 min (sd 19) from Pearl Harbor Entrance and 19 min (sd 1) from Waianae, so the leeward gauges agree; Waimanalo and Haleiwa run 76 and 92 min from it, which is why the windward and north-shore spots use their own gauges'],
+  '1612376': ['open', 'Waimanalo, the open windward Oahu coast (Waimanalo Bay, no harbour): 7-day mean offset 76 min from Honolulu (sd 32), 34 min from Laie Bay (sd 2) and 8 min from Moku O Loe, range ratio 1.05 to Honolulu: a separate windward regime, so east Oahu keeps it'],
+  '1612366': ['open', 'Pearl Harbor Entrance (Bishop Point), the harbour mouth on the south coast: 7-day mean offset 7 min (sd 19) from Honolulu and 12 min (sd 20) from Waianae, range ratio 0.96'],
   '1610367': ['open', 'Nonopapa anchorage on the open west coast of Niihau'],
   '1613226': ['open', 'Kolo wharf on the open south coast of Molokai'],
   '1615395': ['open', 'Hana Bay, an open roadstead on the east Maui coast'],
-  '1615202': ['open', 'Makena, the open south-west Maui coast; Lahaina runs only 6 min from it'],
+  '1615202': ['open', 'Makena, the open south-west Maui coast; 7-day mean offset to Lahaina 5 min (sd 2)'],
   '1617277': ['open', 'Mahukona, an open-coast landing on the Kohala coast'],
   '1617846': ['open', 'Kailua Kona pier on the open Kona coast'],
   '1618578': ['open', 'Honuapo pier on the open south Hawaii coast'],
   '1611683': ['open', 'Hanalei Bay pier, an open roadstead exposed to the north swell'],
   '1611401': ['open', 'Waimea (Kauai) pier on the open south-west coast; Nawiliwili is within 12 min'],
   '1611443': ['open', 'Hanamaulu Bay, an open bay on the east Kauai coast; Nawiliwili is within 7 min'],
-  'TPT2779': ['open', 'Laie Bay on the open north-east Oahu coast'],
-  '1615680': ['open', 'Kahului harbour gauge at the harbour entrance: NOAA predictions 29 min from Hana and 70 min from Lahaina, but the nearest open-coast stations to north-shore Maui are further off; it is the best local tide for the north shore (Makena runs 69-81 min after it)'],
-  '1612482': ['open', 'Waianae harbour gauge: its predicted times match Pearl Harbor Entrance (8 min) and Honolulu (19 min), while Haleiwa runs 82-143 min before it, so it is the right gauge for Oahu west'],
-  '1611400': ['open', 'Nawiliwili harbour gauge: predicted times within 7 min of Hanamaulu Bay and 12 min of Waimea (Kauai), ranges 2.29 against 2.28 and 1.97 ft'],
-  '1617433': ['open', 'Kawaihae harbour gauge: predicted times within 26-28 min of Mahukona and Kailua Kona, ranges 2.54 against 2.36 ft'],
-  'TPT2799': ['open', 'Lahaina roadstead gauge: predicted times within 6 min of Makena, ranges 2.59 against 2.09 ft'],
-  '1617760': ['open', 'Hilo harbour gauge: predicted times within 36 min of Honuapo and 22 min of Hana, ranges 2.98 against 3.0 and 2.94 ft'],
-  '1613198': ['closed-if-alternative', 'Kaunakakai harbour gauge behind the reef (13 min from Kolo, range 2.51 against 2.26 ft): kept only when no open station is within range'],
-  '1613155': ['open', 'Pukoo Harbor is the only gauge on the east Molokai coast: its predicted times run 46-58 min from Kaunakakai and Kolo and about 80 min from Lahaina, so a far gauge is no substitute and the local one is used (a small-boat harbour gauge, labelled as such in its reason)'],
-  '1614465': ['open', 'Kaumalapau harbour gauge: predicted times match Kolo (0 min), ranges 2.46 against 2.26 ft; Lahaina runs 47 min from it, so it is the right gauge for the Lanai coast'],
-  '1613077': ['closed-if-alternative', 'Kamalo Harbor, a small-boat harbour: no open-coast station to compare with, kept only when none is within range'],
-  '1611347': ['closed-if-alternative', 'Port Allen harbour gauge (28 min from Waimea, Kauai): kept only when no open station is within range'],
+  'TPT2779': ['open', 'Laie Bay on the open north-east Oahu coast; 7-day mean offset to Waimanalo 34 min (sd 2), a fixed subordinate relation'],
+  '1615680': ['open', 'Kahului harbour gauge at the harbour entrance, the north-shore Maui reference: 7-day mean offset Hana 30 min, Hilo -50, Lahaina 70, Makena 75 (sd 6), so the south gauges run over an hour late for the north shore'],
+  '1612482': ['open', 'Waianae harbour gauge: 7-day mean offset to Honolulu 19 min (sd 1) and Pearl Harbor Entrance 12 min, while Haleiwa runs 111 min before it, so it is the right gauge for Oahu west'],
+  '1611400': ['open', 'Nawiliwili harbour gauge: 7-day mean offset 7 min from Hanamaulu Bay and 12 min from Waimea (Kauai), range ratios 1.01 and 0.85'],
+  '1617433': ['open', 'Kawaihae harbour gauge: 7-day mean offset -26 min from Mahukona and -29 min from Kailua Kona (sd 36), range ratio 0.89'],
+  'TPT2799': ['open', 'Lahaina roadstead gauge: 7-day mean offset to Makena 5 min (sd 2), range ratio 0.81'],
+  '1617760': ['open', 'Hilo harbour gauge: 7-day mean offset 36 min from Honuapo (sd 2) and -23 min from Hana, range ratios 1.01'],
+  '1613198': ['closed-if-alternative', 'Kaunakakai harbour gauge behind the reef (7-day mean offset 7 min from Kolo, sd 16; it would qualify as open on the same test as Hilo): kept only when no open station is within range'],
+  '1613155': ['open', 'Pukoo Harbor is the only gauge on the east Molokai coast: 7-day mean offset 59 min from Kolo (sd 9) and 52 min from Kaunakakai (sd 14), and 13 min from Lahaina but with sd 43 (no stable relation), so a far gauge is no substitute and the local one is used (a small-boat harbour gauge)'],
+  '1614465': ['open', 'Kaumalapau harbour gauge: 7-day mean offset 1 min from Kolo (sd 2), range ratio 0.90; Lahaina runs -46 min (sd 42) from it, so it is the right gauge for the Lanai coast'],
+  '1613077': ['closed-if-alternative', 'Kamalo Harbor, a small-boat harbour (7-day mean offset 30 min from Kolo, 23 min from Kaunakakai): kept only when no open station is within range'],
+  '1611347': ['closed-if-alternative', 'Port Allen harbour gauge (7-day mean offset 22 min from Waimea and 10 min from Nawiliwili; it would qualify as open on the same test as Hilo): kept only when no open station is within range'],
   '1612480': ['closed', 'Moku O Loe is inside Kaneohe Bay, a reef-fringed lagoon: its tide is the lagoon\'s'],
   'TPT2777': ['closed', 'Waikane is inside Kaneohe Bay, a reef-fringed lagoon: its tide is the lagoon\'s'],
 };

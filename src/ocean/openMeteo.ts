@@ -24,7 +24,7 @@ export const absent=(unit:Measurement['unit'],source:SourceInfo,reason:string):M
 /** Unvalidated breaking-wave range from primary swell, or the refusal reason. Not fed into ratings. */
 export function faceEstimate(s:SpotEvidence,offshore:Measurement,primary:OceanSwell,secondary:OceanSwell|null):FaceEstimate{
  const c=breakingProfile(s.id),r=estimateBreaking({swellHsFt:primary.height.value,periodS:primary.period.value,directionDeg:primary.direction.value,combinedHsFt:offshore.value,secondaryHsFt:secondary?.height.value??null},c,s.orientation);
- if(!r.ok)return {refusal:r.reason};
+ if(!r.ok)return {refusal:r.reason,refusalCode:r.code,swellDirectionDeg:primary.direction.value};
  const t=buoyTransferAt(s.id,offshore.value); // T-131 phase 2: our buoy-evidenced correction of the v1 transfer, only at the listed spots and only in the offshore-Hs size bins where it held
  return t?{input:r.input,centralFt:r.nearshoreFt*t.factor,breakingFt:r.centralFt*breakingFactor(t.factor),transfer:{factor:t.factor,uncorrectedFt:r.nearshoreFt,uncorrectedBreakingFt:r.centralFt,text:buoyTransferText(t),tag:buoyTransferTag(t)}}:{input:r.input,centralFt:r.nearshoreFt,breakingFt:r.centralFt};
 }

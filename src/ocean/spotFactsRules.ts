@@ -77,12 +77,47 @@ export function clampWindow(fromDeg: number, toDeg: number, facingDeg: number, h
   else { const left = a <= half, right = b >= -half; if (left && right) { lo = -half; hi = half; } else if (left) { lo = Math.max(a, -half); hi = half; } else if (right) { lo = -half; hi = Math.min(b, half); } else return null; }
   return [norm(facingDeg + lo), norm(facingDeg + hi)];
 }
+/** The directions the guides call ideal, per guide, as degrees on the 16-point rose. The text is "<directions> (<guide>); <directions> (<guide>)", with full names ("South-southwest", "SouthWest") or the 16 abbreviations ("NW", "S"), "(both)" for the two main guides, or "<guide>: <text>"; text with no compass word gives none. */
+const FULL_WORDS: Record<string, number> = {north: 0, northnortheast: 22.5, northeast: 45, eastnortheast: 67.5, east: 90, eastsoutheast: 112.5, southeast: 135, southsoutheast: 157.5, south: 180, southsouthwest: 202.5, southwest: 225, westsouthwest: 247.5, west: 270, westnorthwest: 292.5, northwest: 315, northnorthwest: 337.5};
+const ROSE = ['N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW'];
+const ABBR: Record<string, number> = Object.fromEntries(ROSE.map((r, i) => [r, i * 22.5]));
+const GUIDE_NAME: Record<string, string> = {surfnerd: 'Surfnerd', 'surf-forecast': 'Surf-Forecast', wannasurf: 'Wannasurf'};
+export interface IdealByGuide {guides: string[]; dirs: number[]}
+export function idealByGuide(t: string | null | undefined): IdealByGuide[] {
+  const out: IdealByGuide[] = [], named = (x: string): string[] => { const m = (x.toLowerCase().match(/surfnerd|surf-forecast|wannasurf/g) ?? []), both = /\b(both|agree)/i.test(x); return [...new Set([...m, ...(both ? ['surfnerd', 'surf-forecast'] : [])])]; };
+  const dirsIn = (body: string) => [...new Set((body.match(/[A-Za-z]+(?:-[A-Za-z]+)?/g) ?? []).map((w) => ABBR[w] ?? FULL_WORDS[w.toLowerCase().replace(/-/g, '')]).filter((x): x is number => typeof x === 'number'))];
+  for (const raw of String(t ?? '').split(';')) {
+    const pre = /^\s*(surfnerd|surf-forecast|wannasurf)\s*:/i.exec(raw); let rest = raw.replace(pre?.[0] ?? '', '');
+    // "(surf-forecast: southwest)" inside a segment is that guide's own list
+    for (const m of [...rest.matchAll(/\(\s*(surfnerd|surf-forecast|wannasurf)\s*:\s*([^)]*)\)/gi)]) { const dirs = dirsIn(m[2]); if (dirs.length) out.push({guides: [m[1].toLowerCase()], dirs}); }
+    rest = rest.replace(/\(\s*(surfnerd|surf-forecast|wannasurf)\s*:[^)]*\)/gi, ' ');
+    const tag = [...rest.matchAll(/\(([^)]*)\)/g)].map((m) => m[1]).join(' '), guides = pre ? [pre[1].toLowerCase()] : named(tag), dirs = dirsIn(rest.replace(/\([^)]*\)/g, ' '));
+    if (dirs.length) out.push({guides, dirs});
+  }
+  return out;
+}
+const inWindow = (d: number, [a, b]: [number, number]) => norm(d - a) <= norm(b - a);
+const list = (xs: string[]) => (xs.length < 2 ? xs.join('') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
+/** The guides' best swell directions that lie outside the ±60° window (Dumps: Surf-Forecast's best is SSW, the window starts at SW and W; Surfnerd's exposure is W): said on the spot, never widened by estimate. Only Surfnerd and Surf-Forecast give a "best"; Wannasurf's lists are directions that work, not a best, so they are not used. `dirs` are the outside directions in degrees; `partly` is true when some best direction is inside. Null when none is outside. */
+export function outsideFacing(f: GuideFacts, window: [number, number]): {text: string; dirs: number[]; partly: boolean} | null {
+  const best = idealByGuide(f.idealSwell).map((x) => ({...x, guides: x.guides.filter((g) => g !== 'wannasurf'), wannaOnly: x.guides.length > 0 && x.guides.every((g) => g === 'wannasurf')})).filter((x) => !x.wannaOnly);
+  const named = [...new Set(best.flatMap((x) => x.guides))], all = [...new Set(best.flatMap((x) => x.dirs))].sort((a, b) => a - b), outside = all.filter((d) => !inWindow(d, window));
+  if (!outside.length) return null;
+  const dirsOf = (g: string) => [...new Set(best.filter((x) => x.guides.includes(g)).flatMap((x) => x.dirs))];
+  const items = outside.map((d) => {
+    const by = named.filter((g) => dirsOf(g).includes(d)), others = named.filter((g) => !by.includes(g));
+    const who = !by.length ? "a guide's best" : named.length >= 2 && by.length === named.length ? "both guides' best" : `${by.map((g) => GUIDE_NAME[g]).join(' and ')}'s best`;
+    return `${ROSE[Math.round(d / 22.5) % 16]} (${[who, ...others.map((g) => `${GUIDE_NAME[g]} says ${list(dirsOf(g).map((x) => ROSE[Math.round(x / 22.5) % 16]))}`)].join('; ')})`;
+  });
+  const partly = all.some((d) => inWindow(d, window));
+  return {text: `published best swell is ${partly ? 'partly ' : ''}outside ±60° of the sourced facing: swells from ${list(items)} give no surf-height estimate (never widened by estimate)`, dirs: outside, partly};
+}
 /** The v1 breaking profile for guide facts, or null when estimates are not allowed. window = the guide's swell range; minPeriod generic; shelter 1; face factors the shared unvalidated 0.7–1.4 band. */
 export function breakingProfileFromGuide(f: GuideFacts): BreakingCalibration | null {
   const e = enablement(f); if (!e.estimate || !f.swellWindow || !f.facing) return null;
   const window = clampWindow(f.swellWindow.fromDeg, f.swellWindow.toDeg, f.facing.deg); if (!window) return null;
   return {spotId: f.spotId, faceFactors: [0.7, 1.4], window, minPeriod: GENERIC_MIN_PERIOD_S, shelter: e.shelter!,
-    note: `Spot facts from published guides (${src(f).length ? [...new Set(f.sources.filter((s) => !isGeometrySource(s)).map((s) => s.site))].join(', ') : 'none'}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${derivedFacing(f) ? `${f.facing.deg}° derived from coastline geometry (CDIP MOP shore normals)` : f.facing.text}. Minimum period is the generic 8 s. ${openSector(f) ? 'Shelter 0 for the offshore-swell estimate (v1 refuses): a source calls it sheltered, and only the CDIP nearshore model (v2), which includes the sheltering, may estimate inside the open sector the guide lists' : `Shelter 1 (${ f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}${f.waveType && f.waveType !== 'beach' && !openSector(f) ? `; for this ${f.waveType} that rests on one guide's "exposed" statement` : ''}). Unvalidated.`}${openSector(f) ? '. Unvalidated.' : ''}`};
+    note: `Spot facts from published guides (${src(f).length ? [...new Set(f.sources.filter((s) => !isGeometrySource(s)).map((s) => s.site))].join(', ') : 'none'}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${derivedFacing(f) ? `${f.facing.deg}° derived from coastline geometry (CDIP MOP shore normals)` : f.facing.text}. ${outsideFacing(f, window) ? `${outsideFacing(f, window)!.text.replace(/^./, (c) => c.toUpperCase())}. ` : ''}Minimum period is the generic 8 s. ${openSector(f) ? 'Shelter 0 for the offshore-swell estimate (v1 refuses): a source calls it sheltered, and only the CDIP nearshore model (v2), which includes the sheltering, may estimate inside the open sector the guide lists' : `Shelter 1 (${ f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}${f.waveType && f.waveType !== 'beach' && !openSector(f) ? `; for this ${f.waveType} that rests on one guide's "exposed" statement` : ''}). Unvalidated.`}${openSector(f) ? '. Unvalidated.' : ''}`};
 }
 /** A MOP candidate qualifies when its shore normal is within the tolerance of the guide's facing; the closest one wins. */
 export function pickMop(f: GuideFacts, candidates: {id: string; shoreNormalDeg: number}[]): {id: string; offsetDeg: number} | null {

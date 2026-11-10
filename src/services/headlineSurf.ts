@@ -8,9 +8,9 @@ import {pickMop, nowcastFor} from './nearshoreSelect.ts';
 import {firstStale, staleText, type Stale} from './freshness.ts';
 import {intervalFor} from './uncertainty.ts';
 import {spreadAt, spreadStale} from './modelSpread.ts';
-import {isGuideProfile} from '../ocean/localCalibration.ts';
+import {isGuideProfile, breakingProfile} from '../ocean/localCalibration.ts';
 import {guideFactsFor} from '../ocean/spotFactsSourced.ts';
-import {isGeometrySource, derivedFacing, enablement} from '../ocean/spotFactsRules.ts';
+import {isGeometrySource, derivedFacing, enablement, outsideFacing} from '../ocean/spotFactsRules.ts';
 import {bodyWords, BODY_WORDS_NOTE} from './bodyWords.ts';
 import {surfBandFor, setsFactor, confidenceText, type SurfBand, type Confidence} from './surfBand.ts';
 import {allSpots} from '../data/catalog.ts';
@@ -40,13 +40,28 @@ function calibrated<T extends Extract<HeadlineSurf, {kind: 'estimate'}>>(spotId:
 
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 export const ESTIMATE_LABEL = 'Est. surf height · model estimate';
+/** Said on the spot, never widened by estimate: the guides' best swell lies outside (or partly outside) the ±60° window the sourced facing allows (Dumps: SSW and S). Null when nothing is outside. Lower-case start, to follow a separator. */
+export function outsideFacingNote(spotId: string): string | null { return outsideFacingFor(spotId)?.text ?? null; }
+function outsideFacingFor(spotId: string) {
+  if (!isGuideProfile(spotId)) return null;
+  const f = guideFactsFor(spotId), bp = breakingProfile(spotId);
+  return f && bp ? outsideFacing(f, bp.window) : null;
+}
+/** The same sentence for ONE hour of the scale card: only when that hour was refused because its swell lies outside the window and its direction is one of the listed outside directions (a short period, a wind-sea hour or a swell from inside the window is refused for another reason and says nothing about the facing). */
+export function outsideFacingForHour(spotId: string, hour: Forecast | undefined): string | null {
+  const o = outsideFacingFor(spotId), fe = hour?.evidence?.faceEstimate as {refusalCode?: string; swellDirectionDeg?: number | null} | undefined;
+  if (!o || fe?.refusalCode !== 'outside-window' || typeof fe.swellDirectionDeg !== 'number') return null;
+  const d = fe.swellDirectionDeg;
+  return o.dirs.some((x) => Math.min(Math.abs(d - x), 360 - Math.abs(d - x)) <= 11.25) ? o.text : null;
+}
 /** One source line for a guide-derived estimate (T-071b), said once in the method label: where the inputs came from and that they are unreviewed. */
 export function guideBasis(spotId: string): string | null {
   if (!isGuideProfile(spotId)) return null;
   const f = guideFactsFor(spotId), sites = [...new Set((f?.sources ?? []).filter((x) => !isGeometrySource(x)).map((x) => (x.site === 'surf-forecast' ? 'Surf-Forecast' : x.site === 'surfnerd' ? 'Surfnerd' : x.site)))];
   // A facing derived from CDIP coastline geometry is not a guide fact: say so, and keep the guide list for the swell window only.
   const guides = `${sites.length ? ` (${sites.join(', ')})` : ''}`;
-  return f && derivedFacing(f) ? `facing derived from coastline geometry (CDIP); swell window from published guides${guides}, not reviewed; 8 s generic minimum period` : `facing and swell window from published guides${guides}, not reviewed; 8 s generic minimum period`;
+  const outside = outsideFacingNote(spotId) ? `; ${outsideFacingNote(spotId)}` : '';
+  return f && derivedFacing(f) ? `facing derived from coastline geometry (CDIP); swell window from published guides${guides}, not reviewed; 8 s generic minimum period${outside}` : `facing and swell window from published guides${guides}, not reviewed; 8 s generic minimum period${outside}`;
 }
 /** T-077 (user decision "Surfer convention"): the headline is the height surfers and surf reports quote, about the nearshore significant wave height (a CDIP MOP value at 10–15 m depth), NOT the larger breaking height (about 1.3 times that for Ocean Beach swells, docs/forecast/OB-BIAS-T076.md). The breaking height stays in the detail. */
 const METHOD_LABEL = {'mop-v2': `Surf height (common convention: about the CDIP nearshore wave height) from the nearshore point (${BREAKING_V2_VERSION}, unvalidated)`, v1: 'Surf height (common convention: about the nearshore wave height) estimated from offshore swell carried to 10 m (v1, unvalidated)'} as const;

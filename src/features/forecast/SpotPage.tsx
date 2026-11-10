@@ -326,7 +326,7 @@ export function BuoyNow({buoy, series, p, now}: {buoy: ObservationSet | null | u
 
 /** Wave scale panel (T-048): the hour's face estimate, a surfer at the user's height and their best board, drawn to one scale.
  *  Drawn from data only (no imagery). Without a face estimate the wave is not drawn: offshore height is not surf size. */
-export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserProfile; board: import('../../models/index').Surfboard | null; onOpen: () => void}) {
+export function ScalePanel({hs, p, board, outsideNote, onOpen}: {hs: HeadlineSurf; p: UserProfile; board: import('../../models/index').Surfboard | null; outsideNote?: string | null; onOpen: () => void}) {
   const me = userHeight(p), personFt = me.feet; // the surfer's own height (Personal › Surf preferences), else the labelled 5'10" default
   const flat = isFlat(hs), est = hs.kind === 'estimate' && !flat ? hs : null, boardFt = board ? board.length / 12 : 0; // T-130: a Flat hour draws no wave (still water), never a zero-height face
   const top = Math.max(est ? est.hiFt * 1.08 : 0, personFt * 1.15, boardFt * 1.1, 7);
@@ -338,7 +338,7 @@ export function ScalePanel({hs, p, board, onOpen}: {hs: HeadlineSurf; p: UserPro
   // T-098 (Codex P2): the caption describes THIS card's drawing: the estimate's range (outer = high bound, inner = low bound) beside the
   // person's own height (userHeight), not the 3D view's single face and fixed 5'9" surfer. Offshore-only hours say there is no breaking-wave estimate.
   const scaleLine = flat ? `${FLAT_ESTIMATE_TEXT}: the nearshore model has under half a foot here` : est ? "The estimate's range, drawn to scale beside you"
-    : hs.kind === 'offshore' ? `No breaking-wave estimate · ${ht(hs.ft, p)} ${p.heightUnit} offshore swell, not surf size` : 'No breaking-wave estimate for this hour';
+    : hs.kind === 'offshore' ? `No breaking-wave estimate · ${ht(hs.ft, p)} ${p.heightUnit} offshore swell, not surf size${outsideNote ? ` · ${outsideNote}` : ''}` : 'No breaking-wave estimate for this hour';
   const chart = (
       <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
         {ticks.map((t) => <g key={t}><line x1={22} x2={214} y1={yy(t)} y2={yy(t)} stroke="var(--line)" strokeWidth={1} /><text x={18} y={yy(t) + 4} fontSize={10} textAnchor="end" fill="var(--dim)">{t}</text></g>)}

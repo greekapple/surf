@@ -111,3 +111,10 @@ test('Hawaii review round: harbour gauges whose predicted times match their open
   assert.equal(tideStationExposure('x', '1611347').exposure, 'closed-if-alternative');
   assert.equal(fallbackLabel('1611347'), 'Harbour gauge'); assert.equal(fallbackLabel('8515186'), 'Inlet or bay-side station');
 });
+
+test('3C: Honolulu, Waimanalo and Pearl Harbor Entrance are reviewed open from 7 days of NOAA predicted times, each reason carries the comparison, and east Oahu keeps Waimanalo', async () => {
+  const {tideStationExposure, tideStationForSpot} = await import('../ocean/tideStations.ts');
+  for (const id of ['1612340', '1612376', '1612366']) { const e = tideStationExposure('x', id); assert.equal(e.exposure, 'open'); assert.match(e.why, /7-day mean offset/); }
+  assert.equal(tideStationForSpot(21.2879, -157.6663)!.station.name, 'Waimanalo');   // Sandy Beach
+  assert.equal(tideStationForSpot(21.2766, -157.8275)!.station.name, 'HONOLULU');   // Waikiki
+});

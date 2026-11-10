@@ -152,3 +152,47 @@ test('Hawaii review round: Pohue Bay Beach has no breaking profile (its only sou
   assert.deepEqual(breakingProfile('w-hawaii-pakala')!.window, [187.5, 292.5]);
   assert.deepEqual(breakingProfile('cs-neah-bay')!.window, [202.5, 292.5]);   // an existing row: the rule is scoped to the new Hawaii rows
 });
+
+test('3C review: ideal-swell text parsing: full names, the 16 abbreviations, per-guide lists, "(both)", "(surf-forecast: southwest)" inside a segment; Wannasurf is not a best', async () => {
+  const {idealByGuide} = await import('../ocean/spotFactsRules.ts');
+  assert.deepEqual(idealByGuide('SW (surfnerd); W (surf-forecast)'), [{guides: ['surfnerd'], dirs: [225]}, {guides: ['surf-forecast'], dirs: [270]}]);
+  assert.deepEqual(idealByGuide('South-southwest (surf-forecast); SouthWest, South (wannasurf)'), [{guides: ['surf-forecast'], dirs: [202.5]}, {guides: ['wannasurf'], dirs: [225, 180]}]);
+  assert.deepEqual(idealByGuide('W (both)'), [{guides: ['surfnerd', 'surf-forecast'], dirs: [270]}]);
+  assert.deepEqual(idealByGuide('West (surf-forecast: southwest)'), [{guides: ['surf-forecast'], dirs: [225]}, {guides: [], dirs: [270]}]);
+  assert.deepEqual(idealByGuide('surfnerd: best days from crossed-up combo swells (no direction); surf-forecast: SW angle'), [{guides: ['surf-forecast'], dirs: [225]}]);
+  assert.deepEqual(idealByGuide('not stated (surfnerd)'), []);
+});
+test('3C review: the outside-the-facing sentence names the guide per direction, says "partly" only when some best direction is inside, is a plain list, and leaves Wannasurf-only and inside-window spots alone', async () => {
+  const {outsideFacing} = await import('../ocean/spotFactsRules.ts');
+  const f = (idealSwell: string) => ({idealSwell}) as any;
+  const whole = outsideFacing(f('South-southwest (surf-forecast); South (wannasurf)'), [210, 292.5])!;
+  assert.equal(whole.partly, false); assert.equal(whole.text, "published best swell is outside ±60° of the sourced facing: swells from SSW (Surf-Forecast's best) give no surf-height estimate (never widened by estimate)");
+  const partly = outsideFacing(f('SW (surfnerd); W (surf-forecast)'), [250, 340])!;   // W inside, SW outside
+  assert.equal(partly.partly, true); assert.match(partly.text, /^published best swell is partly outside ±60° of the sourced facing: swells from SW \(Surfnerd's best; Surf-Forecast says W\) give no/);
+  const two = outsideFacing(f('N (surfnerd); S (surf-forecast)'), [90, 150])!; assert.match(two.text, /N \(Surfnerd's best; Surf-Forecast says S\) and S \(Surf-Forecast's best; Surfnerd says N\) give/); assert.doesNotMatch(two.text, / and .* and /);
+  assert.match(outsideFacing(f('SE (both)'), [0, 90])!.text, /SE \(both guides' best\)/);
+  assert.equal(outsideFacing(f('SouthEast, East (wannasurf)'), [270, 330]), null, 'Wannasurf lists directions that work, not a best');
+  assert.equal(outsideFacing(f('W (surfnerd)'), [250, 330]), null, 'inside the window');
+  assert.deepEqual(whole.dirs, [202.5]);
+});
+test('3C review: Dumps says so with the guide named, abbreviations now count (Malibu, Capitola, Neah Bay), the counts are 58 rows (23 non-Hawaii), and no window moved', async () => {
+  const {outsideFacingNote} = await import('../services/headlineSurf.ts');
+  assert.deepEqual(breakingProfile('w-hawaii-dumps')!.window, [210, 292.5]);
+  assert.match(outsideFacingNote('w-hawaii-dumps')!, /swells from SSW \(Surf-Forecast's best\) give no surf-height estimate/);
+  assert.match(breakingProfile('w-hawaii-dumps')!.note, /Published best swell is outside ±60° of the sourced facing/);
+  for (const id of ['cs-malibu', 'cs-capitola', 'cs-neah-bay', 'spot-6', 'spot-8']) assert.ok(outsideFacingNote(id), id);
+  assert.equal(outsideFacingNote('spot-2'), null);   // Ocean Beach: reviewed, not a guide profile
+  const withNote = breakingProfiles.filter((p) => outsideFacingNote(p.spotId)); assert.equal(withNote.length, 58); assert.equal(withNote.filter((p) => !p.spotId.startsWith('w-')).length, 23);
+  assert.deepEqual(breakingProfile('w-hawaii-pakala')!.window, [187.5, 292.5]); assert.deepEqual(breakingProfile('cs-neah-bay')!.window, [202.5, 292.5]);
+});
+test('3C review: the scale card says it only on an hour refused for being outside the window, on one of the listed directions; a short-period or inside-window refusal says nothing', async () => {
+  const {outsideFacingForHour, guideBasis} = await import('../services/headlineSurf.ts');
+  const hour = (refusalCode: string, swellDirectionDeg: number | null) => ({evidence: {faceEstimate: {refusal: 'x', refusalCode, swellDirectionDeg}}}) as any;
+  assert.match(outsideFacingForHour('w-hawaii-dumps', hour('outside-window', 200))!, /SSW \(Surf-Forecast's best\)/);   // SSW = 202.5 ± 11.25
+  assert.equal(outsideFacingForHour('w-hawaii-dumps', hour('outside-window', 100)), null, 'outside the window but not a listed direction');
+  assert.equal(outsideFacingForHour('w-hawaii-dumps', hour('short-period', 200)), null);
+  assert.equal(outsideFacingForHour('w-hawaii-dumps', hour('wind-sea-dominant', 200)), null);
+  assert.equal(outsideFacingForHour('w-hawaii-dumps', hour('outside-window', null)), null);
+  assert.equal(outsideFacingForHour('w-hawaii-dumps', undefined), null);
+  assert.match(guideBasis('w-hawaii-dumps')!, /; published best swell is outside ±60° of the sourced facing: swells from SSW/);
+});
