@@ -3,7 +3,7 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
 import {evidenceSpots} from '../../ocean/spots';
-import {ZONES} from '../../data/zones';
+import {ZONES, zoneOf} from '../../data/zones';
 import type {Forecast, Skill, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
 import {formatHeight, parseHeight, userHeight} from '../../services/heightMath';
@@ -21,6 +21,7 @@ import {SawList} from './SawList';
 import {addObservation, checkObservation, downloadText, loadLog, logToCsv, logToJson, removeObservation, saveLog, type ObservationContext} from '../../services/sessionLog';
 import {pickMop, nowcastFor} from '../../services/nearshoreSelect';
 import {assignmentFor} from '../../ocean/mop';
+import {orderSpots, pageWindow, SPOTS_PER_PAGE} from './spotList';
 import {headlineSurf} from '../../services/headlineSurf';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
 import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
@@ -100,6 +101,9 @@ export function PersonalView({section, go}: ViewProps) {
   const [themePref, setThemePref] = useThemePref();
   const [mapStyle, setMapStyle] = useState<BasemapPref>(() => readBasemapPref());
   const [hash, setHash] = useState(() => location.hash);
+  // Favorite spots page: search, region chips, favourites and spots near the selected spot first, and 40 cards at a time (a window, never the whole catalogue in the DOM).
+  const [spotQ, setSpotQ] = useState(''), [spotZone, setSpotZone] = useState('All'), [spotPage, setSpotPage] = useState(0);
+  const orderedSpots = useMemo(() => orderSpots(spots, evidenceSpots, view.selected, data.state.favorites, spotQ, spotZone), [spotQ, spotZone, view.selected, data.state.favorites]); // eslint-disable-line react-hooks/exhaustive-deps
   const [rules, setRulesState] = useState<AlertRule[]>(loadRules);
   const [extras, setExtras] = useState<JournalExtras>(loadExtras);
   const [prefs, setPrefsState] = useState<BoardPrefs>(loadBoardPrefs);
@@ -283,13 +287,27 @@ export function PersonalView({section, go}: ViewProps) {
             </div>
           </Page>
         );
-      case 'spots':
+      case 'spots': {
+        const {pages, page, from, to} = pageWindow(orderedSpots.length, spotPage), shown = orderedSpots.slice(from, to);
+        const pickZone = (z: string) => { setSpotZone(z); setSpotPage(0); };
         return (
           <Page title="Favorite spots" onBack={toList}>
-            <p className="fine">Star a spot to keep it on Home. {data.state.favorites.length} saved.</p>
-            <ul className="pz-spots pz-spots-all">{spots.map((s, i) => spotCard(s, i))}</ul>
+            <p className="fine">Star a spot to keep it on Home. {data.state.favorites.length} saved. Saved spots come first, then the spots nearest {spotName(view.selected)}.</p>
+            <input className="pz-spot-search" type="search" value={spotQ} onChange={(e) => { setSpotQ(e.target.value); setSpotPage(0); }} placeholder="Search spots by name or region" aria-label="Search spots" />
+            <div className="pz-spot-chips" role="group" aria-label="Region">
+              {['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={spotZone === z} onClick={() => pickZone(z)}>{z}</button>)}
+            </div>
+            {!orderedSpots.length ? <p className="fine" role="status">No spot matches{spotQ ? ` “${spotQ}”` : ''}{spotZone !== 'All' ? ` in ${spotZone}` : ''}.</p> : <>
+              <p className="fine" role="status">Showing {from + 1}–{from + shown.length} of {orderedSpots.length} spots</p>
+              <ul className="pz-spots pz-spots-all">{shown.map((s, i) => spotCard(s, from + i))}</ul>
+              {pages > 1 && <div className="pz-spot-pager">
+                <button type="button" className="btn" disabled={page === 0} onClick={() => setSpotPage(page - 1)}>Show previous {SPOTS_PER_PAGE}</button>
+                <button type="button" className="btn" disabled={page >= pages - 1} onClick={() => setSpotPage(page + 1)}>Show next {SPOTS_PER_PAGE}</button>
+              </div>}
+            </>}
           </Page>
         );
+      }
       case 'preferences':
         return (
           <Page title="Surf preferences" onBack={toList}>

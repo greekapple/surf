@@ -252,3 +252,10 @@
 @media (max-width: 860px) { .pzl-gh { font-size: 15px; } }
 /* T-109: a long row value ("Surf height (as reports quote)") wraps to a second line on phones instead of running under the gutter as clipped text. */
 @media (max-width: 860px) { .pzl-v { white-space: normal; text-align: right; overflow: visible; } }
+
+/* favorite spots: search, region chips, pager */
+.pz-spot-search { width: 100%; max-width: 420px; min-height: 44px; margin-top: 12px; padding: 0 12px; border-radius: 10px; border: 1px solid var(--line, rgba(128,128,128,.4)); background: var(--card, transparent); color: inherit; font: inherit; }
+.pz-spot-chips { display: flex; gap: 12px; flex-wrap: nowrap; overflow-x: auto; padding: 4px 2px 8px; margin: 10px 0 0; scrollbar-width: thin; }
+.pz-spot-chips button { flex: 0 0 auto; white-space: nowrap; min-height: 44px; padding: 0 12px; border-radius: 18px; border: 1px solid var(--line, rgba(128,128,128,.4)); background: transparent; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
+.pz-spot-chips button[aria-pressed="true"] { background: var(--accent, #1d6fb8); border-color: transparent; color: #fff; }
+.pz-spot-pager { display: flex; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
