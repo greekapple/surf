@@ -18,6 +18,7 @@ import {SpotBand} from './SpotBand';
 import {camsFor} from '../../data/cams';
 import {LiveCamPanel} from './LiveCam';
 import {HdontapLinks} from './HdontapLinks';
+import {WaterQuality} from './WaterQuality';
 import {glyphFor} from '../../services/waveGlyph';
 import {userHeight} from '../../services/heightMath';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
@@ -128,6 +129,8 @@ export function ForecastView({go}: ViewProps) {
       <NwsBanner spotId={spot.id} />
       <CallBar call={call} />
       <DaylightRow d={daylight} />
+      {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}
+      <WaterQuality spotId={spot.id} />
       {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages. (Showing a camera in the page is the Camera panel below, under the amended camera rule in src/data/cams.ts.) */}
       {cams.length > 0 && <section className="sp-cams" aria-labelledby="sp-cams-h">
         <h2 id="sp-cams-h">Cams</h2>

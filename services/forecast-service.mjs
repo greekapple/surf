@@ -2,6 +2,7 @@ import {retryAfterMs,failureCategory,forecastRange,clippedGridURL} from './provi
 import {createHowRight} from './how-right.mjs';
 import {createCoastRatings} from './coast-ratings.mjs';
 import {createCamMeta} from './cam-meta.mjs';
+import {createWaterQuality} from './water-quality.mjs';
 import {createEmbedAllowed} from './embed-allowed.mjs';
 import {createHowRightAll} from './how-right-all.mjs';
 /** Public ocean data only. Fixed providers and spot IDs; no arbitrary URL forwarding. */
@@ -100,7 +101,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
  const howRight=createHowRight({fetcher,now,timeoutMs,readLatest:(env,key)=>read(env,key),persistent});
  /** The spot ids a browser asked for in the last 24 h (the newest HOT_MAX), from the hot objects' `uploaded` time: the spots whose cached marine / wind copy is fresh (the daily "how right" capture reads those instead of fetching). */
  const hotIds=async env=>{const since=now()-24*3600000,found=[];let cursor;do{const l=await env.BUCKET.list({prefix:HOT_PREFIX,cursor});for(const o of l.objects)found.push({id:o.key.slice(HOT_PREFIX.length),ts:+new Date(o.uploaded)});cursor=l.truncated?l.cursor:undefined}while(cursor);return new Set(found.filter(x=>x.ts>=since&&!x.id.startsWith('~')).sort((x,y)=>y.ts-x.ts).slice(0,HOT_MAX).map(x=>x.id))};
- const coastRatings=createCoastRatings({now}),camMeta=createCamMeta({fetcher,now}),embedAllowed=createEmbedAllowed({fetcher,now});
+ const coastRatings=createCoastRatings({now}),camMeta=createCamMeta({fetcher,now}),waterQuality=createWaterQuality({fetcher,now}),embedAllowed=createEmbedAllowed({fetcher,now});
  const howRightAll=createHowRightAll({fetcher,now,sleep,timeoutMs,readLatest:(env,key)=>read(env,key),hotIds});
  async function failure(env,target){if(!failures.has(target.key))failures.set(target.key,await fromBucket(env,'forecast/v10/failures/'+target.key+'.json'));return failures.get(target.key);}
  async function originFailure(env,target){const host=new URL(target.url).hostname;if(!originFailures.has(host))originFailures.set(host,await fromBucket(env,'forecast/v10/origins/'+host+'.json'));return originFailures.get(host);}
@@ -220,6 +221,7 @@ const handle=async function(request,env={},ctx={waitUntil:()=>{}}){const url=new
   if(url.pathname==='/api/grid'){const field=url.searchParams.get('field'),time=url.searchParams.get('time'),target=ingestionTargets(now(),spots).find(t=>t.field===field);if(!target||!time||!Number.isFinite(Date.parse(time)))return json({error:'Invalid regional field or timestamp'},400);const value=await retrieve(target,env),table=value.payload.table,ti=table.columnNames.indexOf('time'),rows=table.rows.filter(r=>Date.parse(r[ti])===Date.parse(time));if(!rows.length)return json({error:'No exact regional model frame at this valid time',code:'no_frame'},404);return json({...value,payload:{table:{...table,rows}}});}
   if(url.pathname==='/api/how-right')return howRight.respond(env);
   if(url.pathname==='/api/cam-meta')return camMeta.respond(url);
+  if(url.pathname==='/api/water-quality')return waterQuality.respond(url);
   if(url.pathname==='/api/embed-allowed')return embedAllowed.respond(url);
   if(url.pathname==='/api/how-right-all')return howRightAll.respond(env,persistent(env));
   if(url.pathname==='/api/coast-ratings')return coastRatings.respond(env?.BUCKET,request,ctx);
