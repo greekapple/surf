@@ -432,3 +432,15 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
   .wordmark { font-size: 21px; padding-right: 0; margin-left: 0; }
   .searchbar { gap: 5px; padding: 0 8px 0 10px; }
 }
+
+/* §6 search autofill: the input sits over a ghost line holding the typed text (invisible) and the completion (light grey), in the same font */
+.acf { position: relative; display: flex; flex: 1; min-width: 0; align-items: center; }
+.acf > input { position: relative; z-index: 1; flex: 1; min-width: 0; padding: 0 !important; font-size: inherit !important; font-family: inherit; background: none; }
+.acf-g { position: absolute; inset: 0; display: flex; align-items: center; white-space: pre; overflow: hidden; pointer-events: none; font: inherit; }
+.acf-t { visibility: hidden; }
+.acf-c { color: var(--muted); opacity: 0.75; }
+.xsearch .acf { font-size: 15px; }
+.search-in .acf { font-size: 18px; }
+@media (max-width: 860px) { .xsheet.phone .xsearch .acf { font-size: 16px; } }
+/* the search boxes mark focus on their container (border); the input inside the autofill wrapper draws no ring of its own */
+.xsearch .acf > input:focus, .xsearch .acf > input:focus-visible, .search-in .acf > input:focus, .search-in .acf > input:focus-visible { outline: none; box-shadow: none; }

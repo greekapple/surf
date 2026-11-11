@@ -1,10 +1,16 @@
 import {zoneOf} from '../../data/zones.ts';
+import {categoryForScore} from '../../ratings/engine.ts';
 
-/** 4E coast groups: when zoomed out, each browsing region shows one pill (its best rating at the hour, which spot, and the spread of bands) instead of its pins.
- *  Regions merge into their zone, then a coast, then a seaboard until the pills fit; no two pills overlap. No average is ever computed: an average hides the one spot that works. */
+/** Map groups by zoom (spec docs/specs/2026-11-10-map-zoom-groups.md; first built as 4E coast groups). Zoomed out, groups of spots show one pill instead of their pins:
+ *  far out a seaboard or coast with its spot count only; closer, pills with a reading (a LABELLED average, the best spot and the spread of bands), getting smaller as
+ *  you zoom, down to clusters of 10 to 20 nearby spots; close in, the pins. Groups merge into their parent until the pills fit; no two pills overlap. */
 
-/** Pills replace pins below this zoom (favourites and the focused spot keep their pin). */
-export const COAST_MAX_ZOOM = 7;
+/** Pins only from this zoom (the focused spot and favourites keep their pin at every zoom). */
+export const COAST_MAX_ZOOM = 10;
+/** Below this zoom a pill shows its name and spot count only: no reading ("zoom in for ratings"). */
+export const READING_MIN_ZOOM = 5;
+/** Clusters: a region with more than CLUSTER_MAX spots is split along the coast into runs of CLUSTER_MIN to CLUSTER_MAX spots. */
+export const CLUSTER_MIN = 10, CLUSTER_MAX = 20;
 
 /** Coasts above the zones (ZONES, north to south), then the seaboards. Our own grouping for the map; every zone belongs to exactly one coast. */
 export const COASTS: [string, string[]][] = [
@@ -31,25 +37,99 @@ export const SEABOARDS: [string, string[]][] = [
   ['East Coast', ['New England', 'Mid-Atlantic', 'Southeast', 'Florida', 'Gulf Coast', 'Puerto Rico']],
 ];
 
-/** A group node id is "<level>:<name>": 0 region, 1 zone, 2 coast, 3 seaboard. */
+/** A group node id is "<level>:<name>": 0 cluster (a run of spots inside a big region), 1 region, 2 zone, 3 coast, 4 seaboard. */
 export type NodeId = string;
 export const nodeId = (level: number, name: string): NodeId => `${level}:${name}`;
 export const levelOf = (id: NodeId) => Number(id.slice(0, id.indexOf(':')));
 export const nameOf = (id: NodeId) => id.slice(id.indexOf(':') + 1);
+/** Clusters of the catalogue the nodes were last built from: each cluster's region and display name ("Mavericks to Pigeon Point"). */
+const CLUSTER_PARENT = new Map<NodeId, NodeId>(), CLUSTER_NAME = new Map<NodeId, string>(), CLUSTER_ENDS = new Map<NodeId, [string, string, string]>();
+/** A cluster's first and last spot names (its name is "<first> to <last>"), for a pill that ellipsises each end on its own; null for other groups. */
+export const clusterEnds = (id: NodeId): [string, string, string] | null => CLUSTER_ENDS.get(id) ?? null;
+/** The word between a cluster's two end names: "to", unless a name already says "to" ("Longnook to Ballston Beach"), then a dash, so the name never reads as three places. */
+export const clusterJoin = (a: string, b: string) => (/\bto\b/i.test(`${a} ${b}`) ? ' – ' : ' to ');
 export function parentOf(id: NodeId): NodeId | null {
   const lv = levelOf(id), n = nameOf(id);
-  if (lv === 0) { const z = mapZoneOf(n); return z === 'Other' ? null : nodeId(1, z); }
-  const up = lv === 1 ? COASTS : lv === 2 ? SEABOARDS : null;
+  if (lv === 0) return CLUSTER_PARENT.get(id) ?? null;
+  if (lv === 1) { const z = mapZoneOf(n); return z === 'Other' ? null : nodeId(2, z); }
+  const up = lv === 2 ? COASTS : lv === 3 ? SEABOARDS : null;
   const hit = up?.find(([, kids]) => kids.includes(n));
   return hit ? nodeId(lv + 1, hit[0]) : null;
 }
 export function ancestors(id: NodeId): NodeId[] { const out: NodeId[] = []; for (let p = parentOf(id); p; p = parentOf(p)) out.push(p); return out; }
-/** Every node that holds at least one of these spots' regions, with its spot ids. */
-export function buildNodes(spots: {id: string; region: string}[]): Map<NodeId, string[]> {
-  const out = new Map<NodeId, string[]>();
-  for (const s of spots) for (const n of [nodeId(0, s.region), ...ancestors(nodeId(0, s.region))]) { const l = out.get(n); if (l) l.push(s.id); else out.set(n, [s.id]); }
+/** What a pill is called: a cluster by its first and last spot, an island zone as the islands ("Oahu"), anything else by its own name. */
+export const displayName = (id: NodeId) => CLUSTER_NAME.get(id) ?? nameOf(id).replace(/^Hawaii · /, '');
+
+type Pt = {id: string; name: string; latitude: number; longitude: number};
+/** The spots of one region in order along the coast: start at the spot farthest from the region's centre (an end of the coast), then always step to the nearest
+ *  spot not yet visited; the run is turned so it reads north to south (west to east on an east-west coast). Deterministic: ties go to the smaller id. */
+export function coastOrder(spots: Pt[]): Pt[] {
+  if (spots.length <= 2) return [...spots].sort((a, b) => b.latitude - a.latitude || a.longitude - b.longitude || (a.id < b.id ? -1 : 1));
+  const lat0 = spots.reduce((n, s) => n + s.latitude, 0) / spots.length, k = Math.cos((lat0 * Math.PI) / 180);
+  const xy = (s: Pt) => [s.longitude * k, s.latitude], d = (a: Pt, b: Pt) => { const [ax, ay] = xy(a), [bx, by] = xy(b); return Math.hypot(ax - bx, ay - by); };
+  const c = {id: '', name: '', latitude: lat0, longitude: spots.reduce((n, s) => n + s.longitude, 0) / spots.length};
+  const byId = [...spots].sort((a, b) => (a.id < b.id ? -1 : 1));
+  let cur = byId.reduce((m, s) => (d(s, c) > d(m, c) ? s : m), byId[0]);
+  const left = new Set(byId.filter((s) => s !== cur)), out = [cur];
+  while (left.size) { let next: Pt | null = null; for (const s of left) if (!next || d(cur, s) < d(cur, next)) next = s; left.delete(next!); out.push(next!); cur = next!; }
+  // 2-opt on the open path: reverse a stretch whenever that shortens the walk (undoes the jumps back a nearest-neighbour chain can leave), until nothing improves
+  twoOpt(out, d);
+  const a = out[0], b = out[out.length - 1], flip = Math.abs(a.latitude - b.latitude) >= Math.abs(a.longitude - b.longitude) * k ? b.latitude > a.latitude : b.longitude < a.longitude;
+  return flip ? out.reverse() : out;
+}
+/** Open-path 2-opt: reverse out[i..j] while that shortens the path; deterministic (first improvement, scanned in order). */
+export function twoOpt<T>(out: T[], d: (a: T, b: T) => number): T[] {
+  const n = out.length, eps = 1e-9;
+  for (let improved = true, rounds = 0; improved && rounds < 1000; rounds++) {
+    improved = false;
+    for (let i = 0; i < n - 1; i++) for (let j = i + 1; j < n; j++) {   // either end may move: reversing a stretch that starts or ends the path changes one edge
+      const before = (i > 0 ? d(out[i - 1], out[i]) : 0) + (j + 1 < n ? d(out[j], out[j + 1]) : 0), after = (i > 0 ? d(out[i - 1], out[j]) : 0) + (j + 1 < n ? d(out[i], out[j + 1]) : 0);
+      if (after + eps < before) { out.splice(i, j - i + 1, ...out.slice(i, j + 1).reverse()); improved = true; }
+    }
+  }
   return out;
 }
+/** Split an ordered run into ceil(n / CLUSTER_MAX) contiguous parts of CLUSTER_MIN..CLUSTER_MAX spots, cutting where the coast has its widest gaps (the sum of the
+ *  distances at the cuts is the largest possible). Returns the part sizes. Deterministic. */
+export function splitRun(gaps: number[], n: number): number[] {
+  const k = Math.ceil(n / CLUSTER_MAX); if (k <= 1) return [n];
+  // best[j][i]: the largest gap sum splitting the first i spots into j parts; cut before spot i scores gaps[i] (the distance from spot i-1 to spot i)
+  const best: number[][] = Array.from({length: k + 1}, () => Array(n + 1).fill(-Infinity)), from: number[][] = Array.from({length: k + 1}, () => Array(n + 1).fill(-1));
+  best[0][0] = 0;
+  for (let j = 1; j <= k; j++) for (let i = 1; i <= n; i++) for (let size = CLUSTER_MIN; size <= CLUSTER_MAX && size <= i; size++) {
+    const p = i - size; if (best[j - 1][p] === -Infinity) continue;
+    const v = best[j - 1][p] + (p > 0 ? gaps[p] : 0);
+    if (v > best[j][i] || (v === best[j][i] && p > from[j][i])) { best[j][i] = v; from[j][i] = p; }
+  }
+  const sizes: number[] = []; let i = n;
+  for (let j = k; j >= 1; j--) { const p = from[j][i]; sizes.unshift(i - p); i = p; }
+  return sizes;
+}
+/** Every node that holds at least one of these spots, with its spot ids: clusters (regions over CLUSTER_MAX spots, split along the coast), regions, zones,
+ *  coasts, seaboards. Rebuilds the cluster registry, so it follows the catalogue. */
+export function buildNodes(spots: (Pt & {region: string})[]): Map<NodeId, string[]> {
+  CLUSTER_PARENT.clear(); CLUSTER_NAME.clear(); CLUSTER_ENDS.clear();
+  const out = new Map<NodeId, string[]>(), add = (n: NodeId, id: string) => { const l = out.get(n); if (l) l.push(id); else out.set(n, [id]); };
+  const byRegion = new Map<string, (Pt & {region: string})[]>();
+  for (const s of spots) { const l = byRegion.get(s.region); if (l) l.push(s); else byRegion.set(s.region, [s]); }
+  for (const [region, list] of byRegion) {
+    const reg = nodeId(1, region);
+    for (const s of list) for (const n of [reg, ...ancestors(reg)]) add(n, s.id);
+    if (list.length <= CLUSTER_MAX) continue;
+    const run = coastOrder(list), lat0 = run[0].latitude, k = Math.cos((lat0 * Math.PI) / 180);
+    const gaps = run.map((s, i) => (i ? Math.hypot((s.longitude - run[i - 1].longitude) * k, s.latitude - run[i - 1].latitude) : 0));
+    let at = 0;
+    splitRun(gaps, run.length).forEach((size, i) => {
+      const part = run.slice(at, at + size), id = nodeId(0, `${region} · ${i + 1}`); at += size;
+      const a = part[0].name, b = part[part.length - 1].name, join = clusterJoin(a, b);
+      CLUSTER_PARENT.set(id, reg); CLUSTER_NAME.set(id, `${a}${join}${b}`); CLUSTER_ENDS.set(id, [a, b, join]);
+      out.set(id, part.map((s) => s.id));
+    });
+  }
+  return out;
+}
+/** The groups the layout starts from: every cluster, and every region that is not split. */
+export const leavesOf = (nodes: Map<NodeId, string[]>) => [...nodes.keys()].filter((id) => levelOf(id) === 0 || (levelOf(id) === 1 && ![...CLUSTER_PARENT.values()].includes(id)));
 
 export type Band = 'good' | 'fair' | 'poor' | 'none';
 /** One spot at the selected hour, from the same rating its pin shows. `rank` is the pins' own priority (favourites, popular, original spots), used only to break a tie. */
@@ -63,19 +143,26 @@ export interface GroupSummary {
   counts: Record<Band, number>;
   /** the highest-scoring rated DAYLIT spot at this hour; only when every rated spot is in the dark, the highest of those (and `allDark`) */
   best: SpotState | null; allDark: boolean;
+  /** the AVERAGE (user, 2026-11-10): the mean score of the rated, daylit spots at this hour (live and daily-forecast alike), its band, and how many spots it is over */
+  avg: {mean: number; n: number; band: Band; category: string; snapN: number} | null;   // category: the engine's word for the ROUNDED mean (SOLID, NOT BAD…); band: its colour; snapN: daily-forecast values in it
 }
-/** Best and spread from the same per-spot ratings the pins show. A dark spot is never the best while a daylit one is rated (after dark is never a surf window).
- *  Ties on score go to the higher pin rank, then the earlier spot. Nothing is averaged. */
+const BAND_OF: Record<string, Band> = {EPIC: 'good', FIRING: 'good', GOOD: 'good', SOLID: 'good', 'NOT BAD': 'fair', SURFABLE: 'fair', WEAK: 'poor', POOR: 'poor'};
+/** A score's band (the pins' bands: SOLID and up good, SURFABLE and NOT BAD fair, below poor), through the engine's own score -> category table. */
+export const bandOfScore = (score: number): Band => BAND_OF[categoryForScore(score)] ?? 'none';
+/** Average, best and spread from the same per-spot ratings the pins show. A dark spot is never the best while a daylit one is rated (after dark is never a surf
+ *  window) and never counts in the average. Ties on score go to the higher pin rank, then the earlier spot. */
 export function summarise(states: SpotState[]): GroupSummary {
-  const counts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}, snapCounts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}; let day: SpotState | null = null, dark: SpotState | null = null, loaded = 0, snap = 0, snapFrom: number | null = null, snapTo: number | null = null;
+  const counts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}, snapCounts: Record<Band, number> = {good: 0, fair: 0, poor: 0, none: 0}; let day: SpotState | null = null, dark: SpotState | null = null, loaded = 0, snap = 0, snapFrom: number | null = null, snapTo: number | null = null, sum = 0, n = 0, snapN = 0;
   // a live value beats a daily-forecast value of the same score (live is what the pins show); then the pins' own rank, then the earlier spot
   const better = (a: SpotState, b: SpotState | null) => !b || a.score! > b.score! || (a.score === b.score && (!!b.snap > !!a.snap || (!!a.snap === !!b.snap && a.rank > b.rank)));
   for (const s of states) {
     if (s.loaded) { loaded++; counts[s.score === null ? 'none' : s.band]++; } else if (s.snap) { snap++; snapCounts[s.score === null ? 'none' : s.band]++; if (typeof s.retrieved === 'number') { snapFrom = snapFrom === null ? s.retrieved : Math.min(snapFrom, s.retrieved); snapTo = snapTo === null ? s.retrieved : Math.max(snapTo, s.retrieved); } } else continue;
     if (s.score === null) continue;
-    if (s.dark) { if (better(s, dark)) dark = s; } else if (better(s, day)) day = s;
+    if (s.dark) { if (better(s, dark)) dark = s; } else { if (better(s, day)) day = s; sum += s.score; n++; if (!s.loaded && s.snap) snapN++; }
   }
-  return {total: states.length, loaded, snap, snapCounts, snapFrom, snapTo, counts, best: day ?? dark, allDark: !day && !!dark};
+  // the average says the engine's own word for its (rounded) score, as a spot would: never a coarser band word that could read better than the best spot
+  const avg = n ? (() => { const mean = sum / n, category = categoryForScore(Math.round(mean)); return {mean, n, category, band: BAND_OF[category] ?? 'none' as Band, snapN}; })() : null;
+  return {total: states.length, loaded, snap, snapCounts, snapFrom, snapTo, counts, best: day ?? dark, allDark: !day && !!dark, avg};
 }
 const BAND_WORD = {good: 'good', fair: 'fair', poor: 'poor', none: 'not rated'} as const;
 const BAND_INK = {good: 'green', fair: 'amber', poor: 'red', none: 'grey'} as const;
@@ -86,7 +173,12 @@ export const BAR_KEY = 'Bar: spots per band, green good, amber fair, red poor, g
 export interface SnapInfo {/** the clock now (ms), for the age of the model run */ nowMs: number; /** a retrieval time in words ("Mon, Nov 9 · 11:40 PM PST") */ fmt: (ms: number) => string}
 /** "9 h", "40 min", "2 d": how old a model run is. */
 export const ageWords = (nowMs: number, ms: number) => { const h = Math.max(0, nowMs - ms) / 3600000; return h < 1 ? `${Math.max(1, Math.round(h * 60))} min` : h < 48 ? `${Math.round(h)} h` : `${Math.round(h / 24)} d`; };
-export function pillText(name: string, s: GroupSummary, word: (category: string) => string, color: Record<Band, string>, snapshot?: SnapInfo, loadingSnapshot = false): {html: string; label: string; title: string; color: string} {
+export function pillText(name: string, s: GroupSummary, word: (category: string) => string, color: Record<Band, string>, snapshot?: SnapInfo, loadingSnapshot = false, countOnly = false, ends?: [string, string, string?] | null): {html: string; label: string; title: string; color: string} {
+  const escC = (t: string) => t.replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]!), nSpots = `${s.total} spot${s.total === 1 ? '' : 's'}`;
+  // far out (a seaboard or a coast): the name and the count, no reading; tapping zooms in
+  // a cluster's name keeps its "to" visible: each end takes its own ellipsis
+  const nameHtml = ends ? `<b class="xc-name xc-pair"><span class="xc-a">${escC(ends[0])}</span><span class="xc-to">${ends[2] ?? ' to '}</span><span class="xc-b">${escC(ends[1])}</span></b>` : `<b class="xc-name">${escC(name)}</b>`;
+  if (countOnly) return {html: `${nameHtml}<span class="xc-best"><span class="xc-none">${nSpots} · zoom in for ratings</span></span>`, label: `${name}: ${nSpots}. Zoom in for ratings.`, title: `${name}: ${nSpots}. Zoom in for ratings.`, color: color.none};
   const esc = (t: string) => t.replace(/[&<>"]/g, (c) => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;'})[c]!);
   const snap = snapshot ? s.snap : 0, unloaded = s.total - s.loaded - snap, covered = s.loaded + snap, partial = covered > 0 && unloaded > 0, w = s.best ? word(s.best.category!) : '';
   const head = covered === 0 ? (loadingSnapshot ? 'Loading forecast…' : 'Not loaded yet') : !s.best ? (unloaded ? 'No ratings yet · loading' : 'No ratings this hour') : null;
@@ -96,21 +188,31 @@ export function pillText(name: string, s: GroupSummary, word: (category: string)
   const base = partial ? `Best of ${covered}/${s.total}` : 'Best', fc = ageOfBest ? `forecast ${ageOfBest} old` : 'daily forecast';
   // the key's forecast part is its own span: the phone hides it (the pill is too narrow for "Best, forecast 9 h old: Surfable") and shows the age on a line of its own instead (`xc-age`)
   const kl = (t: string) => `<span class="xc-kl">, ${t}</span>`, keyHtml = s.allDark ? (fromSnap ? `After dark${kl(fc)} ·` : 'After dark ·') : fromSnap ? `${base}${kl(fc)}:` : `${base}:`;
-  const ageLine = snap ? `<small class="xc-age">striped = forecast${ageOfBest || runAgeFor() ? ` ${ageOfBest || runAgeFor()} old` : ''}</small>` : '';
+  // the AVERAGE leads, labelled as one; "Avg of n/m" whenever it is not over every spot (unrated, dark, unloaded); the best spot follows so a firing spot is not hidden
+  const avgPartial = !!s.avg && s.avg.n < s.total, snapInAvg = !!s.avg && s.avg.snapN > 0 && !!snapshot, avgAge = runAgeFor(), avgWord = s.avg ? word(s.avg.category) : '';
+  const avgKey = s.avg ? `Avg${avgPartial ? ` of ${s.avg.n}/${s.total}` : ''}${snapInAvg ? kl(avgAge ? `forecast ${avgAge} old` : 'daily forecast') : ''}:` : '';
+  // the phone shows how much of the pill is the daily forecast, and how old (the counts line is hidden there)
+  const ageLine = snap ? `<small class="xc-age">striped = ${snap} of ${s.total} forecast${ageOfBest || runAgeFor() ? `, ${ageOfBest || runAgeFor()} old` : ''}</small>` : '';
   const part = (c: Record<Band, number>, kind: string) => (['good', 'fair', 'poor', 'none'] as const).filter((b) => c[b]).map((b) => (b === 'none' ? `${c[b]} not rated (${BAND_INK[b]})` : `${c[b]} ${kind}in the ${BAND_WORD[b]} band (${BAND_INK[b]})`));
   const spread = [...part(s.counts, snap ? 'live, ' : ''), ...(snap ? part(s.snapCounts, 'from the daily forecast, ') : []), ...(unloaded ? [`${unloaded} not loaded`] : [])].join(', ');
   // one source line: which model run, how old, rated with the current rules as of that run, not live, and why it can differ from a pin
   const run = snapshot && s.snapFrom !== null && s.snapTo !== null ? `${snapshot.fmt(s.snapFrom)}${s.snapTo - s.snapFrom >= 60000 ? ` to ${snapshot.fmt(s.snapTo)}` : ''}` : '', runAge = snapshot && s.snapFrom !== null ? ageWords(snapshot.nowMs, s.snapFrom) : '';
   const src = snap && run ? ` Daily forecast: the model run retrieved ${run} (${runAge} old), rated with the current rules as of that run; not live. A pin loads the newest run, so the two can differ.` : '';
-  const lead = head ? head.toLowerCase() : `${s.allDark ? 'after dark, the highest is' : fromSnap ? `${partial ? `best of the ${covered} covered of ${s.total}` : 'best'}, from the daily forecast (model run ${ageOfBest} old):` : partial ? `best of the ${covered} ${snap ? 'covered' : 'loaded'} of ${s.total}:` : 'best:'} ${w.toLowerCase()} at ${s.best!.name}`;
+  const avgLead = s.avg && !s.allDark ? `average ${avgWord.toLowerCase()}, provisional (the mean score ${Math.round(s.avg.mean)} of 100 over ${s.avg.n} rated daylight spot${s.avg.n === 1 ? '' : 's'} of ${s.total}${snapInAvg ? ', daily-forecast values included' : ''}); ` : '';
+  const lead = head ? head.toLowerCase() : avgLead + `${s.allDark ? 'after dark, the highest is' : fromSnap ? `${partial ? `best of the ${covered} covered of ${s.total}` : 'best'}, from the daily forecast (model run ${ageOfBest} old):` : partial ? `best of the ${covered} ${snap ? 'covered' : 'loaded'} of ${s.total}:` : 'best:'} ${w.toLowerCase()} at ${s.best!.name}`;
   const label = `${name}: ${lead}; ${spread}; ${s.total} spot${s.total === 1 ? '' : 's'}.${src} Show this coast.`;
   const seg = (n: number, c: string, cls = '') => (n ? `<i class="${cls}" style="flex-grow:${n};background:${c}"></i>` : '');
-  const html = `<b class="xc-name">${esc(name)}</b>`
-    + `<span class="xc-best">${head ? `<span class="xc-none">${head}</span>` : `<i class="xc-dot" aria-hidden="true"></i><span class="xc-k">${keyHtml}</span> ${esc(w)}<span class="xc-spot"> · ${esc(s.best!.name)}</span>`}</span>`
+  const html = nameHtml
+    + `<span class="xc-best">${head ? `<span class="xc-none">${head}</span>` : s.avg && !s.allDark
+      ? `<i class="xc-dot" aria-hidden="true"></i><span class="xc-k">${avgKey}</span> ${esc(avgWord)}</span><span class="xc-bestl"><span class="xc-avgbest">best ${esc(w)}${s.best!.snap && snapshot ? `<span class="xc-bsnap"> (forecast${typeof s.best!.retrieved === 'number' ? ` ${ageWords(snapshot.nowMs, s.best!.retrieved)}` : ''})</span>` : ''}</span><span class="xc-spot"> · ${esc(s.best!.name)}</span>`
+      : s.allDark
+      // after dark: the key on its own line, the highest word and its spot on the next (one line clipped at 1440 with the forecast age in the key)
+      ? `<i class="xc-dot" aria-hidden="true"></i><span class="xc-k">${keyHtml.replace(/ ·$/, '')}</span></span><span class="xc-bestl"><span class="xc-avgbest">highest ${esc(w)}</span><span class="xc-spot"> · ${esc(s.best!.name)}</span>`
+      : `<i class="xc-dot" aria-hidden="true"></i><span class="xc-k">${keyHtml}</span> ${esc(w)}<span class="xc-spot"> · ${esc(s.best!.name)}</span>`}</span>`
     + `<span class="xc-bar" aria-hidden="true">${seg(s.counts.good, color.good)}${seg(s.counts.fair, color.fair)}${seg(s.counts.poor, color.poor)}${seg(s.counts.none, color.none)}${snap ? seg(s.snapCounts.good, color.good, 'xc-snap') + seg(s.snapCounts.fair, color.fair, 'xc-snap') + seg(s.snapCounts.poor, color.poor, 'xc-snap') + seg(s.snapCounts.none, color.none, 'xc-snap') : ''}${seg(unloaded, 'transparent', 'xc-unl')}</span>`
     + ageLine
     + `<small class="xc-n">${s.total} spot${s.total === 1 ? '' : 's'}${s.loaded && s.loaded < s.total ? ` · ${s.loaded} live` : ''}${snap ? ` · ${snap} forecast, striped` : ''}</small>`;
-  return {html, label, title: `${label}\n${BAR_KEY}`, color: s.best ? color[s.best.band] : color.none};
+  return {html, label, title: `${label}\n${BAR_KEY}`, color: s.avg && !s.allDark ? color[s.avg.band] : s.best ? color[s.best.band] : color.none};
 }
 
 export interface Rect {left: number; top: number; right: number; bottom: number}

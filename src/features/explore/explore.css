@@ -484,6 +484,7 @@ button.xstatus { cursor: pointer; font: inherit; }
   .xbottom { left: 0; right: 0; bottom: var(--peek); flex-wrap: wrap; gap: 4px 8px; padding: 6px 8px; }
   .xbottom .xtime:not(.open) { flex: 1 1 100%; max-width: none; order: 1; }
   .xbottom .xleg, .xbottom > .xstatus { flex: 1 1 100%; margin-left: 0; order: 2; max-width: none; }
+  .xbottom > .xstatus { min-width: 0; }   /* a long status ('No spatial field for this hour…') takes its ellipsis instead of widening the strip past the screen */
   .xbottom .xleg .xchip { width: 100%; justify-content: space-between; padding: 0 4px; }
   .xbottom .xleg .xchip i { flex: 1; width: auto; }
   .xdark { order: 2; flex: none; }
@@ -831,9 +832,32 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xc-age { display: none; font-size: 10px; color: var(--muted); }   /* phones only: what the stripes mean and how old the forecast is */
 @media (max-width: 860px) {
   /* phones: compact (name and best band, the spread bar under them); the spot name and the count stay in the pill's label for screen readers */
-  .xcoast { min-width: 64px; max-width: 150px; padding: 4px 8px 5px; gap: 2px; border-radius: 8px; }
+  .xcoast { min-width: 64px; max-width: 196px; padding: 4px 8px 5px; gap: 2px; border-radius: 8px; }
   .xc-name { font-size: 12px; }
   .xc-best { font-size: 11px; }
   .xc-spot, .xc-n { display: none; }
   .xc-kl { display: none; } .xc-age { display: block; }
 }
+/* zoom groups: the far-out pill (name and count, "zoom in for ratings") has no bar; on phones it may be a little wider so the hint reads whole */
+@media (max-width: 860px) { .xcoastm.xcount .xcoast { max-width: 200px; } }
+/* §5: the focused spot's pin is above every other marker (its neighbours' 44 px touch targets and the coast pills), so the pin a search flies to is the one a tap reaches */
+.xpin.sel { z-index: 300 !important; }
+/* zoom groups: in the reading line the key, the average word and "best <word>" never shrink; the best spot's NAME takes the ellipsis */
+.xc-best > .xc-k, .xc-best > .xc-avgbest { flex: none; }
+.xc-best > .xc-spot { flex: 0 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* the best spot on its own line under the average ("best Surfable · Honolii Point"): the average line stays short, nothing it says is clipped */
+.xc-bestl { display: flex; align-items: baseline; font-size: 12px; color: var(--muted); min-width: 0; }
+.xc-bestl .xc-avgbest { flex: none; color: var(--text); font-weight: 600; }
+.xc-bestl .xc-spot { flex: 0 1 auto; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 860px) { .xc-bestl { font-size: 11px; } }
+/* t034 at 390: every pill text at least 12 px (the phone pill was 11) */
+@media (max-width: 860px) { .xcoast .xc-best, .xcoast .xc-bestl, .xcoast .xc-age, .xcoast .xc-n, .xcoast .xc-none { font-size: 12px; } }
+/* a cluster's name: "<first> to <last>", each end with its own ellipsis so the "to" always shows */
+.xc-name.xc-pair { display: flex; min-width: 0; white-space: nowrap; }
+.xc-pair .xc-a, .xc-pair .xc-b { min-width: 0; overflow: hidden; text-overflow: ellipsis; flex: 0 1 auto; }
+.xc-pair .xc-to { flex: none; white-space: pre; font-weight: 500; }
+.xc-bsnap { font-weight: 500; color: var(--muted); }
+/* the pill's single column never grows past its max-width (a long line wraps or takes its ellipsis instead of widening the pill) */
+.xcoast { grid-template-columns: minmax(0, 1fr); }
+.xcoast > * { min-width: 0; }
+.xc-age { white-space: normal; }

@@ -9,6 +9,9 @@ import {ht} from '../features/forecast/helpers';
 import {resolveTheme, useThemePref} from '../ui/theme';
 import {ZONES, zoneOf, stateOfZone} from '../data/zones';
 import {spotStrip} from '../services/spotStrip';
+import {AutofillInput} from '../ui/AutofillInput';
+import {completion, recentSpots, rememberSpot, searchSpots} from '../services/spotSearch';
+import {conditionWord} from '../ui/Condition';
 
 type Go = (area: Area, section?: string) => void;
 const linkProps = (go: Go, area: Area, section = '') => ({
@@ -248,13 +251,19 @@ function Search({go}: {go: Go}) {
     [spotOptions, view.mapRecords, now, data.state.profile]);
   const term = q.trim().toLowerCase();
   const favs = data.state.favorites;
-  const found = (term ? spotOptions.filter((s) => `${s.name} ${s.region}`.toLowerCase().includes(term)) : spotOptions.filter((s) => favs.includes(s.id))).slice(0, 14);
+  // §6: the shared matcher (prefix, word starts, region, one typo; accents and apostrophes ignored), favourites and recent picks first among equals;
+  // with an empty box, the last 5 picks (this browser only), then the saved spots
+  const [recents, setRecents] = useState<string[]>(recentSpots);
+  const byId = useMemo(() => new Map(spotOptions.map((s) => [s.id, s] as const)), [spotOptions]);
+  const ranked = term ? searchSpots(spotOptions, q, {favorites: favs, recents, limit: 14}) : [];
+  const found = term ? ranked.map((h) => byId.get(h.id)!).filter(Boolean) : [...new Set([...recents, ...favs])].map((id) => byId.get(id)).filter((s): s is NonNullable<typeof s> => !!s).slice(0, 14);
   // One group per county, in first-seen order; the keyboard order follows the groups.
   const byRegion = new Map<string, typeof found>();
   for (const s of found) byRegion.set(s.region, [...(byRegion.get(s.region) ?? []), s]);
   const groups = [...byRegion], hits = groups.flatMap(([, list]) => list);
   const close = () => { setOpen(false); setQ(''); setAt(0); };
-  const pick = (id: string) => { setSpot(id); go('forecast'); close(); };
+  const pick = (id: string) => { setRecents(rememberSpot(id)); setSpot(id); go('forecast'); close(); };
+  const ghost = term && at === 0 && hits[0] && ranked[0]?.id === hits[0].id ? completion(q, ranked[0]) : '';
   const onKey = (e: KeyboardEvent) => {
     if (e.key === 'Escape') { e.preventDefault(); close(); return; }
     if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && hits.length) { e.preventDefault(); setAt((i) => (i + (e.key === 'ArrowDown' ? 1 : -1) + hits.length) % hits.length); }
@@ -270,13 +279,15 @@ function Search({go}: {go: Go}) {
           <div className="search-panel">
             <div className="search-in">
               <Icon name="search" size={18} />
-              <input autoFocus type="search" value={q} placeholder={`Search ${spotOptions.length} spots by name or county`} aria-label="Search spots"
+              <AutofillInput autoFocus type="search" value={q} completion={ghost} onAccept={() => setQ(q + ghost)} placeholder={`Search ${spotOptions.length} spots by name or county`} aria-label="Search spots"
                 role="combobox" aria-expanded="true" aria-controls="search-results" aria-activedescendant={hits[at] ? `sr-${hits[at].id}` : undefined}
                 onChange={(e) => { setQ(e.target.value); setAt(0); }} onKeyDown={onKey} />
               <button className="iconbtn" aria-label="Close search" onClick={close}><Icon name="close" size={18} /></button>
             </div>
             <div id="search-results" role="listbox" aria-label={term ? 'Matching spots' : 'Saved spots'} className="search-res">
-              {!term && <p className="search-k">{favs.length ? 'Saved spots' : 'Type a spot or county name'}</p>}
+              {!term && <p className="search-k">{recents.length ? 'Recent and saved spots' : favs.length ? 'Saved spots' : 'Type a spot or county name'}</p>}
+              {/* this search rates the spots for now (the map's search rates its selected hour): say so */}
+              {(term ? hits.length > 0 : found.length > 0) && <p className="search-k search-when">Ratings for now</p>}
               {term && hits.length === 0 && <p className="search-k">No spot matches “{q}”.</p>}
               {groups.map(([region, list]) => (
                 <div key={region} role="group" aria-label={region}>
@@ -287,7 +298,7 @@ function Search({go}: {go: Go}) {
                       <div key={s.id} id={`sr-${s.id}`} role="option" aria-selected={k === at} className="search-hit" onPointerEnter={() => setAt(k)} onClick={() => pick(s.id)}>
                         <i className={`cdot${it?.dark ? ' is-dark' : ''}`} style={{background: BAND_COLOR[it ? bandOfCat(it.category) : 'none']}} aria-hidden="true" />
                         <span><b>{s.name}</b><small>{s.region}</small></span>
-                        <small className="search-h">{!view.ocean.isSpotLoaded(s.id) ? 'loading…' : it?.heightLabel}</small>
+                        <small className="search-h">{!view.ocean.isSpotLoaded(s.id) ? 'loading…' : [it?.heightLabel, !it || it.demo || !it.category || it.category === 'UNRATED' ? null : it.dark ? 'After dark' : conditionWord(it.category)].filter(Boolean).join(' · ')}</small>
                       </div>
                     );
                   })}

@@ -6,9 +6,10 @@ import {BAND_COLOR, bandOf} from '../forecast/model';
 import {localHour, timeLabelPT} from '../forecast/format';
 
 /** One compact spot row (T-043: no photos in the map list; rating colour, name, region, offshore range, rating word). */
-export function SpotRow({id, name, sub, category, current, highlighted, onPick, onHover}: {id: string; name: string; sub: string; category: string | null; current: boolean; highlighted: boolean; onPick: () => void; onHover: (on: boolean) => void}) {
+export function SpotRow({id, name, sub, category, current, highlighted, onPick, onHover, selected, rowId}: {id: string; name: string; sub: string; category: string | null; current: boolean; highlighted: boolean; onPick: () => void; onHover: (on: boolean) => void;
+  /** §6: a search suggestion (role option); true when it is the active one (arrow keys) */ selected?: boolean; rowId?: string}) {
   return (
-    <button id={`xrow-${id}`} aria-current={current} data-hl={highlighted || undefined} onClick={onPick}
+    <button id={rowId ?? `xrow-${id}`} aria-current={current} data-hl={highlighted || undefined} onClick={onPick} role={selected === undefined ? undefined : 'option'} aria-selected={selected}
       onMouseEnter={() => onHover(true)} onMouseLeave={() => onHover(false)} onFocus={() => onHover(true)} onBlur={() => onHover(false)}>
       <i className="xr-dot" style={{'--c': category ? BAND_COLOR[bandOf(category)] : 'var(--none)'} as CSSProperties} aria-hidden="true" />
       <span className="xr-t"><b>{name}</b><small>{sub}</small></span>

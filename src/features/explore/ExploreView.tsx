@@ -37,7 +37,9 @@ import {createEngine, engineKind, type MapEngine, type MarkerHandle} from '../..
 import {currentTheme} from '../../map/basemap';
 import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
-import {COAST_MAX_ZOOM, TIER, buildNodes, layoutPills, levelOf, nameOf, overlaps, pillText, summarise, type NodeId, type Rect, type SpotState} from './coastGroups';
+import {AutofillInput} from '../../ui/AutofillInput';
+import {completion as completeOf, rememberSpot, recentSpots, searchSpots} from '../../services/spotSearch';
+import {COAST_MAX_ZOOM, READING_MIN_ZOOM, TIER, buildNodes, clusterEnds, displayName, layoutPills, leavesOf, levelOf, overlaps, pillText, summarise, type NodeId, type Rect, type SpotState} from './coastGroups';
 import {headlineSurf} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
 import {SpotCallout, type HourBar} from './Callout';
@@ -61,7 +63,7 @@ const PHONE = '(max-width: 860px)';
 const isPhone = () => typeof matchMedia === 'function' && matchMedia(PHONE).matches;
 
 /** 4E coast groups: the nodes (regions, zones, coasts, seaboards) with their spots, the regions the layout starts from, and one pill's DOM. */
-const COAST_NODES = buildNodes(evidenceSpots), COAST_LEAVES = [...COAST_NODES.keys()].filter((id) => levelOf(id) === 0);
+const COAST_NODES = buildNodes(evidenceSpots), COAST_LEAVES = leavesOf(COAST_NODES);   // clusters of 10-20 spots and the regions small enough not to split
 const SPOT_BY_ID = new Map(evidenceSpots.map((e) => [e.id, e] as const));
 const centroid = (ids: string[]) => { let lat = 0, lon = 0; for (const id of ids) { const e = SPOT_BY_ID.get(id)!; lat += e.latitude; lon += e.longitude; } return {lat: lat / ids.length, lon: lon / ids.length}; };
 /** A pill's size before it can be measured (container 0 wide, fonts not loaded yet): close to the real one, so the layout never goes empty. */
@@ -96,7 +98,7 @@ function overlayBox(cls: string): HTMLElement {
  *  map-review (c): when the point has a marker (`anchorEl`: the picker, the selected pin) the box follows that element's painted position, every
  *  frame from movestart to moveend. Leaflet animates zooms with a CSS transform and fires no move events meanwhile, so a projected point lagged
  *  the marker by up to 200 px (and thousands on a 3-level zoom) until zoomend; the marker's own box is where the eye is, on both engines. */
-function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; lon: number} | null, dy: number, pad: {top: number; left: number; right: number; bottom: number}, autoPan: boolean, anchorEl?: () => HTMLElement | null | undefined) {
+function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; lon: number} | null, dy: number, pad: {top: number; left: number; right: number; bottom: number}, autoPan: boolean, anchorEl?: () => HTMLElement | null | undefined, flying?: () => boolean) {
   useEffect(() => {
     if (!eng || !at) { box.style.display = 'none'; box.classList.remove('on'); return; }
     if (box.parentElement !== eng.container) eng.container.appendChild(box);
@@ -129,12 +131,14 @@ function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; 
     const stop = () => { cancelAnimationFrame(follow); follow = 0; mirror?.cancel(); mirror = null; src = null; base = null; place(); };
     const offs = [...(['move', 'resize'] as const).map((e) => eng.on(e, place)), eng.on('movestart', start), eng.on('moveend', stop), eng.on('zoomend', stop)];
     let raf = 0;
-    if (autoPan) raf = requestAnimationFrame(() => {
+    const doPan = () => {
       const r = box.getBoundingClientRect(), c = eng.container.getBoundingClientRect(); let dx = 0, dyy = 0;
       if (r.left < c.left + pad.left) dx = r.left - c.left - pad.left; else if (r.right > c.right - pad.right) dx = r.right - c.right + pad.right;
       if (r.top < c.top + pad.top) dyy = r.top - c.top - pad.top; else if (r.bottom > c.bottom - pad.bottom) dyy = r.bottom - c.bottom + pad.bottom;
       if (dx || dyy) eng.panBy(Math.round(dx), Math.round(dyy), {animate: !reduced()});
-    });
+    };
+    // a fly to the spot is under way (a search pick): panning now would cancel it; settle the callout once the map lands
+    if (autoPan) raf = requestAnimationFrame(() => { if (flying?.()) { const off = eng.on('moveend', () => { off(); raf = requestAnimationFrame(doPan); }); offs.push(off); } else doPan(); });
     return () => { cancelAnimationFrame(raf); cancelAnimationFrame(follow); mirror?.cancel(); offs.forEach((f) => f()); };
   }, [eng, box, at?.lat, at?.lon, dy, autoPan]); // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => () => { box.remove(); }, [box]);
@@ -169,8 +173,17 @@ function OceanMap({section, go}: ViewProps) {
   const markers = useRef(new Map<string, MarkerHandle>());
   const rank = useRef(new Map<string, number>());
   /** 4E coast pills: one marker per group node (regions, zones, coasts, seaboards), its spot states at the selected hour and its measured box around the anchor. */
-  const pills = useRef(new Map<NodeId, {mk: MarkerHandle; inner: HTMLElement; g: [number, number, number, number] | null; prio: number}>());
+  /** `full` is the pill with its reading, `count` the far-out one (name and count only); `shown` which one is in the DOM. */
+  const pills = useRef(new Map<NodeId, {mk: MarkerHandle; inner: HTMLElement; g: [number, number, number, number] | null; prio: number; full?: ReturnType<typeof pillText>; count?: ReturnType<typeof pillText>; shown?: 'full' | 'count'}>());
+  const flying = useRef(false), flight = useRef(0);   // §5: a fly to a picked spot is under way (the callout's auto-pan waits for it to land)
   const pillsDirty = useRef(true);   // re-measure the pills before the next layout (content, size or breakpoint changed)
+  /** Put one of a pill's two texts in its DOM node (in place: the node, and keyboard focus on it, stay); a changed text means a re-measure. */
+  const applyPillRef = useRef((pl: {mk: MarkerHandle; inner: HTMLElement; full?: ReturnType<typeof pillText>; count?: ReturnType<typeof pillText>; shown?: 'full' | 'count'}, mode: 'full' | 'count') => {
+    const t = pl[mode]; if (!t) return;
+    if (pl.inner.innerHTML !== t.html) { pl.inner.innerHTML = t.html; pillsDirty.current = true; }
+    pl.inner.style.setProperty('--c', t.color); pl.mk.element.setAttribute('aria-label', t.label); pl.mk.element.title = t.title; pl.shown = mode;
+    pl.mk.element.classList.toggle('xcount', mode === 'count');
+  });
   // map-maplibre: each pin's dot and label box relative to its anchor point, measured once per rebuild; the declutter then places them from
   // project() alone, so a pan or zoom reads no element layout (it used to force a layout of all 45 pins on every move: the phone's long tasks).
   const geom = useRef(new Map<string, {d: [number, number, number, number]; l: [number, number, number, number] | null; c: [number, number, number, number] | null}>());
@@ -181,6 +194,7 @@ function OceanMap({section, go}: ViewProps) {
   // Wide screens: the spot list is a slim sheet under its toggle, open only on demand. Phones: a bottom sheet with three detents.
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState(''), [zone, setZone] = useState('In view'); // Track 2: the list opens on the spots in view (Surfline's synced list)
+  const [active, setActive] = useState(0), [recents, setRecents] = useState<string[]>(recentSpots);   // §6: the arrow-key suggestion, the last 5 picks (this browser only)
   const [inView, setInView] = useState<Set<string> | null>(null);
   // "In view" = the part of the map a person can see: not under the time strip, the phone sheet or the open desktop list.
   const seenRef = useRef(() => {});
@@ -345,6 +359,8 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     const x = map.current;
     if (!x) return;
+    // a pin that has keyboard focus keeps it across the rebuild (new records, a new hour): the new pin of the same spot takes it
+    const hadFocus = (document.activeElement as HTMLElement | null)?.closest?.<HTMLElement>('.xpin')?.dataset.spot;
     markers.current.forEach((mk) => mk.remove());
     markers.current.clear();
     rank.current.clear();
@@ -359,9 +375,9 @@ function OceanMap({section, go}: ViewProps) {
         if (sn) return {id: sid, name: SPOT_BY_ID.get(sid)!.name, loaded: false, snap: true, retrieved: sn[3] * 60000, score: sn[0], category: sn[1], band: sn[1] ? bandOf(sn[1]) : 'none', dark: sn[2] === 1, rank: r.rank};
         return {id: sid, name: SPOT_BY_ID.get(sid)!.name, loaded: live, score: r.rating?.score ?? null, category: r.rating?.category ?? null, band: r.rating ? bandOf(r.rating.category) : 'none', dark: !!r.rating?.dark, rank: r.rank};
       });
-      const sum = summarise(states), t = pillText(nameOf(id).replace(/^Hawaii · /, ''), sum, conditionWord, BAND_COLOR, snap ? {nowMs: now, fmt: (ms) => `${stampLabel(new Date(ms).toISOString())} ${mapZoneAbbr(ms)}`} : undefined, snapLoading);   // the island zones read as islands ("Oahu") on the map
-      if (pl.inner.innerHTML !== t.html) { pl.inner.innerHTML = t.html; pillsDirty.current = true; }
-      pl.inner.style.setProperty('--c', t.color); pl.mk.element.setAttribute('aria-label', t.label); pl.mk.element.title = t.title;
+      const sum = summarise(states), snapInfo = snap ? {nowMs: now, fmt: (ms: number) => `${stampLabel(new Date(ms).toISOString())} ${mapZoneAbbr(ms)}`} : undefined;
+      pl.full = pillText(displayName(id), sum, conditionWord, BAND_COLOR, snapInfo, snapLoading, false, clusterEnds(id)); pl.count = pillText(displayName(id), sum, conditionWord, BAND_COLOR, snapInfo, snapLoading, true, clusterEnds(id));
+      applyPillRef.current(pl, x.getView().zoom < READING_MIN_ZOOM ? 'count' : 'full');
       pl.prio = (focused && ids.includes(focused) ? 2 * TIER : 0) + (ids.some((sid) => data.state.favorites.includes(sid)) ? TIER : 0) + (sum.best?.score ?? -1);
     }
     for (const e of evidenceSpots) {
@@ -382,12 +398,13 @@ function OceanMap({section, go}: ViewProps) {
       const el = document.createElement('div');
       el.className = `xpin${e.id === focused ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
       const cam = camsFor(e.id).length > 0;
-      el.dataset.spot = e.id; if (rating?.score != null) el.dataset.score = String(rating.score); if (rating?.dark) el.dataset.dark = '1';
+      el.dataset.spot = e.id; el.dataset.rank = String(rated.get(e.id)!.rank); if (rating?.score != null) el.dataset.score = String(rating.score); if (rating?.dark) el.dataset.dark = '1';
       el.style.setProperty('--c', color); el.innerHTML = `<i></i>${cam ? `<em class="xcam" aria-hidden="true"><svg viewBox="0 0 24 24" width="9" height="9"><path d="${CAMERA_D}"/></svg></em>` : ''}${label}${chip}`;
       const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: (cam ? `${e.name} · has a public live cam` : e.name) + (view.ocean.isSpotLoaded(e.id) ? '' : ' · forecast loading (grey pin: not loaded yet, not flat)'), keyboard: true, riseOnHover: true,
         onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
       markers.current.set(e.id, mk);
     }
+    if (hadFocus) markers.current.get(hadFocus)?.element.focus({preventScroll: true});
     geom.current.clear();
     const box0 = x.container.getBoundingClientRect();
     for (const e of evidenceSpots) {
@@ -416,6 +433,9 @@ function OceanMap({section, go}: ViewProps) {
     // 4E: below COAST_MAX_ZOOM the coast pills stand in for the pins; the focused spot and favourites keep theirs, and a pin is only hidden under a pill that is drawn.
     const coast = m.getView().zoom < COAST_MAX_ZOOM, favs = data.state.favorites;
     const pillRects: DOMRect[] = [];
+    // far out the pills carry no reading (name and count only); from READING_MIN_ZOOM the reading: swap the text in place when the zoom crosses the line
+    const mode = m.getView().zoom < READING_MIN_ZOOM ? 'count' : 'full';
+    if (coast) for (const pl of pills.current.values()) if (pl.shown !== mode) applyPillRef.current(pl, mode);
     if (coast && pillsDirty.current) {   // measure each pill's box around its anchor (shown, un-nudged); a 0-wide read (hidden container, fonts pending) keeps the nominal size and retries later
       const nominal = isPhone() ? PILL_NOMINAL.phone : PILL_NOMINAL.wide; let all = true;
       for (const pl of pills.current.values()) { pl.mk.element.classList.remove('xhide'); pl.mk.element.style.setProperty('--dx', '0px'); pl.mk.element.style.setProperty('--dy', '0px'); }
@@ -426,11 +446,17 @@ function OceanMap({section, go}: ViewProps) {
       pillsDirty.current = !all;
     }
     {
+      const inset = new Map<NodeId, [number, number]>();
       const boxOf = (id: NodeId): Rect | null => {
         const pl = pills.current.get(id); if (!pl) return null;
         if (!pl.g) { const n = isPhone() ? PILL_NOMINAL.phone : PILL_NOMINAL.wide; pl.g = [-n[0] / 2, -n[1] / 2, n[0], n[1]]; }
         const ll = pl.mk.getLatLon(), q = m.project(ll.lat, ll.lon), r = {left: edge.left + q.x + pl.g[0], top: edge.top + q.y + pl.g[1], right: edge.left + q.x + pl.g[0] + pl.g[2], bottom: edge.top + q.y + pl.g[1] + pl.g[3]};
-        return r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom ? r : null;   // off the map: not drawn, and it never forces a merge
+        const cx = (r.left + r.right) / 2, cy = (r.top + r.bottom) / 2;   // its centre off the map: not drawn, and it never forces a merge; its spots keep their pins
+        if (!(cx > edge.left && cx < edge.right && cy > edge.top && cy < edge.bottom)) return null;
+        // a pill whose centre is on the map but whose edge is not slides fully onto it (never clipped at the screen edge)
+        const G = 16, sx = r.left < edge.left + G ? edge.left + G - r.left : r.right > edge.right - G ? edge.right - G - r.right : 0, sy = r.top < edge.top + 4 ? edge.top + 4 - r.top : r.bottom > edge.bottom - 4 ? edge.bottom - 4 - r.bottom : 0;   // the 16 px side gutter
+        inset.set(id, [sx, sy]);
+        return {left: r.left + sx, right: r.right + sx, top: r.top + sy, bottom: r.bottom + sy};
       };
       // the pins that stay (focused, favourites): their dot and the label to its right, for the pills to keep clear of where they can
       const keep = coast ? els.filter(({el, id}) => el.classList.contains('sel') || favs.includes(id)).map(({id}) => {
@@ -449,7 +475,8 @@ function OceanMap({section, go}: ViewProps) {
       for (const [id, pl] of pills.current) {
         const o = show.get(id), el = pl.mk.element; el.classList.toggle('xhide', !o);
         if (!o) continue;
-        el.style.setProperty('--dx', `${o[0]}px`); el.style.setProperty('--dy', `${o[1]}px`);   // nudged off the region's centre to clear a neighbour
+        const [ix, iy] = inset.get(id) ?? [0, 0];
+        el.style.setProperty('--dx', `${ix + o[0]}px`); el.style.setProperty('--dy', `${iy + o[1]}px`);   // nudged off the region's centre to clear a neighbour (and onto the map at its edge)
         const r = boxOf(id)!; pillRects.push(new DOMRect(r.left + o[0], r.top + o[1], r.right - r.left, r.bottom - r.top));
         for (const sid of COAST_NODES.get(id)!) covered.add(sid);
       }
@@ -500,7 +527,8 @@ function OceanMap({section, go}: ViewProps) {
     }
     // subset loading: the drawn pins in view are the spots whose forecast the map needs; reported debounced, they load with the next scope
     // Only from zoom 7 (a regional view): a world-zoom pan must not mark 150 spots as requested (that would make them hot on the Worker and spend Open-Meteo quota nobody is looking at).
-    const vis = m.getView().zoom >= 7 ? boxes.filter((b) => inView(b.dot)).slice(0, 60).map((b) => b.id) : [];
+    // With pills up to COAST_MAX_ZOOM, the spots in view count whether a pill or a pin stands for them (best-ranked first), so the pills' readings load from z7 as the pins did.
+    const vis = m.getView().zoom >= 7 ? els.filter(({id}) => { const e = at.get(id)!, q = m.project(e.latitude, e.longitude); return inView(new DOMRect(edge.left + q.x - 1, edge.top + q.y - 1, 2, 2)); }).slice(0, 60).map(({id}) => id) : [];
     if (reportTimer.current) window.clearTimeout(reportTimer.current);
     reportTimer.current = window.setTimeout(() => reportVisibleRef.current(vis), 500);
   };
@@ -610,7 +638,7 @@ function OceanMap({section, go}: ViewProps) {
     }); });
     return () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); };
   }, [phone, panel, pt?.lat, pt?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
-  useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true, () => (callEv0 ? markers.current.get(callEv0.id)?.element : null));
+  useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true, () => (callEv0 ? markers.current.get(callEv0.id)?.element : null), () => flying.current);
   // The phone peek sizes itself to the spot card; the time bar, legend and attribution sit just above it.
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -628,14 +656,22 @@ function OceanMap({section, go}: ViewProps) {
     const ro = new ResizeObserver(set); ro.observe(bar); set(); return () => ro.disconnect();
   }, [eng]);
   /** Glide to a spot; the target sits in the free part of the map, clear of the list sheet or the phone sheet. */
-  const flyToSpot = (id: string, sheetOpen = open) => {
+  const flyToSpot = (id: string, sheetOpen = open, focusPin = false) => {
     const m = map.current, e = evidenceSpots.find((x) => x.id === id);
     if (!m || !e) return;
-    const cur = m.getView().zoom, z = Math.max(10, cur);
+    const cur = m.getView().zoom, z = Math.max(COAST_MAX_ZOOM, cur);   // §5: land at the pins level, so the spot's own pin shows
     const shift: [number, number] = phone ? [0, Math.min(sheetPx(), 260) / 2] : [sheetOpen ? -184 : 0, -60];
     // The shift is in pixels at the target zoom; at the current zoom it is 2^(cur - z) as many (engine-neutral, via project/unproject).
     const k = 2 ** (cur - z), at = m.project(e.latitude, e.longitude), to = m.unproject(at.x + shift[0] * k, at.y + shift[1] * k);
+    // once landed: the callout may settle; a pick from search or the list puts keyboard focus on the spot's pin (only if focus was not taken elsewhere meanwhile)
+    const land = () => { flying.current = false; if (!focusPin) return; requestAnimationFrame(() => { const a = document.activeElement; if (!a || a === document.body || m.container.contains(a)) markers.current.get(id)?.element.focus({preventScroll: true}); }); };
+    const here = m.project(to.lat, to.lon), c = m.container.getBoundingClientRect();
+    if (Math.abs(z - cur) < 0.01 && Math.hypot(here.x - c.width / 2, here.y - c.height / 2) < 1) { land(); return; }   // already there: no flight, nothing to wait for
+    // a flight token: only the newest flight's landing acts; the listener is registered after the call (a jump's synchronous moveend is ignored) with a timeout fallback
+    const token = ++flight.current; flying.current = true;
     if (reduced()) m.setView({lat: to.lat, lon: to.lon, zoom: z}, {animate: false}); else m.flyTo({lat: to.lat, lon: to.lon, zoom: z}, {durationMs: 1100});
+    let done = false; const finish = () => { if (done) return; done = true; off(); window.clearTimeout(timer); if (flight.current === token) land(); };
+    const off = m.on('moveend', finish), timer = window.setTimeout(finish, reduced() ? 60 : 1500);
   };
   const flyRef = useRef(flyToSpot);
   /** 4E: tapping a coast pill frames its spots (the region chips' fit); below COAST_MAX_ZOOM a merged pill shows its parts, from there on the pins. */
@@ -651,10 +687,11 @@ function OceanMap({section, go}: ViewProps) {
   flyRef.current = flyToSpot;
   /** Choose a spot: select it, open its callout (popup or the phone sheet's peek) and bring it into view. */
   const pickSpot = (id: string, fromList = false) => {
+    if (fromList) setRecents(rememberSpot(id));   // §6: the last 5 picks, this browser only
     setSpot(id); setCallout(id); setPt(null);
     if (phone) { setDetent('peek'); setSheetOn(true); }
     else if (fromList) setOpen(false);
-    flyRef.current(id, phone ? false : fromList ? false : open);
+    flyRef.current(id, phone ? false : fromList ? false : open, fromList);
   };
   const pickRef = useRef(pickSpot);
   pickRef.current = pickSpot;
@@ -678,11 +715,17 @@ function OceanMap({section, go}: ViewProps) {
     return isFlat(h) ? FLAT_ESTIMATE_TEXT : h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : null; };
   const score = (id: string) => { const r = recAt(id), rt = r ? rateForecast(surfSpot(id), r, now) : null; return rt && rt.score !== null ? rt.score : null; };
   const hiAt = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null; return h?.kind === 'estimate' ? h.hiFt : -1; };
+  // §6: typing searches every spot with the shared matcher (prefix, word starts, region, one typo; accents and apostrophes ignored), favourites and recent picks first among equals
+  // the zone filter applies BEFORE the limit of 20 (so a zone's spots are never cut by matches elsewhere); the zone lists are built once each (the matcher's index is per list)
+  const zoneSpots = useMemo(() => (zone === 'All' || zone === 'In view' ? evidenceSpots : evidenceSpots.filter((e) => zoneOf(e.region) === zone)), [zone]);
+  const hits = needle ? searchSpots(zoneSpots, q, {favorites: data.state.favorites, recents, limit: 20}) : [];
   const list = byView
     ? evidenceSpots.filter((e) => inView?.has(e.id)).map((e) => ({e, s: score(e.id), h: hiAt(e.id)}))
       .sort((a, b) => (a.s === null ? 1 : 0) - (b.s === null ? 1 : 0) || (b.s ?? 0) - (a.s ?? 0) || b.h - a.h).map((x) => x.e)
-    : [...evidenceSpots].filter((e) => (zone === 'All' || zone === 'In view' || zoneOf(e.region) === zone) && (!needle || e.name.toLowerCase().includes(needle) || e.region.toLowerCase().includes(needle)))
+    : needle ? hits.map((h) => SPOT_BY_ID.get(h.id)!)
+    : [...evidenceSpots].filter((e) => zone === 'All' || zone === 'In view' || zoneOf(e.region) === zone)
       .sort((a, b) => (regionRank.get(a.region)! - regionRank.get(b.region)!) || b.latitude - a.latitude);
+  const act = Math.min(active, Math.max(0, list.length - 1)), ghost = needle && list[0] && hits[0]?.id === list[0].id && act === 0 ? completeOf(q, hits[0]) : '';
   /** A region chip frames that stretch of coast (All: back to the selected spot's area) and filters the list. */
   const pickZone = (z: string) => {
     setZone(z); const m = map.current; if (!m || z === 'In view') return; // "In view" follows the map; it never moves it
@@ -771,12 +814,19 @@ function OceanMap({section, go}: ViewProps) {
       </div>
       {byView && <p className="xinv-h" aria-live="polite">{list.length ? `${list.length} spot${list.length === 1 ? '' : 's'} in view · best rated first` : 'No surf spot in view: zoom out or pan along the coast.'}</p>}
       {!byView && !list.length && <p className="fine">No spot matches “{q}”{zone !== 'All' && zone !== 'In view' ? ` in ${zone}` : ''}.</p>}
-      <ul>{list.map((e, i) => {
+      {/* §6: the last 5 picks while the box is empty */}
+      {/* the ratings in these rows are for the map's selected hour (the header search rates now): say which */}
+      {(needle || recents.length > 0) && view.selectedTime && <p className="xinv-h">Ratings for {weekdayPT(view.selectedTime, mapZone())} {hourLabel(view.selectedTime, mapZone())} {mapZoneAbbr(view.selectedTime)}</p>}
+      {!needle && recents.length > 0 && <><p className="xregion">Recent</p><ul className="xrecent" aria-label="Recent picks">{recents.map((id) => SPOT_BY_ID.get(id)).filter((e): e is NonNullable<typeof e> => !!e).map((e) => {
+        const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null, rated = !!rt && rt.score !== null && !!r;
+        return <li key={e.id}><SpotRow id={e.id} rowId={`xrec-${e.id}`} name={e.name} sub={`${e.region}${rated ? (rt!.dark ? ' · after dark' : '') : ' · not rated'}`} category={rated ? rt!.category : null} current={false} highlighted={hover === e.id} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
+      })}</ul></>}
+      <ul role={needle ? 'listbox' : undefined} id={needle ? 'xsuggest' : undefined} aria-label={needle ? 'Suggestions' : undefined}>{list.map((e, i) => {
         const r = recAt(e.id), rt = r ? rateForecast(surfSpot(e.id), r, now) : null;
-        const head = !byView && (i === 0 || list[i - 1].region !== e.region) ? <p className="xregion">{e.region}</p> : null;
+        const head = !byView && !needle && (i === 0 || list[i - 1].region !== e.region) ? <p className="xregion">{e.region}</p> : null;
         const rated = !!rt && rt.score !== null && !!r, sub = (byView ? pinHeight(e.id) : null) ?? rangeAt(e.id) ?? 'No record at this hour';
-        return <li key={e.id}>{head}<SpotRow id={e.id} name={e.name} sub={byView ? `${e.region} · ${sub}${rated ? '' : ' · not rated'}` : sub} category={rated ? rt!.category : null}
-          current={e.id === focused} highlighted={hover === e.id} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
+        return <li key={e.id} role="presentation">{head}<SpotRow id={e.id} name={e.name} sub={byView || needle ? `${e.region} · ${sub}${rated ? (rt!.dark ? ' · after dark' : '') : ' · not rated'}` : sub} category={rated ? rt!.category : null}
+          current={e.id === focused} highlighted={hover === e.id || (!!needle && i === act)} selected={needle ? i === act : undefined} onPick={() => pickSpot(e.id, true)} onHover={(on) => setHover(on ? e.id : null)} /></li>;
       })}</ul>
       <p className="xmore">
         <a href="/explore/discover" onClick={(ev) => { ev.preventDefault(); go('explore', 'discover'); }}>Find spots near you</a>
@@ -797,9 +847,14 @@ function OceanMap({section, go}: ViewProps) {
   const topBar = (
     <div className="xtopbar">
       <label className="xsearch xtb-search"><Icon name="search" size={16} /><span className="sr">Find a spot on the map</span>
-        <input type="search" value={q} placeholder="Search spots" autoComplete="off" aria-controls="xsheet" aria-expanded={showList}
-          onFocus={showResults} onChange={(e) => { setQ(e.target.value); showResults(); }}
-          onKeyDown={(e) => { if (e.key === 'Enter' && list[0]) { e.preventDefault(); pickSpot(list[0].id, true); (e.target as HTMLInputElement).blur(); } if (e.key === 'Escape') { setQ(''); setOpen(false); } }} />
+        <AutofillInput type="search" value={q} completion={ghost} onAccept={() => setQ(q + ghost)} placeholder="Search spots" aria-label="Search spots"
+          role="combobox" aria-controls={needle ? 'xsuggest' : 'xsheet'} aria-expanded={showList} aria-activedescendant={needle && showList && list[act] ? `xrow-${list[act].id}` : undefined}
+          onFocus={showResults} onChange={(e) => { setQ(e.target.value); setActive(0); showResults(); }}
+          onKeyDown={(e) => {
+            if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && needle && list.length) { e.preventDefault(); const n = (act + (e.key === 'ArrowDown' ? 1 : -1) + list.length) % list.length; setActive(n); document.getElementById(`xrow-${list[n].id}`)?.scrollIntoView({block: 'nearest'}); return; }
+            if (e.key === 'Enter' && list[act]) { e.preventDefault(); pickSpot(list[act].id, true); (e.target as HTMLInputElement).blur(); }
+            if (e.key === 'Escape') { setQ(''); setActive(0); setOpen(false); }
+          }} />
         <button type="button" className="xtb-loc" aria-label={focused ? 'Go to my location (or the selected spot)' : 'Go to my location'} onClick={locate}><Icon name="locate" size={17} /></button>
       </label>
       {/* 1B: the focused spot as a chip with its clear control (when its callout or the phone sheet is not already showing it) */}
