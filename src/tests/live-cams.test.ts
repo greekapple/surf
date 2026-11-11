@@ -14,8 +14,8 @@ test('the committed camera data is exactly what the generator builds from camera
   assert.equal(fs.readFileSync(new URL('../data/liveCamsSourced.ts', import.meta.url), 'utf8'), built + (built.endsWith('\n') ? '' : '\n'));
 });
 test('only spots with a usable-now camera row have a camera: Cowell\'s, Steamer Lane (partial), Sharp Park (four streams, west first), Linda Mar; nobody else', () => {
-  assert.deepEqual([...new Set(LIVE_CAMS.filter((c) => c.enabled && c.kind !== 'hdontap').map((c) => c.spotId))].sort(), ['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'], 'only enabled cameras count (HDOnTap embeds are enabled but drawn only when the Worker allows them)');
-  for (const s of evidenceSpots) if (!['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'].includes(s.id)) assert.equal(liveCamsFor(s.id).filter((c) => c.kind !== 'hdontap').length, 0, s.id + ' has no camera row');
+  assert.deepEqual([...new Set(LIVE_CAMS.filter((c) => c.enabled && c.kind !== 'hdontap').map((c) => c.spotId))].sort(), ['cs-hermosa', 'cs-huntington', 'cs-sharp-park', 'cs-venice-breakwater', 'spot-3', 'spot-6', 'spot-7'], 'only enabled cameras count (HDOnTap embeds are enabled but drawn only when the Worker allows them)');
+  for (const s of evidenceSpots) if (!['cs-hermosa', 'cs-huntington', 'cs-sharp-park', 'cs-venice-breakwater', 'spot-3', 'spot-6', 'spot-7'].includes(s.id)) assert.equal(liveCamsFor(s.id).filter((c) => c.kind !== 'hdontap').length, 0, s.id + ' has no camera row');
   for (const id of ['spot-2', 'cs-kellys-cove', 'cs-sloat', 'cs-rockaway', 'spot-1', 'spot-0', 'spot-4', 'spot-5', 'cs-half-moon-bay', 'cs-princeton-jetty', 'spot-8', 'cs-capitola', 'cs-natural-bridges', 'cs-rodeo-beach']) assert.deepEqual(liveCamsFor(id), [], id);
   assert.deepEqual(liveCamsFor('cs-sharp-park').map((c) => c.rowId), ['chamberlin-sharp-park-west', 'chamberlin-pacifica-pier-north', 'chamberlin-pacifica-pier-closeup', 'chamberlin-mori-point-south']);
   assert.deepEqual(liveCamsFor('spot-3').map((c) => c.rowId), ['linda-mar-beach-cam-youtube']); assert.deepEqual(liveCamsFor('spot-7').map((c) => c.rowId), ['usgs-coastcam-santa-cruz-dream-inn']); assert.deepEqual(liveCamsFor('spot-6').map((c) => c.rowId), ['usgs-coastcam-santa-cruz-dream-inn']);
@@ -104,4 +104,19 @@ test('display only, and out of Home and the map: the panel loads nothing from Yo
   assert.match(src, /setInterval\(\(\) => setNow\(Date\.now\(\)\), 60000\)/, 'the age is re-read every minute'); assert.match(src, /addEventListener\('visibilitychange', onVisible\)/); assert.match(src, /removeEventListener\('visibilitychange'/); assert.match(src, /src=\{`\$\{cam\.stillUrl\}\?t=\$\{encodeURIComponent\(meta!\.lastModified!\)\}`\}/, 'the picture\'s address carries the returned time');
   assert.match(src, /<figcaption>\{stillCaption\(st, zone, now\)\} · new frame every 30 min in daylight\.<\/figcaption>/); assert.match(src, /pauseVideo/); assert.match(src, /lc-dim/); assert.match(src, /view described by the owner, not checked by SWELLO/);
   assert.match(fs.readFileSync(new URL('../data/cams.ts', import.meta.url), 'utf8'), /amended 2026-11-10[\s\S]*Analysing a camera's frames[\s\S]*written permission or public domain/); assert.doesNotMatch(fs.readFileSync(new URL('../data/cams.ts', import.meta.url), 'utf8'), /never embeds, frames or analyses/); assert.match(fs.readFileSync(new URL('../../PRODUCT.md', import.meta.url), 'utf8'), /## Camera rule \(amended 2026-11-10[\s\S]*AI analysis[\s\S]*written permission or public domain/);
+});
+
+test('alt-cams: Huntington gets the City of Huntington Beach pier and Lifeguard HQ streams; Hermosa and Venice get a NEIGHBORING beach that says so; The Surfers View is never wired', async () => {
+  const {LIVE_CAMS, liveCamsFor} = await import('../data/liveCamsSourced.ts'), {distanceWords} = await import('../features/forecast/liveCamLogic.ts');
+  assert.deepEqual(liveCamsFor('cs-huntington').map((c) => [c.videoId, c.tab, c.credit]), [['mhQjsLBfOoY', 'Pier', 'City of Huntington Beach, live cam via YouTube'], ['RGYlFjV-dtc', 'Lifeguard HQ', 'City of Huntington Beach, live cam via YouTube']]);
+  const h = liveCamsFor('cs-hermosa'); assert.equal(h.length, 1); assert.equal(h[0].videoId, 'TuVOKRP7IBA'); assert.equal(distanceWords(h[0]), 'about 2.5 km south (a neighboring beach, not this spot)'); assert.match(h[0].view, /City of Redondo Beach pier cam/);
+  const v = liveCamsFor('cs-venice-breakwater'); assert.equal(v.length, 1); assert.equal(v[0].videoId, 'v97JpT3ZA0w'); assert.equal(distanceWords(v[0]), 'about 3 km north (a neighboring beach, not this spot)'); assert.match(v[0].credit, /^explore\.org/);
+  for (const c of LIVE_CAMS) { assert.doesNotMatch(`${c.rowId} ${c.owner} ${c.credit}`, /surfers ?view|coastal camera network/i, c.id); if (c.kind === 'youtube') assert.equal(c.channelUrl === undefined || /youtube\.com\/channel/.test(c.channelUrl), true); }
+  assert.equal(liveCamsFor('cs-el-porto').length, 0, 'El Porto has no embeddable feed');
+});
+
+test('a YouTube camera whose page is the owner\'s own site says "Owner page", not "Open on YouTube" (alt-cams review)', () => {
+  const src = fs.readFileSync(new URL('../features/forecast/LiveCam.tsx', import.meta.url), 'utf8');
+  assert.match(src, /pageLabel\(cam\.pageUrl\)/);
+  const h = liveCamsFor('cs-hermosa')[0]; assert.doesNotMatch(h.pageUrl, /youtube\.com/);
 });

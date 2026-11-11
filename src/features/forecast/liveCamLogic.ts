@@ -59,7 +59,7 @@ export function streamErrorWords(code: number): string {
 export const streamLiveness = (data: {isLive?: unknown} | null | undefined): 'live' | 'not-live' | 'unknown' => (data?.isLive === true ? 'live' : data?.isLive === false ? 'not-live' : 'unknown');
 export const kmWords = (km: number) => (km < 1 ? `${Math.round(km * 1000)} m` : `${km} km`);
 /** How far the camera is from the spot, as the row says it: exact, "about" when the position is approximate, or where it is when the distance is not known. */
-export const distanceWords = (c: {km: number; kmApprox?: boolean; kmUnknown?: boolean; position?: string}): string => (c.kmUnknown ? c.position ?? 'position unknown' : `${c.kmApprox ? 'about ' : ''}${kmWords(c.km)} from this spot`);
+export const distanceWords = (c: {km: number; kmApprox?: boolean; kmUnknown?: boolean; position?: string; neighbour?: string}): string => (c.kmUnknown ? c.position ?? 'position unknown' : c.neighbour ? `${c.kmApprox ? 'about ' : ''}${kmWords(c.km)} ${c.neighbour} (a neighboring beach, not this spot)` : `${c.kmApprox ? 'about ' : ''}${kmWords(c.km)} from this spot`);
 /** "Nov 10, 2026": a check date from the camera list (YYYY-MM-DD) in the app's date words, whatever the viewer's zone. */
 export const checkedWords = (ymd: string): string => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd); return m ? new Intl.DateTimeFormat('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}).format(Date.UTC(+m[1], +m[2] - 1, +m[3])) : ymd; };
 /** The Offline words for a still. A frame posted after dusk is the last daylight frame ("No frame since dusk; USGS collects in daylight only"), not a fault. The age is of the ESTIMATED capture time and says so. */

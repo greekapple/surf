@@ -2,7 +2,7 @@
 // DISPLAY ONLY. A spot with no entry has no camera.
 export interface LiveCam {
   id: string; rowId: string; spotId: string; kind: 'still' | 'youtube' | 'hdontap'; /** the kill switch: false = the panel renders nothing for this camera */ enabled: boolean; disabledReason?: string; embedUrl?: string; embedId?: string; /** short name of the view, for the selector */ tab?: string; title: string; owner: string; credit: string; /** the credit as the camera row publishes it */ creditPublished?: string; pageUrl: string; channelUrl?: string;
-  videoId?: string; stillUrl?: string; /** the id the Worker's /api/cam-meta knows the still by */ metaId?: string; /** km from the camera to this spot (the row's own figure) */ km: number; /** the camera's position is approximate: say "about" */ kmApprox?: boolean; /** the camera's position is not known: say where it is, not how far */ kmUnknown?: boolean; position?: string; view: string; /** the owner's own description, not checked by SWELLO */ ownerDescribed?: boolean; refresh: string; licence: string; checked: string; offlineNote?: string; operatorNote?: string;
+  videoId?: string; stillUrl?: string; /** the id the Worker's /api/cam-meta knows the still by */ metaId?: string; /** km from the camera to this spot (the row's own figure) */ km: number; /** the camera is at a NEIGHBORING beach, this many km in this direction ("south"): say so, never present it as this spot */ neighbour?: string; /** the camera's position is approximate: say "about" */ kmApprox?: boolean; /** the camera's position is not known: say where it is, not how far */ kmUnknown?: boolean; position?: string; view: string; /** the owner's own description, not checked by SWELLO */ ownerDescribed?: boolean; refresh: string; licence: string; checked: string; offlineNote?: string; operatorNote?: string;
 }
 export const LIVE_CAMS: readonly LiveCam[] = [
  {
@@ -151,6 +151,86 @@ export const LIVE_CAMS: readonly LiveCam[] = [
   licence: 'Standard YouTube licence (channel owner)',
   checked: '2026-11-10',
   operatorNote: 'Operator not named (the channel does not name them; it joined YouTube on 2026-08-25). Re-checked by hand on 2026-11-10: YouTube oEmbed for the stream still answers for the channel called Linda Mar Beach Cam, with embedding on.'
+ },
+ {
+  id: 'hb-city-pier-youtube@cs-huntington',
+  enabled: true,
+  rowId: 'hb-city-pier-youtube',
+  spotId: 'cs-huntington',
+  kind: 'youtube',
+  tab: 'Pier',
+  title: 'View from Huntington Beach Pier',
+  owner: 'City of Huntington Beach',
+  credit: 'City of Huntington Beach, live cam via YouTube',
+  creditPublished: 'City of Huntington Beach (YouTube channel \'City of Huntington Beach\', which links huntingtonbeachca.gov)',
+  pageUrl: 'https://www.youtube.com/watch?v=mhQjsLBfOoY',
+  videoId: 'mhQjsLBfOoY',
+  km: 0.1,
+  kmApprox: true,
+  view: 'Huntington Beach Pier: looking down the pier deck, surf breaking on both sides',
+  refresh: 'live video',
+  licence: 'Standard YouTube licence',
+  checked: '2026-11-10'
+ },
+ {
+  id: 'hb-city-lifeguard-hq-youtube@cs-huntington',
+  enabled: true,
+  rowId: 'hb-city-lifeguard-hq-youtube',
+  spotId: 'cs-huntington',
+  kind: 'youtube',
+  tab: 'Lifeguard HQ',
+  title: 'Lifeguard HQ (Huntington Beach)',
+  owner: 'City of Huntington Beach',
+  credit: 'City of Huntington Beach, live cam via YouTube',
+  creditPublished: 'City of Huntington Beach (YouTube channel \'City of Huntington Beach\')',
+  pageUrl: 'https://www.youtube.com/watch?v=RGYlFjV-dtc',
+  videoId: 'RGYlFjV-dtc',
+  km: 0.2,
+  kmApprox: true,
+  view: 'The beach south of the pier from Lifeguard HQ; the surf is small in frame',
+  refresh: 'live video',
+  licence: 'Standard YouTube licence',
+  checked: '2026-11-10'
+ },
+ {
+  id: 'redondo-city-pier-south-youtube@cs-hermosa',
+  enabled: true,
+  rowId: 'redondo-city-pier-south-youtube',
+  spotId: 'cs-hermosa',
+  kind: 'youtube',
+  neighbour: 'south',
+  title: 'City of Redondo Beach Pier (view south of the pier)',
+  owner: 'City of Redondo Beach',
+  credit: 'City of Redondo Beach, live cam via YouTube',
+  creditPublished: 'City of Redondo Beach (YouTube channel \'City of Redondo Beach\', linked from redondo.org web cams page)',
+  pageUrl: 'https://www.redondo.org/departments/waterfront_and_economic_development/harbor/web_cams.php',
+  videoId: 'TuVOKRP7IBA',
+  km: 2.5,
+  kmApprox: true,
+  view: 'City of Redondo Beach pier cam: the beach south of Redondo Pier',
+  refresh: 'live video',
+  licence: 'Standard YouTube licence',
+  checked: '2026-11-10'
+ },
+ {
+  id: 'explore-santa-monica-beach-pier@cs-venice-breakwater',
+  enabled: true,
+  rowId: 'explore-santa-monica-beach-pier',
+  spotId: 'cs-venice-breakwater',
+  kind: 'youtube',
+  neighbour: 'north',
+  title: 'Santa Monica Beach & Pier Cam (explore.org)',
+  owner: 'explore.org (Annenberg Foundation)',
+  credit: 'explore.org (Annenberg Foundation), live cam via YouTube',
+  creditPublished: 'explore.org (YouTube channel \'Explore Big Surf, Beaches and Sunsets\')',
+  pageUrl: 'https://www.youtube.com/watch?v=v97JpT3ZA0w',
+  videoId: 'v97JpT3ZA0w',
+  km: 3,
+  kmApprox: true,
+  view: 'Santa Monica Beach and Pier (explore.org)',
+  refresh: 'live video',
+  licence: 'explore.org terms; site content for \'personal, non-commercial use\'',
+  checked: '2026-11-10'
  },
  {
   id: 'hdontap-seascape-beach-resort@cs-manresa',

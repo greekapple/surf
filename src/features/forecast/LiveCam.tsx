@@ -16,8 +16,11 @@ const loadYouTubeApi = () => (apiPromise ??= new Promise<void>((resolve, reject)
   const s = document.createElement('script'); s.src = 'https://www.youtube.com/iframe_api'; s.async = true; s.onerror = () => { apiPromise = null; reject(new Error('YouTube API blocked')); }; document.head.appendChild(s);
 }));
 
+/** A YouTube camera's page link is named for where it goes: YouTube, or the owner's own page (Redondo's web-cams page). */
+const pageLabel = (url: string) => /^https?:\/\/(www\.|m\.)?youtube\.com\//.test(url) ? 'Open on YouTube' : 'Owner page';
+
 function Credit({cam}: {cam: Cam}) {
-  return <p className="lc-credit"><span>{cam.credit}</span>{' · '}<a href={cam.pageUrl} target="_blank" rel="noopener noreferrer">{cam.kind === 'still' ? 'USGS page' : cam.kind === 'hdontap' ? 'Open on HDOnTap' : 'Open on YouTube'} ↗</a>
+  return <p className="lc-credit"><span>{cam.credit}</span>{' · '}<a href={cam.pageUrl} target="_blank" rel="noopener noreferrer">{cam.kind === 'still' ? 'USGS page' : cam.kind === 'hdontap' ? 'Open on HDOnTap' : pageLabel(cam.pageUrl)} ↗</a>
     {cam.channelUrl && <>{' · '}<a href={cam.channelUrl} target="_blank" rel="noopener noreferrer">Channel ↗</a></>}</p>;
 }
 
@@ -69,7 +72,7 @@ function StreamCam({cam}: {cam: Cam}) {
       <span className="lc-play" aria-hidden="true">▶</span><b>Video stream · {cam.owner.split(' (')[0].replace(/^"|"$/g, '')}</b><small>Live when we last checked it by hand ({checkedWords(cam.checked)}). Tap to load YouTube's player; it shows whether the stream is live now.</small><small>Nothing is loaded from YouTube before you tap.</small></button>}
     <div className={`lc-player${state === 'idle' ? ' lc-hidden' : ''}${state === 'offline' ? ' lc-dim' : ''}`} ref={host} />
     {state === 'loading' && <p className="lc-load" aria-busy="true">Loading the YouTube player…</p>}
-    {(state === 'offline' || state === 'unavailable' || state === 'failed') && <p className="lc-off" role="status"><b>{state === 'failed' ? 'Could not load.' : 'Offline.'}</b> {msg} <a href={cam.pageUrl} target="_blank" rel="noopener noreferrer">Open on YouTube ↗</a></p>}
+    {(state === 'offline' || state === 'unavailable' || state === 'failed') && <p className="lc-off" role="status"><b>{state === 'failed' ? 'Could not load.' : 'Offline.'}</b> {msg} <a href={cam.pageUrl} target="_blank" rel="noopener noreferrer">{pageLabel(cam.pageUrl)} ↗</a></p>}
   </div>;
 }
 

@@ -9729,6 +9729,7 @@
    "viewsSurf": "yes",
    "viewsSurfEvidence": "Live thumbnail 2026-11-10 14:03 PST: elevated view down the pier deck to the end café with breaking waves and whitewater on both sides of the pier.",
    "streamType": "YouTube live (video mhQjsLBfOoY); embed https://www.youtube-nocookie.com/embed/mhQjsLBfOoY",
+   "embedUrl": "https://www.youtube.com/embed/mhQjsLBfOoY",
    "embedAllowed": {
     "value": "yes",
     "clause": "YouTube Terms of Service: \"You may also show YouTube videos through the embeddable YouTube player.\" The owner has embedding enabled (oEmbed returned HTTP 200; playableInEmbed: true, checked 2026-11-10).",
@@ -9782,6 +9783,7 @@
    "viewsSurf": "partial",
    "viewsSurfEvidence": "Live thumbnail 2026-11-10: wide beach and shoreline south of the pier with the pier in the distance; the surf line is small in frame.",
    "streamType": "YouTube live (video RGYlFjV-dtc); embed https://www.youtube-nocookie.com/embed/RGYlFjV-dtc",
+   "embedUrl": "https://www.youtube.com/embed/RGYlFjV-dtc",
    "embedAllowed": {
     "value": "yes",
     "clause": "YouTube Terms of Service: \"You may also show YouTube videos through the embeddable YouTube player.\" The owner has embedding enabled (oEmbed returned HTTP 200; playableInEmbed: true, checked 2026-11-10).",
@@ -9840,6 +9842,7 @@
    "viewsSurf": "yes",
    "viewsSurfEvidence": "City page: \"Watch a LIVE view of the beach south of the Redondo Beach Pier. LIVE view is available through YouTube.\" Live thumbnail 2026-11-10 14:01 PST shows the beach, shore break and Palos Verdes to the south.",
    "streamType": "YouTube live (video TuVOKRP7IBA); embed https://www.youtube-nocookie.com/embed/TuVOKRP7IBA",
+   "embedUrl": "https://www.youtube.com/embed/TuVOKRP7IBA",
    "embedAllowed": {
     "value": "yes",
     "clause": "YouTube Terms of Service: \"You may also show YouTube videos through the embeddable YouTube player.\" The owner has embedding enabled (oEmbed returned HTTP 200; playableInEmbed: true, checked 2026-11-10).",
@@ -9893,6 +9896,7 @@
    "viewsSurf": "partial",
    "viewsSurfEvidence": "Owner: 'the Santa Monica Beach and Pier cam offers a 24/7 window ... Whether you're here to check the morning surf'. Beach and pier view; not the Venice breakwater.",
    "streamType": "YouTube live (video v97JpT3ZA0w); embed https://www.youtube-nocookie.com/embed/v97JpT3ZA0w",
+   "embedUrl": "https://www.youtube.com/embed/v97JpT3ZA0w",
    "embedAllowed": {
     "value": "yes",
     "clause": "explore.org Terms: \"You may \\\"deep-link\\\" to our video content and photography and you may \\\"embed\\\" or use analogous technology to include our content in your content.\" Plus YouTube embed on (oEmbed 200, checked 2026-11-10).",
