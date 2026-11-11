@@ -1,4 +1,7 @@
 import {regionNote} from '../../ocean/coverage';
+import {windowPhrase} from '../../services/homeDash';
+import {ShareWindow} from './ShareWindow';
+import type {SharePlan} from '../../services/sharePlan';
 import {fmtIn, dateIn, dateInMs, addDaysKey} from '../../ocean/time';
 import {activeZone, differsFromViewer, timeZoneOf, viewerTag} from '../../ocean/spotZone';
 import {Icon} from '../../ui/Icon';
@@ -18,11 +21,11 @@ const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look
 
 /** The Call: one answer you can act on (verdict, best window, the first reason); tap for every reason and what it is computed from. */
 /** `tz`: the zone of the spot the call is for (default: the page's spot); its window says the zone where that clock is not the viewer's. */
-export function CallBar({call, compact = false, tz}: {call: Call; compact?: boolean; tz?: string}) {
+export function CallBar({call, compact = false, tz, share}: {call: Call; compact?: boolean; tz?: string; share?: SharePlan | null}) {
   const [open, setOpen] = useState(false), id = useId();
   const w = call.verdict === 'Dark' || !call.window ? call.nextWindow : call.window;
   const z = tz ?? activeZone(), wTag = w ? viewerTag(z, w.start) : '';
-  const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${w.label}${wTag}${sameDay(w.start, z) ? '' : ` ${dayWord(w.start, z)}`}` : `${w.label}${wTag}`) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
+  const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${windowPhrase(w, Date.now())}${wTag}${sameDay(w.start, z) ? '' : ` ${dayWord(w.start, z)}`}` : `${windowPhrase(w, Date.now())}${wTag}`) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
   // T-069: the line under the verdict is the first reason that ADDS something; one that only restates the verdict and window is left to the tap-open list.
   const why = firstNewReason(call.why, `${call.verdict} ${wText ?? ''}`);
   // after dark the rating stays visible: "After dark · fair conditions · next window 7–10 AM" (user, 2026-11-08)
@@ -35,6 +38,7 @@ export function CallBar({call, compact = false, tz}: {call: Call; compact?: bool
         {why && <span className="call-why">{why}</span>}
         <span className="call-more" aria-hidden="true">{open ? 'Less' : 'Why'}</span>
       </button>
+      {share && <div className="call-share"><ShareWindow plan={share} /></div>}
       {open && (
         <div id={id} className="call-d">
           <ul>{uniqueReasons(call.why).map((r) => <li key={r}>{r}</li>)}</ul>

@@ -99,20 +99,28 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   return {verdict, why, hour: hr, breaker};
 }
 
-/** Best window on one Pacific day: the longest run of daylight hours with the same best verdict (Go, else Worth a look), highest peak first. */
+/** Best window on one Pacific day: the longest run of daylight hours with the same best verdict (Go, else Worth a look), highest peak first, ties keep the EARLIER run (deterministic).
+ *  The choice is made on the whole day's daylight hours with the REAL clock (the same hourCall as the hour cards, so a window can never contradict them), so a passing hour no longer trims or moves it. It depends on `fromMs`
+ *  only through "has it ended": when the day's best window is over, the best of the hours still ahead is chosen instead. */
 export function windowOnDay(spot: SurfSpot, dateKey: string, profile: UserProfile, ctx: CallContext, fromMs = 0): CallWindow | null {
-  const hours = ctx.records.filter((f) => f.spotId === spot.id && dateIn(timeZoneOf(spot), f.timestamp) === dateKey && Date.parse(f.timestamp) + 3600000 > fromMs).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
-  const calls = hours.map((f) => ({f, c: hourCall(spot, f, profile, ctx)}));
-  for (const want of ['Go', 'Worth a look'] as const) {
-    const runs: {s: number; e: number; peak: number}[] = []; let cur: {s: number; e: number; peak: number} | null = null;
-    for (const {f, c} of calls) {
-      const t = Date.parse(f.timestamp), ok = c.verdict === want && (c.hour.rating.score ?? 0) >= 0;
-      if (ok && cur && t === cur.e) { cur.e = t + 3600000; cur.peak = Math.max(cur.peak, c.hour.rating.score ?? 0); }
-      else { if (ok) { cur = {s: t, e: t + 3600000, peak: c.hour.rating.score ?? 0}; runs.push(cur); } else cur = null; }
+  const tz = timeZoneOf(spot);
+  const day = ctx.records.filter((f) => f.spotId === spot.id && dateIn(tz, f.timestamp) === dateKey).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
+  const calls = day.map((f) => ({f, c: hourCall(spot, f, profile, ctx)}));
+  const pick = (from: number): CallWindow | null => {
+    const mine = calls.filter(({f}) => Date.parse(f.timestamp) + 3600000 > from);
+    for (const want of ['Go', 'Worth a look'] as const) {
+      const runs: {s: number; e: number; peak: number}[] = []; let cur: {s: number; e: number; peak: number} | null = null;
+      for (const {f, c} of mine) {
+        const t = Date.parse(f.timestamp), ok = c.verdict === want && (c.hour.rating.score ?? 0) >= 0;
+        if (ok && cur && t === cur.e) { cur.e = t + 3600000; cur.peak = Math.max(cur.peak, c.hour.rating.score ?? 0); }
+        else { if (ok) { cur = {s: t, e: t + 3600000, peak: c.hour.rating.score ?? 0}; runs.push(cur); } else cur = null; }
+      }
+      if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e, tz)}; }
     }
-    if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e, timeZoneOf(spot))}; }
-  }
-  return null;
+    return null;
+  };
+  const whole = pick(0);
+  return whole && Date.parse(whole.end) > fromMs ? whole : pick(fromMs);
 }
 
 const dayName = (iso: string, nowMs: number, tz: string) => {

@@ -592,6 +592,14 @@ p.sp-wn { display: block; }
 .sp-hd-a { min-height: 44px; display: inline-flex; align-items: center; text-decoration: none; }
 .sp-hd small { font-size: 12px; color: var(--muted); flex: 1 1 240px; }
 
+/* share a plan */
+.share-w { display: inline-flex; align-items: center; gap: 8px; }
+.share-b { min-height: 44px; }
+.share-toast { font-size: 12px; color: var(--muted); }
+.share-toast:empty { display: none; }
+.call-share { padding: 0 14px 10px; }
+.dc-share { padding: 0 12px 12px; }
+.sp-sharenote { margin: 0; font-size: 14px; color: var(--muted); }
 /* water quality line */
 .sp-wq { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; font-size: 14px; }
 .sp-wq b { font-weight: 600; }

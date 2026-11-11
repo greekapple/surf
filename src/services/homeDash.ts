@@ -24,6 +24,8 @@ export interface DashCard {
 export interface DashContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; extrema?: TidePrediction[]}
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const hourFmt = (tz: string) => ({format: (d: Date) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(d).replace(':00', '')});
+/** A window that is running: "on now, until 2 PM" (the window's own end); otherwise its label. */
+export const windowPhrase = (w: {start: string; end: string; label: string}, nowMs: number) => Date.parse(w.start) <= nowMs && nowMs < Date.parse(w.end) ? `on now, until ${w.label.split('–')[1] ?? w.label}` : w.label;
 /** "7 AM" → "7"; the window label spells am/pm once at the end: "7–10 AM", "11 AM–2 PM". */
 export function windowLabel(startMs: number, endMs: number, tz: string = DEFAULT_TIME_ZONE): string {
   const a = hourFmt(tz).format(new Date(startMs)), b = hourFmt(tz).format(new Date(endMs)), [an, ap] = a.split(' '), [bn, bp] = b.split(' ');
@@ -37,12 +39,16 @@ export function bestWindowToday(spot: SurfSpot, records: Forecast[], now: number
   const tz = timeZoneOf(spot), today = dateIn(tz, new Date(now).toISOString());
   // Daylight only (civil twilight, approximate): a window in the dark is not a surf window.
   const ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(today, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96, tz);
-  const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && dateIn(tz, f.timestamp) === today && t + 3600000 > now && t >= civil.rise && !isDark(spot.id, f.timestamp); }); // the same daylight rule as the Call (an hour is light when its midpoint is)
-  const ranges = windowRanges(hours, (f) => ({timestamp: f.timestamp, score: rateForecast(spot, f, now).score}), WINDOW_MIN_SCORE, 10);
-  const best = ranges.sort((a, b) => b.peakScore - a.peakScore || Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp))[0];
-  if (!best) return null;
-  const [s, e] = clampToLight(spot.id, Date.parse(best.start.timestamp), Date.parse(best.end.timestamp) + 3600000); if (e <= s) return null;
-  return {label: windowLabel(s, e, tz), category: String(rateForecast(spot, best.peak, now).category), start: new Date(s).toISOString(), end: new Date(e).toISOString()};
+  // Stable (quiver-small): chosen on the whole day's daylight hours, with the real clock; ties keep the earlier run, and a passing hour no longer trims it. `now` only decides whether it is over.
+  const all = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && dateIn(tz, f.timestamp) === today && t >= civil.rise && !isDark(spot.id, f.timestamp); });
+  const choose = (hs: Forecast[]) => {
+    const best = windowRanges(hs, (f) => ({timestamp: f.timestamp, score: rateForecast(spot, f, now).score}), WINDOW_MIN_SCORE, 10).sort((a, b) => b.peakScore - a.peakScore || Date.parse(a.start.timestamp) - Date.parse(b.start.timestamp))[0];
+    if (!best) return null;
+    const [s, e] = clampToLight(spot.id, Date.parse(best.start.timestamp), Date.parse(best.end.timestamp) + 3600000); if (e <= s) return null;
+    return {label: windowLabel(s, e, tz), category: String(rateForecast(spot, best.peak, now).category), start: new Date(s).toISOString(), end: new Date(e).toISOString()};
+  };
+  const whole = choose(all);
+  return whole && Date.parse(whole.end) > now ? whole : choose(all.filter((f) => Date.parse(f.timestamp) + 3600000 > now));
 }
 
 /** `now` picks the hour the card stands for; `clockMs` is the REAL clock the freshness rule, the rating and the lead time are judged at (T-107: a ranking for 3 h ahead or tomorrow morning passed the ranked hour as "now",

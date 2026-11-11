@@ -1,4 +1,5 @@
 import {createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode} from 'react';
+import {hourFromParam} from '../services/sharePlan';
 import {useAppData, type DataStore} from '../hooks/useAppData';
 import {useForecast, type ForecastState} from '../hooks/useForecast';
 import {useNow} from '../hooks/useNow';
@@ -40,6 +41,8 @@ export interface Swello {
   setPrefs: (patch: Partial<LocalPrefs>) => void;
   /** The Explore map reports the spots whose pins are on screen (debounced there); they load with the next scope. */
   reportVisible: (ids: string[]) => void;
+  /** Set when a shared link's hour is no longer in the forecast: "That shared hour has passed; showing now." */
+  shareNote: string;
   /** A screen that lists spots (Compare, Find spots, the spot picker) asks for the ones it shows: they load on demand. */
   requestSpots: (ids: string[]) => void;
   /** Spec 2026-11-09 1B: whether the map has a spot focused. False = "no spot focused": the map highlights nothing and its clocks use the viewer's
@@ -73,11 +76,22 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   const live = view.dataMode === 'Retrieved';
   const spotOptions = useMemo(() => (live ? evidenceSpots.map((e) => allSpots.find((s) => s.id === e.id)!).filter(Boolean) : spots), [live]);
 
+  const [sharedT, setSharedT] = useState<string | null>(null), [shareNote, setShareNote] = useState('');
   // Spot deep link: ?spot=ocean-beach (one-way on load; afterwards the store owns the spot).
   useEffect(() => {
     const id = spotIdForSlug(new URLSearchParams(location.search).get('spot'));
     if (id && spotOptions.some((s) => s.id === id) && id !== view.selected) view.selectSpot(id);
+    const t = hourFromParam(new URLSearchParams(location.search).get('t'));   // a shared plan: /forecast?spot=<slug>&t=<ISO hour> opens that spot at that hour
+    if (id && t) { view.selectTime(t); setSharedT(t); }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // An expired shared link: when the spot's forecast has loaded and the shared hour is no longer in it, say so and show now (never silently a different hour).
+  useEffect(() => {
+    if (!sharedT) return;
+    const mine = view.mapRecords.filter((f) => f.spotId === view.selected); if (!mine.length) return;
+    setSharedT(null);
+    if (!mine.some((f) => f.timestamp === sharedT)) { view.selectTime(new Date(Math.floor(Date.now() / 3600000) * 3600000).toISOString()); setShareNote('That shared hour has passed; showing now.'); }
+  }, [sharedT, view.mapRecords, view.selected]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { if (!shareNote) return; const h = window.setTimeout(() => setShareNote(''), 12000); return () => window.clearTimeout(h); }, [shareNote]);
 
   const [mapFocused, setMapFocused] = useState(() => typeof location === 'undefined' || new URLSearchParams(location.search).get('focus') !== 'none');
   const setSpot = (id: string) => {
@@ -97,6 +111,6 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   // 1A: set before the children render (the map's time helpers read it), like setActiveZone in useForecast
   const labelZone = setMapZone(labelZoneFor(area, section, timeZoneOf(view.spot), mapFocused));
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, requestSpots, mapFocused, setMapFocused, labelZone};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, mapFocused, setMapFocused, labelZone};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

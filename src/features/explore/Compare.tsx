@@ -1,4 +1,5 @@
 import {mapZone, timeZoneOf} from '../../ocean/spotZone';
+import {windowPhrase} from '../../services/homeDash';
 import {conditionWord} from '../../ui/Condition';
 import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {isDark} from '../forecast/trustApi';
@@ -76,7 +77,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
           <span className="cx-hs">{f && est ? <span title={`${est.tag} · ${est.detail}`}>{est.value}<small> {est.suffix}{est.tuned ? ` · ${est.tuned}` : ''}{est.confidenceText ? ` · ${est.confidenceText}` : ''}</small><span className="sr-only">: {est.tag}. {est.confidenceText}. {est.detail}</span></span> : f ? <>{ht(f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
           <span className="cx-sw">{f?.primary ? <><DirArrow from={f.primary.direction} size={13} /> {Math.round(f.primary.period)} s {compass(f.primary.direction)}</> : '—'}</span>
           <span className="cx-wd">{f && Number.isFinite(f.wind.direction) ? <><DirArrow from={f.wind.direction} size={13} /> {windVal(f.wind.speed, p)} {p.windUnit}<StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</span>
-          <span className="cx-best">{best ? `Best ${best.when} ${best.label}` : ''}</span>
+          <span className="cx-best">{best ? `Best ${best.when} ${windowPhrase(best, now)}` : ''}</span>
         </a></li>
       ))}</ol>
     </div>

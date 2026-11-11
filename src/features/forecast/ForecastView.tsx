@@ -1,4 +1,6 @@
 import {nearSfBuoy} from '../../ocean/buoys';
+import {sharePlanFor} from '../../services/sharePlan';
+import {slugFor} from '../../app/routes';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf, differsFromViewer, zoneAbbr} from '../../ocean/spotZone';
 import {Fragment, useEffect, useMemo, useState} from 'react';
@@ -47,7 +49,7 @@ const CHART_TABS: [ChartTab, string][] = [['surf', 'Surf'], ['swell', 'Swell'], 
 const STACK_H: Record<ChartTab, number> = {surf: 250, swell: 170, wind: 140, tide: 130}, STACK_H_PHONE: Record<ChartTab, number> = {surf: 210, swell: 140, wind: 120, tide: 115};
 
 export function ForecastView({go}: ViewProps) {
-  const {view, data, now, spot, series, selected, live} = useSwello();
+  const {view, data, now, spot, series, selected, live, shareNote} = useSwello();
   const p = data.state.profile;
   const days = useMemo(() => groupDays(series), [series]);
   const [range, setRange] = useState<'week' | 'day'>('week');
@@ -126,8 +128,9 @@ export function ForecastView({go}: ViewProps) {
           </div>
         </div>
       </SpotBand>
+      {shareNote && <p className="sp-sharenote" role="status">{shareNote}</p>}
       <NwsBanner spotId={spot.id} />
-      <CallBar call={call} />
+      <CallBar call={call} share={sharePlanFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
       <DaylightRow d={daylight} />
       {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}
       <WaterQuality spotId={spot.id} />

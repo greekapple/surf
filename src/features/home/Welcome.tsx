@@ -1,4 +1,5 @@
 import {useMemo, useState} from 'react';
+import {windowPhrase} from '../../services/homeDash';
 import {dateInMs, hourInMs, fmtIn, addDaysKey} from '../../ocean/time';
 import {differsFromViewer, timeZoneOf, viewerTag, viewerZone} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
@@ -86,8 +87,8 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const surf = surf0 && cv ? (cv.level === 'too-far' ? 'too far out to size yet' : cv.disagree ? `${surf0} (models differ${cv.wide ? `; could be ${wideText(cv.wide, profile).full}` : ''})` : surf0) : surf0; // the band stays the number (T-118), as in the hero caption below; the confidence word is in that caption
   const windWords = wind ? `${wind.word.split(' ')[0].toLowerCase()} ${wind.relation}${wind.stale ? (wind.stale.reason === 'saved' ? ' (saved data)' : ' (stale data)') : ''}` : null;
   const answer = bet && bet.sized && surf
-    ? `${bet.spot.name} is your best bet ${bet.when}, ${bet.window.label}${viewerTag(timeZoneOf(bet.spot), bet.window.start)}, ${surf}${windWords ? ` and ${windWords}` : ''}.`
-    : bet ? `No sized forecast nearby ${bet.when}; ${bet.spot.name} looks best on wind alone, ${bet.window.label}${viewerTag(timeZoneOf(bet.spot), bet.window.start)}${windWords ? `, ${windWords}` : ''}.`
+    ? `${bet.spot.name} is your best bet ${bet.when}, ${windowPhrase(bet.window, nowMs)}${viewerTag(timeZoneOf(bet.spot), bet.window.start)}, ${surf}${windWords ? ` and ${windWords}` : ''}.`
+    : bet ? `No sized forecast nearby ${bet.when}; ${bet.spot.name} looks best on wind alone, ${windowPhrase(bet.window, nowMs)}${viewerTag(timeZoneOf(bet.spot), bet.window.start)}${windWords ? `, ${windWords}` : ''}.`
     : withData === 0 ? `There is no forecast for your spots right now, so there is no answer yet.`
     : withData < total ? `Nothing worth it in the next few days at the ${withData} of ${total} spots with a forecast; the others have none right now.`
     : `Nothing at your spots looks worth it in the next few days. The forecast below shows why.`;

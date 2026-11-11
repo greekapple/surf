@@ -1,4 +1,5 @@
 import {mapZone} from '../../ocean/spotZone';
+import {windowPhrase} from '../../services/homeDash';
 import {conditionWord} from '../../ui/Condition';
 import {useEffect, useMemo, useState, type CSSProperties} from 'react';
 import {nearPoint} from '../../ocean/spotScope';
@@ -74,7 +75,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
         <span className="fs-hs">{r.f && r.est ? <span title={`${r.est.tag} · ${r.est.detail}`}>{r.est.value}<small> {r.est.suffix}{r.est.tuned ? ` · ${r.est.tuned}` : ''}{r.est.confidenceText ? ` · ${r.est.confidenceText}` : ''}</small><span className="sr-only">: {r.est.tag}. {r.est.confidenceText}. {r.est.detail}</span></span> : r.f ? <>{ht(r.f.offshore, p)}<small> {p.heightUnit} offshore</small></> : '—'}</span>
         <span className="fs-rate">{r.rating ? <em style={{'--c': BAND_COLOR[bandOf(r.rating.category)]} as CSSProperties}>{conditionWord(r.rating.category)}</em> : <small>no record</small>}</span>
         <span className="fs-meta">{r.f?.primary ? `${Math.round(r.f.primary.period)} s ${compass(r.f.primary.direction)}` : ''}{r.f && Number.isFinite(r.f.wind.speed) ? ` · wind ${windVal(r.f.wind.speed, p)} ${p.windUnit}` : ''}{r.f && Number.isFinite(r.f.wind.speed) && <StaleTag s={hourFreshness(r.f, now).wind} />}</span>
-        <span className="fs-best">{r.best ? `Best ${r.best.when} ${r.best.label}` : ''}</span>
+        <span className="fs-best">{r.best ? `Best ${r.best.when} ${windowPhrase(r.best, now)}` : ''}</span>
       </button>
       <button className="star" aria-pressed={fav.includes(r.s.id)} aria-label={`${fav.includes(r.s.id) ? 'Remove' : 'Save'} ${r.s.name}`} onClick={() => data.favorite(r.s.id)}><Icon name="star" size={17} /></button>
       <button className="iconbtn" aria-label={`${r.s.name} on the map`} onClick={() => open(r.s.id, 'explore')}><Icon name="explore" size={17} /></button>
