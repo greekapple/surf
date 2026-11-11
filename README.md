@@ -164,3 +164,6 @@ Default Retrieved mode adds `src/ocean/` provider adapters, nullable measurement
 No uncalibrated local breaking height, swell exposure, orientation, tide preference or wave-shape input is invented. SQI and Your Match remain insufficient where required inputs are missing. Original demonstration examples remain separate. Smart Quiver CRUD/comparison/persistence remain intact; real board recommendations are withheld without essential local wave inputs. Experiment board fit uses explicitly hypothetical inputs only.
 
 Manual endpoint verification: `node --experimental-strip-types scripts/check-ocean-providers.mjs`. See `docs/data-integration-verification.md` for successful connections, browser limits and QA scope. `public/observations/ndbc-46026.json` is a dated NOAA observation snapshot, never a live feed. The v0.3 verification and behavior above describe Demonstration mode.
+
+## Server-side data captures (not shown in the app)
+The Worker keeps three evidence archives in R2 (`archive/surf-height/gauges/`, `archive/surf-height/srf/`, `archive/swan/`) next to the NDBC one (`archive/ndbc/`): hourly nearshore gauge rows, NWS Surf Zone Forecasts and the Hawaii SWAN cells. Layout, schedule, lifecycle (none; about 0.7 GB a year) and cost: `docs/forecast/SURF-CAPTURE.md` and `docs/forecast/NDBC-ARCHIVE.md`.
