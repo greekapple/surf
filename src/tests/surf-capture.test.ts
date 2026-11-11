@@ -169,3 +169,9 @@ test('the worst invocation (gauges + SRF + SWAN slice 0) stays far under 1,000 s
   assert.ok(fetched.length + r2.ops.puts + r2.ops.gets <= BUDGETS.gauges + BUDGETS.srf + BUDGETS.swan);
   assert.equal(SWAN_SLICES, 3);
 });
+
+test('the hourly tick (captures + NDBC backfill continuation, one invocation) budgets stay under the 1,000-subrequest limit (Codex P1 on 8765edc)', async () => {
+  const {BACKFILL_TICK_BUDGET, INVOCATION_LIMIT} = await import('../../worker/cloudflare.mjs');
+  assert.ok(BACKFILL_TICK_BUDGET > 0);
+  assert.ok(BUDGETS.gauges + BUDGETS.srf + BUDGETS.swan + BACKFILL_TICK_BUDGET <= INVOCATION_LIMIT - 50);
+});
