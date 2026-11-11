@@ -49,8 +49,8 @@ test('the camera rule text says the second amendment and the kill switch is docu
   for (const c of HD) assert.ok(doc.includes('`' + c.embedId + '`'), c.embedId + ' is in the email list');
 });
 
-test('the spot page draws, in this order: our Camera panel, the HDOnTap links, then the Surfline link (all three merged)', () => {
-  const fv = read('../features/forecast/ForecastView.tsx'), a = fv.indexOf('<LiveCamPanel'), b = fv.indexOf('<HdontapLinks'), c = fv.indexOf('<SurflineLink');
-  assert.ok(a > 0 && b > a && c > b, `${a} < ${b} < ${c}`); assert.match(fv, /import \{HdontapLinks\} from '\.\/HdontapLinks';/); assert.match(fv, /import \{SurflineLink\} from '\.\/SurflineLink';/);
-  const css = read('../features/forecast/forecast.css'); assert.match(css, /\.sp-surfline-a/); assert.match(css, /\.sp-hd-a/); assert.match(css, /\.sp-live-cam/); assert.doesNotMatch(css + fv, /<<<<<<<|>>>>>>>/);
+test('the spot page draws our Camera panel, then the HDOnTap links, and never a Surfline camera (user, 2026-11-10)', () => {
+  const fv = read('../features/forecast/ForecastView.tsx'), a = fv.indexOf('<LiveCamPanel'), b = fv.indexOf('<HdontapLinks');
+  assert.ok(a > 0 && b > a, `${a} < ${b}`); assert.match(fv, /import \{HdontapLinks\} from '\.\/HdontapLinks';/); assert.doesNotMatch(fv, /SurflineLink|surfline\.com/i);
+  const css = read('../features/forecast/forecast.css'); assert.doesNotMatch(css, /\.sp-surfline/); assert.match(css, /\.sp-hd-a/); assert.match(css, /\.sp-live-cam/); assert.doesNotMatch(css + fv, /<<<<<<<|>>>>>>>/);
 });
