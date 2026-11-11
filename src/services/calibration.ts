@@ -1,4 +1,6 @@
 import type {Forecast, UserProfile} from '../models/index.ts';
+import {forecastInputs} from './sessionInputs.ts';
+import {allSpots} from '../data/catalog.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {assignmentFor} from '../ocean/mop.ts';
@@ -32,14 +34,14 @@ const view = (o: SessionObservation): Observation => {
 export function pairFor(spotId: string, records: Forecast[] | undefined, observedAtMs: number, bundle: LogEnv['bundle'], nowMs: number): ModelPair | null {
   // Prefer what was PREDICTED before the session (the archive); it needs no current record, so an observation logged days later still pairs.
   const hourIso = new Date(Math.floor(observedAtMs / 3600000) * 3600000).toISOString(), was = predictedFor(spotId, hourIso, observedAtMs);
-  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) return {centralFt: was.cs ?? (was.lo + was.hi) / 2, basis: was.cs !== undefined ? 'surf-height' : undefined, loFt: was.lo, hiFt: was.hi, method: was.m, validAt: hourIso, offshoreHsFt: was.off, primaryTpS: was.tp, source: 'archived', leadH: was.lead, ...(was.m === 'v1' && was.tf !== undefined ? {transfer: was.tf} : {})};
+  if (was && was.k === 'estimate' && was.m && was.lo !== null && was.hi !== null) return {centralFt: was.cs ?? (was.lo + was.hi) / 2, basis: was.cs !== undefined ? 'surf-height' : undefined, loFt: was.lo, hiFt: was.hi, method: was.m, validAt: hourIso, offshoreHsFt: was.off, primaryTpS: was.tp, ...(was.dir !== undefined ? {dirDeg: was.dir, windMph: was.ws ?? null, windRel: was.wr ?? null, tide: was.ti ?? null} : {}), ...(was.st ? {stale: true} : {}), ...(was.np ? {nearshoreOnly: true} : {}), ...(was.fl ? {flat: true} : {}), source: 'archived', leadH: was.lead, ...(was.m === 'v1' && was.tf !== undefined ? {transfer: was.tf} : {})};
   // Fallback: the run at logging time, which needs a current record for the SAME hour (never a neighbouring one).
   const f = records && recordAt(records, spotId, observedAtMs);
   if (!f || Math.floor(Date.parse(f.timestamp) / 3600000) !== Math.floor(observedAtMs / 3600000)) return null;
   const h = headlineSurf(spotId, f, {bundle, nowMs, observations: []});
   if (h.kind !== 'estimate') return null;
   const hs = f.evidence?.offshore?.value ?? (Number.isFinite(f.offshore) ? f.offshore : null), tp = f.primary?.period;
-  return {centralFt: h.centralFt ?? (h.loFt + h.hiFt) / 2, basis: h.centralFt !== undefined ? 'surf-height' : undefined, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null, source: 'current', ...(h.method === 'v1' ? {transfer: h.transfer?.factor ?? 1} : {})};
+  return {centralFt: h.centralFt ?? (h.loFt + h.hiFt) / 2, basis: h.centralFt !== undefined ? 'surf-height' : undefined, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null, ...((x) => ({dirDeg: x.dirDeg, windMph: x.windMph, windRel: x.windRel, tide: x.tide}))(forecastInputs(allSpots.find((x) => x.id === spotId), f)), source: 'current', ...(h.method === 'v1' ? {transfer: h.transfer?.factor ?? 1} : {})};
 }
 
 export function logObservation(i: LogInput, env: LogEnv = {}): {ok: true; obs: Observation} | {ok: false; error: string} {

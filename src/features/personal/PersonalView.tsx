@@ -121,6 +121,8 @@ export function PersonalView({section, go}: ViewProps) {
   const set = (patch: Partial<UserProfile>) => data.profile(patch);
   const boards = data.state.boards;
   const alertsPage = section === '' && hash === '#alerts';
+  const sessionTarget = hash.startsWith('#session-') ? decodeURIComponent(hash.slice(9)) : null;   // a link from "similar forecast to your session": show the whole list and bring that session into view
+  useEffect(() => { if (sessionTarget && section === 'account') document.getElementById(`session-${sessionTarget}`)?.scrollIntoView({block: 'center'}); }, [sessionTarget, section]);
 
   const setRules = (next: AlertRule[]) => { setRulesState(next); if (!saveRules(next)) setNote('Alerts could not be saved in this browser.'); };
   const setBoardPrefs = (next: BoardPrefs) => { setPrefsState(next); saveBoardPrefs(next); };
@@ -407,8 +409,8 @@ export function PersonalView({section, go}: ViewProps) {
               </dl>
               {obsLog.length > 0 && (
                 <ul className="pzl-obslist" aria-label="Recent forecast-check observations">
-                  {obsLog.slice(0, 5).map((o) => (
-                    <li key={o.id}><span>{spots.find((s) => s.id === o.spotId)?.name ?? o.spotId} · {entryDate(o.observedAt, o.spotId)} · {p.heightUnit === 'm' ? `${(o.rangeFt[0] * 0.3048).toFixed(1)}–${(o.rangeFt[1] * 0.3048).toFixed(1)} m` : `${o.rangeFt[0]}–${o.rangeFt[1]} ft`} face · quality {o.quality}/5</span>
+                  {(sessionTarget ? obsLog : obsLog.slice(0, 5)).map((o) => (
+                    <li key={o.id} id={`session-${o.id}`}><span>{spots.find((s) => s.id === o.spotId)?.name ?? o.spotId} · {entryDate(o.observedAt, o.spotId)} · {p.heightUnit === 'm' ? `${(o.rangeFt[0] * 0.3048).toFixed(1)}–${(o.rangeFt[1] * 0.3048).toFixed(1)} m` : `${o.rangeFt[0]}–${o.rangeFt[1]} ft`} face · quality {o.quality}/5</span>
                       <button className="btn" aria-label={`Remove observation from ${entryDate(o.observedAt, o.spotId)}`} onClick={() => { const n = removeObservation(obsLog, o.id); setObsLog(n); saveLog(n); }}>Remove</button></li>
                   ))}
                 </ul>

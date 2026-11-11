@@ -29,7 +29,7 @@ export function recordAt(records: Forecast[], spotId: string, atMs: number): For
   return best;
 }
 
-const windAdjective = (mph: number) => (mph < 5 ? 'Light' : mph < 12 ? 'Gentle' : mph < 19 ? 'Moderate' : mph < 26 ? 'Fresh' : 'Strong');
+export const windAdjective = (mph: number) => (mph < 5 ? 'Light' : mph < 12 ? 'Gentle' : mph < 19 ? 'Moderate' : mph < 26 ? 'Fresh' : 'Strong');
 export interface WindView {mph: number; dirDeg: number; word: string; label: string; relation: string; gustLabel: string | null; stale?: Stale}
 /** The wind accessor: speed, direction and shore relation for one hour, in the user's units. Null when this hour has no usable wind. */
 export function windOf(spot: SurfSpot, f: Forecast, p: UserProfile, nowMs: number = Date.now()): WindView | null {

@@ -1,13 +1,15 @@
 import type {Forecast} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {headlineSurf} from './headlineSurf.ts';
+import {forecastInputs} from './sessionInputs.ts';
+import {allSpots} from '../data/catalog.ts';
 
 /** Forecast archive (T-064): a local ring of the forecast values a surfer's device has VIEWED, so an observation or a "felt right?" tap can be paired with what was PREDICTED,
  *  not with a later re-run. Local to this browser (localStorage), never uploaded. About two weeks, compact, bounded.
  *  `run` is when WE retrieved the data (the provider does not supply the model issue time), so `lead` is hours from our retrieval to the hour predicted. */
 export const ARCHIVE_KEY = 'swello-forecast-archive';
 export const ARCHIVE_DAYS = 14, ARCHIVE_MAX = 8000, ARCHIVE_THROTTLE_MS = 30 * 60000, MAX_PER_HOUR = 4;
-export interface ArchivedHour {/** T-131 phase 2: v1 only, the buoy-transfer factor already in cs/lo/hi (1 = none; absent = archived before it existed) */ tf?: number; s: string; v: string; lo: number | null; hi: number | null; /** the surf height by the common convention (T-077); entries without it predate the convention */ cs?: number; k: 'estimate' | 'demonstration' | 'offshore' | 'none'; m: 'mop-v2' | 'v1' | null; off: number | null; tp: number | null; run: string; seen: string; lead: number}
+export interface ArchivedHour {/** T-131 phase 2: v1 only, the buoy-transfer factor already in cs/lo/hi (1 = none; absent = archived before it existed) */ tf?: number; s: string; v: string; lo: number | null; hi: number | null; /** the surf height by the common convention (T-077); entries without it predate the convention */ cs?: number; /** quiver item 3: the other forecast inputs at that hour, when the record had them (absent on entries archived before they were kept): primary swell direction (deg), wind mph, its relation to the beach, tide stage */ dir?: number | null; ws?: number | null; wr?: string | null; ti?: 'rising' | 'falling' | null; /** the headline was a saved or stale copy when archived (such entries are never compared) */ st?: boolean; /** the headline was MOP's nearshore-only point (a different kind of number from the breaking rule's) */ np?: boolean; /** under the flat threshold */ fl?: boolean; k: 'estimate' | 'demonstration' | 'offshore' | 'none'; m: 'mop-v2' | 'v1' | null; off: number | null; tp: number | null; run: string; seen: string; lead: number}
 type Store = Pick<Storage, 'getItem' | 'setItem'>;
 const defaultStore = (): Store | null => { try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch { return null; } };
 const ok = (o: any): o is ArchivedHour => o && typeof o.s === 'string' && Number.isFinite(Date.parse(o.v)) && Number.isFinite(Date.parse(o.seen)) && typeof o.k === 'string';
@@ -24,12 +26,12 @@ export function archiveHours(spotId: string, records: Forecast[], bundle: Pick<O
   lastRun.set(spotId, nowMs);
   const cutoff = nowMs - ARCHIVE_DAYS * 86400000, all = loadArchive(store).filter((a) => Date.parse(a.v) >= cutoff);
   const byHour = new Map<string, ArchivedHour[]>(); for (const a of all) { const k = `${a.s}|${a.v}`; (byHour.get(k) ?? byHour.set(k, []).get(k)!).push(a); }
-  let n = 0;
+  let n = 0; const spotObj = allSpots.find((x) => x.id === spotId);
   for (const f of mine) {
     const h = headlineSurf(spotId, f, {nowMs, observations: [], bundle}), run = f.evidence?.offshore.source.retrievedAt, runMs = Date.parse(run ?? ''), v = Date.parse(f.timestamp);
     const lead = Number.isFinite(runMs) ? Math.max(0, (v - runMs) / 3600000) : Math.max(0, (v - nowMs) / 3600000);
     const e: ArchivedHour = {s: spotId, v: f.timestamp, ...(h.kind === 'estimate' && Number.isFinite(h.centralFt) ? {cs: h.centralFt} : {}), lo: h.kind === 'estimate' ? h.loFt : h.kind === 'none' ? null : h.kind === 'offshore' || h.kind === 'demonstration' ? h.ft : null, hi: h.kind === 'estimate' ? h.hiFt : h.kind === 'none' ? null : h.ft,
-      ...(h.kind === 'estimate' && h.method === 'v1' ? {tf: h.transfer?.factor ?? 1} : {}), k: h.kind, m: h.kind === 'estimate' ? h.method : null, off: Number.isFinite(f.offshore) ? Math.round(f.offshore * 10) / 10 : null, tp: Number.isFinite(f.primary?.period) ? f.primary.period : null,
+      ...(h.kind === 'estimate' && h.method === 'v1' ? {tf: h.transfer?.factor ?? 1} : {}), ...((x) => ({dir: x.dirDeg, ws: x.windMph, wr: x.windRel, ti: x.tide}))(forecastInputs(spotObj, f, nowMs)), ...(h.kind === 'offshore' && h.saved || h.kind === 'estimate' && (h as {saved?: unknown}).saved ? {st: true} : {}), ...(h.kind === 'estimate' && h.nearshoreOnly ? {np: true} : {}), ...(h.kind === 'estimate' && h.nearshoreOnly?.flat ? {fl: true} : {}), k: h.kind, m: h.kind === 'estimate' ? h.method : null, off: Number.isFinite(f.offshore) ? Math.round(f.offshore * 10) / 10 : null, tp: Number.isFinite(f.primary?.period) ? f.primary.period : null,
       run: Number.isFinite(runMs) ? run! : new Date(nowMs).toISOString(), seen: new Date(nowMs).toISOString(), lead: Math.round(lead * 10) / 10};
     // Snapshots are APPENDED, never overwritten: a later visit (even in the same lead bucket) must not erase what was shown before a session. At most MAX_PER_HOUR are kept per spot-hour: the earliest and the most recent ones.
     const list = byHour.get(`${spotId}|${f.timestamp}`) ?? []; list.sort((x, y) => Date.parse(x.seen) - Date.parse(y.seen));

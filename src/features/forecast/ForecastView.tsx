@@ -1,4 +1,5 @@
 import {nearSfBuoy} from '../../ocean/buoys';
+import {SimilarSession} from './SimilarSession';
 import {sharePlanFor} from '../../services/sharePlan';
 import {slugFor} from '../../app/routes';
 import {dateIn} from '../../ocean/time';
@@ -132,6 +133,7 @@ export function ForecastView({go}: ViewProps) {
       <NwsBanner spotId={spot.id} />
       <CallBar call={call} share={sharePlanFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
       <DaylightRow d={daylight} />
+      <SimilarSession spot={spot} forecast={selected.forecast} profile={p} bundle={bundle} nowMs={now} />
       {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}
       <WaterQuality spotId={spot.id} />
       {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages. (Showing a camera in the page is the Camera panel below, under the amended camera rule in src/data/cams.ts.) */}
