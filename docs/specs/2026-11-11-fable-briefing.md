@@ -126,6 +126,8 @@ The lead looks at the stills before any merge.
 - **Calibration:** use `docs/forecast/RATING-AUDIT-SPLIT.md` (the round-3 study) if it has landed. Turn its evidence-backed proposals into one rating-calibration spec, apply it only after the user approves, and byte-compare every unaffected spot.
 - **Review:** data-honesty-reviewer.
 
+- **Surf-height calibration (added 2026-11-11):** the surf number is a model estimate. Score it daily per zone against the NWS Surf Zone Forecasts (official, public domain, 1,040 spots mapped in `docs/forecast/data/surf-height-sources.json`), and calibrate the breaking step against the measured nearshore gauges (CDIP/NDBC, list in `docs/research/SURF-HEIGHT-SOURCES.md`). The records: `~/Development/swello-data/surf-height/` (since 2026-11-10 22:45 PST) and, once eng's server capture lands, R2 `archive/surf-height/`. Report the error per region before proposing any change; apply only after the user approves.
+
 ### Track 3: personal calibration you can see
 After a few "felt right?" taps or logged sessions at a spot, the headline shows "calibrated to your N sessions here", with the calibrated range next to the model's and one tap to see why they differ. A new user sees the plain model. Nothing is uploaded; everything stays local.
 
@@ -143,6 +145,10 @@ After a few "felt right?" taps or logged sessions at a spot, the headline shows 
   - follow `docs/design/RULES.md` and the reference crops;
   - minimal, functional, data first: Surfline and Windy structure, done more beautifully;
   - no AI imagery on condition surfaces.
+- **Decided by the user (2026-11-11):**
+  - font: **Archivo**, as PRODUCT.md says; Inter goes (RULES.md calls it an AI tell);
+  - example boards stay real retail models, labelled "Example board (retail model)" (being done on `boards-restore`).
+- **Also in this track:** the design-audit items D1–D15 and the three system fixes (`docs/reviews/2026-11-10-audit-summary.md` §D), plus map scrub performance (B8: pins updated in place, model steps blended on the GPU).
 - **Process:**
   - run the `design-critic` agent first;
   - fix its top 5;
