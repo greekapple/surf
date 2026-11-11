@@ -6,13 +6,15 @@ import {evidenceSpots} from '../../ocean/spots';
 import {ZONES, zoneOf} from '../../data/zones';
 import type {Forecast, Skill, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
+import {SkelInline} from '../../ui/Skeleton';
+import {spotPhase} from '../../services/dataPhase';
 import {formatHeight, parseHeight, userHeight} from '../../services/heightMath';
 import {readBasemapPref, saveBasemapPref, type BasemapPref} from '../../map/basemapPref';
 import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
 import {timeLabelPT} from '../forecast/format';
 import {heroHeight} from '../forecast/model';
 import {rateForecast} from '../../ratings/adapters';
-import {compass, heightValue} from '../../utils/units';
+import {compass, fromUnit, heightRange, toUnit} from '../../utils/units';
 import {PIcon, type PName} from './icons';
 import {Choice, SpotCover, entryDate} from './parts';
 import {AlertsManager} from './AlertsPanels';
@@ -24,12 +26,12 @@ import {assignmentFor} from '../../ocean/mop';
 import {orderSpots, pageWindow, SPOTS_PER_PAGE} from './spotList';
 import {headlineSurf} from '../../services/headlineSurf';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
-import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
+import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, swellSummary, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
 import {boardPickFor} from '../quiver/fit';
 import './personal.css';
 
 function loadAvatar() { try { return localStorage.getItem(AVATAR_KEY) ?? ''; } catch { return ''; } }
-const rangeText = (a: number, b: number, p: UserProfile) => `${Math.round(heightValue(a, p))}–${Math.round(heightValue(b, p))} ${p.heightUnit}`;
+const rangeText = (a: number, b: number, p: UserProfile) => heightRange(a, b, p); // B12: one decimal in m (2–6 ft is 0.6–1.8 m, not 1–2 m)
 const cap = (t: string) => t[0].toUpperCase() + t.slice(1);
 
 /** A grouped list like iOS Settings: a small heading over one rounded card of rows. */
@@ -43,7 +45,7 @@ function Group({title, children, note}: {title: string; children: ReactNode; not
   );
 }
 /** One row: label on the left, current value and a chevron on the right; the whole row opens its page. */
-function Row({icon, label, value, onClick, sub}: {icon?: PName; label: string; value?: string; onClick: () => void; sub?: string}) {
+function Row({icon, label, value, onClick, sub}: {icon?: PName; label: string; value?: ReactNode; onClick: () => void; sub?: ReactNode}) {
   return (
     <li>
       <button type="button" className="pzl-row" onClick={onClick}>
@@ -94,6 +96,20 @@ function HeightField({p, set}: {p: import('../../models/index').UserProfile; set
       {!me.isDefault && <button type="button" className="btn" onClick={() => { setText(''); setErr(''); set({heightIn: null}); }}>Use the default</button>}
     </>
   );
+}
+
+/** Review LOW: a height typed in the user's unit is a draft until blur or Enter; empty or non-numbers are dropped (the saved value returns), and the
+ *  stored feet are clamped to the field's range. */
+function UnitNumber({ft, unit, min, max, label, onCommit}: {ft: number; unit: string; min: number; max: number; label: string; onCommit: (ft: number) => void}) {
+  const [text, setText] = useState<string | null>(null);
+  const commit = () => {
+    if (text === null) return;
+    const v = parseFloat(text.replace(',', '.')); setText(null);
+    if (!text.trim() || !Number.isFinite(v)) return;
+    onCommit(Math.min(max, Math.max(min, fromUnit(v, unit))));
+  };
+  return <input type="number" inputMode="decimal" min={toUnit(min, unit)} max={toUnit(max, unit)} step={unit === 'm' ? 0.1 : 1} value={text ?? toUnit(ft, unit)} aria-label={label}
+    onChange={(e) => setText(e.target.value)} onBlur={commit} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }} />;
 }
 
 export function PersonalView({section, go}: ViewProps) {
@@ -249,9 +265,13 @@ export function PersonalView({section, go}: ViewProps) {
   const refSpot = favSpots[0]?.id ?? view.selected, refHour = hourFor(refSpot), refSpotObj = spots.find((x) => x.id === refSpot);
   const choice = refSpotObj ? boardPickFor(boards, refSpotObj, refHour, now, p, {bundle: view.ocean.bundle}) : null;
   const at = refHour ? `${spotName(refSpot)}, ${timeLabelPT(refHour.timestamp)}` : spotName(refSpot);
-  const boardRow = !boards.length ? {value: 'No boards yet', sub: 'Add one in the Quiver'}
+  // A6: until that spot's forecast has arrived (or definitely failed) the row shows a skeleton, never "None suits it · No surf estimate".
+  const boardPhase = spotPhase(view.ocean, refSpot, view.dataMode === 'Retrieved'), boardPending = boardPhase === 'loading';
+  const boardRow: {value: ReactNode; sub?: ReactNode} = !boards.length ? {value: 'No boards yet', sub: 'Add one in the Quiver'}
+    : boardPending ? {value: <SkelInline label={`Loading the board pick for ${spotName(refSpot)}`} width="7em" />}
+    : boardPhase === 'failed' ? {value: 'No pick', sub: `The forecast for ${spotName(refSpot)} did not load`}
     : choice?.pick ? {value: choice.pick.name, sub: `Board Match pick for ${at}`}
-    : {value: 'None suits it', sub: choice?.est ? `No board suits the estimate at ${at}` : `No surf estimate at ${at}`};
+    : choice?.est ? {value: 'None suits it', sub: `No board suits the estimate at ${at}`} : {value: 'No pick', sub: `No surf estimate at ${at}`};
   const activeAlerts = rules.filter((r) => r.enabled).length;
 
   const body = (() => {
@@ -280,12 +300,13 @@ export function PersonalView({section, go}: ViewProps) {
                   <small className="fine">Used by Map › Find spots as your starting point when location is off.</small>
                 </label>
                 <div className="field"><span>Profile photo (stays on this device)</span>
-                  <input ref={avatarRef} type="file" accept="image/*" aria-label="Profile photo" onChange={(e) => void pickAvatar(e.target.files?.[0])} />
-                  {avatar && <button type="button" className="btn" onClick={clearAvatar}>Remove photo</button>}
+                  <span className="pz-file-row">
+                    <label className="btn pz-file"><input ref={avatarRef} type="file" accept="image/*" aria-label="Profile photo" onChange={(e) => void pickAvatar(e.target.files?.[0])} /><PIcon name="camera" size={16} />{avatar ? 'Change photo' : 'Add photo'}</label>
+                    {avatar && <button type="button" className="btn" onClick={clearAvatar}>Remove photo</button>}
+                  </span>
                 </div>
               </div>
-              <Choice<Skill> label="Surfing ability" value={p.skill} options={['Beginner', 'Intermediate', 'Expert']} onChange={(skill) => set({skill})} />
-              <p className="fine">Ability shapes Board Match and spot suitability. It is never a safety rating.</p>
+              <p className="fine">Surfing ability is set in Surf preferences.</p>
             </div>
           </Page>
         );
@@ -313,16 +334,16 @@ export function PersonalView({section, go}: ViewProps) {
       case 'preferences':
         return (
           <Page title="Surf preferences" onBack={toList}>
-            <p className="fine">Saved on this device. Shown on your profile; forecasts are not filtered by them.</p>
+            <p className="fine">Saved on this device. Your ability and preferred surf height shape each spot's Go, Worth a look or Skip call. Board Match ranks boards by each board's own wave range (and your ability in the demonstration week). Swell and tide preferences are for your profile only; forecasts are not filtered by them.</p>
             <div className="pz-cards">
               <div className="pz-panel"><h2>Your height</h2>
                 <HeightField p={p} set={set} />
               </div>
               <div className="pz-panel"><h2>Preferred conditions</h2>
-                <label className="field"><span>Wave range (face, ft)</span>
+                <label className="field"><span>Wave range (face, {p.heightUnit})</span>
                   <span className="pzl-pair">
-                    <input type="number" min={1} max={30} value={p.minWave} onChange={(e) => set({minWave: Number(e.target.value)})} aria-label="Minimum" />
-                    <input type="number" min={1} max={40} value={p.maxWave} onChange={(e) => set({maxWave: Number(e.target.value)})} aria-label="Maximum" />
+                    <UnitNumber ft={p.minWave} unit={p.heightUnit} min={1} max={30} label={`Minimum (${p.heightUnit})`} onCommit={(minWave) => set({minWave})} />
+                    <UnitNumber ft={p.maxWave} unit={p.heightUnit} min={1} max={40} label={`Maximum (${p.heightUnit})`} onCommit={(maxWave) => set({maxWave})} />
                   </span>
                 </label>
                 <Choice<Skill> label="Surfing ability" value={p.skill} options={['Beginner', 'Intermediate', 'Expert']} onChange={(skill) => set({skill})} />
@@ -335,8 +356,8 @@ export function PersonalView({section, go}: ViewProps) {
                 </fieldset>
                 <label className="field"><span>Period (seconds)</span>
                   <span className="pzl-pair">
-                    <input type="number" min={4} max={25} value={prefs.periodMin} onChange={(e) => setBoardPrefs({...prefs, periodMin: Number(e.target.value)})} aria-label="Minimum period" />
-                    <input type="number" min={4} max={25} value={prefs.periodMax} onChange={(e) => setBoardPrefs({...prefs, periodMax: Number(e.target.value)})} aria-label="Maximum period" />
+                    <input type="number" min={4} max={25} value={prefs.periodSet ? prefs.periodMin : ''} placeholder="10" onChange={(e) => setBoardPrefs({...prefs, periodMin: Number(e.target.value), periodSet: true})} aria-label="Minimum period" />
+                    <input type="number" min={4} max={25} value={prefs.periodSet ? prefs.periodMax : ''} placeholder="16" onChange={(e) => setBoardPrefs({...prefs, periodMax: Number(e.target.value), periodSet: true})} aria-label="Maximum period" />
                   </span>
                 </label>
                 <fieldset className="pz-fs"><legend>Tide</legend>
@@ -417,7 +438,7 @@ export function PersonalView({section, go}: ViewProps) {
               )}
               <p className="fine">The backup covers profile, boards, favourites and session text. Journal photos, tags, alerts and the profile photo stay in this browser only.</p>
             </div>
-            <Group title="Legal"><Row label="Privacy" onClick={() => go('personal', 'privacy')} /><Row label="Terms" onClick={() => go('personal', 'terms')} /></Group>
+            <Group title="Legal"><Row icon="shield" label="Privacy" onClick={() => go('personal', 'privacy')} /><Row icon="doc" label="Terms" onClick={() => go('personal', 'terms')} /></Group>
           </Page>
         );
       default:
@@ -444,19 +465,19 @@ export function PersonalView({section, go}: ViewProps) {
             <Group title="Sessions and alerts">
               <Row icon="journal" label="Surf journal" value={`${sessions.length} ${sessions.length === 1 ? 'session' : 'sessions'}`} onClick={() => toPage('journal')} />
               <Row icon="bell" label="Alerts" value={rules.length ? `${activeAlerts} on` : 'None'} onClick={openAlerts} />
-              <Row icon="board" label="Recommended board" value={boardRow.value} sub={boardRow.sub} onClick={() => go('quiver')} />
+              <Row icon="board" label="Board pick" value={boardRow.value} sub={boardRow.sub} onClick={() => go('quiver')} />
             </Group>
 
             <Group title="Surf preferences">
               <Row icon="clock" label="Preferred conditions" value={rangeText(p.minWave, p.maxWave, p)} sub={`${p.skill}${p.style !== 'All-around' ? ` · ${p.style}` : ''}`} onClick={() => toPage('preferences')} />
-              <Row icon="swell" label="Preferred swell" value={prefs.swellDirs.length ? prefs.swellDirs.join(', ') : 'Not set'} sub={prefs.swellDirs.length ? `${prefs.periodMin}–${prefs.periodMax} seconds` : undefined} onClick={() => toPage('preferences')} />
+              <Row icon="swell" label="Preferred swell" value={swellSummary(prefs).value} sub={swellSummary(prefs).sub} onClick={() => toPage('preferences')} />
               <Row icon="tide" label="Preferred tide" value={tideSummary(prefs.tides)} onClick={() => toPage('preferences')} />
             </Group>
 
             <Group title="Units">
               <Row icon="wave" label="Heights" value={p.heightUnit} onClick={() => toPage('units')} />
               <Row icon="wind" label="Wind" value={p.windUnit} onClick={() => toPage('units')} />
-              <Row icon="swell" label="Surf height scale" value={SCALE_NAMES[p.scale]} onClick={() => toPage('units')} />
+              <Row icon="swell" label="Height scale" value={SCALE_NAMES[p.scale]} onClick={() => toPage('units')} />
             </Group>
 
             <Group title="Appearance">
@@ -466,8 +487,8 @@ export function PersonalView({section, go}: ViewProps) {
             <Group title="Data & privacy">
               <Row icon="data" label="Data source" value={view.dataMode} onClick={() => toPage('account')} />
               <Row icon="backup" label="Backup and storage" value="Local only" onClick={() => toPage('account')} />
-              <Row label="Privacy" onClick={() => go('personal', 'privacy')} />
-              <Row label="Terms" onClick={() => go('personal', 'terms')} />
+              <Row icon="shield" label="Privacy" onClick={() => go('personal', 'privacy')} />
+              <Row icon="doc" label="Terms" onClick={() => go('personal', 'terms')} />
             </Group>
           </div>
         );

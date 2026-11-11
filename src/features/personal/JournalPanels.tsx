@@ -29,9 +29,9 @@ export function Featured({s, x, spotName}: {s: SurfSession; x: JournalExtra | un
   const img = entryImage(x, s.spotId);
   return (
     <article className="pz-feat">
-      <div className="pz-feat-img" style={{backgroundImage: `url(${img.src})`}} role="img" aria-label={img.own ? 'Your photo' : `Photo of ${spotName(s.spotId)}`}>
+      {img && <div className="pz-feat-img" style={{backgroundImage: `url(${img.src})`}} role="img" aria-label={img.own ? 'Your photo of this session' : `Photo of ${spotName(s.spotId)} (not from this session)`}>
         {!img.own && img.id && <small className="pz-credit">{creditText(img.id)}</small>}
-      </div>
+      </div>}
       <div className="pz-feat-b">
         <span className="pz-date">{entryDate(s.timestamp, s.spotId)} · {spotName(s.spotId)}</span>
         <h3>{titleOf(s, x, spotName)}</h3>
@@ -48,7 +48,8 @@ function Row({s, x, spotName, i, onRemove}: {s: SurfSession; x: JournalExtra | u
   const [clip, setClip] = useState(false);
   return (
     <li className="pz-row">
-      <div className="pz-thumb" style={{backgroundImage: `url(${img.src})`}} role="img" aria-label={img.own ? 'Your photo' : `Photo of ${spotName(s.spotId)}`} title={img.id ? creditText(img.id) : undefined} />
+      {img ? <div className="pz-thumb" style={{backgroundImage: `url(${img.src})`}} role="img" aria-label={img.own ? 'Your photo of this session' : `Photo of ${spotName(s.spotId)} (not from this session)`} title={img.id ? creditText(img.id) : undefined} />
+        : <div className="pz-thumb" aria-hidden="true" />}
       <div>
         <span className="pz-date">{entryDate(s.timestamp, s.spotId)} · {spotName(s.spotId)}</span>
         <b>{titleOf(s, x, spotName)}</b>
@@ -106,7 +107,7 @@ export function LogForm({spots, boards, defaultSpot, onSubmit, onObserve, error}
       <label className="field"><span>Notes</span><textarea value={v.notes} maxLength={500} onChange={(e) => setV({...v, notes: e.target.value})} placeholder="Crowd, banks, what worked" /></label>
       <label className="field"><span>Tags (comma separated)</span><input value={v.tags} onChange={(e) => setV({...v, tags: e.target.value})} placeholder="dawn patrol, new fins" /></label>
       <div className="field"><span>Photo (optional, saved on this device, under {PHOTO_MAX_BYTES / 1024} KB)</span>
-        <input ref={fileRef} type="file" accept="image/*" aria-label="Photo" onChange={(e) => void pick(e.target.files?.[0])} />
+        <span className="pz-file-row"><label className="btn pz-file"><input ref={fileRef} type="file" accept="image/*" aria-label="Photo" onChange={(e) => void pick(e.target.files?.[0])} /><PIcon name="camera" size={16} />{photo ? 'Change photo' : 'Add photo'}</label></span>
         {photo && <div className="pz-prev" style={{backgroundImage: `url(${photo})`}} role="img" aria-label="Chosen photo preview" />}
         {photoErr && <p className="pz-err" role="alert">{photoErr}</p>}
       </div>

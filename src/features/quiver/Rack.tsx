@@ -1,6 +1,7 @@
 import {useEffect, useLayoutEffect, useMemo, useRef, useState, type KeyboardEvent} from 'react';
 import type {Surfboard} from '../../models/index';
-import {lengthLabel} from '../../utils/units';
+import {surfRange, lengthLabel} from '../../utils/units';
+import {useSwello} from '../../app/store';
 import {BoardPicture} from './BoardPicture';
 import {wallOutline} from './outline';
 import {StageArrows, Strip} from './Overlay';
@@ -10,6 +11,7 @@ import type {SizeFit} from './fit';
  *  the selected board lit; the spec card and a thumbnail strip.
  *  Phones show one board at a time and swipe between them. Left/Right arrow keys step; the change is announced. */
 export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfboard[]; selected: Surfboard; onSelect: (id: string) => void; fits?: Map<string, SizeFit>; estText?: string | null}) {
+  const profile = useSwello().data.state.profile; // B12: ranges in the user's height unit
   const row = useRef<HTMLUListElement>(null), items = useRef(new Map<string, HTMLLIElement>());
   const programmatic = useRef(0), settle = useRef<number>(0), first = useRef(true);
   const [avail, setAvail] = useState(380);
@@ -78,7 +80,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
                 <button type="button" className="qv-rack-b" aria-pressed={b.id === selected.id} tabIndex={b.id === selected.id ? 0 : -1} aria-label={`${b.name}, ${lengthLabel(b.length)}, board ${i + 1} of ${n}${b.demo ? ', example board' : ''}`} onClick={() => onSelect(b.id)}>
                   <BoardPicture b={b} px={base} outline={outlines.get(b.id) ?? null} />
                   <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>
-                    {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${ft.board[0]}–${ft.board[1]} ft` : undefined}>{ft.label}</em> : null; })()}
+                    {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${surfRange(ft.board[0], ft.board[1], profile)}` : undefined}>{ft.label}</em> : null; })()}
                   </span>
                 </button>
               </li>

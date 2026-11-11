@@ -6,7 +6,7 @@ import {loadMapPreferences,saveMapPreferences,type MapPreferences} from '../map/
 import {selectedRecord,recordOnDay} from '../utils/interaction';
 import {forecasts} from '../data/demo';
 import {allSpots as spots} from '../data/catalog';
-import {selectRecord} from '../services/forecast';
+import {placeholderRecord,recordOrPlaceholder} from '../services/forecast';
 import {simulateForecast,type SimulationPatch} from '../services/simulation';
 import {useOceanData} from './useOceanData';
 import {evidenceSpots} from '../ocean/spots';
@@ -31,9 +31,9 @@ export function useForecast(scopeInput:ScopeInput=NO_SCOPE){
  const records=ocean.bundle?.records??[];const spotRecords=records.filter(r=>r.spotId===selected);
  const realOriginal=selectedRecord(records,selected,instant);
  const realRecord=realOriginal&&simulation?experimentRecord(realOriginal,patch):realOriginal;
- const demoOriginal=selectRecord(forecasts,selected,day,hour)!;
+ const demoOriginal=recordOrPlaceholder(forecasts,selected,day,hour); // B4: never undefined (a catalogue spot has no demonstration record)
  // The legacy projection carries explicit missing flags. It never converts offshore height to surf height.
- const original=dataMode==='Retrieved'&&realOriginal?toLegacy(realOriginal):dataMode==='Retrieved'?{...demoOriginal,face:NaN,offshore:NaN,character:'Unknown',availability:{face:false,swell:false,wind:false,tide:false,organization:false}}:demoOriginal;
+ const original=dataMode==='Retrieved'&&realOriginal?toLegacy(realOriginal):dataMode==='Retrieved'?placeholderRecord(selected,day,hour):demoOriginal; // review MEDIUM: an explicit placeholder, never a demonstration record's time
  const change=(fn:()=>void)=>{fn();setSimulation(false);setPatch({})};
  const zone=setActiveZone(timeZoneOf(selected)),dates=[...new Set(spotRecords.map(r=>dateIn(zone,r.timestamp)))]; // the screens of this spot format their clocks in its zone (ocean/spotZone.ts)
  const mapRecords=useMemo(()=>dataMode==='Retrieved'?records.map(toLegacy):forecasts,[dataMode,records]);

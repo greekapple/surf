@@ -22,5 +22,5 @@ export function rateForecast(s:SurfSpot,f:Forecast,now=Date.now(),opts:{night?:b
 }
 function rateForecastDay(s:SurfSpot,f:Forecast,now:number){
  if(f.evidence)return rateOcean(evidenceSpot(f.evidence.spotId),f.evidence,now);
- return rateQuality(calculateSQI(s,f),{mode:f.source.includes('Simulation')?'simulation':'demonstration',validAt:f.timestamp,now,breakingHeightFt:f.availability.face?f.face:null,calibration:unverifiedCalibration,sources:[]});
+ return rateQuality(calculateSQI(s,f),{mode:f.source?.includes('Simulation')?'simulation':'demonstration',validAt:f.timestamp,now,breakingHeightFt:f.availability.face?f.face:null,calibration:unverifiedCalibration,sources:[]});
 }

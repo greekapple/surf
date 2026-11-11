@@ -305,7 +305,7 @@ export class Studio {
     this.themeMo.observe(document.documentElement, {attributes: true, attributeFilter: ['data-theme']});
     const key = new THREE.DirectionalLight(0xfff3e4, 2.4); key.position.set(-80, 220, 160); this.scene.add(key);
     // T-072: a real soft shadow from the key light onto the floor (focus view), on top of the contact pool. Lineup with the photo room has its own.
-    r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFSoftShadowMap;
+    r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFShadowMap  /* R14: PCFSoftShadowMap is removed in this three.js (it warned on every load) */;
     this.key = key; key.castShadow = mode === 'focus'; key.shadow.mapSize.set(2048, 2048); key.shadow.radius = 6; key.shadow.bias = -0.0005;
     Object.assign(key.shadow.camera, {left: -110, right: 110, top: 110, bottom: -110, near: 20, far: 600});
     this.catcher = new THREE.Mesh(new THREE.PlaneGeometry(700, 700), new THREE.ShadowMaterial({opacity: 0.2}));
@@ -596,7 +596,7 @@ export class Studio {
     for (const b of this.roomBits) { this.scene.remove(b); }
     this.roomBits = []; this.room = rm;
     if (rm) {
-      this.renderer.shadowMap.enabled = true; this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      this.renderer.shadowMap.enabled = true; this.renderer.shadowMap.type = THREE.PCFShadowMap  /* R14: PCFSoftShadowMap is removed in this three.js (it warned on every load) */;
       const catcher = new THREE.Mesh(new THREE.PlaneGeometry(900, 600), new THREE.ShadowMaterial({opacity: 0.32}));
       catcher.rotation.x = -Math.PI / 2; catcher.position.y = 0.02; catcher.receiveShadow = true;
       const [sx, sy, sz] = rm.sunToward, sun = new THREE.DirectionalLight(0xfff1dc, 3.0);

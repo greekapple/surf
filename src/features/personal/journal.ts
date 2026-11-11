@@ -41,7 +41,8 @@ export async function downscale(file: File, maxEdge: number, maxBytes = PHOTO_MA
   return dataUrlBytes(out) <= maxBytes ? out : null;
 }
 
-export interface BoardPrefs {swellDirs: string[]; periodMin: number; periodMax: number; tides: ('Low' | 'Mid' | 'High')[]}
+/** `periodSet`: the person chose a period range (audit R18: the 10–16 s default used to show as a filled-in value while the list said "Not set"). */
+export interface BoardPrefs {swellDirs: string[]; periodMin: number; periodMax: number; periodSet?: boolean; tides: ('Low' | 'Mid' | 'High')[]}
 export const COMPASS8 = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'] as const;
 export const DEFAULT_BOARD_PREFS: BoardPrefs = {swellDirs: [], periodMin: 10, periodMax: 16, tides: []};
 export function loadBoardPrefs(): BoardPrefs {
@@ -51,9 +52,15 @@ export function loadBoardPrefs(): BoardPrefs {
       swellDirs: Array.isArray(v.swellDirs) ? v.swellDirs.filter((d: unknown) => COMPASS8.includes(d as never)) : [],
       periodMin: Number.isFinite(v.periodMin) ? v.periodMin : DEFAULT_BOARD_PREFS.periodMin,
       periodMax: Number.isFinite(v.periodMax) ? v.periodMax : DEFAULT_BOARD_PREFS.periodMax,
+      periodSet: v.periodSet === true,
       tides: Array.isArray(v.tides) ? v.tides.filter((t: unknown) => t === 'Low' || t === 'Mid' || t === 'High') : [],
     };
   } catch { return DEFAULT_BOARD_PREFS; }
+}
+/** Audit R18: the Personal list's "Preferred swell" row, from the same values the form shows. */
+export function swellSummary(p: BoardPrefs): {value: string; sub?: string} {
+  const period = p.periodSet ? `${p.periodMin}–${p.periodMax} seconds` : undefined;
+  return p.swellDirs.length ? {value: p.swellDirs.join(', '), sub: period} : period ? {value: 'Any direction', sub: period} : {value: 'Not set'};
 }
 export function saveBoardPrefs(p: BoardPrefs) { try { localStorage.setItem(BOARD_PREFS_KEY, JSON.stringify(p)); } catch { /* memory only */ } }
 

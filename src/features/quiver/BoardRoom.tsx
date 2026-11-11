@@ -1,7 +1,8 @@
 import {useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as RPointerEvent, type ReactNode} from 'react';
 import type {Surfboard} from '../../models/index';
 import {Icon} from '../../ui/Icon';
-import {lengthLabel, validDimensions} from '../../utils/units';
+import {surfRange, lengthLabel, validDimensions} from '../../utils/units';
+import {useSwello} from '../../app/store';
 import {inches} from './format';
 import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, trimFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
@@ -71,6 +72,7 @@ interface Props {
 }
 
 export default function BoardRoom({board, boards, onSave, onFail, match, matchAction, onPick, fits}: Props) {
+  const profile = useSwello().data.state.profile; // B12: ranges in the user's height unit
   const uid = useId();
   const wrap = useRef<HTMLDivElement>(null), host = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), studio = useRef<Studio | null>(null);
   const hot = useRef<Partial<Record<Anchor, HTMLButtonElement | null>>>({});
@@ -269,7 +271,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
         <header className="br-h">
           <h2><span className="br-name">{board.name}</span></h2>
           <p>{[board.type, maker || null, board.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
-          {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {ft.board[0]}–{ft.board[1]} ft</span></p> : null; })()}
+          {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {surfRange(ft.board[0], ft.board[1], profile)}</span></p> : null; })()}
           <p className="br-match">{match}</p>
         </header>
 
@@ -330,7 +332,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
 
       <div className="br-bar" role="region" aria-label="Board Match today">
         {/* T-099: on phones the fit line lives here (it sat under this fixed bar); the long Board Match sentence stays on its own page. */}
-        <p>{(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <><b>Today:</b> <em className={`qv-fit ${ft.state}`}>{ft.label}</em> · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {ft.board[0]}–{ft.board[1]} ft</> : match; })()}</p>
+        <p>{(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <><b>Today:</b> <em className={`qv-fit ${ft.state}`}>{ft.label}</em> · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {surfRange(ft.board[0], ft.board[1], profile)}</> : match; })()}</p>
         {dirty ? <button type="button" className="btn primary" disabled={!valid} onClick={save}>Save</button> : matchAction}
       </div>
     </div>

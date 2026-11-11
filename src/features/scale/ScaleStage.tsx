@@ -1,7 +1,8 @@
 import {lazy, Suspense, useEffect, useMemo, useRef, useState} from 'react';
 import type {Surfboard} from '../../models/index';
 import {useSwello} from '../../app/store';
-import {dataPhase} from '../../services/dataPhase';
+import {spotPhase} from '../../services/dataPhase';
+import {SkelInline} from '../../ui/Skeleton';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
@@ -55,14 +56,20 @@ function useFaceTween(target: number | null): number | null {
  *  an hour scrubber, and (in the Diagram) a browser for the size bands. The 3D view is the hour's own forecast (face height, breaker type, period, wind, light) with a
  *  left/right control; it has no size browser. The AI picture is an optional example, never the default. Nothing here is a measurement. */
 export function ScaleStage() {
-  const {data, now, spot, view, spreadV} = useSwello();
+  const {data, now, spot, view, spreadV, live} = useSwello();
   const p = data.state.profile, me = userHeight(p), boards = data.state.boards, bundle = view.ocean.bundle;
   const hours = useMemo(() => {
     const sel = view.selectedTime ?? view.forecast?.timestamp, key = sel ? dayKey(sel, timeZoneOf(spot)) : null;
     return view.mapRecords.filter((f) => f.spotId === spot.id && key !== null && dayKey(f.timestamp, timeZoneOf(spot)) === key).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
   }, [view.mapRecords, view.selectedTime, view.forecast, spot.id]);
   const idx = Math.max(0, hours.findIndex((f) => f.timestamp === (view.selectedTime ?? view.forecast?.timestamp)));
-  const hour = hours[idx] ?? view.forecast;
+  // B10 (audit R11): while this spot's forecast loads there is no hour to draw. The store's stand-in record carries a demonstration timestamp
+  // (it read "Fri 9:00 AM" at Tue 8 PM), so the page shows the current hour and a stage skeleton, never a placeholder scene labelled with a forecast time.
+  const loading = spotPhase(view.ocean, spot.id, live) === 'loading';
+  // review MEDIUM: with the spot loaded but no record on that day, the real selected record still draws; only the placeholder never does
+  const hour = loading ? undefined : hours[idx] ?? (view.forecast?.placeholder ? undefined : view.forecast);
+  // review P2: while loading, the hour shown is the selected hour (else the current hour)
+  const nowIso = view.selectedTime ?? new Date(Math.floor(now / 3600000) * 3600000).toISOString();
   const hs = useMemo(() => (hour ? headlineSurf(spot.id, hour, {bundle, nowMs: now}) : null), [hour, spot.id, bundle, now, spreadV]);
   const [band, setBand] = useState<number | null>(null);
   useEffect(() => { setBand(null); }, [spot.id, hour?.timestamp]);
@@ -102,7 +109,7 @@ export function ScaleStage() {
   // the 3D stage's own label: what is drawn and what it is (the estimate's centre; or offshore swell, which is not surf size)
   const liveLabel = text && estRange ? `Est. ${text.value} · drawn at ${faceText} face · you ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}` // T-099: the 3D surfer is drawn at the person's height, like the Diagram
     : hs?.kind === 'offshore' && text ? `No breaking-wave estimate · ${text.value} offshore swell drawn unbroken, not surf size`
-    : dataPhase(view.ocean) === 'loading' ? 'Loading the forecast…' // T-129: while the forecast is still loading there is no estimate to be missing, so the stage must not claim there is none
+    : loading ? '' // T-129/B10: while the forecast is still loading there is no estimate to be missing; the stage shows a skeleton instead
     : 'No breaking-wave estimate for this hour · nothing drawn as surf';
   const liveLabelShown = anyForced(dev) ? `${liveLabel} · dev: forced${dev?.faceFt != null ? ` ${dev.faceFt} ft face` : ''}` : liveLabel;
   const spinOk = useHasSpin(SCALE_BANDS[activeBand]);
@@ -123,9 +130,9 @@ export function ScaleStage() {
   }, [play, idx, hours, view]);
   const pickBoard = (id: string) => { setBoardId(id); try { localStorage.setItem(BOARD_KEY, id); } catch { /* per session */ } };
   const ph = (me.feet / top) * H, pw = ph * 0.3, px = 372, bx = px + pw + 26;
-  const when = hour ? `${weekdayPT(hour.timestamp)} ${timeLabelPT(hour.timestamp)}` : '';
+  const when = hour ? `${weekdayPT(hour.timestamp)} ${timeLabelPT(hour.timestamp)}` : loading ? `${weekdayPT(nowIso)} ${timeLabelPT(nowIso)}` : '';
   const liveAlt = estRange ? `3D wave of this hour's estimate, ${text?.value ?? ''} ${p.heightUnit}, drawn at ${faceText} face, a ${direction}, with a surfer at your height, ${formatHeight(me.inches, p.heightUnit)}${me.isDefault ? ' (default)' : ''}, for scale` : hs?.kind === 'offshore' ? `No breaking-wave estimate; offshore swell drawn unbroken, not surf size` : 'No breaking-wave estimate for this hour';
-  const alt = range ? `Estimated surf height ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit} beside you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}` : `No face estimate for this hour; you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}`;
+  const alt = loading && !range ? `Loading the forecast for ${spot.name}` : range ? `Estimated surf height ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit} beside you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}` : `No face estimate for this hour; you at ${formatHeight(me.inches, p.heightUnit)}${board ? ` and a ${feetInches(board.length)} board` : ''}`;
   return (
     <section className="sc" aria-label="Wave scale">
       <div className="sc-head">
@@ -138,14 +145,16 @@ export function ScaleStage() {
         <button type="button" role="radio" aria-checked={mode === 'diagram'} onClick={() => setMode('diagram')}>Diagram</button>
       </div>}
       {show3d && <figure className="sc-spin"><div className="sc-spin-stage">
-        {liveOk
+        {loading
+          ? <div className="live-poster-only sc-stage-skel" role="status" aria-label={`Loading the forecast for ${spot.name}`}><i /></div>
+          : liveOk
           ? <Suspense fallback={<div className="live-poster-only live-loading" aria-hidden="true"><span>Loading the 3D wave…</span></div>}>
               <WaveLive wave={wave} poster={posterPath(SCALE_BANDS[activeBand])} alt={liveAlt} onFail={() => setLiveFailed(true)} board={board} light={hour ? {spotId: spot.id, iso: hour.timestamp} : null} surferM={me.inches * 0.0254} pole={!!dev?.pole} />
               <p className="spin-cap">{LIVE_CAPTION}</p>
               {hour && <p className="spin-light">Lighting for {when}{lightNote}</p>}
             </Suspense>
           : <Spin360 key={SCALE_BANDS[activeBand].id} frames={framePaths(SCALE_BANDS[activeBand])} poster={posterPath(SCALE_BANDS[activeBand])} alt={`${SCALE_BANDS[activeBand].label} wave with a 1.75 m surfer for scale`} still={reduced()} intro />}
-        <p className="sc-spin-band">{liveOk ? liveLabelShown : spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
+        <p className="sc-spin-band">{loading ? <SkelInline label="Loading the estimate" width="18em" /> : liveOk ? liveLabelShown : spinCaption(SCALE_BANDS[activeBand], p.heightUnit)}</p>
       </div></figure>}
       <figure className="sc-fig" hidden={show3d}>
         <svg viewBox={`0 0 ${W} 360`} role="img" aria-label={alt} className="sc-svg">
@@ -163,12 +172,12 @@ export function ScaleStage() {
             <path d="M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z" />
           </g>
           {board && boardFt && <rect x={bx} y={y(boardFt)} width={14} height={(boardFt / top) * H} rx={7} fill="var(--s3, #e8ecef)" stroke="var(--muted)" strokeWidth={1} />}
-          <text x={WAVE_X + 70} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">{range ? (band !== null ? 'band, illustrative' : 'est. surf height') : 'no surf estimate'}</text>
+          <text x={WAVE_X + 70} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">{range ? (band !== null ? 'band, illustrative' : 'est. surf height') : loading ? '' : 'no surf estimate'}</text>
           <text x={px + pw / 2} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">you {formatHeight(me.inches, p.heightUnit)}</text>
           {board && boardFt && <text x={bx + 7} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">board</text>}
         </svg>
         <figcaption className="sc-cap">
-          {range ? <>Drawn to scale: the outer shape is the high end, the darker inner shape the low end{times ? `; about ${times[0]}–${times[1]}× your height` : ''}.</> : <>This hour has no breaking-wave estimate{hs?.kind === 'offshore' ? ` (offshore ${text?.value} ${p.heightUnit}, not surf size)` : ''}, so only you{board ? ' and your board' : ''} are drawn. Pick a size band below to compare.</>}
+          {loading && !range ? <SkelInline label="Loading the estimate" width="22em" /> : range ? <>Drawn to scale: the outer shape is the high end, the darker inner shape the low end{times ? `; about ${times[0]}–${times[1]}× your height` : ''}.</> : <>This hour has no breaking-wave estimate{hs?.kind === 'offshore' ? ` (offshore ${text?.value} ${p.heightUnit}, not surf size)` : ''}, so only you{board ? ' and your board' : ''} are drawn. Pick a size band below to compare.</>}
           {' '}{me.isDefault ? <>You are drawn at {formatHeight(me.inches, p.heightUnit)} (default). Set your height in Personal › Surf preferences.</> : <>You are drawn at your height, {formatHeight(me.inches, p.heightUnit)}.</>} Body words are an informal convention for face height, approximate.
         </figcaption>
       </figure>
@@ -179,7 +188,7 @@ export function ScaleStage() {
           <button type="button" className="btn" aria-pressed={play} onClick={() => setPlay((v) => !v)} disabled={hours.length < 2 || reduced()} title={reduced() ? 'Playback is off because reduced motion is on' : undefined}>{play ? 'Pause' : 'Play day'}</button>
           <input type="range" aria-labelledby="sc-hour-l" min={0} max={Math.max(0, hours.length - 1)} step={1} value={idx} disabled={hours.length < 2} onChange={(e) => { setPlay(false); const h = hours[Number(e.target.value)]; if (h) view.selectTime(h.timestamp); }}
             aria-valuetext={hour ? `${timeLabelPT(hour.timestamp)}${range ? `, est. ${Math.round(range[0] * k * 10) / 10} to ${Math.round(range[1] * k * 10) / 10} ${p.heightUnit}` : ', no estimate'}` : undefined} />
-          <output className="sc-out">{hour ? timeLabelPT(hour.timestamp) : '—'}</output>
+          <output className="sc-out">{hour ? timeLabelPT(hour.timestamp) : loading ? timeLabelPT(nowIso) : '—'}</output>
         </div>
         <div className="sc-row">
           <span className="sc-l" id="sc-board-l">Board</span>

@@ -43,7 +43,7 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
     // quiver-polish: the last two stations re-measured on the deck photo (the first trace dipped into the notch, which rounded the lobes off);
     // the tip's radius (about 3 cm) and the notch depth (about 2.1", 3% of the length) measured on the deck and bottom photos.
     tipRIn: 1.2, notchIn: 2.1,
-    volumeNote: 'retailer photo',
+    volumeNote: 'read from the stringer photo',   // audit R15: "(retailer photo)" was unclear
     look: {deck: '#f4f3ef', bottom: '#f4f3ef', fade: 0.35, finish: 'gloss'},
   },
   // Wavestorm 8' Classic, 8'0" x 22 1/2" x 3 1/4", 86 L (ridershack.com, costco.co.uk). Soft-top: blue stripes on a white foam deck, blue rails,

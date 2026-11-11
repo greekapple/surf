@@ -1,14 +1,16 @@
-import {lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent} from 'react';
+import {lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
 import {scoreBoard} from '../../recommendation/board';
-import {headlineSurf} from '../../services/headlineSurf';
+import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
-import {boardPickFor, sizeFit} from './fit';
-import {lengthLabel, parseDimension, validDimensions} from '../../utils/units';
+import {boardPickFor, orderScored, outOfRange, pickHeading, sizeFit} from './fit';
+import {lengthLabel, parseDimension, surfRange, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
+import {Skeleton, SkelInline} from '../../ui/Skeleton';
+import {spotPhase} from '../../services/dataPhase';
 import {titleCase} from '../forecast/model';
 import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
@@ -17,12 +19,12 @@ import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
 import {SpecCard, StageArrows, Strip} from './Overlay';
 import {ScanPanel, type Scan} from './ScanPanel';
+import {emptyForm, missingBoardFields, PLACEHOLDER} from './boardForm';
 import './quiver.css';
 
 // three.js and the board models load only when the Showroom opens.
 const BoardRoom = lazy(() => import('./BoardRoom'));
 
-const emptyForm = {name: '', manufacturer: '', model: '', type: 'Everyday shortboard' as BoardType, length: `6'0"`, width: '19 1/4', thickness: '2 1/2', volume: '30', fins: 'Thruster', tail: '', notes: ''};
 type Path = 'dims' | 'scan';
 const eighth = (n: number) => String(Math.round(n * 8) / 8);
 
@@ -48,7 +50,9 @@ function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Su
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const length = parseDimension(f.length, true), w = parseDimension(width), thickness = parseDimension(f.thickness), vol = Number(volume);
-    if (!f.name.trim()) return setErr('Give the board a name.');
+    const missing = missingBoardFields({...f, width, volume});
+    setTried(true);
+    if (missing.length) return setErr(`Add the board's ${missing.length > 1 ? `${missing.slice(0, -1).join(', ')} and ${missing[missing.length - 1]}` : missing[0]}.${missing.includes('volume') ? ' Volume is usually printed on the stringer; the photo scan can estimate it.' : ''}`);
     if (!validDimensions(length, w, thickness, vol)) return setErr(`Check the dimensions: length like 6'0", width and thickness in inches (fractions allowed), volume in litres that fits those dimensions.`);
     const id = initial?.id ?? crypto.randomUUID(), o = path === 'scan' ? scan?.outline ?? null : null;
     if (!saveOutline(id, o) && o?.tex) saveOutline(id, {v: 1, hw: o.hw});
@@ -56,21 +60,24 @@ function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Su
       length, width: w, thickness, volume: vol, fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false,
       specificationSource: path === 'scan' && scan ? (estimating ? 'From your photo (volume estimated)' : 'From your photo') : 'Entered by you'});
   };
-  const field = (k: keyof typeof f, label: string, extra = {}) => <label className="field"><span>{label}</span><input value={f[k]} onChange={(e) => setF({...f, [k]: e.target.value})} {...extra} /></label>;
+  const [tried, setTried] = useState(false);
+  const blank = tried ? new Set(missingBoardFields({...f, width, volume})) : new Set<string>();
+  const req = <i className="qv-req">Required</i>;
+  const field = (k: keyof typeof f, label: string, extra = {}, required = false) => <label className="field"><span>{label}{required && req}</span><input value={f[k]} placeholder={PLACEHOLDER[k]} aria-required={required || undefined} aria-invalid={blank.has(k) || undefined} onChange={(e) => setF({...f, [k]: e.target.value})} {...extra} /></label>;
   return (
-    <form className="card qv-form" onSubmit={submit} aria-label={initial ? 'Edit board' : 'Add board'}>
+    <form className="card qv-form" onSubmit={submit} noValidate aria-label={initial ? 'Edit board' : 'Add board'}>
       <div className="card-h"><h2>{initial ? `Edit ${initial.name}` : 'Add a board'}</h2></div>
       <div className="qv-paths" role="radiogroup" aria-label="How to add the board">
         <button type="button" role="radio" aria-checked={path === 'scan'} onClick={() => setPath('scan')}><b>Scan a board photo</b><span>Your board's real outline and deck</span></button>
         <button type="button" role="radio" aria-checked={path === 'dims'} onClick={() => setPath('dims')}><b>Enter dimensions</b><span>From the stringer or the shaper</span></button>
       </div>
       <div className="form-grid">
-        {field('name', 'Name', {required: true, maxLength: 40})}{field('manufacturer', 'Shaper / brand')}{field('model', 'Model')}
+        {field('name', 'Name', {maxLength: 40}, true)}{field('manufacturer', 'Shaper / brand')}{field('model', 'Model')}
         <label className="field"><span>Type</span><select value={f.type} onChange={(e) => setF({...f, type: e.target.value as BoardType})}>{boardTypes.map((t) => <option key={t}>{t}</option>)}</select></label>
-        {field('length', `Length (e.g. 6'0")`)}
-        <label className="field"><span>Width (in){derive && !touched.width ? ' · from photo' : ''}</span><input value={width} onChange={(e) => { setF({...f, width: e.target.value}); setTouched({...touched, width: true}); }} /></label>
-        {field('thickness', 'Thickness (in)')}
-        <label className="field"><span>{estimating ? 'Volume (L) · estimate' : 'Volume (L)'}</span><input value={volume} inputMode="decimal" onChange={(e) => { setF({...f, volume: e.target.value}); setTouched({...touched, volume: true}); }} /></label>
+        {field('length', 'Length (ft and in)', {}, true)}
+        <label className="field"><span>Width (in){derive && !touched.width ? ' · from photo' : ''}{req}</span><input value={width} placeholder={PLACEHOLDER.width} aria-required aria-invalid={blank.has('width') || undefined} onChange={(e) => { setF({...f, width: e.target.value}); setTouched({...touched, width: true}); }} /></label>
+        {field('thickness', 'Thickness (in)', {}, true)}
+        <label className="field"><span>{estimating ? 'Volume (L) · estimate' : 'Volume (L)'}{req}</span><input value={volume} placeholder={PLACEHOLDER.volume} inputMode="decimal" aria-required aria-invalid={blank.has('volume') || undefined} onChange={(e) => { setF({...f, volume: e.target.value}); setTouched({...touched, volume: true}); }} /></label>
         {field('fins', 'Fins')}{field('tail', 'Tail')}
       </div>
       {path === 'scan' && <ScanPanel lengthText={f.length} value={scan} onChange={(s) => { setScan(s); if (s) setTouched({width: false, volume: false}); }} />}
@@ -83,6 +90,15 @@ function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Su
           : <button className="btn danger" type="button" style={{marginLeft: 'auto'}} onClick={onDelete}>Confirm delete {initial.name}</button>)}</div>
     </form>
   );
+}
+
+/** Audit R15: a note's URLs become links named by their site ("cleanlinesurf.com ↗"), never a raw retailer URL printed as text. */
+function linkify(text: string): ReactNode[] {
+  return text.split(/(https?:\/\/\S+)/).map((part, i) => {
+    if (i % 2 === 0) return part.replace(/\s+;/g, ';');
+    const url = part.replace(/[.,;)]+$/, ''), host = (() => { try { return new URL(url).hostname.replace(/^www\./, ''); } catch { return 'link'; } })();
+    return <a key={i} href={url} target="_blank" rel="noreferrer">{host} ↗</a>;
+  });
 }
 
 const okN = (n: number | undefined): n is number => typeof n === 'number' && Number.isFinite(n) && n > 0;
@@ -112,14 +128,16 @@ export function QuiverView({section, go}: ViewProps) {
   // The same headline estimate as the spot page and Home (T-046): Board Match uses its range when the record has no face value.
   const hs = headlineSurf(view.spot.id, f, {bundle: view.ocean.bundle, nowMs: now});
   const est: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
+  // A6: while this spot's forecast is still loading nothing below may say the estimate is missing: skeletons until it arrives or the load fails.
+  const phase = spotPhase(view.ocean, view.selected, view.dataMode === 'Retrieved'), pending = phase === 'loading', failed = phase === 'failed';
   // T-099: the one board pick (fit.ts boardPickFor), shared with Home's quiver pick and Personal, so one spot-hour gives one answer everywhere.
   const choice = useMemo(() => boardPickFor(boards, view.spot, f, now, p, {bundle: view.ocean.bundle}), [boards, view.spot, f, now, p, view.ocean.bundle]);
   const matches = useMemo(() => (choice.mode === 'score' ? choice.scored : boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score)), [choice, boards, f, p, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
   const sizeOk = (f.availability.face && Number.isFinite(f.face)) || !!est, charOk = !!f.character && f.character !== 'Unknown';
   const faceOk = sizeOk && charOk;
   // Today's size fit per board (real numbers: the board's range vs the estimate), shown on the rack and in the board room.
-  const fits = useMemo(() => new Map(boards.map((b) => [b.id, sizeFit(b, est)])), [boards, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
-  const estText = isFlat(hs) ? `${FLAT_ESTIMATE_TEXT} at ${view.spot.name}` : est ? `est. ${Math.round(est[0])}–${Math.round(est[1])} ft at ${view.spot.name}` : null; // T-130
+  const fits = useMemo(() => new Map(pending ? [] : boards.map((b) => [b.id, sizeFit(b, est)])), [boards, pending, est?.[0], est?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  const estText = pending ? null : isFlat(hs) ? `${FLAT_ESTIMATE_TEXT} at ${view.spot.name}` : est ? `est. ${headlineText(hs, p).value} at ${view.spot.name}` : null; // review P1-1: the spot page's own text (rounding, unit, Hawaiian) // T-130
 
   // The form belongs to the section it was opened in. Any route change (pills, menu, back button) leaves it: close it,
   // or if fields were edited keep it and ask first. (Delete lives in the form, T-109, so closing it drops a pending confirmation.)
@@ -160,8 +178,13 @@ export function QuiverView({section, go}: ViewProps) {
   const mi = sel ? matches.findIndex((m) => m.board.id === sel.id) : -1, mm = mi >= 0 ? matches[mi] : null;
   const period = f.primary && Number.isFinite(f.primary.period) ? f.primary.period : null;
   const picks = choice.ranked; // the same ranking Home and Personal use (boardPickFor)
+  // review MEDIUM: score mode orders and labels like size mode (out-of-range boards last, by distance); the size verdict uses the estimate, else the record's face value
+  const scoreEst: [number, number] | null = est ?? (Number.isFinite(f.face) && f.availability.face ? [f.face, f.face] : null);
+  const scoredRows = orderScored(matches, scoreEst);
   const selPick = sel ? picks.find((x) => x.board.id === sel.id) ?? null : null;
-  const matchLine = !sizeOk ? <><b>Board Match:</b> no surf estimate for {view.spot.name} at this hour (offshore height only).</>
+  const matchLine = pending ? <SkelInline label={`Loading Board Match for ${view.spot.name}`} width="16em" />
+    : failed ? <><b>Board Match:</b> the forecast did not load, so there is nothing to match against.</>
+    : !sizeOk ? <><b>Board Match:</b> no surf estimate for {view.spot.name} at this hour (offshore height only).</>
     : charOk && mm ? <><b>Board Match at {view.spot.name}:</b> {Math.round(mm.score)}/100, #{mi + 1} of {matches.length}{mm.eligible ? '' : ' · outside your ability or range'}{mm.limited ? ' · limited board data' : ''}{view.dataMode === 'Demonstration' ? ' · demonstration week' : ''} · provisional</>
     : selPick ? <><b>Board Match:</b> {({in: `${estText} is in its range`, edge: `${estText} is at the edge of its range`, big: `${estText} is above its range`, small: `${estText} is below its range`} as Record<string, string>)[selPick.size.state] ?? selPick.size.label}{period !== null ? ` · ${Math.round(period)} s ${selPick.period?.fit === 'ok' ? 'period suits it' : `period (${selPick.period?.note ?? ''})`}` : ''}. Wave shape unknown.</> : null;
   const A = (b: Surfboard) => (
@@ -214,49 +237,52 @@ export function QuiverView({section, go}: ViewProps) {
               <Strip boards={boards} selectedId={sel.id} onSelect={select} />
             </div>
           ) : (
-            <Suspense fallback={<div className="qv-studio"><div className="qv-stagewrap"><div className="qv-stage"><div className="skel" aria-hidden="true"><i style={{height: 240}} /></div></div><SpecCard board={sel} dims={sel} action={null} /></div></div>}>
+            <Suspense fallback={<div className="qv-studio"><div className="qv-stagewrap"><div className="qv-stage" role="status" aria-label={`Loading the 3D view of ${sel.name}`}><div className="br-load" aria-hidden="true"><BoardOutline b={sel} scale={4} /></div></div><SpecCard board={sel} dims={sel} action={null} /></div></div>}>
               <BoardRoom board={sel} boards={boards} onPick={select} fits={fits} onSave={data.saveBoard} onFail={() => setFlat(true)} match={matchLine} matchAction={<button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>} />
             </Suspense>
           )}
           <div className="qv-showbar">
             <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
-            {sel.notes && <p className="fine">{sel.notes}</p>}
+            {sel.notes && <p className="fine">{linkify(sel.notes)}</p>}
           </div>
-          <p className="fine">{sel.demo ? 'Example board. ' : ''}{!outline && referenceFor(sel) ? `${MODELLED_NOTE}: the outline is traced from the maker's product photo and scaled to the published size; foil, rails and bottom are typical for the type${referenceFor(sel)?.rocker ? ' (the rocker is measured from the side-profile photo)' : ''}. Not an exact replica.` : outline?.tex ? `The deck is your photo of the board; the outline is traced from it. Rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>
+          {flat && <p className="fine">{sel.demo ? 'Example board. ' : ''}{!outline && referenceFor(sel) ? `${MODELLED_NOTE}: the outline is traced from the maker's product photo and scaled to the published size; foil, rails and bottom are typical for the type${referenceFor(sel)?.rocker ? ' (the rocker is measured from the side-profile photo)' : ''}. Not an exact replica.` : outline?.tex ? `The deck is your photo of the board; the outline is traced from it. Rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>}
         </section>
       )}
 
       {section === 'match' && (
         <section className="qv-panel" aria-label="Board match">
           <p className="fine">{view.spot.name} at the selected hour · {p.skill}</p>
-          {!faceOk ? (
+          {pending ? <Skeleton label={`Loading Board Match for ${view.spot.name}`} /> : !faceOk ? (
             sizeOk ? (
               <>
                 <p className="qv-shape">Ranked on size and period for {estText}. Wave shape is unknown, so it isn't weighed.</p>
+                {!choice.pick && <p className="qv-nofit" role="status"><b>None of your boards suit {estText}.</b> They are listed by how close their range is.</p>}
                 <ol className="qv-ranks qv-ranks-sp">{picks.map((x, k) => (
                   <li key={x.board.id} className={x.board.id === choice.pick?.id ? 'top' : ''}>
-                    <div className="qv-rank-b"><BoardOutline b={x.board} scale={(k === 0 ? 150 : 90) / maxLen} /></div>
+                    <div className="qv-rank-b"><BoardOutline b={x.board} scale={(x.board.id === choice.pick?.id ? 150 : 90) / maxLen} /></div>
                     <div className="qv-rank-t">
-                      <span className="qv-rank-n">{x.board.id === choice.pick?.id ? 'Best for this size' : `#${k + 1}`}</span>
+                      <span className="qv-rank-n">{x.board.id === choice.pick?.id ? pickHeading(x.size, est, 'Best for this size') : outOfRange(x) ? 'Not for this size' : `#${k + 1}`}</span>
                       <h2>{x.board.name}</h2>
                       <p className="fine">{x.board.type} · {lengthLabel(x.board.length)} · {x.board.volume} L</p>
-                      <p><em className={`qv-fit ${x.size.state}`}>{x.size.label}</em>{x.size.state !== 'none' && <span className="fine"> · {x.size.source === 'board' ? 'your range' : `${x.board.type.toLowerCase()} range`} {x.size.board[0]}–{x.size.board[1]} ft</span>}</p>
+                      <p><em className={`qv-fit ${x.size.state}`}>{x.size.label}</em>{x.size.state !== 'none' && <span className="fine"> · {x.size.source === 'board' ? 'your range' : `${x.board.type.toLowerCase()} range`} {surfRange(x.size.board[0], x.size.board[1], p)}</span>}</p>
                       {x.period && period !== null && <p className="fine">{Math.round(period)} s period: {x.period.note}</p>}
                     </div>
                   </li>
                 ))}</ol>
               </>
-            ) : <StateMessage title="Board Match needs a surf estimate" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
+            ) : failed ? <StateMessage title="The forecast did not load" action={<button className="btn" onClick={view.ocean.reload}>Try again</button>}>Board Match needs the forecast for {view.spot.name}. {view.ocean.error}</StateMessage>
+            : <StateMessage title="Board Match needs a surf estimate" action={view.dataMode === 'Retrieved' ? <button className="btn" onClick={() => view.setDataMode('Demonstration')}>Try the demonstration week</button> : undefined}>
               Live data has offshore wave height only here, and offshore height is not the size of the waves a board will ride.
             </StateMessage>
           ) : (
             <>
               {view.dataMode === 'Demonstration' && <p><span className="chip demo">Demonstration week · illustrative</span></p>}
-              <ol className="qv-ranks">{matches.map((m, k) => (
+              {!choice.pick && <p className="qv-nofit" role="status"><b>None of your boards suit {estText ?? `the surf at ${view.spot.name}`}.</b> They are listed by how close their range is.</p>}
+              <ol className="qv-ranks">{scoredRows.map((m, k) => (
                 <li key={m.board.id} className={m.board.id === choice.pick?.id ? 'top' : ''}>
-                  <div className="qv-rank-b"><BoardOutline b={m.board} scale={(k === 0 ? 150 : 90) / maxLen} /></div>
+                  <div className="qv-rank-b"><BoardOutline b={m.board} scale={(m.board.id === choice.pick?.id ? 150 : 90) / maxLen} /></div>
                   <div className="qv-rank-t">
-                    <span className="qv-rank-n">{m.board.id === choice.pick?.id ? 'Best match' : `#${k + 1}`}</span>
+                    <span className="qv-rank-n">{m.board.id === choice.pick?.id ? pickHeading(m.size, scoreEst, 'Best match') : m.size.state === 'big' || m.size.state === 'small' ? 'Not for this size' : !m.eligible ? 'Not for your ability' : `#${k + 1}`}</span>
                     <h2>{m.board.name}</h2>
                     <p className="fine">{m.board.type} · {lengthLabel(m.board.length)} · {m.board.volume} L{m.eligible ? '' : ' · outside your ability or range'}{m.limited ? ' · limited board data' : ''}</p>
                     <ul className="factors">{m.factors.map((fc) => <li key={fc.name}><span>{fc.name} <span className="fine">· weight {Math.round(fc.weight * 100)}%</span></span><span>{Math.round(fc.score)}</span><span className="bar"><i style={{width: `${fc.score}%`}} /></span><span className="fine" style={{gridColumn: '1 / -1'}}>{fc.reason}</span></li>)}</ul>

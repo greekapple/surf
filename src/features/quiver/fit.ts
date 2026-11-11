@@ -27,14 +27,37 @@ export const PERIOD_KIND: Record<string, string> = {'Performance shortboard': 's
 export const periodKind = (type: string) => PERIOD_KIND[type] ?? type;
 
 /** T-065 Board Match on size + period (wave shape is unknown): every board ranked by how today's estimate sits in its range, then by whether the
- *  dominant swell period suits it (T-064 periodFit). Only boards with the estimate inside or at the edge of their range are recommended. */
-export interface BoardPick {board: Surfboard; size: SizeFit; period: PeriodFit | null; rank: number}
+ *  dominant swell period suits it (T-064 periodFit). Only boards with the estimate inside or at the edge of their range are recommended.
+ *  Audit A5: boards the surf is outside of rank below every in/edge board, ordered by how far (ft) the estimate sits from their range,
+ *  so a 1–5 ft fish never outranks a 3–8 ft shortboard in 10–13 ft surf just because the period suits it. */
+export interface BoardPick {board: Surfboard; size: SizeFit; period: PeriodFit | null; rank: number; distance: number}
+/** Feet between the estimate and the board's range (0 when they overlap). */
+export const rangeDistance = (s: SizeFit, est: [number, number] | null) =>
+  s.state === 'none' || !est ? Infinity : Math.max(0, s.board[0] - est[1], est[0] - s.board[1]);
+export const outOfRange = (x: BoardPick) => x.size.state === 'big' || x.size.state === 'small';
 export function rankBoards(boards: Surfboard[], est: [number, number] | null, periodS: number | null): BoardPick[] {
   return boards.map((b) => {
     const size = sizeFit(b, est), period = periodS !== null && Number.isFinite(periodS) ? periodFit(periodKind(b.type), periodS, b.length) : null;
     const rank = (size.state === 'in' ? 3 : size.state === 'edge' ? 2 : 0) + (period?.fit === 'ok' ? 1 : 0);
-    return {board: b, size, period, rank};
-  }).sort((a, b) => b.rank - a.rank || (a.board.favorite === b.board.favorite ? 0 : a.board.favorite ? -1 : 1));
+    return {board: b, size, period, rank, distance: rangeDistance(size, est)};
+  }).sort((a, b) => {
+    const ao = a.size.state === 'in' || a.size.state === 'edge' ? 0 : 1, bo = b.size.state === 'in' || b.size.state === 'edge' ? 0 : 1;
+    if (ao !== bo) return ao - bo;
+    if (ao === 1 && a.distance !== b.distance) return a.distance - b.distance;
+    return b.rank - a.rank || (a.board.favorite === b.board.favorite ? 0 : a.board.favorite ? -1 : 1);
+  });
+}
+/** Review MEDIUM: score-mode Board Match orders like size mode: boards the surf is in or at the edge of (or with no range verdict) by score,
+ *  then the boards the surf is outside of by how far. Each row carries its size fit for the label. */
+export function orderScored<T extends {board: Surfboard; score: number}>(scored: T[], est: [number, number] | null): (T & {size: SizeFit; distance: number})[] {
+  return scored.map((m) => { const size = sizeFit(m.board, est); return {...m, size, distance: rangeDistance(size, est)}; })
+    .sort((a, b) => { const ao = a.size.state === 'big' || a.size.state === 'small' ? 1 : 0, bo = b.size.state === 'big' || b.size.state === 'small' ? 1 : 0;
+      return ao - bo || (ao === 1 ? a.distance - b.distance : 0) || b.score - a.score; });
+}
+/** Review P2: the pick's heading. An edge fit is the closest fit, not "best": it says which end of its range the surf is at. */
+export function pickHeading(size: SizeFit, est: [number, number] | null, best: string): string {
+  if (size.state !== 'edge' || !est) return best;
+  return `Closest fit · ${est[1] > size.board[1] ? 'top' : 'bottom'} of its range`;
 }
 export const recommended = (picks: BoardPick[]) => picks.filter((x) => x.size.state === 'in' || x.size.state === 'edge');
 

@@ -65,3 +65,9 @@
 .sc-dev-row label, .sc-dev summary { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; }   /* dev-only, but still a 44 px tap target when shown */
 .sc-dev-row input, .sc-dev-row select { min-height: 32px; }
 .sc-dev-row input[type="number"] { width: 5em; }
+
+/* B10: the 3D stage while the hour's forecast loads (no placeholder scene, no forecast time on it) */
+.sc-stage-skel { position: absolute; inset: 0; display: grid; }
+.sc-stage-skel i { display: block; background: linear-gradient(90deg, var(--s2) 30%, var(--s3) 50%, var(--s2) 70%) 0 0 / 300% 100%; animation: skel 1.4s linear infinite, skel-in 1ms 200ms both; }
+/* B10: between rides the rider is faded out (paddling back to the takeoff); say so on the stage so a still frame never reads as "no surfer" */
+.live-host[data-between="1"]::after { content: "Paddling back for the next wave"; position: absolute; z-index: 1; left: 50%; top: 50%; translate: -50% -50%; white-space: nowrap; padding: 4px 8px; border-radius: 6px; font-size: 12px; color: #fff; background: rgb(0 0 0 / .45); pointer-events: none; }

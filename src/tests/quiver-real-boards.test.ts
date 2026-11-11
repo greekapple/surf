@@ -107,7 +107,7 @@ test('real boards (honesty): an edited example board loses the published-specs l
     assert.match(d.notes ?? '', /https?:\/\//, `${d.id}: the exact source URL is in the notes`);
   }
   const fish = demoBoards.find((d) => d.id === 'demo-fish')!;
-  assert.equal(volumeLabel(fish), '41.1 L (retailer photo)'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L', 'an edited board carries no retailer qualifier');
+  assert.equal(volumeLabel(fish), '41.1 L (read from the stringer photo)'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L', 'an edited board carries no retailer qualifier');
   assert.equal(volumeLabel(demoBoards.find((d) => d.id === 'demo-short')!), '29.4 L');
 });
 

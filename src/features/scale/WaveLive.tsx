@@ -740,6 +740,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         faceRoll, shoulderYaw, hipYaw, chestYaw, headYaw, turnRoll: st[S.TROLL], lift: st[S.LIFT], yawFixHip: body.yawFixDeg[0], yawFixSh: body.yawFixDeg[1], yawFixHead: body.yawFixDeg[2], yawRawHip: body.yawRawDeg[0], yawRawSh: body.yawRawDeg[1], yawRawHead: body.yawRawDeg[2], lean: body.leanDeg, leanGate: body.leanGateNow,
         slopeCap: sim.stats.slopeCapNow, roofStand: sim.stats.roofStandNow, roofCap: sim.stats.roofCapNow, crouch: sim.stats.crouchNow, planV: sim.planV, clampL: body.clampDeg[0], clampR: body.clampDeg[1]};   // R12: the two caps, the crouch, the arms' face clamp
       ret.x = st[S.X]; ret.y = st[S.Y]; ret.z = st[S.Z]; ret.xb = sim.stats.xbNow; ret.move = sim.move(); ret.frac = st[S.V]; ret.headErr = headErr; ret.vx = st[S.VX]; ret.vWater = -st[S.WX]; ret.vis = vis;
+      const between = vis < 0.05 ? '1' : '0'; if (el.dataset.between !== between) el.dataset.between = between;   // B10: the stage says the rider is paddling back, not missing
       return ret;
     };
     /** R12: a rider-frame point against the water for the body's face clamp: the signed face distance in model metres and the face normal
@@ -816,7 +817,7 @@ export function WaveLive({wave, poster, alt, onReady, onFail, board, light, surf
         const m = {...(ready.get('4-6')?.meta ?? ({} as AtlasMeta)), face_m: Hs, Lb_m: Lb, y0_m: -0.5 * Lb, y1_m: 5, break_len_m: 40, shoulder_len_m: 40} as AtlasMeta;
         u.uStrip.value = 0; u.uSetH.value = Hs; u.uLb.value = Lb; u.uFace.value = Hs; const [x0, x1] = stripX(m); u.uX0.value = x0; u.uX1.value = x1; u.uY0.value = m.y0_m; u.uY1.value = m.y1_m;
         setSea(sea.geometry, m); sea.visible = true; strip.visible = false; if (surfer) surfer.visible = false; if (spray) spray.pts.visible = false; setBeach(Hs, m);
-        faceM = Hs; placeCamera('swell', 0, Hs, Lb); el.dataset.mode = w.offshoreM ? 'swell' : 'none'; el.dataset.face = ''; delete el.dataset.surfer; delete el.dataset.breaker;
+        faceM = Hs; placeCamera('swell', 0, Hs, Lb); el.dataset.mode = w.offshoreM ? 'swell' : 'none'; el.dataset.face = ''; el.dataset.between = '0'; delete el.dataset.surfer; delete el.dataset.breaker;
         return;
       }
       const c = composeAtlas(w.faceM, w.breaker, w.periodS); if (!c.atlas) return;

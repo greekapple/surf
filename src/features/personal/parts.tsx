@@ -22,23 +22,27 @@ export function Toggle({on, label, onChange}: {on: boolean; label: string; onCha
 export const photoIdFor = (spotId: string, index = 0) => SPOT_PHOTOS[spotId]?.[0] ?? GENERIC_PHOTOS[index % GENERIC_PHOTOS.length];
 export const photoUrl = (id: string, w: 800 | 1600 = 800) => `/photos/${id}-${w}.jpg`;
 
-/** Credited spot photo: spot-specific when one exists, otherwise a generic image labelled as such. */
-export function SpotCover({spotId, index = 0, className = '', children}: {spotId: string; index?: number; className?: string; children?: ReactNode}) {
-  const id = photoIdFor(spotId, index);
+/** The spot's own credited photo, if it has one (audit C: a stock barrel on an estuary read as that spot's conditions). */
+export const ownPhotoFor = (spotId: string): string | null => SPOT_PHOTOS[spotId]?.[0] ?? null;
+
+/** Spot card head: the spot's own credited photo when one exists; otherwise no photo at all (a plain card), never a generic stand-in. */
+export function SpotCover({spotId, className = '', children}: {spotId: string; index?: number; className?: string; children?: ReactNode}) {
+  const id = ownPhotoFor(spotId);
+  if (!id) return <div className={`pz-cover pz-cover-none ${className}`}><div className="pz-cover-body">{children}</div></div>;
   const ph = PHOTOS[id];
   return (
     <div className={`pz-cover ${className}`} style={{backgroundImage: `url(${photoUrl(id)})`}}>
       <div className="pz-cover-body">{children}</div>
-      <small className="pz-credit">{ph?.generic ? 'Generic photo · ' : ''}{ph?.photographer ?? 'Wikimedia Commons'} · {ph?.license}</small>
+      <small className="pz-credit">{ph?.photographer ?? 'Wikimedia Commons'} · {ph?.license}</small>
     </div>
   );
 }
 
-/** Image for a journal entry: the user's own photo, otherwise the spot photo. */
-export function entryImage(x: JournalExtra | undefined, spotId: string, index = 0): {src: string; own: boolean; id?: string} {
+/** Image for a journal entry: the user's own photo, otherwise the spot's own credited photo, otherwise none (review P2: never a generic surf photo). */
+export function entryImage(x: JournalExtra | undefined, spotId: string, _index = 0): {src: string; own: boolean; id?: string} | null {
   if (x?.photo) return {src: x.photo, own: true};
-  const id = photoIdFor(spotId, index);
-  return {src: photoUrl(id), own: false, id};
+  const id = ownPhotoFor(spotId);
+  return id ? {src: photoUrl(id), own: false, id} : null;
 }
 
 export const creditText = (id: string) => {

@@ -35,6 +35,13 @@
 .pz-cover .pz-star[aria-pressed='true'] { color: #fbbf24; }
 .pz-cover .pz-star[aria-pressed='true'] svg { fill: currentColor; }
 .pz-credit { position: absolute; left: 12px; right: 12px; bottom: 5px; font-size: 9.5px; color: rgb(255 255 255 / 0.7); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Audit C: a spot without its own photo gets a plain card (name, region, height), not a generic surf photo that reads as its conditions. */
+.pz-cover-none { min-height: 0; background: var(--s2); color: var(--text); isolation: auto; }
+.pz-spots-all .pz-cover-none { min-height: 0; }
+.pz-cover-none::before { content: none; }
+.pz-cover-none .pz-cover-body { padding: 12px 52px 10px 12px; }
+.pz-cover-none .pz-cover-body > span { color: var(--muted); }
+.pz-cover-none .pz-star { color: var(--muted); }
 .pz-spot-f { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; }
 
 /* board preference tiles */
@@ -259,3 +266,10 @@
 .pz-spot-chips button { flex: 0 0 auto; white-space: nowrap; min-height: 44px; padding: 0 12px; border-radius: 18px; border: 1px solid var(--line, rgba(128,128,128,.4)); background: transparent; color: inherit; font: inherit; font-size: 13px; cursor: pointer; }
 .pz-spot-chips button[aria-pressed="true"] { background: var(--accent, #1d6fb8); border-color: transparent; color: #fff; }
 .pz-spot-pager { display: flex; gap: 12px; margin: 16px 0; flex-wrap: wrap; }
+
+/* Audit R25: file pickers are buttons ("Add photo"), not the raw "Choose File / No file chosen" control; fields in a row keep their own height. */
+.pz-file-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.pz-file { position: relative; display: inline-flex; align-items: center; gap: 8px; cursor: pointer; }
+.pz-file input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.pz-file:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.pz-panel .form-grid { align-items: start; }

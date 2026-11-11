@@ -4,7 +4,7 @@ import {Icon} from '../../ui/Icon';
 import {lengthLabel} from '../../utils/units';
 import {inches} from './format';
 import {loadOutline, wallOutline} from './outline';
-import {MODELLED_NOTE, referenceFor, volumeLabel} from '../../data/referenceBoards';
+import {volumeLabel} from '../../data/referenceBoards';
 import {BoardPicture} from './BoardPicture';
 
 export interface Dims {length: number; width: number; thickness: number; volume: number}
@@ -28,7 +28,6 @@ export function SpecCard({board, dims, action}: {board: Surfboard; dims: Dims; a
       <div className="qv-card-id">
         <h2>{board.name}</h2>
         <p className="fine">{maker || 'Shaper not recorded'}</p>
-        {referenceFor(board) && <p className="fine">{MODELLED_NOTE}</p>}
         <div className="qv-tags">
           <span className="chip">{board.type}</span>{board.fins && <span className="chip">{board.fins}</span>}{board.tail && <span className="chip">{board.tail} tail</span>}
           {board.demo ? <span className="chip demo">Example board</span> : scanned ? <span className="chip">From your photo</span> : traced ? <span className="chip">Traced from your photo</span> : null}

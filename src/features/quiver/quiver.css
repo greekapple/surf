@@ -5,6 +5,10 @@
 .qv h2 { font: 600 28px/1.1 var(--serif); letter-spacing: 0; }
 .qv .btn, .qv .field input, .qv .field select { min-height: 44px; }
 .qv-form { max-width: 920px; }
+/* B11/R25: required marker and inline errors (no native validation bubble). */
+.qv-form .qv-req { font-style: normal; font-size: 11px; margin-left: 6px; color: var(--muted); }
+.qv-form .qv-req::before { content: "· "; }
+.qv-form [aria-invalid=true] { border-color: var(--bad); box-shadow: 0 0 0 1px var(--bad); }
 .qv-actions { display: flex; flex-wrap: wrap; gap: 8px; }
 .qv-selected { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding: 16px 18px; border-radius: var(--r3); background: var(--s1); border: 1px solid var(--line); }
 
@@ -305,7 +309,7 @@
 .br-row.col .br-sw { width: 40px; height: 40px; padding: 0; background: var(--sw); }
 .br-row.col .br-sw[aria-pressed='true'] { box-shadow: inset 0 0 0 2px var(--s1); }
 .br-fin { width: 34px; height: 20px; }
-.br-fin path { fill: var(--s2); stroke: var(--line-2); }
+.br-fin path { fill: none; stroke: var(--muted); stroke-width: 1.4; } /* R26: the glyph outline was line-2 on s2, near-invisible on dark chips */
 .br-fin rect { fill: var(--text); }
 .br-dims { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 14px; }
 .br-dim .k { display: block; margin-bottom: 4px; font-size: 12px; color: var(--muted); }
@@ -361,7 +365,7 @@
 .qv-fit { font-style: normal; font-size: 12px; font-weight: 600; padding: 0 7px; border-radius: 999px; white-space: nowrap; }
 .qv-fit.in { background: color-mix(in srgb, var(--good) 16%, transparent); color: var(--good-ink, var(--good)); }
 .qv-fit.edge { background: color-mix(in srgb, var(--fair) 22%, transparent); color: var(--fair-ink, var(--text)); }
-.qv-fit.big, .qv-fit.small { background: var(--s2); color: var(--muted); }
+.qv-fit.big, .qv-fit.small { background: var(--s2); color: color-mix(in srgb, var(--text) 80%, transparent); } /* R26: muted on s2 fell under AA in dark */
 .qv-ruler { position: absolute; left: 0; top: 0; bottom: 0; width: 64px; pointer-events: none; border-right: 1px solid color-mix(in srgb, var(--text) 8%, transparent); }
 .qv-ruler i { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid color-mix(in srgb, var(--text) 16%, transparent); }
 .qv-ruler i span { position: absolute; right: 8px; top: -8px; font: 600 12px/1 var(--sans); color: var(--muted); font-style: normal; }
@@ -501,3 +505,14 @@
 :root[data-theme='dark'] .qv-rack-b { filter: drop-shadow(0 14px 12px rgb(0 0 0 / 0.55)); }
 :root[data-theme='dark'] .qv-rack-b:has(.bp-ill) { mix-blend-mode: normal; }
 :root[data-theme='dark'] .br-stage { background: radial-gradient(120% 70% at 50% 62%, #3a3d41 0%, #2b2e32 46%, #1e2023 100%), #26292d; }
+
+/* Audit R26: dark theme for the board strip under the stage (it stayed light beige) */
+:root[data-theme='dark'] .qv-studio .qv-strip { background: #1d2024; border-top-color: rgb(255 255 255 / 0.08); }
+:root[data-theme='dark'] .qv-studio .qv-strip button { background: rgb(255 255 255 / 0.06); }
+:root[data-theme='dark'] .qv-studio .qv-strip button:hover { background: rgb(255 255 255 / 0.12); }
+:root[data-theme='dark'] .qv-studio .qv-strip button[aria-pressed='true'] { border-color: #eef3f6; background: rgb(255 255 255 / 0.16); box-shadow: 0 0 0 1px #eef3f6; }
+/* A6: the Board Match skeleton spans the panel (the panel is a flex column that shrink-wraps children) */
+.qv-panel > .skel { width: 100%; max-width: none; padding-inline: 0; }
+
+/* review P1-3: when no board suits the estimate, say so above the list */
+.qv-nofit { margin: 0; padding: 10px 12px; border-radius: var(--r2); background: var(--s2); }
