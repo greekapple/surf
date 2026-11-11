@@ -26,7 +26,11 @@ import {glyphFor} from '../../services/waveGlyph';
 import {userHeight} from '../../services/heightMath';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
 import {CallBar, DaylightRow, FeltRight, NwsBanner} from './Trust';
-import {callFor, daylightFor, surfBandSeries} from './trustApi';
+import {extremaForOwnStation} from '../../ocean/stationTide';
+import {tideStationFor, SF_STATION} from '../../ocean/tideStations';
+import {CALL_WINDOW_DAYS} from '../../services/call';
+import {HORIZON_HOURS} from '../../services/certainty';
+import {callFor, daylightFor, surfBandSeries, windowOnDay} from './trustApi';
 import {BREAKER_WORD, breakerType} from '../../services/breaker';
 import {outsideFacingForHour} from '../../services/headlineSurf';
 import './forecast.css';
@@ -56,7 +60,8 @@ export function ForecastView({go}: ViewProps) {
   const days = useMemo(() => groupDays(series), [series]);
   const [range, setRange] = useState<'week' | 'day'>('week');
   const [mode, setMode] = useState<'graph' | 'table'>(() => (new URLSearchParams(location.search).get('view') === 'table' ? 'table' : 'graph'));
-  const extrema = view.ocean.bundle?.extrema ?? [];
+  // A2: the highs and lows of the spot's OWN tide station (the curve, the chart, the timeline and the table all read the same station)
+  const [tla, tlo] = spotLatLon(spot), extrema = extremaForOwnStation(view.ocean.bundle, tideStationFor({id: spot.id, latitude: tla, longitude: tlo})?.station.id, SF_STATION);
   const selIdx = selected ? series.indexOf(selected) : -1;
   const curDay = selIdx >= 0 ? days.findIndex((d) => selIdx >= d.start && selIdx <= d.end) : -1;
   const setParam = (k: string, v: string | null) => { const u = new URL(location.href); if (v === null) u.searchParams.delete(k); else u.searchParams.set(k, v); history.replaceState(history.state, '', u); };
@@ -68,17 +73,24 @@ export function ForecastView({go}: ViewProps) {
   // Phones: the shell's spot switcher already names the spot, so the h1 is for screen readers only (the name shows once).
   const [narrow, setNarrow] = useState(() => matchMedia('(max-width: 860px)').matches);
   useEffect(() => { const mq = matchMedia('(max-width: 860px)'), on = () => setNarrow(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
+  const nowHour = Math.floor(now / 3600000); // the star is recomputed on the hour, not on every clock tick
   const bestK = useMemo(() => {
     let best = -1, bs = -1;
+    const nowMs = nowHour * 3600000, today = dateIn(timeZoneOf(spot), new Date(nowMs).toISOString());
     days.forEach((d, k) => {
       if (d.end - d.start < 11) return;
+      // A4: only days inside the call's own window horizon (CALL_WINDOW_DAYS) and before the certainty horizon (beyond it the app calls nothing)
+      const dayKey = dateIn(timeZoneOf(spot), series[d.start].timestamp);
+      if (Date.parse(dayKey + 'T00:00:00Z') - Date.parse(today + 'T00:00:00Z') >= CALL_WINDOW_DAYS * 86400000 || (Date.parse(series[d.start].timestamp) - nowMs) / 3600000 >= HORIZON_HOURS) return;
       const sc = series.slice(d.start, d.end + 1).filter((h) => h.hour >= 6 && h.hour <= 19 && !h.rating.dark).map((h) => h.rating.score).filter((v): v is number => v !== null);
       if (!sc.length) return;
+      // A4: the star goes only to a day the call would also name a window for (the same skill-aware rule): never a "best day" beside "no window in this forecast"
+      if (!windowOnDay(spot, dateIn(timeZoneOf(spot), series[d.start].timestamp), p, {records: series.map((h) => h.forecast), bundle: view.ocean.bundle, nowMs})) return;
       const avg = sc.reduce((x, y) => x + y, 0) / sc.length;
       if (avg > bs) { bs = avg; best = k; }
     });
     return best;
-  }, [days, series]);
+  }, [days, series, spot, p, view.ocean.bundle, nowHour]);
   const pickDay = (k: number) => {
     const d = days[k];
     const best = bestDaylight(series, spot, Date.parse(series[d.start].timestamp), Date.parse(series[d.end].timestamp) + 1);

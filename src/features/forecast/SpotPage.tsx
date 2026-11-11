@@ -1,5 +1,6 @@
 import {zoneOf, stateOfZone} from '../../data/zones';
-import {tideStationFor, SF_STATION, noTideNote} from '../../ocean/tideStations';
+import {tideStationFor, SF_STATION, noTideNote, hourlyTideStationIds} from '../../ocean/tideStations';
+import {tideCurveWords} from '../../ocean/stationTide';
 import {regionNote} from '../../ocean/coverage';
 import {useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
@@ -114,6 +115,9 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
   const facing = facingOf(spot.id);
   const swells = [f.primary, f.secondary, f.tertiary].filter((s): s is NonNullable<typeof s> => !!s && fin(s.height) && s.height > 0.05);
   const tideOk = f.availability.tide !== false && fin(f.tide.height);
+  // A2: the Tide card names its station and uses the spot's OWN picked station (the one Home names). The hourly curve in the record is the San Francisco regional series: it is drawn only where San Francisco IS the spot's station,
+  // and then says so; where the spot's own station is another one, the card shows that station's next highs and lows (as for every spot with no hourly series) instead of the SF curve under a generic label.
+  const [tlat, tlon] = spotLatLon(spot), ownTide = tideStationFor({id: spot.id, latitude: tlat, longitude: tlon}), ownIsSf = !!ownTide && ownTide.station.id === SF_STATION;
   // Hawaii spots: the numbers are face heights (trough to crest); a local reader may expect the Hawaiian scale (about half). Say which one this is unless the profile chose Hawaiian.
   const scaleNote = stateOfZone(zoneOf(spot.region)) === 'Hawaii' && p.scale !== 'Hawaiian' ? 'surf height, not Hawaiian scale' : null;
   const water = fin(f.waterTempF) ? f.waterTempF : null;
@@ -149,10 +153,11 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
         <WindNow spot={spot} hours={dayHours} now={now} p={p} />
       </Card>
       <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
-        {tideOk ? <>
+        {tideOk && ownTide ? <>
           <p className="v sp-v">{f.tide.height < 0 ? '−' : ''}{ht(Math.abs(f.tide.height), p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
-          <TideMini hours={dayHours} at={h.timestamp} extrema={f.tide.extrema?.length ? f.tide.extrema.map((e) => ({timestamp: e.timestamp, v: e.height, type: e.type})) : extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
-          <p className="sp-f">NOAA station prediction, not at the beach</p>
+          <TideMini hours={dayHours} at={h.timestamp} extrema={extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
+          <p className="sp-f">{ownIsSf ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${ownTide.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(ownTide.station.id) ? 'hourly' : 'interpolated', stationName: ownTide.station.name, stationId: ownTide.station.id, distanceKm: ownTide.distanceKm})}</p>
+          {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {ownTide.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
         </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} />}
       </Card>
       <Card k="swell" title="Swell" open={open === 'swell'} onToggle={() => onToggle('swell')}>
@@ -263,7 +268,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         return (
           <button key={d.key} className={`sp-day day${cv ? ` is-${cv.level}` : ''}`} data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)} data-certainty={cv?.level}
             aria-label={`${name}: ${range ? `${far ? `too far out to call, ${shown.detail}` : `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${shown.text.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}`}${cv && !far ? `, ${cv.word}` : ''}${shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
-            <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week: the highest average rating over its 6 AM–7 PM hours. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
+            <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week for you: the highest average rating over its 6 AM–7 PM hours, among the next few days that have a Go or Worth-a-look window for your skill range. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
             <span className="sd-h" title={cv ? `${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
             <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{cv && !far ? `${kind} · ${shown.note ?? cv.word}` : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>

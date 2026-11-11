@@ -1,10 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {tideStations, tideStation, extraTideStationIds, hiloTideStationIds, tideAssignments, nearestTideStations, tideStationForSpot, SF_STATION} from '../ocean/tideStations.ts';
+import {tideStations, tideStation, extraTideStationIds, hiloTideStationIds, harmonicTideStationIds, hourlyTideStationIds, tideAssignments, nearestTideStations, tideStationForSpot, SF_STATION} from '../ocean/tideStations.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
 import {tideURL, tideExtremaURL, normalizeTides, normalizeTideExtrema, stationOf} from '../ocean/noaa.ts';
 import {serverProviderPath} from '../ocean/server.ts';
-import {ingestionTargets, tideServiceStationIds, tideHiloServiceStationIds} from '../../services/forecast-service.mjs';
+import {ingestionTargets, tideServiceStationIds, tideHourlyServiceStationIds, tideHiloServiceStationIds} from '../../services/forecast-service.mjs';
 
 const payload = {predictions: [{t: '2026-11-01 05:26', v: '-0.437', type: 'L'}, {t: '2026-11-01 12:51', v: '4.251', type: 'H'}]};
 
@@ -12,6 +12,7 @@ test('registry holds the three stations; the two new ones are ingested but assig
   assert.deepEqual(tideStations.slice(0, 3).map((s) => s.id), ['9414290', '9414131', '9415020']); // T-082 appends the nearest station of every covered spot
   assert.deepEqual(extraTideStationIds, ['9414131', '9415020']);
   assert.deepEqual(tideServiceStationIds, extraTideStationIds, 'service and registry agree');
+  assert.deepEqual(tideHourlyServiceStationIds, hourlyTideStationIds, 'A2: the Worker ingests the hourly series of the harmonic stations and the extras; the app reads the same list'); assert.ok(harmonicTideStationIds.every((id) => hiloTideStationIds.includes(id)), 'harmonic ids are hilo-list stations'); assert.equal(new Set(hourlyTideStationIds).size, hourlyTideStationIds.length);
   assert.deepEqual(tideAssignments, []);
   assert.equal(tideStation('9414131')?.name, 'Pillar Point Harbor'); assert.equal(tideStation('9415020')?.name, 'Point Reyes'); assert.equal(tideStation('0000000'), null);
 });
@@ -67,7 +68,7 @@ test('the high/low stations: registry and service agree, the server routes their
   for (const id of hiloTideStationIds) assert.ok(tideStation(id), id);
   assert.equal(serverProviderPath(tideExtremaURL(new Date(), '9413745')), '/api/provider?key=tide-extrema-9413745');
   const keys = ingestionTargets(Date.parse('2026-11-01T12:00:00Z')).map((t: any) => t.key);
-  for (const id of hiloTideStationIds) { assert.ok(keys.includes('tide-extrema-' + id), id); assert.ok(!keys.includes('tides-' + id), id + ' has no hourly series'); }
+  for (const id of hiloTideStationIds) { assert.ok(keys.includes('tide-extrema-' + id), id); assert.equal(keys.includes('tides-' + id), hourlyTideStationIds.includes(id), id + ': an hourly series exactly for the harmonic stations (A2)'); }
 });
 test('open-coast rule: the stations the OR/WA and California reviews rejected are closed, entrances and jetties are open, a town name is allowed', async () => {
   const {tideStationExposure, pickTideStation, tideStationForSpot} = await import('../ocean/tideStations.ts');

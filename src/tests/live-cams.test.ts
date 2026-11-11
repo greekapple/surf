@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {execFileSync} from 'node:child_process';
 import {LIVE_CAMS, liveCamsFor} from '../data/liveCamsSourced.ts';
-import {ageWords, postedLabel, stillState, streamErrorWords, streamLiveness, kmWords, distanceWords, checkedWords, offlineWords, STILL_OFFLINE_MS, STILL_REFRESH_MS} from '../features/forecast/liveCamLogic.ts';
+import {ageWords, postedLabel, stillState, streamErrorWords, streamLiveness, kmWords, distanceWords, checkedWords, offlineWords, STILL_OFFLINE_MS, STILL_REFRESH_MS, takenEstimate} from '../features/forecast/liveCamLogic.ts';
 import {createCamMeta, CAM_UA, META_TTL_MS, META_MISS_MS} from '../../services/cam-meta.mjs';
 import {evidenceSpots} from '../ocean/spots.ts';
 
@@ -47,7 +47,8 @@ test('distances are said as the row knows them: about when the position is appro
 test('still rules: live up to 2 h old, Offline after (the frame is not shown), unknown when the time cannot be read; age and time words are in the spot\'s zone', () => {
   const NOW = Date.parse('2026-11-10T18:00:00Z'), at = (min: number) => new Date(NOW - min * 60000).toISOString();
   assert.equal(STILL_OFFLINE_MS, 7200000); assert.equal(STILL_REFRESH_MS, 1800000);
-  assert.deepEqual(stillState(at(17), NOW), {state: 'live', postedMs: NOW - 17 * 60000, ageMs: 17 * 60000}); assert.equal(stillState(at(120), NOW).state, 'live', 'exactly 2 h is still live'); assert.equal(stillState(at(121), NOW).state, 'offline');
+  // by day (no spot given: no daylight cap) the capture bound is the post time: the age is the posted age
+  assert.deepEqual(stillState(at(17), NOW), {state: 'live', postedMs: NOW - 17 * 60000, takenMs: NOW - 17 * 60000, ageMs: 17 * 60000, postedAgeMs: 17 * 60000, basis: 'posted'}); assert.equal(stillState(at(120), NOW).state, 'live', 'exactly 2 h is still live'); assert.equal(stillState(at(121), NOW).state, 'offline');
   assert.equal(stillState(null, NOW).state, 'unknown'); assert.equal(stillState('garbage', NOW).state, 'unknown'); assert.equal(stillState(new Date(NOW + 3600000).toISOString(), NOW).state, 'unknown', 'a time in the future is not trusted');
   assert.equal(ageWords(20000), 'under a minute'); assert.equal(ageWords(17 * 60000), '17 min'); assert.equal(ageWords(80 * 60000), '1 h 20 min'); assert.equal(ageWords(5 * 3600000), '5 h'); assert.equal(ageWords(60 * 3600000), '3 d');
   assert.equal(postedLabel(Date.parse('2026-11-10T17:43:04Z'), 'America/Los_Angeles', NOW), '9:43 AM PST'); assert.match(postedLabel(Date.parse('2026-11-09T17:43:04Z'), 'America/Los_Angeles', NOW), /^Mon, Nov 9, 9:43 AM PST$/, 'another day says the day');
@@ -56,8 +57,26 @@ test('still rules: live up to 2 h old, Offline after (the frame is not shown), u
 test('the pre-tap date is in the app\'s words, and a frame posted near or after sunset says dusk, not a fault', () => {
   assert.equal(checkedWords('2026-11-10'), 'Nov 10, 2026'); assert.equal(checkedWords('2026-01-05'), 'Jan 5, 2026'); assert.equal(checkedWords('garbage'), 'garbage');
   const base = {zone: 'America/Los_Angeles', spotId: 'spot-7', offlineNote: 'USGS collects images in daylight only; an old frame means the camera system may be offline (USGS page).'};
-  const dusk = offlineWords({...base, postedMs: Date.parse('2026-11-11T00:50:00Z'), ageMs: 14 * 3600000, nowMs: Date.parse('2026-11-11T14:50:00Z')}), noon = offlineWords({...base, postedMs: Date.parse('2026-11-10T20:00:00Z'), ageMs: 3 * 3600000, nowMs: Date.parse('2026-11-10T23:00:00Z')});
-  assert.match(dusk, /^No frame since dusk; USGS collects in daylight only\. The newest was posted Tue, Nov 10, 4:50 PM PST, 14 h ago, so it is not shown\.$/); assert.match(noon, /^The newest frame was posted 12:00 PM PST, 3 h ago, so it is not shown\. USGS collects images in daylight only; an old frame means the camera system may be offline/); assert.doesNotMatch(noon, /dusk/);
+  const dusk = offlineWords({...base, postedMs: Date.parse('2026-11-11T00:50:00Z'), takenMs: Date.parse('2026-11-10T23:05:00Z'), ageMs: 14 * 3600000, nowMs: Date.parse('2026-11-11T14:50:00Z')}), noon = offlineWords({...base, postedMs: Date.parse('2026-11-10T20:00:00Z'), takenMs: Date.parse('2026-11-10T18:15:00Z'), ageMs: 3 * 3600000, nowMs: Date.parse('2026-11-10T23:00:00Z')});
+  assert.match(dusk, /^No frame since dusk; USGS collects in daylight only\. The newest picture was taken about Tue, Nov 10, 3:05 PM PST or earlier, about 14 h ago \(the file carries no capture time; it was posted Tue, Nov 10, 4:50 PM PST\), so it is not shown\.$/); assert.match(noon, /^The newest picture was taken about 10:15 AM PST or earlier, about 3 h ago \(the file carries no capture time; it was posted 12:00 PM PST\), so it is not shown\. USGS collects images in daylight only/); assert.doesNotMatch(noon, /dusk/);
+});
+test('A1: the capture time is BOUNDED, not guessed: min(posted, first sighting of the content), moved back to the most recent last light outside daylight (previous day before first light); a rewrite does not make an old frame new', () => {
+  const Z = 'America/Los_Angeles', spot = 'spot-7';
+  // 2026-11-10: the 17:30 PST frame was re-posted at 19:13 and 23:13 PST (Last-Modified is a rewrite time)
+  for (const [postedIso, nowIso, why] of [['2026-11-11T03:13:04Z', '2026-11-11T04:12:00Z', 'posted 7:13 PM, checked 8:12 PM'], ['2026-11-11T07:13:04Z', '2026-11-11T07:15:00Z', 'posted 11:13 PM, checked 11:15 PM']] as const) {
+    const st = stillState(postedIso, Date.parse(nowIso), {spotId: spot, zone: Z}) as any;
+    assert.equal(st.basis, 'last-light', why); assert.ok(st.takenMs <= Date.parse('2026-11-11T01:45:00Z') && st.takenMs > Date.parse('2026-11-11T01:00:00Z'), `${why}: taken no later than last light (about 5:32 PM PST), the stamp says 5:30 PM`);
+  }
+  assert.equal((stillState('2026-11-11T07:13:04Z', Date.parse('2026-11-11T07:15:00Z'), {spotId: spot, zone: Z}) as any).state, 'offline', 'a dusk frame re-posted at 11 PM is Offline');
+  // before first light: the previous day's last light
+  const early = stillState('2026-11-11T12:00:00Z', Date.parse('2026-11-11T12:05:00Z'), {spotId: spot, zone: Z}) as any; assert.equal(early.basis, 'last-light'); assert.ok(early.takenMs < Date.parse('2026-11-11T02:00:00Z'), 'before first light (4 AM PST): the previous evening\'s last light, not today');
+  // by day: posted is the bound (the picture is a little older); live inside 2 h, never marked Offline for a fixed lag
+  const noon = Date.parse('2026-11-10T20:00:00Z'), day = stillState(new Date(noon).toISOString(), noon + 20 * 60000, {spotId: spot, zone: Z}) as any; assert.equal(day.basis, 'posted'); assert.equal(day.state, 'live'); assert.equal(day.takenMs, noon);
+  assert.equal((stillState(new Date(noon).toISOString(), noon + 121 * 60000, {spotId: spot, zone: Z}) as any).state, 'offline');
+  // a rewrite: this Worker saw the same content (ETag) at 11 AM, Last-Modified now says 12:00: the capture bound is the first sighting
+  const rewrite = stillState(new Date(noon).toISOString(), noon + 30 * 60000, {spotId: spot, zone: Z, firstSeenAt: new Date(noon - 3 * 3600000).toISOString()}) as any; assert.equal(rewrite.basis, 'first-seen'); assert.equal(rewrite.takenMs, noon - 3 * 3600000); assert.equal(rewrite.state, 'offline');
+  assert.equal(takenEstimate(noon, {spotId: spot, zone: Z}).takenMs, noon);
+  const src = fs.readFileSync(new URL('../features/forecast/LiveCam.tsx', import.meta.url), 'utf8'); assert.doesNotMatch(src, /1 h 45|usually 10–30 min|USGS_POST_LAG/, 'no constant lag claim'); assert.match(src, /stillCaption\(st, zone, now\)/);
 });
 test('stream rules: the player\'s own words only (error codes, isLive), never a guess', () => {
   assert.match(streamErrorWords(150), /no longer allows this stream to be embedded/); assert.match(streamErrorWords(101), /no longer allows/); assert.equal(streamErrorWords(153), 'The YouTube player could not verify this site (a SWELLO setup problem, not the camera).'); assert.doesNotMatch(streamErrorWords(153), /owner/); assert.match(streamErrorWords(100), /cannot find/); assert.match(streamErrorWords(5), /error \(5\)/);
@@ -83,6 +102,6 @@ test('display only, and out of Home and the map: the panel loads nothing from Yo
   // wording and upkeep of the panel
   assert.doesNotMatch(src, /Live stream|live video|Last seen live by SWELLO|display only|re-rated now/); assert.match(src, /Video stream · /); assert.match(src, /video stream \(live status shown after you tap\)/); assert.match(src, /Live when we last checked it by hand \(\{checkedWords\(cam\.checked\)\}\)\. Tap to load YouTube's player; it shows whether the stream is live now\./); assert.match(src, /<h2 id="lc-h">Camera<\/h2>/);
   assert.match(src, /setInterval\(\(\) => setNow\(Date\.now\(\)\), 60000\)/, 'the age is re-read every minute'); assert.match(src, /addEventListener\('visibilitychange', onVisible\)/); assert.match(src, /removeEventListener\('visibilitychange'/); assert.match(src, /src=\{`\$\{cam\.stillUrl\}\?t=\$\{encodeURIComponent\(meta!\.lastModified!\)\}`\}/, 'the picture\'s address carries the returned time');
-  assert.match(src, /Frame posted \{postedLabel\(st\.postedMs, zone, now\)\} \(\{ageWords\(st\.ageMs\)\} ago\); the time stamped on the picture is when USGS took it, usually 10–30 min earlier · new frame every 30 min in daylight\./); assert.match(src, /pauseVideo/); assert.match(src, /lc-dim/); assert.match(src, /view described by the owner, not checked by SWELLO/);
+  assert.match(src, /<figcaption>\{stillCaption\(st, zone, now\)\} · new frame every 30 min in daylight\.<\/figcaption>/); assert.match(src, /pauseVideo/); assert.match(src, /lc-dim/); assert.match(src, /view described by the owner, not checked by SWELLO/);
   assert.match(fs.readFileSync(new URL('../data/cams.ts', import.meta.url), 'utf8'), /amended 2026-11-10[\s\S]*Analysing a camera's frames[\s\S]*written permission or public domain/); assert.doesNotMatch(fs.readFileSync(new URL('../data/cams.ts', import.meta.url), 'utf8'), /never embeds, frames or analyses/); assert.match(fs.readFileSync(new URL('../../PRODUCT.md', import.meta.url), 'utf8'), /## Camera rule \(amended 2026-11-10[\s\S]*AI analysis[\s\S]*written permission or public domain/);
 });

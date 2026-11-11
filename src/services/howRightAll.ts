@@ -19,6 +19,7 @@ import {timeZoneOf} from '../ocean/spotZone.ts';
 import {dateInMs} from '../ocean/time.ts';
 import type {OceanRecord, Measurement} from '../ocean/types.ts';
 import type {BuoyPick} from '../ocean/scoringBuoys.ts';
+import {silentBuoyNear, silentBuoyWords, silentBuoyNearerThan, nearerBuoyNotUsed, SCORING_RULE, windowOf} from '../ocean/scoringBuoys.ts';
 
 const HOUR = 3600000, DAY = 86400000, FT = 1 / 0.3048, KT_MPH = 1.150779, MS_MPH = 2.236936;
 export const HRA_RULE = {
@@ -271,15 +272,19 @@ export const TYPICAL_DIFF = 'typical difference';
 export const TYPICAL_DIFF_NOTE = 'Typical difference = the median absolute difference: half the hours were closer than this. Lean = our forecast minus the buoy.';
 export const OFFSHORE_PREFIX = 'Offshore wave height at the buoy (not surf at the spot):';
 /** What was compared, exactly: "Hs forecast at buoy 51201's position (Waimea Bay) vs the buoy, 18 km from this spot". */
-export const comparedText = (b: HowRightAllBuoy) => `Hs forecast at buoy ${b.id}'s position (${b.name}) vs the buoy, ${Math.round(b.km)} km from this spot`;
+export const comparedText = (b: HowRightAllBuoy, spotId?: string) => {
+  let note = ''; if (spotId) { try { const ev = evidenceSpot(spotId), n = nearerBuoyNotUsed({lat: ev.latitude, lon: ev.longitude}, b.id, windowOf(spotId)); if (n) note = `; the nearer buoy ${n.name} (${n.id}, ${n.km} km) is not used because ${n.why}`; const sn = silentBuoyNearerThan(ev.latitude, ev.longitude, b.km); if (sn) note += `; ${silentBuoyWords(sn, false)}`; } catch { /* no position: no note */ } }
+  return `Hs forecast at buoy ${b.id}'s position (${b.name}) vs the buoy, ${Math.round(b.km)} km from this spot${note}`;
+};
 const dayUtc = (iso: string) => new Date(iso).toISOString().slice(0, 10);
 const diffs = (w: OffshoreWindow, unit: 'ft' | 'm') => `${TYPICAL_DIFF} ${mText(w.hs!.typical, unit)}, ${leanOf(w.hs!.bias, unit)}`;
 export function offshoreLine(s: HowRightAllSpot, unit: 'ft' | 'm' = 'ft'): {text: string; hasNumber: boolean} {
-  if (s.status === 'no-buoy') return {text: `No offshore check: ${s.reason}.`, hasNumber: false};
+  if (s.status === 'no-buoy') { const sp = allSpots.find((x) => x.id === s.spotId), ev = sp ? (() => { try { return evidenceSpot(s.spotId); } catch { return null; } })() : null, silent = ev ? silentBuoyNear(ev.latitude, ev.longitude) : null;   // a stored "no wave buoy within 100 km" is said again at display time with the silent buoy named
+    return {text: `No offshore check: ${silent && s.reason.startsWith(`no wave buoy within ${SCORING_RULE.maxKm} km`) ? silentBuoyWords(silent) : s.reason}.`, hasNumber: false}; }
   if (s.status === 'skipped') { const last = s.last ? offshoreLine(s.last, unit) : null; return {text: `Offshore check skipped today: buoy ${s.buoy.id}'s data could not be fetched.${last ? ` Last check${s.lastAt ? ` (${dayUtc(s.lastAt)} UTC)` : ''}: ${last.text}` : ''}`, hasNumber: !!last?.hasNumber}; }
-  if (s.status === 'collecting') return {text: `${OFFSHORE_PREFIX} ${comparedText(s.buoy)}: ${collectingText(s.haveDays, s.needDays)}.`, hasNumber: false};
-  const ws = [s.d7, s.d30].filter((w): w is OffshoreWindow => !!w?.hs); if (!ws.length) return {text: `${OFFSHORE_PREFIX} ${comparedText(s.buoy)}: too few hours to say.`, hasNumber: false};
-  return {text: `${OFFSHORE_PREFIX} ${comparedText(s.buoy)}: ${ws.map((w, i) => `${i ? 'last 30 days: ' : ''}${diffs(w, unit)}${i ? '' : ` (last ${w.days} days)`}`).join('; ')}.`, hasNumber: true};
+  if (s.status === 'collecting') return {text: `${OFFSHORE_PREFIX} ${comparedText(s.buoy, s.spotId)}: ${collectingText(s.haveDays, s.needDays)}.`, hasNumber: false};
+  const ws = [s.d7, s.d30].filter((w): w is OffshoreWindow => !!w?.hs); if (!ws.length) return {text: `${OFFSHORE_PREFIX} ${comparedText(s.buoy, s.spotId)}: too few hours to say.`, hasNumber: false};
+  return {text: `${OFFSHORE_PREFIX} ${comparedText(s.buoy, s.spotId)}: ${ws.map((w, i) => `${i ? 'last 30 days: ' : ''}${diffs(w, unit)}${i ? '' : ` (last ${w.days} days)`}`).join('; ')}.`, hasNumber: true};
 }
 /** The wind that fed the buoy-readings rating, in a few words. */
 export const windPhrase = (r: RatingBlock) => r.wind === 'station' && r.station ? `${r.station.id} wind` : r.wind === 'mixed' && r.station ? `${r.station.id} wind for ${r.windHours} of ${r.hours} hours, our forecast wind for the rest` : 'our forecast wind';

@@ -1,9 +1,13 @@
-import {fmtIn, dateInMs} from '../../ocean/time.ts';
+import {fmtIn, dateInMs, addDaysKey} from '../../ocean/time.ts';
 import {daylightFor} from '../../services/daylight.ts';
 
 /** The "Live cam" panel's rules (bayarea-cams-wire), pure so they can be tested. DISPLAY ONLY: nothing here analyses or stores a frame. */
 export const STILL_REFRESH_MS = 30 * 60000;      // a still is asked for again every 30 minutes while the page is open
 export const STILL_OFFLINE_MS = 2 * 3600000;     // a still older than 2 h is "Offline": the frame is hidden, its age is said
+/** USGS puts no capture time in the file (no EXIF, no JPEG comment; the stamp "Tue 11/10/2026 17:30 PST" and the epoch file name are only in the picture's pixels). Its `Last-Modified` is a REWRITE time, not a capture time: the same 17:30 frame
+ *  was re-posted at 19:13 and again at 23:13 (2026-11-10), and by day a frame was posted 13-31 min after its stamp (stamped 9:00, posted 9:13; stamped 9:30, posted 10:01). So the capture time is bounded, not guessed:
+ *  taken <= min(posted, first sighting of this content (its ETag)), and USGS collects in daylight only, so taken <= the most recent LAST LIGHT before that bound when the bound falls after last light or before first light
+ *  (then it is the previous day's last light). The estimate is an upper bound: the picture may be older, never newer. */
 export const STREAM_LOAD_TIMEOUT_MS = 12000;     // a YouTube player that has not reported ready after this long: "could not load"
 
 /** "9 min", "1 h 20 min", "14 h", "2 d": how old a frame is. */
@@ -21,14 +25,26 @@ export function postedLabel(ms: number, zone: string, nowMs: number): string {
   const clock = fmtIn(zone, {hour: 'numeric', minute: '2-digit', timeZoneName: 'short'}).format(new Date(ms));
   return dateInMs(zone, ms) === dateInMs(zone, nowMs) ? clock : `${fmtIn(zone, {weekday: 'short', month: 'short', day: 'numeric'}).format(new Date(ms))}, ${clock}`;
 }
+export type StillBasis = 'posted' | 'first-seen' | 'last-light';
 export type StillState =
-  | {state: 'live'; postedMs: number; ageMs: number}
-  | {state: 'offline'; postedMs: number; ageMs: number}
+  | {state: 'live'; postedMs: number; takenMs: number; ageMs: number; postedAgeMs: number; basis: StillBasis}
+  | {state: 'offline'; postedMs: number; takenMs: number; ageMs: number; postedAgeMs: number; basis: StillBasis}
   | {state: 'unknown'};
-/** The still's state from the owner's own Last-Modified (via /api/cam-meta): live up to 2 h old, offline after; with no time at all the frame is NOT shown (its age cannot be said). */
-export function stillState(lastModified: string | null | undefined, nowMs: number): StillState {
+/** The latest moment the picture can have been taken: min(posted, first sighting of this content), moved back to the most recent last light when that falls outside daylight. Without a spot, no daylight cap. */
+export function takenEstimate(postedMs: number, o: {spotId?: string; zone?: string; firstSeenMs?: number | null} = {}): {takenMs: number; basis: StillBasis} {
+  let bound = postedMs, basis: StillBasis = 'posted';
+  if (Number.isFinite(o.firstSeenMs) && (o.firstSeenMs as number) < bound) { bound = o.firstSeenMs as number; basis = 'first-seen'; }
+  if (!o.spotId || !o.zone) return {takenMs: bound, basis};
+  const day = daylightFor(o.spotId, dateInMs(o.zone, bound)), first = Date.parse(day.firstLight), last = Date.parse(day.lastLight);
+  if (Number.isFinite(last) && bound > last) return {takenMs: last, basis: 'last-light'};
+  if (Number.isFinite(first) && bound < first) { const prev = daylightFor(o.spotId, addDaysKey(dateInMs(o.zone, bound), -1)), pl = Date.parse(prev.lastLight); if (Number.isFinite(pl)) return {takenMs: pl, basis: 'last-light'}; }
+  return {takenMs: bound, basis};
+}
+/** The still's state from the owner's own Last-Modified (via /api/cam-meta) and the best-known capture bound: live while the picture is at most 2 h old by that bound, offline after; with no time at all the frame is NOT shown. */
+export function stillState(lastModified: string | null | undefined, nowMs: number, opts: {spotId?: string; zone?: string; firstSeenAt?: string | null} = {}): StillState {
   const t = Date.parse(lastModified ?? ''); if (!Number.isFinite(t) || t > nowMs + 5 * 60000) return {state: 'unknown'};
-  const age = Math.max(0, nowMs - t); return {state: age > STILL_OFFLINE_MS ? 'offline' : 'live', postedMs: t, ageMs: age};
+  const {takenMs, basis} = takenEstimate(t, {spotId: opts.spotId, zone: opts.zone, firstSeenMs: Date.parse(opts.firstSeenAt ?? '')}), age = Math.max(0, nowMs - takenMs);
+  return {state: age > STILL_OFFLINE_MS ? 'offline' : 'live', postedMs: t, takenMs, ageMs: age, postedAgeMs: Math.max(0, nowMs - t), basis};
 }
 /** What a stream can honestly say. Before the click SWELLO knows only the date it last saw it live (the camera list); the player itself reports the rest once loaded. */
 export type StreamState = 'idle' | 'loading' | 'playing' | 'offline' | 'unavailable' | 'failed';
@@ -46,9 +62,9 @@ export const kmWords = (km: number) => (km < 1 ? `${Math.round(km * 1000)} m` : 
 export const distanceWords = (c: {km: number; kmApprox?: boolean; kmUnknown?: boolean; position?: string}): string => (c.kmUnknown ? c.position ?? 'position unknown' : `${c.kmApprox ? 'about ' : ''}${kmWords(c.km)} from this spot`);
 /** "Nov 10, 2026": a check date from the camera list (YYYY-MM-DD) in the app's date words, whatever the viewer's zone. */
 export const checkedWords = (ymd: string): string => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(ymd); return m ? new Intl.DateTimeFormat('en-US', {month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'}).format(Date.UTC(+m[1], +m[2] - 1, +m[3])) : ymd; };
-/** The Offline words for a still. When the newest frame was posted near or after sunset at the spot, the honest reason is dusk ("No frame since dusk; USGS collects in daylight only"), not a fault. */
-export function offlineWords(o: {postedMs: number; ageMs: number; zone: string; spotId: string; nowMs: number; offlineNote?: string}): string {
-  const posted = postedLabel(o.postedMs, o.zone, o.nowMs), age = ageWords(o.ageMs), day = daylightFor(o.spotId, dateInMs(o.zone, o.postedMs)), sunset = Date.parse(day.sunset);
-  const dusk = Number.isFinite(sunset) && o.postedMs >= sunset - 60 * 60000;
-  return dusk ? `No frame since dusk; USGS collects in daylight only. The newest was posted ${posted}, ${age} ago, so it is not shown.` : `The newest frame was posted ${posted}, ${age} ago, so it is not shown. ${o.offlineNote ?? ''}`.trim();
+/** The Offline words for a still. A frame posted after dusk is the last daylight frame ("No frame since dusk; USGS collects in daylight only"), not a fault. The age is of the ESTIMATED capture time and says so. */
+export function offlineWords(o: {postedMs: number; takenMs?: number; ageMs: number; zone: string; spotId: string; nowMs: number; offlineNote?: string}): string {
+  const taken = o.takenMs ?? o.postedMs, takenLabel = postedLabel(taken, o.zone, o.nowMs), posted = postedLabel(o.postedMs, o.zone, o.nowMs), age = ageWords(o.ageMs), day = daylightFor(o.spotId, dateInMs(o.zone, o.postedMs)), sunset = Date.parse(day.sunset);
+  const dusk = Number.isFinite(sunset) && o.postedMs >= sunset - 60 * 60000, tail = `The newest picture was taken ${o.takenMs && o.takenMs < o.postedMs ? 'about ' : ''}${takenLabel}${o.takenMs && o.takenMs < o.postedMs ? ' or earlier' : ''}, about ${age} ago (the file carries no capture time; it was posted ${posted}), so it is not shown.`;
+  return dusk ? `No frame since dusk; USGS collects in daylight only. ${tail}` : `${tail} ${o.offlineNote ?? ''}`.trim();
 }

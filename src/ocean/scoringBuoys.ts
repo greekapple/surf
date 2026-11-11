@@ -78,6 +78,27 @@ export const NOT_A_BUOY = new Set(['LJPC1']);
 export const scoringBuoys: ScoringBuoy[] = [...contextBuoys.filter((b) => b.provider === 'NDBC' && !TWINS.has(b.id)).map(fromContext), ...EXTRA.filter((e) => !contextBuoys.some((b) => b.id === e.id))].filter((b) => !NO_SPEC_FILE.has(b.id) && !NOT_A_BUOY.has(b.id));
 export const scoringBuoy = (id: string) => scoringBuoys.find((b) => b.id === id) ?? null;
 
+/** Wave buoys that exist near a spot but are SILENT: listed so a spot with no reporting buoy says "the nearest buoy is not reporting" and not "no wave buoy within 100 km". Hand-checked against NDBC's own station page (audit F16, 2026-11-10):
+ *  51205 Pauwela, Maui (21.02 N 156.42 W, a few km off Hookipa) has not reported since 2026-10-13. Remove the row when the buoy reports again. */
+export const KNOWN_SILENT: readonly {id: string; name: string; lat: number; lon: number; lastReported: string; checked: string}[] = [{id: '51205', name: 'Pauwela, Maui', lat: 21.02, lon: -156.42, lastReported: '2026-10-13', checked: '2026-11-10'}];
+/** The nearest known-silent buoy within `maxKm` of a point, or null. */
+export function silentBuoyNear(lat: number, lon: number, maxKm: number = SCORING_RULE.maxKm) {
+  const near = KNOWN_SILENT.map((b) => ({b, km: buoyKm(b, lat, lon)})).filter((x) => x.km <= maxKm).sort((a, c) => a.km - c.km)[0];
+  return near ? {...near.b, km: Math.round(near.km)} : null;
+}
+const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const dateWords = (iso: string, year: boolean) => { const [y, m, d] = iso.split('-').map(Number); return `${MON[m - 1]} ${d}${year ? `, ${y}` : ''}`; };
+/** A dated check, not a standing claim: "the nearest wave buoy, Pauwela, Maui (51205, 4 km), had sent no data since Oct 13, 2026 when checked Nov 10". */
+export const silentBuoyWords = (b: NonNullable<ReturnType<typeof silentBuoyNear>>, nearest = true) => `${nearest ? 'the nearest wave buoy' : 'the wave buoy'}, ${b.name} (${b.id}, ${b.km} km), had sent no data since ${dateWords(b.lastReported, true)} when checked ${dateWords(b.checked, false)}`;
+/** A known-silent buoy nearer to the spot than the buoy the check uses (it is named so the line never checks against a farther buoy without saying why). */
+export function silentBuoyNearerThan(lat: number, lon: number, chosenKm: number) { const s = silentBuoyNear(lat, lon, SCORING_RULE.maxKm); return s && s.km < chosenKm - 0.5 ? s : null; }
+/** A nearer open buoy that the check does NOT use, with the reason (it lies outside the spot's swell window): so the line never names one buoy and checks against another without saying why. null when the chosen buoy is the nearest open one. */
+export function nearerBuoyNotUsed(spot: {lat: number; lon: number}, chosenId: string, window: {fromDeg: number; toDeg: number} | null) {
+  const open = scoringBuoys.filter((b) => !b.sheltered).map((b) => ({b, km: buoyKm(b, spot.lat, spot.lon)})).sort((a, c) => a.km - c.km), chosen = open.find((x) => x.b.id === chosenId);
+  if (!chosen) return null; const nearer = open.find((x) => x.km < chosen.km - 0.5 && x.km <= SCORING_RULE.maxKm); if (!nearer) return null;
+  const outside = !!window && !inArc(bearingDeg(spot.lat, spot.lon, nearer.b.lat, nearer.b.lon), window.fromDeg, window.toDeg);
+  return outside ? {id: nearer.b.id, name: nearer.b.name, km: Math.round(nearer.km), why: "it lies outside this spot's swell window"} : null;
+}
 export const SCORING_RULE = {maxKm: 100, /** the same limit as the Worker captures a buoy-position forecast for */ buoyListedAt: '2026-11-10'} as const;
 
 /** Initial bearing (deg true) from a to b: for a buoy offshore of a spot it is the direction a swell that passes the buoy comes from. */
@@ -97,7 +118,7 @@ export const windowOf = (spotId: string): {fromDeg: number; toDeg: number} | nul
 export function chooseBuoy(spot: {lat: number; lon: number}, window: {fromDeg: number; toDeg: number} | null, buoys: ScoringBuoy[] = scoringBuoys, maxKm = SCORING_RULE.maxKm): BuoyChoice {
   const all = buoys.map((b) => ({b, km: buoyKm(b, spot.lat, spot.lon)})).filter((x) => x.km <= maxKm).sort((p, q) => p.km - q.km);
   const open = all.filter((x) => !x.b.sheltered), nearest = (open[0] ?? all[0]) ? {id: (open[0] ?? all[0]).b.id, name: (open[0] ?? all[0]).b.name, km: Math.round((open[0] ?? all[0]).km)} : null;
-  if (!all.length) return {ok: false, reason: `no wave buoy within ${maxKm} km`, nearest: null};
+  if (!all.length) { const silent = silentBuoyNear(spot.lat, spot.lon, maxKm); return {ok: false, reason: silent ? silentBuoyWords(silent) : `no wave buoy within ${maxKm} km`, nearest: null}; }
   if (!open.length) return {ok: false, reason: `every buoy within ${maxKm} km of this spot (${all.map((x) => `${x.b.name}, ${Math.round(x.km)} km`).join('; ')}) is inside a bay, sound or harbour, so none reports the sea outside it`, nearest};
   if (!window) return {ok: false, reason: `no sourced swell window for this spot, so we cannot say whether ${open[0].b.name} (${Math.round(open[0].km)} km) sees the swell that reaches it`, nearest};
   const seen = open.map((x) => ({...x, bearing: bearingDeg(spot.lat, spot.lon, x.b.lat, x.b.lon)})).filter((x) => inArc(x.bearing, window.fromDeg, window.toDeg));

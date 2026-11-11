@@ -172,7 +172,7 @@ function HowRightAllDetail({id, s, card, unit}: {id: string; s: Extract<HowRight
       </dl>
       <p className="hr-src">{TYPICAL_DIFF_NOTE}</p>
       <dl className="hr-what">
-        <div><dt>What was compared</dt><dd>{comparedText(b)}. The forecast is Open-Meteo's marine model as our forecast stood at least {card.rule.shownMinLeadH} h ahead{b.gridKm !== null && b.gridKm !== undefined ? `, from its nearest model cell (${b.gridKm} km from the buoy)` : ''}; the buoy's side is its measured wave height{b.split ? " and NDBC's published swell split" : ' (this buoy publishes no swell split)'}.</dd></div>
+        <div><dt>What was compared</dt><dd>{comparedText(b, s.spotId)}. The forecast is Open-Meteo's marine model as our forecast stood at least {card.rule.shownMinLeadH} h ahead{b.gridKm !== null && b.gridKm !== undefined ? `, from its nearest model cell (${b.gridKm} km from the buoy)` : ''}; the buoy's side is its measured wave height{b.split ? " and NDBC's published swell split" : ' (this buoy publishes no swell split)'}.</dd></div>
         <div><dt>Why this buoy</dt><dd>The nearest buoy within {card.rule.maxKm} km that is not sheltered (not inside a bay, sound or harbour) and whose direction from the spot ({compassWord(b.bearing)}, {b.bearing}°) is inside this spot's swell window ({Math.round(b.window[0])}°–{Math.round(b.window[1])}°).{b.note ? ` ${b.note[0].toUpperCase()}${b.note.slice(1)}.` : ''} Not a measurement at the break.</dd></div>
         {ok && <div><dt>Rating</dt><dd>{ratingBasis(ok)}{ok.rating.d7 ? '' : ` ${ok.rating.daysScored7} of the last 7 days scored so far.`}</dd></div>}
       </dl>

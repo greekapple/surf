@@ -79,6 +79,7 @@ test('P1-3: successive runs with NEW service instances on the same bucket comple
     if (full < 0 && wanted.every((k) => store.has(k))) { full = run; assert.ok(r.budget.start !== undefined); }
   }
   if (process.env.SHOW) console.log('cold fill complete after run', full + 1, '; subrequests per run', perRun.join(','));
-  assert.ok(full >= 0 && full <= 8, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
+  // A2: +77 daily hourly-tide targets (harmonic stations) make a one-time cold fill one run longer (10 runs, about 50 min at 5-min ticks); warm cost is unchanged (their TTL is 24 h)
+  assert.ok(full >= 0 && full <= 9, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
   assert.ok(perRun[11] < 40, `a warm run costs ${perRun[11]} subrequests (the index object, no per-target reads)`);
 });

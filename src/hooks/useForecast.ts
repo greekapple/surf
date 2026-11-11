@@ -1,4 +1,7 @@
 import {computeScope} from '../ocean/spotScope';
+import {spotIdForSlug} from '../app/routes';
+/** B7: a deep link (?spot=<slug>) opens on THAT spot's own data: the first load is scoped to it, not to the default Ocean Beach and its NorCal neighbours. */
+const initialSpot=():string=>{try{const id=spotIdForSlug(new URLSearchParams(location.search).get('spot'));return id&&evidenceSpots.some(s=>s.id===id)?id:'spot-2'}catch{return 'spot-2'}};
 import {useEffect,useMemo,useRef,useState,type SetStateAction} from 'react';
 import type {MapCamera,MapLayer,MapVariable} from '../map/types';
 import {mapVariables} from '../map/model';
@@ -18,7 +21,7 @@ export interface ScopeInput{favorites:string[];visible:string[];requested:string
 const NO_SCOPE:ScopeInput={favorites:[],visible:[],requested:[]};
 export function useForecast(scopeInput:ScopeInput=NO_SCOPE){
  const [dataMode,setMode]=useState<'Retrieved'|'Demonstration'>('Retrieved');
- const [selected,setSelected]=useState('spot-2'),[day,setDay]=useState(0),[hour,setHour]=useState(9),[simulation,setSimulation]=useState(false),[patch,setPatch]=useState<SimulationPatch>({}),[instant,setInstant]=useState<string|null>(null);
+ const [selected,setSelected]=useState(initialSpot),[day,setDay]=useState(0),[hour,setHour]=useState(9),[simulation,setSimulation]=useState(false),[patch,setPatch]=useState<SimulationPatch>({}),[instant,setInstant]=useState<string|null>(null);
  const [comparisonSets,setComparisonSets]=useState<Record<string,string[]>>({Retrieved:[],Demonstration:[]});
  const [mapPreferences,setMapPreferences]=useState<MapPreferences>(()=>loadMapPreferences(localStorage));
  const [mapPreferenceError,setMapPreferenceError]=useState('');

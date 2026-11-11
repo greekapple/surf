@@ -87,12 +87,18 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   else if (score < WORTH_MIN_SCORE) verdict = 'Skip';
   else if (score < GO_MIN_SCORE && verdict === 'Go') verdict = 'Worth a look';
   // the first sentence is the deciding reason in plain English
-  const lead = verdict === 'Skip' ? (breakerNote && /experts only/.test(breakerNote) ? breakerNote : windNote && /chop/.test(windNote) ? windNote : sizeNote && !/within/.test(sizeNote) ? sizeNote : null)
-    : verdict === 'Worth a look' ? (sizeNote && !/within/.test(sizeNote) ? sizeNote : windNote && /roughen/.test(windNote) ? windNote : null) : null;
+  // A4: a plain "is within the range" note is not a reason; "though within" notes (above/below the range you prefer) ARE the deciding reason
+  const plainWithin = (n: string) => /is within the (range you prefer|[^.]* range)\.$/.test(n) && !/though within/.test(n);
+  const sizeReason = sizeNote && !plainWithin(sizeNote) ? sizeNote : null;
+  const [lead, decider] = verdict === 'Skip' ? (breakerNote && /experts only/.test(breakerNote) ? [breakerNote, 'the breaker rule'] : windNote && /chop/.test(windNote) ? [windNote, 'the wind rule'] : sizeReason ? [sizeReason, 'the size rule'] : [null, ''])
+    : verdict === 'Worth a look' ? (sizeReason ? [sizeReason, 'the size rule'] : windNote && /roughen/.test(windNote) ? [windNote, 'the wind rule'] : [null, '']) : [null, ''];
   const ex = explainRating(hr.rating, {spotId: spot.id, wind: w ? {mph: w.mph, relation: w.relation} : null, fmtWind: (n) => windText(n, profile)}), items = ex.items.filter((i) => i.inScore);
   const down = items.find((i) => i.effect === '-' || (i.effect === '~' && i.factor !== 'Rating ceiling')), ceiling = items.find((i) => i.factor === 'Rating ceiling'), up = items.find((i) => i.effect === '+');
   // T-093: the first plain reason is plain language; the rating engine's own wording (numbers, 'Heuristic', 'combined Hs') goes to the detail lines after it.
-  const ratingSentence = ceiling ? ceiling.reason : verdict === 'Go' ? (up ? `${plainFactor(up.factor, '+')} is a plus.` : 'The rating is good for this hour.') : down ? plainReasonFor(down) : 'The rating is only middling for this hour.';
+  const cat = score === null ? null : String(hr.rating.category).toLowerCase();
+  // A4: the sentence about the rating states the rating itself. When the rating is good but the verdict is not Go, the call comes from the size, wind or break rule above, and it says so: never "only middling" for a Solid hour.
+  const ratingSentence = ceiling ? ceiling.reason : verdict === 'Go' ? (up ? `${plainFactor(up.factor, '+')} is a plus.` : 'The rating is good for this hour.') : down ? plainReasonFor(down)
+    : cat === null ? 'There is no rating for this hour.' : score! >= GO_MIN_SCORE ? `The conditions themselves rate ${cat}; the call comes from ${decider || 'the size, wind or break rule'} above, not from the rating.` : `The rating is ${cat} for this hour.`;
   const ratingDetail = !ceiling && verdict !== 'Go' && down ? `Rating detail, ${down.factor}: ${down.reason}` : '';
   if (lead) why.push(lead); else if (verdict === 'Go') why.push(`${windNote || 'Conditions line up'}${windNote ? '' : '.'} ${sizeNote}`.trim()); else why.push(ratingSentence);
   for (const s of [sizeNote, windNote, breakerNote, ratingSentence, ratingDetail]) if (s && !why.includes(s) && !/^$/.test(s)) why.push(s);
@@ -136,7 +142,9 @@ export function windowHour<T extends {spotId: string; timestamp: string}>(record
 }
 /** T-108: THE best-window function. The first window (same rule as the call's: longest run of daylight hours with the best verdict) that has not ended, looking `days` Pacific days ahead from `fromMs`.
  *  The spot page's call, Compare's "Best" column and Find spots use this one, so they cannot disagree. `when` is 'today' / 'tomorrow' / a weekday. */
-export function bestWindowFrom(spot: SurfSpot, profile: UserProfile, ctx: CallContext, fromMs: number, days = 4): (CallWindow & {when: string}) | null {
+/** How many days ahead (today included) the call names a window. The best-day star is limited to the same horizon. */
+export const CALL_WINDOW_DAYS = 4;
+export function bestWindowFrom(spot: SurfSpot, profile: UserProfile, ctx: CallContext, fromMs: number, days = CALL_WINDOW_DAYS): (CallWindow & {when: string}) | null {
   const tz = timeZoneOf(spot), day0 = dateIn(tz, new Date(fromMs).toISOString());
   for (let i = 0; i < days; i++) {
     const d = addDaysKey(day0, i), w = windowOnDay(spot, d, profile, ctx, fromMs);

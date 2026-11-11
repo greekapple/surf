@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {distance, closestSession, similarLine, storedInputs, todayInputs, WEIGHTS, MAX_DISTANCE, MIN_SESSIONS, type Inputs} from '../services/similarSessions.ts';
+import {distance, closestSession, similarLine, reportWhen, storedInputs, todayInputs, WEIGHTS, MAX_DISTANCE, MIN_SESSIONS, type Inputs} from '../services/similarSessions.ts';
 import {forecastInputs} from '../services/sessionInputs.ts';
 import {archiveHours, loadArchive, resetArchiveThrottle} from '../services/forecastArchive.ts';
 import type {SessionObservation} from '../services/sessionLog.ts';
@@ -106,4 +106,11 @@ test('like with like: a nearshore-only point is compared only with a nearshore-o
 test('the line names the compared hour and says "forecast then ... (untuned)"; the link says "See that report"', () => {
   const m = closestSession(log3(), 'spot-2', base)!, line = similarLine(m, spot, defaultProfile, '2026-11-03T14:00:00Z'); assert.match(line, /^Similar size, period, swell direction, wind and tide at Tue 6 AM to your report on /); assert.match(line, /Forecast then: est\. .* surf height \(untuned\)/);
   assert.match(fs.readFileSync(new URL('../features/forecast/SimilarSession.tsx', import.meta.url), 'utf8'), />See that report</); assert.match(fs.readFileSync(new URL('../features/forecast/SimilarSession.tsx', import.meta.url), 'utf8'), /isDark\(spot\.id, forecast\.timestamp\)\) return null/);
+});
+test('a session entered with no time (timeKnown: false, or a date-only string) shows the date only: no invented "12 AM"; a real session at midnight keeps its hour (never inferred)', () => {
+  const Z = 'America/Los_Angeles';
+  assert.equal(reportWhen('2026-10-18', Z), 'Sun Oct 18'); 
+  assert.equal(reportWhen('2026-10-18T07:00:00.000Z', Z, false), 'Sun Oct 18', 'entered with no time: date only'); assert.equal(reportWhen('2026-10-18T07:00:00.000Z', Z), 'Sun Oct 18, 12 AM', 'a real session at midnight keeps its hour'); assert.match(reportWhen('2026-10-18T14:20:00.000Z', Z), /^Sun Oct 18, 7 AM$/, 'a real time keeps its hour');
+  const m = closestSession(log3(), 'spot-2', base)!, line = similarLine({...m, obs: {...m.obs, observedAt: '2026-10-18T07:00:00.000Z', timeKnown: false as const}}, spot, defaultProfile);
+  assert.doesNotMatch(line, /12 AM/); assert.match(line, /to your report on \w{3} Oct 18 \(you rated/);
 });

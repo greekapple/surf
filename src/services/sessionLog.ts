@@ -21,10 +21,12 @@ export interface SessionObservation {
   quality?: 1 | 2 | 3 | 4 | 5; // quality of the waves (not of the session); optional for a two-tap quick log (T-059)
   /** T-059 quick log: the body word the surfer picked and the face height we map it to, plus the model estimate the app had for that hour at the time (the pairing the calibration fits on). */
   word?: string; faceFt?: number; pair?: ModelPair;
+  /** false = the surfer gave a DATE only (the stored instant is not a time of day); the app then shows the date and never an hour. Absent = a real time. Set at entry, never inferred from a midnight. */
+  timeKnown?: false;
   barNote?: string;            // free text about the sandbar / bottom that day
   context?: ObservationContext;
 }
-export interface ObservationInput {spotId: string; observedAt: string; lo: number; hi: number; unit: 'ft' | 'm'; quality: number; barNote?: string}
+export interface ObservationInput {spotId: string; observedAt: string; /** false: only the date is known (a date-only string also means this) */ timeKnown?: boolean; lo: number; hi: number; unit: 'ft' | 'm'; quality: number; barNote?: string}
 export type Checked = {ok: true; value: Omit<SessionObservation, 'id' | 'loggedAt' | 'schema'>} | {ok: false; error: string};
 
 const round1 = (n: number) => Math.round(n * 10) / 10;
@@ -41,7 +43,7 @@ export function checkObservation(i: ObservationInput, now = Date.now()): Checked
   if (hi < lo) return {ok: false, error: 'The highest height is below the lowest.'};
   if (!Number.isInteger(i.quality) || i.quality < 1 || i.quality > 5) return {ok: false, error: 'Rate the waves from 1 to 5.'};
   const barNote = (i.barNote ?? '').trim().slice(0, 200);
-  return {ok: true, value: {spotId: i.spotId, observedAt: new Date(t).toISOString(), rangeFt: [lo, hi], quality: i.quality as 1 | 2 | 3 | 4 | 5, ...(barNote ? {barNote} : {})}};
+  return {ok: true, value: {spotId: i.spotId, observedAt: new Date(t).toISOString(), ...(i.timeKnown === false || /^\d{4}-\d{2}-\d{2}$/.test(i.observedAt.trim()) ? {timeKnown: false as const} : {}), rangeFt: [lo, hi], quality: i.quality as 1 | 2 | 3 | 4 | 5, ...(barNote ? {barNote} : {})}};
 }
 
 type Store = Pick<Storage, 'getItem' | 'setItem'>;

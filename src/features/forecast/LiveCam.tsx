@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from 'react';
 import {useEmbedAllowed} from './embedAllowed';
 import {liveCamsFor, type LiveCam as Cam} from '../../data/liveCamsSourced';
-import {STILL_REFRESH_MS, STREAM_LOAD_TIMEOUT_MS, ageWords, checkedWords, distanceWords, offlineWords, postedLabel, stillState, streamErrorWords, streamLiveness, type StreamState} from './liveCamLogic';
+import {STILL_REFRESH_MS, STREAM_LOAD_TIMEOUT_MS, ageWords, checkedWords, distanceWords, offlineWords, postedLabel, stillState, streamErrorWords, streamLiveness, type StillBasis, type StreamState} from './liveCamLogic';
 
 /** "Live cam" on the spot page (bayarea-cams-wire). DISPLAY ONLY: SWELLO shows the owner's picture or player with its credit, never analyses, copies or stores a frame.
  *  A still is loaded by the visitor's browser from the owner's host; its time is the owner's own Last-Modified (via the Worker's /api/cam-meta, metadata only). A YouTube stream is a lite embed: our own poster, and
@@ -21,8 +21,15 @@ function Credit({cam}: {cam: Cam}) {
     {cam.channelUrl && <>{' · '}<a href={cam.channelUrl} target="_blank" rel="noopener noreferrer">Channel ↗</a></>}</p>;
 }
 
+/** The caption says what is known: by day the picture was taken a little before it was posted (observed 13-31 min, 2026-11-10); a re-posted frame (after dusk, before first light, or the same content seen earlier) is dated by the most recent last light or the first sighting, and says it is an estimate. */
+function stillCaption(st: {postedMs: number; takenMs: number; ageMs: number; postedAgeMs: number; basis: StillBasis}, zone: string, now: number): string {
+  const posted = postedLabel(st.postedMs, zone, now), taken = postedLabel(st.takenMs, zone, now);
+  if (st.basis === 'posted') return `Frame posted ${posted} (${ageWords(st.postedAgeMs)} ago); the picture was taken a little earlier (USGS posted a frame 13–31 min after its stamp when checked on 2026-11-10), and the file carries no capture time`;
+  if (st.basis === 'first-seen') return `Picture taken ${taken} at the latest (${ageWords(st.ageMs)} ago): this frame was already online then, and was posted again ${posted}; the file carries no capture time`;
+  return `Picture taken about ${taken} or earlier (${ageWords(st.ageMs)} ago, an estimate): USGS collects in daylight only, and this frame was re-posted ${posted} (${ageWords(st.postedAgeMs)} ago)`;
+}
 function StillCam({cam, zone, spotId}: {cam: Cam; zone: string; spotId: string}) {
-  const [meta, setMeta] = useState<{lastModified: string | null} | null | undefined>(undefined), [now, setNow] = useState(Date.now());
+  const [meta, setMeta] = useState<{lastModified: string | null; firstSeenAt?: string} | null | undefined>(undefined), [now, setNow] = useState(Date.now());
   useEffect(() => {
     let live = true;
     const ask = () => { if (typeof document !== 'undefined' && document.hidden) return; setNow(Date.now()); fetch(`/api/cam-meta?id=${encodeURIComponent(cam.metaId!)}`).then((r) => (r.ok ? r.json() : null)).then((j) => { if (live) setMeta(j ?? null); }).catch(() => { if (live) setMeta(null); }); };
@@ -31,11 +38,11 @@ function StillCam({cam, zone, spotId}: {cam: Cam; zone: string; spotId: string})
     document.addEventListener('visibilitychange', onVisible);
     return () => { live = false; clearInterval(t); clearInterval(tick); document.removeEventListener('visibilitychange', onVisible); };
   }, [cam.metaId]);
-  const st = meta === undefined ? null : stillState(meta?.lastModified, now);
+  const st = meta === undefined ? null : stillState(meta?.lastModified, now, {spotId, zone, firstSeenAt: meta?.firstSeenAt});
   return <div className="lc-body" data-state={st?.state ?? 'loading'}>
     {st?.state === 'live' && <figure className="lc-fig"><img className="lc-img" src={`${cam.stillUrl}?t=${encodeURIComponent(meta!.lastModified!)}`} alt={`${cam.view}. Still from ${cam.credit}.`} loading="lazy" />
-      <figcaption>Frame posted {postedLabel(st.postedMs, zone, now)} ({ageWords(st.ageMs)} ago); the time stamped on the picture is when USGS took it, usually 10–30 min earlier · new frame every 30 min in daylight.</figcaption></figure>}
-    {st?.state === 'offline' && <p className="lc-off" role="status"><b>Offline.</b> {offlineWords({postedMs: st.postedMs, ageMs: st.ageMs, zone, spotId, nowMs: now, offlineNote: cam.offlineNote})}</p>}
+      <figcaption>{stillCaption(st, zone, now)} · new frame every 30 min in daylight.</figcaption></figure>}
+    {st?.state === 'offline' && <p className="lc-off" role="status"><b>Offline.</b> {offlineWords({postedMs: st.postedMs, takenMs: st.takenMs, ageMs: st.ageMs, zone, spotId, nowMs: now, offlineNote: cam.offlineNote})}</p>}
     {st?.state === 'unknown' && <p className="lc-off" role="status"><b>Offline or unreachable.</b> The time of the newest frame could not be read, so the picture is not shown (a frame whose age is unknown is not presented as live). {cam.offlineNote}</p>}
     {!st && <p className="lc-load" aria-busy="true">Checking the newest frame…</p>}
   </div>;

@@ -67,11 +67,17 @@ export function closestSession(log: SessionObservation[], spotId: string, today:
   }
   return best && best.distance <= MAX_DISTANCE ? best : null;
 }
+/** "Sat Oct 18, 7 AM": the day and hour of a logged session in the spot's zone. An entry whose time was not known when it was entered (`timeKnown: false`, or a date-only string) shows the DATE ONLY: a "12 AM" is never invented, and a real session at midnight keeps its hour. */
+export function reportWhen(observedAt: string, tz: string, timeKnown?: boolean): string {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(observedAt.trim())) return fmtIn('UTC', {weekday: 'short', month: 'short', day: 'numeric'}).format(new Date(`${observedAt.trim()}T12:00:00Z`)).replace(',', '');   // a date, not an instant: no zone shifts it
+  const at = new Date(observedAt), day = fmtIn(tz, {weekday: 'short', month: 'short', day: 'numeric'}).format(at).replace(',', '');
+  return timeKnown === false ? day : `${day}, ${fmtIn(tz, {hour: 'numeric'}).format(at)}`;
+}
 const QWORDS = ['Poor', 'Poor to fair', 'Fair', 'Good', 'Epic'];
 /** The one line, built from that session's OWN stored forecast values, naming only the dimensions actually compared. `todayIso` is the hour being compared (shown, in the spot's clock). Says it is a comparison of forecasts. */
 export function similarLine(m: SessionMatch, spot: SurfSpot, p: UserProfile, todayIso?: string): string {
   const tz = timeZoneOf(spot), pr = m.obs.pair!, at = new Date(m.obs.observedAt);
-  const when = `${fmtIn(tz, {weekday: 'short', month: 'short', day: 'numeric'}).format(at).replace(',', '')}, ${fmtIn(tz, {hour: 'numeric'}).format(at)}`;
+  const when = reportWhen(m.obs.observedAt, tz, m.obs.timeKnown);
   const size = formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [pr.loFt, pr.hiFt], rangeMethod: pr.method === 'mop-v2' ? 'v2' : 'v1'}, p).text;   // the method family only: the stored pair has no version
   const s = m.stored, has = (d: keyof typeof WEIGHTS) => m.dims.includes(d);   // only the dimensions actually compared are named AND shown
   const bits = [`est. ${size} surf height (untuned)`, `${Math.round(s.periodS)} s${has('direction') && finite(s.dirDeg) ? ` ${compass(s.dirDeg)}` : ''}`, has('wind') && finite(s.windMph) && s.windRel ? `${windAdjective(s.windMph).toLowerCase()} ${s.windRel}` : null, has('tide') && s.tide ? `${s.tide} tide` : null].filter(Boolean).join(', ');
