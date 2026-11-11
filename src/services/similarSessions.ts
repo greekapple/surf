@@ -39,7 +39,7 @@ export function storedInputs(o: SessionObservation): Inputs | null {
 }
 /** Today's inputs for a spot-hour: the same uncalibrated surf-height estimate the pairs store, from the record the app shows. Null with no sized estimate or no period. */
 export function todayInputs(spot: SurfSpot, f: Forecast, bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined, nowMs: number): Inputs | null {
-  const h = headlineSurf(spot.id, f, {bundle, nowMs, observations: []}); if (h.kind !== 'estimate' || (h as {saved?: unknown}).saved || h.nearshoreOnly?.flat) return null;   // a saved or stale copy and a flat hour are never compared
+  const h = headlineSurf(spot.id, f, {bundle, nowMs, observations: []}); if (h.kind !== 'estimate' || h.method === 'swan-v2' || (h as {saved?: unknown}).saved || h.nearshoreOnly?.flat) return null;   // a saved or stale copy and a flat hour are never compared
   const c = h.centralFt ?? (h.loFt + h.hiFt) / 2, tp = f.primary?.period; if (!finite(c) || !finite(tp)) return null;
   return {heightFt: c, periodS: tp, method: h.method, nearshoreOnly: !!h.nearshoreOnly, ...forecastInputs(spot, f, nowMs)};
 }

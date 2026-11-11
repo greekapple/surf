@@ -39,7 +39,7 @@ export function pairFor(spotId: string, records: Forecast[] | undefined, observe
   const f = records && recordAt(records, spotId, observedAtMs);
   if (!f || Math.floor(Date.parse(f.timestamp) / 3600000) !== Math.floor(observedAtMs / 3600000)) return null;
   const h = headlineSurf(spotId, f, {bundle, nowMs, observations: []});
-  if (h.kind !== 'estimate') return null;
+  if (h.kind !== 'estimate' || h.method === 'swan-v2') return null;   // swan-hawaii: an unchecked source is never paired with a person's report
   const hs = f.evidence?.offshore?.value ?? (Number.isFinite(f.offshore) ? f.offshore : null), tp = f.primary?.period;
   return {centralFt: h.centralFt ?? (h.loFt + h.hiFt) / 2, basis: h.centralFt !== undefined ? 'surf-height' : undefined, loFt: h.loFt, hiFt: h.hiFt, method: h.method, validAt: f.timestamp, offshoreHsFt: Number.isFinite(hs as number) ? (hs as number) : null, primaryTpS: Number.isFinite(tp) ? tp : null, ...((x) => ({dirDeg: x.dirDeg, windMph: x.windMph, windRel: x.windRel, tide: x.tide}))(forecastInputs(allSpots.find((x) => x.id === spotId), f)), source: 'current', ...(h.method === 'v1' ? {transfer: h.transfer?.factor ?? 1} : {})};
 }

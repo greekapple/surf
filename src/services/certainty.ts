@@ -55,7 +55,7 @@ export function certaintyOf(spotId: string, h: HeadlineSurf | null | undefined, 
   const disagree = !!(h.band?.interval?.disagree ?? h.interval?.disagree);
   const wide = disagree && sp && sp.ratio > 1 && Number.isFinite(h.centralFt) ? widen(h, sp.ratio) : null;
   // The spread is computed from the OFFSHORE wave models carried to the break (modelSpread.ts); a nearshore (MOP) number is not one of them, so the widening says so.
-  const wideHow = wide ? `${WIDE_HOW}${h.method === 'mop-v2' ? '; the spread comes from the offshore wave models, not the nearshore model this number is from' : ''}` : null;
+  const wideHow = wide ? `${WIDE_HOW}${h.method === 'mop-v2' || h.method === 'swan-v2' ? '; the spread comes from the offshore wave models, not the nearshore model this number is from' : ''}` : null;
   const basis = h.nearshoreOnly ? 'a model point, not a breaking estimate' : disagree ? `the ${models ?? 'wave'} models differ` : models ? `${models} wave models agree` : 'model spread not loaded, lead time only';
   const iv = h.interval && h.interval.components.length > 0 ? h.interval.halfWidth : null;
   const why = `${days(lead)} ahead, ${basis}${iv !== null ? `; forecast uncertainty (our interval) about ±${Math.round((Math.exp(iv) - 1) * 100)}%` : ''}. Our own levels, not a measured hit rate`;

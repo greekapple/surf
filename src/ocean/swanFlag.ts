@@ -1,0 +1,4 @@
+/** swan-hawaii: the PacIOOS SWAN nearshore model as a surf-height source for Hawaii spots. OFF. It stays off until (1) the buoy comparison (scripts/swan-vs-buoy.mjs, docs/forecast/SWAN-VS-BUOY.md) has at least 7 days of real
+ *  numbers that a person has read, (2) the point table (swanPointsSourced.ts, every row "unreviewed") has been reviewed, and (3) a data-honesty review has passed. With the flag off nothing reads the table, the Worker adds no target
+ *  and no label appears. Turn it on by changing this one constant (a test pins it to `false` so it cannot flip by accident). */
+export const SWAN_ENABLED = false;   // the 1,700-line point table is not imported by the code that reads it (swanTable.ts registry); turning this on also needs `import './swanEnable'` in the app and Worker entries, and a test checks the two agree
