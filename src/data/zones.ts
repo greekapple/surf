@@ -27,9 +27,17 @@ export const ZONES: [string, string[]][] = [
   ['North Carolina', ['Outer Banks', 'Southern North Carolina']],
   ['South Carolina', ['South Carolina']],
   ['Georgia', ['Georgia']],
-  ['Florida', ['Northeast Florida', 'Space Coast', 'Treasure Coast', 'Southeast Florida']],
+  ['Florida', ['Northeast Florida', 'Space Coast', 'Treasure Coast', 'Southeast Florida', 'Florida Keys']],
+  // Gulf of Mexico coast, east to west (US East/Gulf/PR round 3): the Florida Gulf coast, the panhandle, Alabama, Louisiana, Texas.
+  ['Florida Gulf Coast', ['Florida Gulf Coast']],
+  ['Florida Panhandle', ['Florida Panhandle']],
+  ['Alabama', ['Alabama']],
+  ['Louisiana', ['Louisiana']],
+  ['Texas', ['Texas']],
+  // US territories in the Caribbean (the same national services: NOAA CO-OPS, NWS, NDBC).
+  ['Puerto Rico', ['Puerto Rico']],
 ];
 /** The state of a zone, for the breadcrumb (Zone › County › Spot sits under a state, not always California). */
-const EAST_STATES = ['Maine', 'New Hampshire', 'Massachusetts', 'Rhode Island', 'New York', 'New Jersey', 'Delaware', 'Maryland', 'Virginia', 'North Carolina', 'South Carolina', 'Georgia', 'Florida'];
-export const stateOfZone = (zone: string) => (zone.startsWith('Alaska') ? 'Alaska' : zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : zone.startsWith('Hawaii') ? 'Hawaii' : EAST_STATES.includes(zone) ? zone : 'California');
+const EAST_STATES = ['Maine', 'New Hampshire', 'Massachusetts', 'Rhode Island', 'New York', 'New Jersey', 'Delaware', 'Maryland', 'Virginia', 'North Carolina', 'South Carolina', 'Georgia', 'Florida', 'Alabama', 'Louisiana', 'Texas', 'Puerto Rico'];
+export const stateOfZone = (zone: string) => (zone.startsWith('Alaska') ? 'Alaska' : zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : zone.startsWith('Hawaii') ? 'Hawaii' : EAST_STATES.includes(zone) ? zone : zone.startsWith('Florida') ? 'Florida' : 'California');
 export const zoneOf = (region: string) => ZONES.find(([, rs]) => rs.includes(region))?.[0] ?? 'Other';

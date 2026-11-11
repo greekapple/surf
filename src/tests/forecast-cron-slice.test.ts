@@ -44,7 +44,7 @@ test('P1-1: a target retrieved just now is NOT due on the next 5-minute run, for
 });
 
 test('P1-1: the per-day upstream calls stay inside the free tiers (Open-Meteo, as the cron refreshes them)', () => {
-  // the production cron refreshes only HOT spots (requested in the last 24 h, newest 180 at most: services/forecast-service.mjs HOT_MAX); 150 of them here
+  // the production cron refreshes only HOT spots (requested in the last 24 h, newest 150 at most: services/forecast-service.mjs HOT_MAX); 150 of them here
   const targets = (ingestionTargets(Date.UTC(2026, 10, 4, 12), serviceSpots.slice(0, 150))) as {ttl: number; url: string}[], perDay: Record<string, number> = {};
   for (const t of targets) { const interval = Math.ceil(dueAfter(t, CRON_OPTS) / (5 * MIN)) * 5 * MIN, host = new URL(t.url).hostname; perDay[host] = (perDay[host] ?? 0) + 86400000 / interval; }
   const om = (perDay['marine-api.open-meteo.com'] ?? 0) + (perDay['api.open-meteo.com'] ?? 0);

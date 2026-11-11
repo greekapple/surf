@@ -37,14 +37,15 @@ The nearest **open-ocean** buoy within **100 km** whose bearing from the spot is
 ## Open-Meteo budget (weighted calls a day, free tier 10,000)
 Open-Meteo counts variables × models / 10, at least 1, **per location**; batching 10 locations saves HTTP requests, not quota (`docs/forecast/data/how-right-all-budget.ts`).
 
-| hot spots | hot/cold refresh | capture (cold marine + cold wind + 34 buoy points) | total | left for visitors' on-demand cold spots |
+| hot spots | hot/cold refresh | capture (cold marine + cold wind + 60 buoy points) | total | left for visitors' on-demand cold spots |
 |---|---|---|---|---|
-| 0 | 0 | 492 + 492 + 34 = 1,018 | 1,018 | 8,982 |
-| 100 | 4,160 | 392 + 392 + 34 = 818 | 4,978 | 5,022 |
-| **150** | 6,240 | 342 + 342 + 34 = 718 | **6,958** | 3,042 |
-| 180 (cap) | 7,488 | 312 + 312 + 34 = 658 | 8,146 | 1,854 |
+| 0 | 0 | 1,032 + 1,032 + 60 = 2,124 | 2,124 | 7,876 |
+| 100 | 4,160 | 932 + 932 + 60 = 1,924 | 6,084 | 3,916 |
+| **150 (cap since batch 3; was 180)** | 6,240 | 882 + 882 + 60 = 1,824 | **8,064** | 1,936 |
 
-The capture adds 1,018 calls at most (nothing hot) and falls as more spots are hot, because a hot spot's cached copy is reused. Subrequests per tick: 385 in the simulation (74 Open-Meteo requests, 150 + 150 cache reads, the writes), under the 800 stop.
+With 1,032 spots a cap of 180 would be 9,246 (7,488 + 1,758) and leave 742, over the 9,000 limit the test keeps; the cap is 150 (`HOT_MAX` in `services/forecast-service.mjs`). The table above this round's catalogue of 492 spots read 1,018 / 8,146 at 180.
+
+The capture adds 2,124 calls at most (nothing hot) and falls as more spots are hot, because a hot spot's cached copy is reused. Subrequests per tick: 385 in the simulation (74 Open-Meteo requests, 150 + 150 cache reads, the writes), under the 800 stop.
 
 ## Local run on live data (2026-11-10, no deploy)
 `node scripts/how-right-all-local.mjs <dir> --spots 12`: 15 spots (12 with a buoy, 3 without), 5 buoys: capture 12 subrequests (3 marine + 2 wind Open-Meteo requests), all 15 rated (0 null ratings), score 42 (5 real `.spec` files); every buoy spot says "collecting: 0 days so far", the three others give their reason. The first numbers appear 3 days after the first capture; the 30-day figure after 14.

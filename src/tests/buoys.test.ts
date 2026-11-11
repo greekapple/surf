@@ -12,9 +12,10 @@ const ndbc = (cols: string) => ['#YY  MM DD hh mm WDIR WSPD GST  WVHT   DPD   AP
 
 test('registry: five Pacific context buoys (three Bay Area, two Oahu) plus 24 Atlantic NDBC buoys; 46214 and CDIP 029 are flagged as the same instrument', () => {
   assert.deepEqual(contextBuoys.slice(0, 5).map((b) => b.label), ['NDBC 46012', 'NDBC 46214', 'CDIP 029', 'CDIP 098', 'CDIP 106']);
-  const east = contextBuoys.slice(5, 29), west = contextBuoys.slice(29, 54), pnw = contextBuoys.slice(54); assert.equal(east.length, 24); assert.ok(east.every((b) => b.provider === 'NDBC' && b.lon > -83 && b.lon < -65 && b.lat > 24 && b.lat < 46), 'every extra buoy floats in the Atlantic');
+  const east = contextBuoys.slice(5, 29), west = contextBuoys.slice(29, 54), pnw = contextBuoys.slice(54, 64), batch3 = contextBuoys.slice(64); assert.equal(east.length, 24); assert.ok(east.every((b) => b.provider === 'NDBC' && b.lon > -83 && b.lon < -65 && b.lat > 24 && b.lat < 46), 'every extra buoy floats in the Atlantic');
   assert.equal(west.length, 25); assert.ok(west.every((b) => b.provider === 'NDBC' && !b.sheltered && b.lon > -125 && b.lon < -117 && b.lat > 32 && b.lat < 41 && b.fetchKey === 'ndbc-' + b.id), 'the US West buoys float off California, none inside a bay'); assert.equal(new Set(contextBuoys.map((b) => b.id)).size, contextBuoys.length);
   assert.equal(pnw.length, 10); assert.ok(pnw.every((b) => b.provider === 'NDBC' && b.lon > -137 && b.lon < -123 && b.lat > 42 && b.lat < 58 && b.fetchKey === 'ndbc-' + b.id), 'the Oregon, Washington and Sitka buoys'); assert.deepEqual(pnw.filter((b) => b.sheltered).map((b) => b.id).sort(), ['46088', '46267'], 'the two Strait of Juan de Fuca buoys are sheltered');
+  assert.equal(batch3.length, 9); assert.ok(batch3.every((x) => x.provider === 'NDBC' && x.fetchKey === 'ndbc-' + x.id && x.lon > -98 && x.lon < -64 && x.lat > 17 && x.lat < 38), 'batch 3: Atlantic, Gulf of Mexico and Caribbean NDBC buoys'); assert.deepEqual(batch3.filter((x) => x.sheltered).map((x) => [x.id, x.shelterWhy]), [['44058', 'inside the Chesapeake Bay']], 'only Stingray Point is sheltered, and says why'); assert.deepEqual(contextBuoys.filter((x) => x.sheltered).map((x) => !!x.shelterWhy), contextBuoys.filter((x) => x.sheltered).map(() => true), 'every sheltered buoy says why');
   assert.match(contextBuoys[1].note!, /Same buoy as CDIP 029/); assert.match(contextBuoys[2].note!, /second feed, not an independent/);
 });
 test('CDIP buoy CSV: comma in the station name is handled, each value keeps its own time, a blank Hs is not filled', () => {
@@ -61,7 +62,13 @@ test('buoysNear shows one of a twin pair: Point Reyes is one buoy (46214 or CDIP
   const {buoysNear, contextBuoys} = await import('../ocean/buoys.ts');
   for (const [la, lo] of [[40.44, -124.41], [37.76, -122.51], [45.98, -123.95], [34.03, -118.68], [32.87, -117.26]] as const) { const ids = buoysNear(la, lo).map((b) => b.id); assert.ok(!(ids.includes('46214') && ids.includes('029p1')), `${la},${lo}: ${ids}`); assert.ok(!(ids.includes('LJPC1') && ids.includes('46254')), ids.join()); }
   assert.ok(!buoysNear(32.87, -117.26).some((b) => b.id === 'LJPC1')); assert.match(contextBuoys.find((b) => b.id === 'LJPC1')!.note!, /no wave direction/);
-  assert.equal(contextBuoys.filter((b) => b.twinOf).length, 2); for (const b of contextBuoys.filter((b) => b.twinOf)) assert.ok(contextBuoys.some((x) => x.id === b.twinOf), b.id);
+  assert.equal(contextBuoys.filter((b) => b.twinOf).length, 3, 'Point Reyes, the La Jolla pier gauge, and the co-located Port Aransas Spotters 42033 and 42034'); for (const b of contextBuoys.filter((b) => b.twinOf)) assert.ok(contextBuoys.some((x) => x.id === b.twinOf), b.id);
+});
+
+test('the co-located Port Aransas Spotters (42033, 42034) show as one buoy, and a sheltered buoy with no observation says why once', async () => {
+  const {buoysNear, contextBuoys} = await import('../ocean/buoys.ts'); const ids = buoysNear(27.84, -97.05).map((b) => b.id);
+  assert.ok(ids.includes('42033') && !ids.includes('42034'), 'one of the pair: ' + ids); assert.equal(contextBuoys.find((b) => b.id === '42034')!.twinOf, '42033');
+  const stingray = contextBuoys.find((b) => b.id === '44058')!; assert.equal(stingray.shelterWhy, 'inside the Chesapeake Bay');
 });
 
 test('context buoys: within 500 km of the spot (the three Bay Area buoys keep 1,500 km); Sitka shows only its own buoy; a spot in the Strait of Juan de Fuca or Admiralty Inlet sees the strait buoys first; the shelter note names the water', async () => {

@@ -11,7 +11,7 @@ test('scope: the selected spot and favourites always load, then the spots near t
   assert.ok(s.includes('cs-crescent-city') && s.includes('spot-0'), 'visible and requested spots are included');
   const near = nearIds('spot-2'); assert.ok(near.length <= SCOPE_NEAR_N && near.length > 5, 'Ocean Beach has many spots within 100 km'); assert.ok(near.every((id) => s.includes(id)));
   assert.ok(s.length < evidenceSpots.length, 'a subset, not the catalogue');
-  const far = computeScope('w-us-mansion-beach', [], [], []); assert.ok(far.length < 10, 'a remote spot has few neighbours: ' + far.length);   // (Crescent City has 17 neighbours since the West Coast import)
+  const far = computeScope('w-us-key-west', [], [], []); assert.ok(far.length < 10, 'a remote spot has few neighbours: ' + far.length);   // (Crescent City has 17 neighbours since the West Coast import; Mansion Beach has 48 since the Atlantic import; Key West stands alone)
 });
 test('scope: the cap never drops the selected spot or a favourite', () => {
   const favs = evidenceSpots.slice(0, 10).map((e) => e.id), s = computeScope('spot-2', favs, evidenceSpots.map((e) => e.id), [], evidenceSpots, 12);

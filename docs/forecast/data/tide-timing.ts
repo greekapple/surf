@@ -10,7 +10,7 @@
 const args = process.argv.slice(2), opt = (n: string, d: string) => (args.includes(n) ? args[args.indexOf(n) + 1] : d), ids = args.filter((a, i) => !a.startsWith('--') && !(i > 0 && args[i - 1].startsWith('--')));
 const days = Number(opt('--days', '7')), from = new Date(opt('--from', new Date().toISOString().slice(0, 10)) + 'T00:00:00Z'), ymd = (d: Date) => d.toISOString().slice(0, 10).replace(/-/g, '');
 type Ext = {t: number; v: number; type: string};
-async function hilo(id: string): Promise<Ext[]> {
+export async function hilo(id: string): Promise<Ext[]> {
   const u = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&application=swello&begin_date=${ymd(from)}&end_date=${ymd(new Date(from.getTime() + (days - 1) * 86400000))}&datum=MLLW&station=${id}&time_zone=lst_ldt&units=english&interval=hilo&format=json`;
   const r = await fetch(u, {signal: AbortSignal.timeout(60000)}); if (!r.ok) throw new Error(`${id}: HTTP ${r.status}`);
   const j: any = await r.json(); return (j.predictions ?? []).map((x: any) => ({t: Date.parse(x.t.replace(' ', 'T') + ':00Z'), v: Number(x.v), type: x.type}));

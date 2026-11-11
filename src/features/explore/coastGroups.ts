@@ -18,6 +18,8 @@ export const COASTS: [string, string[]][] = [
   ['Mid-Atlantic', ['New York', 'New Jersey', 'Delaware', 'Maryland', 'Virginia']],
   ['Southeast', ['North Carolina', 'South Carolina', 'Georgia']],
   ['Florida', ['Florida']],
+  ['Gulf Coast', ['Florida Gulf Coast', 'Florida Panhandle', 'Alabama', 'Louisiana', 'Texas']],
+  ['Puerto Rico', ['Puerto Rico']],
 ];
 /** The map groups the small islands with their neighbours, by county (Niihau is in Kauai County; Molokai and Lanai are in Maui County): the browsing zone
  *  "Molokai, Lanai, Niihau" spans the chain from Kauai to Maui, so its centre would sit between Oahu and Maui and force all of Hawaii into one pill. Zone chips are unchanged. */
@@ -26,7 +28,7 @@ export const mapZoneOf = (region: string) => MAP_ZONE[region] ?? zoneOf(region);
 export const SEABOARDS: [string, string[]][] = [
   ['West Coast', ['Alaska', 'Pacific Northwest', 'Northern California', 'Central California', 'Southern California']],
   ['Hawaii', ['Hawaii']],
-  ['East Coast', ['New England', 'Mid-Atlantic', 'Southeast', 'Florida']],
+  ['East Coast', ['New England', 'Mid-Atlantic', 'Southeast', 'Florida', 'Gulf Coast', 'Puerto Rico']],
 ];
 
 /** A group node id is "<level>:<name>": 0 region, 1 zone, 2 coast, 3 seaboard. */

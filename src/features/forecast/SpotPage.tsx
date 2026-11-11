@@ -1,5 +1,5 @@
 import {zoneOf, stateOfZone} from '../../data/zones';
-import {tideStationFor, SF_STATION} from '../../ocean/tideStations';
+import {tideStationFor, SF_STATION, noTideNote} from '../../ocean/tideStations';
 import {regionNote} from '../../ocean/coverage';
 import {useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
@@ -179,7 +179,7 @@ function StationTideNext({spot, bundle, p, now}: {spot: SurfSpot; bundle: OceanB
   const [lat, lon] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: lat, longitude: lon});
   const turns = !st ? [] : (st.station.id === SF_STATION ? bundle?.extrema ?? [] : bundle?.stationTides?.[st.station.id]?.extrema ?? []);
   const next = turns.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > now).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).slice(0, 4);
-  if (!st || st.distanceKm > 40) return <p className="sp-s">{regionNote(spot, 'tide') ?? 'No tide station near this spot.'}</p>;
+  if (!st || st.distanceKm > 40) return <p className="sp-s">{regionNote(spot, 'tide') ?? noTideNote(spot.id)}</p>;
   if (!next.length) return <p className="sp-s">No prediction loaded for {st.station.name}, {st.distanceKm} km away.</p>;
   const tz = timeZoneOf(spot);
   return <>

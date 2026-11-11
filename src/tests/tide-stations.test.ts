@@ -119,6 +119,18 @@ test('3C: Honolulu, Waimanalo and Pearl Harbor Entrance are reviewed open from 7
   assert.equal(tideStationForSpot(21.2766, -157.8275)!.station.name, 'HONOLULU');   // Waikiki
 });
 
+test('batch 3 review round: Ponquogue Point is closed (inside Shinnecock Bay) and the two ocean-side gauges of the Long Island south shore are open; each fallback says its own timing, never a blanket "differs"; harbour gauges are labelled; spots with only closed gauges say so', async () => {
+  const {tideStationExposure, fallbackLabel, fallbackDetail, CLOSED_GAUGES_ONLY, NO_OPEN_GAUGE_NOTE, noTideNote, tideStationFor} = await import('../ocean/tideStations.ts'), {evidenceSpots} = await import('../ocean/spots.ts');
+  assert.equal(tideStationExposure('Ponquoque Point', '8512451').exposure, 'closed'); assert.equal(tideStationExposure('Shinnecock Inlet (ocean)', '8512354').exposure, 'open'); assert.equal(tideStationExposure('Moriches Inlet', '8513398').exposure, 'open');
+  assert.match(tideStationExposure('Shinnecock Inlet (ocean)', '8512354').why, /-1 min \(sd 7/); assert.doesNotMatch(tideStationExposure('Shinnecock Inlet (ocean)', '8512354').why, /Ponquoque/);
+  assert.match(fallbackDetail('TEC3463')!, /agrees with the open coast within 8 min.*may differ/); assert.match(fallbackDetail('8722495')!, /runs 37 min behind the open coast.*may differ/); assert.equal(fallbackDetail('9432436'), undefined);
+  assert.equal(fallbackLabel('9754487'), 'Harbour gauge'); assert.equal(fallbackLabel('8722495'), 'Inlet or bay-side station');
+  assert.match(tideStationExposure('Corpus Christi, Bob Hall Pier', '8775870').why, /mixed or diurnal/); assert.match(tideStationExposure('Port Aransas (H. Caldwell Pier)', '8775270').why, /mixed or diurnal/);
+  assert.equal(noTideNote('w-us-plymouth-beach'), NO_OPEN_GAUGE_NOTE); assert.match(NO_OPEN_GAUGE_NOTE, /harbour and bay gauges are not used/); assert.equal(noTideNote('spot-2'), 'No tide station near this spot.');
+  const none = evidenceSpots.filter((s) => s.id.startsWith('w-') && !s.id.startsWith('zz-') && !tideStationFor(s)).map((s) => s.id); for (const id of none) assert.ok(CLOSED_GAUGES_ONLY.has(id), id + ' has no pick and is not listed as closed-gauges-only');
+  for (const id of CLOSED_GAUGES_ONLY) assert.ok(!tideStationFor(evidenceSpots.find((s) => s.id === id)!), id + ' now has a pick: remove it from the list');
+});
+
 test('Strait and Admiralty Inlet fallbacks say what they are, not "the open beach"; Cape Disappointment is reviewed open from 7-day timing', async () => {
   const {tideStationFor, tideStationExposure, fallbackLabel, fallbackDetail} = await import('../ocean/tideStations.ts'), {evidenceSpots} = await import('../ocean/spots.ts');
   const twin = tideStationFor(evidenceSpots.find((s) => s.id === 'w-usw-crescent-beach')!)!, ebey = tideStationFor(evidenceSpots.find((s) => s.id === 'w-usw-fort-ebey')!)!;

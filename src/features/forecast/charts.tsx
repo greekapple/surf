@@ -256,7 +256,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
                 return <g key={e.timestamp}><circle cx={x} cy={Y(v)} r={3} fill="var(--tide)" />
                   {pxh > 9 && <text className="tl-pk" x={x} y={Y(v) + (e.type === 'High' ? -9 : 17)} textAnchor="middle">{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
               })}
-            </> : <text className="tl-ax" x={G + inner / 2} y={(PT + PB) / 2} textAnchor="middle">No tide station near this spot yet</text>)}
+            </> : <text className="tl-ax" x={G + inner / 2} y={(PT + PB) / 2} textAnchor="middle">No open-coast tide station near this spot</text>)}
           </g>
           {showRibbon && vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={Math.max(0, pxh + 0.5)} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
           {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}

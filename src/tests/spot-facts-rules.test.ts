@@ -48,12 +48,12 @@ test('provenance: every guide entry cites https pages with a retrieval date and 
   for (const p of spotProfiles) assert.deepEqual(profileProblems(p), [], p.spotId);
   const lm = spotProfiles.find((p) => p.spotId === 'spot-3')!; assert.equal(lm.orientation.provenance, 'published guide'); assert.equal(lm.periodResponse.provenance, 'published guide (generic)'); assert.equal(lm.mop.value!.id, 'SM382');
 });
-test('a sheltered spot with no published open sector gets facts but no estimate; a spot with no single facing and no "exposed" reef statement gets neither; coverage is 483 of 775 (spot expansion phases A, B, C, Hawaii (all islands), US East batch 1, the California west-ca batch and the Oregon, Washington and Sitka batch)', () => {
+test('a sheltered spot with no published open sector gets facts but no estimate; a spot with no single facing and no "exposed" reef statement gets neither; coverage is 666 of 1081 (spot expansion phases A, B, C, Hawaii (all islands), US East batch 1, the California west-ca batch, the Oregon, Washington and Sitka batch and the US East, Gulf and Puerto Rico batch 3)', () => {
   assert.equal(breakingProfile('spot-7'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'spot-7')!.orientation.value!.beachNormalDeg, 112.5);
   assert.match(enablement(guideFactsFor('spot-7')!).reasons.join(), /no source lists the swell directions it is open to/);
   assert.equal(breakingProfile('cs-shelter-cove'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'cs-shelter-cove')!.orientation.value, null);
   assert.deepEqual(enablement(guideFactsFor('cs-shelter-cove')!).reasons, ['no source states which way the beach faces', 'a reef break needs a source that says it is exposed']);
-  assert.equal(breakingProfiles.length, 483); assert.equal(spotProfiles.length, 775); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === (['spot-1', 'cs-huntington', 'cs-crescent-city', 'cs-rodeo-beach', 'cs-capitola'].includes(p.spotId) ? 0 : 1)), 'shelter 0 only at the sheltered open-sector spots');
+  assert.equal(breakingProfiles.length, 666); assert.equal(spotProfiles.length, 1081); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === (['spot-1', 'cs-huntington', 'cs-crescent-city', 'cs-rodeo-beach', 'cs-capitola'].includes(p.spotId) ? 0 : 1)), 'shelter 0 only at the sheltered open-sector spots');
   assert.ok(profileFromGuide({...base, facing: null, swellWindow: null}).orientation.value === null);
 });
 test('T-073 sheltered with a published open sector: shelter 0 so the offshore-swell v1 refuses, CDIP v2 estimates inside that sector only; a generic workable range is not enough', () => {
@@ -175,14 +175,14 @@ test('3C review: the outside-the-facing sentence names the guide per direction, 
   assert.equal(outsideFacing(f('W (surfnerd)'), [250, 330]), null, 'inside the window');
   assert.deepEqual(whole.dirs, [202.5]);
 });
-test('3C review: Dumps says so with the guide named, abbreviations now count (Malibu, Capitola, Neah Bay), the counts are 110 rows (23 in the original California spots, 28 Hawaii, 23 US East, 36 West Coast), and no window moved', async () => {
+test('3C review: Dumps says so with the guide named, abbreviations now count (Malibu, Capitola, Neah Bay), the counts are 150 rows (23 in the original California spots, 28 Hawaii, 55 US East and Gulf, 8 Puerto Rico, 36 West Coast), and no window moved', async () => {
   const {outsideFacingNote} = await import('../services/headlineSurf.ts');
   assert.deepEqual(breakingProfile('w-hawaii-dumps')!.window, [210, 292.5]);
   assert.match(outsideFacingNote('w-hawaii-dumps')!, /swells from SSW \(Surf-Forecast's best\) give no surf-height estimate/);
   assert.match(breakingProfile('w-hawaii-dumps')!.note, /Published best swell is outside ±60° of the sourced facing/);
   for (const id of ['cs-malibu', 'cs-capitola', 'cs-neah-bay', 'spot-6', 'spot-8']) assert.ok(outsideFacingNote(id), id);
   assert.equal(outsideFacingNote('spot-2'), null);   // Ocean Beach: reviewed, not a guide profile
-  const withNote = breakingProfiles.filter((p) => outsideFacingNote(p.spotId)); assert.equal(withNote.length, 110); assert.equal(withNote.filter((p) => !p.spotId.startsWith('w-')).length, 23); assert.equal(withNote.filter((p) => p.spotId.startsWith('w-usw-')).length, 36);
+  const withNote = breakingProfiles.filter((p) => outsideFacingNote(p.spotId)); assert.equal(withNote.length, 150); assert.equal(withNote.filter((p) => !p.spotId.startsWith('w-')).length, 23); assert.equal(withNote.filter((p) => p.spotId.startsWith('w-usw-')).length, 36); assert.equal(withNote.filter((p) => p.spotId.startsWith('w-us-')).length, 55); assert.equal(withNote.filter((p) => p.spotId.startsWith('w-carib-')).length, 8);
   assert.deepEqual(breakingProfile('w-hawaii-pakala')!.window, [187.5, 292.5]); assert.deepEqual(breakingProfile('cs-neah-bay')!.window, [202.5, 292.5]);
 });
 test('3C review: the scale card says it only on an hour refused for being outside the window, on one of the listed directions; a short-period or inside-window refusal says nothing', async () => {

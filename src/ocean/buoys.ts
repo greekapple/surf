@@ -12,12 +12,12 @@ export const contextBuoys: ContextBuoy[] = [
   {id: '106p1', provider: 'CDIP', label: 'CDIP 106', place: 'Waimea Bay, Oahu', note: 'North Shore: sees north and northwest swell, blocked from south swell', fetchKey: 'cdip-106', lat: 21.67, lon: -158.117},
   // Atlantic (US East round, 2026-11-09): every live NDBC wave buoy within 50 km of a spot of the first batch (nearestSources of docs/forecast/data/world-spots/us-east.json: WVHT in NDBC latest_obs on 2026-11-09), with the owner NDBC lists. Context only, never a validation.
   {id: '44098', provider: 'NDBC', label: 'NDBC 44098', place: 'Jeffrey\'s Ledge, NH (160)', note: 'Owner: University of New Hampshire; Atlantic buoy', fetchKey: 'ndbc-44098', lat: 42.8, lon: -70.169},
-  {id: '44090', provider: 'NDBC', label: 'NDBC 44090', place: 'Cape Cod Bay, MA (221)', note: 'Owner: Woods Hole Group/NERACOOS; bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44090', sheltered: true, lat: 41.84, lon: -70.329},
-  {id: '44085', provider: 'NDBC', label: 'NDBC 44085', place: 'Buzzards Bay, MA (260)', note: 'Owner: Woods Hole Group/NERACOOS; bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44085', sheltered: true, lat: 41.387, lon: -71.032},
+  {id: '44090', provider: 'NDBC', label: 'NDBC 44090', place: 'Cape Cod Bay, MA (221)', note: 'Owner: Woods Hole Group/NERACOOS; bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44090', sheltered: true, shelterWhy: 'inside Cape Cod Bay', lat: 41.84, lon: -70.329},
+  {id: '44085', provider: 'NDBC', label: 'NDBC 44085', place: 'Buzzards Bay, MA (260)', note: 'Owner: Woods Hole Group/NERACOOS; bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44085', sheltered: true, shelterWhy: 'inside Buzzards Bay', lat: 41.387, lon: -71.032},
   {id: '44097', provider: 'NDBC', label: 'NDBC 44097', place: 'Block Island, RI (154)', note: 'Owner: SCRIPPS; Atlantic buoy', fetchKey: 'ndbc-44097', lat: 40.966, lon: -71.123},
   {id: '44025', provider: 'NDBC', label: 'NDBC 44025', place: 'LONG ISLAND - 30 NM South of Islip, NY', note: 'Owner: NDBC; Atlantic buoy', fetchKey: 'ndbc-44025', lat: 40.258, lon: -73.175},
   {id: '44091', provider: 'NDBC', label: 'NDBC 44091', place: 'Barnegat, NJ (209)', note: 'Owner: U.S. Army Corps of Engineers; Atlantic buoy', fetchKey: 'ndbc-44091', lat: 39.772, lon: -73.769},
-  {id: '44087', provider: 'NDBC', label: 'NDBC 44087', place: 'Thimble Shoal, VA (240)', note: 'Owner: U.S. Navy; bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44087', sheltered: true, lat: 37.043, lon: -76.129},
+  {id: '44087', provider: 'NDBC', label: 'NDBC 44087', place: 'Thimble Shoal, VA (240)', note: 'Owner: U.S. Navy; bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44087', sheltered: true, shelterWhy: 'inside the mouth of the Chesapeake Bay (Thimble Shoal)', lat: 37.043, lon: -76.129},
   {id: '44099', provider: 'NDBC', label: 'NDBC 44099', place: 'Cape Henry, VA (147)', note: 'Owner: SCRIPPS; Atlantic buoy', fetchKey: 'ndbc-44099', lat: 36.915, lon: -75.722},
   {id: '44056', provider: 'NDBC', label: 'NDBC 44056', place: 'Duck FRF, NC', note: 'Owner: U.S. Army Corps of Engineers; Atlantic buoy', fetchKey: 'ndbc-44056', lat: 36.2, lon: -75.714},
   {id: '44086', provider: 'NDBC', label: 'NDBC 44086', place: 'Nags Head, NC (243)', note: 'Owner: UNC Coastal Studies Institute; Atlantic buoy', fetchKey: 'ndbc-44086', lat: 36.001, lon: -75.421},
@@ -72,6 +72,16 @@ export const contextBuoys: ContextBuoy[] = [
   {id: '46050', provider: 'NDBC', label: 'NDBC 46050', place: 'STONEWALL BANK - 20NM West of Newport, OR', note: 'Owner: NDBC; Pacific buoy (US West round 4, 2026-11-10: a live wave buoy within 50 km of an imported spot)', fetchKey: 'ndbc-46050', lat: 44.679, lon: -124.535},
   {id: '46229', provider: 'NDBC', label: 'NDBC 46229', place: 'UMPQUA OFFSHORE, OR', note: 'Owner: SCRIPPS (CDIP); Pacific buoy (US West round 4, 2026-11-10: a live wave buoy within 50 km of an imported spot)', fetchKey: 'ndbc-46229', lat: 43.772, lon: -124.549},
   {id: '46015', provider: 'NDBC', label: 'NDBC 46015', place: 'PORT ORFORD - 15 NM West of Port Orford, OR', note: 'Owner: NDBC; Pacific buoy (US West round 4, 2026-11-10: a live wave buoy within 50 km of an imported spot)', fetchKey: 'ndbc-46015', lat: 42.754, lon: -124.839},
+  // US East, Gulf and Puerto Rico batch 3 (2026-11-10): the nearest live wave buoy of the batch's spots that was not yet shown (each reported wave height in NDBC latest_obs on 2026-11-09)
+  {id: '44058', provider: 'NDBC', label: 'NDBC 44058', place: 'Stingray Point, VA', note: 'Owner: Chesapeake Bay Interpretive Buoy System (CBIBS); bay buoy, sheltered: inside a bay, not the open ocean', fetchKey: 'ndbc-44058', sheltered: true, shelterWhy: 'inside the Chesapeake Bay', lat: 37.567, lon: -76.257},
+  {id: '42095', provider: 'NDBC', label: 'NDBC 42095', place: 'Satan Shoal, FL (244)', note: 'Owner: U.S. Army Corps of Engineers; Straits of Florida buoy', fetchKey: 'ndbc-42095', lat: 24.407, lon: -81.968},
+  {id: '42098', provider: 'NDBC', label: 'NDBC 42098', place: 'Egmont Channel Entrance, FL (214)', note: 'Owner: Greater Tampa Bay Marine Advisory Council-PORTS; Gulf of Mexico buoy, offshore of the Tampa Bay entrance', fetchKey: 'ndbc-42098', lat: 27.59, lon: -82.931},
+  {id: '42357', provider: 'NDBC', label: 'NDBC 42357', place: 'Dauphin Island Sea Lab Spotter, AL', note: 'Owner: Dauphin Island Sea Lab; Gulf of Mexico Spotter buoy', fetchKey: 'ndbc-42357', lat: 30.092, lon: -88.212},
+  {id: '42033', provider: 'NDBC', label: 'NDBC 42033', place: 'Port Aransas, TX (UTMSI_BUOY_2)', note: 'Owner: University of Texas Marine Science Institute; Gulf of Mexico Spotter buoy', fetchKey: 'ndbc-42033', lat: 27.84, lon: -97.0},
+  {id: '42034', provider: 'NDBC', label: 'NDBC 42034', place: 'Port Aransas, TX (UTMSI_BUOY_3)', twinOf: '42033', note: 'Owner: University of Texas Marine Science Institute; Gulf of Mexico Spotter buoy', fetchKey: 'ndbc-42034', lat: 27.843, lon: -97.0},
+  {id: '42354', provider: 'NDBC', label: 'NDBC 42354', place: 'Chandeleur Island SE, LA (279)', note: 'Owner: SCRIPPS; Gulf of Mexico buoy', fetchKey: 'ndbc-42354', lat: 29.579, lon: -88.645},
+  {id: '41115', provider: 'NDBC', label: 'NDBC 41115', place: 'Rincon, Puerto Rico (181)', note: 'Owner: Caribbean Integrated Coastal Ocean Observing System (CarICoos); Caribbean buoy', fetchKey: 'ndbc-41115', lat: 18.376, lon: -67.28},
+  {id: '41121', provider: 'NDBC', label: 'NDBC 41121', place: 'Arecibo, Puerto Rico (249)', note: 'Owner: Caribbean Integrated Coastal Ocean Observing System (CarICoos); Atlantic buoy', fetchKey: 'ndbc-41121', lat: 18.491, lon: -66.701},
 ];
 export const ndbcBuoyURL = (id: string) => `https://www.ndbc.noaa.gov/data/realtime2/${id}.txt`;
 export const cdipBuoyURL = (id = '029p1', now = Date.now()) => `https://thredds.cdip.ucsd.edu/thredds/ncss/point/cdip/realtime/${id}_rt.nc?` + new URLSearchParams({var: 'waveHs,waveTp,waveDp', time_start: new Date(now - 86400000).toISOString(), time_end: new Date(now + 3600000).toISOString(), accept: 'csv'});
@@ -95,7 +105,7 @@ export function buoysNear(lat: number, lon: number, maxKm = CONTEXT_BUOY_KM): Co
 }
 /** NDBC 46026 (the SF buoy `bundle.buoy` is read from): where it floats, so "buoy now vs forecast" is only drawn for a spot in the same basin. */
 export const SF_BUOY = {lat: 37.754, lon: -122.839};
-export const nearSfBuoy = (lat: number, lon: number): boolean => { const r = Math.PI / 180, dLat = (SF_BUOY.lat - lat) * r, dLon = (SF_BUOY.lon - lon) * r, h = Math.sin(dLat / 2) ** 2 + Math.cos(lat * r) * Math.cos(SF_BUOY.lat * r) * Math.sin(dLon / 2) ** 2; return 12742 * Math.asin(Math.sqrt(h)) <= CONTEXT_BUOY_KM; };
+export const nearSfBuoy = (lat: number, lon: number): boolean => { const r = Math.PI / 180, dLat = (SF_BUOY.lat - lat) * r, dLon = (SF_BUOY.lon - lon) * r, h = Math.sin(dLat / 2) ** 2 + Math.cos(lat * r) * Math.cos(SF_BUOY.lat * r) * Math.sin(dLon / 2) ** 2; return 12742 * Math.asin(Math.sqrt(h)) <= BAY_AREA_CONTEXT_KM; };
 export const contextBuoyFor = (key: string) => contextBuoys.find((b) => b.id === key || b.fetchKey === key) ?? null;
 
 const FT = 1 / 0.3048;

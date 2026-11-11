@@ -21,7 +21,7 @@ import {certaintyOf, wideText, HORIZON_HOURS} from '../../services/certainty';
 import {greetingLine} from './greeting';
 import {rankBets, type BetConfidence} from './betRank';
 import {evidenceSpots} from '../../ocean/spots';
-import {tideStationFor, SF_STATION} from '../../ocean/tideStations';
+import {tideStationFor, SF_STATION, noTideNote} from '../../ocean/tideStations';
 import {regionNote} from '../../ocean/coverage';
 
 const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide reference for the spot
@@ -139,7 +139,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
       <dl className="wel-glance" aria-label={`Today at ${spot.name}`}>
         <div><dt>Sunrise</dt><dd>{clock(today.sunrise, tz)}{viewerTag(tz, today.sunrise)}</dd></div>
         <div><dt>Sunset</dt><dd>{clock(today.sunset, tz)}{viewerTag(tz, today.sunset)}</dd></div>
-        <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach` : station ? 'No prediction loaded for the nearest station' : 'No tide station within range'}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t, tz)}{viewerTag(tz, nextTide.t)} <small>{station.station.name} station, {station.distanceKm} km{(station as {fallback?: boolean}).fallback ? ` · ${((station as {fallbackLabel?: string}).fallbackLabel ?? 'inlet or bay-side station').toLowerCase()}: times and range differ from the open beach` : ''}</small></> : (regionNote(spot, 'tide') ?? '—')}</dd></div>
+        <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach` : station ? 'No prediction loaded for the nearest station' : noTideNote(spot.id).replace('near this spot.', 'within range.')}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t, tz)}{viewerTag(tz, nextTide.t)} <small>{station.station.name} station, {station.distanceKm} km{(station as {fallback?: boolean}).fallback ? ` · ${((station as {fallbackLabel?: string}).fallbackLabel ?? 'inlet or bay-side station').toLowerCase()}: times and range may differ from the open beach` : ''}</small></> : (regionNote(spot, 'tide') ?? '—')}</dd></div>
         <div><dt>Water</dt><dd>{water !== null ? `${water}°F` : '—'}</dd></div>
         <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && pick.size.state !== 'none' ? <>{pick.board.name} <small>suits {pick.size.board[0]}–{pick.size.board[1]} ft{choice?.mode === 'size' ? ', wave shape unknown' : ''}</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
       </dl>

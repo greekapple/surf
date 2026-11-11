@@ -18,7 +18,7 @@ export function BuoyContext({buoys, series, p, now, lat, lon, tz}: {buoys: Obser
       <ul>
         {near.map((reg) => {
           const b = buoys?.find((x) => x.station === reg.id || x.station === reg.label);
-          if (!b) return <li key={reg.id}><p className="sp-bu-h"><b>{reg.label}</b> {reg.place} · {Math.round(buoyKm(reg, lat, lon))} km away{reg.sheltered ? ` · sheltered: ${reg.shelterWhy ?? 'inside a bay or sound, not the open ocean'}` : ''}{reg.note ? ` · ${reg.note}` : ''} · no observation returned for this load</p></li>;
+          if (!b) return <li key={reg.id}><p className="sp-bu-h"><b>{reg.label}</b> {reg.place} · {Math.round(buoyKm(reg, lat, lon))} km away{reg.sheltered ? ` · sheltered: ${reg.shelterWhy ?? 'inside a bay or sound, not the open ocean'}` : ''}{reg.note ? ` · ${reg.sheltered ? reg.note.replace(/;?\s*bay buoy, sheltered:[^;]*$/, '') : reg.note}` : ''} · no observation returned for this load</p></li>;
           const v = b.values, hs = v['Offshore significant height'], tp = v['Dominant wave period'], dir = v['Mean wave direction'] ?? v['Peak wave direction'];
           const at = hs?.source.validAt ?? tp?.source.validAt ?? dir?.source.validAt;
           const near = at ? series.reduce<HourSample | null>((best, x) => (Math.abs(Date.parse(x.timestamp) - Date.parse(at)) < (best ? Math.abs(Date.parse(best.timestamp) - Date.parse(at)) : Infinity) ? x : best), null) : null;

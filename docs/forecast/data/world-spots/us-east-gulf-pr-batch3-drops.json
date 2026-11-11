@@ -1,0 +1,151 @@
+[
+ {
+  "set": "east",
+  "id": "w-us-2nd-street",
+  "name": "2nd Street",
+  "kind": "near-app-spot",
+  "keptId": "w-us-sugar-shack",
+  "keptName": "Sugar Shack",
+  "km": 1.11,
+  "sameName": false,
+  "reason": "1.11 km from the app spot \"Sugar Shack\" (rule: within 1.5 km)"
+ },
+ {
+  "set": "east",
+  "id": "w-us-canadian-hole",
+  "name": "Canadian Hole",
+  "kind": "near-app-spot",
+  "keptId": "w-us-north-buxton",
+  "keptName": "North Buxton",
+  "km": 1.13,
+  "sameName": false,
+  "reason": "1.13 km from the app spot \"North Buxton\" (rule: within 1.5 km)"
+ },
+ {
+  "set": "east",
+  "id": "w-us-goulds-inlet",
+  "name": "Goulds Inlet",
+  "kind": "near-app-spot",
+  "keptId": "w-us-coastguard-st-simons",
+  "keptName": "Coastguard/St Simons",
+  "km": 1.49,
+  "sameName": false,
+  "reason": "1.49 km from the app spot \"Coastguard/St Simons\" (rule: within 1.5 km)"
+ },
+ {
+  "set": "east",
+  "id": "w-us-playalinda",
+  "name": "Playalinda",
+  "kind": "near-app-spot",
+  "keptId": "w-us-playalinda-florida",
+  "keptName": "Playalinda",
+  "km": 1.5,
+  "sameName": true,
+  "reason": "1.5 km from the app spot \"Playalinda\" (rule: within 1.5 km)"
+ },
+ {
+  "set": "east",
+  "id": "w-us-reef-road",
+  "name": "Reef Road",
+  "kind": "same-break-candidate",
+  "keptId": "w-us-reef-road-florida",
+  "keptName": "Reef Road",
+  "km": 0.3,
+  "reason": "the same break as \"Reef Road\" (0.3 km apart, same name): one row kept, the one with more guide facts"
+ },
+ {
+  "set": "east",
+  "id": "w-us-the-pier-south-carolina",
+  "name": "The Pier",
+  "kind": "same-break-candidate",
+  "keptId": "w-us-the-pier",
+  "keptName": "The Pier",
+  "km": 0.09,
+  "reason": "the same break as \"The Pier\" (0.09 km apart, same name): one row kept, the one with more guide facts"
+ },
+ {
+  "set": "east",
+  "id": "w-us-fishermans-island-virginia",
+  "name": "Fishermans Island",
+  "kind": "same-break-merged",
+  "keptId": "w-us-fishermans-island",
+  "keptName": "w-us-fishermans-island",
+  "reason": "Fisherman Island, Virginia, 1.3 km apart, both a point (surfnerd S and SW); the kept row has the surf-forecast page; its sources are added to the kept row"
+ },
+ {
+  "set": "east",
+  "id": "w-us-fox-hill",
+  "name": "Fox Hill",
+  "kind": "same-break-merged",
+  "keptId": "w-us-foxhill-point",
+  "keptName": "w-us-foxhill-point",
+  "reason": "Fox Hill and Foxhill Point, 0.16 km apart, both \"Faces ESE\" (the kept row has the surf-forecast page); its sources are added to the kept row"
+ },
+ {
+  "set": "east",
+  "id": "w-us-kite-point",
+  "name": "Kite Point",
+  "kind": "no-open-water-marine-point",
+  "reason": "faces west (270 degrees) into Pamlico Sound (a sound-side kiteboarding spot, ETOPO -1.9 m): no open-ocean marine point exists along its facing and a sound is not an ocean break"
+ },
+ {
+  "set": "east",
+  "id": "w-us-matanuck",
+  "name": "Matanuck",
+  "kind": "same-break-merged",
+  "keptId": "w-us-matunuck",
+  "keptName": "w-us-matunuck",
+  "reason": "a misspelling of Matunuck, 0.2 km apart (surfnerd faces S and SSE); its sources are added to the kept row"
+ },
+ {
+  "set": "east",
+  "id": "w-us-meudon-beach",
+  "name": "Meudon Beach",
+  "kind": "no-open-water-marine-point",
+  "reason": "faces north-north-west (338 degrees) into Long Island Sound (enclosed water, ETOPO -9 m): no open-ocean marine point exists along its facing"
+ },
+ {
+  "set": "east",
+  "id": "w-us-rockaway",
+  "name": "Rockaway",
+  "kind": "same-break-merged",
+  "keptId": "w-us-rockaways",
+  "keptName": "w-us-rockaways",
+  "reason": "the same surf-forecast page (Rockaway_1), 0.4 km apart; surfnerd lists it as \"Rockaways\" (faces S) and \"Rockaway\" (faces SSE); its sources are added to the kept row"
+ },
+ {
+  "set": "gulf",
+  "id": "w-us-pickens-point",
+  "name": "Pickens Point",
+  "kind": "no-open-water-marine-point",
+  "reason": "faces west (270 degrees) into Pensacola Pass at the west end of Santa Rosa Island (the point reads +5 m, land): no open-water marine point exists along its facing"
+ },
+ {
+  "set": "gulf",
+  "id": "w-us-san-jose-island",
+  "name": "San Jose Island",
+  "kind": "same-break-merged",
+  "keptId": "w-us-st-joes-island",
+  "keptName": "w-us-st-joes-island",
+  "reason": "St. Joseph (San Jose) Island, 0.7 km apart, both \"Faces ESE\"; the kept row has three sources; its sources are added to the kept row"
+ },
+ {
+  "set": "pr",
+  "id": "w-carib-indicators",
+  "name": "Indicators",
+  "kind": "same-break-candidate",
+  "keptId": "w-carib-indicators-rincon",
+  "keptName": "Indicators",
+  "km": 0.22,
+  "reason": "the same break as \"Indicators\" (0.22 km apart, same name): one row kept, the one with more guide facts"
+ },
+ {
+  "set": "pr",
+  "id": "w-carib-wilderness-puerto-rico",
+  "name": "Wilderness (Puerto Rico)",
+  "kind": "same-break-merged",
+  "keptId": "w-carib-wilderness-aguadilla",
+  "keptName": "w-carib-wilderness-aguadilla",
+  "reason": "Wilderness in Aguadilla written twice, 0.55 km apart (surfnerd NW and WNW; the kept row has the surf-forecast page); its sources are added to the kept row"
+ }
+]

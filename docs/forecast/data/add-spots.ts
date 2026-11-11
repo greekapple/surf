@@ -67,8 +67,10 @@ const northwestRegion = (r: any, region: string): string | null => {
   return null;
 };
 const eastRegion = (r: any, region: string): string => {
+  if (r.country === 'United States' && r.timeZone === 'America/Chicago' && region === 'Florida') return 'Florida Panhandle';   // Central time: the panhandle west of the Apalachicola
   { const nw = northwestRegion(r, region); if (nw) return nw; }
   if (r.country !== 'United States' || r.timeZone !== 'America/New_York') return region;
+  if (region === 'Florida' && r.lon < -81.7) return r.lat < 25.3 ? 'Florida Keys' : 'Florida Gulf Coast';   // the Gulf side of the peninsula (Pinellas to Naples) and the Keys: never the Atlantic latitude bands below
   if (region === 'Florida') return r.lat >= 29.4 ? 'Northeast Florida' : r.lat >= 27.45 ? 'Space Coast' : r.lat >= 26.9 ? 'Treasure Coast' : 'Southeast Florida';
   if (region === 'North Carolina') return r.lat >= 35.0 ? 'Outer Banks' : 'Southern North Carolina';
   if (region === 'New Jersey') return r.lat >= 39.6 ? 'Northern New Jersey' : 'Southern New Jersey';

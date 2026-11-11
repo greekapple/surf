@@ -19728,7 +19728,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 13.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 2.9 km (<=100)"
   },
   {
    "id": "w-carib-aviones",
@@ -19858,7 +19860,9 @@
      "lon": -66.011,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJSJ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 78.5 km (<=100)"
   },
   {
    "id": "w-carib-b-cs",
@@ -19986,7 +19990,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 8.1 km (<=100)"
   },
   {
    "id": "w-carib-bridges",
@@ -20102,7 +20108,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 14.2 km (<=100)"
   },
   {
    "id": "w-carib-caza-y-pesca",
@@ -20220,7 +20228,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 2.1 km (<=100)"
   },
   {
    "id": "w-carib-chatarra",
@@ -20350,7 +20360,9 @@
      "lon": -66.011,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJSJ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 77.5 km (<=100)"
   },
   {
    "id": "w-carib-cibuco",
@@ -20468,7 +20480,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 32.2 km (<=100)"
   },
   {
    "id": "w-carib-cochino",
@@ -20581,7 +20595,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 55.1 km (<=100)"
   },
   {
    "id": "w-carib-crash-boat",
@@ -20709,7 +20725,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 15.2 km (<=100)"
   },
   {
    "id": "w-carib-cueva-del-indio",
@@ -20822,7 +20840,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 6.1 km (<=100)"
   },
   {
    "id": "w-carib-domes",
@@ -20962,7 +20982,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 15.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 1.5 km (<=100)"
   },
   {
    "id": "w-carib-dunes-puerto-rico",
@@ -21079,7 +21101,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 14.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 29.0 km (<=100)"
   },
   {
    "id": "w-carib-el-cocal",
@@ -21214,6 +21238,11 @@
      "lon": -65.643,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJRV&network=PR_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 104.6 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -21327,7 +21356,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 13.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 48.8 km (<=100)"
   },
   {
    "id": "w-carib-gas-chambers",
@@ -21456,7 +21487,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 15.2 km (<=100)"
   },
   {
    "id": "w-carib-guajataca",
@@ -21565,7 +21598,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 22.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 26.9 km (<=100)"
   },
   {
    "id": "w-carib-hallows",
@@ -21693,7 +21728,9 @@
    "typeSource": {
     "text": "Type: Reef-coral (wannasurf, GPS 0.01 km from row pin)",
     "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/hollows/"
-   }
+   },
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 9.5 km (<=100)"
   },
   {
    "id": "w-carib-inches",
@@ -21837,7 +21874,9 @@
      "lon": -65.643,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJRV&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 97.1 km (<=100)"
   },
   {
    "id": "w-carib-indicators",
@@ -21973,7 +22012,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 15.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 1.6 km (<=100)"
   },
   {
    "id": "w-carib-indicators-rincon",
@@ -22100,7 +22141,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 15.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 1.9 km (<=100)"
   },
   {
    "id": "w-carib-jobos",
@@ -22216,7 +22259,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 11.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 26.4 km (<=100)"
   },
   {
    "id": "w-carib-kikita-beach",
@@ -22341,7 +22386,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 12.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 46.3 km (<=100)"
   },
   {
    "id": "w-carib-la-bomba-2",
@@ -22452,7 +22499,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 67.3 km (<=100)"
   },
   {
    "id": "w-carib-la-ocho",
@@ -22568,7 +22617,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.2 km (<=100)"
   },
   {
    "id": "w-carib-la-pared-luquillo",
@@ -22706,6 +22757,11 @@
      "lon": -65.639,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJNR&network=PR_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 104.8 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -22836,6 +22892,11 @@
      "lon": -65.639,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJNR&network=PR_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 109.5 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -22964,7 +23025,9 @@
    "typeSource": {
     "text": "Type: Reef-coral (wannasurf, GPS 0.58 km from row pin)",
     "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/las_pasas/"
-   }
+   },
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.9 km (<=100)"
   },
   {
    "id": "w-carib-little-malibu",
@@ -23107,7 +23170,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 16.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 4.1 km (<=100)"
   },
   {
    "id": "w-carib-los-tubos",
@@ -23235,7 +23300,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 26.6 km (<=100)"
   },
   {
    "id": "w-carib-margara",
@@ -23363,7 +23430,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 3.6 km (<=100)"
   },
   {
    "id": "w-carib-marias",
@@ -23504,7 +23573,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 15.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 2.2 km (<=100)"
   },
   {
    "id": "w-carib-middles",
@@ -23634,7 +23705,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 14.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 29.7 km (<=100)"
   },
   {
    "id": "w-carib-middles-isabela",
@@ -23743,7 +23816,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 13.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 28.3 km (<=100)"
   },
   {
    "id": "w-carib-montones",
@@ -23864,7 +23939,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 12.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 27.3 km (<=100)"
   },
   {
    "id": "w-carib-pine-grove",
@@ -23993,7 +24070,9 @@
      "lon": -66.011,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJSJ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 72.8 km (<=100)"
   },
   {
    "id": "w-carib-playa-flamenco",
@@ -24099,6 +24178,11 @@
      "lon": -65.639,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJNR&network=PR_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 147.2 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -24236,7 +24320,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 14.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 2.1 km (<=100)"
   },
   {
    "id": "w-carib-san-juan-san-juan",
@@ -24348,7 +24434,9 @@
      "lon": -66.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJIG&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 66.2 km (<=100)"
   },
   {
    "id": "w-carib-sandy-beach-puerto-rico",
@@ -24471,7 +24559,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 13.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 2.3 km (<=100)"
   },
   {
    "id": "w-carib-shacks",
@@ -24599,7 +24689,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 24.5 km (<=100)"
   },
   {
    "id": "w-carib-surfers-beach-puerto-rico",
@@ -24728,7 +24820,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 20.7 km (<=100)"
   },
   {
    "id": "w-carib-table-rock",
@@ -24845,7 +24939,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 9.7 km (<=100)"
   },
   {
    "id": "w-carib-table-top",
@@ -24962,7 +25058,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 20.9 km (<=100)"
   },
   {
    "id": "w-carib-the-point-rincon",
@@ -25096,7 +25194,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 15.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 2.1 km (<=100)"
   },
   {
    "id": "w-carib-tocones",
@@ -25226,7 +25326,9 @@
      "lon": -66.011,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJSJ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 78.6 km (<=100)"
   },
   {
    "id": "w-carib-tres-palmas",
@@ -25366,7 +25468,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 16.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 3.3 km (<=100)"
   },
   {
    "id": "w-carib-wilderness-aguadilla",
@@ -25398,6 +25502,11 @@
      {
       "url": "https://www.surf-forecast.com/breaks/Wilderness",
       "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/wilderness-puerto-rico",
+      "site": "surfnerd",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -25495,7 +25604,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 16.9 km (<=100)"
   },
   {
    "id": "w-carib-wilderness-puerto-rico",
@@ -25607,7 +25718,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 17.5 km (<=100)"
   },
   {
    "id": "w-carib-wishing-well",
@@ -25719,7 +25832,9 @@
      "lon": -67.129,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TJBQ&network=PR_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 15.8 km (<=100)"
   },
   {
    "id": "w-carib-zoni-beach",
@@ -25837,6 +25952,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 153.4 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -31276,6 +31396,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 205.7 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -31396,6 +31521,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 203.7 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -31514,6 +31644,11 @@
      "lon": -64.805,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TISX&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 231.4 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -31632,6 +31767,11 @@
      "lon": -64.805,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TISX&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 236.4 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -31767,7 +31907,12 @@
    "typeSource": {
     "text": "Hull Bay in Saint Thomas is a fairly exposed reef break. Type: Reef (surf-forecast, pin 1.13 km from row pin); Type: Reef-coral (wannasurf, GPS 4.45 km from row pin)",
     "url": "https://www.surf-forecast.com/breaks/Hull-Bay"
-   }
+   },
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 184.7 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
+   ]
   },
   {
    "id": "w-carib-johns-folly",
@@ -31885,6 +32030,11 @@
      "lon": -64.543,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TUPJ&network=VG__ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 211.9 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -32013,7 +32163,12 @@
    "typeSource": {
     "text": "Type: Reef-coral (wannasurf, GPS 0.51 km from row pin)",
     "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/Judiths_Fancy/"
-   }
+   },
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 221.8 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
+   ]
   },
   {
    "id": "w-carib-reef-bay-beach",
@@ -32133,6 +32288,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 206.1 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -32258,6 +32418,11 @@
      "lon": -64.973,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TIST&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 186.3 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {
@@ -32386,7 +32551,12 @@
    "typeSource": {
     "text": "Type: Reef-coral (wannasurf, GPS 0.06 km from row pin)",
     "url": "https://www.wannasurf.com/spot/Central_America/Virgin_Islands/Turner_Bay/"
-   }
+   },
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 201.7 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
+   ]
   },
   {
    "id": "w-carib-vacuums",
@@ -32504,6 +32674,11 @@
      "lon": -64.805,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TISX&network=VI_ASOS"
     }
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 210.8 km (>100)",
+   "appCandidateFailed": [
+    "buoy"
    ]
   },
   {

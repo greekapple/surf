@@ -255,7 +255,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 109.3 km (>100)"
   },
   {
    "id": "w-us-12-th-street-jetty",
@@ -370,7 +375,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 88.8 km (<=100)"
   },
   {
    "id": "w-us-120th-street",
@@ -499,7 +506,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 119.5 km (>100)"
   },
   {
    "id": "w-us-14th-street-north",
@@ -608,7 +620,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.1 km (<=100)"
   },
   {
    "id": "w-us-16th-ave-belmar",
@@ -956,7 +970,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.3 km (<=100)"
   },
   {
    "id": "w-us-18th-st-jetty",
@@ -1068,7 +1084,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.5 km (<=100)"
   },
   {
    "id": "w-us-18th-street",
@@ -1280,7 +1298,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 24.2 km (<=100)"
   },
   {
    "id": "w-us-1st-parking-lot",
@@ -1410,7 +1430,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 69.6 km (<=100)"
   },
   {
    "id": "w-us-1st-street",
@@ -1927,7 +1949,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 111.0 km (>100)"
   },
   {
    "id": "w-us-27th-ave-north-myrtle",
@@ -2050,7 +2077,9 @@
      "lon": -78.724,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CRE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.9 km (<=100)"
   },
   {
    "id": "w-us-2nd-beach-sachuest-beach",
@@ -2168,7 +2197,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 21.8 km (<=100)"
   },
   {
    "id": "w-us-2nd-light",
@@ -2424,7 +2455,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 122.7 km (>100)"
   },
   {
    "id": "w-us-2nd-street",
@@ -2542,7 +2578,9 @@
      "lon": -80.698,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HXD&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.4 km (<=100)"
   },
   {
    "id": "w-us-30th-39th-streets",
@@ -2666,7 +2704,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 62.6 km (<=100)"
   },
   {
    "id": "w-us-30th-street-avalon",
@@ -2806,7 +2846,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 111.0 km (>100)"
   },
   {
    "id": "w-us-30th-street-ship-bottom",
@@ -3034,7 +3079,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 82.0 km (<=100)"
   },
   {
    "id": "w-us-36th-street",
@@ -3150,7 +3197,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 81.6 km (<=100)"
   },
   {
    "id": "w-us-37th-street-jetty",
@@ -3290,7 +3339,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 104.2 km (>100)"
   },
   {
    "id": "w-us-40th-street",
@@ -3539,7 +3593,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 105.1 km (>100)"
   },
   {
    "id": "w-us-48th-street",
@@ -3673,7 +3732,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 117.1 km (>100)"
   },
   {
    "id": "w-us-52nd-street",
@@ -3812,7 +3876,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 105.6 km (>100)"
   },
   {
    "id": "w-us-55th-street-pier",
@@ -3941,7 +4010,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 96.5 km (<=100)"
   },
   {
    "id": "w-us-5th-street",
@@ -4057,7 +4128,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 87.5 km (<=100)"
   },
   {
    "id": "w-us-5th-street-7th-street",
@@ -4426,7 +4499,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 62.8 km (<=100)"
   },
   {
    "id": "w-us-711",
@@ -4659,7 +4734,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 87.9 km (<=100)"
   },
   {
    "id": "w-us-8th-ave-south",
@@ -4891,7 +4968,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 114.9 km (>100)"
   },
   {
    "id": "w-us-8th-street-jetty",
@@ -5008,7 +5090,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 87.9 km (<=100)"
   },
   {
    "id": "w-us-a-st",
@@ -5445,7 +5529,9 @@
      "lon": -70.615,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 27.5 km (<=100)"
   },
   {
    "id": "w-us-acadia-national-park",
@@ -5551,7 +5637,12 @@
      "lon": -68.361,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BHB&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 232.3 km (>100)"
   },
   {
    "id": "w-us-alabama-ave-kure-beach",
@@ -6019,7 +6110,9 @@
      "lon": -78.724,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CRE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 70.8 km (<=100)"
   },
   {
    "id": "w-us-apollo-beach",
@@ -6266,7 +6359,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.3 km (<=100)"
   },
   {
    "id": "w-us-askins-creek",
@@ -6500,7 +6595,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 107.3 km (>100)"
   },
   {
    "id": "w-us-atlantic-beach",
@@ -6724,7 +6824,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 68.7 km (<=100)"
   },
   {
    "id": "w-us-atlantique-beach",
@@ -7329,7 +7431,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 24.6 km (<=100)"
   },
   {
    "id": "w-us-barnegat-light",
@@ -7922,7 +8026,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.3 km (<=100)"
   },
   {
    "id": "w-us-belmar-to-sea-girt",
@@ -8312,7 +8418,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 118.5 km (>100)"
   },
   {
    "id": "w-us-bethune",
@@ -8904,7 +9015,9 @@
      "lon": -81.466,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BQK&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 84.6 km (<=100)"
   },
   {
    "id": "w-us-blind-creek-park",
@@ -9248,7 +9361,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 66.6 km (<=100)"
   },
   {
    "id": "w-us-blue-heron-beach",
@@ -9589,7 +9704,9 @@
      "lon": -77.029,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NJM&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.5 km (<=100)"
   },
   {
    "id": "w-us-boilers-ranger-station",
@@ -9827,7 +9944,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 33.8 km (<=100)"
   },
   {
    "id": "w-us-bonsteel-park",
@@ -10068,7 +10187,9 @@
      "lon": -80.085,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LNA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 59.3 km (<=100)"
   },
   {
    "id": "w-us-boynton-inlet",
@@ -10185,7 +10306,9 @@
      "lon": -80.085,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LNA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 60.5 km (<=100)"
   },
   {
    "id": "w-us-bradley-beach",
@@ -10314,7 +10437,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.4 km (<=100)"
   },
   {
    "id": "w-us-brant-rock",
@@ -10443,7 +10568,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.5 km (<=100)"
   },
   {
    "id": "w-us-breachway",
@@ -10557,7 +10684,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 10.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.8 km (<=100)"
   },
   {
    "id": "w-us-breezy-point",
@@ -10680,7 +10809,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 71.3 km (<=100)"
   },
   {
    "id": "w-us-broadway",
@@ -10821,7 +10952,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 131.3 km (>100)"
   },
   {
    "id": "w-us-bull-island",
@@ -11268,7 +11404,9 @@
      "lon": -81.466,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BQK&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 79.5 km (<=100)"
   },
   {
    "id": "w-us-camp-hero",
@@ -11386,7 +11524,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 63.6 km (<=100)"
   },
   {
    "id": "w-us-camp-lejeune",
@@ -11841,7 +11981,9 @@
      "lon": -75.623,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HSE&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 21.1 km (<=100)"
   },
   {
    "id": "w-us-canova-beach",
@@ -12070,7 +12212,9 @@
      "lon": -69.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CQX&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 32.7 km (<=100)"
   },
   {
    "id": "w-us-cape-hatteras-lighthouse",
@@ -12301,7 +12445,9 @@
      "lon": -76.661,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MRH&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 68.2 km (<=100)"
   },
   {
    "id": "w-us-cape-romain",
@@ -12652,7 +12798,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 12.0 km (<=100)"
   },
   {
    "id": "w-us-chernobyl",
@@ -12912,7 +13060,9 @@
      "lon": -78.724,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CRE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 57.9 km (<=100)"
   },
   {
    "id": "w-us-chicken-bone-beach",
@@ -13006,7 +13156,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 73.8 km (<=100)"
   },
   {
    "id": "w-us-chincoteague",
@@ -13134,7 +13286,9 @@
      "lon": -75.463,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WAL&network=VA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 88.3 km (<=100)"
   },
   {
    "id": "w-us-cisco",
@@ -13250,7 +13404,9 @@
    "typeSource": {
     "text": "Type: Beach-break (wannasurf, GPS 0.23 km from row pin)",
     "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/cisco_beach__nantucket_island_/"
-   }
+   },
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 67.0 km (<=100)"
   },
   {
    "id": "w-us-civic-center",
@@ -13356,7 +13512,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 71.8 km (<=100)"
   },
   {
    "id": "w-us-coastguard-beach",
@@ -13474,7 +13632,9 @@
      "lon": -69.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CQX&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 12.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 31.9 km (<=100)"
   },
   {
    "id": "w-us-coastguard-st-simons",
@@ -14265,7 +14425,9 @@
      "lon": -72.252,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JPX&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 93.6 km (<=100)"
   },
   {
    "id": "w-us-coral-cove-park",
@@ -14386,7 +14548,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 67.9 km (<=100)"
   },
   {
    "id": "w-us-corners-2",
@@ -14492,7 +14656,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 72.3 km (<=100)"
   },
   {
    "id": "w-us-corolla-lighthouse",
@@ -14726,7 +14892,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.3 km (<=100)"
   },
   {
    "id": "w-us-crane-beach-2",
@@ -14844,7 +15012,9 @@
      "lon": -70.916,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.4 km (<=100)"
   },
   {
    "id": "w-us-crescent-beach",
@@ -15073,7 +15243,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 63.7 km (<=100)"
   },
   {
    "id": "w-us-croatan",
@@ -15531,7 +15703,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 71.1 km (<=100)"
   },
   {
    "id": "w-us-cumberland-island",
@@ -15777,7 +15951,9 @@
      "lon": -72.869,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HWV&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 67.2 km (<=100)"
   },
   {
    "id": "w-us-dania-pier",
@@ -16251,7 +16427,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 78.1 km (<=100)"
   },
   {
    "id": "w-us-deerfield-beach-pier",
@@ -16606,7 +16784,9 @@
      "lon": -80.11,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BCT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.2 km (<=100)"
   },
   {
    "id": "w-us-dewees-island",
@@ -16859,7 +17039,12 @@
      "lon": -75.359,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GED&network=DE_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 117.4 km (>100)"
   },
   {
    "id": "w-us-diamond-beach",
@@ -16996,7 +17181,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 129.8 km (>100)"
   },
   {
    "id": "w-us-ditch-plains",
@@ -17115,7 +17305,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 66.8 km (<=100)"
   },
   {
    "id": "w-us-doc-browns",
@@ -17245,7 +17437,9 @@
      "lon": -70.304,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PWM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 84.6 km (<=100)"
   },
   {
    "id": "w-us-duck-pier",
@@ -17478,7 +17672,9 @@
      "lon": -72.632,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FOK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 69.9 km (<=100)"
   },
   {
    "id": "w-us-dunes-cove",
@@ -17610,7 +17806,9 @@
      "lon": -78.724,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CRE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 72.2 km (<=100)"
   },
   {
    "id": "w-us-dunes-hotel",
@@ -17847,7 +18045,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 61.5 km (<=100)"
   },
   {
    "id": "w-us-east-beach",
@@ -17955,7 +18155,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.4 km (<=100)"
   },
   {
    "id": "w-us-east-hampton-beach",
@@ -18093,7 +18295,9 @@
      "lon": -72.252,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JPX&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 10.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 90.2 km (<=100)"
   },
   {
    "id": "w-us-eckner-street",
@@ -18468,7 +18672,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 56.0 km (<=100)"
   },
   {
    "id": "w-us-egypt-beach-massachusetts",
@@ -18599,7 +18805,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.6 km (<=100)"
   },
   {
    "id": "w-us-eighth-street",
@@ -19076,7 +19284,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 119.5 km (>100)"
   },
   {
    "id": "w-us-fenwick-island",
@@ -19197,7 +19410,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 119.1 km (>100)"
   },
   {
    "id": "w-us-fernandina-beach-pier",
@@ -19431,7 +19649,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 40.2 km (<=100)"
   },
   {
    "id": "w-us-figure-eight-and-shell-islands",
@@ -19663,7 +19883,9 @@
      "lon": -72.869,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HWV&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 58.7 km (<=100)"
   },
   {
    "id": "w-us-fire-island-new-york",
@@ -19819,6 +20041,11 @@
       "url": "https://www.surf-forecast.com/breaks/Fishermans-Island",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fishermans-island-virginia",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -19917,7 +20144,9 @@
      "lon": -76.192,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ORF&network=VA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 15.3 km (<=100)"
   },
   {
    "id": "w-us-fishermans-island-virginia",
@@ -20042,7 +20271,9 @@
      "lon": -76.192,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ORF&network=VA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 14.4 km (<=100)"
   },
   {
    "id": "w-us-flager-avenue",
@@ -20578,7 +20809,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 78.7 km (<=100)"
   },
   {
    "id": "w-us-fletchers",
@@ -20819,7 +21052,9 @@
      "lon": -72.632,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FOK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 87.7 km (<=100)"
   },
   {
    "id": "w-us-flys",
@@ -20943,7 +21178,9 @@
      "lon": -72.252,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JPX&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 12.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 99.4 km (<=100)"
   },
   {
    "id": "w-us-folly-beach-pier",
@@ -21429,7 +21666,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 68.0 km (<=100)"
   },
   {
    "id": "w-us-fortunes-rock-beach",
@@ -21561,7 +21800,9 @@
      "lon": -70.304,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PWM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 72.7 km (<=100)"
   },
   {
    "id": "w-us-fox-hill",
@@ -21685,7 +21926,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.2 km (<=100)"
   },
   {
    "id": "w-us-foxhill-point",
@@ -21717,6 +21960,11 @@
      {
       "url": "https://www.surf-forecast.com/breaks/Fox-Hill-Point",
       "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/fox-hill",
+      "site": "surfnerd",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -21815,7 +22063,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.0 km (<=100)"
   },
   {
    "id": "w-us-franklin-street",
@@ -22537,7 +22787,9 @@
      "lon": -78.93,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYR&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 92.1 km (<=100)"
   },
   {
    "id": "w-us-gate-station",
@@ -22782,7 +23034,9 @@
      "lon": -72.252,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JPX&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 10.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 92.1 km (<=100)"
   },
   {
    "id": "w-us-gilgo-beach",
@@ -23157,7 +23411,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 14.5 km (<=100)"
   },
   {
    "id": "w-us-gordons-pond",
@@ -23280,7 +23536,12 @@
      "lon": -75.359,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GED&network=DE_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 117.8 km (>100)"
   },
   {
    "id": "w-us-goulds-inlet",
@@ -23397,7 +23658,9 @@
      "lon": -81.391,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SSI&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.2 km (<=100)"
   },
   {
    "id": "w-us-grant-street-beach",
@@ -23533,7 +23796,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 132.1 km (>100)"
   },
   {
    "id": "w-us-green-harbor-duxberry",
@@ -23661,7 +23929,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.0 km (<=100)"
   },
   {
    "id": "w-us-greenhill",
@@ -23779,7 +24049,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 47.5 km (<=100)"
   },
   {
    "id": "w-us-hampton-beach",
@@ -23910,7 +24182,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.4 km (<=100)"
   },
   {
    "id": "w-us-hannah-park-mayport-poles",
@@ -24145,7 +24419,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.0 km (<=100)"
   },
   {
    "id": "w-us-harvey-cedars",
@@ -24604,7 +24880,9 @@
      "lon": -70.22,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PVC&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 31.4 km (<=100)"
   },
   {
    "id": "w-us-higgins-beach",
@@ -24733,7 +25011,9 @@
      "lon": -70.304,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PWM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 84.7 km (<=100)"
   },
   {
    "id": "w-us-hightower-beach",
@@ -25284,7 +25564,9 @@
      "lon": -80.085,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LNA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 69.3 km (<=100)"
   },
   {
    "id": "w-us-historic-park-fishing-beach",
@@ -25402,7 +25684,9 @@
      "lon": -73.707,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HPN&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.0 km (<=100)"
   },
   {
    "id": "w-us-hitherhills",
@@ -25521,7 +25805,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 74.5 km (<=100)"
   },
   {
    "id": "w-us-hobe-sound",
@@ -25639,7 +25925,9 @@
      "lon": -80.22,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SUA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.4 km (<=100)"
   },
   {
    "id": "w-us-hobe-sound-public-beach",
@@ -25751,7 +26039,9 @@
      "lon": -80.22,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SUA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 56.2 km (<=100)"
   },
   {
    "id": "w-us-holden-beach",
@@ -26484,7 +26774,12 @@
      "lon": -75.359,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GED&network=DE_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 117.7 km (>100)"
   },
   {
    "id": "w-us-indian-river-southside",
@@ -26613,7 +26908,12 @@
      "lon": -75.359,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GED&network=DE_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 118.0 km (>100)"
   },
   {
    "id": "w-us-indian-wells",
@@ -26755,7 +27055,9 @@
      "lon": -72.252,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JPX&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 85.1 km (<=100)"
   },
   {
    "id": "w-us-iron-steamer",
@@ -26865,7 +27167,9 @@
      "lon": -76.661,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MRH&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.6 km (<=100)"
   },
   {
    "id": "w-us-island-beach-state-park",
@@ -28062,7 +28366,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.3 km (<=100)"
   },
   {
    "id": "w-us-jennettes-pier",
@@ -28871,7 +29177,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 76.3 km (<=100)"
   },
   {
    "id": "w-us-jupiter-inlet-south-jetty",
@@ -28993,7 +29301,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 70.5 km (<=100)"
   },
   {
    "id": "w-us-k-38-39",
@@ -29112,7 +29422,9 @@
      "lon": -71.58,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BID&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 38.7 km (<=100)"
   },
   {
    "id": "w-us-k-o-a",
@@ -29352,7 +29664,9 @@
      "lon": -72.632,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FOK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 85.5 km (<=100)"
   },
   {
    "id": "w-us-kennebunk-beach",
@@ -29480,7 +29794,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 65.9 km (<=100)"
   },
   {
    "id": "w-us-key-west",
@@ -29586,7 +29902,9 @@
      "lon": -81.76,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=EYW&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 26.5 km (<=100)"
   },
   {
    "id": "w-us-keyes-memorial-beach",
@@ -29704,7 +30022,9 @@
      "lon": -70.28,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HYA&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 23.0 km (<=100)"
   },
   {
    "id": "w-us-kiawah-island-seabrook-island",
@@ -29936,7 +30256,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 63.6 km (<=100)"
   },
   {
    "id": "w-us-kite-beach-2",
@@ -30042,7 +30364,9 @@
      "lon": -80.222,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=F45&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 74.8 km (<=100)"
   },
   {
    "id": "w-us-kite-point",
@@ -30148,7 +30472,9 @@
      "lon": -75.623,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HSE&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 21.4 km (<=100)"
   },
   {
    "id": "w-us-kitty-hawk-pier",
@@ -30407,7 +30733,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.5 km (<=100)"
   },
   {
    "id": "w-us-lake-worth-pier",
@@ -30512,7 +30840,9 @@
      "lon": -80.085,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LNA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 68.4 km (<=100)"
   },
   {
    "id": "w-us-lantana",
@@ -30617,7 +30947,9 @@
      "lon": -80.085,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=LNA&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 65.1 km (<=100)"
   },
   {
    "id": "w-us-laundromats",
@@ -30864,7 +31196,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 55.5 km (<=100)"
   },
   {
    "id": "w-us-lavallette",
@@ -31235,7 +31569,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.1 km (<=100)"
   },
   {
    "id": "w-us-lido-beach-new-york",
@@ -31365,7 +31701,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.9 km (<=100)"
   },
   {
    "id": "w-us-lighthouse-rhode-island",
@@ -31482,7 +31820,9 @@
      "lon": -71.58,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BID&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.5 km (<=100)"
   },
   {
    "id": "w-us-lighthouse-southside",
@@ -31599,7 +31939,9 @@
      "lon": -71.58,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BID&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.7 km (<=100)"
   },
   {
    "id": "w-us-lincoln-blvd",
@@ -31733,7 +32075,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.2 km (<=100)"
   },
   {
    "id": "w-us-linkys",
@@ -31862,7 +32206,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.3 km (<=100)"
   },
   {
    "id": "w-us-little-hunters-beach",
@@ -31980,7 +32326,12 @@
      "lon": -68.361,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BHB&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 229.4 km (>100)"
   },
   {
    "id": "w-us-little-island-fishing-pier",
@@ -32206,7 +32557,9 @@
      "lon": -81.391,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SSI&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 62.5 km (<=100)"
   },
   {
    "id": "w-us-little-talbot-island",
@@ -32437,7 +32790,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 55.5 km (<=100)"
   },
   {
    "id": "w-us-loch-arbour-and-deal",
@@ -32570,7 +32925,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.5 km (<=100)"
   },
   {
    "id": "w-us-loggerhead-st",
@@ -32935,7 +33292,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.2 km (<=100)"
   },
   {
    "id": "w-us-long-beach-township",
@@ -33169,7 +33528,9 @@
    "typeSource": {
     "text": "Type: Beach-break (wannasurf, GPS 0.88 km from row pin)",
     "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/Pavilion_Ave__Long_Branch/"
-   }
+   },
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 61.8 km (<=100)"
   },
   {
    "id": "w-us-long-point-2",
@@ -33275,7 +33636,9 @@
      "lon": -70.615,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 33.6 km (<=100)"
   },
   {
    "id": "w-us-long-sands",
@@ -33404,7 +33767,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.1 km (<=100)"
   },
   {
    "id": "w-us-longbeach",
@@ -33649,7 +34014,9 @@
      "lon": -70.22,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PVC&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 31.4 km (<=100)"
   },
   {
    "id": "w-us-lori-wilson-park",
@@ -33871,7 +34238,9 @@
      "lon": -70.615,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 26.2 km (<=100)"
   },
   {
    "id": "w-us-lynne-beach",
@@ -33997,7 +34366,9 @@
      "lon": -70.916,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 71.6 km (<=100)"
   },
   {
    "id": "w-us-madaket",
@@ -34122,7 +34493,9 @@
      "lon": -70.06,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACK&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.1 km (<=100)"
   },
   {
    "id": "w-us-madaquecham",
@@ -34234,7 +34607,9 @@
      "lon": -70.06,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACK&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 70.5 km (<=100)"
   },
   {
    "id": "w-us-maguire-landing-beach",
@@ -34342,7 +34717,9 @@
      "lon": -69.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CQX&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 30.8 km (<=100)"
   },
   {
    "id": "w-us-main-beach-florida",
@@ -35176,7 +35553,9 @@
      "lon": -69.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CQX&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 31.0 km (<=100)"
   },
   {
    "id": "w-us-margate-pier",
@@ -35294,7 +35673,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 79.6 km (<=100)"
   },
   {
    "id": "w-us-marshfield-jetty",
@@ -35424,7 +35805,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.0 km (<=100)"
   },
   {
    "id": "w-us-martin-st",
@@ -35759,7 +36142,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.8 km (<=100)"
   },
   {
    "id": "w-us-matanuck",
@@ -35870,7 +36255,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 42.4 km (<=100)"
   },
   {
    "id": "w-us-matanzas-inlet",
@@ -36034,6 +36421,11 @@
       "url": "https://www.surf-forecast.com/breaks/Matunuck",
       "site": "surf-forecast",
       "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/matanuck",
+      "site": "surfnerd",
+      "retrievedOn": "2026-11-09"
      }
     ],
     "facing": "South (surfnerd: \"Faces S\")",
@@ -36118,7 +36510,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 42.3 km (<=100)"
   },
   {
    "id": "w-us-mayport-poles",
@@ -36589,7 +36983,9 @@
      "lon": -73.707,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HPN&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.2 km (<=100)"
   },
   {
    "id": "w-us-miacomet-rd",
@@ -36695,7 +37091,9 @@
      "lon": -70.06,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACK&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 68.7 km (<=100)"
   },
   {
    "id": "w-us-middles-florida",
@@ -37037,7 +37435,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 35.4 km (<=100)"
   },
   {
    "id": "w-us-monmouth-beach",
@@ -37162,7 +37562,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.5 km (<=100)"
   },
   {
    "id": "w-us-monster-hole",
@@ -37424,7 +37826,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 62.3 km (<=100)"
   },
   {
    "id": "w-us-moody-point",
@@ -37554,7 +37958,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 62.9 km (<=100)"
   },
   {
    "id": "w-us-mothers-beach",
@@ -37674,7 +38080,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 66.1 km (<=100)"
   },
   {
    "id": "w-us-myrtle-beach",
@@ -37800,7 +38208,9 @@
      "lon": -78.93,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYR&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.3 km (<=100)"
   },
   {
    "id": "w-us-nags-head-pier",
@@ -38044,7 +38454,9 @@
      "lon": -71.01,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BOS&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 65.2 km (<=100)"
   },
   {
    "id": "w-us-nantucket",
@@ -38155,7 +38567,9 @@
      "lon": -70.06,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACK&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 70.0 km (<=100)"
   },
   {
    "id": "w-us-napeague-beach",
@@ -38261,7 +38675,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 77.7 km (<=100)"
   },
   {
    "id": "w-us-narragansett-beach",
@@ -38378,7 +38794,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 35.5 km (<=100)"
   },
   {
    "id": "w-us-national-blvd",
@@ -38496,7 +38914,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 55.1 km (<=100)"
   },
   {
    "id": "w-us-nauset-beach",
@@ -38613,7 +39033,9 @@
      "lon": -69.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CQX&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 33.3 km (<=100)"
   },
   {
    "id": "w-us-nauset-light-beach",
@@ -38726,7 +39148,9 @@
      "lon": -69.993,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=CQX&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 11.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 31.6 km (<=100)"
   },
   {
    "id": "w-us-naval-jetties",
@@ -38842,7 +39266,12 @@
      "lon": -75.359,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GED&network=DE_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 118.2 km (>100)"
   },
   {
    "id": "w-us-ne-14th-ct",
@@ -39310,7 +39739,9 @@
      "lon": -70.22,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PVC&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 31.1 km (<=100)"
   },
   {
    "id": "w-us-north-bar",
@@ -39439,7 +39870,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 63.0 km (<=100)"
   },
   {
    "id": "w-us-north-buxton",
@@ -39673,7 +40106,9 @@
      "lon": -76.034,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=NTU&network=VA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 19.8 km (<=100)"
   },
   {
    "id": "w-us-north-end-oc",
@@ -39785,7 +40220,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 86.8 km (<=100)"
   },
   {
    "id": "w-us-north-end-south-carolina",
@@ -39909,7 +40346,9 @@
      "lon": -78.93,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYR&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 91.7 km (<=100)"
   },
   {
    "id": "w-us-north-end-wrightsville-beach",
@@ -40117,7 +40556,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 68.4 km (<=100)"
   },
   {
    "id": "w-us-north-jetty-florida",
@@ -40466,7 +40907,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 86.5 km (<=100)"
   },
   {
    "id": "w-us-nuns-beach",
@@ -40615,7 +41058,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 118.1 km (>100)"
   },
   {
    "id": "w-us-oak-island",
@@ -40963,7 +41411,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 114.7 km (>100)"
   },
   {
    "id": "w-us-ocean-isle-beach-pier",
@@ -41203,7 +41656,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 87.5 km (<=100)"
   },
   {
    "id": "w-us-oceanic-pier",
@@ -41430,7 +41885,9 @@
      "lon": -75.623,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=HSE&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 58.2 km (<=100)"
   },
   {
    "id": "w-us-ogunquit-beach",
@@ -41560,7 +42017,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 61.2 km (<=100)"
   },
   {
    "id": "w-us-ogunquit-rivermouth",
@@ -41698,7 +42157,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 8.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 60.1 km (<=100)"
   },
   {
    "id": "w-us-old-orchard-beach",
@@ -41828,7 +42289,9 @@
      "lon": -70.304,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PWM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 81.1 km (<=100)"
   },
   {
    "id": "w-us-onslow-beach",
@@ -42301,7 +42764,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 85.0 km (<=100)"
   },
   {
    "id": "w-us-outer-banks-pier",
@@ -42646,7 +43111,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 78.6 km (<=100)"
   },
   {
    "id": "w-us-paradise-beach",
@@ -43561,7 +44028,9 @@
      "lon": -71.58,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BID&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.6 km (<=100)"
   },
   {
    "id": "w-us-pine-point",
@@ -43690,7 +44159,9 @@
      "lon": -70.304,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PWM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 82.6 km (<=100)"
   },
   {
    "id": "w-us-pirates-cove-beach",
@@ -43810,7 +44281,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.9 km (<=100)"
   },
   {
    "id": "w-us-plaice-cove",
@@ -43941,7 +44414,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.8 km (<=100)"
   },
   {
    "id": "w-us-playalinda",
@@ -44058,7 +44533,9 @@
      "lon": -80.694,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=TTS&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 25.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 29.9 km (<=100)"
   },
   {
    "id": "w-us-playalinda-florida",
@@ -44294,7 +44771,9 @@
      "lon": -70.916,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.8 km (<=100)"
   },
   {
    "id": "w-us-plymouth-beach",
@@ -44400,7 +44879,9 @@
      "lon": -70.729,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PYM&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 27.0 km (<=100)"
   },
   {
    "id": "w-us-point-judith",
@@ -44514,7 +44995,9 @@
      "lon": -71.58,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BID&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 37.5 km (<=100)"
   },
   {
    "id": "w-us-point-o-woods",
@@ -44758,7 +45241,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 67.4 km (<=100)"
   },
   {
    "id": "w-us-pompano-pier",
@@ -45349,7 +45834,12 @@
      "lon": -69.939,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BXM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 107.6 km (>100)"
   },
   {
    "id": "w-us-poverty-beach",
@@ -45490,7 +45980,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 132.8 km (>100)"
   },
   {
    "id": "w-us-prestons",
@@ -45620,7 +46115,9 @@
      "lon": -70.916,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 69.2 km (<=100)"
   },
   {
    "id": "w-us-pumphouse",
@@ -45732,7 +46229,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 86.3 km (<=100)"
   },
   {
    "id": "w-us-queen-street",
@@ -45872,7 +46371,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 132.8 km (>100)"
   },
   {
    "id": "w-us-rambler-road",
@@ -46008,7 +46512,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 127.5 km (>100)"
   },
   {
    "id": "w-us-red-reef-park",
@@ -46229,7 +46738,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 85.2 km (<=100)"
   },
   {
    "id": "w-us-reef-road-florida",
@@ -46347,7 +46858,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 85.0 km (<=100)"
   },
   {
    "id": "w-us-rehoboth-beach",
@@ -46472,7 +46985,12 @@
      "lon": -75.359,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GED&network=DE_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 117.8 km (>100)"
   },
   {
    "id": "w-us-reid-state-park",
@@ -46590,7 +47108,12 @@
      "lon": -69.713,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=IWI&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 114.4 km (>100)"
   },
   {
    "id": "w-us-revere-beach",
@@ -46708,7 +47231,9 @@
      "lon": -71.01,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BOS&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 79.0 km (<=100)"
   },
   {
    "id": "w-us-rexhame",
@@ -46831,7 +47356,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 41.6 km (<=100)"
   },
   {
    "id": "w-us-riomar-reef",
@@ -47330,7 +47857,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 65.1 km (<=100)"
   },
   {
    "id": "w-us-rockaways",
@@ -47362,6 +47891,11 @@
      {
       "url": "https://www.surf-forecast.com/breaks/Rockaway_1",
       "site": "surf-forecast",
+      "retrievedOn": "2026-11-09"
+     },
+     {
+      "url": "https://www.surfnerd.com/surf-forecast/rockaway",
+      "site": "surfnerd",
       "retrievedOn": "2026-11-09"
      }
     ],
@@ -47460,7 +47994,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.9 km (<=100)"
   },
   {
    "id": "w-us-rodanthe-pier",
@@ -47685,7 +48221,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 23.8 km (<=100)"
   },
   {
    "id": "w-us-rye-on-the-rocks",
@@ -47815,7 +48353,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 51.8 km (<=100)"
   },
   {
    "id": "w-us-s-turns-north-carolina",
@@ -48050,7 +48590,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 15.9 km (<=100)"
   },
   {
    "id": "w-us-salisbury-beach",
@@ -48176,7 +48718,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.9 km (<=100)"
   },
   {
    "id": "w-us-sandbridge-beach",
@@ -48416,7 +48960,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 70.4 km (<=100)"
   },
   {
    "id": "w-us-sapelo-island",
@@ -48543,7 +49089,9 @@
      "lon": -81.466,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BQK&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 76.1 km (<=100)"
   },
   {
    "id": "w-us-satellite-beach-r-cs",
@@ -48891,7 +49439,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 9.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.3 km (<=100)"
   },
   {
    "id": "w-us-scarborough",
@@ -49007,7 +49557,9 @@
      "lon": -71.281,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=UUU&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 36.8 km (<=100)"
   },
   {
    "id": "w-us-scarborough-beach",
@@ -49137,7 +49689,9 @@
      "lon": -70.304,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PWM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 83.5 km (<=100)"
   },
   {
    "id": "w-us-scituate-harbor",
@@ -49260,7 +49814,9 @@
      "lon": -70.672,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GHG&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 50.2 km (<=100)"
   },
   {
    "id": "w-us-sea-girt",
@@ -49522,7 +50078,9 @@
      "lon": -81.391,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SSI&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.8 km (<=100)"
   },
   {
    "id": "w-us-seabrook-beach",
@@ -49650,7 +50208,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.3 km (<=100)"
   },
   {
    "id": "w-us-seaside-heights-casino-pier",
@@ -50466,7 +51026,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.9 km (<=100)"
   },
   {
    "id": "w-us-south-beach-florida",
@@ -50829,7 +51391,9 @@
      "lon": -70.615,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 42.0 km (<=100)"
   },
   {
    "id": "w-us-south-carolina-avenue",
@@ -50930,7 +51494,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 72.6 km (<=100)"
   },
   {
    "id": "w-us-south-end",
@@ -51060,7 +51626,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.3 km (<=100)"
   },
   {
    "id": "w-us-south-end-virginia",
@@ -51296,7 +51864,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 56.5 km (<=100)"
   },
   {
    "id": "w-us-south-jetty",
@@ -51421,7 +51991,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 81.7 km (<=100)"
   },
   {
    "id": "w-us-south-litchfield",
@@ -51544,7 +52116,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 86.9 km (<=100)"
   },
   {
    "id": "w-us-south-tybee-sandbars",
@@ -51662,7 +52236,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.3 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.0 km (<=100)"
   },
   {
    "id": "w-us-southern-duck",
@@ -52373,7 +52949,9 @@
      "lon": -78.93,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYR&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 84.6 km (<=100)"
   },
   {
    "id": "w-us-squibnocket",
@@ -52481,7 +53059,9 @@
      "lon": -70.615,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MVY&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 23.8 km (<=100)"
   },
   {
    "id": "w-us-st-augustine-pier",
@@ -52723,7 +53303,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 99.7 km (<=100)"
   },
   {
    "id": "w-us-st-simons-island",
@@ -52947,7 +53529,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 72.1 km (<=100)"
   },
   {
    "id": "w-us-stockton",
@@ -53087,7 +53671,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 132.4 km (>100)"
   },
   {
    "id": "w-us-stone-harbor",
@@ -53233,7 +53822,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 117.8 km (>100)"
   },
   {
    "id": "w-us-straws-point",
@@ -53358,7 +53952,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.0 km (<=100)"
   },
   {
    "id": "w-us-stuart-public-beach",
@@ -53823,7 +54419,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.8 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.6 km (<=100)"
   },
   {
    "id": "w-us-sumner-avenue-strathmere",
@@ -53952,7 +54550,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 99.5 km (<=100)"
   },
   {
    "id": "w-us-sunglow-pier",
@@ -54192,7 +54792,9 @@
      "lon": -80.099,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=DJT&network=FL_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.3 km (<=100)"
   },
   {
    "id": "w-us-surf-city",
@@ -54664,7 +55266,9 @@
      "lon": -78.93,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYR&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 89.4 km (<=100)"
   },
   {
    "id": "w-us-talbot-island",
@@ -55009,7 +55613,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 66.2 km (<=100)"
   },
   {
    "id": "w-us-the-cove",
@@ -55128,7 +55734,9 @@
      "lon": -74.009,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JRB&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 73.2 km (<=100)"
   },
   {
    "id": "w-us-the-cove-2",
@@ -55271,7 +55879,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 130.8 km (>100)"
   },
   {
    "id": "w-us-the-inlet-and-pier",
@@ -55400,7 +56013,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 114.1 km (>100)"
   },
   {
    "id": "w-us-the-inlet-new-smyrna",
@@ -55765,7 +56383,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.6 km (<=100)"
   },
   {
    "id": "w-us-the-pier",
@@ -55893,7 +56513,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 84.2 km (<=100)"
   },
   {
    "id": "w-us-the-pier-south-carolina",
@@ -56017,7 +56639,9 @@
      "lon": -79.32,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=GGE&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 84.2 km (<=100)"
   },
   {
    "id": "w-us-the-point-north-carolina",
@@ -56389,7 +57013,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 131.7 km (>100)"
   },
   {
    "id": "w-us-the-south-jetty",
@@ -56496,7 +57125,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 70.2 km (<=100)"
   },
   {
    "id": "w-us-the-wall-new-hampshire",
@@ -56624,7 +57255,9 @@
      "lon": -70.823,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=PSM&network=NH_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 53.1 km (<=100)"
   },
   {
    "id": "w-us-the-washout",
@@ -56871,7 +57504,9 @@
      "lon": -74.13,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BLM&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 5.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 55.1 km (<=100)"
   },
   {
    "id": "w-us-the-wedge-maryland",
@@ -56991,7 +57626,12 @@
      "lon": -75.124,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=OXB&network=MD_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 113.4 km (>100)"
   },
   {
    "id": "w-us-third-street",
@@ -57588,7 +58228,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.2 km (<=30); nearest wave-reporting NDBC/CDIP buoy 66.6 km (<=100)"
   },
   {
    "id": "w-us-triple-s-pier",
@@ -57705,7 +58347,9 @@
      "lon": -76.661,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MRH&network=NC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 57.4 km (<=100)"
   },
   {
    "id": "w-us-turtle-cove",
@@ -57835,7 +58479,9 @@
      "lon": -71.923,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MTP&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 6.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 62.6 km (<=100)"
   },
   {
    "id": "w-us-tybee-island-pier",
@@ -57952,7 +58598,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 52.1 km (<=100)"
   },
   {
    "id": "w-us-ventnor-pier",
@@ -58068,7 +58716,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 77.8 km (<=100)"
   },
   {
    "id": "w-us-vero-beach-pier",
@@ -59028,7 +59678,9 @@
      "lon": -81.146,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SVN&network=GA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 7.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 71.9 km (<=100)"
   },
   {
    "id": "w-us-waves-and-salvo",
@@ -59247,7 +59899,9 @@
      "lon": -71.799,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WST&network=RI_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.0 km (<=30); nearest wave-reporting NDBC/CDIP buoy 61.3 km (<=100)"
   },
   {
    "id": "w-us-wells-beach",
@@ -59376,7 +60030,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 1.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 64.6 km (<=100)"
   },
   {
    "id": "w-us-wells-jetties",
@@ -59506,7 +60162,9 @@
      "lon": -70.708,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SFM&network=ME_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.9 km (<=30); nearest wave-reporting NDBC/CDIP buoy 65.3 km (<=100)"
   },
   {
    "id": "w-us-west-end-jones-beach",
@@ -59755,7 +60413,9 @@
      "lon": -73.762,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=JFK&network=NY_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 56.8 km (<=100)"
   },
   {
    "id": "w-us-wilbur-by-the-sea",
@@ -60140,7 +60800,12 @@
      "lon": -74.908,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=WWD&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidateFailed": [
+    "buoy"
+   ],
+   "appCandidate": false,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 0.4 km (<=30); nearest wave-reporting NDBC/CDIP buoy 127.0 km (>100)"
   },
   {
    "id": "w-us-winthrop-jetty",
@@ -60269,7 +60934,9 @@
      "lon": -71.01,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=BOS&network=MA_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.5 km (<=30); nearest wave-reporting NDBC/CDIP buoy 80.0 km (<=100)"
   },
   {
    "id": "w-us-wolf-island",
@@ -60403,7 +61070,9 @@
     "url": "https://www.openstreetmap.org/way/231445355",
     "distanceKm": 0.16,
     "naturalEarthKm": 4.25
-   }
+   },
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 3.1 km (<=30); nearest wave-reporting NDBC/CDIP buoy 69.7 km (<=100)"
   },
   {
    "id": "w-us-wooden-jetties",
@@ -60520,7 +61189,9 @@
      "lon": -74.577,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=ACY&network=NJ_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 2.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 54.1 km (<=100)"
   },
   {
    "id": "w-us-yachtsman-pier",
@@ -60641,7 +61312,9 @@
      "lon": -78.93,
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=MYR&network=SC_ASOS"
     }
-   ]
+   ],
+   "appCandidate": true,
+   "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.6 km (<=30); nearest wave-reporting NDBC/CDIP buoy 79.4 km (<=100)"
   },
   {
    "id": "w-us-avalon-15th-street",

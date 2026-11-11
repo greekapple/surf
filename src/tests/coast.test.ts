@@ -53,3 +53,19 @@ test('no spot asks the marine model for a point on land: every marine point is s
   const land = evidenceSpots.filter((s) => pointOnLand(s.marineLatitude, s.marineLongitude)).map((s) => s.id); assert.deepEqual(land, [], 'spots whose marine query point is on land');
   for (const [id, o] of Object.entries(MARINE_POINT_OVERRIDES)) { assert.ok(o.reason.length > 40, id); const s = evidenceSpots.find((x) => x.id === id)!; assert.ok(s, id + ' exists'); assert.equal(s.marineLatitude, o.lat); assert.equal(s.marineLongitude, o.lon); }
 });
+
+test('no spot asks the marine model for a point on land: every marine point is sea (Natural Earth land polygons), and the explicit ones carry a reason', async () => {
+  const {pointOnLand} = await import('../map/landCheck.ts'), {MARINE_POINT_OVERRIDES} = await import('../data/marinePoints.ts'), {evidenceSpots} = await import('../ocean/spots.ts');
+  assert.equal(pointOnLand(37.85, -122.5), true, 'the Marin Headlands are land'); assert.equal(pointOnLand(37.75, -122.6), false, 'off Ocean Beach is sea'); assert.equal(pointOnLand(45.976, -123.947), true, 'Seaside beach point'); assert.equal(pointOnLand(21.5, -158.0), true, 'Oahu (Wahiawa)'); assert.equal(pointOnLand(21.3, -157.5 - 5), false);
+  const land = evidenceSpots.filter((s) => pointOnLand(s.marineLatitude, s.marineLongitude)).map((s) => s.id); assert.deepEqual(land, [], 'spots whose marine query point is on land');
+  for (const [id, o] of Object.entries(MARINE_POINT_OVERRIDES)) { assert.ok(o.reason.length > 40, id); const s = evidenceSpots.find((x) => x.id === id)!; assert.ok(s, id + ' exists'); assert.equal(s.marineLatitude, o.lat); assert.equal(s.marineLongitude, o.lon); }
+});
+
+test('batch 3 review round: one row per break (the merged name variants are gone, their sources live on the kept row), and the query note states the real distance to the marine point', async () => {
+  const {evidenceSpots} = await import('../ocean/spots.ts'), {guideFactsFor} = await import('../ocean/spotFactsSourced.ts'), ids = new Set(evidenceSpots.map((s) => s.id));
+  for (const gone of ['w-us-rockaway', 'w-us-matanuck', 'w-us-fox-hill', 'w-carib-wilderness-puerto-rico', 'w-us-fishermans-island-virginia', 'w-us-san-jose-island']) assert.ok(!ids.has(gone), gone);
+  for (const kept of ['w-us-rockaways', 'w-us-matunuck', 'w-us-foxhill-point', 'w-carib-wilderness-aguadilla', 'w-us-fishermans-island', 'w-us-st-joes-island']) assert.ok(ids.has(kept), kept);
+  assert.ok(guideFactsFor('w-us-rockaways')!.sources.some((x) => /surfnerd\.com\/surf-forecast\/rockaway$/.test(x.url)), 'the merged surfnerd page is a source of the kept row'); assert.ok(guideFactsFor('w-us-matunuck')!.sources.some((x) => /surfnerd\.com\/surf-forecast\/matanuck/.test(x.url)));
+  const poc = evidenceSpots.find((s) => s.id === 'w-us-port-o-connor-jetties')!; assert.deepEqual([poc.marineLatitude, poc.marineLongitude], [28.36, -96.27]); assert.match(poc.queryNote ?? '', /~8 km away, an explicit sea point/);
+  const plain = evidenceSpots.find((s) => s.id === 'w-us-pawleys-island')!; if (plain) assert.match(plain.queryNote ?? '', /~9 km seaward/);
+});

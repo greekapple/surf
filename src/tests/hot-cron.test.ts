@@ -31,8 +31,8 @@ test('spotOfKey names the spot of a per-spot Open-Meteo key and nothing else', (
   assert.equal(spotOfKey('marine-spot-2'), 'spot-2'); assert.equal(spotOfKey('weather-x-7'), 'x-7'); assert.equal(spotOfKey('spread-a'), 'a');
   assert.equal(spotOfKey('tides'), null); assert.equal(spotOfKey('ndbc-46012'), null); assert.equal(spotOfKey('nearshore-MOP123'), null);
 });
-// 429 = every app spot (146 + 283 US East): all of them hot is the worst case; the cron counts the newest 180 only, so it costs the same as 180 hot
-// 492 = the catalogue after the rest-of-Hawaii round: the production path (hot/cold) with a realistic hot set (150) and the cap (180).
+// 429 = every app spot (146 + 283 US East): all of them hot is the worst case; the cron counts the newest 150 only, so it costs the same as 150 hot
+// 492 = the catalogue after the rest-of-Hawaii round: the production path (hot/cold) with a realistic hot set (150) and the former cap (180; the cap is 150 since batch 3).
 for (const [n, h] of [[254, 100], [492, 150], [492, 180], [500, 150], [1000, 150], [429, 429]] as const) {
   test(`hot-only cron at ${n} spots, ${h} hot: only hot spots' Open-Meteo targets are fetched, every hot target stays inside its TTL (+20 min), each run under 1,000 subrequests`, async () => {
     const t = rig(n, h), {peak, last, clock} = await t.run();
@@ -61,7 +61,7 @@ test('cron: a fresh deploy (no hot record yet) refreshes everything; hot = reque
   const fresh = await run(); assert.equal(fresh.hot, undefined, 'no hot record yet: every target is refreshed');
   store.set(HOT_STARTED, '1'); const none = await run(); assert.equal(none.hot.spots, 0, 'started but nothing requested in 24 h: nothing hot');
   for (const s of spots.slice(0, 5) as any[]) { store.set(HOT_PREFIX + s.id, '1'); up.set(HOT_PREFIX + s.id, clock - 2 * 3600000); } store.set(HOT_PREFIX + (spots[6] as any).id, '1'); up.set(HOT_PREFIX + (spots[6] as any).id, clock - 30 * 3600000);
-  assert.equal((await run()).hot.spots, 5, 'five hot, the one older than 24 h is cold'); assert.equal(HOT_MAX, 180);
+  assert.equal((await run()).hot.spots, 5, 'five hot, the one older than 24 h is cold'); assert.equal(HOT_MAX, 150);
 });
 
 test('shared targets (tide stations, nearshore points, shore stations, context buoys) follow the spots: refreshed by the cron only while a visitor asked for them; the fixed core stays on', async () => {
