@@ -6891,46 +6891,6 @@
   "notes": "town: Jacksonville Beach (surfnerd); no surf-forecast page matched within 6 km by name"
  },
  {
-  "spotId": "w-us-a-st",
-  "name": "A St.",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/a-st",
-    "site": "surfnerd",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": "East (surfnerd: \"Faces E\")",
-  "facingDeg": 90,
-  "swellWorkable": {
-   "text": "NNE - SE (surfnerd)",
-   "fromDeg": 22.5,
-   "toDeg": 135
-  },
-  "swellExposure": "N - SSE. Faces E (surfnerd)",
-  "idealSwell": "not stated (surfnerd)",
-  "windOffshore": "S - NW. Offshore from WSW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
-  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "beach",
-  "waveDirection": "right, left",
-  "sizeFt": {
-   "min": 2,
-   "max": 12.1
-  },
-  "exposure": "not stated (no surf-forecast page matched)",
-  "hazards": [],
-  "season": "not stated",
-  "minimumPeriodS": null,
-  "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
-  "accessNotes": [],
-  "guideSummary": {
-   "surfnerd": "A Street is a sand-bottomed beach break in Saint Augustine, a short drive south of the pier and past 16th Street. It throws both rights and lefts, and the wave is a rolling, long ride that's easy to enjoy. Quality comes and goes with the sand, but when the banks line up it's a fun, decent setup.",
-   "surfForecast": null
-  },
-  "notes": "town: St. Augustine Beach (surfnerd); no surf-forecast page matched within 6 km by name"
- },
- {
   "spotId": "w-us-a-street",
   "name": "A Street",
   "sources": [
@@ -6975,7 +6935,7 @@
    "surfnerd": "A Street is a sand-bottomed beach break that peels both left and right. It tends to be mushy on the outside before standing up on the inside, so you get a softer wall out the back and cleaner shape closer to shore.",
    "surfForecast": "A Street in North Florida is a fairly exposed beach break that has consistent surf and can work at any time of the year. The best wind direction is from the southwest. Waves just as likely from local windswells as from distant groundswells and the ideal swell direction is from the south southeast. Waves at the beach break both left and right. Best around high tide. Beware of rips, rocks, man-made danger (buoys etc...) and sharks."
   },
-  "notes": "town: St. Augustine Beach (surfnerd); surf-forecast pin 29.82,-81.26 is 2.7 km from the surfnerd pin"
+  "notes": "town: St. Augustine Beach (surfnerd); surf-forecast pin 29.82,-81.26 is 2.7 km from the surfnerd pin; surfnerd also lists this break at https://www.surfnerd.com/surf-forecast/a-st (row w-us-a-st, merged into this one): its page gives the swell window NNE - SE (surfnerd) and ideal swell not stated (surfnerd), which differs from this page's."
  },
  {
   "spotId": "w-us-abalone-st",
@@ -7324,47 +7284,7 @@
    "surfnerd": "Avalon Pier is a consistent break that shapes up over sand and works both lefts and rights. Good sandbars form here regularly, especially on the south side of the pier, and they usually serve up some quality righthanders.",
    "surfForecast": "Avalon Pier in North Carolina is an exposed beach/Jetty break that has consistent surf and can work at any time of the year. Works best in offshore winds from the west. Most of the surf here comes from groundswells and the ideal swell direction is from the northeast. Waves at the beach are mainly rights. It's often crowded here."
   },
-  "notes": "town: Kill Devil Hills (surfnerd); surf-forecast pin 36.05,-75.67 is 0.6 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: not stated)"
- },
- {
-  "spotId": "w-us-avalon-pier-north-carolina",
-  "name": "Avalon Pier",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina",
-    "site": "surfnerd",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": "East-northeast (surfnerd: \"Faces ENE\")",
-  "facingDeg": 67.5,
-  "swellWorkable": {
-   "text": "NNE - SE (surfnerd)",
-   "fromDeg": 22.5,
-   "toDeg": 135
-  },
-  "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
-  "idealSwell": "not stated (surfnerd)",
-  "windOffshore": "SW - W. Offshore from WSW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break on any tide depending on how the sand is sitting, so low, mid, and high all come into play, with a rising tide generally the better call.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "beach, pier",
-  "waveDirection": "right, left",
-  "sizeFt": {
-   "min": 2,
-   "max": 7.9
-  },
-  "exposure": "not stated (no surf-forecast page matched)",
-  "hazards": [],
-  "season": "not stated",
-  "minimumPeriodS": null,
-  "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
-  "accessNotes": [],
-  "guideSummary": {
-   "surfnerd": "Avalon Pier is a sand-bottomed beachbreak on North Carolina's Northern Outer Banks that peels both left and right around the pilings. The south side is usually the pick, though the north side has produced its share of memorable days. It can flip overnight from a closed-out, wishy-washy mushburger to a sand-sucking run of barrels, yet through all of that it stays remarkably consistent, both consistently rideable and consistently packed.",
-   "surfForecast": null
-  },
-  "notes": "town: Kill Devil Hills (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+  "notes": "town: Kill Devil Hills (surfnerd); surf-forecast pin 36.05,-75.67 is 0.6 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: not stated); surfnerd also lists this break at https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina (row w-us-avalon-pier-north-carolina, merged into this one): its page gives the swell window NNE - SE (surfnerd) and ideal swell not stated (surfnerd), which differs from this page's."
  },
  {
   "spotId": "w-us-avon-pier",
@@ -9922,47 +9842,7 @@
    "surfnerd": "Flagler Beach Pier is the one true break in a relaxed beach town south of St. Augustine, past Marineland. It's a sand-bottomed beach and pier setup that peels both right and left, and while it sits sort of off the radar, it genuinely gets good.",
    "surfForecast": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Offshore winds are from the southwest. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the east northeast. When the surf is up, it can get quite busy in the water. Take care of - Rips / undertow - Man-made danger (buoys etc.) - Localism."
   },
-  "notes": "town: Flagler Beach (surfnerd); surf-forecast pin 29.48,-81.13 is 0.5 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: Beach, Pier)"
- },
- {
-  "spotId": "w-us-flagler-pier",
-  "name": "Flagler Pier",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/flagler-pier",
-    "site": "surfnerd",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": "East-northeast (surfnerd: \"Faces ENE\")",
-  "facingDeg": 67.5,
-  "swellWorkable": {
-   "text": "S - N. Best from NE (surfnerd)",
-   "fromDeg": 180,
-   "toDeg": 0
-  },
-  "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
-  "idealSwell": "NE (surfnerd)",
-  "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide the better call, and it tends to be best on the low incoming push.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "not stated",
-  "waveDirection": "left, right",
-  "sizeFt": {
-   "min": 2,
-   "max": 9.8
-  },
-  "exposure": "not stated (no surf-forecast page matched)",
-  "hazards": [],
-  "season": "not stated",
-  "minimumPeriodS": null,
-  "skillLevel": "Beginner (surfnerd)",
-  "accessNotes": [],
-  "guideSummary": {
-   "surfnerd": "Flagler Pier is an above-average pier break over sand that can wedge up and even barrel. On bigger swells it breaks through to high tide, but the rest of the time it behaves more like a shorebreak. Both lefts and rights peel off the sandbars around the pilings.",
-   "surfForecast": null
-  },
-  "notes": "town: Flagler Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+  "notes": "town: Flagler Beach (surfnerd); surf-forecast pin 29.48,-81.13 is 0.5 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: Beach, Pier); surfnerd also lists this break at https://www.surfnerd.com/surf-forecast/flagler-pier (row w-us-flagler-pier, merged into this one): its page gives the swell window S - N. Best from NE (surfnerd) and ideal swell NE (surfnerd), which differs from this page's."
  },
  {
   "spotId": "w-us-fletchers",
@@ -16504,50 +16384,6 @@
   "notes": "town: Wabasso Beach (surfnerd); surf-forecast pin 27.78,-80.4 is 1.8 km from the surfnerd pin"
  },
  {
-  "spotId": "w-us-walton-rocks",
-  "name": "Walton Rocks",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/walton-rocks",
-    "site": "surfnerd",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": "East-northeast (surfnerd: \"Faces ENE\")",
-  "facingDeg": 67.5,
-  "swellWorkable": {
-   "text": "N - SE. Best from NE (surfnerd)",
-   "fromDeg": 0,
-   "toDeg": 135
-  },
-  "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
-  "idealSwell": "NE (surfnerd)",
-  "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-  "tide": "Works at Low, Mid (surfnerd characteristics); \"The break comes alive on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "beach",
-  "waveDirection": "left, right",
-  "sizeFt": {
-   "min": 2,
-   "max": 12.1
-  },
-  "exposure": "not stated (no surf-forecast page matched)",
-  "hazards": [
-   "\"Walton Rocks is a beach break that some locals still call Power Plant, after the large nuclear plant sitting directly behind the pristine foreshore.\" (surfnerd)",
-   "\"One nice quirk: cooling water discharged from the reactor feeds a warm current into the lineup, a welcome bonus for less hardy surfers in winter.\" (surfnerd)",
-   "\"With beginner-friendly waves, Walton Rocks is a solid place to find your feet and log some easy sessions.\" (surfnerd)"
-  ],
-  "season": "not stated",
-  "minimumPeriodS": null,
-  "skillLevel": "Beginner (surfnerd)",
-  "accessNotes": [],
-  "guideSummary": {
-   "surfnerd": "Walton Rocks is a beach break that some locals still call Power Plant, after the large nuclear plant sitting directly behind the pristine foreshore. The waves break over sand, but scattered dead coral and sponge reef formations help shape some sweet peaks along this stretch of coast, throwing up both lefts and rights. One nice quirk: cooling water discharged from the reactor feeds a warm current into the lineup, a welcome bonus for less hardy surfers in winter.",
-   "surfForecast": null
-  },
-  "notes": "town: Hutchinson Island South (surfnerd); no surf-forecast page matched within 6 km by name"
- },
- {
   "spotId": "w-us-walton-rocks-2",
   "name": "Walton Rocks",
   "sources": [
@@ -16597,6 +16433,50 @@
    "surfForecast": "Walton Rocks(Power Plant) in North Florida is an exposed beach and reef break that has very consistent surf, although summer tends to be mostly flat. Offshore winds blow from the southwest. Tends to receive a mix of groundswells and windswells and the best swell direction is from the northeast. Reef breaks provide lefts and rights. Best around low tide. It's sometimes crowded here. Hazards include sharks,nuclear power station nearby."
   },
   "notes": "town: Hutchinson Island South (surfnerd); surf-forecast pin 27.35,-80.24 is 1.3 km from the surfnerd pin"
+ },
+ {
+  "spotId": "w-us-walton-rocks",
+  "name": "Walton Rocks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/walton-rocks",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+  "facingDeg": 67.5,
+  "swellWorkable": {
+   "text": "N - SE. Best from NE (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
+  "idealSwell": "NE (surfnerd)",
+  "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+  "tide": "Works at Low, Mid (surfnerd characteristics); \"The break comes alive on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveDirection": "left, right",
+  "sizeFt": {
+   "min": 2,
+   "max": 12.1
+  },
+  "exposure": "not stated (no surf-forecast page matched)",
+  "hazards": [
+   "\"Walton Rocks is a beach break that some locals still call Power Plant, after the large nuclear plant sitting directly behind the pristine foreshore.\" (surfnerd)",
+   "\"One nice quirk: cooling water discharged from the reactor feeds a warm current into the lineup, a welcome bonus for less hardy surfers in winter.\" (surfnerd)",
+   "\"With beginner-friendly waves, Walton Rocks is a solid place to find your feet and log some easy sessions.\" (surfnerd)"
+  ],
+  "season": "not stated",
+  "minimumPeriodS": null,
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [],
+  "guideSummary": {
+   "surfnerd": "Walton Rocks is a beach break that some locals still call Power Plant, after the large nuclear plant sitting directly behind the pristine foreshore. The waves break over sand, but scattered dead coral and sponge reef formations help shape some sweet peaks along this stretch of coast, throwing up both lefts and rights. One nice quirk: cooling water discharged from the reactor feeds a warm current into the lineup, a welcome bonus for less hardy surfers in winter.",
+   "surfForecast": null
+  },
+  "notes": "town: Hutchinson Island South (surfnerd); no surf-forecast page matched within 6 km by name"
  },
  {
   "spotId": "w-us-waves-and-salvo",
@@ -24068,7 +23948,7 @@
  },
  {
   "spotId": "w-usw-haggertys",
-  "name": "Haggertys",
+  "name": "Haggertys and Malaga Cove",
   "sources": [
    {
     "url": "https://www.surfnerd.com/surf-forecast/haggertys",
@@ -26881,7 +26761,7 @@
  },
  {
   "spotId": "w-usw-point-dume",
-  "name": "Point Dume",
+  "name": "Point Dume / Little Dume",
   "sources": [
    {
     "url": "https://www.surfnerd.com/surf-forecast/point-dume",
@@ -30975,7 +30855,7 @@
  },
  {
   "spotId": "w-usw-trails-2",
-  "name": "Trails",
+  "name": "Trails (San Onofre State Beach)",
   "sources": [
    {
     "url": "https://www.surfnerd.com/surf-forecast/trails-california",

@@ -214,7 +214,6 @@ export const NWS_ZONE: Record<string, string | null> = {
   'w-us-eckner-street': "NCZ203", // resolved 0.8 km inland: the beach point is in marine zone AMZ150
   'w-us-laundromats': "NCZ203", // resolved 0.8 km inland: the beach point is in marine zone AMZ150
   'w-us-avalon-pier': "NCZ203", // resolved 0.8 km inland: the beach point is in marine zone AMZ150
-  'w-us-avalon-pier-north-carolina': "NCZ203", // resolved 0.8 km inland: the beach point is in marine zone AMZ150
   'w-us-third-street': "NCZ203",
   'w-us-1st-street': "NCZ203", // resolved 0.8 km inland: the beach point is in marine zone AMZ150
   'w-us-bath-house': "NCZ203", // resolved 0.8 km inland: the beach point is in marine zone AMZ150
@@ -310,12 +309,10 @@ export const NWS_ZONE: Record<string, string | null> = {
   'w-us-blowhole': "FLZ333", // resolved 0.8 km inland: the beach point is in marine zone AMZ454
   'w-us-f-as': "FLZ333",
   'w-us-st-augustine-pier': "FLZ333", // resolved 0.8 km inland: the beach point is in marine zone AMZ454
-  'w-us-a-st': "FLZ333", // resolved 0.8 km inland: the beach point is in marine zone AMZ454
   'w-us-a-street': "FLZ333", // resolved 0.8 km inland: the beach point is in marine zone AMZ454
   'w-us-crescent-beach': "FLZ333", // resolved 2 km inland: the beach point is in marine zone AMZ454
   'w-us-matanzas-inlet': "FLZ333", // resolved 2 km inland: the beach point is in marine zone AMZ454
   'w-us-flagler-beach-pier': "FLZ138", // resolved 0.8 km inland: the beach point is in marine zone AMZ454
-  'w-us-flagler-pier': "FLZ138", // resolved 0.8 km inland: the beach point is in marine zone AMZ454
   'w-us-bicentennial-park': "FLZ141", // resolved 0.8 km inland: the beach point is in marine zone AMZ550
   'w-us-ormond-beach-pier': "FLZ141", // resolved 0.8 km inland: the beach point is in marine zone AMZ550
   'w-us-main-street-pier': "FLZ141", // resolved 0.8 km inland: the beach point is in marine zone AMZ550

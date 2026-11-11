@@ -1,7 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import {flushSync} from 'react-dom';
 import {allSpots as spots} from '../data/catalog.ts';
-import {buildSlugIndex, resolveSlug, toSlug, type SlugMatch} from './slugs.ts';
 
 export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'personal';
 /** `hidden` sections are real routes reached from inside a page (e.g. the 3D viewer from a spot's forecast), not menu entries. */
@@ -62,11 +61,8 @@ export function parseRoute(pathname: string): Route {
 
 export const pathFor = (area: Area, section = '') => `/${area}${section ? `/${section}` : ''}`;
 
-// Audit B3: one unique slug per spot (slugs.ts); an old shared-name slug is an alias only where it is unambiguous.
-const slugIndex = buildSlugIndex(spots);
-export const slugFor = (spotId: string) => slugIndex.slugOf.get(spotId) ?? toSlug(spotId);
-export const matchSpotSlug = (slug: string, available?: (id: string) => boolean): SlugMatch => resolveSlug(slugIndex, slug, available);
-export const spotIdForSlug = (slug: string | null, available?: (id: string) => boolean) => { if (!slug) return null; const m = matchSpotSlug(slug, available); return m.kind === 'spot' ? m.id : null; };
+// Audit B3 + dedupe-pairs: ONE slug system (app/slugs.ts index, merged-spot aliases applied first), implemented in services/spotSlug.ts.
+export {slugFor, spotIdForSlug, matchSpotSlug, toSlug} from '../services/spotSlug.ts';
 
 /** History API routing (the Worker and Vite both serve index.html for extension-less paths). */
 export function useRoute() {

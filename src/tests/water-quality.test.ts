@@ -12,7 +12,7 @@ test('the committed station file equals the generator output (rules and OVERRIDE
   assert.equal(execFileSync('node', ['scripts/build-water-quality.mjs'], {cwd: root, stdio: ['ignore', 'pipe', 'ignore']}).toString(), fs.readFileSync(root + 'src/data/waterQualitySourced.ts', 'utf8'));
 });
 test('STATION_REVIEW: every pick within 3 km has a decision and a reason; rejected ones are never used', () => {
-  assert.equal(STATION_REVIEW.length, 411);
+  assert.equal(STATION_REVIEW.length, 408);
   for (const r of STATION_REVIEW) { assert.ok(r.reason.length > 15, r.spotId); assert.ok(r.km <= 3, r.spotId); assert.ok(['reviewed', 'rejected'].includes(r.decision)); }
   const ids = new Set(evidenceSpots.map((s) => s.id)); for (const r of STATION_REVIEW) assert.ok(ids.has(r.spotId), `known spot ${r.spotId}`);
 });

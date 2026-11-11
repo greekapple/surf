@@ -4,6 +4,7 @@ import {allSpots as spots} from '../data/catalog.ts';
 import {boardTypes,type UserProfile,type Surfboard,type SurfSession} from '../models/index.ts';
 import {validDimensions} from './units.ts';
 import {migrateDemoBoards} from '../data/referenceBoards.ts';
+import {canonicalSpotId,canonicalIds} from '../data/spotAliases.ts';
 export interface AppState {version:1;profile:UserProfile;boards:Surfboard[];favorites:string[];sessions:SurfSession[]}
 export const freshState=():AppState=>({version:1,profile:{...defaultProfile,preferredBoards:[]},boards:structuredClone(demoBoards),favorites:[],sessions:[]});
 export const storageKey='surf-prototype-v1';
@@ -28,9 +29,9 @@ export function validateState(raw:unknown):AppState{
  if([b.photoDataURL,b.backPhotoDataURL].some(v=>v!==undefined&&!validBoardPhoto(v)))return fail('Invalid board photo; only bounded local JPEG, PNG and WebP images are supported.');
  if(b.demo!==undefined&&typeof b.demo!=='boolean')return fail('Invalid demo marker.');
  }
- if(!raw.favorites.every(v=>typeof v==='string'&&spots.some(s=>s.id===v)))return fail('Unknown favorite spot.');
+ if(!raw.favorites.every(v=>typeof v==='string'&&spots.some(s=>s.id===canonicalSpotId(v))))return fail('Unknown favorite spot.');   // a spot merged into another (spotAliases.ts) is still a valid saved favourite
  for(const s of raw.sessions){if(!object(s)||!['id','spotId','timestamp','boardId','actualConditions','notes'].every(k=>text(s[k]))||!['accuracy','performance','satisfaction'].every(k=>number(s[k],0,10)))return fail('Invalid session log.');}
- return {version:1,profile:p,boards:migrateDemoBoards(raw.boards as Surfboard[]),favorites:[...new Set(raw.favorites as string[])],sessions:raw.sessions as SurfSession[]};
+ return {version:1,profile:p,boards:migrateDemoBoards(raw.boards as Surfboard[]),favorites:canonicalIds(raw.favorites as string[]),sessions:(raw.sessions as SurfSession[]).map(x=>({...x,spotId:canonicalSpotId(x.spotId)}))};
 }
 export function parseBackup(value:string){if(value.length>5_000_000)throw new Error('Backup must be smaller than 5 MB.');return validateState(JSON.parse(value))}
 export function loadState(storage:Pick<Storage,'getItem'>):{state:AppState;error:string}{try{const raw=storage.getItem(storageKey);return {state:raw?parseBackup(raw):freshState(),error:''}}catch{return {state:freshState(),error:'Saved data could not be loaded. It has not been overwritten. Export recovery data or explicitly import or reset to continue saving.'}}}

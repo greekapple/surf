@@ -5095,115 +5095,6 @@
    "appCandidateBasis": "facing from a guide (surfnerd \"Faces\"); nearest CO-OPS tide station 4.7 km (<=30); nearest wave-reporting NDBC/CDIP buoy 87.9 km (<=100)"
   },
   {
-   "id": "w-us-a-st",
-   "name": "A St.",
-   "country": "United States",
-   "region": "Florida",
-   "timeZone": "America/New_York",
-   "type": "Beach",
-   "lat": 29.845,
-   "lon": -81.261,
-   "seaward": 90.0,
-   "positionSource": {
-    "text": "surfnerd guide map pin (29.84476,-81.26136), rounded to 3 dp; not a surveyed takeoff",
-    "url": "https://www.surfnerd.com/surf-forecast/a-st.md"
-   },
-   "facingSource": {
-    "text": "\"Faces E\" (surfnerd swell exposure: N - SSE. Faces E)",
-    "url": "https://www.surfnerd.com/surf-forecast/a-st.md"
-   },
-   "facts": {
-    "spotId": "w-us-a-st",
-    "name": "A St.",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/a-st",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "East (surfnerd: \"Faces E\")",
-    "facingDeg": 90.0,
-    "swellWorkable": {
-     "text": "NNE - SE (surfnerd)",
-     "fromDeg": 22.5,
-     "toDeg": 135.0
-    },
-    "swellExposure": "N - SSE. Faces E (surfnerd)",
-    "idealSwell": "not stated (surfnerd)",
-    "windOffshore": "S - NW. Offshore from WSW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
-    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
-    "bottom": "Sand (surfnerd)",
-    "waveType": "beach",
-    "waveDirection": "right, left",
-    "sizeFt": {
-     "min": 2.0,
-     "max": 12.1
-    },
-    "exposure": "not stated (no surf-forecast page matched)",
-    "hazards": [],
-    "season": "not stated",
-    "minimumPeriodS": null,
-    "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
-    "accessNotes": [],
-    "guideSummary": {
-     "surfnerd": "A Street is a sand-bottomed beach break in Saint Augustine, a short drive south of the pier and past 16th Street. It throws both rights and lefts, and the wave is a rolling, long ride that's easy to enjoy. Quality comes and goes with the sand, but when the banks line up it's a fun, decent setup.",
-     "surfForecast": null
-    },
-    "notes": "town: St. Augustine Beach (surfnerd); no surf-forecast page matched within 6 km by name"
-   },
-   "nearestSources": [
-    {
-     "kind": "wave buoy",
-     "id": "NDBC 41117",
-     "name": "St. Augustine, FL (194)",
-     "owner": "U.S. Army Corps of Engineers",
-     "distanceKm": 24.6,
-     "live": true,
-     "liveNote": "WVHT 1.2 m at 2026-11-09 07:56 UTC in NDBC latest_obs",
-     "lat": 29.999,
-     "lon": -81.079,
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=41117"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "CO-OPS 8720357",
-     "name": "I-295 Buckman Bridge",
-     "owner": "NOAA CO-OPS",
-     "distanceKm": 56.5,
-     "live": true,
-     "liveNote": "latest water level 2026-11-09 08:48 UTC (CO-OPS datagetter)",
-     "lat": 30.192,
-     "lon": -81.689,
-     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=8720357"
-    },
-    {
-     "kind": "tide prediction",
-     "id": "CO-OPS 8720587",
-     "name": "St. Augustine Beach",
-     "owner": "NOAA CO-OPS (harmonic prediction station)",
-     "distanceKm": 1.3,
-     "live": null,
-     "liveNote": "predictions only, no live gauge",
-     "lat": 29.857,
-     "lon": -81.263,
-     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587"
-    },
-    {
-     "kind": "METAR airport",
-     "id": "METAR SGJ",
-     "name": "ST AUGUSTINE AIRPT",
-     "owner": "IEM FL_ASOS network",
-     "distanceKm": 14.8,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": 29.959,
-     "lon": -81.34,
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SGJ&network=FL_ASOS"
-    }
-   ]
-  },
-  {
    "id": "w-us-a-street",
    "name": "A Street",
    "country": "United States",
@@ -7064,133 +6955,6 @@
      "name": "KILL_DEVIL_HILLS",
      "owner": "IEM NC_ASOS network",
      "distanceKm": 2.8,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": 36.02,
-     "lon": -75.67,
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FFA&network=NC_ASOS"
-    }
-   ]
-  },
-  {
-   "id": "w-us-avalon-pier-north-carolina",
-   "name": "Avalon Pier",
-   "country": "United States",
-   "region": "North Carolina",
-   "timeZone": "America/New_York",
-   "type": null,
-   "lat": 36.044,
-   "lon": -75.673,
-   "seaward": 67.5,
-   "positionSource": {
-    "text": "surfnerd guide map pin (36.044,-75.67288), rounded to 3 dp; not a surveyed takeoff",
-    "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina.md"
-   },
-   "facingSource": {
-    "text": "\"Faces ENE\" (surfnerd swell exposure: NNW - SSE. Faces ENE)",
-    "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina.md"
-   },
-   "facts": {
-    "spotId": "w-us-avalon-pier-north-carolina",
-    "name": "Avalon Pier",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     },
-     {
-      "url": "https://www.surf-forecast.com/breaks/Avalon-Pier",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
-    "facingDeg": 67.5,
-    "swellWorkable": {
-     "text": "NNE - SE (surfnerd)",
-     "fromDeg": 22.5,
-     "toDeg": 135.0
-    },
-    "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
-    "idealSwell": "not stated (surfnerd)",
-    "windOffshore": "SW - W. Offshore from WSW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break on any tide depending on how the sand is sitting, so low, mid, and high all come into play, with a rising tide generally the better call.\" (surfnerd guide)",
-    "bottom": "Sand (surfnerd)",
-    "waveType": "beach, pier",
-    "waveDirection": "right, left",
-    "sizeFt": {
-     "min": 2.0,
-     "max": 7.9
-    },
-    "exposure": "not stated (no surf-forecast page matched)",
-    "hazards": [],
-    "season": "not stated",
-    "minimumPeriodS": null,
-    "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
-    "accessNotes": [],
-    "guideSummary": {
-     "surfnerd": "Avalon Pier is a sand-bottomed beachbreak on North Carolina's Northern Outer Banks that peels both left and right around the pilings. The south side is usually the pick, though the north side has produced its share of memorable days. It can flip overnight from a closed-out, wishy-washy mushburger to a sand-sucking run of barrels, yet through all of that it stays remarkably consistent, both consistently rideable and consistently packed.",
-     "surfForecast": null
-    },
-    "notes": "town: Kill Devil Hills (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
-    "breakTypeText": "Avalon Pier in North Carolina is an exposed beach/Jetty break that has consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 0.33 km from row pin); Type: Beach, Pier (surfnerd)"
-   },
-   "nearestSources": [
-    {
-     "kind": "wave buoy",
-     "id": "NDBC frfn7",
-     "name": "USACE-CHL Field Research Facility, Duck, NC",
-     "owner": "U.S. Army Corps of Engineers",
-     "distanceKm": 17.3,
-     "live": false,
-     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
-     "lat": 36.19,
-     "lon": -75.739,
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=frfn7"
-    },
-    {
-     "kind": "wave buoy",
-     "id": "NDBC 44056",
-     "name": "Duck FRF, NC",
-     "owner": "U.S. Army Corps of Engineers",
-     "distanceKm": 17.7,
-     "live": true,
-     "liveNote": "WVHT 0.8 m at 2026-11-09 08:00 UTC in NDBC latest_obs",
-     "lat": 36.2,
-     "lon": -75.714,
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=44056"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "CO-OPS 8651370",
-     "name": "Duck",
-     "owner": "NOAA CO-OPS",
-     "distanceKm": 16.8,
-     "live": true,
-     "liveNote": "latest water level 2026-11-09 08:48 UTC (CO-OPS datagetter)",
-     "lat": 36.183,
-     "lon": -75.747,
-     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=8651370"
-    },
-    {
-     "kind": "tide prediction",
-     "id": "CO-OPS 8651605",
-     "name": "Kitty Hawk (ocean)",
-     "owner": "NOAA CO-OPS (subordinate prediction station)",
-     "distanceKm": 7.2,
-     "live": null,
-     "liveNote": "predictions only, no live gauge",
-     "lat": 36.102,
-     "lon": -75.71,
-     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8651605"
-    },
-    {
-     "kind": "METAR airport",
-     "id": "METAR FFA",
-     "name": "KILL_DEVIL_HILLS",
-     "owner": "IEM NC_ASOS network",
-     "distanceKm": 2.7,
      "live": true,
      "liveNote": "IEM lists online",
      "lat": 36.02,
@@ -20543,154 +20307,6 @@
      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FIN&network=FL_ASOS"
     }
    ]
-  },
-  {
-   "id": "w-us-flagler-pier",
-   "name": "Flagler Pier",
-   "country": "United States",
-   "region": "Florida",
-   "timeZone": "America/New_York",
-   "type": "Beach",
-   "lat": 29.48,
-   "lon": -81.124,
-   "seaward": 67.5,
-   "positionSource": {
-    "text": "surfnerd guide map pin (29.48007,-81.12378), rounded to 3 dp; not a surveyed takeoff",
-    "url": "https://www.surfnerd.com/surf-forecast/flagler-pier.md"
-   },
-   "facingSource": {
-    "text": "\"Faces ENE\" (surfnerd swell exposure: NNW - SSE. Faces ENE)",
-    "url": "https://www.surfnerd.com/surf-forecast/flagler-pier.md"
-   },
-   "facts": {
-    "spotId": "w-us-flagler-pier",
-    "name": "Flagler Pier",
-    "sources": [
-     {
-      "url": "https://www.surfnerd.com/surf-forecast/flagler-pier",
-      "site": "surfnerd",
-      "retrievedOn": "2026-11-09"
-     },
-     {
-      "url": "https://www.surf-forecast.com/breaks/Flagler",
-      "site": "surf-forecast",
-      "retrievedOn": "2026-11-09"
-     },
-     {
-      "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/flagler/",
-      "site": "wannasurf",
-      "retrievedOn": "2026-11-09"
-     }
-    ],
-    "facing": "East-northeast (surfnerd: \"Faces ENE\")",
-    "facingDeg": 67.5,
-    "swellWorkable": {
-     "text": "S - N. Best from NE (surfnerd)",
-     "fromDeg": 180.0,
-     "toDeg": 0.0
-    },
-    "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
-    "idealSwell": "NE (surfnerd)",
-    "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-    "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide the better call, and it tends to be best on the low incoming push.\" (surfnerd guide)",
-    "bottom": "Sand (surfnerd)",
-    "waveType": "not stated",
-    "waveDirection": "left, right",
-    "sizeFt": {
-     "min": 2.0,
-     "max": 9.8
-    },
-    "exposure": "not stated (no surf-forecast page matched)",
-    "hazards": [],
-    "season": "not stated",
-    "minimumPeriodS": null,
-    "skillLevel": "Beginner (surfnerd)",
-    "accessNotes": [],
-    "guideSummary": {
-     "surfnerd": "Flagler Pier is an above-average pier break over sand that can wedge up and even barrel. On bigger swells it breaks through to high tide, but the rest of the time it behaves more like a shorebreak. Both lefts and rights peel off the sandbars around the pilings.",
-     "surfForecast": null
-    },
-    "notes": "town: Flagler Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
-    "breakTypeText": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.08 km from row pin)"
-   },
-   "nearestSources": [
-    {
-     "kind": "wave buoy",
-     "id": "NDBC 41069",
-     "name": "Ponce de Leon Inlet, FL (PNC)",
-     "owner": "CORMP",
-     "distanceKm": 37.6,
-     "live": false,
-     "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
-     "lat": 29.289,
-     "lon": -80.803,
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=41069"
-    },
-    {
-     "kind": "wave buoy",
-     "id": "NDBC 41070",
-     "name": "Ponce de Leon Inlet Waves (PNCWAVE)",
-     "owner": "CORMP",
-     "distanceKm": 37.6,
-     "live": true,
-     "liveNote": "WVHT 1.2 m at 2026-11-09 07:25 UTC in NDBC latest_obs",
-     "lat": 29.289,
-     "lon": -80.803,
-     "url": "https://www.ndbc.noaa.gov/station_page.php?station=41070"
-    },
-    {
-     "kind": "tide gauge",
-     "id": "CO-OPS 8720357",
-     "name": "I-295 Buckman Bridge",
-     "owner": "NOAA CO-OPS",
-     "distanceKm": 96.2,
-     "live": true,
-     "liveNote": "latest water level 2026-11-09 08:48 UTC (CO-OPS datagetter)",
-     "lat": 30.192,
-     "lon": -81.689,
-     "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=8720357"
-    },
-    {
-     "kind": "tide prediction",
-     "id": "CO-OPS 8720833",
-     "name": "Smith Creek, Flagler Beach",
-     "owner": "NOAA CO-OPS (subordinate prediction station)",
-     "distanceKm": 1.3,
-     "live": null,
-     "liveNote": "predictions only, no live gauge",
-     "lat": 29.478,
-     "lon": -81.137,
-     "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720833"
-    },
-    {
-     "kind": "METAR airport",
-     "id": "METAR XFL",
-     "name": "Palm Coast",
-     "owner": "IEM FL_ASOS network",
-     "distanceKm": 8.1,
-     "live": false,
-     "liveNote": "IEM lists offline",
-     "lat": 29.467,
-     "lon": -81.206,
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=XFL&network=FL_ASOS"
-    },
-    {
-     "kind": "METAR airport",
-     "id": "METAR FIN",
-     "name": "Bunnell",
-     "owner": "IEM FL_ASOS network",
-     "distanceKm": 8.4,
-     "live": true,
-     "liveNote": "IEM lists online",
-     "lat": 29.466,
-     "lon": -81.209,
-     "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FIN&network=FL_ASOS"
-    }
-   ],
-   "typeSource": {
-    "text": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.08 km from row pin)",
-    "url": "https://www.surf-forecast.com/breaks/Flagler"
-   }
   },
   {
    "id": "w-us-flagpole",
@@ -75771,6 +75387,411 @@
     "on": "2026-11-10",
     "method": "guide page found by name (Surfnerd sitemap / Surf-Forecast.com sitemap) or named in the drop reason; facing from the Surfnerd \"Faces\" line, else computed from the OSM coastline (RECOVERY-2026-11-10.md)",
     "result": "still dropped: no OSM coastline within 1.5 km of the pin"
+   }
+  },
+  {
+   "id": "w-us-avalon-pier-north-carolina",
+   "name": "Avalon Pier",
+   "reason": "merged into w-us-avalon-pier (dedupe-pairs, 2026-11-11): the same break listed twice by surfnerd",
+   "dropReason": "merged into w-us-avalon-pier (dedupe-pairs, 2026-11-11): the same break listed twice by surfnerd",
+   "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina",
+   "row": {
+    "id": "w-us-avalon-pier-north-carolina",
+    "name": "Avalon Pier",
+    "country": "United States",
+    "region": "North Carolina",
+    "timeZone": "America/New_York",
+    "type": null,
+    "lat": 36.044,
+    "lon": -75.673,
+    "seaward": 67.5,
+    "positionSource": {
+     "text": "surfnerd guide map pin (36.044,-75.67288), rounded to 3 dp; not a surveyed takeoff",
+     "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina.md"
+    },
+    "facingSource": {
+     "text": "\"Faces ENE\" (surfnerd swell exposure: NNW - SSE. Faces ENE)",
+     "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina.md"
+    },
+    "facts": {
+     "spotId": "w-us-avalon-pier-north-carolina",
+     "name": "Avalon Pier",
+     "sources": [
+      {
+       "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina",
+       "site": "surfnerd",
+       "retrievedOn": "2026-11-09"
+      },
+      {
+       "url": "https://www.surf-forecast.com/breaks/Avalon-Pier",
+       "site": "surf-forecast",
+       "retrievedOn": "2026-11-09"
+      }
+     ],
+     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+     "facingDeg": 67.5,
+     "swellWorkable": {
+      "text": "NNE - SE (surfnerd)",
+      "fromDeg": 22.5,
+      "toDeg": 135.0
+     },
+     "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
+     "idealSwell": "not stated (surfnerd)",
+     "windOffshore": "SW - W. Offshore from WSW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+     "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break on any tide depending on how the sand is sitting, so low, mid, and high all come into play, with a rising tide generally the better call.\" (surfnerd guide)",
+     "bottom": "Sand (surfnerd)",
+     "waveType": "beach, pier",
+     "waveDirection": "right, left",
+     "sizeFt": {
+      "min": 2.0,
+      "max": 7.9
+     },
+     "exposure": "not stated (no surf-forecast page matched)",
+     "hazards": [],
+     "season": "not stated",
+     "minimumPeriodS": null,
+     "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
+     "accessNotes": [],
+     "guideSummary": {
+      "surfnerd": "Avalon Pier is a sand-bottomed beachbreak on North Carolina's Northern Outer Banks that peels both left and right around the pilings. The south side is usually the pick, though the north side has produced its share of memorable days. It can flip overnight from a closed-out, wishy-washy mushburger to a sand-sucking run of barrels, yet through all of that it stays remarkably consistent, both consistently rideable and consistently packed.",
+      "surfForecast": null
+     },
+     "notes": "town: Kill Devil Hills (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef",
+     "breakTypeText": "Avalon Pier in North Carolina is an exposed beach/Jetty break that has consistent surf and can work at any time of the year. Type: Beach/jetty (surf-forecast, pin 0.33 km from row pin); Type: Beach, Pier (surfnerd)"
+    },
+    "nearestSources": [
+     {
+      "kind": "wave buoy",
+      "id": "NDBC frfn7",
+      "name": "USACE-CHL Field Research Facility, Duck, NC",
+      "owner": "U.S. Army Corps of Engineers",
+      "distanceKm": 17.3,
+      "live": false,
+      "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+      "lat": 36.19,
+      "lon": -75.739,
+      "url": "https://www.ndbc.noaa.gov/station_page.php?station=frfn7"
+     },
+     {
+      "kind": "wave buoy",
+      "id": "NDBC 44056",
+      "name": "Duck FRF, NC",
+      "owner": "U.S. Army Corps of Engineers",
+      "distanceKm": 17.7,
+      "live": true,
+      "liveNote": "WVHT 0.8 m at 2026-11-09 08:00 UTC in NDBC latest_obs",
+      "lat": 36.2,
+      "lon": -75.714,
+      "url": "https://www.ndbc.noaa.gov/station_page.php?station=44056"
+     },
+     {
+      "kind": "tide gauge",
+      "id": "CO-OPS 8651370",
+      "name": "Duck",
+      "owner": "NOAA CO-OPS",
+      "distanceKm": 16.8,
+      "live": true,
+      "liveNote": "latest water level 2026-11-09 08:48 UTC (CO-OPS datagetter)",
+      "lat": 36.183,
+      "lon": -75.747,
+      "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=8651370"
+     },
+     {
+      "kind": "tide prediction",
+      "id": "CO-OPS 8651605",
+      "name": "Kitty Hawk (ocean)",
+      "owner": "NOAA CO-OPS (subordinate prediction station)",
+      "distanceKm": 7.2,
+      "live": null,
+      "liveNote": "predictions only, no live gauge",
+      "lat": 36.102,
+      "lon": -75.71,
+      "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8651605"
+     },
+     {
+      "kind": "METAR airport",
+      "id": "METAR FFA",
+      "name": "KILL_DEVIL_HILLS",
+      "owner": "IEM NC_ASOS network",
+      "distanceKm": 2.7,
+      "live": true,
+      "liveNote": "IEM lists online",
+      "lat": 36.02,
+      "lon": -75.67,
+      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FFA&network=NC_ASOS"
+     }
+    ]
+   }
+  },
+  {
+   "id": "w-us-flagler-pier",
+   "name": "Flagler Pier",
+   "reason": "merged into w-us-flagler-beach-pier (dedupe-pairs, 2026-11-11): the same break listed twice by surfnerd",
+   "dropReason": "merged into w-us-flagler-beach-pier (dedupe-pairs, 2026-11-11): the same break listed twice by surfnerd",
+   "url": "https://www.surfnerd.com/surf-forecast/flagler-pier",
+   "row": {
+    "id": "w-us-flagler-pier",
+    "name": "Flagler Pier",
+    "country": "United States",
+    "region": "Florida",
+    "timeZone": "America/New_York",
+    "type": "Beach",
+    "lat": 29.48,
+    "lon": -81.124,
+    "seaward": 67.5,
+    "positionSource": {
+     "text": "surfnerd guide map pin (29.48007,-81.12378), rounded to 3 dp; not a surveyed takeoff",
+     "url": "https://www.surfnerd.com/surf-forecast/flagler-pier.md"
+    },
+    "facingSource": {
+     "text": "\"Faces ENE\" (surfnerd swell exposure: NNW - SSE. Faces ENE)",
+     "url": "https://www.surfnerd.com/surf-forecast/flagler-pier.md"
+    },
+    "facts": {
+     "spotId": "w-us-flagler-pier",
+     "name": "Flagler Pier",
+     "sources": [
+      {
+       "url": "https://www.surfnerd.com/surf-forecast/flagler-pier",
+       "site": "surfnerd",
+       "retrievedOn": "2026-11-09"
+      },
+      {
+       "url": "https://www.surf-forecast.com/breaks/Flagler",
+       "site": "surf-forecast",
+       "retrievedOn": "2026-11-09"
+      },
+      {
+       "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/flagler/",
+       "site": "wannasurf",
+       "retrievedOn": "2026-11-09"
+      }
+     ],
+     "facing": "East-northeast (surfnerd: \"Faces ENE\")",
+     "facingDeg": 67.5,
+     "swellWorkable": {
+      "text": "S - N. Best from NE (surfnerd)",
+      "fromDeg": 180.0,
+      "toDeg": 0.0
+     },
+     "swellExposure": "NNW - SSE. Faces ENE (surfnerd)",
+     "idealSwell": "NE (surfnerd)",
+     "windOffshore": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+     "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide the better call, and it tends to be best on the low incoming push.\" (surfnerd guide)",
+     "bottom": "Sand (surfnerd)",
+     "waveType": "not stated",
+     "waveDirection": "left, right",
+     "sizeFt": {
+      "min": 2.0,
+      "max": 9.8
+     },
+     "exposure": "not stated (no surf-forecast page matched)",
+     "hazards": [],
+     "season": "not stated",
+     "minimumPeriodS": null,
+     "skillLevel": "Beginner (surfnerd)",
+     "accessNotes": [],
+     "guideSummary": {
+      "surfnerd": "Flagler Pier is an above-average pier break over sand that can wedge up and even barrel. On bigger swells it breaks through to high tide, but the rest of the time it behaves more like a shorebreak. Both lefts and rights peel off the sandbars around the pilings.",
+      "surfForecast": null
+     },
+     "notes": "town: Flagler Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: Beach per second guide (cleanup r2 2026-11-09)",
+     "breakTypeText": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.08 km from row pin)"
+    },
+    "nearestSources": [
+     {
+      "kind": "wave buoy",
+      "id": "NDBC 41069",
+      "name": "Ponce de Leon Inlet, FL (PNC)",
+      "owner": "CORMP",
+      "distanceKm": 37.6,
+      "live": false,
+      "liveNote": "no wave height in NDBC latest_obs on 2026-11-09",
+      "lat": 29.289,
+      "lon": -80.803,
+      "url": "https://www.ndbc.noaa.gov/station_page.php?station=41069"
+     },
+     {
+      "kind": "wave buoy",
+      "id": "NDBC 41070",
+      "name": "Ponce de Leon Inlet Waves (PNCWAVE)",
+      "owner": "CORMP",
+      "distanceKm": 37.6,
+      "live": true,
+      "liveNote": "WVHT 1.2 m at 2026-11-09 07:25 UTC in NDBC latest_obs",
+      "lat": 29.289,
+      "lon": -80.803,
+      "url": "https://www.ndbc.noaa.gov/station_page.php?station=41070"
+     },
+     {
+      "kind": "tide gauge",
+      "id": "CO-OPS 8720357",
+      "name": "I-295 Buckman Bridge",
+      "owner": "NOAA CO-OPS",
+      "distanceKm": 96.2,
+      "live": true,
+      "liveNote": "latest water level 2026-11-09 08:48 UTC (CO-OPS datagetter)",
+      "lat": 30.192,
+      "lon": -81.689,
+      "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=8720357"
+     },
+     {
+      "kind": "tide prediction",
+      "id": "CO-OPS 8720833",
+      "name": "Smith Creek, Flagler Beach",
+      "owner": "NOAA CO-OPS (subordinate prediction station)",
+      "distanceKm": 1.3,
+      "live": null,
+      "liveNote": "predictions only, no live gauge",
+      "lat": 29.478,
+      "lon": -81.137,
+      "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720833"
+     },
+     {
+      "kind": "METAR airport",
+      "id": "METAR XFL",
+      "name": "Palm Coast",
+      "owner": "IEM FL_ASOS network",
+      "distanceKm": 8.1,
+      "live": false,
+      "liveNote": "IEM lists offline",
+      "lat": 29.467,
+      "lon": -81.206,
+      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=XFL&network=FL_ASOS"
+     },
+     {
+      "kind": "METAR airport",
+      "id": "METAR FIN",
+      "name": "Bunnell",
+      "owner": "IEM FL_ASOS network",
+      "distanceKm": 8.4,
+      "live": true,
+      "liveNote": "IEM lists online",
+      "lat": 29.466,
+      "lon": -81.209,
+      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=FIN&network=FL_ASOS"
+     }
+    ],
+    "typeSource": {
+     "text": "Flagler in North Florida is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Type: Beach (surf-forecast, pin 0.15 km from row pin); Type: Beach-break (wannasurf, GPS 0.08 km from row pin)",
+     "url": "https://www.surf-forecast.com/breaks/Flagler"
+    }
+   }
+  },
+  {
+   "id": "w-us-a-st",
+   "name": "A St.",
+   "reason": "merged into w-us-a-street (dedupe-pairs, 2026-11-11): the same break listed twice by surfnerd",
+   "dropReason": "merged into w-us-a-street (dedupe-pairs, 2026-11-11): the same break listed twice by surfnerd",
+   "url": "https://www.surfnerd.com/surf-forecast/a-st",
+   "row": {
+    "id": "w-us-a-st",
+    "name": "A St.",
+    "country": "United States",
+    "region": "Florida",
+    "timeZone": "America/New_York",
+    "type": "Beach",
+    "lat": 29.845,
+    "lon": -81.261,
+    "seaward": 90.0,
+    "positionSource": {
+     "text": "surfnerd guide map pin (29.84476,-81.26136), rounded to 3 dp; not a surveyed takeoff",
+     "url": "https://www.surfnerd.com/surf-forecast/a-st.md"
+    },
+    "facingSource": {
+     "text": "\"Faces E\" (surfnerd swell exposure: N - SSE. Faces E)",
+     "url": "https://www.surfnerd.com/surf-forecast/a-st.md"
+    },
+    "facts": {
+     "spotId": "w-us-a-st",
+     "name": "A St.",
+     "sources": [
+      {
+       "url": "https://www.surfnerd.com/surf-forecast/a-st",
+       "site": "surfnerd",
+       "retrievedOn": "2026-11-09"
+      }
+     ],
+     "facing": "East (surfnerd: \"Faces E\")",
+     "facingDeg": 90.0,
+     "swellWorkable": {
+      "text": "NNE - SE (surfnerd)",
+      "fromDeg": 22.5,
+      "toDeg": 135.0
+     },
+     "swellExposure": "N - SSE. Faces E (surfnerd)",
+     "idealSwell": "not stated (surfnerd)",
+     "windOffshore": "S - NW. Offshore from WSW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
+     "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+     "bottom": "Sand (surfnerd)",
+     "waveType": "beach",
+     "waveDirection": "right, left",
+     "sizeFt": {
+      "min": 2.0,
+      "max": 12.1
+     },
+     "exposure": "not stated (no surf-forecast page matched)",
+     "hazards": [],
+     "season": "not stated",
+     "minimumPeriodS": null,
+     "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
+     "accessNotes": [],
+     "guideSummary": {
+      "surfnerd": "A Street is a sand-bottomed beach break in Saint Augustine, a short drive south of the pier and past 16th Street. It throws both rights and lefts, and the wave is a rolling, long ride that's easy to enjoy. Quality comes and goes with the sand, but when the banks line up it's a fun, decent setup.",
+      "surfForecast": null
+     },
+     "notes": "town: St. Augustine Beach (surfnerd); no surf-forecast page matched within 6 km by name"
+    },
+    "nearestSources": [
+     {
+      "kind": "wave buoy",
+      "id": "NDBC 41117",
+      "name": "St. Augustine, FL (194)",
+      "owner": "U.S. Army Corps of Engineers",
+      "distanceKm": 24.6,
+      "live": true,
+      "liveNote": "WVHT 1.2 m at 2026-11-09 07:56 UTC in NDBC latest_obs",
+      "lat": 29.999,
+      "lon": -81.079,
+      "url": "https://www.ndbc.noaa.gov/station_page.php?station=41117"
+     },
+     {
+      "kind": "tide gauge",
+      "id": "CO-OPS 8720357",
+      "name": "I-295 Buckman Bridge",
+      "owner": "NOAA CO-OPS",
+      "distanceKm": 56.5,
+      "live": true,
+      "liveNote": "latest water level 2026-11-09 08:48 UTC (CO-OPS datagetter)",
+      "lat": 30.192,
+      "lon": -81.689,
+      "url": "https://tidesandcurrents.noaa.gov/stationhome.html?id=8720357"
+     },
+     {
+      "kind": "tide prediction",
+      "id": "CO-OPS 8720587",
+      "name": "St. Augustine Beach",
+      "owner": "NOAA CO-OPS (harmonic prediction station)",
+      "distanceKm": 1.3,
+      "live": null,
+      "liveNote": "predictions only, no live gauge",
+      "lat": 29.857,
+      "lon": -81.263,
+      "url": "https://tidesandcurrents.noaa.gov/noaatidepredictions.html?id=8720587"
+     },
+     {
+      "kind": "METAR airport",
+      "id": "METAR SGJ",
+      "name": "ST AUGUSTINE AIRPT",
+      "owner": "IEM FL_ASOS network",
+      "distanceKm": 14.8,
+      "live": true,
+      "liveNote": "IEM lists online",
+      "lat": 29.959,
+      "lon": -81.34,
+      "url": "https://mesonet.agron.iastate.edu/sites/site.php?station=SGJ&network=FL_ASOS"
+     }
+    ]
    }
   }
  ],

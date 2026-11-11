@@ -1584,26 +1584,6 @@
    ]
   },
   {
-   "id": "w-us-avalon-pier-north-carolina",
-   "name": "Avalon Pier",
-   "region": "Outer Banks",
-   "lat": 36.044,
-   "lon": -75.673,
-   "nearest": [
-    {
-     "source": "nc-deq-rwq",
-     "km": 0.1,
-     "station": {
-      "id": "N12A",
-      "name": "Sportsman Dr. in KDH",
-      "kind": "OCEAN",
-      "lat": 36.04418,
-      "lon": -75.67404
-     }
-    }
-   ]
-  },
-  {
    "id": "w-us-third-street",
    "name": "Third Street",
    "region": "Outer Banks",
@@ -4533,26 +4513,6 @@
    ]
   },
   {
-   "id": "w-us-a-st",
-   "name": "A St.",
-   "region": "Northeast Florida",
-   "lat": 29.845,
-   "lon": -81.261,
-   "nearest": [
-    {
-     "source": "fl-doh-healthy-beaches",
-     "km": 0.46,
-     "station": {
-      "id": "St Johns243",
-      "name": "ST AUGUSTINE BEACH - A STREET (St Johns)",
-      "link": "https://www.floridahealth.gov/community-environmental-public-health/environmental-public-health/water-quality/beach-water-quality/beach-detail/?County=St+Johns&SPLocation=ST+AUGUSTINE+BCH+A+STREET&SPNo=&SPLat=29.84473203&SPLong=-81.26577868",
-      "lat": 29.84473,
-      "lon": -81.26578
-     }
-    }
-   ]
-  },
-  {
    "id": "w-us-a-street",
    "name": "A Street",
    "region": "Northeast Florida",
@@ -4622,26 +4582,6 @@
     {
      "source": "fl-doh-healthy-beaches",
      "km": 0.12,
-     "station": {
-      "id": "Flagler105",
-      "name": "SOUTH FLAGLER PIER AT FLAGLER BEACH (Flagler)",
-      "link": "https://www.floridahealth.gov/community-environmental-public-health/environmental-public-health/water-quality/beach-water-quality/beach-detail/?County=Flagler&SPLocation=SOUTH+FLAGLER+PIER+@+FLAGLER+BEACH&SPNo=&SPLat=29.47929853&SPLong=-81.1258919",
-      "lat": 29.4793,
-      "lon": -81.12589
-     }
-    }
-   ]
-  },
-  {
-   "id": "w-us-flagler-pier",
-   "name": "Flagler Pier",
-   "region": "Northeast Florida",
-   "lat": 29.48,
-   "lon": -81.124,
-   "nearest": [
-    {
-     "source": "fl-doh-healthy-beaches",
-     "km": 0.2,
      "station": {
       "id": "Flagler105",
       "name": "SOUTH FLAGLER PIER AT FLAGLER BEACH (Flagler)",

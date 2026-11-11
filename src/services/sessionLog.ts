@@ -1,6 +1,7 @@
 /** In-app session log (T-041, decision D-3): the only ground truth for the rating. Local to this browser, never uploaded.
  *  Heights are stored in FEET of face height (trough to crest), the height you would quote, which is what the "Est. X–Y ft surf height" labels estimate (the surf-report convention); the calibration ratio absorbs any difference between the two.
  *  No data is scraped or imported from anywhere else. */
+import {canonicalSpotId} from '../data/spotAliases.ts';
 export const SESSION_LOG_KEY = 'swello-session-log';
 export const SESSION_LOG_SCHEMA = 1;
 export const FT_PER_M = 1 / 0.3048;
@@ -52,7 +53,7 @@ const isObs = (o: any): o is SessionObservation => o && typeof o.id === 'string'
 
 /** Reads the log; anything malformed is dropped, never repaired. */
 export function loadLog(store: Store | null = defaultStore()): SessionObservation[] {
-  try { const v = JSON.parse(store?.getItem(SESSION_LOG_KEY) ?? '[]'); return Array.isArray(v) ? v.filter(isObs).sort((a, b) => b.observedAt.localeCompare(a.observedAt)) : []; } catch { return []; }
+  try { const v = JSON.parse(store?.getItem(SESSION_LOG_KEY) ?? '[]'); return Array.isArray(v) ? v.filter(isObs).map((o) => (canonicalSpotId(o.spotId) === o.spotId ? o : {...o, spotId: canonicalSpotId(o.spotId)})).sort((a, b) => b.observedAt.localeCompare(a.observedAt)) : []; } catch { return []; }
 }
 /** Returns false when the browser refused the write (full or blocked storage), so the caller can say so. */
 export function saveLog(log: SessionObservation[], store: Store | null = defaultStore()): boolean {

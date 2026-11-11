@@ -1,6 +1,7 @@
 // Alert rules: stored on this device, evaluated against the forecast that is already loaded. No push, no server.
 import type {Forecast, SurfSpot} from '../../models/index.ts';
 import {windRelationship} from '../../recommendation/sqi.ts';
+import {canonicalSpotId} from '../../data/spotAliases.ts';
 
 export const ALERTS_KEY = 'swello-alerts';
 export const WINDOW_DAYS = 7;
@@ -24,7 +25,7 @@ export function parseRules(raw: string | null): AlertRule[] {
     const list = JSON.parse(raw ?? '[]');
     if (!Array.isArray(list)) return [];
     return list.flatMap((r): AlertRule[] => typeof r?.id === 'string' && typeof r?.spotId === 'string'
-      ? [{id: r.id, spotId: r.spotId, minFt: num(r.minFt), maxFt: num(r.maxFt), maxWindMph: num(r.maxWindMph), offshoreOnly: !!r.offshoreOnly, enabled: r.enabled !== false}]
+      ? [{id: r.id, spotId: canonicalSpotId(r.spotId), minFt: num(r.minFt), maxFt: num(r.maxFt), maxWindMph: num(r.maxWindMph), offshoreOnly: !!r.offshoreOnly, enabled: r.enabled !== false}]
       : []);
   } catch { return []; }
 }

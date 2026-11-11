@@ -1,6 +1,7 @@
 import type {Forecast} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {headlineSurf} from './headlineSurf.ts';
+import {canonicalSpotId} from '../data/spotAliases.ts';
 import {forecastInputs} from './sessionInputs.ts';
 import {allSpots} from '../data/catalog.ts';
 
@@ -13,7 +14,7 @@ export interface ArchivedHour {/** T-131 phase 2: v1 only, the buoy-transfer fac
 type Store = Pick<Storage, 'getItem' | 'setItem'>;
 const defaultStore = (): Store | null => { try { return typeof localStorage !== 'undefined' ? localStorage : null; } catch { return null; } };
 const ok = (o: any): o is ArchivedHour => o && typeof o.s === 'string' && Number.isFinite(Date.parse(o.v)) && Number.isFinite(Date.parse(o.seen)) && typeof o.k === 'string';
-export function loadArchive(store: Store | null = defaultStore()): ArchivedHour[] { try { const v = JSON.parse(store?.getItem(ARCHIVE_KEY) ?? '[]'); return Array.isArray(v) ? v.filter(ok) : []; } catch { return []; } }
+export function loadArchive(store: Store | null = defaultStore()): ArchivedHour[] { try { const v = JSON.parse(store?.getItem(ARCHIVE_KEY) ?? '[]'); return Array.isArray(v) ? v.filter(ok).map((a) => (canonicalSpotId(a.s) === a.s ? a : {...a, s: canonicalSpotId(a.s)})) : []; } catch { return []; } }
 function saveArchive(a: ArchivedHour[], store: Store | null): boolean { try { if (!store) return false; store.setItem(ARCHIVE_KEY, JSON.stringify(a)); return true; } catch { return false; } }
 const lastRun = new Map<string, number>();
 

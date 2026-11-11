@@ -206,7 +206,11 @@ function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; ext
   return (
     <svg className="sp-tide" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Tide today: ${ex.map((e) => `${e.type.toLowerCase()} ${ht(e.v, p)} ${p.heightUnit} at ${timeLabelPT(e.timestamp)}`).join(', ') || 'no highs or lows listed'}`}>
       <path d={`${line} L${W},${H - 14} L0,${H - 14}Z`} fill="var(--tide)" fillOpacity={0.12} /><path d={line} fill="none" stroke="var(--tide)" strokeWidth={1.6} />
-      {ex.map((e) => { const x = X(Date.parse(e.timestamp)); return <text key={e.timestamp} x={Math.min(W - 22, Math.max(22, x))} y={H - 2} fontSize={10} textAnchor="middle" fill="var(--muted)">{timeLabelPT(e.timestamp).replace(':00', '').replace(' ', '')} {e.type === 'High' ? 'H' : 'L'}</text>; })}
+      {(() => { // labels: the extreme nearest AFTER the selected hour first, then the rest by distance from it; one that would overprint a placed label is left out (the aria-label above lists every high and low). Edge labels anchor to the edge, they are not pushed inward.
+        const sel = k ? Date.parse(k.timestamp) : t0, order = [...ex].sort((a, b) => { const da = Date.parse(a.timestamp) - sel, db = Date.parse(b.timestamp) - sel; return (da >= 0 ? da : 1e12 - da) - (db >= 0 ? db : 1e12 - db); }), placed: {x0: number; x1: number}[] = [], shown = new Set<string>();
+        const box = (e: typeof ex[number]) => { const w = 50, x = X(Date.parse(e.timestamp)), anchor: 'start' | 'middle' | 'end' = x - w / 2 < 0 ? 'start' : x + w / 2 > W ? 'end' : 'middle'; return {x: anchor === 'start' ? 1 : anchor === 'end' ? W - 1 : x, anchor, x0: anchor === 'start' ? 0 : anchor === 'end' ? W - w : x - w / 2, x1: anchor === 'start' ? w : anchor === 'end' ? W : x + w / 2}; };
+        for (const e of order) { const b = box(e); if (placed.every((q) => b.x1 + 3 <= q.x0 || b.x0 >= q.x1 + 3)) { placed.push(b); shown.add(e.timestamp); } }
+        return ex.filter((e) => shown.has(e.timestamp)).map((e) => { const b = box(e); return <text key={e.timestamp} x={b.x} y={H - 2} fontSize={10} textAnchor={b.anchor} fill="var(--muted)">{timeLabelPT(e.timestamp).replace(':00', '').replace(' ', '')} {e.type === 'High' ? 'H' : 'L'}</text>; }); })()}
       {k && <circle cx={X(Date.parse(k.timestamp))} cy={Y(k.forecast.tide.height)} r={3.5} fill="var(--text)" />}
     </svg>
   );

@@ -1,4 +1,5 @@
 import {zoneAbbr} from '../ocean/spotZone';
+import {canonicalSpotId} from '../data/spotAliases';
 import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type MouseEvent, type ReactNode} from 'react';
 import {AREAS, pathFor, type Area} from './routes';
 import {useSwello} from './store';
@@ -73,7 +74,7 @@ function AreaMenu({def, current, section, go, children, className = '', label}: 
 }
 
 const RECENT_KEY = 'swello-recent';
-const readRecent = (): string[] => { try { const v = JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]'); return Array.isArray(v) ? v.filter((x) => typeof x === 'string').slice(0, 5) : []; } catch { return []; } };
+const readRecent = (): string[] => { try { const v = JSON.parse(localStorage.getItem(RECENT_KEY) ?? '[]'); return Array.isArray(v) ? [...new Set(v.filter((x) => typeof x === 'string').map(canonicalSpotId))].slice(0, 5) : []; } catch { return []; } };
 /** Remembers the last five spots viewed (this device only). */
 function useRecentSpots(id: string) {
   const [recent, setRecent] = useState(readRecent);

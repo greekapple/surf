@@ -7765,45 +7765,6 @@ export const guideFacts: GuideFacts[] = [
   "notes": "town: Jacksonville Beach (surfnerd); no surf-forecast page matched within 6 km by name"
  },
  {
-  "spotId": "w-us-a-st",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/a-st",
-    "site": "surfnerd",
-    "title": "Surfnerd spot guide: A St.",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": {
-   "text": "E",
-   "deg": 90,
-   "basis": "guide"
-  },
-  "swellWindow": {
-   "text": "NNE - SE (surfnerd)",
-   "fromDeg": 22.5,
-   "toDeg": 135,
-   "basis": "workable"
-  },
-  "workable": {
-   "text": "NNE - SE (surfnerd)",
-   "fromDeg": 22.5,
-   "toDeg": 135
-  },
-  "idealSwell": "not stated (surfnerd)",
-  "surfnerdWorkableWind": "S - NW. Offshore from WSW (surfnerd); wind exposure SW - NW. Offshore from W (surfnerd)",
-  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "beach",
-  "sizeFt": {
-   "min": 2,
-   "max": 12
-  },
-  "exposure": "not stated",
-  "hazards": [],
-  "notes": "town: St. Augustine Beach (surfnerd); no surf-forecast page matched within 6 km by name"
- },
- {
   "spotId": "w-us-a-street",
   "sources": [
    {
@@ -7848,7 +7809,7 @@ export const guideFacts: GuideFacts[] = [
   "hazards": [
    "\"Beware of rips, rocks, man-made danger (buoys etc...) and sharks.\" (surf-forecast)"
   ],
-  "notes": "town: St. Augustine Beach (surfnerd); surf-forecast pin 29.82,-81.26 is 2.7 km from the surfnerd pin"
+  "notes": "town: St. Augustine Beach (surfnerd); surf-forecast pin 29.82,-81.26 is 2.7 km from the surfnerd pin; surfnerd also lists this break at https://www.surfnerd.com/surf-forecast/a-st (row w-us-a-st, merged into this one): its page gives the swell window NNE - SE (surfnerd) and ideal swell not stated (surfnerd), which differs from this page's."
  },
  {
   "spotId": "w-us-abalone-st",
@@ -8124,46 +8085,7 @@ export const guideFacts: GuideFacts[] = [
   },
   "exposure": "exposed",
   "hazards": [],
-  "notes": "town: Kill Devil Hills (surfnerd); surf-forecast pin 36.05,-75.67 is 0.6 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: not stated)"
- },
- {
-  "spotId": "w-us-avalon-pier-north-carolina",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina",
-    "site": "surfnerd",
-    "title": "Surfnerd spot guide: Avalon Pier",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": {
-   "text": "ENE",
-   "deg": 67.5,
-   "basis": "guide"
-  },
-  "swellWindow": {
-   "text": "NNE - SE (surfnerd)",
-   "fromDeg": 22.5,
-   "toDeg": 135,
-   "basis": "workable"
-  },
-  "workable": {
-   "text": "NNE - SE (surfnerd)",
-   "fromDeg": 22.5,
-   "toDeg": 135
-  },
-  "idealSwell": "not stated (surfnerd)",
-  "surfnerdWorkableWind": "SW - W. Offshore from WSW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break on any tide depending on how the sand is sitting, so low, mid, and high all come into play, with a rising tide generally the better call.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "beach",
-  "sizeFt": {
-   "min": 2,
-   "max": 8
-  },
-  "exposure": "not stated",
-  "hazards": [],
-  "notes": "town: Kill Devil Hills (surfnerd); no surf-forecast page matched within 6 km by name; type: surfnerd: Beach, Pier; not published as Beach/Point/Reef"
+  "notes": "town: Kill Devil Hills (surfnerd); surf-forecast pin 36.05,-75.67 is 0.6 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: not stated); surfnerd also lists this break at https://www.surfnerd.com/surf-forecast/avalon-pier-north-carolina (row w-us-avalon-pier-north-carolina, merged into this one): its page gives the swell window NNE - SE (surfnerd) and ideal swell not stated (surfnerd), which differs from this page's."
  },
  {
   "spotId": "w-us-avon-pier",
@@ -10523,46 +10445,7 @@ export const guideFacts: GuideFacts[] = [
    "\"Keep an eye on the pilings and the sharks that tend to hang around them.\" (surfnerd)",
    "\"Take care of - Rips / undertow - Man-made danger (buoys etc.) - Localism.\" (surf-forecast)"
   ],
-  "notes": "town: Flagler Beach (surfnerd); surf-forecast pin 29.48,-81.13 is 0.5 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: Beach, Pier)"
- },
- {
-  "spotId": "w-us-flagler-pier",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/flagler-pier",
-    "site": "surfnerd",
-    "title": "Surfnerd spot guide: Flagler Pier",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": {
-   "text": "ENE",
-   "deg": 67.5,
-   "basis": "guide"
-  },
-  "swellWindow": {
-   "text": "S - N. Best from NE (surfnerd)",
-   "fromDeg": 180,
-   "toDeg": 0,
-   "basis": "workable"
-  },
-  "workable": {
-   "text": "S - N. Best from NE (surfnerd)",
-   "fromDeg": 180,
-   "toDeg": 0
-  },
-  "idealSwell": "NE (surfnerd)",
-  "surfnerdWorkableWind": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide the better call, and it tends to be best on the low incoming push.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": null,
-  "sizeFt": {
-   "min": 2,
-   "max": 10
-  },
-  "exposure": "not stated",
-  "hazards": [],
-  "notes": "town: Flagler Beach (surfnerd); no surf-forecast page matched within 6 km by name; type: not published as Beach/Point/Reef"
+  "notes": "town: Flagler Beach (surfnerd); surf-forecast pin 29.48,-81.13 is 0.5 km from the surfnerd pin; type: surf-forecast: \"is an exposed beach\" (surfnerd: Beach, Pier); surfnerd also lists this break at https://www.surfnerd.com/surf-forecast/flagler-pier (row w-us-flagler-pier, merged into this one): its page gives the swell window S - N. Best from NE (surfnerd) and ideal swell NE (surfnerd), which differs from this page's."
  },
  {
   "spotId": "w-us-fletchers",
@@ -16675,49 +16558,6 @@ export const guideFacts: GuideFacts[] = [
   "notes": "town: Wabasso Beach (surfnerd); surf-forecast pin 27.78,-80.4 is 1.8 km from the surfnerd pin"
  },
  {
-  "spotId": "w-us-walton-rocks",
-  "sources": [
-   {
-    "url": "https://www.surfnerd.com/surf-forecast/walton-rocks",
-    "site": "surfnerd",
-    "title": "Surfnerd spot guide: Walton Rocks",
-    "retrievedOn": "2026-11-09"
-   }
-  ],
-  "facing": {
-   "text": "ENE",
-   "deg": 67.5,
-   "basis": "guide"
-  },
-  "swellWindow": {
-   "text": "N - SE. Best from NE (surfnerd)",
-   "fromDeg": 0,
-   "toDeg": 135,
-   "basis": "workable"
-  },
-  "workable": {
-   "text": "N - SE. Best from NE (surfnerd)",
-   "fromDeg": 0,
-   "toDeg": 135
-  },
-  "idealSwell": "NE (surfnerd)",
-  "surfnerdWorkableWind": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
-  "tide": "Works at Low, Mid (surfnerd characteristics); \"The break comes alive on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
-  "bottom": "Sand (surfnerd)",
-  "waveType": "beach",
-  "sizeFt": {
-   "min": 2,
-   "max": 12
-  },
-  "exposure": "not stated",
-  "hazards": [
-   "\"Walton Rocks is a beach break that some locals still call Power Plant, after the large nuclear plant sitting directly behind the pristine foreshore.\" (surfnerd)",
-   "\"One nice quirk: cooling water discharged from the reactor feeds a warm current into the lineup, a welcome bonus for less hardy surfers in winter.\" (surfnerd)",
-   "\"With beginner-friendly waves, Walton Rocks is a solid place to find your feet and log some easy sessions.\" (surfnerd)"
-  ],
-  "notes": "town: Hutchinson Island South (surfnerd); no surf-forecast page matched within 6 km by name"
- },
- {
   "spotId": "w-us-walton-rocks-2",
   "sources": [
    {
@@ -16767,6 +16607,49 @@ export const guideFacts: GuideFacts[] = [
    "\"Hazards include sharks,nuclear power station nearby.\" (surf-forecast)"
   ],
   "notes": "town: Hutchinson Island South (surfnerd); surf-forecast pin 27.35,-80.24 is 1.3 km from the surfnerd pin"
+ },
+ {
+  "spotId": "w-us-walton-rocks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/walton-rocks",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Walton Rocks",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - SE. Best from NE (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 135,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "N - SE. Best from NE (surfnerd)",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "NE (surfnerd)",
+  "surfnerdWorkableWind": "SW. Offshore from SW (surfnerd); wind exposure SSW - WNW. Offshore from WSW (surfnerd)",
+  "tide": "Works at Low, Mid (surfnerd characteristics); \"The break comes alive on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2,
+   "max": 12
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "\"Walton Rocks is a beach break that some locals still call Power Plant, after the large nuclear plant sitting directly behind the pristine foreshore.\" (surfnerd)",
+   "\"One nice quirk: cooling water discharged from the reactor feeds a warm current into the lineup, a welcome bonus for less hardy surfers in winter.\" (surfnerd)",
+   "\"With beginner-friendly waves, Walton Rocks is a solid place to find your feet and log some easy sessions.\" (surfnerd)"
+  ],
+  "notes": "town: Hutchinson Island South (surfnerd); no surf-forecast page matched within 6 km by name"
  },
  {
   "spotId": "w-us-waves-and-salvo",
@@ -24828,13 +24711,13 @@ export const guideFacts: GuideFacts[] = [
    {
     "url": "https://www.surfnerd.com/surf-forecast/haggertys",
     "site": "surfnerd",
-    "title": "Surfnerd spot guide: Haggertys",
+    "title": "Surfnerd spot guide: Haggertys and Malaga Cove",
     "retrievedOn": "2026-11-09"
    },
    {
     "url": "https://www.surf-forecast.com/breaks/Haggertys-and-Malaga-Cove",
     "site": "surf-forecast",
-    "title": "Surf-Forecast.com spot guide: Haggertys",
+    "title": "Surf-Forecast.com spot guide: Haggertys and Malaga Cove",
     "retrievedOn": "2026-11-09"
    }
   ],
@@ -27600,13 +27483,13 @@ export const guideFacts: GuideFacts[] = [
    {
     "url": "https://www.surfnerd.com/surf-forecast/point-dume",
     "site": "surfnerd",
-    "title": "Surfnerd spot guide: Point Dume",
+    "title": "Surfnerd spot guide: Point Dume / Little Dume",
     "retrievedOn": "2026-11-09"
    },
    {
     "url": "https://www.surf-forecast.com/breaks/Point-Dume-Little-Dume",
     "site": "surf-forecast",
-    "title": "Surf-Forecast.com spot guide: Point Dume",
+    "title": "Surf-Forecast.com spot guide: Point Dume / Little Dume",
     "retrievedOn": "2026-11-09"
    }
   ],
@@ -31640,13 +31523,13 @@ export const guideFacts: GuideFacts[] = [
    {
     "url": "https://www.surfnerd.com/surf-forecast/trails-california",
     "site": "surfnerd",
-    "title": "Surfnerd spot guide: Trails",
+    "title": "Surfnerd spot guide: Trails (San Onofre State Beach)",
     "retrievedOn": "2026-11-09"
    },
    {
     "url": "https://www.surf-forecast.com/breaks/Trails-San-Onofre-State-Beach",
     "site": "surf-forecast",
-    "title": "Surf-Forecast.com spot guide: Trails",
+    "title": "Surf-Forecast.com spot guide: Trails (San Onofre State Beach)",
     "retrievedOn": "2026-11-09"
    }
   ],
