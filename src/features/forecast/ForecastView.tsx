@@ -135,9 +135,10 @@ export function ForecastView({go}: ViewProps) {
       <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit}>
         <div className="sp-head">
           <div className="sp-title">
-            <h1>{spot.name}</h1>
+            {/* phone pass 1: on a phone the name is the spot selector (the separate picker row is gone): it opens the spot search */}
+            <h1><button type="button" className="sp-h1b" aria-label={`${spot.name}: change spot`} onClick={() => dispatchEvent(new Event('swello:open-search'))}>{spot.name}<Icon name="chevron" size={18} className="sp-h1c" /></button></h1>
             <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favorites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
-            <p>{meta.join(' · ')}</p>
+            <p><span className="sp-meta-a">{meta.slice(0, -1).join(' · ')}</span><span className="sp-meta-b">{meta.length > 1 ? ' · ' : ''}{meta[meta.length - 1]}</span></p>
           </div>
           <div className="sp-when">
             <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{spotZoneTag(selected.timestamp)}{isNow ? ' · now' : ''}</span>

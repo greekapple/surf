@@ -21,7 +21,7 @@ export {pointLine} from './pointLine';
 
 export function PinLabel({layer, icon, line, periodFromPoint, expanded, onExpand, onClose, why}: {
   layer: string; icon: IconName; line: {main: string; note: string} | null; periodFromPoint: boolean; expanded: boolean; onExpand: () => void; onClose: () => void;
-  /** audit P1-4: why there is no value here (loading, sea colour off, enclosed water, no model cell this close to shore); never a guess */ why?: string;
+  /** audit P1-4: why there is no value here (loading, sea color off, enclosed water, no model cell this close to shore); never a guess */ why?: string;
 }) {
   return (
     <div className="xpl" role="group" aria-label={`${layer} at this point`}>

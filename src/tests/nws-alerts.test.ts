@@ -50,3 +50,14 @@ test('land zone ids: any state, never a marine zone', async () => {
   for (const z of ['CAZ006', 'CAZ552', 'ORZ001', 'WAZ503', 'WAZ501', 'AKZ011', 'HIZ001']) assert.equal(isLandZoneId(z), true, z);
   for (const z of ['PZZ535', 'PZZ253', 'ANZ650', 'GMZ850', 'LSZ121', 'PHZ110', 'CAC001', 'CA006', '', 'caz006']) assert.equal(isLandZoneId(z), false, z);
 });
+test('ordering: a Warning never sits behind a Statement when CAP severity ties or is missing (lead review, phone pass)', () => {
+  const f = (event: string, severity?: string) => ({properties: {event, status: 'Actual', headline: event, ends: '2026-11-04T12:00:00Z', ...(severity ? {severity} : {})}});
+  for (const [st, wa] of [['Moderate', 'Moderate'], [undefined, undefined], ['Minor', undefined]] as const) {
+    const a = mapAlerts({features: [f('Rip Current Statement', st), f('High Surf Warning', wa)]}, 'spot-2', NOW);
+    assert.deepEqual(a.map((x) => x.event).slice(0, 2), st === 'Minor' ? ['Rip Current Statement', 'High Surf Warning'] : ['High Surf Warning', 'Rip Current Statement'],
+      `statement ${st ?? 'none'} vs warning ${wa ?? 'none'}`);
+  }
+  // equal severity: tier from the name (any Warning > other Tsunami / High Surf events > Watch > Advisory > Statement), then feed order
+  const b = mapAlerts({features: [f('Beach Hazards Statement', 'Moderate'), f('High Surf Advisory', 'Moderate'), f('Coastal Flood Watch', 'Moderate'), f('Tsunami Warning', 'Moderate')]}, 'spot-2', NOW);
+  assert.deepEqual(b.map((x) => x.event), ['Tsunami Warning', 'High Surf Advisory', 'Coastal Flood Watch', 'Beach Hazards Statement'].filter((e) => b.some((x) => x.event === e)));
+});

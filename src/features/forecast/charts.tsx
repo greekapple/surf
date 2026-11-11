@@ -80,8 +80,6 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const [a, b] = useAnimatedRange(target);
   const G = 44, PAD = 14, inner = W - G - PAD, pxh = inner / (b - a);
   const X = (i: number) => G + (i - a) * pxh;
-  const PT = (showDays ? 30 : 12) + (title ? 12 : 0), RB = showRibbon ? (showHours ? height - 36 : height - 12) : (showHours ? height - 24 : height - 2), PB = RB - (showRibbon || tab === 'wind' ? 26 : 8);
-  const top = stacked ? 0 : PT - 8, bottom = stacked ? (showHours ? height - 20 : height) : RB; // night shading / day lines / selection span the whole chart when stacked
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
   const noTide = tab === 'tide' && !hasTide; // audit A3: no axis, no point at a made-up 0 ft, just the message
@@ -100,6 +98,12 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const ticks: number[] = []; for (let v = t0y; v <= hi + 1e-6; v += step) ticks.push(Math.round(v * 100) / 100);
   const unit = tab === 'wind' ? p.windUnit : p.heightUnit;
   const tickText = (v: number) => (tab === 'wind' ? String(Math.round(Number(windVal(v, p)))) : ht(v, p, step < 1 || p.heightUnit === 'm' ? 1 : 0));
+  // phone pass 6: the top tick carries the unit ('30 ft') when it fits the 44 px gutter; otherwise ('40 mph') the unit joins the title, which then has a row
+  // of its own (under the day names when they show), so it is never clipped. PT is set from it, after the ticks (Y reads PT only when it is called).
+  const topTick = ticks.length ? `${tab === 'tide' && ticks[ticks.length - 1] > 0 ? '+' : ''}${tickText(ticks[ticks.length - 1])} ${unit}` : '';
+  const unitInTitle = !!title && topTick.length * 6.6 > G - 10;
+  const PT = (showDays ? 30 : 12) + (title && (!showDays || unitInTitle) ? 12 : 0), RB = showRibbon ? (showHours ? height - 36 : height - 12) : (showHours ? height - 24 : height - 2), PB = RB - (showRibbon || tab === 'wind' ? 26 : 8);
+  const top = stacked ? 0 : PT - 8, bottom = stacked ? (showHours ? height - 20 : height) : RB; // night shading / day lines / selection span the whole chart when stacked
   const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0
     : surfBand ? (bAt(h)?.hi !== null && bAt(h)?.hi !== undefined ? (bAt(h)!.lo! + bAt(h)!.hi!) / 2 : 0) : h.heightFt ?? 0);
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
@@ -174,7 +178,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
           <pattern id="pFar" width={6} height={6} patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1={0} y1={0} x2={0} y2={6} className="tl-far-line" /></pattern>
         </defs>
         <g key={`ax${tab}`} className="tl-fade">
-          {!noTide && ticks.map((v) => <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 8} y={Y(v) + 4} textAnchor="end">{tab === 'tide' && v > 0 ? '+' : ''}{tickText(v)}{v === ticks[ticks.length - 1] ? ` ${unit}` : ''}</text></g>)}
+          {!noTide && ticks.map((v) => <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 8} y={Y(v) + 4} textAnchor="end">{tab === 'tide' && v > 0 ? '+' : ''}{tickText(v)}{v === ticks[ticks.length - 1] && !unitInTitle ? ` ${unit}` : ''}</text></g>)}
         </g>
         <g clipPath="url(#tlclip)">
           {days.map((d: Day, k) => {
@@ -184,9 +188,6 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               <rect x={XT(prev)} y={top} width={Math.max(0, XT(rise) - XT(prev))} height={bottom - top} fill="var(--ch-night)" />
               {k === days.length - 1 && <rect x={XT(set)} y={top} width={inner} height={bottom - top} fill="var(--ch-night)" />}
               <line className="tl-day" x1={X(d.start - 0.5)} x2={X(d.start - 0.5)} y1={0} y2={stacked ? bottom : RB + 8} />
-              {(() => { const room = X(d.end + 0.5) - Math.max(X(d.start - 0.5), G); // T-109: phones get the short day name instead of none
-                return !showDays ? null : room > 70 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>
-                  : room > 30 ? <text className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 4} y={14}>{weekdayPT(d.t)}</text> : null; })()}
             </g>;
           })}
           <g key={tab} className="tl-fade">
@@ -252,26 +253,32 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
             {tab === 'tide' && (hasTide ? <>
               <path d={areaD} fill="url(#gTd)" />
               <path d={mainPath} fill="none" stroke="var(--tide)" strokeWidth={2} strokeLinejoin="round" />
-              {pxh > 4 && extrema.map((e) => {
+              {pxh > 4 && (() => { let lastLab = -Infinity; return extrema.map((e) => {
                 const x = XT(Date.parse(e.timestamp)), v = e.height.value;
                 if (x < G || x > W || v === null) return null;
+                const lab = pxh > 9 && x - lastLab >= 40; if (lab) lastLab = x;   // phone pass 6: a time label never within 40 px of the last one drawn
                 return <g key={e.timestamp}><circle cx={x} cy={Y(v)} r={3} fill="var(--tide)" />
-                  {pxh > 9 && <text className="tl-pk" x={x} y={Y(v) + (e.type === 'High' ? -9 : 17)} textAnchor="middle">{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
-              })}
+                  {lab && <text className="tl-pk" x={x} y={Y(v) + (e.type === 'High' ? -9 : 17)} textAnchor="middle">{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
+              }); })()}
             </> : <foreignObject x={G} y={PT} width={inner} height={Math.max(0, PB - PT)}><p className="tl-none">{noTideCurveText(spot.id)}</p></foreignObject>)}
           </g>
           {showRibbon && vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={Math.max(0, pxh + 0.5)} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
           {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
-          {showHours && vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
+          {showHours && stepH < 24 && vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{W < 520 ? hourLabel(h.timestamp).replace(':00', '').replace(/ ?AM$/, 'a').replace(/ ?PM$/, 'p') : hourLabel(h.timestamp)}</text>))}
           {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={PT - 8} y2={RB + 2} stroke="var(--ch-hover)" />
             {!noTide && <circle cx={X(hover.i)} cy={Y(val(series[hover.i]))} r={3.5} fill="var(--bg)" stroke="var(--ch-ink)" strokeWidth={1.75} />}</g>}
         </g>
         {showRibbon && <text className="tl-row" x={0} y={RB + 5}>Rating</text>}
-        {title && <text className="tl-title" x={G + 6} y={(showDays ? 30 : 12) + 1}>{title}</text>}
         {!noTide && <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
           <line y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
           <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : surfBand ? 'var(--hs-hi)' : 'var(--muted)'} strokeWidth={2.5} />
         </g>}
+        {/* phone pass 6: the day names and the panel title are drawn over the cursor (with a halo), so the cursor never cuts them; the title sits in the
+            left gutter on the day row, never in the plot */}
+        {showDays && <g clipPath="url(#tlclip)">{days.map((d: Day) => { const room = X(d.end + 0.5) - Math.max(X(d.start - 0.5), G); // T-109: phones get the short day name instead of none
+          return room > 70 ? <text key={d.key} className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 6} y={14}>{weekdayPT(d.t)} {dayNumPT(d.t)}</text>
+            : room > 30 ? <text key={d.key} className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 4} y={14}>{weekdayPT(d.t)}</text> : null; })}</g>}
+        {title && <text className="tl-title" x={0} y={showDays ? (unitInTitle ? 31 : 14) : 13}>{title}{unitInTitle && <tspan className="tl-unit"> · {unit}</tspan>}</text>}
       </svg>
       {tipH && hover && (
         <div className="tl-tip" style={{transform: `translate3d(${tipLeft}px, ${tipTop}px, 0)`, width: TIP_W}}>

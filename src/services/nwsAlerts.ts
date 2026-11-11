@@ -24,7 +24,14 @@ export function mapAlerts(feed: any, spotId: string, nowMs: number): NwsAlert[] 
       url: ev ? `https://forecast.weather.gov/MapClick.php?lat=${ev.latitude.toFixed(4)}&lon=${ev.longitude.toFixed(4)}` : 'https://www.weather.gov/', sender: s(p.senderName) ?? 'National Weather Service', severity: s(p.severity), approxZone: !!z?.approx});
   }
   const rank: Record<string, number> = {Extreme: 0, Severe: 1, Moderate: 2, Minor: 3};
-  return out.sort((a, b) => (rank[a.severity ?? ''] ?? 4) - (rank[b.severity ?? ''] ?? 4));
+  // lead review (phone pass): a Warning must never sit behind '+N more' under a Statement. CAP severity first, then the event's own tier (ties and a missing
+  // severity no longer keep feed order), then the feed order.
+  return out.map((x, i) => ({x, i})).sort((a, b) => (rank[a.x.severity ?? ''] ?? 4) - (rank[b.x.severity ?? ''] ?? 4) || eventTier(a.x.event) - eventTier(b.x.event) || a.i - b.i).map(({x}) => x);
+}
+/** The event's tier from its name: any Warning first; then the other Tsunami and High Surf events (a High Surf Advisory, a Tsunami Watch); then Watch,
+ *  Advisory, Statement, anything else. */
+export function eventTier(event: string): number {
+  return /warning/i.test(event) ? 0 : /tsunami|high surf/i.test(event) ? 0.5 : /watch/i.test(event) ? 1 : /advisory/i.test(event) ? 2 : /statement/i.test(event) ? 3 : 4;
 }
 const cache = new Map<string, {at: number; feed: unknown; fetchedAt: string}>();
 export const clearAlertsCache = () => cache.clear();

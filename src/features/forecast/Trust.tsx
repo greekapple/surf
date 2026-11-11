@@ -67,7 +67,7 @@ export function DaylightRow({d}: {d: Daylight}) {
 /** NWS hazard banner: only when an alert is active for the spot's zone; quotes the event, valid time and source. Nothing when the feed fails. */
 export function NwsBanner({spotId}: {spotId: string}) {
   const [alerts, setAlerts] = useState<NwsAlert[]>([]);
-  const [tick, setTick] = useState(0);
+  const [tick, setTick] = useState(0), [more, setMore] = useState(false);   // phone pass 1: on a phone the first alert shows, the rest behind "+N more" (every one stays a link)
   // Refetch every 15 minutes (the service's cache TTL) while the page stays open, so a new warning appears and an expired one goes.
   useEffect(() => { const t = window.setInterval(() => setTick((n) => n + 1), 15 * 60e3); return () => window.clearInterval(t); }, []);
   useEffect(() => {
@@ -80,7 +80,7 @@ export function NwsBanner({spotId}: {spotId: string}) {
   if (outside) return <p className="nws-none fine" role="note">{outside}</p>;
   if (!shown.length) return null;
   return (
-    <section className="nws" aria-label="National Weather Service alert" role="note">
+    <section className={`nws${more ? ' open' : ''}`} aria-label="National Weather Service alert" role="note">
       {/* T-109: each alert is one link to its NWS page (a full-height tap target), an icon and the bold title first; it wraps rather than clipping its end time. */}
       {shown.map((a) => (
         <a key={a.url + a.event} className="nws-a" href={a.url} target="_blank" rel="noopener noreferrer">
@@ -90,6 +90,7 @@ export function NwsBanner({spotId}: {spotId: string}) {
             <small className="nws-s"> · {a.sender || 'National Weather Service'} ↗</small></span>
         </a>
       ))}
+          {shown.length > 1 && <button type="button" className="nws-more" aria-expanded={more} onClick={() => setMore(!more)}>{more ? 'Fewer alerts' : shown.length === 2 ? `+1 more: ${shown[1].event}` : `+${shown.length - 1} more: ${shown[1].event} and ${shown.length - 2} other${shown.length > 3 ? 's' : ''}`}</button>}
     </section>
   );
 }

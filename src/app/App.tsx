@@ -62,8 +62,8 @@ function Shell({route, navigate}: {route: Route; navigate: Go}) {
   const strip = !notFound && area === 'forecast' && section === '';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Map', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
-    <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}`}>
-      <a className="skip" href="#main">Skip to content</a>
+    <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}${bleed ? ' is-map' : ''}`}>
+      <a className="skip-link" href="#main">Skip to content</a>
       <div className="hdr">
         <TopNav area={area} section={section} go={navigate} />
         {strip && <SpotStrip go={navigate} onForecast={area === 'forecast'} />}

@@ -191,7 +191,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
     const finsChanged = d.look.fins !== saved.look.fins;
     onSave({...board, ...d.dims, tail: d.tail || board.tail, construction: d.construction || board.construction, fins: finsChanged ? finWord(d.look.fins) : board.fins});
     const lookStored = saveLook(board.id, d.look); keepDraft(null, board.id);
-    setStatus(lookStored ? 'Saved to this board' : 'Saved the numbers, fins and tail. The colour and finish could not be stored in this browser, so they last only for this visit.');
+    setStatus(lookStored ? 'Saved to this board' : 'Saved the numbers, fins and tail. The color and finish could not be stored in this browser, so they last only for this visit.');
   };
   const discard = () => { keepDraft(null, board.id); setDraftState(savedOf(board)); setStatus('Changes discarded'); };
 
@@ -316,7 +316,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
         </section>
 
         <section className="br-group" aria-labelledby={`${uid}-g-col`}>
-          <h3 id={`${uid}-g-col`}>Colour <span className="sel">{d.look.pattern === 'carbon' ? 'Carbon weave' : d.look.pattern === 'stripes' ? 'Blue stripes' : SWATCHES.find((s) => s.hex.toLowerCase() === d.look.deck.toLowerCase())?.name ?? 'Custom'}</span></h3>
+          <h3 id={`${uid}-g-col`}>Color <span className="sel">{d.look.pattern === 'carbon' ? 'Carbon weave' : d.look.pattern === 'stripes' ? 'Blue stripes' : SWATCHES.find((s) => s.hex.toLowerCase() === d.look.deck.toLowerCase())?.name ?? 'Custom'}</span></h3>
           <div className="br-row col">{SWATCHES.map((s) => (
             <Swatch key={s.hex} on={s.hex.toLowerCase() === d.look.deck.toLowerCase()} label={`Colour: ${s.name}`} style={{'--sw': s.hex} as CSSProperties} onClick={() => setLook({deck: s.hex, finish: d.look.finish === 'clear' ? 'gloss' : d.look.finish, pattern: undefined})} />
           ))}</div>

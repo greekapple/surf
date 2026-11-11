@@ -2,7 +2,7 @@ import {zoneOf, stateOfZone} from '../../data/zones';
 import {tideStationFor, SF_STATION, noTideNote, hourlyTideStationIds} from '../../ocean/tideStations';
 import {tideCurveWords} from '../../ocean/stationTide';
 import {regionNote} from '../../ocean/coverage';
-import {useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
+import {useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
@@ -196,6 +196,14 @@ function StationTideNext({spot, bundle, p, now}: {spot: SurfSpot; bundle: OceanB
   </>;
 }
 function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; extrema: {timestamp: string; v: number; type: string}[]; p: UserProfile}) {
+  // phone pass 6: after layout (and on resize) a time label that would overlap the one before it is hidden, so none overprints at any width
+  const labs = useRef<HTMLParagraphElement>(null);
+  useLayoutEffect(() => { const el = labs.current; if (!el) return;
+    // audit A3 + phone pass 6: labels are kept in priority order (data-pri: the extreme nearest AFTER the selected hour first, then the rest by distance from
+    // it); one that would overprint a kept label is hidden (all of them are in the chart's aria label)
+    const fit = () => { const kept: DOMRect[] = []; const spans = (Array.from(el.children) as HTMLElement[]).sort((a, b) => Number(a.dataset.pri) - Number(b.dataset.pri));
+      for (const sp of spans) { sp.style.visibility = ''; const r = sp.getBoundingClientRect(); if (kept.some((q) => r.left < q.right + 8 && q.left < r.right + 8)) sp.style.visibility = 'hidden'; else kept.push(r); } };
+    fit(); const ro = new ResizeObserver(fit); ro.observe(el); return () => ro.disconnect(); });
   const pts = hours.filter((h) => fin(h.forecast.tide.height));
   if (pts.length < 4) return null;
   const W = 260, H = 64, t0 = Date.parse(pts[0].timestamp), span = Date.parse(pts[pts.length - 1].timestamp) - t0 || 1;
@@ -203,16 +211,20 @@ function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; ext
   const X = (ms: number) => ((ms - t0) / span) * W, Y = (v: number) => 8 + (1 - (v - lo) / (hi - lo)) * (H - 22);
   const line = monotonePath(pts.map((h) => [X(Date.parse(h.timestamp)), Y(h.forecast.tide.height)]));
   const k = pts.find((h) => h.timestamp === at), ex = extrema.filter((e) => { const m = Date.parse(e.timestamp); return m >= t0 && m <= t0 + span; });
+  const selMs = k ? Date.parse(k.timestamp) : t0, pri = new Map([...ex].sort((a, b) => { const da = Date.parse(a.timestamp) - selMs, db = Date.parse(b.timestamp) - selMs; return (da >= 0 ? da : 1e12 - da) - (db >= 0 ? db : 1e12 - db); }).map((e, n) => [e.timestamp, n]));
   return (
-    <svg className="sp-tide" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Tide today: ${ex.map((e) => `${e.type.toLowerCase()} ${ht(e.v, p)} ${p.heightUnit} at ${timeLabelPT(e.timestamp)}`).join(', ') || 'no highs or lows listed'}`}>
-      <path d={`${line} L${W},${H - 14} L0,${H - 14}Z`} fill="var(--tide)" fillOpacity={0.12} /><path d={line} fill="none" stroke="var(--tide)" strokeWidth={1.6} />
-      {(() => { // labels: the extreme nearest AFTER the selected hour first, then the rest by distance from it; one that would overprint a placed label is left out (the aria-label above lists every high and low). Edge labels anchor to the edge, they are not pushed inward.
-        const sel = k ? Date.parse(k.timestamp) : t0, order = [...ex].sort((a, b) => { const da = Date.parse(a.timestamp) - sel, db = Date.parse(b.timestamp) - sel; return (da >= 0 ? da : 1e12 - da) - (db >= 0 ? db : 1e12 - db); }), placed: {x0: number; x1: number}[] = [], shown = new Set<string>();
-        const box = (e: typeof ex[number]) => { const w = 50, x = X(Date.parse(e.timestamp)), anchor: 'start' | 'middle' | 'end' = x - w / 2 < 0 ? 'start' : x + w / 2 > W ? 'end' : 'middle'; return {x: anchor === 'start' ? 1 : anchor === 'end' ? W - 1 : x, anchor, x0: anchor === 'start' ? 0 : anchor === 'end' ? W - w : x - w / 2, x1: anchor === 'start' ? w : anchor === 'end' ? W : x + w / 2}; };
-        for (const e of order) { const b = box(e); if (placed.every((q) => b.x1 + 3 <= q.x0 || b.x0 >= q.x1 + 3)) { placed.push(b); shown.add(e.timestamp); } }
-        return ex.filter((e) => shown.has(e.timestamp)).map((e) => { const b = box(e); return <text key={e.timestamp} x={b.x} y={H - 2} fontSize={10} textAnchor={b.anchor} fill="var(--muted)">{timeLabelPT(e.timestamp).replace(':00', '').replace(' ', '')} {e.type === 'High' ? 'H' : 'L'}</text>; }); })()}
-      {k && <circle cx={X(Date.parse(k.timestamp))} cy={Y(k.forecast.tide.height)} r={3.5} fill="var(--text)" />}
+    <div className="sp-tide-w">
+    <svg className="sp-tide" viewBox={`0 0 ${W} ${H - 14}`} preserveAspectRatio="none" role="img" aria-label={`Tide today: ${ex.map((e) => `${e.type.toLowerCase()} ${ht(e.v, p)} ${p.heightUnit} at ${timeLabelPT(e.timestamp)}`).join(', ') || 'no highs or lows listed'}`}>
+      <path d={`${line} L${W},${H - 14} L0,${H - 14}Z`} fill="var(--tide)" fillOpacity={0.12} /><path d={line} fill="none" stroke="var(--tide)" strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
+
     </svg>
+    {k && <i className="sp-tide-now" aria-hidden="true" style={{left: `${((X(Date.parse(k.timestamp)) / W) * 100).toFixed(1)}%`, top: `calc(var(--tide-h) * ${(Y(k.forecast.tide.height) / (H - 14)).toFixed(3)})`}} />}
+    {/* phone pass 6: the high/low times are page text at 12 px under the curve (the drawing scales with the card, the text does not); a label too close to
+        the last one drawn (under 30% of the width) is left out so none overprints its neighbour; all of them are in the chart's aria label */}
+    <p ref={labs} className="sp-tide-ls" aria-hidden="true">{(() => ex.map((e) => { const f = Math.min(1, Math.max(0, X(Date.parse(e.timestamp)) / W));
+      // each label is anchored in proportion (start-aligned at the left edge, end-aligned at the right), so none leaves the box; overlaps are removed after layout (above)
+      return <span key={e.timestamp} data-pri={pri.get(e.timestamp)} style={{left: `${(f * 100).toFixed(1)}%`, translate: `-${(f * 100).toFixed(1)}% 0`}}>{timeLabelPT(e.timestamp).replace(':00', '').replace(' ', '').replace(/M$/, '').toLowerCase()} {e.type === 'High' ? 'H' : 'L'}</span>; }))()}</p>
+    </div>
   );
 }
 

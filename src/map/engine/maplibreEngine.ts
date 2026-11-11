@@ -49,7 +49,26 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
     }});
   }
   const isOverlay = (t: EventTarget | null) => t instanceof Element && !!t.closest('[data-map-overlay],.maplibregl-marker,.maplibregl-ctrl');
+  // phone pass 3: the page's labels (DOM markers) take priority over the basemap's place names. An invisible symbol layer on top of the style holds one
+  // blank icon per label box; MapLibre places the top layer first, so a place name that would collide with a box is left out (the pins never cover a town name
+  // and the town never shows through a pin label). Icons are reused by size (rounded up to 4 px).
+  const SHIELD = 'swello-label-shield';
+  const shieldFc = (boxes: {lat: number; lon: number; w: number; h: number}[]) => ({type: 'FeatureCollection' as const, features: boxes.filter((b) => b.w >= 1 && b.h >= 1).map((b) => {
+    const w = Math.min(512, Math.ceil(b.w / 4) * 4), h = Math.min(256, Math.ceil(b.h / 4) * 4), key = `swello-sh-${w}x${h}`;
+    if (!map.hasImage(key)) map.addImage(key, {width: w, height: h, data: new Uint8Array(w * h * 4)});
+    return {type: 'Feature' as const, properties: {i: key}, geometry: {type: 'Point' as const, coordinates: [b.lon, b.lat]}};
+  })});
+  const shield = (boxes: {lat: number; lon: number; w: number; h: number}[]) => {
+    if (!map.isStyleLoaded()) { map.once('idle', () => shield(boxes)); return; }
+    try {
+      const data = shieldFc(boxes), src = map.getSource(SHIELD) as maplibregl.GeoJSONSource | undefined;
+      if (src) { src.setData(data); return; }
+      map.addSource(SHIELD, {type: 'geojson', data});
+      map.addLayer({id: SHIELD, type: 'symbol', source: SHIELD, layout: {'icon-image': ['get', 'i'], 'icon-allow-overlap': true, 'icon-ignore-placement': false, 'icon-anchor': 'center'}, paint: {'icon-opacity': 0}});
+    } catch { /* style not ready: the next declutter sends the boxes again */ }
+  };
   const api: MapEngine = {
+    shieldLabels: shield,
     kind: 'maplibre', container: el, field,
     getView: () => { const c = map.getCenter(); return {lat: c.lat, lon: c.lng, zoom: map.getZoom() + ZOFF}; },
     setView: (v, opt) => { const t = {center: [v.lon, v.lat] as [number, number], zoom: v.zoom - ZOFF}; if (opt?.animate) map.easeTo({...t, duration: 500}); else map.jumpTo(t); },

@@ -54,7 +54,7 @@ export function LayerList({fields, field, on, setField, flow, setFlow, arrows, s
         {open && (
           <div ref={box} className="xpop xlm-pop" id="xlm-pop" role="dialog" aria-label="More map options">
             <ul className="xlm-sw">
-              <li><button role="switch" aria-checked={on} onClick={() => setField(on ? null : field)}><span>Sea colour</span><i className="xsw" aria-hidden="true" /></button></li>
+              <li><button role="switch" aria-checked={on} onClick={() => setField(on ? null : field)}><span>Sea color</span><i className="xsw" aria-hidden="true" /></button></li>
               <li><button role="switch" aria-checked={flow} onClick={() => setFlow(!flow)}><span>Particles animation</span><i className="xsw" aria-hidden="true" /></button></li>
               <li><button role="switch" aria-checked={arrows} onClick={() => setArrows(!arrows)}><span>Swell direction arrows</span><i className="xsw" aria-hidden="true" /></button></li>
             </ul>
@@ -78,9 +78,17 @@ export function LayerList({fields, field, on, setField, flow, setFlow, arrows, s
 /** The one inner tick phones keep: the one nearest 55% of the bar that stays clear of both ends (a fixed 70% index put "13" against "30+" on the swell scale). */
 const midTick = (ticks: {pos: number}[]) => { let best = -1, d = 9; ticks.forEach((t, i) => { const e = Math.abs(t.pos - 0.55); if (i > 0 && i < ticks.length - 1 && t.pos > 0.2 && t.pos < 0.75 && e < d) { d = e; best = i; } }); return best; };
 
-export function LegendChip({unit, ramp, lo, hi, label, short, loading, onCycle, ticks}: {unit: string; ramp: string[]; lo: string; hi: string; label: string; /** A18: the phone's two-line name (spelled out, no 'Hs') */ short?: string; loading: boolean; onCycle: (() => void) | null; /** Stage 3: tick labels at the scale's breakpoints (evenly spaced along the ramp), from the same config as the painter. */ ticks?: {pos: number; label: string}[]}) {
+export function LegendChip({unit, ramp, lo, hi, label, short, word, loading, onCycle, ticks}: {/** the phone chip's one word for the painted layer */ word?: string; unit: string; ramp: string[]; lo: string; hi: string; label: string; /** A18: the phone's two-line name (spelled out, no 'Hs') */ short?: string; loading: boolean; onCycle: (() => void) | null; /** Stage 3: tick labels at the scale's breakpoints (evenly spaced along the ramp), from the same config as the painter. */ ticks?: {pos: number; label: string}[]}) {
+  // phone pass 2: on phones the legend is a small chip (the ramp, the unit, and 'not surf' for a height layer) that expands to the full legend on a tap
+  const [open, setOpen] = useState(false);
+  const tog = useRef<HTMLButtonElement>(null), box = useRef<HTMLDivElement>(null);
+  useDismiss(open, () => setOpen(false), box, tog);
+  const notSurf = /not surf/.test(label);
   return (
-    <div className="xleg">
+    <div ref={box} className={`xleg${open ? ' open' : ''}`}>
+      <button ref={tog} type="button" className="xleg-t" aria-expanded={open} aria-label={`Legend: ${label}, ${unit}. ${open ? 'Hide' : 'Show'} the scale`} onClick={() => setOpen(!open)}>
+        {word && <b className="xleg-w">{word}</b>}<b>{unit}</b>{notSurf && <span>offshore · not surf</span>}<i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} aria-hidden="true" />
+      </button>
       <button className="xchip" aria-label={`${label}${/swell height/i.test(label) ? ' (0 = no swell, wind sea only)' : ''} legend, fixed scale ${ticks ? ticks.map((x) => x.label).join(', ') : `${lo} to ${hi}`} ${unit}.${onCycle ? ' Press to change the unit' : ''}`} title={ticks ? `Fixed scale, ${unit}: ${ticks.map((x) => x.label).join(' · ')}` : undefined} data-loading={loading || undefined} onClick={onCycle ?? undefined} disabled={!onCycle}>
         {/* A18 (audit M7): every legend names the layer it paints (wide: the full name; phone: the short one) */}<span className="xleg-k">{label}</span><span className="xleg-ks">{short ?? label}</span>{/swell height/i.test(label) && <span className="xleg-note" title="No swell system there: the model's swell partition is empty and the sea is all wind sea, which can still be large (see the Waves layer). Painted at the calm end of the swell scale.">0 = no swell (wind sea only)<span className="sr">: the sea there is all wind sea, which can still be large; the Waves layer shows its height</span></span>}<b>{unit}</b>{!ticks && <span className="xleg-lo">{lo}</span>}<span className="xleg-bar"><i style={{background: `linear-gradient(90deg, ${ramp.join(',')})`}} />{ticks && <span className="xleg-tk" aria-hidden="true">{ticks.map((x, i) => <em key={x.pos} className={i === 0 || i === ticks.length - 1 || i === midTick(ticks) ? 'maj' : undefined} style={{left: `${x.pos * 100}%`}}>{x.label}</em>)}</span>}</span>{!ticks && <span>{hi}</span>}
       </button>

@@ -247,7 +247,9 @@ function Search({go}: {go: Go}) {
       if (e.key === '/' && !open && !/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName) && !t.isContentEditable) { e.preventDefault(); setOpen(true); }
     };
     addEventListener('keydown', onKey);
-    return () => removeEventListener('keydown', onKey);
+    const openIt = () => setOpen(true);   // phone pass 1: the spot page's name opens this search (it is the spot selector on a phone)
+    addEventListener('swello:open-search', openIt);
+    return () => { removeEventListener('keydown', onKey); removeEventListener('swello:open-search', openIt); };
   }, [open]);
   const info = useMemo(() => new Map(spotStrip(spotOptions, view.mapRecords, spotOptions.map((s) => s.id), now, data.state.profile, {bundle: view.ocean.bundle}).map((x) => [x.id, x])),
     [spotOptions, view.mapRecords, now, data.state.profile]);

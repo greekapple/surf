@@ -22,7 +22,7 @@
 .tl-svg .tl-day { stroke: var(--ch-div); stroke-width: 1; shape-rendering: crispEdges; }
 .tl-svg .tl-ax { font-size: 11px; fill: var(--muted); }
 .tl-svg .tl-dim { fill: var(--dim); }
-.tl-svg .tl-dlab { font-size: 11px; font-weight: 650; fill: var(--text); }
+.tl-svg .tl-dlab { font-size: 11px; font-weight: 650; fill: var(--text); paint-order: stroke; stroke: var(--s1); stroke-width: 3px; stroke-linejoin: round; }
 .tl-svg .tl-row { font-size: 11px; fill: var(--dim); }
 .tl-svg .tl-title { font-size: 12px; font-weight: 700; fill: var(--text); paint-order: stroke; stroke: var(--s1); stroke-width: 3px; stroke-linejoin: round; }
 .tl-svg .tl-pk { font-size: 11px; font-weight: 650; fill: var(--text); paint-order: stroke; stroke: var(--s1); stroke-width: 3px; stroke-linejoin: round; }
@@ -616,5 +616,62 @@ p.sp-wn { display: block; }
 .sp-wq-t { flex: 1 1 200px; }
 .sp-wq a { min-height: 44px; display: inline-flex; align-items: center; }
 .sp-wq small { flex: 1 1 100%; font-size: 12px; color: var(--muted); }
+
+/* ---------- phone pass 1: the spot page's answer comes first ---------- */
+.sp-h1b { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; border-radius: 8px; }
+.sp-h1b:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.sp-h1c { display: none; opacity: 0.8; }
+.nws-more { display: none; }
+@media (max-width: 860px) {
+  .sp-h1c { display: inline-block; }                       /* the name is the spot selector on a phone */
+  .favbar-end .spotpick { display: none; }                  /* ...so the separate picker row goes */
+  .favbar:has(.favbar-empty) { display: none; }             /* and with no saved spots the bar has nothing left to show */
+  .sp-meta-b { display: none; }                             /* "heights are model estimates · ratings provisional": said beside the number and the rating */
+  .nws:not(.open) > .nws-a ~ .nws-a { display: none; }      /* the first alert, the rest one tap away */
+  .nws-more { display: block; width: 100%; min-height: 44px; padding: 0 16px; border: 0; background: none; color: var(--accent); font: 600 14px/1 var(--sans); text-align: left; cursor: pointer; }
+}
+@media (max-width: 860px) {
+  /* no saved spots: the strip is hidden, so the page stops reserving its height under the header */
+  .shell.has-strip:has(.favbar .favbar-empty) { --strip-h: 0px; }
+  /* the hero: name, meta and time in as little height as they need (the photo credit keeps its own full-width line under them: T-132, CC BY/BY-SA) */
+  .sp-band.is-photo .sp-band-in, .sp-band.is-photo.has-cam .sp-band-in { height: auto; min-height: 100px; padding: 10px 12px 8px 14px; }
+  .sp-band .sp-title h1 { font-size: 24px; }
+  /* the answer first: the hero, any NWS alert and the Call, then the surf/rating grid (and a card opened from it); daylight, cams and the rest follow */
+  .sp > * { order: 2; }
+  .sp > .sp-band, .sp > .nws, .sp > .nws-none, .sp > .call { order: 0; }
+  .sp > .sp-grid, .sp > .sp-detail { order: 1; }
+}
+/* phone pass 5: the drawn wave sits in the hero's top-right corner beside the name (capped at 60%), never across the time row or the star;
+   its 'offshore only' label scales up so it reads at 12 px (the glyph's viewBox is 300 x 150, drawn 60 px tall: 0.4x) */
+@media (max-width: 860px) {
+  .sp-drawn .wglyph { left: auto; right: 12px; top: 10px; bottom: auto; translate: none; height: 60px; width: auto; max-width: 36%; }
+  .sp-drawn .wglyph .wg-off { font-size: 30px; }
+  .sp-band.is-drawn .sp-title p { max-width: 60%; }
+}
+/* wide: the name, time and Now run along the hero's bottom; the drawing sits in the empty top-right above them (drawn 88 px tall: 0.59x, so the
+   label is 21 units to read at 12 px or more) */
+@media (min-width: 861px) {
+  .sp-drawn .wglyph { left: auto; right: 32px; top: 14px; bottom: auto; translate: none; height: 88px; }
+  .sp-drawn .wglyph .wg-off { font-size: 21px; }
+}
+.tl-svg .tl-unit { font-weight: 550; fill: var(--muted); }
+/* phone pass 6: the tide mini chart: the curve scales to the card, the high/low times are 12 px page text under it */
+.sp-tide-w { margin: 2px 0; }
+.sp-tide-w { --tide-h: 46px; }
+.sp-tide-w .sp-tide { height: var(--tide-h); margin: 0; }
+.sp-tide-ls { position: relative; height: 16px; margin: 2px 0 0; font-size: 12px; line-height: 16px; color: var(--muted); }
+.sp-tide-ls span { position: absolute; top: 0; white-space: nowrap; }
+@media (max-width: 860px) { .sp-tide-w { --tide-h: 34px; } }
+.sp-tide-w { position: relative; }
+.sp-tide-w > .sp-tide-now { position: absolute; width: 7px; height: 7px; margin: -3.5px 0 0 -3.5px; border-radius: 50%; background: var(--text); pointer-events: none; }
+/* phone pass 7: below 480 px the cards are one column (each full width), so no value wraps away from its unit ("gusts 37.4 / mph", "1.4 / ft") */
+@media (max-width: 480px) {
+  .sp-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'surf' 'rating' 'wind' 'tide' 'water' 'scale' 'swell'; }
+}
 /* audit A3: the no-hourly-tide message inside the chart (HTML so it wraps at 390) */
 .tl-none { display: grid; place-items: center; height: 100%; margin: 0; padding: 0 8px; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--muted); text-wrap: balance; }
+/* merge (share-card x phone pass): on a phone the drawn hero keeps its credit on a line of its own under the time, star and Share (the credit is
+   pinned to the bottom of the drawing, so the controls sit above it) */
+@media (max-width: 860px) {
+  .sp-band.is-drawn .sp-band-in { padding-bottom: 28px; }
+}

@@ -5,8 +5,8 @@
 /* Header stack (T-022): the bar, plus the saved-spots strip on Home and Forecast. Pages that offset by --nav-h clear both. */
 .shell.has-strip { --nav-h: calc(var(--bar-h) + var(--strip-h)); }
 .hdr { position: sticky; top: 0; z-index: 1200; }
-.skip { position: absolute; left: 12px; top: -80px; z-index: 100; padding: 10px 14px; border-radius: var(--r1); background: var(--text); color: var(--bg); }
-.skip:focus { top: 8px; }
+.skip-link { position: absolute; left: 12px; top: -80px; z-index: 100; padding: 10px 14px; border-radius: var(--r1); background: var(--text); color: var(--bg); }
+.skip-link:focus { top: 8px; }
 /* The navigation bar follows the theme tokens (light by default, dark under data-theme="dark"). */
 /* The nav sits above every page layer, including Leaflet's panes (400-1000), which are contained by .mapbox/.xmap isolation. */
 .topnav { position: relative; display: flex; align-items: center; gap: 28px; height: var(--bar-h); padding: 0 clamp(16px, 3vw, 40px); background: var(--bg); border-bottom: 1px solid var(--line); }
@@ -423,7 +423,7 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
   .area-link { height: 44px; }
   .foot a { display: inline-flex; align-items: center; min-width: 44px; min-height: 44px; justify-content: center; }
 }
-.skip { min-height: 44px; }
+.skip-link { min-height: 44px; }
 /* T-096: the 44 px header targets (T-095) pushed the bar 13 px past a 320 px screen; tighten the gaps and logo on very narrow phones. */
 @media (max-width: 360px) { .nav-end { gap: 0; } .area-link { padding-left: 2px; min-width: 44px; justify-content: center; } .brand { gap: 6px; } .brand b, .brand span { font-size: 20px; } }
 
@@ -459,3 +459,5 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
 @media (max-width: 860px) { .xsheet.phone .xsearch .acf { font-size: 16px; } }
 /* the search boxes mark focus on their container (border); the input inside the autofill wrapper draws no ring of its own */
 .xsearch .acf > input:focus, .xsearch .acf > input:focus-visible, .search-in .acf > input:focus, .search-in .acf > input:focus-visible { outline: none; box-shadow: none; }
+/* phone pass 2: on a phone the map runs edge to edge under no app header (its own search replaces the header's; the tab bar stays) */
+@media (max-width: 860px) { .shell.is-map { --nav-h: 0px; } .shell.is-map .hdr { display: none; } }

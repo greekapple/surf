@@ -47,6 +47,9 @@ export interface MapEngine {
   setTheme(t: Theme): void;
   /** The attribution text for the basemap in use (the page shows it; the engine draws no attribution control). */
   attribution(): string;
+  /** phone pass 3: the page's own labels (pin labels, height chips, region pills), as boxes in container pixels centred on a map point. The basemap's place
+   *  names give way to them (the engine keeps these boxes in its label placement; nothing is drawn). Optional: an engine without label placement ignores it. */
+  shieldLabels?(boxes: {lat: number; lon: number; w: number; h: number}[]): void;
   dispose(): void;
 }
 export interface EngineOptions {view: View; minZoom: number; maxZoom: number; theme: Theme}

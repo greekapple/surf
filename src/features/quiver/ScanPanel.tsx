@@ -62,7 +62,7 @@ export function ScanPanel({lengthText, value, onChange}: {lengthText: string; va
   const accept = () => {
     const F = full.current, f = big.current; if (!res?.ok || !F || !f) return;
     const tex = encode(straighten(F.data, F.width, F.height, f, TEX_W));
-    if (!tex) setNote('The deck photo could not be made small enough to keep, so the board will use a plain colour. The outline still works.');
+    if (!tex) setNote('The deck photo could not be made small enough to keep, so the board will use a plain color. The outline still works.');
     onChange({outline: {...res.outline, ...(tex ? {tex} : {})}, aspect: res.aspect});
   };
   const pick = async (file: File | undefined) => {

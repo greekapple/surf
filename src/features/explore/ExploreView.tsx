@@ -24,6 +24,7 @@ import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
 import {buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {erddapHosts, schedulePrefetch, viaHosts} from '../../map/spatial';
+import {framesBase} from '../../map/packedFrame';
 import {attachDebugOverlay, debugEnabled, type DebugInfo} from '../../map/debugOverlay';
 import type {MapLayer, MapVariable} from '../../map/types';
 import type {SpatialFrame} from '../../map/spatial';
@@ -326,9 +327,15 @@ function OceanMap({section, go}: ViewProps) {
       if (!matchMedia('(max-width: 860px)').matches || el.classList.contains('open')) return;
       e.preventDefault(); e.stopPropagation(); el.classList.add('open'); el.setAttribute('aria-expanded', 'true');
     };
-    const key = (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') open(e); };
-    el.addEventListener('click', open, true); el.addEventListener('keydown', key);
-    return () => { el.removeEventListener('click', open, true); el.removeEventListener('keydown', key); };
+    const close = () => { el.classList.remove('open'); el.setAttribute('aria-expanded', 'false'); requestAnimationFrame(() => declutterRef.current()); };
+    // lead review (OSMF attribution guidelines): on phones the credit shows in full when the map opens and folds to the (i) at the first interaction, as
+    // MapLibre's compact attribution does
+    if (matchMedia('(max-width: 860px)').matches) { el.classList.add('open'); el.setAttribute('aria-expanded', 'true'); }
+    const key = (e: KeyboardEvent) => { if (e.key === 'Enter' || e.key === ' ') open(e); else if (e.key === 'Escape') close(); };
+    // phone pass 2: the credit is an (i) until opened; a tap anywhere else folds it back
+    const away = (e: Event) => { if (el.classList.contains('open') && !el.contains(e.target as Node)) close(); };
+    el.addEventListener('click', open, true); el.addEventListener('keydown', key); document.addEventListener('pointerdown', away, true);
+    return () => { el.removeEventListener('click', open, true); el.removeEventListener('keydown', key); document.removeEventListener('pointerdown', away, true); };
   }, [eng]);
 
 
@@ -434,7 +441,7 @@ function OceanMap({section, go}: ViewProps) {
     if (!m) return;
     // Reads first (the map box and the few floating controls), then class writes, then pure geometry from project(): no forced layout per pin.
     const edge = m.container.getBoundingClientRect();
-    const ctl = Array.from(m.container.parentElement?.querySelectorAll<HTMLElement>('.xsearchbox, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? []).map((el) => el.getBoundingClientRect()).filter((r) => r.width);
+    const ctl = Array.from(m.container.parentElement?.querySelectorAll<HTMLElement>('.xsearchbox, .xsheet, .xsrcwarn, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? []).map((el) => el.getBoundingClientRect()).filter((r) => r.width);
     const els = evidenceSpots.map((e) => ({id: e.id, el: markers.current.get(e.id)?.element})).filter((x): x is {id: string; el: HTMLElement} => !!x.el);
     els.sort((a, b) => Number(b.el.classList.contains('sel')) - Number(a.el.classList.contains('sel')) || (rank.current.get(b.id) ?? -1) - (rank.current.get(a.id) ?? -1));
     els.forEach(({el}) => el.classList.remove('xhide', 'lft', 'xdot', 'xthin', 'xchipon', 'clft'));
@@ -477,7 +484,7 @@ function OceanMap({section, go}: ViewProps) {
       // the floating controls too (search, chips, buttons, the time bar): a pill nudges clear of them, and one that still sits under a control is not drawn (it could not be read)
       // the search box's container is larger than what it shows (its empty part lets taps through): for the pills, its visible parts only
       const root = m.container.parentElement, top = Array.from(root?.querySelectorAll<HTMLElement>('.xtopbar > *') ?? []).flatMap((el) => (el.tagName === 'DIV' && el.children.length ? Array.from(el.children) : [el]));
-      const ctlR = [...top, ...Array.from(root?.querySelectorAll<HTMLElement>('.xsearchbox .xsheet, .xsheet, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? [])]
+      const ctlR = [...top, ...Array.from(root?.querySelectorAll<HTMLElement>('.xsearchbox .xsheet, .xsheet, .xsrcwarn, .xfabs > *, .xbottom > *, .leaflet-control-attribution, .xcredit, .xspotpop') ?? [])]
         .map((el) => el.getBoundingClientRect()).filter((r) => r.width).map((c) => ({left: c.left, top: c.top, right: c.right, bottom: c.bottom}));
       const show = coast ? layoutPills(COAST_LEAVES, boxOf, (id) => pills.current.get(id)?.prio ?? -1, [...keep, ...ctlR]) : new Map<NodeId, [number, number]>();
       for (const [id, o] of show) { const r = boxOf(id)!; if (ctlR.some((c) => overlaps({left: r.left + o[0], right: r.right + o[0], top: r.top + o[1], bottom: r.bottom + o[1]}, c, 0))) show.delete(id); }
@@ -535,6 +542,8 @@ function OceanMap({section, go}: ViewProps) {
       if (free(right, dot)) { taken.push(right); el.classList.add('xchipon'); }
       else if (free(left, dot)) { taken.push(left); el.classList.add('xchipon', 'clft'); }
     }
+    // phone pass 3: everything the page drew (dots, labels, height chips, region pills) takes priority over the basemap's place names
+    if (m.shieldLabels) { const ctlSet = new Set(ctl); m.shieldLabels(taken.filter((r) => !ctlSet.has(r) && inView(r)).map((r) => { const c = m.unproject(r.left - edge.left + r.width / 2, r.top - edge.top + r.height / 2); return {lat: c.lat, lon: c.lon, w: r.width + 4, h: r.height + 4}; })); }
     // subset loading: the drawn pins in view are the spots whose forecast the map needs; reported debounced, they load with the next scope
     // Only from zoom 7 (a regional view): a world-zoom pan must not mark 150 spots as requested (that would make them hot on the Worker and spend Open-Meteo quota nobody is looking at).
     // With pills up to COAST_MAX_ZOOM, the spots in view count whether a pill or a pin stands for them (best-ranked first), so the pills' readings load from z7 as the pins did.
@@ -754,6 +763,14 @@ function OceanMap({section, go}: ViewProps) {
   // the ERDDAP frames drawn (the global one and the California subset), each with its components: one server named, or both if they differ
   const shownUrls = [gframe, frame].flatMap((x) => (x ? x.sources ?? [x.url] : []));
   const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, mapZone())} ${hourLabel(iso, mapZone())} ${mapZoneAbbr(iso)}`);
+  // lead review: the cache label only once that cached frame is on the canvas (it is drawn a few seconds after the label could show); until then the
+  // phone note says the layer is loading, so the label never claims a picture the screen does not show yet
+  const cachedF = nestPainted ? frame : (gframe ?? frame);
+  const cacheReady = !!cache && !!paintedFrame && !!cachedF && paintedFrame.layer === def.layer && Date.parse(paintedFrame.validAt) === Date.parse(cachedF.validAt);
+  // 'ready' is when the frame is drawn; it then fades in (mapConfig.crossfadeMs, longer for the first paint after a reload): the label waits a second
+  const [cacheFaded, setCacheFaded] = useState(false);
+  useEffect(() => { if (!cacheReady) { setCacheFaded(false); return; } const t = window.setTimeout(() => setCacheFaded(true), Math.max(1000, mapConfig.crossfadeMs + 150)); return () => window.clearTimeout(t); }, [cacheReady]);
+  const cacheDrawn = cacheReady && cacheFaded;
   // A8 (audit M2): 'valid' dates the frame actually painted (the same rule as cacheLabel above: the regional nest when it is drawn, else the global frame),
   // and the note says how that frame relates to the hour on the time bar: interpolated between two model steps, or the nearest model step
   const shownFrame = nestPainted ? frame : (gframe ?? frame);
@@ -762,8 +779,8 @@ function OceanMap({section, go}: ViewProps) {
   // C (audit M21): the chip (below) names the same frame this note describes, so the two can never name different sources
   const shownPacked = !!shownFrame?.provider.startsWith('NOAA GFS-Wave');
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
-    : cache && opts.heat ? cache.line
-    : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
+    : cache && cacheDrawn && opts.heat ? cache.line
+    : spatial.loading && !frame && slow ? 'Sea color is not loading right now · spots and forecasts still work'
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
     : frame || gframe ? `${def.label} · ${shownPacked ? shownFrame!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${viaHosts(shownUrls)}`}${shownPacked ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}${interpNote ? ` · ${interpNote}` : ''}`} · valid ${weekdayPT(shownFrame!.validAt, mapZone())} ${hourLabel(shownFrame!.validAt, mapZone())} ${mapZoneAbbr(shownFrame!.validAt)}${stepNote}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
@@ -903,7 +920,7 @@ function OceanMap({section, go}: ViewProps) {
   const wavesField = useMemo(() => (wavesGlobe.frame ? buildField(wavesGlobe.frame, false) : null), [wavesGlobe.frame]);
   const windSea = pv?.note && wavesField && at ? sampleField([wavesField], at.lat, at.lon)?.value ?? null : null;
   // audit P1-4: a point with no value says why, and says "enclosed water" only where the enclosed-water mask marks it
-  const noValueWhy = !(opts.heat || opts.flow || opts.arrows) ? 'sea colour off' : !(frame || gframe) ? 'loading…' : pt && enclosedCovers(pt.lat, pt.lon) && isEnclosedWater(pt.lat, pt.lon) ? 'enclosed water' : 'no model cell this close to shore';
+  const noValueWhy = !(opts.heat || opts.flow || opts.arrows) ? 'sea color off' : !(frame || gframe) ? 'loading…' : pt && enclosedCovers(pt.lat, pt.lon) && isEnclosedWater(pt.lat, pt.lon) ? 'enclosed water' : 'no model cell this close to shore';
   const line = pointLine(pv, perS, p, fieldId, windSea, extras, shownPacked ? 'GFS-Wave' : def.layer === 'WIND' ? 'GFS' : 'WW3');   // A19: the label names the model it samples
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
@@ -913,11 +930,40 @@ function OceanMap({section, go}: ViewProps) {
   { const f = gframe ?? frame; debugInfo.current = f && opts.heat ? {model: modelName, source: f.provider, run: packedGlobal ? (/run ([^)]*)\)/.exec(f.provider)?.[1] ?? '?') : 'n/a (ERDDAP best series, no run id)', validAt: f.validAt, retrievedAt: f.retrievedAt, layer: (paintedDef.label ?? def.label), held: paintedDef.id !== def.id} : null; }
   useEffect(() => (debugEnabled() ? attachDebugOverlay(() => debugInfo.current) : undefined), []);
 
+  // lead (phone pass 2a): the phone map has no app header, so the header's source warning shows here without a tap: the sources the map depends on that are
+  // not connected (unavailable, or a stale copy), or the demonstration / unavailable state. Still-loading sources are not a limit.
+  const srcWarn = !live ? 'Demonstration · not live' : !view.ocean.bundle && !view.ocean.loading ? 'Forecast unavailable'
+    : (() => { const bad = view.ocean.statuses.filter((x) => x.state === 'unavailable' || x.state === 'partial'); // statuses are per spot ('Open-Meteo Marine · Ocean Beach'): one entry per source, with how many spots it limits
+      const by = new Map<string, Set<string>>(); for (const x of bad) { const [src, where = ''] = x.provider.split(' · '); const k = `${src}${x.state === 'partial' ? ' (stale copy)' : ''}`; if (!by.has(k)) by.set(k, new Set()); by.get(k)!.add(where); }
+      return by.size ? `Limited: ${[...by].map(([k, w]) => `${k}${w.size > 1 ? ` (${w.size} spots)` : ''}`).join(', ')}` : ''; })();
+  const srcWarnTitle = view.ocean.statuses.filter((x) => x.state === 'unavailable' || x.state === 'partial').map((x) => `${x.provider}: ${x.message}`).join('\n');
+  // lead (phone pass, data honesty): on a phone (no model chip) the sea names its model when the global GFS-Wave frames are not in use (a stale or missing run:
+  // the map falls back to WW3/GFS over ERDDAP), and says it is loading while no field for this hour has arrived, instead of an unlabelled sea.
+  const fallbackName = opts.heat && framesBase() && (frame || gframe) && !packedGlobal ? `${def.layer === 'WIND' ? 'GFS' : 'WW3'} fallback${erddapHosts(shownUrls) ? ` (${erddapHosts(shownUrls).replace(/ ERDDAP$/, '')})` : ''}` : '';
+  const seaLoading = opts.heat && live && !!view.selectedTime && !slow && !(frame || gframe) ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? def.short.toLowerCase()}…` : '';
+  // lead review 3: the phone has no model chip, so a held picture (the previous layer or hour still on screen while the new one loads, or the sea not loading
+  // at all) is captioned here with what is actually shown
+  const heldWord = paintedFrame ? (LEGEND_NAMES[(FIELDS.find((f) => f.layer === paintedFrame.layer)?.id ?? '') as keyof typeof LEGEND_NAMES]?.word ?? 'the previous layer') : '';
+  const heldWhen = paintedFrame ? `${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())}` : '';
+  const isHeld = opts.heat && live && !!paintedFrame && anyLoading && (paintedFrame.layer !== def.layer || (!!view.selectedTime && Date.parse(paintedFrame.validAt) !== Date.parse(view.selectedTime)));
+  // On phones this note also stands in for the .xload pill (hidden there): the forecast still loading, a failed hour (with Retry) and a slow one (with Retry)
+  const seaFailed = opts.heat && live && !!view.selectedTime && !spatial.loading && !spatial.frame && !/^Loading/.test(spatial.status);
+  const showing = paintedFrame ? ` · showing ${heldWord}, ${heldWhen}` : '';
+  const heldNote = !opts.heat || !live || (cache && cacheDrawn) ? ''
+    : cache ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}…`
+    : !view.selectedTime && dataPhase(view.ocean) === 'loading' ? 'Loading the forecast…'
+    : seaFailed ? `Couldn't load ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}${showing}`
+    : slow && anyLoading ? (paintedFrame ? `Sea color not loading${showing}` : 'Sea color not loading · spots still work')
+    : isHeld ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}…${showing}` : '';
+  const seaRetry = !!heldNote && (seaFailed || (slow && anyLoading)) ? () => { setSlow(false); spatial.retry(); } : null;
+  const seaNote = heldNote || (fallbackName ? `${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word ?? def.short} model: ${fallbackName}` : seaLoading);
+  // the warning sits in the top bar: pills and labels lay out again when it appears or changes, so none sits under it
+  useEffect(() => { const id = requestAnimationFrame(() => declutterRef.current()); return () => cancelAnimationFrame(id); }, [srcWarn, seaNote]);
   return (
     <div ref={rootRef} className="xmap" data-d={phone ? detent : undefined}>
       <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Drag to pan; use the zoom buttons or scroll to zoom." />
       {/* The MapLibre engine draws no credit control: the page shows the basemap's attribution (same place and style as Leaflet's). */}
-      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay="">{eng.attribution()}</p>}
+      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay=""><span className="xcr-t">{eng.attribution()}</span></p>}
 
       {phone && sheetOn ? (
         <section ref={sheetRef} className="xsheet phone" id="xsheet" data-d={detent} aria-label="Spots"
@@ -932,6 +978,8 @@ function OceanMap({section, go}: ViewProps) {
       ) : null}
       <div className="xsearchbox">
         {topBar}
+        {phone && srcWarn && <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" />{srcWarn}</p>}
+        {phone && seaNote && <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined}><i aria-hidden="true" /><span>{seaNote}</span>{seaRetry && <button type="button" onClick={seaRetry}>Retry</button>}</p>}
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
 
@@ -963,13 +1011,13 @@ function OceanMap({section, go}: ViewProps) {
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
         {darkNow && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window</p>}
-        {cache && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
+        {cache && cacheDrawn && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
-          {opts.heat && <ModelChip name={modelName} sub={cache?.chip} note={<>{status} {ENCLOSED_NOTE}</>} />}
-        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={LEGEND_NAMES[paintedDef.id].full} short={LEGEND_NAMES[paintedDef.id].short} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />
-          : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
+          {opts.heat && <ModelChip name={modelName} sub={cacheDrawn ? cache?.chip : undefined} note={<>{status} {ENCLOSED_NOTE}</>} />}
+        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={LEGEND_NAMES[paintedDef.id].full} short={LEGEND_NAMES[paintedDef.id].short} word={LEGEND_NAMES[paintedDef.id].word} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />
+          : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea color off'}</p>}
         </div>
       </div>
       {pt && panel && <ForecastPanel pt={pt} data={point.data} error={point.error} time={view.selectedTime} p={p} bundle={view.ocean.bundle}
