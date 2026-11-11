@@ -5,6 +5,7 @@ import {boardTypes,type UserProfile,type Surfboard,type SurfSession} from '../mo
 import {validDimensions} from './units.ts';
 import {migrateDemoBoards} from '../data/referenceBoards.ts';
 import {canonicalSpotId,canonicalIds} from '../data/spotAliases.ts';
+import {validHeightIn} from '../services/heightMath.ts';
 export interface AppState {version:1;profile:UserProfile;boards:Surfboard[];favorites:string[];sessions:SurfSession[]}
 export const freshState=():AppState=>({version:1,profile:{...defaultProfile,preferredBoards:[]},boards:structuredClone(demoBoards),favorites:[],sessions:[]});
 export const storageKey='surf-prototype-v1';
@@ -36,3 +37,21 @@ export function validateState(raw:unknown):AppState{
 export function parseBackup(value:string){if(value.length>5_000_000)throw new Error('Backup must be smaller than 5 MB.');return validateState(JSON.parse(value))}
 export function loadState(storage:Pick<Storage,'getItem'>):{state:AppState;error:string}{try{const raw=storage.getItem(storageKey);return {state:raw?parseBackup(raw):freshState(),error:''}}catch{return {state:freshState(),error:'Saved data could not be loaded. It has not been overwritten. Export recovery data or explicitly import or reset to continue saving.'}}}
 export function saveState(storage:Pick<Storage,'setItem'>,state:AppState){try{storage.setItem(storageKey,JSON.stringify(state));return ''}catch{return 'Changes could not be saved in this browser. Keep this tab open and export a backup.'}}
+/** Restore from backup (user decision 2026-11-11): a strict read of an exported backup file. Stricter than loading this browser's own storage:
+ *  the file must be exactly the export's shape (the five top-level keys, known profile keys only, version 1), so a foreign or hand-edited JSON
+ *  file is rejected rather than half-read. Throws a message for the person; nothing is changed until the caller replaces the state. */
+const BACKUP_KEYS=['version','profile','boards','favorites','sessions'];
+const PROFILE_KEYS=new Set([...Object.keys(defaultProfile),'displayName','personalization','heightIn']);
+export interface RestorePreview {boards:number;exampleBoards:number;sessions:number;favorites:number;settings:number}
+export function parseRestore(text:string):{state:AppState;preview:RestorePreview}{
+ if(text.length>5_000_000)throw new Error('This file is larger than 5 MB, so it is not a SWELLO backup.');
+ let raw:unknown;try{raw=JSON.parse(text)}catch{throw new Error('This file is not valid JSON, so it is not a SWELLO backup.')}
+ if(!object(raw)||!BACKUP_KEYS.every(k=>k in raw)||Object.keys(raw).some(k=>!BACKUP_KEYS.includes(k)))throw new Error('This file is not a SWELLO backup: an exported backup has exactly version, profile, boards, favorites and sessions.');
+ if(raw.version!==1)throw new Error(`This backup is version ${JSON.stringify(raw.version)}; this app restores version 1 backups only.`);
+ if(!object(raw.profile))throw new Error('This file is not a SWELLO backup: the profile is missing.');
+ const extra=Object.keys(raw.profile).filter(k=>!PROFILE_KEYS.has(k));
+ if(extra.length)throw new Error(`This file is not a SWELLO backup: unknown profile field "${extra[0]}".`);
+ if(raw.profile.heightIn!==undefined&&raw.profile.heightIn!==null&&!validHeightIn(raw.profile.heightIn))throw new Error('This backup has an invalid profile height.');
+ const state=validateState(raw);
+ return {state,preview:{boards:state.boards.length,exampleBoards:state.boards.filter(b=>b.demo).length,sessions:state.sessions.length,favorites:state.favorites.length,settings:Object.keys(state.profile).length}};
+}

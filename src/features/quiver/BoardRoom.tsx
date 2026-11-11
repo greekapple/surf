@@ -7,7 +7,7 @@ import {inches} from './format';
 import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, trimFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
 import {referenceTpl, tracedTpl} from './traced';
-import {MODELLED_NOTE, referenceFor} from '../../data/referenceBoards';
+import {MODELLED_NOTE, exampleLabel, referenceFor} from '../../data/referenceBoards';
 import {Studio, type Anchor, type BoardEntry, type Preset} from './studio';
 import {BoardOutline} from './BoardOutline';
 import type {SizeFit} from './fit';
@@ -270,7 +270,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
       <aside className="br-panel" aria-label={`Configure ${board.name}`}>
         <header className="br-h">
           <h2><span className="br-name">{board.name}</span></h2>
-          <p>{[board.type, maker || null, board.demo ? 'Example board' : null].filter(Boolean).join(' · ')}</p>
+          <p>{[board.type, maker || null, board.demo ? exampleLabel(board) : null].filter(Boolean).join(' · ')}</p>
           {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {surfRange(ft.board[0], ft.board[1], profile)}</span></p> : null; })()}
           <p className="br-match">{match}</p>
         </header>

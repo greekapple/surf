@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {demoBoards} from '../data/demo.ts';
-import {MODELLED_NOTE, REFERENCE_BOARDS, migrateDemoBoards, referenceFor, volumeLabel} from '../data/referenceBoards.ts';
+import {MODELLED_NOTE, REFERENCE_BOARDS, exampleLabel, migrateDemoBoards, referenceFor, volumeLabel} from '../data/referenceBoards.ts';
 import {boardCurves, boardParamsFor, buildBoard} from '../features/scale/boardMesh.ts';
 import {defaultLook, finsFromText} from '../features/quiver/looks.ts';
 import {validDimensions} from '../utils/units.ts';
@@ -105,10 +105,13 @@ test('real boards (honesty): an edited example board loses the published-specs l
     for (const edit of [{length: d.length + 1}, {width: d.width + 0.25}, {thickness: d.thickness + 0.125}, {demo: false}, {demo: undefined}] as Partial<Surfboard>[]) assert.equal(referenceFor({...d, ...edit}), null, `${d.id} ${Object.keys(edit)[0]}`);
     assert.equal(d.character, undefined, `${d.id}: character is not published, so it is unset`);
     assert.match(d.notes ?? '', /https?:\/\//, `${d.id}: the exact source URL is in the notes`);
+    for (const u of (d.notes ?? '').match(/https?:\/\/\S+/g) ?? []) assert.ok(!/[?#]/.test(u), `${d.id}: plain link, no tracking or affiliate parameters (${u})`);
+    assert.ok(/maker's|not verified against the maker/i.test(d.notes ?? ''), `${d.id}: the notes say whether the specs were checked against the maker`);
   }
   const fish = demoBoards.find((d) => d.id === 'demo-fish')!;
-  assert.equal(volumeLabel(fish), '41.1 L (read from the stringer photo)'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L', 'an edited board carries no retailer qualifier');
+  assert.equal(volumeLabel(fish), '41.1 L', 'the maker publishes 41.1 L, so no retailer-photo qualifier'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L');
   assert.equal(volumeLabel(demoBoards.find((d) => d.id === 'demo-short')!), '29.4 L');
+  for (const d of demoBoards) { assert.equal(exampleLabel(d), 'Example board (retail model)', d.id); assert.equal(exampleLabel({...d, model: 'Something else'}), 'Example board', `${d.id}: an edited example is not called a retail model`); }
 });
 
 test('real boards: the small-day band accepts a soft-top (where Longboard was listed), and boardForBand still picks the Ghost for a big day', async () => {

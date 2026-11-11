@@ -20,6 +20,7 @@ import {compass, fromUnit, heightRange, toUnit} from '../../utils/units';
 import {PIcon, type PName} from './icons';
 import {Choice, SpotCover, entryDate} from './parts';
 import {AlertsManager} from './AlertsPanels';
+import {parseRestore, type AppState, type RestorePreview} from '../../utils/storage';
 import {JournalList, LogForm, type LogInput} from './JournalPanels';
 import {SawList} from './SawList';
 import {addObservation, checkObservation, downloadText, loadLog, logToCsv, logToJson, removeObservation, saveLog, type ObservationContext} from '../../services/sessionLog';
@@ -118,6 +119,17 @@ export function PersonalView({section, go}: ViewProps) {
   const {data, view, setSpot, now, spotOptions} = useSwello();
   const [themePref, setThemePref] = useThemePref();
   const [mapStyle, setMapStyle] = useState<BasemapPref>(() => readBasemapPref());
+  // Restore from backup: the file is read and checked first; nothing changes until the person confirms the replace.
+  const [restore, setRestore] = useState<{file: string; state: AppState; preview: RestorePreview} | null>(null);
+  const [restoreMsg, setRestoreMsg] = useState<{ok: boolean; text: string} | null>(null);
+  const pickBackup = async (f: File | undefined, input: HTMLInputElement) => {
+    input.value = '';   // the same file can be picked again
+    if (!f) return;
+    setRestore(null);
+    try { const r = parseRestore(await f.text()); setRestore({file: f.name, ...r}); setRestoreMsg(null); }
+    catch (e) { setRestoreMsg({ok: false, text: `${f.name} can't be restored. ${e instanceof Error ? e.message : 'The file could not be read.'} Your current data has not been changed.`}); }
+  };
+  const confirmRestore = () => { if (!restore) return; data.replace(restore.state); setRestoreMsg({ok: true, text: `Restored from ${restore.file}.`}); setRestore(null); };
   const [hash, setHash] = useState(() => location.hash);
   // Favorite spots page: search, region chips, favourites and spots near the selected spot first, and 40 cards at a time (a window, never the whole catalogue in the DOM).
   const [spotQ, setSpotQ] = useState(''), [spotZone, setSpotZone] = useState('All'), [spotPage, setSpotPage] = useState(0);
@@ -424,14 +436,32 @@ export function PersonalView({section, go}: ViewProps) {
             </div>
             <div className="pz-panel">
               <h2>Storage and backup</h2>
-              <p>There is no SWELLO account yet. Your profile, boards, favourites and journal live in this browser's storage and are not synced to other devices.</p>
+              <p>There is no SWELLO account yet. Your profile, boards, favorites and journal live in this browser's storage and are not synced to other devices.</p>
               {data.error && <p className="fine" style={{color: 'var(--warn)'}}>{data.error}</p>}
               <div className="pzl-actions">
                 <button className="btn" onClick={data.exportData}>Export backup (JSON)</button>
+                <label className="btn pz-file"><input type="file" accept="application/json,.json" aria-label="Restore from backup" onChange={(e) => void pickBackup(e.target.files?.[0], e.currentTarget)} /><PIcon name="backup" size={16} />Restore from backup</label>
                 <button className="btn" disabled={!obsLog.length} onClick={() => downloadText('swello-session-log.json', logToJson(obsLog), 'application/json')}>Export observations (JSON)</button>
                 <button className="btn" disabled={!obsLog.length} onClick={() => downloadText('swello-session-log.csv', logToCsv(obsLog), 'text/csv')}>Export observations (CSV)</button>
                 {data.lastSaved && <span className="fine">Last saved {timeLabelPT(data.lastSaved)}</span>}
               </div>
+              {restoreMsg && <p className="fine" role={restoreMsg.ok ? 'status' : 'alert'} style={restoreMsg.ok ? undefined : {color: 'var(--warn)'}}>{restoreMsg.text}</p>}
+              {restore && (
+                <div className="pz-restore" role="group" aria-labelledby="pz-restore-h">
+                  <h3 id="pz-restore-h">Replace your data with {restore.file}?</h3>
+                  <dl className="kv">
+                    <dt>Boards</dt><dd>{restore.preview.boards}{restore.preview.exampleBoards ? ` (${restore.preview.exampleBoards} example)` : ''} · now {boards.length}</dd>
+                    <dt>Journal sessions</dt><dd>{restore.preview.sessions} · now {data.state.sessions.length}</dd>
+                    <dt>Favorite spots</dt><dd>{restore.preview.favorites} · now {data.state.favorites.length}</dd>
+                    <dt>Profile settings</dt><dd>{restore.preview.settings}{restore.state.profile.displayName ? ` · ${restore.state.profile.displayName}` : ''}</dd>
+                  </dl>
+                  <p className="fine">Everything above replaces the profile, boards, favorites and journal sessions in this browser. Nothing is merged. Export a backup first if you may want the current data back.</p>
+                  <div className="pzl-actions">
+                    <button className="btn primary" onClick={confirmRestore}>Replace my data</button>
+                    <button className="btn" onClick={() => setRestore(null)}>Cancel</button>
+                  </div>
+                </div>
+              )}
               <dl className="kv">
                 <dt>Boards</dt><dd>{boards.length}</dd><dt>Favorite spots</dt><dd>{data.state.favorites.length}</dd><dt>Journal sessions</dt><dd>{data.state.sessions.length}</dd><dt>Forecast-check observations</dt><dd>{obsLog.length}</dd><dt>Alerts</dt><dd>{rules.length}</dd>
               </dl>
@@ -443,7 +473,7 @@ export function PersonalView({section, go}: ViewProps) {
                   ))}
                 </ul>
               )}
-              <p className="fine">The backup covers profile, boards, favourites and session text. Journal photos, tags, alerts and the profile photo stay in this browser only.</p>
+              <p className="fine">The backup covers profile, boards, favorites and session text. Journal photos, tags, alerts and the profile photo stay in this browser only.</p>
             </div>
             <Group title="Legal"><Row icon="shield" label="Privacy" onClick={() => go('personal', 'privacy')} /><Row icon="doc" label="Terms" onClick={() => go('personal', 'terms')} /></Group>
           </Page>

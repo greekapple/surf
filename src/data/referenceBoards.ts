@@ -35,7 +35,7 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
       0.1364, 0.1364, 0.1364, 0.1364, 0.1352, 0.1347, 0.133, 0.1313, 0.1284, 0.1245, 0.1211, 0.116, 0.1109, 0.1046, 0.0982, 0.0893, 0.0802, 0.0695, 0.0559, 0.0196],
     look: {deck: '#f3f1ec', bottom: '#1d1f23', fade: 0.35, finish: 'gloss', pattern: 'carbon'},
   },
-  // Firewire Seaside (Helium), 5'11" x 22 3/4" x 2 3/4"; 41.1 L as written on the stringer in the retailer's photo (cleanlinesurf.com). White.
+  // Firewire Seaside (Helium), 5'11" x 22 3/4" x 2 3/4", 41.1 L (the maker's size chart; deck photo cleanlinesurf.com). White.
   'demo-fish': {
     model: 'Seaside (Helium)',
     hw: [0.0114, 0.035, 0.0569, 0.0735, 0.0883, 0.1007, 0.1112, 0.1199, 0.1285, 0.1346, 0.141, 0.1451, 0.1497, 0.1515, 0.155, 0.1585, 0.1599, 0.1602, 0.1602, 0.1602,
@@ -43,7 +43,7 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
     // quiver-polish: the last two stations re-measured on the deck photo (the first trace dipped into the notch, which rounded the lobes off);
     // the tip's radius (about 3 cm) and the notch depth (about 2.1", 3% of the length) measured on the deck and bottom photos.
     tipRIn: 1.2, notchIn: 2.1,
-    volumeNote: 'read from the stringer photo',   // audit R15: "(retailer photo)" was unclear
+    // boards-restore: 41.1 L is the maker's published volume (firewiresurfboards.com/products/seaside, checked 2026-11-11), so no qualifier
     look: {deck: '#f4f3ef', bottom: '#f4f3ef', fade: 0.35, finish: 'gloss'},
   },
   // Wavestorm 8' Classic, 8'0" x 22 1/2" x 3 1/4", 86 L (ridershack.com, costco.co.uk). Soft-top: blue stripes on a white foam deck, blue rails,
@@ -70,6 +70,12 @@ export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
 export function referenceFor(b: Pick<Surfboard, 'id'> & Partial<Pick<Surfboard, 'model' | 'demo' | 'length' | 'width' | 'thickness'>>): ReferenceBoard | null {
   const r = REFERENCE_BOARDS[b.id], pub = demoBoards.find((d) => d.id === b.id);
   return r && pub && b.demo === true && b.model === r.model && b.length === pub.length && b.width === pub.width && b.thickness === pub.thickness ? r : null;
+}
+
+/** The visible label of an example board (user decision 2026-11-11: the examples are real retail models). Only a record that still carries
+ *  the published model and size says "retail model"; an example the person has edited is just an example board. */
+export function exampleLabel(b: Parameters<typeof referenceFor>[0]): string {
+  return referenceFor(b) ? 'Example board (retail model)' : 'Example board';
 }
 
 /** The volume as displayed: a number from a retailer photo carries that qualifier while the record is still the published one. */
