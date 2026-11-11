@@ -132,7 +132,7 @@ export function ForecastView({go}: ViewProps) {
         <div className="sp-head">
           <div className="sp-title">
             <h1>{spot.name}</h1>
-            <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favourites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
+            <button className="fc-fav" aria-pressed={fav} aria-label={fav ? `Remove ${spot.name} from favorites` : `Save ${spot.name}`} onClick={() => data.favorite(spot.id)}><Icon name="star" size={20} /></button>
             <p>{meta.join(' · ')}</p>
           </div>
           <div className="sp-when">
@@ -149,19 +149,19 @@ export function ForecastView({go}: ViewProps) {
       <SimilarSession spot={spot} forecast={selected.forecast} profile={p} bundle={bundle} nowMs={now} />
       {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}
       <WaterQuality spotId={spot.id} />
-      {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages. (Showing a camera in the page is the Camera panel below, under the amended camera rule in src/data/cams.ts.) */}
+      {/* T-111: the verified public cams for this spot (T-063/T-080), as links to their owners' pages. Audit F14 / A16: a link has no live status, so it is a "Camera", never "Live". (Showing a camera in the page is the Camera panel below, under the amended camera rule in src/data/cams.ts.) */}
       {cams.length > 0 && <section className="sp-cams" aria-labelledby="sp-cams-h">
         <h2 id="sp-cams-h">Cams</h2>
         <ul>{cams.map((c) => <li key={c.url}>
-          <a className="sp-cam" href={c.url} target="_blank" rel="noopener noreferrer" aria-label={`Live cam by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}>
-            <b>Live cam · {c.owner}</b><span>{c.view}</span><small>{c.operator && c.operator !== c.owner ? `Run by ${c.operator} · ` : ''}checked {c.verified} · opens their site ↗</small>
+          <a className="sp-cam" href={c.url} target="_blank" rel="noopener noreferrer" aria-label={`Camera by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}>
+            <b>Camera · {c.owner}</b><span>{c.view}</span><small>{c.operator && c.operator !== c.owner ? `Run by ${c.operator} · ` : ''}checked {c.verified} · opens their site ↗</small>
           </a></li>)}</ul>
       </section>}
 
       {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
       <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
       {/* hdontap-embeds: HDOnTap cameras as links (their player cannot be framed by our site); the embeds are wired but switched off. */}
-      <HdontapLinks spotId={spot.id} />
+      <HdontapLinks spotId={spot.id} exclude={cams.map((c) => c.url)} />
 
       <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
@@ -183,7 +183,7 @@ export function ForecastView({go}: ViewProps) {
               <button role="radio" aria-checked={range === 'week'} onClick={() => setRange('week')}>7 days</button>
               <button role="radio" aria-checked={range === 'day'} onClick={() => setRange('day')}>{weekdayPT(selected.timestamp)}</button>
             </div>
-          </> : <span className="fine">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)} · every 3 hours · wind coloured by shore relation</span>}
+          </> : <span className="fine">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)} · every 3 hours · wind colored by shore relation</span>}
         </div>
         {mode === 'graph' ? <>
           {/* user, 2026-11-08: the four series stacked, tidied (docs/specs/2026-11-08-stacked-charts-tidy.md): day labels once on top, hours once at the bottom,

@@ -6,7 +6,7 @@ import {isDark} from '../forecast/trustApi';
 import {nextMorningHour} from '../../services/homeDash';
 import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
-import type {ViewProps} from '../../app/routes';
+import {slugFor, type ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {rateForecast} from '../../ratings/adapters';
 import {ZONES, zoneOf} from '../../data/zones';
@@ -70,7 +70,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
       </div>
       <div className="cmpx-head" aria-hidden="true">{HEAD.map((h, i) => <span key={i}>{h}</span>)}</div>
       <ol className="cmpx-list">{sorted.map(({s, f, rating, best, est, pending}, k) => (
-        <li key={s.id} className={k === 0 && sort !== 'north' && !pending ? 'top' : ''}><a className="cx-a" href={`/forecast?spot=${s.id}`} onClick={open(s.id)}>
+        <li key={s.id} className={k === 0 && sort !== 'north' && !pending ? 'top' : ''}><a className="cx-a" href={`/forecast?spot=${slugFor(s.id)}`} onClick={open(s.id)}>
           <span className="cx-rank">{k + 1}</span>
           <span className="cx-name"><b>{s.name}</b><small>{s.region}</small></span>
           <span className="cx-rate">{rating ? <><em style={{'--c': BAND_COLOR[bandOf(rating.category)]} as CSSProperties}>{conditionWord(rating.category)}</em>{rating.dark && <small> after dark</small>}</> : <small>{pending ? 'loading…' : 'no record'}</small>}</span>

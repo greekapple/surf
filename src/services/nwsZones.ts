@@ -1161,7 +1161,7 @@ export const NWS_ZONE_APPROX: Record<string, {zone: string; viaSpot: string; km:
 };
 export interface ZoneInfo {zone: string; approx: boolean; viaSpot?: string}
 export function zoneFor(spotId: string): ZoneInfo | null {
-  if (!hasUsData(spotId)) return null;   // NWS covers the US only: a spot elsewhere has no alerts zone, never a neighbour country's
+  if (!hasUsData(spotId)) return null;   // NWS covers the US only: a spot elsewhere has no alerts zone, never a neighbor country's
   const z = NWS_ZONE[spotId]; if (z) return {zone: z, approx: false};
   const a = NWS_ZONE_APPROX[spotId]; return a ? {zone: a.zone, approx: true, viaSpot: a.viaSpot} : null;
 }

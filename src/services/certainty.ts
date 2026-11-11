@@ -37,7 +37,7 @@ export interface CertaintyView {
 }
 
 const days = (h: number) => (h < 36 ? `${Math.max(0, Math.round(h))} h` : `${Math.round((h / 24) * 10) / 10} days`);
-const WIDE_HOW = 'widened by how far apart the wave models are (their max/min ratio, centred on our estimate)';
+const WIDE_HOW = 'widened by how far apart the wave models are (their max/min ratio, centered on our estimate)';
 
 /** The certainty of one headline at an hour, or null when no level is honest to show: no surf estimate (offshore heights are already muted and labelled; demonstration; none), a Flat hour,
  *  a saved or stale source (its own tag is shown), or a calibrated number (the person's own range: the contract shows no confidence word beside it). "Too far out" applies to every estimate

@@ -35,7 +35,7 @@ test('falls to v1 only when the nearshore model has no usable record for the hou
   for (const [tp, dp, code] of [[6, 266, 'short-period'], [14, 100, 'outside-window']] as const) {
     const h = headlineSurf('spot-2', hour(), {bundle: bundle([rec(T, 1.4, tp, dp)]), nowMs: NOW}) as any;
     assert.equal(h.kind, 'estimate', `${code}: the nearshore model has the hour, so the spot shows its own height (T-130)`); assert.equal(h.method, 'mop-v2'); assert.equal(h.nearshoreOnly.code, code); assert.equal(h.nearshoreOnly.flat, false);
-    assert.ok(Math.abs(h.centralFt - 1.4 * FT) < 0.01, 'the central height is MOP\'s Hs at the point'); assert.match(h.methodLabel, /^MOP nearshore \(CDIP\), 10 m modelled point SF023/); assert.match(h.methodLabel, /outside our rule's swell window/); assert.match(h.methodLabel, /local shelter between the point and the break is not modelled/); assert.match(h.methodLabel, /unvalidated/); assert.doesNotMatch(h.methodLabel, /already includes the blocking/);
+    assert.ok(Math.abs(h.centralFt - 1.4 * FT) < 0.01, 'the central height is MOP\'s Hs at the point'); assert.match(h.methodLabel, /^MOP nearshore \(CDIP\), 10 m modeled point SF023/); assert.match(h.methodLabel, /outside our rule's swell window/); assert.match(h.methodLabel, /local shelter between the point and the break is not modeled/); assert.match(h.methodLabel, /unvalidated/); assert.doesNotMatch(h.methodLabel, /already includes the blocking/);
   }
   assert.ok((headlineSurf('spot-2', hour(), {bundle: null, nowMs: NOW}) as any).method === 'v1');
   assert.ok((headlineSurf('spot-2', hour(), {nowMs: NOW}) as any).method === 'v1');
@@ -84,7 +84,7 @@ test('T-130: the four spots with a reviewed MOP point and NO breaking profile sh
   for (const [spotId, mopId] of pts) {
     const r = {...rec(T, 1.2, 14, 262), mopId}, b = {nearshore: [], mop: {[mopId]: {mopId, records: [r], issue: null, retrievedAt: T, url: 'x'}}} as any;
     const h = headlineSurf(spotId, hour({spotId, offshore: 9, evidence: {}}), {bundle: b, nowMs: NOW}) as any;
-    assert.equal(h.kind, 'estimate', spotId); assert.equal(h.nearshoreOnly.code, 'no-profile', spotId); assert.equal(h.method, 'mop-v2'); assert.match(h.methodLabel, new RegExp(`modelled point ${mopId}`)); assert.match(h.methodLabel, /no breaking profile/); assert.match(h.methodLabel, /not a breaking estimate/);
+    assert.equal(h.kind, 'estimate', spotId); assert.equal(h.nearshoreOnly.code, 'no-profile', spotId); assert.equal(h.method, 'mop-v2'); assert.match(h.methodLabel, new RegExp(`modeled point ${mopId}`)); assert.match(h.methodLabel, /no breaking profile/); assert.match(h.methodLabel, /not a breaking estimate/);
     assert.ok(Math.abs(h.centralFt - 1.2 * FT) < 0.01, spotId);
   }
 });

@@ -1,6 +1,6 @@
 import type {UserProfile} from '../models/index.ts';
 /** The surfer's own height (T-052), stored in inches on the profile and shown in feet and inches or centimetres by the unit preference. */
-export const DEFAULT_HEIGHT_IN = 70; // 5'10", used (and labelled "default") only until the user sets theirs
+export const DEFAULT_HEIGHT_IN = 70; // 5'10", used (and labeled "default") only until the user sets theirs
 export const HEIGHT_MIN_IN = 40, HEIGHT_MAX_IN = 90; // 3'4" to 7'6"
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 export const CM_PER_IN = 2.54;

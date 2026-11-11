@@ -18,7 +18,9 @@ import {transferTag} from '../../services/headlineSurf';
 import {CallBar} from '../forecast/Trust';
 import {WeekGrid} from './WeekGrid';
 import {HORIZON_DAYS_TEXT} from '../../services/certainty';
-import {Welcome} from './Welcome';
+import {Welcome, bestBet} from './Welcome';
+import {hourCall} from '../../services/call';
+import type {SurfSpot} from '../../models/index';
 import {evidenceSpots} from '../../ocean/spots';
 import {callFor, isDark} from '../forecast/trustApi';
 import './home.css';
@@ -66,8 +68,24 @@ export function HomeView({go}: ViewProps) {
   const phase = dataPhase(view.ocean), waiting = phase === 'loading' || nearPending;
   const refId = ids[0] ?? spot.id;
   // T-082: after dark the nearby ranking opens on tomorrow morning (the next time you could surf); "Now" still rates the dark hour.
-  const [when, setWhen] = useState<RankWhen>(() => (isDark(refId, new Date(now).toISOString()) ? 'tomorrow-am' : 'now')), [openId, setOpenId] = useState<string | null>(null);
-  const nearby = useMemo(() => bestNearbyAt(spotOptions, view.mapRecords, now, profile, refId, when, {exclude: ids, limit: 3, ctx}), [ids.join('|'), refId, when, spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Audit F26: the default follows the clock and the reference spot (it was fixed at first render, before the saved spots and the data were known), until the user picks a tab.
+  const darkAt = (w: RankWhen) => w !== 'tomorrow-am' && isDark(refId, new Date(now + (w === '3h' ? 3 * 36e5 : 0)).toISOString());
+  const [picked, setWhen] = useState<RankWhen | null>(null), [openId, setOpenId] = useState<string | null>(null);
+  const when: RankWhen = picked ?? (darkAt('now') ? 'tomorrow-am' : 'now');
+  // T-067: the greeting's candidates: saved (or popular) spots first, then the nearest others, up to 12.
+  const pool = useMemo(() => {
+    const ref = evidenceSpots.find((e) => e.id === refId);
+    const near = ref ? evidenceSpots.filter((e) => !ids.includes(e.id) && spotOptions.some((x) => x.id === e.id)).map((e) => ({id: e.id, d: Math.hypot(e.latitude - ref.latitude, (e.longitude - ref.longitude) * 0.8)})).sort((a, b) => a.d - b.d).map((x) => x.id) : [];
+    return [...ids, ...near.slice(0, Math.max(0, 12 - ids.length))].map((id) => spotOptions.find((x) => x.id === id)!).filter(Boolean);
+  }, [ids.join('|'), refId, spotOptions]); // eslint-disable-line react-hooks/exhaustive-deps
+  // Audit F9 / A15: the nearby list ranks by the same call as the best bet (verdict first, so a Skip never sits above a Go), and the hero's spot leads its verdict group.
+  const hourKey = Math.floor(now / 36e5);
+  const betPick = useMemo(() => { if (waiting) return null; const b = bestBet(pool, view.mapRecords, profile, bundle, now).bet; return b ? {id: b.spot.id, start: b.window.start, end: b.window.end} : null; }, [pool, view.mapRecords, profile, bundle, hourKey, waiting]); // eslint-disable-line react-hooks/exhaustive-deps
+  const nearby = useMemo(() => {
+    const cctx = {records: view.mapRecords, bundle, nowMs: now};
+    const verdictOf = (s: SurfSpot, atMs: number) => { const rec = view.mapRecords.find((f) => f.spotId === s.id && Date.parse(f.timestamp) === atMs); if (!rec) return null; const c = hourCall(s, rec, profile, cctx); return c.verdict === 'Dark' ? c.lit?.verdict ?? 'Dark' : c.verdict; };
+    return bestNearbyAt(spotOptions, view.mapRecords, now, profile, refId, when, {exclude: ids, limit: 3, ctx, verdictOf, prefer: betPick});
+  }, [ids.join('|'), refId, when, spotOptions, view.mapRecords, now, profile, ctx, betPick]); // eslint-disable-line react-hooks/exhaustive-deps
   // T-065: the call for a card's own hour, from the same records (the verdict + window; the reasons are on the spot page).
   const callOf = (id: string, validTime: string | null) => {
     const sp = spotOptions.find((x) => x.id === id), rec = validTime ? view.mapRecords.find((f) => f.spotId === id && f.timestamp === validTime) : undefined;
@@ -77,7 +95,7 @@ export function HomeView({go}: ViewProps) {
   /** The same kind of number everywhere: the surf estimate, or a muted line when only offshore height exists (never styled as surf). */
   const surfOf = (c: DashCard, small = false) => c.surf.headline.kind === 'offshore'
     ? <span className="dc-na">Surf est. unavailable · offshore {c.surf.value}</span>
-    : <><span className="dc-val">{c.surf.value}</span>{!small && <span className="dc-words">{c.surf.words ?? ''}{c.surf.words && <em title="Body words are an informal convention for face height, shown as approximate"> ~</em>}</span>}<span className={small ? 'dc-tag-sm' : 'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{isFlat(c.surf.headline) ? `(${c.surf.tag})` : c.surf.tag}</span>{!small && c.surf.tuned && <span className="dc-conf"> · {c.surf.tuned}</span>}{!small && transferTag(c.surf.headline) && <span className="dc-conf" title={c.surf.headline.kind === 'estimate' ? c.surf.headline.transfer?.text : undefined}> · {transferTag(c.surf.headline)}</span>}{!small && nowcastNearby(c.surf.headline) && <span className="dc-conf" title={nowcastNearby(c.surf.headline)!.source}> · {NOWCAST_NEARBY_TEXT}</span>}{!small && c.surf.confidenceText && <span className="dc-conf" title={c.surf.confidenceDetail}> · {c.surf.confidenceText}</span>}</>;
+    : <><span className="dc-val">{c.surf.value}</span>{!small && <span className="dc-words" title={c.surf.words ? 'Body words are an informal convention for face height, shown as approximate' : undefined}>{c.surf.words ? `about ${c.surf.words}` : ''}</span>}<span className={small ? 'dc-tag-sm' : 'dc-tag ' + c.surf.tag.replace(/\s/g, '-')}>{isFlat(c.surf.headline) ? `(${c.surf.tag})` : c.surf.tag}</span>{!small && c.surf.tuned && <span className="dc-conf"> · {c.surf.tuned}</span>}{!small && transferTag(c.surf.headline) && <span className="dc-conf" title={c.surf.headline.kind === 'estimate' ? c.surf.headline.transfer?.text : undefined}> · {transferTag(c.surf.headline)}</span>}{!small && nowcastNearby(c.surf.headline) && <span className="dc-conf" title={nowcastNearby(c.surf.headline)!.source}> · {NOWCAST_NEARBY_TEXT}</span>}{!small && c.surf.confidenceText && <span className="dc-conf" title={c.surf.confidenceDetail}> · {c.surf.confidenceText}</span>}</>;
   const open = (id: string) => (e: React.MouseEvent) => { if (e.metaKey || e.ctrlKey || e.shiftKey) return; e.preventDefault(); setSpot(id); go('forecast'); };
   const refName = spotOptions.find((s) => s.id === refId)?.name ?? '';
   const WHENS: RankWhen[] = ['now', '3h', 'tomorrow-am'];
@@ -89,10 +107,7 @@ export function HomeView({go}: ViewProps) {
   return (
     <div className="home">
       {!waiting && (() => {
-        // T-067: the week at a glance, saved (or popular) spots first, then the nearest others, up to 8 rows.
-        const ref = evidenceSpots.find((e) => e.id === refId);
-        const near = ref ? evidenceSpots.filter((e) => !ids.includes(e.id) && spotOptions.some((x) => x.id === e.id)).map((e) => ({id: e.id, d: Math.hypot(e.latitude - ref.latitude, (e.longitude - ref.longitude) * 0.8)})).sort((a, b) => a.d - b.d).map((x) => x.id) : [];
-        const pool = [...ids, ...near.slice(0, Math.max(0, 12 - ids.length))].map((id) => spotOptions.find((x) => x.id === id)!).filter(Boolean); // greeting: every saved spot + nearest others
+        // T-067: the week at a glance (the greeting's pool, above), up to 5 rows.
         const rowSpots = pool.slice(0, 5); // the grid: 5 rows (T-082: Home within two screens), saved first, nearest by distance (not rating: the grid is a fixed list, not a ranking)
         const openAt = (id: string, iso: string | null) => { setSpot(id); if (iso) view.selectTime(iso); go('forecast'); };
         return (<>
@@ -108,7 +123,7 @@ export function HomeView({go}: ViewProps) {
       <section className="hd" aria-labelledby="hd-h">
         <header className="hd-head">
           <h2 id="hd-h">{personal ? 'Your spots' : 'Popular spots'}</h2>
-          {!personal && <p className="hd-note">Not personalised. <a href="/personal/spots" onClick={(e) => { e.preventDefault(); go('personal', 'spots'); }}>Choose favorite spots</a></p>}
+          {!personal && <p className="hd-note">Not personalized. <a href="/personal/spots" onClick={(e) => { e.preventDefault(); go('personal', 'spots'); }}>Choose favorite spots</a></p>}
         </header>
         {waiting && <ul className="dc-grid" aria-busy="true" aria-label="Loading your spots">{(ids.length ? ids : POPULAR).slice(0, 3).map((id) => <li key={id} className="dsk" aria-hidden="true"><i className="sk-ph" /><span className="dc-body"><i className="sk-l w50" /><i className="sk-l w70" /><i className="sk-l w90" /></span></li>)}</ul>}
         {!waiting && cards.length === 0 && <p className="hd-empty">No forecast data for your spots right now. Open the forecast to pick another.</p>}
@@ -140,9 +155,9 @@ export function HomeView({go}: ViewProps) {
         <header className="hd-head">
           <h2 id="nb-h">{rankLabel(when, now, timeZoneOf(refId)).title}</h2>
           <div className="nb-when" role="radiogroup" aria-label="Rank spots for" onKeyDown={onWhenKey}>
-            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} onClick={() => setWhen(w)}>{rankLabel(w, now, timeZoneOf(refId)).tab}</button>)}
+            {WHENS.map((w) => <button key={w} type="button" role="radio" aria-checked={w === when} tabIndex={w === when ? 0 : -1} className={darkAt(w) ? 'is-dark' : undefined} title={darkAt(w) ? `After dark at ${refName}: rated, but not a surf window` : undefined} onClick={() => setWhen(w)}>{rankLabel(w, now, timeZoneOf(refId)).tab}</button>)}
           </div>
-          {refName && <p className="hd-note">{nearAll > SCOPE_NEAR_N ? `The ${SCOPE_NEAR_N} nearest spots within 100 km of ${refName}` : `Within 100 km of ${refName}`}, ranked by the rating at that time</p>}
+          {refName && <p className="hd-note">{nearAll > SCOPE_NEAR_N ? `The ${SCOPE_NEAR_N} nearest spots within 100 km of ${refName}` : `Within 100 km of ${refName}`}, ranked by {darkAt(when) ? 'what the conditions would rate in daylight (it is dark then)' : 'the call at that time (Go first)'}, then the rating. {personal ? 'Your spots' : 'The popular spots'} above are not repeated</p>}
         </header>
         {waiting ? <ul className="nb-list" aria-busy="true" aria-label="Loading nearby spots">{[0, 1, 2].map((i) => <li key={i} className="nbsk" aria-hidden="true"><i className="sk-l w70" /></li>)}</ul>
           : nearby.length === 0
@@ -150,7 +165,7 @@ export function HomeView({go}: ViewProps) {
           : <ol className="nb-list">
               {nearby.map(({card: c, km, at: when_}, i) => (
                 <li key={c.id} className="nb" style={{'--band': BAND_COLOR[bandOf(c.rating.category)]} as React.CSSProperties}>
-                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometres away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_, c.id)}` : ''}. Open forecast`}>
+                  <a className="nb-a" href="/forecast" onClick={open(c.id)} aria-label={`Number ${i + 1}: ${c.name}, ${km} kilometers away. ${c.surf.label}. ${conditionWord(c.rating.category)}${when !== 'now' ? `, judged ${at(when_, c.id)}` : ''}. Open forecast`}>
                     <span className="nb-rank" aria-hidden="true">{i + 1}</span>
                     <span className="nb-name"><b>{c.name}</b><small>{c.region} · {km} km{when !== 'now' ? ` · ${at(when_, c.id)}` : ''}</small>{(() => { const k = callOf(c.id, c.validTime); return k ? <CallBar call={k} compact tz={timeZoneOf(c.id)} /> : null; })()}</span>
                     <span className="nb-surf">{surfOf(c, true)}</span>
@@ -159,7 +174,7 @@ export function HomeView({go}: ViewProps) {
                 </li>
               ))}
             </ol>}
-        <p className="hd-fine">Ratings are provisional model scores. Surf heights are model estimates of the height surf reports quote (about the nearshore wave height), or labelled offshore; not measurements.</p>
+        <p className="hd-fine">Ratings are provisional model scores. Surf heights are model estimates of the height surf reports quote (about the nearshore wave height), or labeled offshore; not measurements.</p>
       </section>
     </div>
   );

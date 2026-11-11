@@ -74,6 +74,7 @@
 .nb-when button { min-height: 36px; padding: 0 14px; border: 0; border-radius: 99px; background: transparent; color: var(--muted); font: 600 13px/1 var(--sans); cursor: pointer; }
 .nb-when button[aria-checked='true'] { background: var(--text); color: var(--bg); }
 .nb-when button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.nb-when button.is-dark:not([aria-checked='true']) { color: var(--dim); font-weight: 400; } /* audit F26: after dark, Right now / In 3 h are rated but not a surf window */
 .nb-rank { font: 700 22px/1 var(--sans); color: var(--muted); font-variant-numeric: tabular-nums; }
 .nb:first-child .nb-rank { color: var(--band); }
 .nb:hover .nb-a { background: color-mix(in srgb, var(--band) 6%, var(--s1)); }
@@ -226,6 +227,8 @@
 /* data-honesty P1 on T-107: a week cell from a saved or stale source is muted and says so */
 .wk-h.wk-stale { color: var(--muted); }
 .wk-stale-tag { font-size: 10px; font-weight: 500; color: var(--muted); }
+.wk-off-tag { font-size: 10px; font-weight: 500; color: var(--dim); } /* audit F21: an offshore cell says so, not only the row label */
+.wk-unit { font-weight: 400; color: var(--muted); } /* audit F21: the cells' unit and kind */
 /* T-109: the night hero is navy in both themes, so its drawn wave uses the dark-theme blue (the light-theme blue sank into it). */
 .wel-night .wel-hero { --hs-hi: #7cc4ff; }
 

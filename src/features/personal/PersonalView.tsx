@@ -3,8 +3,8 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
 import {evidenceSpots} from '../../ocean/spots';
-import {ZONES, zoneOf} from '../../data/zones';
-import type {Forecast, Skill, UserProfile} from '../../models/index';
+import {ZONES, zoneOf, regionWithState} from '../../data/zones';
+import type {Forecast, Skill, SurfSpot, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
 import {SkelInline} from '../../ui/Skeleton';
 import {spotPhase} from '../../services/dataPhase';
@@ -13,6 +13,8 @@ import {readBasemapPref, saveBasemapPref, type BasemapPref} from '../../map/base
 import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
 import {timeLabelPT} from '../forecast/format';
 import {heroHeight} from '../forecast/model';
+import {spotHourOf} from '../../services/spotHour';
+import {isFlat} from '../../services/flatSurf';
 import {rateForecast} from '../../ratings/adapters';
 import {compass, fromUnit, heightRange, toUnit} from '../../utils/units';
 import {PIcon, type PName} from './icons';
@@ -146,6 +148,11 @@ export function PersonalView({section, go}: ViewProps) {
   const sessions = useMemo(() => [...data.state.sessions].sort((a, b) => Date.parse(b.timestamp) - Date.parse(a.timestamp)), [data.state.sessions]);
   const results = useMemo(() => rules.map((r) => evaluateRule(r, spots.find((s) => s.id === r.spotId), view.mapRecords, now)), [rules, view.mapRecords, now]);
 
+  /** Audit A12: a favorite row's height is the same surf estimate as Home and the spot page (spotHourOf), labeled by its kind; never "face". */
+  const surfRowText = (spot: SurfSpot, f: Forecast) => {
+    const sh = spotHourOf(spot, f, now, p, {bundle: view.ocean.bundle}).surf, k = sh.headline.kind;
+    return k === 'offshore' ? `${sh.value} offshore` : k === 'demonstration' ? `${sh.value} demo` : k === 'estimate' ? (isFlat(sh.headline) ? sh.value : `${sh.value} est.`) : null;
+  };
   /** Nearest forecast hour at or after now for one spot, from the forecast already loaded. */
   const hourFor = (spotId: string): Forecast | undefined => {
     let best: Forecast | undefined;
@@ -244,13 +251,13 @@ export function PersonalView({section, go}: ViewProps) {
     const live = evidenceSpots.some((e) => e.id === s.id), fav = data.state.favorites.includes(s.id);
     const canForecast = live || view.dataMode === 'Demonstration';
     const f = live ? hourFor(s.id) : undefined;
-    const h = f ? heroHeight(f, p, view.dataMode) : null;
+    const rowText = f ? surfRowText(s, f) : null;
     return (
       <li key={s.id} className="pz-spot">
         <SpotCover spotId={s.id} index={i}>
           <button className="star pz-star" aria-pressed={fav} aria-label={`${fav ? 'Remove' : 'Save'} ${s.name}`} onClick={() => data.favorite(s.id)}><PIcon name="star" size={20} /></button>
           <h3>{s.name}</h3>
-          <span>{h && h.number !== '—' ? `${h.approx ? '≈ ' : ''}${h.number} ${h.unit} ${h.note ? 'offshore' : 'face'}` : s.region}</span>
+          <span>{rowText ?? s.region}</span>
         </SpotCover>
         <div className="pz-spot-f">
           {live ? <span className="chip off">Live model data</span> : <span className="chip demo">Demonstration only</span>}
@@ -340,7 +347,7 @@ export function PersonalView({section, go}: ViewProps) {
                 <HeightField p={p} set={set} />
               </div>
               <div className="pz-panel"><h2>Preferred conditions</h2>
-                <label className="field"><span>Wave range (face, {p.heightUnit})</span>
+                <label className="field"><span>Preferred surf height ({p.heightUnit})</span>
                   <span className="pzl-pair">
                     <UnitNumber ft={p.minWave} unit={p.heightUnit} min={1} max={30} label={`Minimum (${p.heightUnit})`} onCommit={(minWave) => set({minWave})} />
                     <UnitNumber ft={p.maxWave} unit={p.heightUnit} min={1} max={40} label={`Maximum (${p.heightUnit})`} onCommit={(maxWave) => set({maxWave})} />
@@ -448,15 +455,15 @@ export function PersonalView({section, go}: ViewProps) {
             <button type="button" className="pzl-profile" onClick={() => toPage('profile')} aria-label="Edit profile">
               <span className="pz-avatar" style={avatar ? {backgroundImage: `url(${avatar})`} : undefined} role={avatar ? 'img' : undefined} aria-label={avatar ? 'Profile photo' : undefined}>{!avatar && (initials || <PIcon name="user" size={28} />)}</span>
               <span className="pzl-pt"><b>{name}</b>
-                <small>{[p.skill, `${rangeText(p.minWave, p.maxWave, p)} preferred`, p.region !== 'All regions' ? `${p.region}, CA` : ''].filter(Boolean).join(' · ')}</small></span>
+                <small>{[p.skill, `${rangeText(p.minWave, p.maxWave, p)} preferred`, p.region !== 'All regions' ? regionWithState(p.region) : ''].filter(Boolean).join(' · ')}</small></span>
               <span className="pzl-pe"><i>Edit profile</i><PIcon name="next" size={16} /></span>
             </button>
 
             <Group title="Favorite spots">
               {favSpots.slice(0, 3).map((s) => {
-                const live = evidenceSpots.some((e) => e.id === s.id), f = live ? hourFor(s.id) : undefined, h = f ? heroHeight(f, p, view.dataMode) : null;
+                const live = evidenceSpots.some((e) => e.id === s.id), f = live ? hourFor(s.id) : undefined, rowText = f ? surfRowText(s, f) : null;
                 const canForecast = live || view.dataMode === 'Demonstration';
-                return <Row key={s.id} icon="pin" label={s.name} sub={s.region} value={h && h.number !== '—' ? `${h.approx ? '≈ ' : ''}${h.number} ${h.unit} ${h.note ? 'offshore' : 'face'}` : undefined} onClick={() => (canForecast ? (setSpot(s.id), go('forecast')) : toPage('spots'))} />;
+                return <Row key={s.id} icon="pin" label={s.name} sub={s.region} value={rowText ?? undefined} onClick={() => (canForecast ? (setSpot(s.id), go('forecast')) : toPage('spots'))} />;
               })}
               {favSpots.length === 0 && <li className="pzl-empty">No favorite spots yet. Star a spot to keep it on Home.</li>}
               <Row icon="star" label={favSpots.length ? 'All favorite spots' : 'Choose favorite spots'} value={favSpots.length ? `${favSpots.length} saved` : undefined} onClick={() => toPage('spots')} />

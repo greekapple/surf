@@ -16,7 +16,10 @@ import {breakerType, type BreakerEstimate} from './breaker.ts';
  *  Nothing here is a measured fact or a validated accuracy; `basis` says what it is computed from. */
 export type Verdict = 'Go' | 'Worth a look' | 'Skip' | 'Dark';
 export interface CallWindow {start: string; end: string; label: string}
-export interface Call {/** After dark: what the conditions alone would say in daylight, and the rating word (user, 2026-11-08: dark hours keep their rating). */ lit?: {verdict: Exclude<Verdict, 'Dark'>; conditions: string}; verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
+export interface Call {/** After dark: what the conditions alone would say in daylight, and the rating word (user, 2026-11-08: dark hours keep their rating). */ lit?: {verdict: Exclude<Verdict, 'Dark'>; conditions: string};
+  /** Audit F5 / B15: after dark with no window ahead, the next daylight day's own call (its best daylight hour), so the evening planner still gets an answer. */
+  nextDay?: {when: string; at: string; verdict: Exclude<Verdict, 'Dark'>; reason: string | null};
+  verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
 export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs: number}
 
 /** Face-height range each skill is comfortable in, in feet. OUR OWN CHOICES (product rules, not a safety standard).
@@ -152,16 +155,40 @@ export function bestWindowFrom(spot: SurfSpot, profile: UserProfile, ctx: CallCo
   }
   return null;
 }
+/** How many days ahead the next window is looked for (bestWindowFrom's default), named in the copy so it never overclaims "in this forecast". */
+export const WINDOW_DAYS = CALL_WINDOW_DAYS;
+const cap = (w: string) => w.replace(/^\w/, (c) => c.toUpperCase());
+const VRANK: Record<Verdict, number> = {Go: 3, 'Worth a look': 2, Skip: 1, Dark: 0};
+/** Audit F5 / B15: the next daylight day's call at its best daylight hour (best verdict, then rating), with the deciding reason. Null without daylight records. */
+export function nextDayCall(spot: SurfSpot, profile: UserProfile, ctx: CallContext, fromMs: number): Call['nextDay'] | null {
+  const tz = timeZoneOf(spot), mine = ctx.records.filter((f) => f.spotId === spot.id && Date.parse(f.timestamp) > fromMs).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
+  const first = mine.find((f) => !isDark(spot.id, f.timestamp)); if (!first) return null;
+  const key = dateIn(tz, first.timestamp);
+  let best: {f: Forecast; c: HourCall} | null = null;
+  for (const f of mine) {
+    if (dateIn(tz, f.timestamp) !== key || isDark(spot.id, f.timestamp)) continue;
+    const c = hourCall(spot, f, profile, ctx, true);
+    if (!best || VRANK[c.verdict] > VRANK[best.c.verdict] || (VRANK[c.verdict] === VRANK[best.c.verdict] && (c.hour.rating.score ?? -1) > (best.c.hour.rating.score ?? -1))) best = {f, c};
+  }
+  if (!best || best.c.verdict === 'Dark') return null;
+  return {when: dayName(best.f.timestamp, ctx.nowMs, tz), at: best.f.timestamp, verdict: best.c.verdict, reason: best.c.why[0] ?? null};
+}
 /** The call for a spot-hour: its verdict, the best window on that Pacific day (if daylight remains), the next window when it is dark or today's has passed, and why. */
 export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ctx: CallContext): Call {
   const hc = hourCall(spot, hour, profile, ctx), tz = timeZoneOf(spot), day = dateIn(tz, hour.timestamp), from = Math.max(ctx.nowMs, Date.parse(hour.timestamp));
   const window = windowOnDay(spot, day, profile, ctx, Math.min(ctx.nowMs, Date.parse(hour.timestamp)));
   const passed = !window || Date.parse(window.end) <= ctx.nowMs;
   let nextWindow: CallWindow | null = null;
-  if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, Math.max(from, ctx.nowMs)); if (w) nextWindow = {start: w.start, end: w.end, label: w.label}; }
+  // review fix B15: after today's last light, today has no daylight left, so one more day is searched and the copy's "next 4 days" stays true
+  const fromMs = Math.max(from, ctx.nowMs), todayDone = Date.parse(daylightFor(spot.id, dateIn(tz, new Date(fromMs).toISOString())).lastLight) <= fromMs;
+  if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, fromMs, todayDone ? WINDOW_DAYS + 1 : WINDOW_DAYS); if (w) nextWindow = {start: w.start, end: w.end, label: w.label}; }
   const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs, tz) : '';
   const litWords = hc.lit ? ` The conditions themselves rate ${hc.lit.conditions}.` : '';
-  const why = hc.verdict === 'Dark' ? [nextWindow ? `It is dark, so it is not a surf window.${litWords} The next window is ${dayWord} ${nextWindow.label}.` : `It is dark, so it is not a surf window.${litWords} No good window is forecast in the next few days.`] : hc.why;
-  const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating (explainRating), wind, daylight (first light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
-  return {verdict: hc.verdict, ...(hc.lit ? {lit: hc.lit} : {}), window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
+  const nextDay = hc.verdict === 'Dark' && !nextWindow ? nextDayCall(spot, profile, ctx, from) : null;
+  // with no window ahead, tomorrow's own answer leads (the evening planner's question), then why tonight is not a window
+  const nextDayWords = nextDay ? `${cap(nextDay.when)}: ${nextDay.verdict}.${nextDay.reason ? ` ${nextDay.reason}` : ''}` : '';
+  const why = hc.verdict === 'Dark' ? (nextWindow ? [`It is dark, so it is not a surf window.${litWords} The next window is ${dayWord} ${nextWindow.label}.`]
+    : [...(nextDayWords ? [nextDayWords] : []), `It is dark, so it is not a surf window.${litWords} No surf window in the next ${WINDOW_DAYS} days.`]) : hc.why;
+  const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating, wind, daylight (first light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
+  return {verdict: hc.verdict, ...(hc.lit ? {lit: hc.lit} : {}), ...(nextDay ? {nextDay} : {}), window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
 }

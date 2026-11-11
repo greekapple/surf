@@ -10,7 +10,7 @@ import {useArchive} from '../hooks/useArchive';
 import {useModelSpread} from '../hooks/useModelSpread';
 import type {SurfSpot} from '../models/index';
 import {hourlySeries, type HourSample} from '../features/forecast/model';
-import {slugFor, spotIdForSlug} from './routes';
+import {matchSpotSlug, slugFor, spotIdForSlug} from './routes';
 import {labelZoneFor, setMapZone, timeZoneOf} from '../ocean/spotZone';
 
 /** Device-only UI preferences that are not part of the backed-up AppState. */
@@ -51,6 +51,9 @@ export interface Swello {
   setMapFocused: (on: boolean) => void;
   /** Spec 2026-11-09 1A: the zone of the global clock labels for the current view (ocean/spotZone.ts labelZoneFor). */
   labelZone: string;
+  /** Audit B2: the ?spot= slug in the URL names no spot (ids empty) or several (ids = the candidates). Forecast then says so instead of
+   *  silently showing another spot; choosing a spot clears it. */
+  missingSpot: {slug: string; ids: string[]} | null;
 }
 const Ctx = createContext<Swello | null>(null);
 export const useSwello = () => {
@@ -78,11 +81,25 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
 
   const [sharedT, setSharedT] = useState<string | null>(null), [shareNote, setShareNote] = useState('');
   // Spot deep link: ?spot=ocean-beach (one-way on load; afterwards the store owns the spot).
+  const shown = (x: string) => spotOptions.some((s) => s.id === x);
   useEffect(() => {
-    const id = spotIdForSlug(new URLSearchParams(location.search).get('spot'));
-    if (id && spotOptions.some((s) => s.id === id) && id !== view.selected) view.selectSpot(id);
+    const id = spotIdForSlug(new URLSearchParams(location.search).get('spot'), shown);
+    if (id && shown(id) && id !== view.selected) view.selectSpot(id);
     const t = hourFromParam(new URLSearchParams(location.search).get('t'));   // a shared plan: /forecast?spot=<slug>&t=<ISO hour> opens that spot at that hour
     if (id && t) { view.selectTime(t); setSharedT(t); }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const [missingSpot, setMissingSpot] = useState<Swello['missingSpot']>(() => {
+    const slug = typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('spot');
+    if (!slug) return null;
+    const m = matchSpotSlug(slug, shown);
+    return m.kind === 'spot' ? null : {slug, ids: m.kind === 'ambiguous' ? m.ids : []};
+  });
+  // review fix: when ?spot= leaves the URL (back/forward), the "not found" state goes with it; a new unknown slug brings it back
+  useEffect(() => {
+    const onPop = () => { const slug = new URLSearchParams(location.search).get('spot'); const m = slug ? matchSpotSlug(slug, shown) : null;
+      setMissingSpot(!slug || !m || m.kind === 'spot' ? null : {slug, ids: m.kind === 'ambiguous' ? m.ids : []}); };
+    addEventListener('popstate', onPop);
+    return () => removeEventListener('popstate', onPop);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // An expired shared link: when the spot's forecast has loaded and the shared hour is no longer in it, say so and show now (never silently a different hour).
   useEffect(() => {
@@ -96,9 +113,10 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   const [mapFocused, setMapFocused] = useState(() => typeof location === 'undefined' || new URLSearchParams(location.search).get('focus') !== 'none');
   const setSpot = (id: string) => {
     setMapFocused(true);   // choosing a spot (pin, list, search, Home, the strip) focuses it on the map again
-    if (id === view.selected) return;
-    view.selectSpot(id);
+    if (missingSpot) setMissingSpot(null);
     const q = new URLSearchParams(location.search);
+    if (id === view.selected && (!q.has('spot') || q.get('spot') === slugFor(id))) return;   // a wrong ?spot= slug is replaced even when the spot is unchanged
+    if (id !== view.selected) view.selectSpot(id);
     q.set('spot', slugFor(id));
     history.replaceState(null, '', `${location.pathname}?${q}`);
   };
@@ -111,6 +129,6 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   // 1A: set before the children render (the map's time helpers read it), like setActiveZone in useForecast
   const labelZone = setMapZone(labelZoneFor(area, section, timeZoneOf(view.spot), mapFocused));
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, mapFocused, setMapFocused, labelZone};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, mapFocused, setMapFocused, labelZone, missingSpot};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

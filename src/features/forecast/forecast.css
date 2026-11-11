@@ -118,6 +118,8 @@
 .sd-t svg { color: #f5b400; fill: currentColor; }
 .sd-h { font-size: 19px; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
 .sd-h small { font-size: 12px; font-weight: 550; color: var(--muted); margin-left: 1px; }
+/* audit D2/F22 (A17): an offshore height is not a surf estimate, so it never gets the estimate's big numerals: smaller, lighter, muted, "offsh." beside it */
+.sd-h.sd-off { font-size: 14px; font-weight: 500; color: var(--muted); }
 .sd-k { font-size: 12px; color: var(--dim); min-height: 15px; }
 .sd-w { display: flex; gap: 8px; min-height: 14px; }
 .sd-w i { display: inline-grid; width: 12px; }
@@ -384,7 +386,7 @@
 
 /* ---------- T-065 forecast trust: the Call, daylight, NWS, felt right, surf band ---------- */
 .call { --vc: var(--muted); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.call.go { --vc: var(--good-ink, var(--good)); } .call.look { --vc: var(--fair-ink, #7d5f00); } .call.skip { --vc: var(--bad-ink, var(--bad)); } .call.dark { --vc: var(--text); }
+.call.go { --vc: var(--good-ink, var(--good)); } .call.look { --vc: var(--fair-ink, #7d5f00); } .call.nogo { --vc: var(--bad-ink, var(--bad)); } .call.dark { --vc: var(--text); }
 .call-b { display: grid; grid-template-columns: minmax(0, 1fr) auto; grid-template-areas: 'v more' 'why more'; align-items: center; gap: 2px 16px; width: 100%; min-height: 64px; padding: 12px 0; border: 0; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
 .call-v { grid-area: v; display: flex; align-items: center; gap: 8px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; color: var(--vc); }
 .call-v i { width: 10px; height: 10px; border-radius: 50%; background: var(--vc); flex: none; }
@@ -608,3 +610,5 @@ p.sp-wn { display: block; }
 .sp-wq-t { flex: 1 1 200px; }
 .sp-wq a { min-height: 44px; display: inline-flex; align-items: center; }
 .sp-wq small { flex: 1 1 100%; font-size: 12px; color: var(--muted); }
+/* audit A3: the no-hourly-tide message inside the chart (HTML so it wraps at 390) */
+.tl-none { display: grid; place-items: center; height: 100%; margin: 0; padding: 0 8px; text-align: center; font-size: 12.5px; line-height: 1.45; color: var(--muted); text-wrap: balance; }

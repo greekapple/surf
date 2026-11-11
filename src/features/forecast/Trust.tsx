@@ -10,14 +10,14 @@ import {useObservations} from './Observe';
 import './trust.css';
 import {getFelt} from '../../services/observationStore';
 import {activeAlerts, feltForHour, firstNewReason, uniqueReasons} from './trustRules';
-import {alertsFor, logFeltRight, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
+import {alertsFor, logFeltRight, WINDOW_DAYS, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
 
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
 
 const clock = (iso: string) => fmtIn(activeZone(), {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // the zone of the spot on screen
 // an alert's times in the zone of the spot it is shown for (Home may show a spot other than the open one), named where that clock is not the viewer's
 const when = (iso: string, tz: string = activeZone()) => fmtIn(tz, {weekday: 'short', hour: 'numeric', minute: '2-digit'}).format(new Date(iso)) + viewerTag(tz, iso);
-const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look', Skip: 'skip', Dark: 'dark'};
+const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look', Skip: 'nogo', Dark: 'dark'}; // audit B14: never 'skip', which is the skip-to-content link's class (it pushed the Skip verdict off-screen and inverted its colors)
 
 /** The Call: one answer you can act on (verdict, best window, the first reason); tap for every reason and what it is computed from. */
 /** `tz`: the zone of the spot the call is for (default: the page's spot); its window says the zone where that clock is not the viewer's. */
@@ -25,7 +25,7 @@ export function CallBar({call, compact = false, tz, share}: {call: Call; compact
   const [open, setOpen] = useState(false), id = useId();
   const w = call.verdict === 'Dark' || !call.window ? call.nextWindow : call.window;
   const z = tz ?? activeZone(), wTag = w ? viewerTag(z, w.start) : '';
-  const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${windowPhrase(w, Date.now())}${wTag}${sameDay(w.start, z) ? '' : ` ${dayWord(w.start, z)}`}` : `${windowPhrase(w, Date.now())}${wTag}`) : call.verdict === 'Dark' ? 'no window in this forecast' : null;
+  const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${windowPhrase(w, Date.now())}${wTag}${sameDay(w.start, z) ? '' : ` ${dayWord(w.start, z)}`}` : `${windowPhrase(w, Date.now())}${wTag}`) : call.verdict === 'Dark' ? `${call.nextDay ? `${call.nextDay.when}: ${call.nextDay.verdict}; ` : ''}no window in the next ${WINDOW_DAYS} days` : null;   // audit F5 / B15: after dark, tomorrow's own answer
   // T-069: the line under the verdict is the first reason that ADDS something; one that only restates the verdict and window is left to the tap-open list.
   const why = firstNewReason(call.why, `${call.verdict} ${wText ?? ''}`);
   // after dark the rating stays visible: "After dark · fair conditions · next window 7–10 AM" (user, 2026-11-08)

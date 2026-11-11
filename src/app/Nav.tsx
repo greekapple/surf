@@ -9,6 +9,7 @@ import {ht} from '../features/forecast/helpers';
 import {resolveTheme, useThemePref} from '../ui/theme';
 import {ZONES, zoneOf, stateOfZone} from '../data/zones';
 import {spotStrip} from '../services/spotStrip';
+import {limitedText} from '../services/sourceStatus';
 import {AutofillInput} from '../ui/AutofillInput';
 import {completion, recentSpots, rememberSpot, searchSpots} from '../services/spotSearch';
 import {conditionWord} from '../ui/Condition';
@@ -25,7 +26,7 @@ const linkProps = (go: Go, area: Area, section = '') => ({
 
 /** A bar item (Surfline / Apple pattern): the link always navigates; hovering it, ArrowDown or the small chevron button opens its
  *  panel. Forecast opens the place browser; other areas open a flyout with one large lead link and smaller secondary links. */
-function AreaMenu({def, current, section, go, children, className = ''}: {def: (typeof AREAS)[number]; current: boolean; section: string; go: Go; children?: ReactNode; className?: string}) {
+function AreaMenu({def, current, section, go, children, className = '', label}: {def: (typeof AREAS)[number]; current: boolean; section: string; go: Go; children?: ReactNode; className?: string; /** the link's accessible name, when its visible content is not the area's name */ label?: string}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLLIElement>(null);
   const timer = useRef(0);
@@ -53,7 +54,7 @@ function AreaMenu({def, current, section, go, children, className = ''}: {def: (
     <li ref={ref} className={`area${open ? ' open' : ''} ${className}`} onKeyDown={onKey}
       onPointerEnter={(e) => { if (menu && e.pointerType === 'mouse') { clearTimeout(timer.current); setOpen(true); } }}
       onPointerLeave={(e) => { if (e.pointerType === 'mouse') timer.current = window.setTimeout(close, 160); }}>
-      <a className="area-link" aria-current={current ? 'page' : undefined} {...linkProps((a, sec) => { go(a, sec); close(); }, def.id)}>{children ?? def.label}</a>
+      <a className="area-link" aria-label={label} aria-current={current ? 'page' : undefined} {...linkProps((a, sec) => { go(a, sec); close(); }, def.id)}>{children ?? def.label}</a>
       {menu && <button className="area-more" aria-label={`${def.label} menu`} aria-expanded={open} aria-haspopup="true" onClick={() => setOpen(!open)}><Icon name="chevron" size={12} /></button>}
       {open && def.id === 'forecast' && <SpotMegaMenu section={section} current={current} go={go} close={close} />}
       {open && def.id !== 'forecast' && secs.length > 1 && (
@@ -122,7 +123,7 @@ function SpotMegaMenu({section, current, go, close}: {section: string; current: 
           <li key={s.id}><a {...linkProps((a, sec) => { go(a, sec); close(); }, 'forecast', s.id)} aria-current={current && section === s.id ? 'page' : undefined}>{s.label}</a></li>
         ))}</ul>
         {recent.length > 0 && <><p className="mm-k">Recently viewed</p><div className="mm-list">{recent.map(row)}</div></>}
-        {favs.length > 0 && <><p className="mm-k">Favourites</p><div className="mm-list">{favs.slice(0, 5).map(row)}</div></>}
+        {favs.length > 0 && <><p className="mm-k">Favorites</p><div className="mm-list">{favs.slice(0, 5).map(row)}</div></>}
       </div>
       <div className="mm-main">
         <nav className="mm-crumbs" aria-label="Location">
@@ -176,7 +177,7 @@ export function SpotPicker() {
                   <span><b>{s.name}</b><small>{s.region}</small></span>
                   <span>{rec && Number.isFinite(rec.offshore) ? `${ht(rec.offshore, data.state.profile)} ${data.state.profile.heightUnit} Hs` : '—'}</span>
                 </button>
-                <button className="star" aria-pressed={fav.includes(s.id)} aria-label={`${fav.includes(s.id) ? 'Remove' : 'Add'} ${s.name} ${fav.includes(s.id) ? 'from' : 'to'} favourites`} onClick={() => data.favorite(s.id)}>
+                <button className="star" aria-pressed={fav.includes(s.id)} aria-label={`${fav.includes(s.id) ? 'Remove' : 'Add'} ${s.name} ${fav.includes(s.id) ? 'from' : 'to'} favorites`} onClick={() => data.favorite(s.id)}>
                   <Icon name="star" size={16} />
                 </button>
               </li>
@@ -194,10 +195,10 @@ export function DataBadge() {
   if (!live) return <span className="badge demo"><i /><span className="lbl">Demonstration · not live</span></span>;
   if (o.loading && !o.bundle) return <span className="badge demo"><i /><span className="lbl">Loading forecast…</span></span>;
   if (!o.bundle) return <span className="badge err"><i /><span className="lbl">Forecast unavailable</span></span>;
-  const limited = o.statuses.some((s) => s.state !== 'connected');
+  const limited = limitedText(o.statuses); // audit F25: names the limited source (a source still loading is not limited)
   // 1A: the badge is in the zone of the spot in view (the viewer's on Home or an unfocused map), and always says which (PST, HST, EST, GMT)
   const zoneTag = () => ` ${zoneAbbr(labelZone, o.bundle!.loadedAt)}`;
-  return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.map((s) => `${s.provider}: ${s.state}`).join('\n')}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt, labelZone)}{zoneTag()}{limited ? ' · some sources limited' : ''}</span></span>;
+  return <span className={`badge${limited ? ' demo' : ''}`} title={o.statuses.filter((s) => s.state !== 'connected').map((s) => `${s.provider}: ${s.state}${s.message ? ` (${s.message})` : ''}`).join('\n') || 'All sources connected'}><i /><span className="lbl">Model data · {timeLabelPT(o.bundle.loadedAt, labelZone)}{zoneTag()}{limited}</span></span>;
 }
 
 /** Top bar (Surfline / Apple): wordmark = Home · Forecast · Map · Quiver · search · status · theme · avatar (Personal). Always solid. */
@@ -216,8 +217,8 @@ export function TopNav({area, section, go}: {area: Area; section: string; go: Go
       <div className="nav-end">
         <DataBadge /><ThemeToggle />
         <ul className="areas me-menu">
-          <AreaMenu def={def('personal')} current={area === 'personal'} section={section} go={go} className="me-area">
-            <span className="me"><i aria-hidden="true">{first[0]?.toUpperCase()}</i><span className="me-name">{first}</span><span className="sr-only">: Personal</span></span>
+          <AreaMenu def={def('personal')} current={area === 'personal'} section={section} go={go} className="me-area" label={first === 'You' ? 'Personal' : `Personal (${first})`}>
+            <span className="me"><i aria-hidden="true">{first[0]?.toUpperCase()}</i><span className="me-name">{first}</span></span>
           </AreaMenu>
         </ul>
       </div>

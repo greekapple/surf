@@ -84,6 +84,20 @@ test('bestNearbyAt judges each spot at the chosen hour and says which hour that 
   assert.ok(a.every((x) => x.at === new Date((t + 3 * 3600) * 1000).toISOString() && x.card.id !== 'spot-2'));
   assert.deepEqual(bestNearbyAt(allSpots, [], now, profile, 'spot-2', 'now'), []); assert.deepEqual(bestNearbyAt(allSpots, all, now, profile, 'nope', 'now'), []);
 });
+test('audit A15: with the call, the nearby list never ranks a Skip above a Go; the best-bet spot leads its verdict group', () => {
+  const all = ['spot-2', 'spot-3', 'spot-0'].flatMap((id) => recs(id));
+  const plain = bestNearbyAt(allSpots, all, now, profile, 'spot-2', '3h');
+  assert.ok(plain.length >= 2);
+  // the highest-rated spot is told it is a Skip, the others Go: it must drop below every Go
+  const top = plain[0].card.id, verdictOf = (s: {id: string}) => (s.id === top ? 'Skip' as const : 'Go' as const);
+  const ranked = bestNearbyAt(allSpots, all, now, profile, 'spot-2', '3h', {verdictOf});
+  assert.equal(ranked[ranked.length - 1].card.id, top);
+  assert.ok(ranked.slice(0, -1).every((x) => x.verdict === 'Go'));
+  const last = ranked[ranked.length - 2].card.id;
+  const at3 = new Date((t + 3 * 3600) * 1000).toISOString(), in1h = new Date((t + 4 * 3600) * 1000).toISOString();
+  assert.equal(bestNearbyAt(allSpots, all, now, profile, 'spot-2', '3h', {verdictOf, prefer: {id: last, start: at3, end: in1h}})[0].card.id, last, 'inside the bet window: leads');
+  assert.notEqual(bestNearbyAt(allSpots, all, now, profile, 'spot-2', '3h', {verdictOf, prefer: {id: last, start: in1h, end: new Date((t + 6 * 3600) * 1000).toISOString()}})[0].card.id, last, 'outside the window: no preference');
+});
 
 test('a surf window never runs into the dark: clamped to first and last light on 5-minute marks (user saw "4–6 PM" with sunset 5:06)', async () => {
   const {clampToLight, daylightFor} = await import('../services/daylight.ts');

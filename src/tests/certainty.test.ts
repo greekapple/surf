@@ -59,7 +59,7 @@ test('certainty: what a day surface shows (too far out hides the number, it stay
   const h = est({confidence: 'low', band: {...(est() as Est).band!, interval: {loFt: 2, hiFt: 8, halfWidth: 0.3, disagree: true}}});
   const w = certainLabel('4–6', 'ft', certaintyOf('spot-2', h, at(30), now, {ratio: 1.8, models: 3}), profile);
   assert.equal(w.note, 'models differ'); assert.equal(w.text, '4–6', 'the band stays the main number (T-118)');
-  assert.match(w.detail!, /^could be \d+–\d+ ft: widened by how far apart the wave models are \(their max\/min ratio, centred on our estimate\); the spread comes from the offshore wave models/);
+  assert.match(w.detail!, /^could be \d+–\d+ ft: widened by how far apart the wave models are \(their max\/min ratio, centered on our estimate\); the spread comes from the offshore wave models/);
   const v1 = certainLabel('4–6', 'ft', certaintyOf('spot-2', {...(h as Est), method: 'v1'}, at(30), now, {ratio: 1.8, models: 3}), profile);
   assert.doesNotMatch(v1.detail!, /offshore wave models, not the nearshore/, 'v1 numbers come from the offshore models already');
   // Flat past the horizon: no unit after Flat

@@ -1,6 +1,7 @@
 import {useCallback, useEffect, useState} from 'react';
 import {flushSync} from 'react-dom';
-import {allSpots as spots} from '../data/catalog';
+import {allSpots as spots} from '../data/catalog.ts';
+import {buildSlugIndex, resolveSlug, toSlug, type SlugMatch} from './slugs.ts';
 
 export type Area = 'home' | 'forecast' | 'explore' | 'quiver' | 'personal';
 /** `hidden` sections are real routes reached from inside a page (e.g. the 3D viewer from a spot's forecast), not menu entries. */
@@ -31,8 +32,8 @@ export const AREAS: AreaDef[] = [
   ]},
   {id: 'personal', label: 'Personal', sections: [
     {id: '', label: 'Personal', hint: 'Profile, favorites, preferences, units and data'},
-    {id: 'spots', label: 'Favorite Spots', hint: 'Favourites'},
-    {id: 'preferences', label: 'Surf preferences', hint: 'Wave range, swell, period and tide'},
+    {id: 'spots', label: 'Favorite Spots', hint: 'Favorites'},
+    {id: 'preferences', label: 'Surf preferences', hint: 'Surf height, swell, period and tide'},
     {id: 'journal', label: 'Surf Journal', hint: 'Your sessions'},
     {id: 'account', label: 'Data & privacy', hint: 'Data source, storage and backup'},
     {id: 'profile', label: 'Edit profile', hint: 'Name, region, photo and ability', hidden: true}, // pages of the grouped Personal list (T-037)
@@ -40,26 +41,32 @@ export const AREAS: AreaDef[] = [
     {id: 'appearance', label: 'Appearance', hint: 'Theme', hidden: true},
     {id: 'privacy', label: 'Privacy', hint: 'What stays on your device', hidden: true},
     {id: 'terms', label: 'Terms', hint: 'Not a safety service', hidden: true},
+    {id: 'credits', label: 'Data sources & credits', hint: 'Every source, its license and credit', hidden: true}, // audit R4 / A10
   ]},
 ];
 
-export interface Route {area: Area; section: string}
+/** `notFound`: the path names no page (audit B2); the app shows "Page not found" with search instead of silently showing another page. */
+export interface Route {area: Area; section: string; notFound?: boolean}
 
 export function parseRoute(pathname: string): Route {
-  const [a, s] = pathname.split('/').filter(Boolean);
+  const [a, s, ...rest] = pathname.split('/').filter(Boolean);
+  if (!a) return {area: 'home', section: ''};
   if (a === 'map') return parseRoute(`/explore${s ? `/${s}` : ''}`); // "Map" in the bar (T-022); /explore stays canonical
-  if (a === 'scale') return {area: 'forecast', section: 'wave-scale'}; // Wave Scale lives inside Forecast; keep old links working
-  if (a === 'forecast' && s === 'compare') return {area: 'explore', section: 'compare'}; // Compare moved to Explore (2026-10-29)
+  if (a === 'scale' && !s) return {area: 'forecast', section: 'wave-scale'}; // Wave Scale lives inside Forecast; keep old links working
+  if (a === 'forecast' && s === 'compare' && !rest.length) return {area: 'explore', section: 'compare'}; // Compare moved to Explore (2026-10-29)
   const def = AREAS.find((x) => x.id === a);
-  if (!def) return {area: 'home', section: ''};
-  return {area: def.id, section: def.sections.some((x) => x.id === (s ?? '')) ? s ?? '' : ''};
+  if (!def) return {area: 'home', section: '', notFound: true};
+  if (rest.length || !def.sections.some((x) => x.id === (s ?? ''))) return {area: def.id, section: '', notFound: true};
+  return {area: def.id, section: s ?? ''};
 }
 
 export const pathFor = (area: Area, section = '') => `/${area}${section ? `/${section}` : ''}`;
 
-const toSlug = (name: string) => name.toLowerCase().replace(/[’']/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
-export const slugFor = (spotId: string) => toSlug(spots.find((s) => s.id === spotId)?.name ?? spotId);
-export const spotIdForSlug = (slug: string | null) => (slug ? spots.find((s) => toSlug(s.name) === slug)?.id ?? null : null);
+// Audit B3: one unique slug per spot (slugs.ts); an old shared-name slug is an alias only where it is unambiguous.
+const slugIndex = buildSlugIndex(spots);
+export const slugFor = (spotId: string) => slugIndex.slugOf.get(spotId) ?? toSlug(spotId);
+export const matchSpotSlug = (slug: string, available?: (id: string) => boolean): SlugMatch => resolveSlug(slugIndex, slug, available);
+export const spotIdForSlug = (slug: string | null, available?: (id: string) => boolean) => { if (!slug) return null; const m = matchSpotSlug(slug, available); return m.kind === 'spot' ? m.id : null; };
 
 /** History API routing (the Worker and Vite both serve index.html for extension-less paths). */
 export function useRoute() {

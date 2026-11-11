@@ -69,6 +69,7 @@
 .badge i { width: 7px; height: 7px; border-radius: 50%; background: var(--good); }
 .badge.demo i { background: var(--fair); }
 .badge.err i { background: var(--bad); }
+.badge .lbl { max-width: 360px; overflow: hidden; text-overflow: ellipsis; } /* audit F25: a long "… limited" list ellipsizes; the title lists every source */
 .page { flex: 1; width: 100%; max-width: 1560px; margin: 0 auto; padding: 14px var(--gutter) 40px; }
 .page-bleed { max-width: none; padding: 0; }
 .tabbar { display: none; }
@@ -309,6 +310,14 @@
 .legal h1 { font: 700 34px/1.1 var(--display); letter-spacing: -0.02em; } .legal h2 { margin-top: 10px; font-size: 19px; }
 .legal p, .legal li { color: var(--muted); } .legal ul { padding-left: 20px; display: grid; gap: 6px; }
 @media (max-width: 860px) { .foot { padding-bottom: calc(var(--tab-h) + 28px); } }
+/* Audit B2: page / spot not found */
+.nf .nf-list { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--line); }
+.nf .nf-list li { border-bottom: 1px solid var(--line); }
+.nf .nf-list a { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; min-height: 44px; padding: 10px 2px; color: var(--text); text-decoration: none; }
+.nf .nf-list a:hover b { text-decoration: underline; } .nf .nf-list small { color: var(--muted); font-size: 13px; }
+.nf-search { display: flex; align-items: center; gap: 8px; max-width: 420px; padding: 0 12px; border: 1px solid var(--line-2); border-radius: var(--r2); color: var(--muted); }
+.nf-search input { flex: 1; min-width: 0; height: 44px; border: 0; background: transparent; color: var(--text); font: inherit; outline: none; }
+.nf-search:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 /* ---------- Nav over a full-bleed photo (Home, Forecast): transparent until scrolled ---------- */
 /* The header is always solid (Surfline's white bar); on photo pages it is fixed and the photo starts beneath it. */
@@ -434,6 +443,10 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
   .wordmark { font-size: 21px; padding-right: 0; margin-left: 0; }
   .searchbar { gap: 5px; padding: 0 8px 0 10px; }
 }
+/* audit A10: Data sources & credits */
+.credits .cr-list { list-style: none; padding: 0; gap: 0; border-top: 1px solid var(--line); }
+.credits .cr-list li { display: grid; gap: 2px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.credits .cr-list b { color: var(--text); } .credits .cr-list i { font-style: normal; color: var(--text); }
 
 /* §6 search autofill: the input sits over a ghost line holding the typed text (invisible) and the completion (light grey), in the same font */
 .acf { position: relative; display: flex; flex: 1; min-width: 0; align-items: center; }

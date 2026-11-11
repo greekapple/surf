@@ -41,3 +41,5 @@ export const ZONES: [string, string[]][] = [
 const EAST_STATES = ['Maine', 'New Hampshire', 'Massachusetts', 'Rhode Island', 'New York', 'New Jersey', 'Delaware', 'Maryland', 'Virginia', 'North Carolina', 'South Carolina', 'Georgia', 'Florida', 'Alabama', 'Louisiana', 'Texas', 'Puerto Rico'];
 export const stateOfZone = (zone: string) => (zone.startsWith('Alaska') ? 'Alaska' : zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : zone.startsWith('Hawaii') ? 'Hawaii' : EAST_STATES.includes(zone) ? zone : zone.startsWith('Florida') ? 'Florida' : 'California');
 export const zoneOf = (region: string) => ZONES.find(([, rs]) => rs.includes(region))?.[0] ?? 'Other';
+/** A region with its state for profile text: 'Oahu North Shore, Hawaii', 'Tillamook, Oregon', 'Maine' (audit R5: never a blanket ', CA'). */
+export const regionWithState = (region: string) => { const z = zoneOf(region); if (z === 'Other') return region; const st = stateOfZone(z); return region.includes(st) ? region : `${region}, ${st}`; };

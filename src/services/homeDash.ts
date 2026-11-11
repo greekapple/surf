@@ -127,10 +127,16 @@ export function rankHour(spot: SurfSpot, records: Forecast[], now: number, when:
   for (const f of mine) { if (dateIn(tz, f.timestamp) !== key) continue; const h = hourIn(tz, f.timestamp); if (h < 6 || h > 11 || isDark(spot.id, f.timestamp)) continue; const s = rateForecast(spot, f, now).score; if (finite(s) && s > bs) { bs = s; best = Date.parse(f.timestamp); } }
   return best;
 }
-/** Like bestNearby, judged at `when`. Each item also says which hour it was judged at. */
-export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number, profile: UserProfile, refId: string, when: RankWhen, opts: {exclude?: string[]; limit?: number; radiusKm?: number; ctx?: DashContext} = {}): (NearbyItem & {at: string})[] {
+export type NearbyVerdict = 'Go' | 'Worth a look' | 'Skip' | 'Dark';
+const VERDICT_RANK: Record<NearbyVerdict, number> = {Go: 3, 'Worth a look': 2, Skip: 1, Dark: 0};
+/** Like bestNearby, judged at `when`. Each item also says which hour it was judged at.
+ *  Audit F9 / A15: with `verdictOf` (the call at that hour, the same rule as Home's best bet) the list ranks by verdict first, so a Skip never sits
+ *  above a Go; then `prefer` (the hero's best-bet spot) leads its verdict group, but only when the hour judged falls inside the bet's window
+ *  (review fix: a different hour is a different answer); then the rating; then the nearer. */
+export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number, profile: UserProfile, refId: string, when: RankWhen, opts: {exclude?: string[]; limit?: number; radiusKm?: number; ctx?: DashContext;
+  verdictOf?: (spot: SurfSpot, atMs: number) => NearbyVerdict | null; prefer?: {id: string; start: string; end: string} | null} = {}): (NearbyItem & {at: string; verdict?: NearbyVerdict | null})[] {
   const ref = evidenceSpots.find((e) => e.id === refId); if (!ref) return [];
-  const {exclude = [], limit = 5, radiusKm = 100, ctx} = opts, out: (NearbyItem & {at: string})[] = [];
+  const {exclude = [], limit = 5, radiusKm = 100, ctx, verdictOf, prefer} = opts, out: (NearbyItem & {at: string; verdict?: NearbyVerdict | null})[] = [];
   for (const s of spots) {
     if (exclude.includes(s.id)) continue;
     const ev = evidenceSpots.find((e) => e.id === s.id); if (!ev) continue;
@@ -138,7 +144,11 @@ export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number
     const t = rankHour(s, records, now, when, timeZoneOf(refId)); if (t === null) continue;
     const card = dashCard(s, records, t, profile, ctx, now);
     if (card.demo || card.rating.score === null || card.validTime === null) continue;
-    out.push({card, km: Math.round(km), at: card.validTime});
+    out.push({card, km: Math.round(km), at: card.validTime, ...(verdictOf ? {verdict: verdictOf(s, t)} : {})});
   }
-  return out.sort((a, b) => (b.card.rating.score as number) - (a.card.rating.score as number) || a.km - b.km).slice(0, limit);
+  const vr = (x: {verdict?: NearbyVerdict | null}) => (x.verdict ? VERDICT_RANK[x.verdict] : -1);
+  // the window's start may be mid-hour (6:20): the hour holding it counts
+  const preferred = (x: {card: DashCard; at: string}) => !!prefer && x.card.id === prefer.id && Date.parse(x.at) + 3600000 > Date.parse(prefer.start) && Date.parse(x.at) < Date.parse(prefer.end);
+  return out.sort((a, b) => (verdictOf ? vr(b) - vr(a) || Number(preferred(b)) - Number(preferred(a)) : 0)
+    || (b.card.rating.score as number) - (a.card.rating.score as number) || a.km - b.km).slice(0, limit);
 }

@@ -1,4 +1,5 @@
-import {regionNote} from '../../ocean/coverage';
+import {noTideCurveText} from './tideNote';
+import {partitionKind} from '../../services/swellParts';
 import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent} from 'react';
 import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
@@ -83,6 +84,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const top = stacked ? 0 : PT - 8, bottom = stacked ? (showHours ? height - 20 : height) : RB; // night shading / day lines / selection span the whole chart when stacked
   const tides = series.map((h) => (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0));
   const hasTide = series.some((h) => Number.isFinite(h.forecast.tide.height)); // spots far from the SF station have none
+  const noTide = tab === 'tide' && !hasTide; // audit A3: no axis, no point at a made-up 0 ft, just the message
   const tLo = Math.min(...tides), tHi = Math.max(...tides);
   const bandAt = useMemo(() => new Map((band ?? []).map((b) => [b.t, b])), [band]);
   const surfBand = tab === 'surf' && hasEstimateBand(bandAt.values());
@@ -172,7 +174,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
           <pattern id="pFar" width={6} height={6} patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1={0} y1={0} x2={0} y2={6} className="tl-far-line" /></pattern>
         </defs>
         <g key={`ax${tab}`} className="tl-fade">
-          {ticks.map((v) => <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 8} y={Y(v) + 4} textAnchor="end">{tab === 'tide' && v > 0 ? '+' : ''}{tickText(v)}{v === ticks[ticks.length - 1] ? ` ${unit}` : ''}</text></g>)}
+          {!noTide && ticks.map((v) => <g key={v}><line className="tl-grid" x1={G} x2={W - PAD} y1={Y(v)} y2={Y(v)} /><text className="tl-ax" x={G - 8} y={Y(v) + 4} textAnchor="end">{tab === 'tide' && v > 0 ? '+' : ''}{tickText(v)}{v === ticks[ticks.length - 1] ? ` ${unit}` : ''}</text></g>)}
         </g>
         <g clipPath="url(#tlclip)">
           {days.map((d: Day, k) => {
@@ -193,7 +195,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
                   hours without an estimate break the band, never bridged. The offshore Hs stays a thin muted line. Tide is only on the Tide tab. */}
               {/* T-119 (Surfline-style undulating lines): each run's top and bottom are monotone cubic curves (no overshoot) through every third hour
                   plus the run's ends, so whole-foot steps in the hourly estimate read as one smooth swell of size; a soft fill between; the bottom edge is
-                  coloured by the hour's rating. */}
+                  colored by the hour's rating. */}
               {farX !== null && <g className="tl-far">
                 <rect x={farX} y={PT - 8} width={Math.max(0, W - farX)} height={PB - PT + 8} fill="url(#pFar)" />
                 {W - PAD - farX > 96 && <text className="tl-far-t" x={farX + 6} y={PT + 6}>too far out to call</text>}
@@ -215,11 +217,11 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
               <path d={mainPath} fill="none" stroke="var(--muted)" strokeWidth={1.4} strokeLinejoin="round" opacity={0.9} />
             </>}
             {tab === 'swell' && <>
-              {/* T-119 (Surfline-style): one smooth line per swell component (primary, secondary, third), distinct colours; every 6 h (12 h when the
+              {/* T-119 (Surfline-style): one smooth line per swell component (primary, secondary, third), distinct colors; every 6 h (12 h when the
                   hours are tight, as on a phone) a direction arrow on the line (pointing where the swell travels) and, on the primary, its period. */}
               <path d={areaD} fill="url(#gSw)" />
               {SWELLS.map(({k, cls}) => {
-                const comp = (h: HourSample) => h.forecast[k] ?? null;
+                const comp = (h: HourSample) => { const c = h.forecast[k] ?? null; return partitionKind(c, k === 'primary') === 'noise' ? null : c; }; // audit A13: model noise is not drawn as swell
                 if (!vis.some((h) => comp(h))) return null;
                 const runs: [number, number][][] = []; let cur: [number, number][] = [];
                 vis.forEach((h, j) => { const c = comp(h); if (c && Number.isFinite(c.height)) cur.push([X(i0 + j), Y(c.height)]); else if (cur.length) { runs.push(cur); cur = []; } }); if (cur.length) runs.push(cur);
@@ -230,7 +232,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
                     const x = X(i0 + j), y = Y(c.height);
                     return <g key={h.timestamp}>
                       <g transform={`translate(${x} ${y}) rotate(${(c.direction + 180) % 360})`}><path className="tl-sw-dir" d="M0 -5 L3.6 4 L0 2.2 L-3.6 4Z" /></g>
-                      {k === 'primary' && localHour(h.timestamp) % labelEvery === 0 && <text className="tl-pk" x={x} y={y - 9} textAnchor="middle">{Math.round(c.period)}s</text>}
+                      {k === 'primary' && localHour(h.timestamp) % labelEvery === 0 && <text className="tl-pk" x={x} y={y - 9} textAnchor="middle">{Math.round(c.period)}s{partitionKind(c, true) === 'chop' ? ' chop' : ''}</text>}
                     </g>; })}
                 </g>; })}
             </>}
@@ -256,20 +258,20 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
                 return <g key={e.timestamp}><circle cx={x} cy={Y(v)} r={3} fill="var(--tide)" />
                   {pxh > 9 && <text className="tl-pk" x={x} y={Y(v) + (e.type === 'High' ? -9 : 17)} textAnchor="middle">{timeLabelPT(e.timestamp).replace(' ', '').toLowerCase()}</text>}</g>;
               })}
-            </> : <text className="tl-ax" x={G + inner / 2} y={(PT + PB) / 2} textAnchor="middle">No open-coast tide station near this spot</text>)}
+            </> : <foreignObject x={G} y={PT} width={inner} height={Math.max(0, PB - PT)}><p className="tl-none">{noTideCurveText(spot.id)}</p></foreignObject>)}
           </g>
           {showRibbon && vis.map((h, k) => <rect key={h.timestamp} x={X(i0 + k) - pxh / 2} y={RB} width={Math.max(0, pxh + 0.5)} height={5} rx={pxh > 8 ? 1 : 0} fill={BAND_COLOR[bandOf(h.rating.category)]} />)}
           {nowI >= 0 && <line x1={X(nowI)} x2={X(nowI)} y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--warn)" strokeWidth={1.2} strokeDasharray="2 3" />}
           {showHours && vis.map((h, k) => (localHour(h.timestamp) % stepH ? null : <text key={`t${h.timestamp}`} className="tl-ax tl-dim" x={X(i0 + k)} y={height - 8} textAnchor="middle">{hourLabel(h.timestamp)}</text>))}
           {hover && hover.i !== sel && <g><line x1={X(hover.i)} x2={X(hover.i)} y1={PT - 8} y2={RB + 2} stroke="var(--ch-hover)" />
-            <circle cx={X(hover.i)} cy={Y(val(series[hover.i]))} r={3.5} fill="var(--bg)" stroke="var(--ch-ink)" strokeWidth={1.75} /></g>}
+            {!noTide && <circle cx={X(hover.i)} cy={Y(val(series[hover.i]))} r={3.5} fill="var(--bg)" stroke="var(--ch-ink)" strokeWidth={1.75} />}</g>}
         </g>
         {showRibbon && <text className="tl-row" x={0} y={RB + 5}>Rating</text>}
         {title && <text className="tl-title" x={G + 6} y={(showDays ? 30 : 12) + 1}>{title}</text>}
-        <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
+        {!noTide && <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
           <line y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
           <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : surfBand ? 'var(--hs-hi)' : 'var(--muted)'} strokeWidth={2.5} />
-        </g>
+        </g>}
       </svg>
       {tipH && hover && (
         <div className="tl-tip" style={{transform: `translate3d(${tipLeft}px, ${tipTop}px, 0)`, width: TIP_W}}>
@@ -356,7 +358,7 @@ export function PolarSwell({hours, selected, facing, onSelect}: {hours: HourSamp
       {hours.flatMap((h) => {
         const isSel = h.timestamp === selected;
         return ([[h.forecast.secondary, 'var(--sw2)'], [h.forecast.primary, 'var(--sw1)']] as const).map(([s, c], k) => {
-          if (!s || !Number.isFinite(s.height)) return null;
+          if (!s || partitionKind(s, k === 1) === 'noise') return null;
           const [x, y] = pos(s.direction, s.period);
           return <circle key={`${h.timestamp}${k}`} cx={x} cy={y} r={(isSel ? 3 : 1.6) + s.height * (isSel ? 1.1 : 0.7)} fill={c} fillOpacity={isSel ? 1 : 0.3}
             stroke={isSel ? 'var(--bg)' : 'none'} strokeWidth={1.5} style={{cursor: 'pointer'}} onClick={() => onSelect(h.timestamp)} />;
@@ -369,7 +371,7 @@ export function PolarSwell({hours, selected, facing, onSelect}: {hours: HourSamp
 
 export function TideDay({hours, selected, extrema, spot, p, onSelect}: {hours: HourSample[]; selected: string | null; extrema: TidePrediction[]; spot: SurfSpot; p: UserProfile; onSelect: (t: string) => void}) {
   if (!hours.length) return null;
-  if (!hours.some((h) => Number.isFinite(h.forecast.tide.height))) return <p className="fine">{regionNote(spot, 'tide') ?? 'No hourly tide curve for this spot: it is drawn from the San Francisco station, only used for spots near the Bay. The Tide card lists this spot\'s next highs and lows from its own nearest station when it has one.'}</p>;
+  if (!hours.some((h) => Number.isFinite(h.forecast.tide.height))) return <p className="fine">{noTideCurveText(spot.id)}</p>;
   const vals = hours.map((h) => h.forecast.tide.height), lo = Math.min(...vals) - 0.6, hi = Math.max(...vals) + 0.6;
   const t0 = Date.parse(hours[0].timestamp), span = Date.parse(hours[hours.length - 1].timestamp) - t0 || 1;
   const X = (ms: number) => 8 + ((ms - t0) / span) * 344, Yv = (v: number) => 150 - ((v - lo) / (hi - lo)) * 126;

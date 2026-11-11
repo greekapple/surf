@@ -1,3 +1,3 @@
 /* T-065: the compact call (Home, nearby list, spot page). Loaded by Trust.tsx so every page that shows a call has it. */
 .call-c { font-size: 13px; color: var(--muted); } .call-c b { font-weight: 700; }
-.call-c.go b { color: var(--good-ink, var(--good)); } .call-c.look b { color: var(--fair-ink, #7d5f00); } .call-c.skip b { color: var(--bad-ink, var(--bad)); } .call-c.dark b { color: var(--text); }
+.call-c.go b { color: var(--good-ink, var(--good)); } .call-c.look b { color: var(--fair-ink, #7d5f00); } .call-c.nogo b { color: var(--bad-ink, var(--bad)); } .call-c.dark b { color: var(--text); }

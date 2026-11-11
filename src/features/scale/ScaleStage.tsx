@@ -137,7 +137,7 @@ export function ScaleStage() {
     <section className="sc" aria-label="Wave scale">
       <div className="sc-head">
         <div><h1>Wave scale</h1><p className="fine">{spot.name}{when ? ` · ${when}` : ''}</p></div>
-        {text && <p className="sc-read" aria-live="polite">{band !== null && mode === 'diagram' ? <><b>{SCALE_BANDS[band].label}</b> band <span className="sc-tag">comparing</span></> : <><b>{text.value}</b> {words && <span title={BODY_WORDS_NOTE}>{words} ~</span>} <span className="sc-tag">{text.tag}</span></>}</p>}
+        {text && <p className="sc-read" aria-live="polite">{band !== null && mode === 'diagram' ? <><b>{SCALE_BANDS[band].label}</b> band <span className="sc-tag">comparing</span></> : <><b>{text.value}</b> {words && <span title={BODY_WORDS_NOTE}>about {words}</span>} <span className="sc-tag">{text.tag}</span></>}</p>}
       </div>
 
       {(spinOk || liveOk) && <div className="sc-mode" role="radiogroup" aria-label="View">

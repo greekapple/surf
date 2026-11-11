@@ -129,3 +129,14 @@ test('T-100: a very large swell is not described as small or short-period', asyn
   const small = plainReasonFor({factor: 'Offshore wave potential', effect: '-', reason: 'Primary 1.0 ft at 5.0 s; combined Hs 1.2 ft.'});
   assert.match(small, /rates low/);
 });
+
+test('audit B15: after dark with no window ahead, the call still answers for tomorrow, and never claims "in this forecast"', () => {
+  const r = recs(6, 20, 270); // far above an intermediate range, strong onshore: every daylight hour is a Skip
+  const c = callFor(spot, at(r, dark646pm), prof('Intermediate'), ctxFor(r, dark646pm));
+  assert.equal(c.verdict, 'Dark'); assert.equal(c.nextWindow, null);
+  assert.ok(c.nextDay, 'the next day has an answer');
+  assert.equal(c.nextDay!.when, 'tomorrow'); assert.equal(c.nextDay!.verdict, 'Skip'); assert.ok(c.nextDay!.reason);
+  assert.equal(isDark('spot-2', c.nextDay!.at), false, 'judged at a daylight hour');
+  assert.match(c.why[0], /^Tomorrow: Skip\. ./); assert.match(c.why[1], /No surf window in the next 4 days\.$/);
+  assert.doesNotMatch(c.why.join(' '), /in this forecast/);
+});

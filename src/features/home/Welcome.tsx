@@ -117,7 +117,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
   const glyph = heroRec && heroHour ? glyphFor(heroHour.surf.headline, me.feet, heroRec.primary?.period, breakerType(spot, heroRec).type) : null;
   const heroBand = heroRec ? BAND_COLOR[bandOf(rateForecast(spot, heroRec, nowMs).category)] : undefined;
-  const heroWhen = heroRec ? `${dayWord(heroRec.timestamp, nowMs, tz) === 'today' ? '' : dayWord(heroRec.timestamp, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroRec.timestamp, tz)}${viewerTag(tz, heroRec.timestamp)}` : '';
+  // Audit F19: the caption names the same time as the sentence and the button (the window's start, e.g. 6:20), not the top of the hour holding it.
+  const heroT = bet ? bet.window.start : heroRec?.timestamp;
+  const heroWhen = heroT ? `${dayWord(heroT, nowMs, tz) === 'today' ? '' : dayWord(heroT, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroT, tz)}${viewerTag(tz, heroT)}` : '';
   return (
     <section className={`wel wel-${tintOf(nowMs, spot.id)}`} aria-labelledby="wel-h">
       <div className={`wel-hero is-${media.kind}`}>

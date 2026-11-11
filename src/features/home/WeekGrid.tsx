@@ -37,7 +37,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
       const segs = BLOCKS.map((h, i): Seg => {
         const f = byCol[ki].find((r) => hourOf(tz, r.timestamp) === h);
         if (!f) return {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} no data`};
-        const r = rateForecast(spot, f, nowMs), dark = isDark(spot.id, f.timestamp); // after dark the conditions keep their colour, dimmed (user, 2026-11-08)
+        const r = rateForecast(spot, f, nowMs), dark = isDark(spot.id, f.timestamp); // after dark the conditions keep their color, dimmed (user, 2026-11-08)
         return r.score === null ? {state: 'none', color: 'var(--none)', word: `${BLOCK_WORD[i]} not rated`} : {state: dark ? 'dark' : 'rated', color: BAND_COLOR[bandOf(r.category)], word: `${BLOCK_WORD[i]} ${conditionWord(r.category).toLowerCase()}${dark ? ', after dark' : ''}`};
       });
       const wc = weekCell(dr, unit);
@@ -48,7 +48,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
   return (
     <div className="wk" role="region" aria-label="Your spots this week" tabIndex={0}>
       <table className="wk-t">
-        <thead><tr><th scope="col" className="wk-spot">Spot{differsFromViewer(colTz, nowMs) ? <small> · days in {zoneAbbr(colTz, nowMs)}</small> : null}</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
+        <thead><tr><th scope="col" className="wk-spot">Spot<small className="wk-unit"> · surf est., {unit}</small>{differsFromViewer(colTz, nowMs) ? <small> · days in {zoneAbbr(colTz, nowMs)}</small> : null}</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
         <tbody>{rows.map(({spot, cells, tz}) => {
           // T-119 (Surfline-style, the user's "lines that undulate"): a smooth monotone curve through the days' midday sizes (wc.centralFt, the cell's own
           // number) on the row's own scale (its lowest to highest day, padded), so the week's shape reads; the numbers above carry the values.
@@ -62,7 +62,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
           return (
             <tr key={spot.id}>
               <th scope="row" className="wk-spot"><b>{spot.name}</b><small>{spot.region}{tz !== colTz ? ` · ${zoneAbbr(tz, nowMs)} time` : ''}{(() => { const off = cells.filter((c) => c.dr.kind === 'offshore').length, est = cells.filter((c) => c.dr.kind === 'estimate').length;
-                return off ? <span className="wk-kind"> · {est ? 'offshore where grey' : 'offshore only'}</span> : null; })()}</small></th>
+                return off ? <span className="wk-kind"> · {est ? 'offshore where gray' : 'offshore only'}</span> : null; })()}</small></th>
               {cells.map((c, i) => {
                 const line = i === 0 && runs.length ? <svg className="wk-line" style={{width: `${keys.length * 100}%`}} viewBox={`0 0 ${keys.length * 100} 40`} preserveAspectRatio="none" aria-hidden="true">{runs.map((r) => r.length > 1 ? <path key={r[0][0]} d={monotonePath(r)} /> : <circle key={r[0][0]} cx={r[0][0]} cy={r[0][1]} r={2.5} />)}</svg> : null;
                 const wc = c.wc, est = wc.kind === 'estimate', off = wc.kind === 'offshore', cv = c.cv, far = cv?.level === 'too-far';
@@ -77,7 +77,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
                   <td key={c.key} className={`wk-c${i === 0 ? ' wk-first' : ''}${cv ? ` is-${cv.level}` : ''}`}>
                     {line}
                     <button type="button" aria-label={aria} onClick={() => onOpen(spot.id, c.dr.typical?.atIso ?? null)}>
-                      <span className={(far ? 'wk-h wk-far' : est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none') + (wc.stale ? ' wk-stale' : '')} data-central-ft={wc.centralFt ?? undefined} data-certainty={cv?.level} title={tip}>{label}{wc.stale && <small className="wk-stale-tag"> {wc.stale}</small>}{shown.note && <small className="wk-why">{shown.note}</small>}</span>
+                      <span className={(far ? 'wk-h wk-far' : est ? 'wk-h' : off ? 'wk-h wk-off' : 'wk-h wk-none') + (wc.stale ? ' wk-stale' : '')} data-central-ft={wc.centralFt ?? undefined} data-certainty={cv?.level} title={tip}>{label}{off && <small className="wk-off-tag"> offsh.</small>}{wc.stale && <small className="wk-stale-tag"> {wc.stale}</small>}{shown.note && <small className="wk-why">{shown.note}</small>}</span>
                       <span className="wk-bar" aria-hidden="true">{c.segs.map((s, k) => <i key={k} className={s.state} style={{background: s.color}} />)}</span>
                     </button>
                   </td>

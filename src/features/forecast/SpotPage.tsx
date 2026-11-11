@@ -21,6 +21,7 @@ import {wind as windText} from '../../utils/units';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, monotonePath, windVal, spotLatLon, type Day} from './helpers';
+import {partitionKind, partitionNotes, shownPartitions} from '../../services/swellParts';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {hourFreshness} from '../../services/freshness';
@@ -113,7 +114,8 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
   const ex = ratingWhy(spot, h, p);
   const scored = ex.items.filter((x) => x.inScore).slice(0, 4);
   const facing = facingOf(spot.id);
-  const swells = [f.primary, f.secondary, f.tertiary].filter((s): s is NonNullable<typeof s> => !!s && fin(s.height) && s.height > 0.05);
+  const swells = shownPartitions([f.primary, f.secondary, f.tertiary]); // audit A13: model noise hidden, wind chop labeled
+  const partNotes = partitionNotes([f.primary, f.secondary, f.tertiary]);
   const tideOk = f.availability.tide !== false && fin(f.tide.height);
   // A2: the Tide card names its station and uses the spot's OWN picked station (the one Home names). The hourly curve in the record is the San Francisco regional series: it is drawn only where San Francisco IS the spot's station,
   // and then says so; where the spot's own station is another one, the card shows that station's next highs and lows (as for every spot with no hourly series) instead of the SF curve under a generic label.
@@ -162,10 +164,10 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       </Card>
       <Card k="swell" title="Swell" open={open === 'swell'} onToggle={() => onToggle('swell')}>
         {swells.length ? <ul className="sp-swells">{swells.map((s, i) => (
-          <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color={i === 0 ? 'var(--sw1)' : 'var(--sw2)'} /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
-        ))}</ul> : <p className="sp-s">No swell partitions in this record.</p>}
+          <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s{s.kind === 'chop' ? ' wind chop' : ''}</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color={i === 0 ? 'var(--sw1)' : 'var(--sw2)'} /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
+        ))}</ul> : <p className="sp-s">{partNotes.onlyNoise ? 'Only model noise (under 2 s) in this record.' : 'No swell partitions in this record.'}</p>}
         {swells.length > 0 && <SwellRose swells={swells} facing={facing} />}
-        <p className="sp-f">Offshore model partitions</p>
+        <p className="sp-f">Offshore model partitions{partNotes.smallHidden ? ' · small partitions under 0.5 ft hidden' : ''}</p>
       </Card>
       <Card k="water" title="Water">
         {water !== null ? <>
@@ -226,7 +228,7 @@ export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('.
   if (!top || top.size.state === 'none') return null;
   return (
     <section className="sp-board" aria-label="Board Match">
-      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null ? `, ${Math.round(period)} s ${top.period?.fit === 'ok' ? 'period suits it' : 'period, ' + (top.period?.note ?? '')}` : ''}. <span className="fine">Wave shape unknown.</span></p>
+      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}` : '.'} <span className="fine">Wave shape unknown.</span></p>
       <button className="sp-link" onClick={onOpen}>Board Match</button>
     </section>
   );
@@ -269,7 +271,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
           <button key={d.key} className={`sp-day day${cv ? ` is-${cv.level}` : ''}`} data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)} data-certainty={cv?.level}
             aria-label={`${name}: ${range ? `${far ? `too far out to call, ${shown.detail}` : `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${shown.text.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}`}${cv && !far ? `, ${cv.word}` : ''}${shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week for you: the highest average rating over its 6 AM–7 PM hours, among the next few days that have a Go or Worth-a-look window for your skill range. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
-            <span className="sd-h" title={cv ? `${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
+            <span className={`sd-h${dr.kind === 'offshore' ? ' sd-off' : ''}`} title={cv ? `${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
             <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{cv && !far ? `${kind} · ${shown.note ?? cv.word}` : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
             <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark && b.h ? `${b.label}: ${conditionWord(b.h.rating.category).toLowerCase()} conditions, after dark` : undefined} style={{background: b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
@@ -296,8 +298,8 @@ export function HourTable({hours, spot, p, bundle, now, selected, onSelect}: {ho
               <th scope="row"><button onClick={() => onSelect(x.timestamp)}>{hourLabel(x.timestamp)}</button></th>
               <td className="st-surf"><b>{t.value}</b><small>{isFlat(hs) ? '(model estimate)' : hs.kind === 'estimate' ? 'est.' : hs.kind === 'offshore' ? 'offshore' : hs.kind === 'demonstration' ? 'demo' : ''}</small></td>
               <td><span className="st-q" style={{background: BAND_COLOR[bandOf(x.rating.category)]}} />{conditionWord(x.rating.category)}{x.rating.dark && <small> · after dark</small>}</td>
-              <td>{f.primary && fin(f.primary.height) ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /></> : '—'}</td>
-              <td>{f.secondary && fin(f.secondary.height) ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /></> : '—'}</td>
+              <td>{f.primary && partitionKind(f.primary, true) !== 'noise' ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /></> : '—'}</td>
+              <td>{f.secondary && partitionKind(f.secondary) !== 'noise' ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /></> : '—'}</td>
               <td className={`st-wind ${relClass(rel)}`}>{fin(f.wind.speed) ? <>{fin(f.wind.direction) && <DirArrow from={f.wind.direction} size={12} />} {windVal(f.wind.speed, p)} {p.windUnit}<small>{fin(f.wind.gusts) ? `gust ${windVal(f.wind.gusts, p)} · ` : ''}{relWord(rel)}</small><StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</td>
               <td>{fin(f.tide.height) ? <>{`${f.tide.height < 0 ? '−' : ''}${ht(Math.abs(f.tide.height), p)} ${u}`}<StaleTag s={hourFreshness(f, now).tide} /></> : '—'}</td>
             </tr>
@@ -333,7 +335,7 @@ export function BuoyNow({buoy, series, p, now}: {buoy: ObservationSet | null | u
 /** Wave scale panel (T-048): the hour's face estimate, a surfer at the user's height and their best board, drawn to one scale.
  *  Drawn from data only (no imagery). Without a face estimate the wave is not drawn: offshore height is not surf size. */
 export function ScalePanel({hs, p, board, outsideNote, onOpen}: {hs: HeadlineSurf; p: UserProfile; board: import('../../models/index').Surfboard | null; outsideNote?: string | null; onOpen: () => void}) {
-  const me = userHeight(p), personFt = me.feet; // the surfer's own height (Personal › Surf preferences), else the labelled 5'10" default
+  const me = userHeight(p), personFt = me.feet; // the surfer's own height (Personal › Surf preferences), else the labeled 5'10" default
   const flat = isFlat(hs), est = hs.kind === 'estimate' && !flat ? hs : null, boardFt = board ? board.length / 12 : 0; // T-130: a Flat hour draws no wave (still water), never a zero-height face
   const top = Math.max(est ? est.hiFt * 1.08 : 0, personFt * 1.15, boardFt * 1.1, 7);
   const m = p.heightUnit === 'm', step = m ? (top * 0.3048 > 5 ? 2 : 1) : top > 14 ? 4 : 2, base = 150, H = 138, y = (ft: number) => base - (ft / top) * H;

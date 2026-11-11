@@ -32,15 +32,24 @@ test('every board type maps to a supported periodFit kind', () => {
 const board = (type: Surfboard['type'], length: number): Surfboard => ({id: `${type}-${length}`, name: type, manufacturer: '', model: '', type, length, width: 20, thickness: 2.5, volume: 30, favorite: false} as Surfboard);
 
 test('rankBoards passes the shortboard kind (10 s minimum), not the 9 s default', () => {
-  const p9 = rankBoards([board('Performance shortboard', 72)], [3, 5], 9.5)[0].period;
-  assert.deepEqual(p9, periodFit('shortboard', 9.5, 72));
-  assert.equal(p9?.fit, 'short', 'a 9.5 s swell is short for a shortboard (10 s minimum)');
+  const p9 = rankBoards([board('Performance shortboard', 72)], [3, 5], 9.4)[0].period;
+  assert.deepEqual(p9, periodFit('shortboard', 9.4, 72));
+  assert.equal(p9?.fit, 'short', 'a 9.4 s (shown 9 s) swell is short for a shortboard (10 s minimum)');
 });
 
 test('rankBoards passes the board length, so the small-board long-period note can fire', () => {
   const small = rankBoards([board('Fish', 64)], [2, 4], 17)[0].period, long = rankBoards([board('Fish', 74)], [2, 4], 17)[0].period;
   assert.deepEqual(small, periodFit('fish', 17, 64));
   assert.deepEqual(long, periodFit('fish', 17, 74));
+});
+
+test('audit A14/R17: the period fit uses the whole seconds the Swell card shows, in one lower-case clause', () => {
+  const ok = periodFit('shortboard', 9.8);
+  assert.equal(ok.fit, 'ok', 'a swell the Swell card shows as 10 s is not "short" for a 10 s board');
+  assert.equal(ok.note, 'this 10 s swell suits it.');
+  const short = periodFit('stepup', 9.4);
+  assert.equal(short.note, 'this 9 s swell is short for it (it likes 11 s or more), so expect it to feel soft.');
+  for (const n of [ok.note, short.note, periodFit('fish', 17, 64).note]) assert.doesNotMatch(n, /^A |\d\.\d/);
 });
 
 // Codex P2: hazard alerts past their end or expiry are not shown.

@@ -4,9 +4,12 @@ import {useEmbedAllowed} from './embedAllowed';
 
 /** "HDOnTap cam ↗" links (hdontap-embeds): LINK for every camera HDOnTap's player cannot yet be framed for (it only allows sites HDOnTap lists; see embedAllowed.ts), so each such camera is a link to its own stream page, in a new tab. Nothing from HDOnTap is
  *  loaded by this page; no iframe, no thumbnail, no preview. Each link says whose camera it is ("Swell Magnet via HDOnTap"), what the camera list says it shows, about how far it is, and "down"/"stale" where the list says so. */
-export function HdontapLinks({spotId}: {spotId: string}) {
+/** Audit F14 / A16: one camera is listed once. `exclude`: camera URLs already linked above (the spot's Cams block); compared without scheme, "www." or a trailing slash. */
+const sameUrl = (u: string) => u.trim().toLowerCase().replace(/^https?:\/\//, '').replace(/^www\./, '').replace(/[/?#]+$/, '');
+export function HdontapLinks({spotId, exclude = []}: {spotId: string; exclude?: string[]}) {
   const all = hdontapLinksFor(spotId), embedIds = all.filter((l) => l.embedId && liveCamsFor(spotId).some((c) => c.kind === 'hdontap' && c.embedId === l.embedId)).map((l) => l.embedId!), allowed = useEmbedAllowed(embedIds);
-  const links = all.filter((l) => !(l.embedId && allowed[l.embedId] === true));   // a camera the Camera panel shows (HDOnTap allows our site) needs no link; the others keep theirs
+  const shown = new Set(exclude.map(sameUrl));
+  const links = all.filter((l) => !(l.embedId && allowed[l.embedId] === true) && !shown.has(sameUrl(l.url)));   // a camera the Camera panel shows (HDOnTap allows our site) needs no link; the others keep theirs
   if (!links.length) return null;
   return <section className="sp-hd" aria-label="HDOnTap cameras (links)">
     <ul>{links.map((l) => <li key={l.id}>

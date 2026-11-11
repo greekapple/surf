@@ -1,12 +1,14 @@
 import {lazy, Suspense, useEffect} from 'react';
-import {SwelloProvider} from './store';
-import {useRoute} from './routes';
+import {SwelloProvider, useSwello} from './store';
+import {docTitle} from './titles';
+import {useRoute, type Go, type Route} from './routes';
 import {TabBar, TopNav} from './Nav';
 import {SpotStrip} from '../features/home/SpotStrip';
 import {ErrorBoundary, StateMessage} from '../ui/common';
 import {HomeView} from '../features/home/HomeView';
 import {useThemeSync} from '../ui/theme';
 import {Footer, Legal} from '../ui/Legal';
+import {NotFound} from '../ui/NotFound';
 import '../ui/app.css';
 
 // T-091: only Home is in the first bundle. Every other area (and with it Leaflet, the map's land data, Three.js, the quiver studio) loads when it is opened;
@@ -24,8 +26,9 @@ const personalArea = lazyArea(() => import('../features/personal/PersonalView'),
 const areas = [forecastArea, exploreArea, quiverArea, personalArea];
 const prefetch = [() => import('../features/forecast/ForecastView')]; // the likeliest next tap; Map (Leaflet + land data, ~240 KB gzip) and Quiver load on demand
 // Three.js loads only when the Wave Scale section of Forecast opens.
-const scaleArea = lazyArea(() => import('../features/scale/ScaleView'), (m) => m.ScaleView); // (read-only use of the scale module: its own files are untouched)
-const resetAreas = () => { for (const a of [...areas, scaleArea]) a.retry(); };
+const scaleArea = lazyArea(() => import('../features/scale/ScaleView'), (m) => m.ScaleView);
+const creditsArea = lazyArea(() => import('../ui/Credits'), (m) => m.Credits); // audit A10: its camera and photo lists stay out of the first bundle // (read-only use of the scale module: its own files are untouched)
+const resetAreas = () => { for (const a of [...areas, scaleArea, creditsArea]) a.retry(); };
 
 export default function App() {
   useThemeSync();
@@ -36,48 +39,60 @@ export default function App() {
     return () => { if (!idle) clearTimeout(id); };
   }, []);
   const {route, navigate} = useRoute();
+  return (
+    <SwelloProvider area={route.area} section={route.section}>
+      <Shell route={route} navigate={navigate} />
+    </SwelloProvider>
+  );
+}
+
+function Shell({route, navigate}: {route: Route; navigate: Go}) {
+  const {spot, missingSpot} = useSwello();
   const {area, section} = route;
+  // Audit B2: an unknown path, or a Forecast URL whose ?spot= names no spot (or several), shows "not found" with search, never another page or spot.
+  const notFound = route.notFound ? 'page' as const : area === 'forecast' && missingSpot ? 'spot' as const : null;
+  // Audit R20: one document title per route ("Ocean Beach surf forecast · Swello").
+  useEffect(() => { document.title = docTitle(area, section, {spotName: spot.name, notFound}); }, [area, section, spot.name, notFound]);
   // The ocean map is full-bleed under the bar; its own panels hold its controls. There are no section pills anywhere (T-022):
   // sections are reached from the bar's menus and flyouts.
-  const bleed = area === 'explore' && section !== 'discover' && section !== 'compare';
+  const bleed = !notFound && area === 'explore' && section !== 'discover' && section !== 'compare';
   // Pages that open on a full-bleed photograph start under the fixed header and offset their text by --nav-h.
-  const photoTop = (area === 'home' && section === '') || (area === 'forecast' && section === '');
+  const photoTop = !notFound && ((area === 'home' && section === '') || (area === 'forecast' && section === ''));
   // The saved-spots strip sits under the bar on Forecast (Surfline's favourites bar); Home is itself the spots dashboard (T-047).
-  const strip = area === 'forecast' && section === '';
+  const strip = !notFound && area === 'forecast' && section === '';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Map', quiver: 'Quiver', personal: 'Personal'}[area];
   return (
-    <SwelloProvider area={area} section={section}>
-      <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}`}>
-        <a className="skip" href="#main">Skip to content</a>
-        <div className="hdr">
-          <TopNav area={area} section={section} go={navigate} />
-          {strip && <SpotStrip go={navigate} onForecast={area === 'forecast'} />}
-        </div>
-        <main id="main" className={area === 'home' ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
-          <ErrorBoundary key={area} label={label} onRetry={resetAreas}>
-            {/* Map-seamless Stage 1: a cold load of the map shows the map's own grey ground and a small pill, not a white page. */}
-            <Suspense fallback={area === 'explore' ? <div className="map-fallback" role="status"><span>Loading map…</span></div> : <StateMessage title={`Loading ${label}…`} />}>
-              {area === 'home' && <HomeView section={section} go={navigate} />}
-              {area === 'forecast' && section !== 'wave-scale' && <forecastArea.C section={section} go={navigate} />}
-              {area === 'explore' && <exploreArea.C section={section} go={navigate} />}
-              {area === 'quiver' && <quiverArea.C section={section} go={navigate} />}
-            </Suspense>
-            {area === 'forecast' && section === 'wave-scale' && (
-              <Suspense fallback={<StateMessage title="Loading 3D viewer…" />}>
-                <scaleArea.C section="" go={navigate} />
-              </Suspense>
-            )}
-            {area === 'personal' && (section === 'privacy' || section === 'terms') && <Legal page={section} go={navigate} />}
-            {area === 'personal' && section !== 'privacy' && section !== 'terms' && (
-              <Suspense fallback={<StateMessage title="Loading Personal…" />}>
-                <personalArea.C section={section} go={navigate} />
-              </Suspense>
-            )}
-          </ErrorBoundary>
-          {!bleed && <Footer go={navigate} />}
-        </main>
-        <TabBar area={area} go={navigate} />
+    <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}`}>
+      <a className="skip" href="#main">Skip to content</a>
+      <div className="hdr">
+        <TopNav area={area} section={section} go={navigate} />
+        {strip && <SpotStrip go={navigate} onForecast={area === 'forecast'} />}
       </div>
-    </SwelloProvider>
+      <main id="main" className={area === 'home' && !notFound ? 'page page-home' : bleed ? 'page page-bleed' : 'page'}>
+        {notFound ? <NotFound kind={notFound} go={navigate} /> : <ErrorBoundary key={area} label={label} onRetry={resetAreas}>
+          {/* Map-seamless Stage 1: a cold load of the map shows the map's own gray ground and a small pill, not a white page. */}
+          <Suspense fallback={area === 'explore' ? <div className="map-fallback" role="status"><span>Loading map…</span></div> : <StateMessage title={`Loading ${label}…`} />}>
+            {area === 'home' && <HomeView section={section} go={navigate} />}
+            {area === 'forecast' && section !== 'wave-scale' && <forecastArea.C section={section} go={navigate} />}
+            {area === 'explore' && <exploreArea.C section={section} go={navigate} />}
+            {area === 'quiver' && <quiverArea.C section={section} go={navigate} />}
+          </Suspense>
+          {area === 'forecast' && section === 'wave-scale' && (
+            <Suspense fallback={<StateMessage title="Loading 3D viewer…" />}>
+              <scaleArea.C section="" go={navigate} />
+            </Suspense>
+          )}
+          {area === 'personal' && (section === 'privacy' || section === 'terms') && <Legal page={section} go={navigate} />}
+          {area === 'personal' && section === 'credits' && <Suspense fallback={<StateMessage title="Loading credits…" />}><creditsArea.C go={navigate} /></Suspense>}
+          {area === 'personal' && section !== 'privacy' && section !== 'terms' && section !== 'credits' && (
+            <Suspense fallback={<StateMessage title="Loading Personal…" />}>
+              <personalArea.C section={section} go={navigate} />
+            </Suspense>
+          )}
+        </ErrorBoundary>}
+        {!bleed && <Footer go={navigate} />}
+      </main>
+      <TabBar area={area} go={navigate} />
+    </div>
   );
 }
