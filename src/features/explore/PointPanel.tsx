@@ -9,6 +9,7 @@ import {evidenceSpots} from '../../ocean/spots';
 import {tideStationForSpot, SF_STATION} from '../../ocean/tideStations';
 import {pointInUs} from '../../ocean/coverage';
 import type {PointData, Pt} from './PointCard';
+import {enclosedCovers, isEnclosedWater} from '../../map/enclosed';
 
 /** T-117 (Windy): tapping the sea puts a small dark label at the point with the value under it, and expands into an hourly panel at the bottom.
  *  Honesty: the label's value and direction are the painted field's own (sampleField, so it equals the colour under the pin) and say what they are
@@ -18,15 +19,16 @@ const kmBetween = (a: Pt, b: {latitude: number; longitude: number}) => Math.hypo
 
 export {pointLine} from './pointLine';
 
-export function PinLabel({layer, icon, line, periodFromPoint, expanded, onExpand, onClose}: {
+export function PinLabel({layer, icon, line, periodFromPoint, expanded, onExpand, onClose, why}: {
   layer: string; icon: IconName; line: {main: string; note: string} | null; periodFromPoint: boolean; expanded: boolean; onExpand: () => void; onClose: () => void;
+  /** audit P1-4: why there is no value here (loading, sea colour off, enclosed water, no model cell this close to shore); never a guess */ why?: string;
 }) {
   return (
     <div className="xpl" role="group" aria-label={`${layer} at this point`}>
       <div className="xpl-h"><span>{layer}</span><Icon name={icon} size={14} /><button className="xpl-x" aria-label="Close point" onClick={onClose}><Icon name="close" size={13} /></button></div>
       <div className="xpl-v">
         <span title={line && periodFromPoint ? 'Height and direction: the map field under the pin. Period: the Open-Meteo point forecast' : undefined}><b>{line ? line.main : 'No value here'}</b>
-          <small>{line ? line.note : 'land or enclosed water'}</small>{line && periodFromPoint && <span className="sr">Period from the point forecast.</span>}</span>
+          <small>{line ? line.note : why ?? 'no model cell this close to shore'}</small>{line && periodFromPoint && <span className="sr">Period from the point forecast.</span>}</span>
         <button className="xpl-more" aria-expanded={expanded} aria-controls="xpanel" aria-label={expanded ? 'Hide the hourly forecast' : 'Show the hourly forecast here'} onClick={onExpand}><Icon name="chevron" size={16} style={expanded ? {transform: 'rotate(180deg)'} : undefined} /></button>
       </div>
     </div>
@@ -39,6 +41,9 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
   pt: Pt; data: PointData | null; error: string | null; time: string | null; p: UserProfile; bundle: OceanBundle | null | undefined; onClose: () => void; onOpenSpot: (id: string) => void;
 }) {
   const near = evidenceSpots.map((e) => ({e, km: kmBetween(pt, e)})).sort((a, b) => a.km - b.km)[0];
+  // A7 (audit M1): in enclosed water (bays, harbours, estuaries) the sea-state model has no meaningful value (CONTRACTS), and the point label above already says so:
+  // the marine rows are left out and the panel says why; wind and tide stay
+  const enclosed = enclosedCovers(pt.lat, pt.lon) && isEnclosedWater(pt.lat, pt.lon);
   const spot = near && near.km <= SPOT_KM ? near : null;
   // the panel's clock: the zone of the point's nearest spot (a sea tap off Ocean Beach reads Pacific time whatever spot the map has focused), named on the Time row
   const tz = timeZoneOf(near?.e.id), tzTag = (t: number) => zoneAbbr(tz, hourCol(t));
@@ -53,7 +58,7 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
   return (
     <section className="xpanel" id="xpanel" aria-label="Hourly forecast at this point">
       <header className="xpanel-h">
-        <div><h3>Point forecast</h3><p>{pt.lat.toFixed(2)}, {pt.lon.toFixed(2)} · not a surf spot · Open-Meteo marine and weather models</p></div>
+        <div><h3>Point forecast</h3><p>{pt.lat.toFixed(2)}, {pt.lon.toFixed(2)} · not a surf spot · {enclosed ? 'Open-Meteo weather forecast; no wave values in enclosed water' : <>Open-Meteo <span className="xp-wide">marine and weather </span>forecast<span className="xp-wide"> (its own model blend and grid)</span>, so values can differ from the label</>}</p></div>
         {spot && <button className="xpanel-go" onClick={() => onOpenSpot(spot.e.id)}>Open full forecast<small>{spot.e.name} · {Math.round(spot.km)} km</small></button>}
         <button className="xpanel-x" aria-label="Close the hourly forecast" onClick={onClose}><Icon name="close" size={16} /></button>
       </header>
@@ -70,17 +75,18 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
               <tr><th scope="row">Wind <small>{p.windUnit}</small></th>{cols.map(({t, i}) => { const w = wind(v(data.windSpeed, i)), d = v(data.windDirection, i);
                 return <td key={t} className="xp-wind" style={v(data.windSpeed, i) !== null ? {background: windColor(v(data.windSpeed, i)! * MPH)} : undefined}>{w === null ? '—' : <>{d !== null && <DirArrow from={d} size={11} />}{Math.round(w)}</>}</td>; })}</tr>
               <tr><th scope="row">Gusts <small>{p.windUnit}</small></th>{cols.map(({t, i}) => { const g = wind(v(data.windGust, i)); return <td key={t}>{g === null ? '—' : Math.round(g)}</td>; })}</tr>
-              <tr><th scope="row">Waves <small>{p.heightUnit}</small></th>{cols.map(({t, i}) => { const d = v(data.waveDirection, i); return <td key={t}>{d !== null && <DirArrow from={d} size={11} />}{h(v(data.waveHeight, i))}</td>; })}</tr>
+              {!enclosed && <><tr><th scope="row">Waves <small>{p.heightUnit}</small></th>{cols.map(({t, i}) => { const d = v(data.waveDirection, i); return <td key={t}>{d !== null && <DirArrow from={d} size={11} />}{h(v(data.waveHeight, i))}</td>; })}</tr>
               <tr><th scope="row">Swell 1 <small>{p.heightUnit}</small></th>{cols.map(({t, i}) => { const d = v(data.swellDirection, i); return <td key={t}>{d !== null && <DirArrow from={d} size={11} />}{h(v(data.swellHeight, i))}</td>; })}</tr>
               <tr><th scope="row">Swell 2 <small>{p.heightUnit}</small></th>{cols.map(({t, i}) => { const d = v(data.swell2Direction, i); return <td key={t}>{d !== null && <DirArrow from={d} size={11} />}{h(v(data.swell2Height, i))}</td>; })}</tr>
-              <tr><th scope="row">Period <small>s</small></th>{cols.map(({t, i}) => { const x = v(data.wavePeriod, i) ?? v(data.swellPeriod, i); return <td key={t}>{x === null ? '—' : Math.round(x)}</td>; })}</tr>
+              <tr><th scope="row">Period <small>s</small></th>{cols.map(({t, i}) => { const x = v(data.wavePeriod, i) ?? v(data.swellPeriod, i); return <td key={t}>{x === null ? '—' : Math.round(x)}</td>; })}</tr></>}
+              {enclosed && <tr className="xp-encl"><th scope="row">Waves</th><td colSpan={Math.max(1, cols.length)}>The wave model does not resolve enclosed water (bays, harbors, estuaries): enclosed waters in California are left blank.</td></tr>}
               <tr><th scope="row">Tide <small>{station ? `${station.station.name} (NOAA)` : 'no station ≤ 40 km'}</small></th>{cols.map(({t}) => { const e = tideAt(t);
                 return <td key={t} className="xp-tide">{e ? <><b>{e.type === 'High' ? 'H' : 'L'}</b> {timeLabelPT(e.timestamp, tz).replace(':00', '').replace(' ', '').toLowerCase()}</> : ''}</td>; })}</tr>
             </tbody>
           </table>
         </div>
       )}
-      <p className="xpanel-f">Offshore model values at this point, not surf size{station ? ` · tide: NOAA prediction at ${station.station.name}, ${station.distanceKm} km away, not at this point` : ''}</p>
+      <p className="xpanel-f">{enclosed ? 'Enclosed water in California: wind from the weather forecast only, no wave values' : 'Offshore model values at this point, not surf size'}{station ? ` · tide: NOAA prediction at ${station.station.name}, ${station.distanceKm} km away, not at this point` : ''}</p>
     </section>
   );
 }

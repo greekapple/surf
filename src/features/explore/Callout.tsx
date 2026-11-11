@@ -72,7 +72,7 @@ export function SpotCallout({spot, region, f, rating, when, p, onOpen, onClose, 
       </>}
       {f && hours && <NextHours hours={hours} p={p} tz={timeZoneOf(spot)} />}
       {camsFor(spot.id).map((c) => <a key={c.url} className="xco-cam" href={c.url} target="_blank" rel="noopener noreferrer" title={`Shows ${c.view}`}
-        aria-label={`Live cam by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}><Icon name="camera" size={15} /><span>Live cam · {c.owner}</span><small>↗</small></a>)}
+        aria-label={`Camera by ${c.owner}, opens their site in a new tab. Shows ${c.view}`}><Icon name="camera" size={15} /><span>Camera · {c.owner}</span><small>↗</small></a>)}
       <button className="xco-go" onClick={onOpen}>Open forecast</button>
     </div>
   );

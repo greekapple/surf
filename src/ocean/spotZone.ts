@@ -7,8 +7,11 @@ export function timeZoneOf(spot: string | {id: string; timeZone?: string} | null
   if (!spot) return DEFAULT_TIME_ZONE;
   if (typeof spot !== 'string' && spot.timeZone) return validZone(spot.timeZone);
   const id = typeof spot === 'string' ? spot : spot.id;
-  return validZone(evidenceSpots.find((s) => s.id === id)?.timeZone);
+  let z = ZONE_BY_ID.get(id); if (z === undefined) { const hit = evidenceSpots.find((s) => s.id === id); z = validZone(hit?.timeZone); if (hit) ZONE_BY_ID.set(id, z); }   // only known spots are cached (an id that is not in the catalogue yet may be later)
+  return z;
 }
+/** B8 (audit M8): each spot's zone looked up once (a linear search over the catalogue ran for every spot on every hour of a scrub). */
+const ZONE_BY_ID = new Map<string, string>();
 
 /** The zone the single-spot screens (Forecast page, Wave Scale, the spot's own cards) format their clocks in. The page sets it from the spot it shows (`useSpotZone`) before its children render;
  *  every formatting helper takes an optional explicit zone first and uses this one when it is omitted. Lists of several spots (Home, Explore) pass each item's own zone explicitly. */

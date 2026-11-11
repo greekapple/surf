@@ -22,3 +22,13 @@ test('map-review (b): without the waves value it still says no swell (wind sea o
   // a measured swell is unchanged
   assert.match(pointLine(v(2, undefined), 14, p, 'swell')!.main, /ft · 14 s$/);
 });
+
+// A19 (audit M16): the label names the model it samples, so it and the panel (Open-Meteo, another model) are never two unexplained numbers.
+test('the point label can name its model on the note line', async () => {
+  const {pointLine} = await import('../features/explore/pointLine.ts');
+  const p = {heightUnit: 'ft', windUnit: 'mph'} as never;
+  const l = pointLine({value: 2.5, dirFrom: 300} as never, 12, p, 'waves', null, undefined, 'GFS-Wave')!;
+  assert.match(l.note, /^offshore · not surf size · GFS-Wave · period: Open-Meteo$/, 'the model names the field part; the period is the point forecast\'s');
+  const w = pointLine({value: 5, dirFrom: 300} as never, null, p, 'wind', null, {gustMs: 7}, 'GFS')!;
+  assert.match(w.note, /^wind at 10 m · GFS · gust \d+(\.\d)? mph \(Open-Meteo\)$/, w.note); assert.doesNotMatch(pointLine({value: 2.5, dirFrom: 300} as never, 12, p, 'waves')!.note, /GFS/);
+});

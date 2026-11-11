@@ -12,16 +12,19 @@ const FT = 1 / 0.3048, MPH = 2.23694;
 /** `kind` is the layer the person chose (what the field shows); it names the value, so wording never depends on how the frame was classified. */
 /** `windSeaM`: the offshore wave height (the WAVES frame) at the same point and hour, for a no-swell cell: there the whole sea is wind sea and can be
  *  big (median 4.5 m in those cells), so a 0-ft swell must never read as calm water. */
-export function pointLine(v: PointValue | null, periodS: number | null, p: UserProfile, kind: 'waves' | 'swell' | 'wind' | 'period', windSeaM?: number | null, extras?: {gustMs: number | null}): {main: string; note: string} | null {
+/** A19 (audit M16): `model` names the field's model ("GFS-Wave") right after the part sampled from the map field; parts that come from the Open-Meteo point
+ *  forecast (gust, period) are credited to it, so the label never gives one model's name to another model's number. */
+export function pointLine(v: PointValue | null, periodS: number | null, p: UserProfile, kind: 'waves' | 'swell' | 'wind' | 'period', windSeaM?: number | null, extras?: {gustMs: number | null}, model?: string): {main: string; note: string} | null {
   if (!v || v.value === null) return null;
+  const m = model ? ` · ${model}` : '', om = model ? ' (Open-Meteo)' : '';
   const dir = v.dirFrom !== null ? ` ${compass(v.dirFrom)}` : '';
-  if (kind === 'wind') return {main: `${windVal(v.value * MPH, p)} ${p.windUnit}${dir}`, note: extras?.gustMs != null ? `wind at 10 m · gust ${windVal(extras.gustMs * MPH, p)} ${p.windUnit}` : 'wind at 10 m'};
-  if (kind === 'period') return {main: `${Math.round(v.value)} s${dir}`, note: 'peak wave period'};
+  if (kind === 'wind') return {main: `${windVal(v.value * MPH, p)} ${p.windUnit}${dir}`, note: `wind at 10 m${m}${extras?.gustMs != null ? ` · gust ${windVal(extras.gustMs * MPH, p)} ${p.windUnit}${om}` : ''}`};
+  if (kind === 'period') return {main: `${Math.round(v.value)} s${dir}`, note: `peak wave period${m}`};
   // An exact 0 is the model's empty swell partition (NO_SWELL_NOTE): no swell system there, the sea is all wind sea. Said as such, with the wind
   // sea's height when the waves frame has it (all of the sea there is wind sea, so total Hs IS the wind-sea height), never as "0 ft" alone.
   if (v.note) return windSeaM !== null && windSeaM !== undefined && windSeaM > 0
-    ? {main: `No swell · wind sea ${ht(windSeaM * FT, p)} ${p.heightUnit}`, note: `${v.note} · offshore, not surf size`}
-    : {main: `No swell (0 ${p.heightUnit})`, note: v.note};
+    ? {main: `No swell · wind sea ${ht(windSeaM * FT, p)} ${p.heightUnit}`, note: `${v.note} · offshore, not surf size${m}`}
+    : {main: `No swell (0 ${p.heightUnit})`, note: `${v.note}${m}`};
   const per = periodS !== null ? ` · ${Math.round(periodS)} s` : '';
-  return {main: `${ht(v.value * FT, p)} ${p.heightUnit}${dir}${per}`, note: kind === 'swell' ? 'swell · offshore, not surf size' : 'offshore · not surf size'};
+  return {main: `${ht(v.value * FT, p)} ${p.heightUnit}${dir}${per}`, note: `${kind === 'swell' ? 'swell · offshore, not surf size' : 'offshore · not surf size'}${m}${periodS !== null && model ? ' · period: Open-Meteo' : ''}`};
 }

@@ -16,7 +16,7 @@ import type {Field} from '../fieldData.ts';
 import type {FieldController, FieldOpts, FrameState} from '../field.ts';
 import {frameKey} from '../field.ts';
 import {FIELD_SLOT_ID, palette} from './style.ts';
-import {SAMPLER_GLSL, ENC_GLSL, makeProgram} from './glCommon.ts';
+import {SAMPLER_GLSL, ENC_GLSL, makeProgram, SPARE_UNIT} from './glCommon.ts';
 import {sampleAll as sampleAllFields, isRealCell} from '../fieldData.ts';
 import {createParticles, type Particles} from './glParticles.ts';
 
@@ -138,7 +138,7 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
       let mode = 0;
       if (still) {
         if (this.cache?.key !== key) {
-          if (!this.cache || this.cache.w !== W || this.cache.h !== H) { if (this.cache) { gl.deleteTexture(this.cache.t); gl.deleteFramebuffer(this.cache.f); } const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); const f = gl.createFramebuffer()!; gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0); this.cache = {t, f, w: W, h: H, key: ''}; }
+          if (!this.cache || this.cache.w !== W || this.cache.h !== H) { if (this.cache) { gl.deleteTexture(this.cache.t); gl.deleteFramebuffer(this.cache.f); } gl.activeTexture(gl.TEXTURE0 + SPARE_UNIT); const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA8, W, H, 0, gl.RGBA, gl.UNSIGNED_BYTE, null); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); const f = gl.createFramebuffer()!; gl.bindFramebuffer(gl.FRAMEBUFFER, f); gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, t, 0); this.cache = {t, f, w: W, h: H, key: ''}; }
           bind(8, null, 'u_cache'); gl.uniform1i(U('u_mode'), 1); gl.bindFramebuffer(gl.FRAMEBUFFER, this.cache.f); gl.viewport(0, 0, W, H); gl.disable(gl.BLEND); gl.colorMask(true, true, true, true); gl.drawArrays(gl.TRIANGLES, 0, 6);
           gl.bindFramebuffer(gl.FRAMEBUFFER, prevFbo); gl.viewport(prevViewport[0], prevViewport[1], prevViewport[2], prevViewport[3]); this.cache.key = key;
         }

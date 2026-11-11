@@ -92,4 +92,7 @@ float enclosedness(sampler2D e, vec4 geo, vec2 dim, float lat, float lon){
 
 export const compile = (gl: WebGL2RenderingContext, type: number, src: string) => { const s = gl.createShader(type)!; gl.shaderSource(s, src); gl.compileShader(s); if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s) ?? 'shader'); return s; };
 export const makeProgram = (gl: WebGL2RenderingContext, vs: string, fs: string) => { const p = gl.createProgram()!; gl.attachShader(p, compile(gl, gl.VERTEX_SHADER, vs)); gl.attachShader(p, compile(gl, gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p); if (!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p) ?? 'link'); return p; };
-
+/** B6 (audit M3): textures created mid-draw are bound on a unit no program samples. Creating the colour cache on whatever unit was active left it bound
+ *  as unit 7 (u_lutP) while the cache pass drew INTO it: a framebuffer/texture feedback loop (GL_INVALID_OPERATION) and a sea painted from a garbage
+ *  colour table, black, kept for every still frame. */
+export const SPARE_UNIT = 15;

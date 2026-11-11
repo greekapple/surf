@@ -1,11 +1,14 @@
 import enclosedData from './enclosed-waters.json' with {type: 'json'};
 
-/** T-092: enclosed waters (bays, harbours, estuaries) where the sea-state grid (0.25 to 0.5 degree cells) is not meaningful. Built from the repo's own 1:10m coastline by
- *  docs/forecast/data/enclosed-waters.ts (a water point is enclosed when more than 75% of 24 rays hit land within 20 km). Display only: the raster, arrows and flow skip these points. */
+/** T-092: enclosed waters (bays, harbors, estuaries) have no wave-model value (CONTRACTS "Map field"): transparent, no colour, no label. The mask is
+ *  `enclosed-waters.json` (0.01° cells), built from the repo's Natural Earth coastline plus OpenStreetMap ocean water near the bays
+ *  (docs/forecast/data/enclosed-waters-osm.ts; © OpenStreetMap contributors, ODbL) with one rule, water far from the open Pacific is enclosed, and named
+ *  mouths made explicit (west of the Golden Gate line is open ocean). It covers California only (31.8-43.6 N, 124.8-114.4 W; see `enclosedCovers`).
+ *  Display only: the raster, arrows, flow, the pin label and the point panel skip these points. */
 const d = enclosedData as {lon0: number; lat0: number; step: number; w: number; h: number; rows: number[][]};
 const grid = new Uint8Array(d.w * d.h);
 d.rows.forEach((runs, j) => { for (let r = 0; r < runs.length; r += 2) for (let i = runs[r]; i < runs[r] + runs[r + 1]; i++) grid[j * d.w + i] = 1; });
-export const ENCLOSED_NOTE = 'Enclosed waters (bays, harbours, estuaries) are left blank: the wave-model grid does not resolve them.';
+export const ENCLOSED_NOTE = 'Enclosed waters in California (bays, harbors, estuaries) are left blank: the wave model does not resolve them.';
 /** How enclosed a point is (0..1): the 0/1 cell grid interpolated bilinearly between cell CENTRES (map-smooth). Its 0.5 contour is the enclosed-water edge, so the edge follows the bays as a smooth line instead of 1 km squares;
  *  the GL shader (glCommon.ts `ENC_GLSL`) evaluates the same function, and paints its 0.5 contour anti-aliased. */
 export function enclosedness(lat: number, lon: number): number {

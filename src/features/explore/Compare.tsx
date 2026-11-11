@@ -1,7 +1,7 @@
 import {mapZone, timeZoneOf} from '../../ocean/spotZone';
 import {windowPhrase} from '../../services/homeDash';
 import {conditionWord} from '../../ui/Condition';
-import {useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
+import {useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
 import {isDark} from '../forecast/trustApi';
 import {nextMorningHour} from '../../services/homeDash';
 import {hourFreshness} from '../../services/freshness';
@@ -31,13 +31,21 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
   const [sort, setSort] = useState<Sort>('rating');
   // T-099: at night Compare opens on the next morning's first daylight hour (dark hours are rated but are never a surf window) (the same next-morning rule as Home); the stepper stays free.
   // The data may arrive after this mounts (a direct or refreshed /explore/compare): decide once, as soon as there is an hour to judge, and never again, so a later pick is never overridden (T-100).
+  // B13 (audit M15): decided in a LAYOUT effect, so the hour shown first is already the morning one (it used to paint the dark hour, then jump and
+  // reorder the table while you read); an hour in the URL (?t=, a shared or reloaded Compare) is the person's choice and wins
   const decided = useRef(false);
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (decided.current || !t) return;
     decided.current = true;
+    const fromUrl = new URLSearchParams(location.search).get('t'), want = fromUrl && Number.isFinite(Date.parse(fromUrl)) ? times.find((x) => Date.parse(x) === Date.parse(fromUrl)) : undefined;
+    if (want) { if (want !== t) view.selectTime(want); return; }
     if (!isDark(view.selected, t)) return;
     const m = nextMorningHour(times, now, (iso) => isDark(view.selected, iso), timeZoneOf(view.selected)); if (m) view.selectTime(m);   // the morning cutoff in the zone of the spot whose dark hours decide it (not LA)
   }, [t]); // eslint-disable-line react-hooks/exhaustive-deps -- first available hour only
+  // B13: the selected hour lives in the URL (replaceState: no history entry per step), so a reload or a shared link opens Compare on the same hour
+  useEffect(() => { if (!t || !decided.current) return; const u = new URL(location.href); if (u.searchParams.get('t') === t) return; u.searchParams.set('t', t); history.replaceState(history.state, '', u); }, [t]);
+  // ...and leaves with Compare (as the map's ?focus does), so the hour never travels to another page as a 'shared hour'
+  useEffect(() => () => { const u = new URL(location.href); if (!u.searchParams.has('t')) return;   /* by now the path is the next page's; the map writes its own ?t= when it opens */ u.searchParams.delete('t'); history.replaceState(history.state, '', u); }, []);
   // subset loading: the table asks for every spot it lists when it opens or the zone changes; a spot that has not loaded yet shows "loading" and is never ranked
   useEffect(() => { requestSpots(spotOptions.filter((s) => zone === 'All' || zoneOf(s.region) === zone).map((s) => s.id)); }, [zone]); // eslint-disable-line react-hooks/exhaustive-deps
   const rows = useMemo(() => spotOptions.filter((s) => zone === 'All' || zoneOf(s.region) === zone).map((s, order) => {

@@ -3,7 +3,7 @@ import {mapZoneAbbr, stampLabel} from './mapTime';
 import {loadSnapshot, snapshotHour, type ClientSnapshot} from './coastSnapshot';
 import {spotTier} from '../../data/spotTiers';
 import {useCallback, useEffect, useMemo, useRef, useState, type CSSProperties} from 'react';
-import {ENCLOSED_NOTE} from '../../map/enclosed';
+import {ENCLOSED_NOTE, enclosedCovers, isEnclosedWater} from '../../map/enclosed';
 import {createPortal} from 'react-dom';
 import 'leaflet/dist/leaflet.css';
 import type {ViewProps} from '../../app/routes';
@@ -38,6 +38,7 @@ import {currentTheme} from '../../map/basemap';
 import {DayStrip, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
 import {AutofillInput} from '../../ui/AutofillInput';
+import {LEGEND_NAMES} from './legendNames';
 import {completion as completeOf, rememberSpot, recentSpots, searchSpots} from '../../services/spotSearch';
 import {COAST_MAX_ZOOM, READING_MIN_ZOOM, TIER, buildNodes, clusterEnds, displayName, layoutPills, leavesOf, levelOf, overlaps, pillText, summarise, type NodeId, type Rect, type SpotState} from './coastGroups';
 import {headlineSurf} from '../../services/headlineSurf';
@@ -51,7 +52,7 @@ import './explore.css';
 type FieldId = 'waves' | 'swell' | 'period' | 'wind';
 const FIELDS: {id: FieldId; label: string; /** T-096: the chip's word in the layers popover; `label` stays the honest full name */ short: string; icon: IconName; layer: MapLayer; variable: MapVariable; unit: SpatialFrame['unit']; note: string}[] = [
   {id: 'waves', label: 'Offshore wave height · not surf size', short: 'Offshore waves', icon: 'waves', layer: 'WAVES', variable: 'Offshore Hs', unit: 'm', note: 'Combined significant wave height (WW3), offshore'},
-  {id: 'swell', label: 'Swell height', short: 'Swell', icon: 'tide', layer: 'SWELL', variable: 'Height', unit: 'm', note: 'Swell partition height (WW3), offshore'},
+  {id: 'swell', label: 'Offshore swell height · not surf size', short: 'Swell', icon: 'tide', layer: 'SWELL', variable: 'Height', unit: 'm', note: 'Swell partition height (WW3), offshore'},
   {id: 'period', label: 'Wave period', short: 'Period', icon: 'forecast', layer: 'WAVES', variable: 'Period', unit: 's', note: 'Peak wave period (WW3)'},
   {id: 'wind', label: 'Wind', short: 'Wind', icon: 'wind', layer: 'WIND', variable: 'Speed', unit: 'm/s', note: '10 m wind speed (GFS), 3-hourly'},
 ];
@@ -180,13 +181,23 @@ function OceanMap({section, go}: ViewProps) {
   /** Put one of a pill's two texts in its DOM node (in place: the node, and keyboard focus on it, stay); a changed text means a re-measure. */
   const applyPillRef = useRef((pl: {mk: MarkerHandle; inner: HTMLElement; full?: ReturnType<typeof pillText>; count?: ReturnType<typeof pillText>; shown?: 'full' | 'count'}, mode: 'full' | 'count') => {
     const t = pl[mode]; if (!t) return;
-    if (pl.inner.innerHTML !== t.html) { pl.inner.innerHTML = t.html; pillsDirty.current = true; }
+    if (pl.inner.innerHTML !== t.html) { pl.inner.innerHTML = t.html; pillsDirty.current = true; (pl as {dirty?: boolean}).dirty = true; }   // B8: only this pill is measured again
     pl.inner.style.setProperty('--c', t.color); pl.mk.element.setAttribute('aria-label', t.label); pl.mk.element.title = t.title; pl.shown = mode;
     pl.mk.element.classList.toggle('xcount', mode === 'count');
   });
   // map-maplibre: each pin's dot and label box relative to its anchor point, measured once per rebuild; the declutter then places them from
   // project() alone, so a pan or zoom reads no element layout (it used to force a layout of all 45 pins on every move: the phone's long tasks).
   const geom = useRef(new Map<string, {d: [number, number, number, number]; l: [number, number, number, number] | null; c: [number, number, number, number] | null}>());
+  /** One pin's dot, label and height-chip boxes relative to its anchor (a pin far off the map is measured when it first comes into view). */
+  const measurePinRef = useRef((id: string) => {
+    const x = map.current, el = markers.current.get(id)?.element, e = SPOT_BY_ID.get(id); if (!x || !el || !e) return undefined;
+    const box0 = x.container.getBoundingClientRect(), q = x.project(e.latitude, e.longitude), cx = box0.left + q.x, cy = box0.top + q.y;
+    const d = el.querySelector('i')!.getBoundingClientRect(), l = el.querySelector('.xlabel')?.getBoundingClientRect();
+    let c: [number, number, number, number] | null = null; const ch = el.querySelector('.xhchip');
+    if (ch) { const had = [el.classList.contains('xdot'), el.classList.contains('xchipon')]; el.classList.add('xdot', 'xchipon'); const r = ch.getBoundingClientRect(); if (r.width) c = [r.left - cx, r.top - cy, r.width, r.height]; if (!had[0]) el.classList.remove('xdot'); if (!had[1]) el.classList.remove('xchipon'); }
+    const g = {d: [d.left - cx, d.top - cy, d.width, d.height] as [number, number, number, number], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] as [number, number, number, number] : null, c};
+    geom.current.set(id, g); return g;
+  });
   const step = 3; // T-117: play steps 3 h, as Windy
   const [opts, setOpts] = useState({heat: true, flow: true, arrows: false});
   const [phone, setPhone] = useState(isPhone);
@@ -229,7 +240,8 @@ function OceanMap({section, go}: ViewProps) {
   const sheetRef = useRef<HTMLElement>(null);
   const point = usePointForecast(pt);
   const [slow, setSlow] = useState(false);
-  const spatial = useSpatial(def.layer, def.variable, view.selectedTime, false, live && (opts.heat || opts.flow || opts.arrows));
+  const fieldTime = view.selectedTime;   // B8: a debounced field time was tried and measured no faster (the per-step cost is mostly the pins), so the field follows every step
+  const spatial = useSpatial(def.layer, def.variable, fieldTime, false, live && (opts.heat || opts.flow || opts.arrows));
   const waiting = spatial.loading && !spatial.frame;
   
   // Keep the last good frame of this field on screen while the next hour loads, so scrubbing doesn't flash blank.
@@ -239,7 +251,7 @@ function OceanMap({section, go}: ViewProps) {
   if (spatial.frame) { shown.current = spatial.frame; shownFor.current = fieldId; } else if (!spatial.loading) shown.current = null; // the hold lasts only while the next frame is loading: a finished request with no frame clears it (Codex P1)
   const frame = shown.current && shown.current.unit === def.unit ? shown.current : null;
   // Worldwide native 0.5° frame underneath, so colour and flow continue past the California grid to the whole globe.
-  const globe = useGlobe(def.layer, def.variable, view.selectedTime, live && (opts.heat || opts.flow || opts.arrows));
+  const globe = useGlobe(def.layer, def.variable, fieldTime, live && (opts.heat || opts.flow || opts.arrows));
   const shownGlobe = useRef<SpatialFrame | null>(null);
   if (globe.frame) shownGlobe.current = globe.frame; else if (!globe.loading) shownGlobe.current = null;
   const gframe = shownGlobe.current && shownGlobe.current.unit === def.unit ? shownGlobe.current : null;
@@ -333,9 +345,9 @@ function OceanMap({section, go}: ViewProps) {
   }, [field, gfield, opts.heat, opts.flow, opts.arrows, eng, settledEmpty]);
   // Idle prefetch of the neighbouring hours and the next layer once the visible frames have settled (Stage 1).
   useEffect(() => {
-    if (!live || spatial.loading || globe.loading || !view.selectedTime) return;
-    return schedulePrefetch(def.layer, def.variable, view.selectedTime, times);
-  }, [live, spatial.loading, globe.loading, view.selectedTime, def.layer, def.variable]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (!live || spatial.loading || globe.loading || !fieldTime) return;
+    return schedulePrefetch(def.layer, def.variable, fieldTime, times);
+  }, [live, spatial.loading, globe.loading, fieldTime, def.layer, def.variable]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 4E: the coast pills, created once per map, north to south, before the pins (so the pins that stay draw above them); their content follows the hour in the pins' effect.
   useEffect(() => {
@@ -349,8 +361,9 @@ function OceanMap({section, go}: ViewProps) {
     }
     pillsDirty.current = true;
     // re-measure when the size can change: the window (and the 860 px breakpoint, which switches the compact pill) and late web fonts
-    const mq = matchMedia(PHONE), dirty = () => { pillsDirty.current = true; declutterRef.current(); };
-    mq.addEventListener('change', dirty); const offResize = x.on('resize', () => { pillsDirty.current = true; });
+    const all = () => { pillsDirty.current = true; pills.current.forEach((pl) => { (pl as {dirty?: boolean}).dirty = true; }); };
+    const mq = matchMedia(PHONE), dirty = () => { all(); declutterRef.current(); };
+    mq.addEventListener('change', dirty); const offResize = x.on('resize', () => { all(); });
     document.fonts?.ready.then(dirty).catch(() => {});
     return () => { mq.removeEventListener('change', dirty); offResize(); pills.current.forEach((pl) => pl.mk.remove()); pills.current.clear(); };
   }, [eng]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -396,25 +409,20 @@ function OceanMap({section, go}: ViewProps) {
       // never shown without its "offshore" word, so those spots fall back to the dot (their full label still says "offshore").
       const chip = hs?.kind === 'estimate' ? `<span class="xhchip" aria-hidden="true">${hText}</span>` : '';
       const el = document.createElement('div');
-      el.className = `xpin${e.id === focused ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
+      // C (audit M19): a pin with no rating (not loaded, or no rating this hour) is a hollow ring; a rated pin is a filled dot, so Poor never reads as 'no data'
+      el.className = `xpin${e.id === focused ? ' sel' : ''}${e.id === hoverRef.current ? ' hl' : ''}${rating && rating.score !== null ? '' : ' xnone'}`;       // Track 2: a camera badge on spots with a verified public cam (T-080: the card links to the owner's page; never embedded)
       const cam = camsFor(e.id).length > 0;
       el.dataset.spot = e.id; el.dataset.rank = String(rated.get(e.id)!.rank); if (rating?.score != null) el.dataset.score = String(rating.score); if (rating?.dark) el.dataset.dark = '1';
       el.style.setProperty('--c', color); el.innerHTML = `<i></i>${cam ? `<em class="xcam" aria-hidden="true"><svg viewBox="0 0 24 24" width="9" height="9"><path d="${CAMERA_D}"/></svg></em>` : ''}${label}${chip}`;
-      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: (cam ? `${e.name} · has a public live cam` : e.name) + (view.ocean.isSpotLoaded(e.id) ? '' : ' · forecast loading (grey pin: not loaded yet, not flat)'), keyboard: true, riseOnHover: true,
+      const mk = x.addMarker({lat: e.latitude, lon: e.longitude, element: el, size: [22, 22], anchor: 'center', title: (cam ? `${e.name} · has a public camera` : e.name) + (!view.ocean.isSpotLoaded(e.id) ? ' · forecast loading (hollow ring)' : rating && rating.score !== null ? '' : ' · not rated this hour'), keyboard: true, riseOnHover: true,
         onClick: () => pickRef.current(e.id), onHover: (on) => { if (on) { setHover(e.id); document.getElementById(`xrow-${e.id}`)?.scrollIntoView({block: 'nearest'}); } else setHover(null); }});
       markers.current.set(e.id, mk);
     }
     if (hadFocus) markers.current.get(hadFocus)?.element.focus({preventScroll: true});
     geom.current.clear();
+    // B8 (audit M8): measure only the pins on or near the map (a scrub re-measured all ~1,000 every hour); declutter measures the rest when they come into view
     const box0 = x.container.getBoundingClientRect();
-    for (const e of evidenceSpots) {
-      const el = markers.current.get(e.id)?.element; if (!el) continue;
-      const q = x.project(e.latitude, e.longitude), cx = box0.left + q.x, cy = box0.top + q.y;
-      const d = el.querySelector('i')!.getBoundingClientRect(), l = el.querySelector('.xlabel')?.getBoundingClientRect();
-      let c: [number, number, number, number] | null = null; const ch = el.querySelector('.xhchip');
-      if (ch) { el.classList.add('xdot', 'xchipon'); const r = ch.getBoundingClientRect(); if (r.width) c = [r.left - cx, r.top - cy, r.width, r.height]; el.classList.remove('xdot', 'xchipon'); }
-      geom.current.set(e.id, {d: [d.left - cx, d.top - cy, d.width, d.height], l: l && l.width ? [l.left - cx, l.top - cy, l.width, l.height] : null, c});
-    }
+    for (const e of evidenceSpots) { const q = x.project(e.latitude, e.longitude); if (q.x > -200 && q.y > -200 && q.x < box0.width + 200 && q.y < box0.height + 200) measurePinRef.current(e.id); }
     declutterRef.current();
   }, [eng, view.mapRecords, view.selectedTime, snap, snapLoading, focused, p.heightUnit, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -438,10 +446,12 @@ function OceanMap({section, go}: ViewProps) {
     if (coast) for (const pl of pills.current.values()) if (pl.shown !== mode) applyPillRef.current(pl, mode);
     if (coast && pillsDirty.current) {   // measure each pill's box around its anchor (shown, un-nudged); a 0-wide read (hidden container, fonts pending) keeps the nominal size and retries later
       const nominal = isPhone() ? PILL_NOMINAL.phone : PILL_NOMINAL.wide; let all = true;
-      for (const pl of pills.current.values()) { pl.mk.element.classList.remove('xhide'); pl.mk.element.style.setProperty('--dx', '0px'); pl.mk.element.style.setProperty('--dy', '0px'); }
-      for (const pl of pills.current.values()) {
+      // B8: only the pills whose text changed (or never measured, or after a resize/breakpoint/font change, which mark them all)
+      const todo = [...pills.current.values()].filter((pl) => (pl as {dirty?: boolean}).dirty !== false || !pl.g);
+      for (const pl of todo) { pl.mk.element.classList.remove('xhide'); pl.mk.element.style.setProperty('--dx', '0px'); pl.mk.element.style.setProperty('--dy', '0px'); }
+      for (const pl of todo) {
         const rr = pl.inner.getBoundingClientRect(), o = pl.mk.element.getBoundingClientRect();
-        if (rr.width && rr.height) pl.g = [rr.left - o.left, rr.top - o.top, rr.width, rr.height]; else { pl.g = [-nominal[0] / 2, -nominal[1] / 2, nominal[0], nominal[1]]; all = false; }
+        if (rr.width && rr.height) { pl.g = [rr.left - o.left, rr.top - o.top, rr.width, rr.height]; (pl as {dirty?: boolean}).dirty = false; } else { pl.g = [-nominal[0] / 2, -nominal[1] / 2, nominal[0], nominal[1]]; all = false; }
       }
       pillsDirty.current = !all;
     }
@@ -497,7 +507,7 @@ function OceanMap({section, go}: ViewProps) {
       else kept.push([q.x, q.y]);
     }
     const boxes = els.filter(({el}) => !el.classList.contains('xthin')).map(({el, id}) => {
-      const e = at.get(id)!, q = m.project(e.latitude, e.longitude), cx = edge.left + q.x, cy = edge.top + q.y, g = geom.current.get(id);
+      const e = at.get(id)!, q = m.project(e.latitude, e.longitude), cx = edge.left + q.x, cy = edge.top + q.y, g = geom.current.get(id) ?? (q.x > -50 && q.y > -50 && q.x < edge.width + 50 && q.y < edge.height + 50 ? measurePinRef.current(id) : undefined);
       const dot = g ? new DOMRect(cx + g.d[0], cy + g.d[1], g.d[2], g.d[3]) : new DOMRect(cx - 11, cy - 11, 22, 22);
       return {id, el, dot, lab: g?.l ? new DOMRect(cx + g.l[0], cy + g.l[1], g.l[2], g.l[3]) : undefined, chip: g?.c ? new DOMRect(cx + g.c[0], cy + g.c[1], g.c[2], g.c[3]) : undefined};
     });
@@ -509,7 +519,7 @@ function OceanMap({section, go}: ViewProps) {
     const small: typeof boxes = [];
     for (const b of boxes) {
       const {el, dot, lab} = b;
-      if (!lab?.width) continue;
+      if (!lab?.width) { if (!geom.current.has(b.id)) el.classList.add('xdot'); continue; }   // B8: a pin not measured yet (off the map) is a dot: its label never shows unplaced
       const isSel = el.classList.contains('sel');
       if (!isSel && (budget <= 0 || !inView(dot))) { el.classList.add('xdot'); small.push(b); continue; }
       const left = new DOMRect(dot.left - 8 - lab.width, lab.top, lab.width, lab.height);
@@ -627,16 +637,21 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => {
     if (!phone || !panel || !pt) return;
     let r1 = 0, r2 = 0;
-    r1 = requestAnimationFrame(() => { r2 = requestAnimationFrame(() => {
+    // the panel grows when its table arrives (it opens as a short skeleton): check again whenever its size changes, not only when it opens
+    const check = () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); r1 = requestAnimationFrame(() => { r2 = requestAnimationFrame(place); }); };
+    const ro = new ResizeObserver(check); const panelEl = rootRef.current?.querySelector('.xpanel'); if (panelEl) ro.observe(panelEl);
+    const place = () => {
       const m = map.current, pan = rootRef.current?.querySelector('.xpanel')?.getBoundingClientRect(); if (!m || !pan) return;
       const boxes = [popupEl.getBoundingClientRect(), pickEl.getBoundingClientRect()].filter((r) => r.width);
       if (!boxes.length) return;
       const top = Math.min(...boxes.map((r) => r.top)), bottom = Math.max(...boxes.map((r) => r.bottom)), c = m.container.getBoundingClientRect();
-      const head = rootRef.current?.querySelector('.xsearchbox')?.getBoundingClientRect().bottom ?? c.top + 72;   // under the search box and its focus chip
-      const room = pan.top - 8 - (head + 8), need = bottom - (pan.top - 8);
+      // under the search box and its focus chip: their visible parts (the .xsearchbox container is taller than what it shows)
+      const head = Math.max(c.top + 8, ...Array.from(rootRef.current?.querySelectorAll<HTMLElement>('.xtopbar > *') ?? []).map((el) => el.getBoundingClientRect()).filter((r) => r.width && r.height).map((r) => r.bottom));
+      const room = pan.top - 4 - (head + 4), need = bottom - (pan.top - 4);   // 4 px clear of each (the label's note can wrap to two lines on a phone)
       if (need > 0 && bottom - top <= room) m.panBy(0, Math.round(need), {animate: !reduced()});
-    }); });
-    return () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); };
+    };
+    check();
+    return () => { cancelAnimationFrame(r1); cancelAnimationFrame(r2); ro.disconnect(); };
   }, [phone, panel, pt?.lat, pt?.lon]); // eslint-disable-line react-hooks/exhaustive-deps
   useAnchored(eng, spotPopBox, callEv0 ? {lat: callEv0.latitude, lon: callEv0.longitude} : null, -26, /* clear of the pin's own label (as the Leaflet popup sat) */ {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true, () => (callEv0 ? markers.current.get(callEv0.id)?.element : null), () => flying.current);
   // The phone peek sizes itself to the spot card; the time bar, legend and attribution sit just above it.
@@ -739,11 +754,18 @@ function OceanMap({section, go}: ViewProps) {
   // the ERDDAP frames drawn (the global one and the California subset), each with its components: one server named, or both if they differ
   const shownUrls = [gframe, frame].flatMap((x) => (x ? x.sources ?? [x.url] : []));
   const cache = cacheLabel(nestPainted ? frame : (gframe ?? frame), anyLoading, (iso) => `${weekdayPT(iso, mapZone())} ${hourLabel(iso, mapZone())} ${mapZoneAbbr(iso)}`);
+  // A8 (audit M2): 'valid' dates the frame actually painted (the same rule as cacheLabel above: the regional nest when it is drawn, else the global frame),
+  // and the note says how that frame relates to the hour on the time bar: interpolated between two model steps, or the nearest model step
+  const shownFrame = nestPainted ? frame : (gframe ?? frame);
+  const interpNote = shownFrame?.provider.match(/hour interpolated between the model steps at [0-9:Z]+ and [0-9:Z]+/)?.[0] ?? null;
+  const stepNote = shownFrame && view.selectedTime && !interpNote && Date.parse(shownFrame.validAt) !== Date.parse(view.selectedTime) ? ' · nearest model step' : '';
+  // C (audit M21): the chip (below) names the same frame this note describes, so the two can never name different sources
+  const shownPacked = !!shownFrame?.provider.startsWith('NOAA GFS-Wave');
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : cache && opts.heat ? cache.line
     : spatial.loading && !frame && slow ? 'Sea colour is not loading right now · spots and forecasts still work'
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
-    : frame || gframe ? `${def.label} · ${packedGlobal ? gframe!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${viaHosts(shownUrls)}`}${packedGlobal ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}`} · valid ${weekdayPT((frame ?? gframe)!.validAt, mapZone())} ${hourLabel((frame ?? gframe)!.validAt, mapZone())} ${mapZoneAbbr((frame ?? gframe)!.validAt)}${spatial.loading || globe.loading ? ' · updating…' : ''}`
+    : frame || gframe ? `${def.label} · ${shownPacked ? shownFrame!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${viaHosts(shownUrls)}`}${shownPacked ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}${interpNote ? ` · ${interpNote}` : ''}`} · valid ${weekdayPT(shownFrame!.validAt, mapZone())} ${hourLabel(shownFrame!.validAt, mapZone())} ${mapZoneAbbr(shownFrame!.validAt)}${stepNote}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
   const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
   const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
@@ -877,13 +899,15 @@ function OceanMap({section, go}: ViewProps) {
   }
   // map-review (b): a 0-ft swell point is wind sea only; the label gives that wind sea's height from the WAVES frame of the same hour (same model
   // family as the swell frame), fetched only while such a point is open.
-  const wavesGlobe = useGlobe('WAVES', 'Offshore Hs', view.selectedTime, fieldId === 'swell' && !!pv?.note);
+  const wavesGlobe = useGlobe('WAVES', 'Offshore Hs', fieldTime, fieldId === 'swell' && !!pv?.note);
   const wavesField = useMemo(() => (wavesGlobe.frame ? buildField(wavesGlobe.frame, false) : null), [wavesGlobe.frame]);
   const windSea = pv?.note && wavesField && at ? sampleField([wavesField], at.lat, at.lon)?.value ?? null : null;
-  const line = pointLine(pv, perS, p, fieldId, windSea, extras);
+  // audit P1-4: a point with no value says why, and says "enclosed water" only where the enclosed-water mask marks it
+  const noValueWhy = !(opts.heat || opts.flow || opts.arrows) ? 'sea colour off' : !(frame || gframe) ? 'loading…' : pt && enclosedCovers(pt.lat, pt.lon) && isEnclosedWater(pt.lat, pt.lon) ? 'enclosed water' : 'no model cell this close to shore';
+  const line = pointLine(pv, perS, p, fieldId, windSea, extras, shownPacked ? 'GFS-Wave' : def.layer === 'WIND' ? 'GFS' : 'WW3');   // A19: the label names the model it samples
   const cycleUnit = def.unit === 'm' ? () => data.profile({heightUnit: p.heightUnit === 'ft' ? 'm' : 'ft'})
     : def.unit === 'm/s' ? () => data.profile({windUnit: p.windUnit === 'mph' ? 'kn' : p.windUnit === 'kn' ? 'km/h' : 'mph'}) : null;
-  const modelName = packedGlobal ? `GFS-Wave ${gframe!.resolution}° · NOAA` : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${erddapHosts(shownUrls) ? ` · ${erddapHosts(shownUrls)}` : ''}`;   // the server(s) the drawn frames came from (PacIOOS since NOAA's move)
+  const modelName = shownPacked ? `GFS-Wave ${shownFrame!.resolution}° · NOAA` : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${erddapHosts(shownUrls) ? ` · ${erddapHosts(shownUrls)}` : ''}`;   // the server(s) the drawn frames came from (PacIOOS since NOAA's move)
   // Debug overlay (?debug=1, dev only): what the map is painting, from the same frames the field uses.
   const debugInfo = useRef<DebugInfo | null>(null);
   { const f = gframe ?? frame; debugInfo.current = f && opts.heat ? {model: modelName, source: f.provider, run: packedGlobal ? (/run ([^)]*)\)/.exec(f.provider)?.[1] ?? '?') : 'n/a (ERDDAP best series, no run id)', validAt: f.validAt, retrievedAt: f.retrievedAt, layer: (paintedDef.label ?? def.label), held: paintedDef.id !== def.id} : null; }
@@ -944,14 +968,14 @@ function OceanMap({section, go}: ViewProps) {
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} sub={cache?.chip} note={<>{status} {ENCLOSED_NOTE}</>} />}
-        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={paintedDef.label} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />
+        {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={LEGEND_NAMES[paintedDef.id].full} short={LEGEND_NAMES[paintedDef.id].short} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} />
           : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea colour off'}</p>}
         </div>
       </div>
       {pt && panel && <ForecastPanel pt={pt} data={point.data} error={point.error} time={view.selectedTime} p={p} bundle={view.ocean.bundle}
         onClose={() => setPanel(false)} onOpenSpot={(id) => { setSpot(id); go('forecast'); }} />}
 
-      {pt && createPortal(<PinLabel layer={def.short === 'Offshore waves' ? 'Waves' : def.short} icon={def.icon} line={line} periodFromPoint={perFromPoint} expanded={panel}
+      {pt && createPortal(<PinLabel layer={def.short === 'Offshore waves' ? 'Waves' : def.short} icon={def.icon} line={line} why={noValueWhy} periodFromPoint={perFromPoint} expanded={panel}
         onExpand={() => setPanel(!panel)} onClose={() => { closedAt.current = Date.now(); setPt(null); setPanel(false); }} />, popupEl)}
       {!phone && callout$ && createPortal(callout$, spotPopEl)}
     </div>

@@ -56,7 +56,7 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
     flyTo: (v, opt) => { const t = {center: [v.lon, v.lat] as [number, number], zoom: (v.zoom ?? map.getZoom() + ZOFF) - ZOFF}; if (opt?.reducedMotion) map.jumpTo(t); else map.flyTo({...t, duration: opt?.durationMs ?? 1000, essential: true}); },
     fitPoints: (pts, opt) => {
       if (!pts.length) return; const lons = pts.map((p) => p.lon), lats = pts.map((p) => p.lat), r = opt.padRatio ?? 0.15, dx = (Math.max(...lons) - Math.min(...lons)) * r, dy = (Math.max(...lats) - Math.min(...lats)) * r;
-      map.fitBounds([[Math.min(...lons) - dx, Math.min(...lats) - dy], [Math.max(...lons) + dx, Math.max(...lats) + dy]], {padding: opt.padding, maxZoom: opt.maxZoom !== undefined ? opt.maxZoom - ZOFF : undefined, duration: opt.animate === false ? 0 : 600});
+      map.fitBounds([[Math.min(...lons) - dx, Math.min(...lats) - dy], [Math.max(...lons) + dx, Math.max(...lats) + dy]], {padding: opt.padding, ...(opt.maxZoom !== undefined && {maxZoom: opt.maxZoom - ZOFF}), duration: opt.animate === false ? 0 : 600});   // B1 (audit M4): no explicit maxZoom: undefined (MapLibre made it NaN and the region chips threw)
     },
     panBy: (dx, dy, opt) => { map.panBy([dx, dy], {duration: opt?.animate ? 400 : 0}); },
     zoomBy: (d) => { map.easeTo({zoom: map.getZoom() + d, duration: 300}); },
