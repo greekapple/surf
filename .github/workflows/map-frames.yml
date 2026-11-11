@@ -1,10 +1,12 @@
-# Map frames: NOAA GFS-Wave 0.25° (public domain, AWS Open Data) → packed PNGs + manifest → GitHub Pages (every 6 h + manual run).
+# Map frames: NOAA GFS-Wave 0.25° (public domain, AWS Open Data) → packed PNGs + manifest → GitHub Pages (checked hourly + manual run).
+# Hourly because GitHub delays or drops scheduled runs (2026-11-10/11: up to 5 h late, one skipped, the map fell back to WW3).
+# The gate step builds only when a newer COMPLETE run (f168 present) exists than the one published, or the published one is short of frames; otherwise the job ends in ~30 s.
 # The job code comes from the clean public branch (swello-v0.17); only the generated frames are published, never the repo's files.
 # Docs: docs/map-pipeline.md. The app uses these frames when VITE_MAP_FRAMES_BASE points here and falls back to /api/ocean (WW3) when the run is > 18 h old.
 name: Map frames (GFS-Wave 0.25°)
 on:
   schedule:
-    - cron: '40 4,10,16,22 * * *'   # ~4 h 40 min after each GFS cycle (00/06/12/18 UTC)
+    - cron: '40 * * * *'   # hourly check; a new GFS cycle (00/06/12/18 UTC) completes ~4-5 h after its start
   workflow_dispatch:
 permissions:
   contents: read
@@ -17,6 +19,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 45
+    outputs:
+      build: ${{ steps.gate.outputs.build }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -25,15 +29,48 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: sudo apt-get update -q && sudo apt-get install -y -q libeccodes-dev
-      - run: pip install numpy pillow eccodes
-      - run: python tools/map-pipeline/build_frames.py --out site --hours 0-168/3
-      - run: touch site/.nojekyll && du -sh site && python -c "import json;m=json.load(open('site/manifest.json'));print('run',m['run'],'frames',len(m['frames']))"
-      - uses: actions/upload-pages-artifact@v3
+      - id: gate
+        run: |
+          python - <<'PY'
+          import datetime as dt, json, os, urllib.request
+          B = "https://noaa-gfs-bdp-pds.s3.amazonaws.com"
+          def ok(u):
+              try:
+                  urllib.request.urlopen(urllib.request.Request(u, method="HEAD"), timeout=30); return True
+              except Exception:
+                  return False
+          now = dt.datetime.now(dt.timezone.utc).replace(minute=0, second=0, microsecond=0)
+          newest = None
+          for back in range(0, 36, 6):
+              t = now - dt.timedelta(hours=back); t = t.replace(hour=(t.hour // 6) * 6)
+              if ok(f"{B}/gfs.{t:%Y%m%d}/{t:%H}/wave/gridded/gfswave.t{t:%H}z.global.0p25.f168.grib2.idx"):
+                  newest = t; break
+          try:
+              m = json.load(urllib.request.urlopen("https://greekapple.github.io/surf/manifest.json", timeout=30))
+              pub, nframes = dt.datetime.fromisoformat(m["run"].replace("Z", "+00:00")), len(m["frames"])
+          except Exception:
+              pub, nframes = None, 0
+          build = newest is not None and (pub is None or newest > pub or (newest == pub and nframes < 57))
+          print("newest complete run:", newest, "| published:", pub, nframes, "frames | build:", build)
+          with open(os.environ["GITHUB_OUTPUT"], "a") as f:
+              f.write(f"build={'true' if build else 'false'}\n")
+              f.write(f"run={newest:%Y%m%d%H}\n" if newest else "run=\n")
+          PY
+      - if: steps.gate.outputs.build == 'true'
+        run: sudo apt-get update -q && sudo apt-get install -y -q libeccodes-dev
+      - if: steps.gate.outputs.build == 'true'
+        run: pip install numpy pillow eccodes
+      - if: steps.gate.outputs.build == 'true'
+        run: python tools/map-pipeline/build_frames.py --out site --run ${{ steps.gate.outputs.run }} --hours 0-168/3
+      - if: steps.gate.outputs.build == 'true'
+        run: touch site/.nojekyll && du -sh site && python -c "import json;m=json.load(open('site/manifest.json'));print('run',m['run'],'frames',len(m['frames']))"
+      - if: steps.gate.outputs.build == 'true'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: site
   deploy:
     needs: build
+    if: needs.build.outputs.build == 'true'
     runs-on: ubuntu-latest
     environment:
       name: github-pages
