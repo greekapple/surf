@@ -31639,5 +31639,1987 @@
   },
   "notes": "town: Pajaro Dunes (surfnerd); surf-forecast pin 36.8213,-121.7976 is 1.7 km from the surfnerd pin",
   "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-beverly-beach",
+  "name": "Beverly Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/beverly-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Devil-s-Punch-Beverly-Beach",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from the west (surf-forecast)",
+  "windOffshore": "W. Offshore from W (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the East-northeast (surf-forecast)",
+  "tide": "\"Good surf at all stages of the tide.\" (surf-forecast)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surf-forecast)",
+  "exposure": "exposed beach break (surf-forecast)",
+  "season": "best time of year for surfing Devil s Punch Beverly Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Beverly Beach is at its cleanest when the wind comes from the west (W), grooming the surface for a better ride. Watch for that offshore window and paddle out when the wind lines up.",
+   "surfForecast": "Devil s Punch Beverly Beach in North Oregon is an exposed beach break that has pretty consitent surf and can work at any time of the year. Ideal winds are from the east northeast. Most of the surf here comes from groundswells and the best swell direction is from the west. Good surf at all stages of the tide. Rarely crowded here. Devil s Punch Beverly Beach"
+  },
+  "notes": "town: Ocean Park (surfnerd); surf-forecast pin 44.742,-124.061 is 1.9 km from the surfnerd pin",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-canyons-lincoln-city",
+  "name": "Canyons - Lincoln City",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/canyons-lincoln-city",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - N. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "swellExposure": "SSW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call. Expect a hollower wave at low tide and a mushier one as the tide fills in.\" (surfnerd guide)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 9.8
+  },
+  "hazards": [
+   "\"When it starts barreling the current turns heavy, making paddle-outs punishing or near impossible in cold water.\" (surfnerd)"
+  ],
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"There are restrooms, showers, and a surf shop on hand, plus a car park with free parking and roadside spots.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Canyons sits just south of D River in Lincoln City, named after the small county beach park over the hill from the Highway 101 factory outlet stores. The main break is off to the left of the parking lot, about a 100-yard walk down the beach, and while it's mostly good lefts, you'll pick up some rights too. Waves break over a mix of uneven reef and sand.",
+   "surfForecast": null
+  },
+  "notes": "town: Lincoln City (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-cape-disappointment-state-park",
+  "name": "Cape Disappointment State Park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cape-disappointment-state-park",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "S - NNW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Cape Disappointment State Park is a surf spot on the coast of the United States. There isn't detailed condition information for this break yet, so lean on the live Surfnerd forecast to check the swell, wind, and tide before you paddle out.",
+   "surfForecast": null
+  },
+  "notes": "town: Ilwaco (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-cape-flattery",
+  "name": "Cape Flattery",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cape-flattery",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "SSW - NW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Cape Flattery is a surf spot in the United States. There aren't detailed condition notes for it yet, so lean on the live forecast for swell, wind, and tide before you decide to paddle out.",
+   "surfForecast": null
+  },
+  "notes": "town: Tsoo-Yess (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-cape-lookout",
+  "name": "Cape Lookout",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cape-lookout",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cape-Lookout",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+  "facingDeg": 202.5,
+  "swellWorkable": {
+   "text": "S - W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "swellExposure": "S - W. Faces SSW (surfnerd)",
+  "idealSwell": "best swell from the west (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore wind from the East-northeast (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It surfs across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Waves at the beach are both lefts and rights Surfable at all stages of the tide.\" (surf-forecast)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach reef and point (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"Waves at the beach are both lefts and rights Surfable at all stages of the tide.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 15.1
+  },
+  "exposure": "exposed beach reef and point break (surf-forecast)",
+  "hazards": [
+   "\"The south side has a real localism problem, though: some of the crew are hostile and have been known to slash tires, steal gear left at the trailhead, and drop in on unfamiliar faces.\" (surfnerd)",
+   "\"Watch out for rips and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Cape Lookout with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of October (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"Reaching the south side means a long, steep switchback trail.\" (surfnerd)",
+   "\"You leave your car in the lot at the top and hike down, then hope it's still in one piece when you climb back up.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Cape Lookout sits behind the longest cape on the West Coast, and that headland shapes everything about the place. The water is about the cleanest and clearest in Oregon, and it stays a beautiful spot to visit whether or not it's breaking. It was once known for a quality righthand reef, locally called Boy Scout Camp, but geological upheaval wrecked that wave, and today the surf is mostly beachbreak with both lefts and rights.",
+   "surfForecast": "Cape Lookout in Oregon_North is an exposed beach reef and point break that has reliable surf. Spring and Summer provide the best conditions. Ideal winds are from the east with some shelter here from north winds. Waves just as likely from local windswells as from distant groundswells and the ideal swell angle is from the west. Waves at the beach are both lefts and rights Surfable at all stages of the tide. It very rarely gets crowded here. Watch out for rips and rocks. Cape Lookout"
+  },
+  "notes": "town: Sandlake (surfnerd); surf-forecast pin 45.3363,-123.9767 is 0.2 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-cape-sebastian",
+  "name": "Cape Sebastian",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cape-sebastian",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cape-Sebastian",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+  "facingDeg": 247.5,
+  "swellWorkable": {
+   "text": "W - N. Best from NW (surfnerd)",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "swellExposure": "S - WSW. W - WNW. Faces WSW (surfnerd)",
+  "idealSwell": "best swell from NW (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "SE. Offshore from SE (surfnerd workable wind); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore/best wind from the north northeast (surf-forecast)",
+  "tide": "Works at Low, Mid (surfnerd characteristics); \"It breaks on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Boulders, Sand (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd); Point (surf-forecast)",
+  "waveDirection": "right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 12.1
+  },
+  "exposure": "exposed point break (surf-forecast)",
+  "season": "best time of year for surfing Cape Sebastian with consistent clean waves (rideable swell with light / offshore winds) is during Summer and most often the month of August (surf-forecast)",
+  "skillLevel": "Intermediate (surfnerd)",
+  "accessNotes": [
+   "\"There is free roadside parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Cape Sebastian is a right-hand reef break that peels over a mix of boulders and sand. The section worth checking sits on the south side, about 7 miles (11 km) down the coast, where sand piling up behind Hunters Island lets long, loping rights run down the bar. The wider stretch from here to the Pistol River is also one of the USA's great windsurfing Meccas.",
+   "surfForecast": "Cape Sebastian in South Oregon is an exposed point break that has reasonably consistent surf and can work at any time of the year. Offshore winds blow from the north northeast. Most of the surf here comes from groundswells and the ideal swell angle is from the west. Even when there are waves, it's not likley to be crowded. Cape Sebastian"
+  },
+  "notes": "town: Pistol River (surfnerd); surf-forecast pin 42.319,-124.424 is 0.5 km from the surfnerd pin",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-crescent-beach",
+  "name": "Crescent Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/crescent-beach-2",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Crescent",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "North-northwest (surfnerd: \"Faces NNW\")",
+  "facingDeg": 337.5,
+  "swellExposure": "WNW - NW. Faces NNW (surfnerd)",
+  "idealSwell": "best swell West-northwest (surf-forecast)",
+  "windOffshore": "wind exposure ESE - SSW. Offshore from SSE (surfnerd); offshore wind from the South-southeast (surf-forecast)",
+  "tide": "\"Best at mid to high tide, but at dead high tide it can get flat for about 45 minutes.\" (surf-forecast)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surf-forecast)",
+  "season": "best time of year for surfing Crescent with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Crescent Beach is a surf spot in the United States. There isn't detailed break information for it yet, so check the live Surfnerd forecast for the latest swell, wind, and tide before you paddle out.",
+   "surfForecast": "Crescent is a beach break suitable for beginners and intermediates. Needs a powerful west to northwest swell to work. Best at mid to high tide, but at dead high tide it can get flat for about 45 minutes. S-SW offshores produce the best conditions. It can get closed out at 6' surf size and above, unless there are strong SW or SE offshores...kayakers welcome. Salt Creek state park is adjacent to the east end of the bay. Crescent is a private beach and with a reasonable day fee, you get parking and a hot shower. Crescent"
+  },
+  "notes": "town: Crescent Beach (surfnerd); surf-forecast pin 48.1637,-123.712 is 0.3 km from the surfnerd pin",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-d-river-lincoln-city",
+  "name": "D River - Lincoln City",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/d-river-lincoln-city",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - N. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "swellExposure": "SSW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 12.1
+  },
+  "hazards": [
+   "\"At the far north turnaround in the park, watch for hard-breaking tubes with strong rips and sharks in the water.\" (surfnerd)"
+  ],
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"There's no public access in midtown, but the most-surfed spots north and south of town have easy parking, including a car park with free parking and roadside parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "D River - Lincoln City is a beach break spread along a long, sandy stretch of shoreline, breaking over sand with both lefts and rights. Below the central bluffs the shore is nicely marbled with reef formations, mostly covered by sandbars, and the D River State Wayside sits about midtown where the river flow keeps nudging the bars around, so the setup shifts often. Three resident surf shops give this town a real surf consciousness.",
+   "surfForecast": null
+  },
+  "notes": "town: Lincoln City (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-damon-point",
+  "name": "Damon Point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/damon-point",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Damon-Point",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+  "facingDeg": 247.5,
+  "swellExposure": "SW - WSW. Faces WSW (surfnerd)",
+  "idealSwell": "best swell from the west southwest (surf-forecast)",
+  "windOffshore": "wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore wind from the North-northeast (surf-forecast)",
+  "tide": "\"Good surf at all stages of the tide.\" (surf-forecast)",
+  "waveTypeText": "Sandbar (surf-forecast)",
+  "exposure": "sheltered sandbar break (surf-forecast)",
+  "season": "best time of year for surfing Damon Point with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of September (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Damon Point is a surf spot in the United States.",
+   "surfForecast": "Damon Point in Washington State is a sheltered sandbar break that has fairly consistent surf. Spring and Summer provide the best conditions. Works best in offshore winds from the north northeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the west southwest. Good surf at all stages of the tide. Rarely crowded here. Damon Point"
+  },
+  "notes": "town: Ocean Shores (surfnerd); surf-forecast pin 46.937,-124.134 is 1.3 km from the surfnerd pin",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-fort-ebey",
+  "name": "Fort Ebey",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/fort-ebey",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Fort-Ebey",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+  "facingDeg": 247.5,
+  "swellExposure": "W - WNW. NW. Faces WSW (surfnerd)",
+  "idealSwell": "best swell from the west northwest (surf-forecast)",
+  "windOffshore": "wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surf-forecast)",
+  "exposure": "sheltered reef break (surf-forecast)",
+  "hazards": [
+   "\"Detailed condition notes aren't available for it yet, so check the Surfnerd forecast for current swell, wind, and tide before you paddle out.\" (surfnerd)"
+  ],
+  "season": "best time of year for surfing Fort. Ebey with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of December (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Fort Ebey is a surf spot in the United States. Detailed condition notes aren't available for it yet, so check the Surfnerd forecast for current swell, wind, and tide before you paddle out.",
+   "surfForecast": "Fort. Ebey in Washington State is a sheltered reef break that does not work very often. The best wind direction is from the east. Most of the surf here comes from groundswells and the ideal swell angle is from the west northwest. Even when there are waves, it's not likley to be crowded. Fort. Ebey"
+  },
+  "notes": "town: Coveland (surfnerd); surf-forecast pin 48.225,-122.771 is 0.9 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-frankport",
+  "name": "Frankport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/frankport",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Frankport",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SW - N. Best from SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 0
+  },
+  "swellExposure": "W - NW. Faces W (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd); best swell from the northwest (surf-forecast)",
+  "windOffshore": "SE. Offshore from SE (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the East (surf-forecast)",
+  "tide": "Works at Mid, High (surfnerd characteristics); \"It works on mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"Waves at the beach break both left and right.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 15.1
+  },
+  "exposure": "quite exposed beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"In the middle of the cove, a decent peak forms off a small rock that sits exposed at lower tides, sending a reeling right into the channel near the rocky shore; that right is at its best on a northwest swell, though the left can be good too.\" (surfnerd)",
+   "\"Hazards include rips, sharks and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Frankport with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Intermediate (surfnerd)",
+  "accessNotes": [
+   "\"Park at the top, either roadside or in the car park, then walk down into the cove.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Frankport is a north-facing cove tucked below a large, partially excavated headland, reached by a dirt road off Highway 101 about six miles south of Humbug Mountain. It breaks over sand and can get sizable when the swell is running.",
+   "surfForecast": "Frankport in Oregon_South is a quite exposed beach and reef break that has fairly consistent surf. Winter is the optimum time of year for surfing here. Works best in offshore winds from the east with some shelter here from south winds. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the northwest. Waves at the beach break both left and right. Often Crowded. Hazards include rips, sharks and rocks. Frankport"
+  },
+  "notes": "town: Corbin (surfnerd); surf-forecast pin 42.5807,-124.3964 is 1.8 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-indian-state-beach-ecola-state-park",
+  "name": "Indian State Beach, Ecola State Park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/indian-state-beach-ecola-state-park",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Indian-Beach",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+  "facingDeg": 247.5,
+  "swellWorkable": {
+   "text": "SW - N. Best from SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 0
+  },
+  "swellExposure": "S - WNW. Faces WSW (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd); best swell Southwest (surf-forecast)",
+  "windOffshore": "NE. Offshore from NE (surfnerd workable wind); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore/best wind from the east with some shelter here from northwest winds (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It works across low, mid, and high tide, with a rising tide the better call and mid to high tide generally producing the cleanest peaks.\" (surfnerd guide); \"Best around mid tide when the tide is rising.\" (surf-forecast)",
+  "bottom": "Boulders, Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach breaks offer lefts and rights.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 5.9
+  },
+  "exposure": "exposed beach break (surf-forecast)",
+  "hazards": [
+   "\"It's a rocky cove at the mouths of the Ecola and Canyon creeks, where sand-and-gravel bars set up clean peaks that break both left and right.\" (surfnerd)",
+   "\"Watch out for rips, rocks and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Indian Beach/Ecola State Park with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "accessNotes": [
+   "\"There's a car park with paid parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Indian State Beach sits in Ecola State Park on the south side of Tillamook Head, directly opposite Seaside Cove and Point. You might expect it to mirror Seaside, but it doesn't. It's a rocky cove at the mouths of the Ecola and Canyon creeks, where sand-and-gravel bars set up clean peaks that break both left and right.",
+   "surfForecast": "Indian Beach/Ecola State Park in Oregon_North is an exposed beach break that is often working. Summer offers the best conditions for surfing. The best wind direction is from the east with some shelter here from northwest winds. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the southwest. The beach breaks offer lefts and rights. Best around mid tide when the tide is rising. Rarely crowded here. Watch out for rips, rocks and sharks. Indian Beach/Ecola State Park"
+  },
+  "notes": "town: Cannon Beach Junction (surfnerd); surf-forecast pin 45.9275,-123.9802 is 0.1 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-lincoln-city",
+  "name": "Lincoln City",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lincoln-city",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lincoln-City",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SSW - N (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 0
+  },
+  "swellExposure": "SSW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from the west (surf-forecast)",
+  "windOffshore": "NE - SE. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the East (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It breaks through low, mid, and high tide, but a rising tide is generally the better call, and the sweet window tends to land around medium to high depending on swell size.\" (surfnerd guide)",
+  "bottom": "Sand, Rock (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach, Reef (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "right, left (surfnerd); \"Waves at the beach are mainly lefts and in addition there are both left and right reef breaks..\" (surf-forecast)",
+  "sizeFt": {
+   "min": 5.9,
+   "max": 7.9
+  },
+  "exposure": "exposed beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"To the south, just above Depoe Bay, Boiler Bay is one of the more frequently surfed breaks, a right-hand tube that grinds around the edge of a wide, flat shelf loaded with rocks and currents.\" (surfnerd)",
+   "\"Wear a leash, as there are plenty of gnarly reefs and rocks lurking well outside.\" (surfnerd)",
+   "\"Be aware that a surfer was recently attacked by a white shark at Gleneden Beach down the road, and another was bitten at Neskowin a few miles north.\" (surfnerd)",
+   "\"Beware of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Lincoln City with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
+  "accessNotes": [
+   "\"For Boiler Bay, pull into the paved wayside parking area in Depoe Bay; the goat trail down to the surf leads around behind the guard rail at the entrance.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Lincoln City is mostly beachbreak, so it comes alive when the surf is small and clean rather than big and messy. The long beach at the end of NW 15th Street sits on a rock shelf but is basically sandbars, and those banks can get hollow. Summer is the standout stretch here.",
+   "surfForecast": "Lincoln City in Oregon_North is an exposed beach and reef break that has fairly consistent surf and can work at any time of the year. Ideal winds are from the east. Groundswells and windswells are equally likely and the best swell direction is from the west. Waves at the beach are mainly lefts and in addition there are both left and right reef breaks.. When the surf is up, it can get quite busy in the water. Beware of rips and sharks. Lincoln City"
+  },
+  "notes": "town: Lincoln City (surfnerd); surf-forecast pin 44.9402,-124.0263 is 2.1 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-long-beach-peninsula",
+  "name": "Long Beach Peninsula",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/long-beach-peninsula",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - NW. Best from NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from NW (surfnerd)",
+  "windOffshore": "SE. Offshore from SE (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beachbreak can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 1,
+   "max": 5.9
+  },
+  "hazards": [
+   "\"Watch for rips and currents when the surf gets bigger.\" (surfnerd)"
+  ],
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"There's a car park with free parking, plus roadside parking if you'd rather pull up closer to your chosen peak.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Long Beach Peninsula is mile after mile of average beachbreak running along fine white sand and dunes, with a few topographic surprises breaking up the shoreline. The peaks shift over sand and offer both lefts and rights, so with this much beach on offer you can usually find your own peak to yourself. It sits fully exposed to the elements, catching summertime northwest and wintertime southwest winds.",
+   "surfForecast": null
+  },
+  "notes": "town: Loomis (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-manzanita",
+  "name": "Manzanita",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/manzanita",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Manzanita",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "S - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from the northwest (surf-forecast)",
+  "windOffshore": "WNW. Offshore from WNW (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surf-forecast)",
+  "waveDirection": "\"Waves at the beach break both left and right.\" (surf-forecast)",
+  "exposure": "exposed beach break (surf-forecast)",
+  "hazards": [
+   "\"Beware of rips and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Manzanita with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Manzanita comes into its own when the wind blows offshore from the west-northwest (WNW). That is the key condition to line up here, so aim for a west-northwest breeze when you are deciding whether to paddle out.",
+   "surfForecast": "Manzanita in Oregon_North is an exposed beach break that has reasonably consistent surf and can work at any time of the year. Offshore winds are from the east. Tends to receive a mix of groundswells and windswells and the best swell direction is from the northwest. Waves at the beach break both left and right. Rarely crowded here. Beware of rips and rocks. Manzanita"
+  },
+  "notes": "town: Manzanita (surfnerd); surf-forecast pin 45.7027,-123.9394 is 1.1 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-manzanita-neahkahnie",
+  "name": "Manzanita - Neahkahnie",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/manzanita-neahkahnie",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "Southwest (surfnerd: \"Faces SW\")",
+  "facingDeg": 225,
+  "swellWorkable": {
+   "text": "SW - N. Best from W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 0
+  },
+  "swellExposure": "S - NW. Faces SW (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd)",
+  "tide": "Works at Mid, High (surfnerd characteristics); \"It works on mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 5.9
+  },
+  "hazards": [
+   "\"Big rocks in the impact zone along the cobble point keep most of the rideable surf in the beach-headland corner on smaller swells.\" (surfnerd)"
+  ],
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"Parking is free and roadside, so just pull in where any small lane meets the sand.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Manzanita - Neahkahnie is an average beachbreak that gets a lift from easy access and a cute, upscale beach community. The sand-bottom beach is the main event, but the reef just north of Neahkahnie Beach can fire on a clean north-to-west swell, throwing out a long, grinding right-hand point wave. Big rocks in the impact zone along the cobble point keep most of the rideable surf in the beach-headland corner on smaller swells.",
+   "surfForecast": null
+  },
+  "notes": "town: Neahkahnie (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-moolack",
+  "name": "Moolack",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/moolack",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Moolack",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - N. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "swellExposure": "SW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the East (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through most of the tide, though a rising tide is generally the better call.\" (surfnerd guide); \"The quality of the surf isn't affected by the tide.\" (surf-forecast)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"Reef breaks provide lefts and rights.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "exposure": "exposed beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"Moolack sits furthest north on the Newport sweep, a beach break that peels both left and right over sand.\" (surfnerd)",
+   "\"Beware of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Moolack with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"Parking is straightforward, with a car park offering free parking on the dirt turnout overlooking the surf.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Moolack sits furthest north on the Newport sweep, a beach break that peels both left and right over sand. The peaks here are wedgier and punchier than you might expect, which makes it a popular pick with shortboarders.",
+   "surfForecast": "Moolack in Oregon_South is an exposed beach and reef break that has reasonably consistent surf and can work at any time of the year. Works best in offshore winds from the east. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the west. Reef breaks provide lefts and rights. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Beware of rips and sharks. Moolack"
+  },
+  "notes": "town: Newport (surfnerd); surf-forecast pin 44.6878,-124.068 is 0.3 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-nelscott-lincoln-city",
+  "name": "Nelscott - Lincoln City",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/nelscott-lincoln-city",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lincolne-City-Nelscott-Reef",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - NW. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "SSW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the East (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, from low to high, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd); Reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 3,
+   "max": 29.9
+  },
+  "exposure": "exposed reef break (surf-forecast)",
+  "hazards": [
+   "\"Take care of - Rips / undertow - Sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Lincoln City Nelscott Reef with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Expert (surfnerd)",
+  "accessNotes": [
+   "\"There's a surf shop nearby, and you'll find free roadside parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Nelscott is actually two separate breaks near Lincoln City, and it's the reef sitting far outside that has made the name. On 15ft-plus swells it arches into a near-perfect A-frame that's earned a reputation as the most rippable wave on the Big Wave World Tour. It gets towed more often than paddled, and the ride mixes beautiful carving walls and shoulders with short, high tube sections that have a habit of pinching.",
+   "surfForecast": "Lincoln City Nelscott Reef in North Oregon is an exposed reef break that has quite reliable surf and can work at any time of the year. Works best in offshore winds from the east. Waves just as likely from local windswells as from distant groundswells and the best swell direction is from the west. It very rarely gets crowded here. Take care of - Rips / undertow - Sharks. Lincoln City Nelscott Reef"
+  },
+  "notes": "town: Lincoln City (surfnerd); surf-forecast pin 44.95,-124.026 is 0.1 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-nesika-beach",
+  "name": "Nesika Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/nesika-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Nesika-Beach",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - NW. Best from NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from NW (surfnerd); best swell from the northwest (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the Southeast (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach break offers both left and right hand waves.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "exposure": "exposed beach break (surf-forecast)",
+  "hazards": [
+   "\"Take care of rips, sharks and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing here. Works best in offshore winds from the southeast. Most of the surf here comes from groundswells and the best swell direction is from the northwest. The beach break offers both left and right hand waves. Often Crowded. Take care of rips, sharks and rocks. Nesika Beach Spot Info Type : Rating: Reliability : Todays Sea Temp*: Beach 1 fairly consistent 13.5 ° C *ocean temperature recorded from satellite Surfing Nesika Beach: The best conditions reported for surf at Nesika Beach occur when a Northwest swell combines with an offshore wind direction from the Southeast . Hourly Forecast 16 Day Forecast What's the best time of year to surf Nesika Beach (for consistent clean waves)? january Best Season: winter The best time of year for surfing Nesika Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"There is a car park with free parking plus roadside parking, and restrooms at the renovated rest area.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Nesika Beach is a better-than-average beachbreak on the Oregon coast, breaking over sand with the south end of the beach usually holding the best banks. It peels both left and right, so there is room to spread out and pick a peak.",
+   "surfForecast": "Nesika Beach in Oregon_South is an exposed beach break that has fairly consistent surf. Winter is the best time of year for surfing here. Works best in offshore winds from the southeast. Most of the surf here comes from groundswells and the best swell direction is from the northwest. The beach break offers both left and right hand waves. Often Crowded. Take care of rips, sharks and rocks. Nesika Beach"
+  },
+  "notes": "town: Ophir (surfnerd); surf-forecast pin 42.5015,-124.4204 is 7.3 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-newport",
+  "name": "Newport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/newport",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SSW - NNW (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 337.5
+  },
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "windOffshore": "NE - SE. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Mid (Best at Mid, Better on rising) (surfnerd characteristics); \"It is best around mid tide, and a rising tide is generally the better call.\" (surfnerd guide)",
+  "bottom": "Rock, Sand (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "right, left (surfnerd)",
+  "sizeFt": {
+   "min": 3,
+   "max": 7.9
+  },
+  "hazards": [
+   "\"Localism is present here, so paddle out polite; the resident elephant seals and the area's white sharks add their own quiet form of it.\" (surfnerd)"
+  ],
+  "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Newport is built around The Peak, a busy A-frame that peels both right and left over a mixed rock-and-sand reef. It is an honest, fun wave rather than a standout, with a clean setting and a minimal paddle to reach the lineup.",
+   "surfForecast": null
+  },
+  "notes": "town: Newport (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-north-agate-newport",
+  "name": "North Agate - Newport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/north-agate-newport",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/North-Agate",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+  "facingDeg": 292.5,
+  "swellWorkable": {
+   "text": "SW - NW. Best from SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "swellExposure": "WSW - N. Faces WNW (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "SE. Offshore from SE (surfnerd workable wind); wind exposure ENE - SSE. Offshore from ESE (surfnerd); offshore/best wind from the south (surf-forecast)",
+  "tide": "Works at High (Best at High, Better on rising) (surfnerd characteristics); \"Come on a high tide. The flat reef sits completely exposed and turns dangerous at low, so wait until enough water covers it, with high tide the optimal window and a rising tide the better call.\" (surfnerd guide)",
+  "bottom": "Rock Ledge, Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"Both left and right reef breaks.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 3.9,
+   "max": 9.8
+  },
+  "exposure": "exposed reef break (surf-forecast)",
+  "hazards": [
+   "\"The flat reef sits completely exposed and turns dangerous at low, so wait until enough water covers it, with high tide the optimal window and a rising tide the better call.\" (surfnerd)",
+   "\"Take care of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing North Agate with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of March (surf-forecast)",
+  "skillLevel": "Intermediate (surfnerd)",
+  "accessNotes": [
+   "\"There is a car park with free parking plus roadside parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "North Agate sits on the north side of Yaquina Head near Newport, a beach break that peels both left and right over a mix of rock ledge and sand. It suits intermediate surfers, though it can be somewhat inconsistent.",
+   "surfForecast": "North Agate in Oregon_South is an exposed reef break that has fairly consistent surf and can work at any time of the year. The best wind direction is from the south. Most of the surf here comes from groundswells and the best swell direction is from the west. Both left and right reef breaks. Unlikely to be too crowded, even when the surf is up. Take care of rips and sharks. North Agate"
+  },
+  "notes": "town: Newport (surfnerd); surf-forecast pin 44.6876,-124.0723 is 0.8 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-ocean-shores",
+  "name": "Ocean Shores",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ocean-shores",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Ocean-Shores",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "S - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell West-southwest (surf-forecast)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "waveTypeText": "Breakwater (surf-forecast)",
+  "exposure": "sheltered breakwater break (surf-forecast)",
+  "hazards": [
+   "\"Watch out for - Rips / undertow.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Ocean Shores with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Ocean Shores is a surf spot in the United States. There aren't detailed condition notes for this break yet, so lean on the live Surfnerd forecast for swell, wind, and tide before you paddle out.",
+   "surfForecast": "Ocean Shores in Washington State is a sheltered breakwater break that has quite reliable surf. Spring and Summer provide the best conditions. Offshore winds blow from the east. Tends to receive a mix of groundswells and windswells and the optimum swell angle is from the west southwest. Unlikely to be too crowded, even when the surf is up. Watch out for - Rips / undertow. Ocean Shores"
+  },
+  "notes": "town: Ocean Shores (surfnerd); surf-forecast pin 46.973,-124.174 is 1.7 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-point-grenville",
+  "name": "Point Grenville",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/point-grenville",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Point-Grenville",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+  "facingDeg": 202.5,
+  "swellWorkable": {
+   "text": "S - NW. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - WSW. Faces SSW (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd); best swell from the northwest (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The spot can work through low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+  "bottom": "Rock Ledge, Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"Both left and right reef breaks.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 9.8
+  },
+  "exposure": "sheltered beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"Point Grenville sits behind a rocky headland that shelters a stretch of coast holding a mix of reef and beachbreak.\" (surfnerd)",
+   "\"Beware of locals and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Point Grenville with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"Parking is restricted, and for now the spot should be treated as closed.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Point Grenville sits behind a rocky headland that shelters a stretch of coast holding a mix of reef and beachbreak. Waves break over a rock ledge and sand, and the peaks run both left and right.",
+   "surfForecast": "Point Grenville in Washington is a sheltered beach and reef break that has consistent surf and can work at any time of the year. Offshore winds are from the east. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. Both left and right reef breaks. Good surf at all stages of the tide. Sometimes crowded. Beware of locals and sharks. Point Grenville"
+  },
+  "notes": "town: Taholah (surfnerd); surf-forecast pin 47.3022,-124.2578 is 0.2 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-port-orford",
+  "name": "Port Orford",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/port-orford",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Port-Orford",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+  "facingDeg": 202.5,
+  "swellWorkable": {
+   "text": "S - NW. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - WSW. Faces SSW (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd); best swell from the northwest (surf-forecast)",
+  "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure NNW - ENE. Offshore from NNE (surfnerd); offshore/best wind from the north (surf-forecast)",
+  "tide": "Works at Mid, High (surfnerd characteristics); \"The spot works through mid and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"Waves at the beach are both lefts and rights.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "exposure": "sheltered beach break (surf-forecast)",
+  "hazards": [
+   "\"Beware of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Port Orford with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of February (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"Parking is straightforward, with roadside pull-offs and a car park close to the sand.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Port Orford is a niche beachbreak zone tucked into a south-facing cove on the Oregon coast, the westernmost town in the contiguous United States. Surrounded by dense woods, rivers, and lakes, it holds two setups: mellow, user-friendly Hubbard Creek and the funkier Battle Rock. It is a scenic, low-key spot that rates below average and only really comes together when swell, wind, and tide line up.",
+   "surfForecast": "Port Orford in Oregon_South is a sheltered beach break that only works once in a while. Winter is the favoured time of year for surfing here. Offshore winds are from the north. Most of the surf here comes from groundswells and the ideal swell direction is from the northwest. Waves at the beach are both lefts and rights. A popular wave that can get growded. Beware of rips and sharks. Port Orford"
+  },
+  "notes": "town: Port Orford (surfnerd); surf-forecast pin 42.7414,-124.493 is 0.6 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-rainbow-rocks",
+  "name": "Rainbow Rocks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rainbow-rocks",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Rainbow-Rocks",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "Southwest (surfnerd: \"Faces SW\")",
+  "facingDeg": 225,
+  "swellWorkable": {
+   "text": "S - NW. Best from NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - WNW. Faces SW (surfnerd)",
+  "idealSwell": "best swell from NW (surfnerd); best swell from the west northwest (surf-forecast)",
+  "windOffshore": "NE. Offshore from NE (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd); offshore wind from the Northeast (surf-forecast)",
+  "tide": "Works at Low, Mid (surfnerd characteristics); \"It surfs on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach break offers both left and right hand waves.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 1,
+   "max": 5.9
+  },
+  "exposure": "exposed beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"Rainbow Rocks is a sand-bottomed beachbreak tucked among a jumble of rocks about 3 mi (5 km) north of Brookings, right across the cove from the Rainbow Rocks condo complex.\" (surfnerd)",
+   "\"The sand pockets between the rocks can shape up into a rideable, shape-shifting wave that breaks both left and right.\" (surfnerd)",
+   "\"Rainbow Rocks in Oregon_South is an exposed beach and reef break that has pretty consitent surf and can work at any time of the year.\" (surf-forecast)",
+   "\"Hazards include rips, sharks and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Rainbow Rocks with consistent clean waves (rideable swell with light / offshore winds) is during Autumn and most often the month of October (surf-forecast)",
+  "skillLevel": "Intermediate (surfnerd)",
+  "accessNotes": [
+   "\"There's free roadside parking at the turnout above the break, and getting down is a bit of a scramble to reach the beach.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Rainbow Rocks is a sand-bottomed beachbreak tucked among a jumble of rocks about 3 mi (5 km) north of Brookings, right across the cove from the Rainbow Rocks condo complex. The sand pockets between the rocks can shape up into a rideable, shape-shifting wave that breaks both left and right. It's a solid dawn patrol option, best caught early before the wind comes up.",
+   "surfForecast": "Rainbow Rocks in Oregon_South is an exposed beach and reef break that has pretty consitent surf and can work at any time of the year. Works best in offshore winds from the northeast. Tends to receive a mix of groundswells and windswells and the ideal swell direction is from the west northwest. The beach break offers both left and right hand waves. When it's working here, it can get crowded. Hazards include rips, sharks and rocks. Rainbow Rocks"
+  },
+  "notes": "town: Brookings (surfnerd); surf-forecast pin 42.0709,-124.3214 is 1.4 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-rialto-beach",
+  "name": "Rialto Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rialto-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "SW - WNW. WNW - NW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Rialto Beach is a surf spot in the United States. For the latest swell, wind, and tide, check the live Surfnerd forecast before you head out.",
+   "surfForecast": null
+  },
+  "notes": "town: La Push (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-roads-end",
+  "name": "Roads End",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/roads-end",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Roads-End",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - N (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 0
+  },
+  "swellExposure": "SSW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell West (surf-forecast)",
+  "windOffshore": "NE - SE. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break across low, mid, and high tide, and a rising tide is generally the better call. Tide choice also tracks the swell: low tide suits smaller surf, while high tide handles the bigger days.\" (surfnerd guide)",
+  "bottom": "Sand, Rock (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach, Reef (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "right, left (surfnerd); \"Waves at the beach break both left and right together with both left and right hand reef breaks offshore..\" (surf-forecast)",
+  "sizeFt": {
+   "min": 4.9,
+   "max": 9.8
+  },
+  "exposure": "exposed beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"Worth noting for safety: there have been recent white shark incidents nearby, at Gleneden Beach just down the road and at Neskowin a few miles north.\" (surfnerd)",
+   "\"Take care of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Roads End with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Roads End is a shape-shifting spot on the Oregon coast. When the swell is big it works as an outer reefbreak, and when it's smaller it breaks as a series of heaving beachbreaks. Waves peel both left and right over a mix of sand and rock.",
+   "surfForecast": "Roads End in Oregon_North is an exposed beach and reef break that has fairly consistent surf and can work at any time of the year. The best wind direction is from the east. Most of the surf here comes from groundswells and the optimum swell angle is from the west. Waves at the beach break both left and right together with both left and right hand reef breaks offshore.. When it's working here, it can get crowded. Take care of rips and sharks. Roads End"
+  },
+  "notes": "town: Lincoln City (surfnerd); surf-forecast pin 45.0004,-124.0133 is 0.5 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-rockaway-beach",
+  "name": "Rockaway Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rockaway-beach-oregon",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Rockaway_2",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SSW - NNW (surfnerd)",
+   "fromDeg": 202.5,
+   "toDeg": 337.5
+  },
+  "swellExposure": "SSW - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from the northwest (surf-forecast)",
+  "windOffshore": "NE - SSE. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "tide": "Works at High (Best at High, Better on rising) (surfnerd characteristics); \"It's best on high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach, Point (surfnerd); Beach (surf-forecast)",
+  "waveDirection": "\"The beach break offers both left and right hand waves.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 3.9
+  },
+  "exposure": "exposed beach break (surf-forecast)",
+  "hazards": [
+   "\"Hazards include rips and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Rockaway with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner, Intermediate, Expert (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Rockaway Beach is a long, flat-bottomed beachbreak on the northern Oregon coast. Together with neighbouring Manzanita it makes up close to a dozen miles of open sand, backed by dune grass and driftwood. The area was built as a summer resort for Portlanders early last century, and the beach sits wide open to wind and swell.",
+   "surfForecast": "Rockaway in Oregon_North is an exposed beach break that has quite consistent surf and can work at any time of the year. The best wind direction is from the east. Most of the surf here comes from groundswells and the ideal swell angle is from the northwest. The beach break offers both left and right hand waves. Rarely crowded here. Hazards include rips and rocks. Rockaway"
+  },
+  "notes": "town: Rockaway Beach (surfnerd); surf-forecast pin 45.6143,-123.9464 is 0.0 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-ruby-beach",
+  "name": "Ruby Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ruby-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "S - SW. SW - NW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Ruby Beach is a surf spot on the coast of the United States. There aren't detailed condition notes for it yet, so lean on the live forecast to check swell, wind, and tide before you decide to paddle out.",
+   "surfForecast": null
+  },
+  "notes": "town: Hoh (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-seabrook-beach",
+  "name": "Seabrook Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/seabrook-beach-2",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "S - NNW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "hazards": [
+   "\"There aren't detailed condition notes for it yet, so lean on the live Surfnerd forecast for current swell, wind, and tide before you head out.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Seabrook Beach is a surf spot in the United States. There aren't detailed condition notes for it yet, so lean on the live Surfnerd forecast for current swell, wind, and tide before you head out.",
+   "surfForecast": null
+  },
+  "notes": "town: Pacific Beach (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-shi-shi-beach",
+  "name": "Shi Shi Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shi-shi-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Shi Shi Beach is a surf spot on the coast of the United States.",
+   "surfForecast": null
+  },
+  "notes": "town: Tsoo-Yess (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-short-beach",
+  "name": "Short Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/short-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "SSW - SW. SW - NNW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Short Beach is a surf spot in the United States. There isn't detailed swell, wind, or tide information logged for it yet, so lean on the live Surfnerd forecast to gauge the conditions and work out when it's worth paddling out before you make the trip.",
+   "surfForecast": null
+  },
+  "notes": "town: Cape Meares (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-south-beach-newport",
+  "name": "South Beach - Newport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-beach-newport",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Newport_South-Beach",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - NW. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the east (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"South Beach can work through most of the tide, across low, mid, and high, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach break favours left handers.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 9.8
+  },
+  "exposure": "exposed beach break (surf-forecast)",
+  "hazards": [
+   "\"A fairly popluar wave that can sometimes get crowded Watch out for rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Newport-South Beach with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"There is a car park with free parking plus roadside parking, and a large campground with tent, RV, and YURT (Year-round Recreational Tent) facilities for anyone wanting to stay close to the surf.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "South Beach is a long stretch of beachbreak just south of Newport, over the Yaquina River bridge. It offers miles of sand with predominant lefts, though the banks throw both left and right. The setup sits within South Beach State Park, so there is plenty of room to spread out along the beach.",
+   "surfForecast": "Newport-South Beach in Oregon_South is an exposed beach break that has pretty consitent surf and can work at any time of the year. The best wind direction is from the east. Tends to receive a mix of groundswells and windswells and the best swell direction is from the west. The beach break favours left handers. Good surf at all stages of the tide. A fairly popluar wave that can sometimes get crowded Watch out for rips and sharks. Newport-South Beach"
+  },
+  "notes": "town: Newport (surfnerd); surf-forecast pin 44.6043,-124.0668 is 0.6 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-state-line",
+  "name": "State Line",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/state-line",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/State-Line",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+  "facingDeg": 247.5,
+  "swellWorkable": {
+   "text": "S - NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - NW. Faces WSW (surfnerd)",
+  "idealSwell": "best swell from the southwest (surf-forecast)",
+  "windOffshore": "NE. Offshore from NE (surfnerd workable wind); wind exposure NNE - ESE. Offshore from ENE (surfnerd); offshore/best wind from the northeast (surf-forecast)",
+  "tide": "Works at Mid, High (surfnerd characteristics); \"It comes alive on mid and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Best around mid tide.\" (surf-forecast)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach breaks offer lefts and rights.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "exposure": "exposed beach break (surf-forecast)",
+  "hazards": [
+   "\"State Line is a sand-bottom beach break sitting right on the California-Oregon border, where sandbars form between rocky sections to produce better-than-average beachbreak.\" (surfnerd)",
+   "\"It's a consistent break, and the banks between the rocks come into their own on a small swell, when they shape up cleaner than your average beachbreak.\" (surfnerd)",
+   "\"Just be aware there's a modest shark concern to keep in mind.\" (surfnerd)",
+   "\"Beware of rips, sharks and rocks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing State Line with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"Enter through Pelican State Beach at the state line, then drive north a couple hundred yards (220 m) to a tree-fringed car park with free parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "State Line is a sand-bottom beach break sitting right on the California-Oregon border, where sandbars form between rocky sections to produce better-than-average beachbreak. Peaks break both left and right, so you can go either way depending on the bank you paddle out to.",
+   "surfForecast": "State Line in Oregon_South is an exposed beach break that has pretty consitent surf. Summer offers the best conditions for surfing. Offshore winds blow from the northeast. Most of the surf here comes from groundswells and the best swell direction is from the southwest. The beach breaks offer lefts and rights. Best around mid tide. When it's working here, it can get crowded. Beware of rips, sharks and rocks. State Line"
+  },
+  "notes": "town: Chetco (surfnerd); surf-forecast pin 42.0325,-124.258 is 4.8 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-the-box-newport",
+  "name": "The Box - Newport",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-box-newport",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Newport_The-Box",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - NW. Best from S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "S - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from S (surfnerd); best swell from the southwest (surf-forecast)",
+  "windOffshore": "NE. Offshore from NE (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore/best wind from the east with some shelter here from north winds (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It's rideable through low, mid, and high tide, with a rising tide the better call.\" (surfnerd guide); \"The quality of the surf isn't affected by the tide.\" (surf-forecast)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Breakwater (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach breaks peel to the right.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 12.1
+  },
+  "hazards": [
+   "\"Keep an eye on the size: once the swell pushes past 8 feet, The Box can throw powerful pitching waves and stir up dangerous currents.\" (surfnerd)",
+   "\"There's also some shark danger to keep in mind.\" (surfnerd)",
+   "\"Watch out for rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Newport-The Box with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Intermediate (surfnerd)",
+  "accessNotes": [
+   "\"Parking is easy, with a car park offering both free and paid options.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "The Box - Newport is a sand-bottomed beach break tucked in the lee of the south jetty, where wedging right-handers are the real draw. It throws up both lefts and rights, but the standout is the peeling right that wedges off the jetty, and it's an excellent, popular summer spot.",
+   "surfForecast": "Newport-The Box in Oregon_South is a reasonably exposed beach break that has consistent surf. Summer offers the best conditions for surfing. Offshore winds are from the east with some shelter here from north winds. Windswells and groundswells in equal measure and the best swell direction is from the southwest. The beach breaks peel to the right. The quality of the surf isn't affected by the tide. When it's working here, it can get crowded. Watch out for rips and sharks. Newport-The Box"
+  },
+  "notes": "town: Newport (surfnerd); surf-forecast pin 44.6151,-124.0657 is 1.1 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-tsoo-yess-beach",
+  "name": "Tsoo-Yess Beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tsoo-yess-beach",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellExposure": "SW - NW. Faces W (surfnerd)",
+  "windOffshore": "wind exposure NE - SE. Offshore from E (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Tsoo-Yess Beach is a surf spot in the United States. There aren't detailed conditions on record for this break yet, so check the live forecast for swell, wind, and tide before you make the trip.",
+   "surfForecast": null
+  },
+  "notes": "town: Tsoo-Yess (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-twin-rivers",
+  "name": "Twin Rivers",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/twin-rivers",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Twin_1",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "North (surfnerd: \"Faces N\")",
+  "facingDeg": 0,
+  "swellExposure": "ENE - E. WNW - NW. Faces N (surfnerd)",
+  "idealSwell": "best swell West-northwest (surf-forecast)",
+  "windOffshore": "wind exposure SE - SW. Offshore from S (surfnerd); offshore wind from the South-southeast (surf-forecast)",
+  "tide": "\"S-SE offshore winds are best for this break which works at low to mid tide.\" (surf-forecast)",
+  "waveTypeText": "River (surf-forecast)",
+  "waveDirection": "\"The left is the most surfed break off the western river, it is malibu going left.\" (surf-forecast)",
+  "season": "best time of year for surfing Twin Rivers with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "guideSummary": {
+   "surfnerd": "Twin Rivers is a surf spot in the United States.",
+   "surfForecast": "There are two point/river mouth breaks at Twin Rivers . The best swell direction is west to northwest. The left is the most surfed break off the western river, it is malibu going left. The wave is soft with easy drop-ins and can hold a big swell with rippable forgiving long walls. S-SE offshore winds are best for this break which works at low to mid tide. The right is less surfed and breaks off the east river. It is usually a little smaller than the left but has more energy, breaks faster and is very rippable. S-SW offshores are best and it also works from low-mid tide. Twin Rivers"
+  },
+  "notes": "town: Twin (surfnerd); surf-forecast pin 48.1738,-123.9544 is 1.0 km from the surfnerd pin",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-usw-winchester-bay-south-umpqua-jetty",
+  "name": "Winchester Bay/South Umpqua Jetty",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/winchester-bay-south-umpqua-jetty",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Winchester-Bay",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+  "facingDeg": 292.5,
+  "swellWorkable": {
+   "text": "S - NW. Best from NW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "SSW - N. Faces WNW (surfnerd)",
+  "idealSwell": "best swell from NW (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure ENE - SSE. Offshore from ESE (surfnerd); offshore/best wind from the east with some shelter here from north winds (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The offshore wind direction is east (E), and it works across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide); \"Good surf at all stages of the tide.\" (surf-forecast)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach/jetty (surf-forecast)",
+  "waveDirection": "right (surfnerd); \"The beach breaks are all rights.\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 15.1
+  },
+  "exposure": "exposed beach/Jetty break (surf-forecast)",
+  "hazards": [
+   "\"The jetty doubles as a wind block and lets sand pile up into bars, feeding a reliable, sometimes dredging right that peels away from the rocks in often classic form.\" (surfnerd)",
+   "\"It breaks over sand, and a rip usually runs along the jetty to give you an easy paddle back to the lineup.\" (surfnerd)",
+   "\"You might run into the odd unfriendly local, so grin and bear it, and be aware of a relatively major shark hazard here.\" (surfnerd)",
+   "\"Take care of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Winchesteer Bay/Umpqua Jetty with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "skillLevel": "Intermediate (surfnerd)",
+  "accessNotes": [
+   "\"The beach is public, with a car park offering free parking plus roadside parking.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Winchester Bay/South Umpqua Jetty is a man-made righthander on the south side of the mighty Umpqua River entrance, where an Army Corps rock jetty reaches about 1000 yds (910m) into the Pacific. The jetty doubles as a wind block and lets sand pile up into bars, feeding a reliable, sometimes dredging right that peels away from the rocks in often classic form. It breaks over sand, and a rip usually runs along the jetty to give you an easy paddle back to the lineup.",
+   "surfForecast": "Winchesteer Bay/Umpqua Jetty in Oregon_South is an exposed beach/Jetty break that has dependable surf and can work at any time of the year. Offshore winds are from the east with some shelter here from north winds. Tends to receive a mix of groundswells and windswells and the best swell direction is from the west. The beach breaks are all rights. Good surf at all stages of the tide. Unlikely to be too crowded, even when the surf is up. Take care of rips and sharks. Winchesteer Bay/Umpqua Jetty"
+  },
+  "notes": "town: Winchester Bay (surfnerd); surf-forecast pin 43.6679,-124.2073 is 0.7 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-usw-yachats",
+  "name": "Yachats",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/yachats",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Yachats",
+    "site": "surf-forecast",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "S - NW. Best from W (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd); best swell from the west (surf-forecast)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd); offshore wind from the East (surf-forecast)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The break works through low, mid, and high tide, and a rising tide is generally the better call. The north-end rights and lefts come in best around mid tide.\" (surfnerd guide); \"Best around mid tide.\" (surf-forecast)",
+  "bottom": "Uneven Reef, Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd); Beach and reef (surf-forecast)",
+  "waveDirection": "left, right (surfnerd); \"The beach break offers both left and right hand waves and in addition there are both left and right reef breaks..\" (surf-forecast)",
+  "sizeFt": {
+   "min": 2,
+   "max": 9.8
+  },
+  "exposure": "exposed beach and reef break (surf-forecast)",
+  "hazards": [
+   "\"Beware of rips and sharks.\" (surf-forecast)"
+  ],
+  "season": "best time of year for surfing Yachats with consistent clean waves (rideable swell with light / offshore winds) is during Winter and most often the month of January (surf-forecast)",
+  "accessNotes": [
+   "\"Beach access is through Yachats State Park at the north end.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Yachats sits at the mouth of the river of the same name, a tiny town fronting a stretch that breaks over uneven reef and sand. The north-end reef, reached through Yachats State Park, throws both rights and lefts, and there are good-looking peaks off the north side of the rivermouth too. South of there the coast opens into general beachbreak that takes just about any wind and swell direction.",
+   "surfForecast": "Yachats in Oregon_South is an exposed beach and reef break that has reliable surf and can work at any time of the year. Works best in offshore winds from the east with some shelter here from north winds. Windswells and groundswells in equal measure and the best swell direction is from the west. The beach break offers both left and right hand waves and in addition there are both left and right reef breaks.. Best around mid tide. Rarely crowded here. Beware of rips and sharks. Yachats"
+  },
+  "notes": "town: Yachats (surfnerd); surf-forecast pin 44.3076,-124.1046 is 0.4 km from the surfnerd pin",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-ak-good-rats",
+  "name": "Good Rats",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/good-rats",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "Southwest (surfnerd: \"Faces SW\")",
+  "facingDeg": 225,
+  "swellWorkable": {
+   "text": "SW - W. Best from W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "swellExposure": "SW - WNW. Faces SW (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd)",
+  "tide": "Works at Mid (Best at Mid, Better on rising) (surfnerd characteristics); \"The reef is best on mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "skillLevel": "Intermediate (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Good Rats is a right-hand reef break that peels over uneven reef. It sits well off on its own, a long way from anywhere, so it rewards surfers willing to make the trip out.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-ak-kais-place",
+  "name": "Kai's Place",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kais-place",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SW - W. Best from SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"It can break across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "left (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "hazards": [
+   "\"Kai's Place is a rocky left-hand reef break out near Sitka, sitting under the shadow of Mt Edgecumbe, a snow-covered extinct volcano.\" (surfnerd)"
+  ],
+  "skillLevel": "Expert (surfnerd)",
+  "accessNotes": [
+   "\"Access is by boat, about a one-hour ride from Sitka.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Kai's Place is a rocky left-hand reef break out near Sitka, sitting under the shadow of Mt Edgecumbe, a snow-covered extinct volcano. It's one of the more west-facing setups in the area, peeling left over an uneven reef.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-ak-low-island",
+  "name": "Low Island",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/low-island",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "East-southeast (surfnerd: \"Faces ESE\")",
+  "facingDeg": 112.5,
+  "swellWorkable": {
+   "text": "S - SW. Best from SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "swellExposure": "SSE - SW. Faces ESE (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd)",
+  "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure WSW - NNW. Offshore from WNW (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "skillLevel": "Intermediate (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Low Island is a reef break that peels over uneven lava rock, offering both lefts and rights across three separate peaks. It suits intermediate surfers.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-ak-neva-bay",
+  "name": "Neva Bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/neva-bay",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SW - W. Best from SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "swellExposure": "SSW - NNW. Faces W (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work across low, mid, and high tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "skillLevel": "Expert (surfnerd)",
+  "accessNotes": [
+   "\"Neva Bay sits about a one-hour boat ride from Sitka.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Neva Bay is a right-hand reef that breaks in the shadow of Mt Edgecumbe, a snow-covered extinct volcano. It's one of a handful of west-facing reefs along this stretch, sitting alongside Kai's Place and Red Tree Reef, and the wave peels right over an uneven reef bottom.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-ak-port-mary",
+  "name": "Port Mary",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/port-mary",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "Southwest (surfnerd: \"Faces SW\")",
+  "facingDeg": 225,
+  "swellWorkable": {
+   "text": "SW - W. Best from W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "swellExposure": "SSW - WSW. Faces SW (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd)",
+  "windOffshore": "NE. Offshore from NE (surfnerd workable wind); wind exposure N - E. Offshore from NE (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beach works across low, mid, and high tide, with a rising tide the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 1,
+   "max": 5.9
+  },
+  "skillLevel": "Beginner (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Port Mary is a sandy beachbreak, also known as Shelikof Bay, with waves peeling both left and right over sand. Rights tend to be the pick here. Keep an eye on the Iris Meadow behind the beach, where bears are often feeding.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-ak-red-tree-reef",
+  "name": "Red Tree Reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/red-tree-reef",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West (surfnerd: \"Faces W\")",
+  "facingDeg": 270,
+  "swellWorkable": {
+   "text": "SW - W. Best from SW (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "swellExposure": "S - N. Faces W (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure NE - SE. Offshore from E (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The reef can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "hazards": [
+   "\"It sits under the shadow of Mt Edgecumbe, a snow-covered extinct volcano, and shares the zone with Kai's Place, a rocky left, and Neva Bay, another right-hand reef.\" (surfnerd)"
+  ],
+  "skillLevel": "Expert (surfnerd)",
+  "accessNotes": [
+   "\"Reaching Red Tree Reef means about a one-hour boat ride from Sitka.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Red Tree Reef is a left and right peak that breaks over uneven reef, one of the further west-facing setups out past Sitka. It sits under the shadow of Mt Edgecumbe, a snow-covered extinct volcano, and shares the zone with Kai's Place, a rocky left, and Neva Bay, another right-hand reef.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-ak-sandy-beach-sitka-alaska",
+  "name": "Sandy Beach - Sitka, Alaska",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-sitka-alaska",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-southwest (surfnerd: \"Faces WSW\")",
+  "facingDeg": 247.5,
+  "swellWorkable": {
+   "text": "S - SW. Best from SW (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "swellExposure": "SSW - SW. Faces WSW (surfnerd)",
+  "idealSwell": "best swell from SW (surfnerd)",
+  "windOffshore": "SE. Offshore from SE (surfnerd workable wind); wind exposure NNE - ESE. Offshore from ENE (surfnerd)",
+  "tide": "Works at Low, Mid (surfnerd characteristics); \"The break works on low and mid tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Boulders, Sand (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 1,
+   "max": 4.9
+  },
+  "skillLevel": "Beginner (surfnerd)",
+  "accessNotes": [
+   "\"There's a car park with free parking plus roadside parking, and you'll find camping and a surf shop nearby.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Sandy Beach sits on Baranof Island, part of the barrier that shelters Alaska's Inside Passage. Yakutat and Kodiak get more attention, but this is one of the most accessible places to paddle out in the region and the only Sitka break you can reach by road. It never gets truly world-class, yet its easy access and gentle nature make it a good place to learn.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-ak-sealion-cove",
+  "name": "Sealion Cove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sealion-cove",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "West-northwest (surfnerd: \"Faces WNW\")",
+  "facingDeg": 292.5,
+  "swellWorkable": {
+   "text": "SW - NW. Best from W (surfnerd)",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "swellExposure": "WSW - NW. Faces WNW (surfnerd)",
+  "idealSwell": "best swell from W (surfnerd)",
+  "windOffshore": "E. Offshore from E (surfnerd workable wind); wind exposure ENE - SSE. Offshore from ESE (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The beachbreak can work through most of the tide, with a rising tide generally the better call.\" (surfnerd guide)",
+  "bottom": "Sand (surfnerd)",
+  "waveType": "beach",
+  "waveTypeText": "Beach (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "skillLevel": "Beginner (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Sealion Cove is a beginner-friendly beachbreak that peels both left and right over a sand bottom. It favours the rights, making it an approachable spot to find a wave.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
+ },
+ {
+  "spotId": "w-ak-shoals-point",
+  "name": "Shoals Point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-point",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "South-southeast (surfnerd: \"Faces SSE\")",
+  "facingDeg": 157.5,
+  "swellWorkable": {
+   "text": "S - W. Best from S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "swellExposure": "SSE - SW. WSW. Faces SSE (surfnerd)",
+  "idealSwell": "best swell from S (surfnerd)",
+  "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure WNW - NNE. Offshore from NNW (surfnerd)",
+  "tide": "Works at Low, Mid, High (surfnerd characteristics); \"The point can work through low, mid, and high tide, with a rising tide generally the better window.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "point",
+  "waveTypeText": "Point (surfnerd)",
+  "waveDirection": "right (surfnerd)",
+  "sizeFt": {
+   "min": 2,
+   "max": 7.9
+  },
+  "hazards": [
+   "\"In bigger swells the wave gets treacherous, and the nearby Wall tends to be the better call when the size jumps up.\" (surfnerd)"
+  ],
+  "skillLevel": "Expert (surfnerd)",
+  "guideSummary": {
+   "surfnerd": "Shoals Point is a right-hand point that breaks over uneven reef. The waves at Shoals Reef and Point run over grizzled lava rock, so there is real power on tap and the setup turns sketchy once it gets overhead. This is a spot for experienced surfers only.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null
+ },
+ {
+  "spotId": "w-ak-shoals-reef-wall",
+  "name": "Shoals Reef/Wall",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-reef-wall",
+    "site": "surfnerd",
+    "retrievedOn": "2026-11-09"
+   }
+  ],
+  "facing": "South-southwest (surfnerd: \"Faces SSW\")",
+  "facingDeg": 202.5,
+  "swellWorkable": {
+   "text": "S - W. Best from S (surfnerd)",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "swellExposure": "SSE - SW. WSW. Faces SSW (surfnerd)",
+  "idealSwell": "best swell from S (surfnerd)",
+  "windOffshore": "N. Offshore from N (surfnerd workable wind); wind exposure NNW - ENE. Offshore from NNE (surfnerd)",
+  "tide": "Works at Low, Mid (surfnerd characteristics); \"The wave works on low and mid tide, with mid tide the best of the two and a rising tide generally the better window.\" (surfnerd guide)",
+  "bottom": "Uneven Reef (surfnerd)",
+  "waveType": "reef",
+  "waveTypeText": "Reef (surfnerd)",
+  "waveDirection": "left, right (surfnerd)",
+  "sizeFt": {
+   "min": 3,
+   "max": 15.1
+  },
+  "skillLevel": "Expert (surfnerd)",
+  "accessNotes": [
+   "\"Getting out here means joining the surf shop's boat trips, which handle the crossing to the island.\" (surfnerd)"
+  ],
+  "guideSummary": {
+   "surfnerd": "Shoals Reef/Wall is the premier wave among the southern reefbreaks off South Kruzof Island, reached by boat about 30 minutes from town. It's an offshore lava reef, primarily a right-hander that breaks over uneven rock.",
+   "surfForecast": null
+  },
+  "notes": "town: Sitka (surfnerd); no surf-forecast page matched within 6 km by name",
+  "minimumPeriodS": null,
+  "hazards": []
  }
 ]

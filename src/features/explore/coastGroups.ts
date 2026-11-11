@@ -8,6 +8,7 @@ export const COAST_MAX_ZOOM = 7;
 
 /** Coasts above the zones (ZONES, north to south), then the seaboards. Our own grouping for the map; every zone belongs to exactly one coast. */
 export const COASTS: [string, string[]][] = [
+  ['Alaska', ['Alaska · Sitka']],
   ['Pacific Northwest', ['Washington Coast', 'Oregon North Coast', 'Oregon South Coast']],
   ['Northern California', ['North Coast', 'Bay Area']],
   ['Central California', ['Santa Cruz & Monterey', 'Central Coast']],
@@ -23,7 +24,7 @@ export const COASTS: [string, string[]][] = [
 const MAP_ZONE: Record<string, string> = {Kauai: 'Hawaii · Kauai & Niihau', Niihau: 'Hawaii · Kauai & Niihau', Maui: 'Hawaii · Maui, Molokai & Lanai', Molokai: 'Hawaii · Maui, Molokai & Lanai', Lanai: 'Hawaii · Maui, Molokai & Lanai'};
 export const mapZoneOf = (region: string) => MAP_ZONE[region] ?? zoneOf(region);
 export const SEABOARDS: [string, string[]][] = [
-  ['West Coast', ['Pacific Northwest', 'Northern California', 'Central California', 'Southern California']],
+  ['West Coast', ['Alaska', 'Pacific Northwest', 'Northern California', 'Central California', 'Southern California']],
   ['Hawaii', ['Hawaii']],
   ['East Coast', ['New England', 'Mid-Atlantic', 'Southeast', 'Florida']],
 ];

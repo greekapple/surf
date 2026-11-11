@@ -337,6 +337,6 @@ test('buoys with no realtime `.spec` file are not offered to any spot; a score r
   assert.ok(spotPicks().every((p) => !p.choice.ok || !NO_SPEC_FILE.has(p.choice.pick.buoy.id)));
   const clock = {t: T0}, r2 = fakeR2(), job = makeJob(clock, r2, []); let rep: any, n = 0;
   do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12);
-  const again = await job.score({BUCKET: r2.bucket}) as any; for (let i = 0; i < 5 && again.step === 'score-stage'; i++) Object.assign(again, await job.score({BUCKET: r2.bucket}));
+  const again = await job.score({BUCKET: r2.bucket}) as any; for (let i = 0; i < 12 && again.step === 'score-stage'; i++) Object.assign(again, await job.score({BUCKET: r2.bucket}));
   assert.equal(again.ok, true); assert.equal(again.spots, N);
 }, {timeout: 120000});

@@ -55,7 +55,19 @@ if (world && regionFilter) list = list.filter((r) => regionFilter.some((n) => St
 /** A world row without a break type: derived from the guide's own wave-type words (never guessed beyond them): a point or a reef only when the guide says so and does not also call it a beach, a beach when it says beach, pier or jetty, and NULL (shown nowhere) when the guide states no wave type. */
 const worldType = (r: any): 'Beach' | 'Point' | 'Reef' | null => { const w = String(r.facts?.waveType ?? '').toLowerCase(); if (!w || /not stated/.test(w)) return null; return /point/.test(w) ? 'Point' : /reef/.test(w) && !/beach/.test(w) ? 'Reef' : 'Beach'; };
 /** US East: the file's region is the state; the long coasts are split into the areas a surfer names, by latitude (navigation groups only; the spot facts are unchanged). */
+/** Pacific Northwest and Alaska (round 4, batch 2): the catalogue's region is "<State>, <census place>"; the app groups the coast by county (as cs-neah-bay = Clallam, cs-seaside-or = Clatsop), so a row's region is the county of its latitude on the coast
+ *  (county lines at the coast, south to north: a navigation grouping only, the spot facts are unchanged). Sitka rows (America/Anchorage) stay "Sitka"; Fort Ebey (Whidbey Island, inside Puget Sound's entrance) is Island County. */
+const OR_COUNTIES: [number, string][] = [[45.8, 'Clatsop'], [45.06, 'Tillamook'], [44.25, 'Lincoln'], [43.9, 'Lane'], [43.57, 'Douglas'], [42.97, 'Coos'], [-90, 'Curry']];
+const WA_COUNTIES: [number, string][] = [[47.85, 'Clallam'], [47.54, 'Jefferson'], [46.78, 'Grays Harbor'], [-90, 'Pacific']];
+const northwestRegion = (r: any, region: string): string | null => {
+  if (r.timeZone === 'America/Anchorage' && /^Alaska,/.test(String(r.region))) return String(r.region).replace(/^Alaska,\s*/, '');
+  if (r.timeZone !== 'America/Los_Angeles') return null;
+  if (/^Oregon,/.test(String(r.region))) return OR_COUNTIES.find(([min]) => r.lat >= min)![1];
+  if (/^Washington,/.test(String(r.region))) return r.lon > -123.2 && r.lat > 48.0 ? 'Island' : WA_COUNTIES.find(([min]) => r.lat >= min)![1];
+  return null;
+};
 const eastRegion = (r: any, region: string): string => {
+  { const nw = northwestRegion(r, region); if (nw) return nw; }
   if (r.country !== 'United States' || r.timeZone !== 'America/New_York') return region;
   if (region === 'Florida') return r.lat >= 29.4 ? 'Northeast Florida' : r.lat >= 27.45 ? 'Space Coast' : r.lat >= 26.9 ? 'Treasure Coast' : 'Southeast Florida';
   if (region === 'North Carolina') return r.lat >= 35.0 ? 'Outer Banks' : 'Southern North Carolina';
@@ -105,6 +117,18 @@ if (want('rows')) {
   const {MARINE_POINT_OVERRIDES} = await import('../../../src/data/marinePoints.ts'), {pointOnLand} = await import('../../../src/map/landCheck.ts');
   const landPoints = all.filter(([id, , , , lat, lon, sea]) => { const m = MARINE_POINT_OVERRIDES[id] ?? mp(lat, lon, sea); return pointOnLand(m.lat, m.lon); }).map((r) => r[0]);
   if (landPoints.length) throw new Error(`marine query point on land for ${landPoints.slice(0, 12).join(', ')}${landPoints.length > 12 ? ` (+${landPoints.length - 12})` : ''}: add an explicit sea point with a reason to src/data/marinePoints.ts`);
+  // The land polygons are coarse north of 43.5 N (Natural Earth 50 m: Sitka's islands and shoals): for the rows of THIS run the marine point must also be DEEP water in NOAA ETOPO 2022 (15 arc-second, ~460 m cells, via the public coastwatch ERDDAP): shallower than 10 m is a shoal, a reef flat or land and fails like a land point.
+  if (!NO_NET) {
+    const shallow: string[] = []; let checked = 0, shallowest = -Infinity;
+    for (const r of rows) {
+      const m = MARINE_POINT_OVERRIDES[r[0]] ?? mp(r[4], r[5], r[6]); let z: number | null = null;
+      for (let k = 0; k < 3 && z === null; k++) { try { const res = await fetch(`https://coastwatch.pfeg.noaa.gov/erddap/griddap/ETOPO_2022_v1_15s.csv?z%5B(${m.lat.toFixed(4)})%5D%5B(${m.lon.toFixed(4)})%5D`, {signal: AbortSignal.timeout(30000)}); if (res.ok) { const v = Number((await res.text()).trim().split('\n').pop()!.split(',').pop()); if (Number.isFinite(v)) z = v; } } catch { /* retry */ } await new Promise((x) => setTimeout(x, 400)); }
+      if (z !== null) { checked++; shallowest = Math.max(shallowest, z); }
+      if (z !== null && z > -10) shallow.push(`${r[0]} (${z} m at ${m.lat}, ${m.lon})`);
+    }
+    console.log(`etopo: ${checked} of ${rows.length} marine points have a depth; the shallowest is ${shallowest} m`);
+    if (shallow.length) throw new Error(`marine query point shallower than 10 m in ETOPO (a shoal, reef flat or land) for ${shallow.join('; ')}: move it seaward with a reason in src/data/marinePoints.ts`);
+  }
   const lit = '[' + all.map(([id, , , , lat, lon, sea]) => { const m = MARINE_POINT_OVERRIDES[id] ?? mp(lat, lon, sea); return `{id:'${id}',lat:${lat},lon:${lon},mlat:${m.lat},mlon:${m.lon}}`; }).join(',') + ']';
   let s = read(SERVICE); const a = s.indexOf('export const coastServiceSpots='), b = s.indexOf(';', a); s = s.slice(0, a) + 'export const coastServiceSpots=' + lit + s.slice(b);
   write(SERVICE, s);

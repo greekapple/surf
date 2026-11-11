@@ -56,6 +56,17 @@ const EXTRA: ScoringBuoy[] = [
   {id: '46266', name: 'Del Mar Nearshore, CA', lat: 32.957, lon: -117.279, sheltered: false},
   {id: 'LJPC1', name: 'La Jolla, CA', lat: 32.867, lon: -117.257, sheltered: false},
   {id: '46232', name: 'Point Loma South, CA', lat: 32.517, lon: -117.425, sheltered: false},
+  // US West batch 2 (2026-11-10): the live wave buoys within 50 km of the Oregon, Washington and Sitka spots; each has a realtime2 `.spec` file (checked)
+  {id: '46084', name: 'CAPE EDGECUMBE - 25NM SSW of Cape Edgecumbe, AK', lat: 56.614, lon: -136.04, sheltered: false},
+  {id: '46087', name: 'Neah Bay - 6 NM North of Cape Flattery, WA (Traffic Separation Lighted Buoy)', lat: 48.493, lon: -124.727, sheltered: false},
+  {id: '46088', name: 'NEW DUNGENESS - 17 NM NE of Port Angeles, WA', lat: 48.332, lon: -123.179, sheltered: true, why: 'inside the Strait of Juan de Fuca (New Dungeness)'},
+  {id: '46267', name: 'Angeles Point, WA', lat: 48.171, lon: -123.6, sheltered: true, why: 'inside the Strait of Juan de Fuca (Angeles Point, Port Angeles)'},
+  {id: '46211', name: 'Grays Harbor, WA', lat: 46.857, lon: -124.243, sheltered: false},
+  {id: '46243', name: 'Clatsop Spit, OR', lat: 46.215, lon: -124.129, sheltered: false},
+  {id: '46278', name: 'Tillamook Bay South Jetty, OR', lat: 45.559, lon: -123.991, sheltered: false},
+  {id: '46050', name: 'STONEWALL BANK - 20NM West of Newport, OR', lat: 44.679, lon: -124.535, sheltered: false},
+  {id: '46229', name: 'UMPQUA OFFSHORE, OR', lat: 43.772, lon: -124.549, sheltered: false},
+  {id: '46015', name: 'PORT ORFORD - 15 NM West of Port Orford, OR', lat: 42.754, lon: -124.839, sheltered: false},
 ];
 /** The CDIP ids of context buoys that are the same instrument as an NDBC buoy in the list: scored through the NDBC feed (it has the swell split). */
 const TWINS = new Set(['029p1', '098p1', '106p1']);

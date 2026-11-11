@@ -499,6 +499,55 @@ export const NWS_ZONE: Record<string, string | null> = {
   'w-hawaii-kaalualu-point': "HIZ052",
   'w-hawaii-kahuku-ranch': "HIZ052", // resolved 0.8 km inland: the beach point is in marine zone PHZ123
   'w-hawaii-south-point': "HIZ052", // resolved 0.8 km inland: the beach point is in marine zone PHZ123
+  'w-usw-cape-flattery': "WAZ330", // resolved 0.8 km inland: the beach point is in marine zone PZZ150
+  'w-usw-tsoo-yess-beach': "WAZ330", // resolved 0.8 km inland: the beach point is in marine zone PZZ150
+  'w-usw-shi-shi-beach': "WAZ330", // resolved 0.8 km inland: the beach point is in marine zone PZZ150
+  'w-usw-fort-ebey': "WAZ333", // resolved 0.8 km inland: the beach point is in marine zone PZZ132
+  'w-usw-twin-rivers': "WAZ326",
+  'w-usw-crescent-beach': "WAZ326",
+  'w-usw-rialto-beach': "WAZ330", // resolved 0.8 km inland: the beach point is in marine zone PZZ150
+  'w-usw-ruby-beach': "WAZ330",
+  'w-usw-point-grenville': "WAZ331", // resolved 0.8 km inland: the beach point is in marine zone PZZ156
+  'w-usw-seabrook-beach': "WAZ331", // resolved 0.8 km inland: the beach point is in marine zone PZZ156
+  'w-usw-ocean-shores': "WAZ331", // resolved 0.8 km inland: the beach point is in marine zone PZZ156
+  'w-usw-damon-point': "WAZ331", // resolved 0.8 km inland: the beach point is in marine zone PZZ110
+  'w-usw-long-beach-peninsula': "WAZ201", // resolved 2 km inland: the beach point is in marine zone PZZ251
+  'w-usw-cape-disappointment-state-park': "WAZ201", // resolved 0.8 km inland: the beach point is in marine zone PZZ251
+  'w-usw-indian-state-beach-ecola-state-park': "ORZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ251
+  'w-usw-manzanita-neahkahnie': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-manzanita': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-rockaway-beach': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-short-beach': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-cape-lookout': "ORZ102", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-roads-end': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-d-river-lincoln-city': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-canyons-lincoln-city': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-lincoln-city': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-nelscott-lincoln-city': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ252
+  'w-usw-beverly-beach': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'w-usw-moolack': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'w-usw-north-agate-newport': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'w-usw-newport': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'w-usw-the-box-newport': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'w-usw-south-beach-newport': "ORZ103", // resolved 0.8 km inland: the beach point is in marine zone PZZ253
+  'w-usw-yachats': "ORZ103", // resolved 2 km inland: the beach point is in marine zone PZZ253
+  'w-usw-winchester-bay-south-umpqua-jetty': "ORZ021", // resolved 0.8 km inland: the beach point is in marine zone PZZ350
+  'w-usw-port-orford': "ORZ021", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-frankport': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-nesika-beach': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-cape-sebastian': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-rainbow-rocks': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-usw-state-line': "ORZ022", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
+  'w-ak-good-rats': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ643
+  'w-ak-sealion-cove': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ643
+  'w-ak-port-mary': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ643
+  'w-ak-sandy-beach-sitka-alaska': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ642
+  'w-ak-kais-place': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ643
+  'w-ak-red-tree-reef': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ643
+  'w-ak-neva-bay': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ643
+  'w-ak-shoals-point': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ642
+  'w-ak-shoals-reef-wall': "AKZ323", // resolved 0.8 km inland: the beach point is in marine zone PKZ642
+  'w-ak-low-island': "AKZ323", // resolved 2 km inland: the beach point is in marine zone PKZ642
   'w-usw-pelican-state-beach': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
   'w-usw-point-st-george': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ356
   'w-usw-garths-reef': "CAZ101", // resolved 0.8 km inland: the beach point is in marine zone PZZ450

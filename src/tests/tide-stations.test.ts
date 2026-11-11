@@ -92,7 +92,7 @@ test('OR/WA review: reviewed overrides beat the words, one station per spot near
   const spot = (n: string) => evidenceSpots.find((s) => s.name === n)!, id = (n: string) => tideStationFor(spot(n))?.station.id;
   assert.equal(id('Short Sands'), '9437585', 'Short Sands: North Jetty, Tillamook Bay, not Nehalem'); assert.equal(id('Cannon Beach'), 'TWC0881'); assert.notEqual(id('Cannon Beach'), '9437908');
   assert.equal(id('Agate Beach'), '9435380', 'Newport: the active South Beach station, not the 1982 USCG one'); assert.equal(id('Otter Rock'), '9435380');
-  assert.equal(id('Bastendorff Beach'), '9432436', 'Charleston is dropped because an open-coast station (Coquille River entrance) is within 40 km');
+  assert.equal(id('Bastendorff Beach'), '9432780', 'Charleston (2 km) is OPEN on 7-day timing (+17 min from Port Orford, range 1.03, the coast\'s own progression), which reverses the 2026-11-09 review that closed it; the Coquille River entrance (25 km) is the one that lags 148 min with a 0.73 range, so it is closed-if-alternative'); assert.equal(tideStationExposure('Rink Creek Entrance, Coquille River', '9432436').exposure, 'closed-if-alternative'); assert.equal(tideStationExposure('CHARLESTON', '9432780').exposure, 'open'); assert.match(tideStationExposure('CHARLESTON', '9432780').why, /17 min/);
   // Charleston is kept when it is the only choice
   const lone = [{id: '9432780', name: 'CHARLESTON', lat: 43.345, lon: -124.322}, {id: 'x', name: 'Empire', lat: 43.38, lon: -124.3}]; assert.equal(pickTideStation(43.347, -124.347, [lone[0]])!.station.id, '9432780', 'kept: no open alternative in range');
   // one station per spot: Bolinas and Stinson use the SF regional reference (their hourly series), spots with a local station keep it, and SF is not used beyond 40 km
@@ -117,4 +117,13 @@ test('3C: Honolulu, Waimanalo and Pearl Harbor Entrance are reviewed open from 7
   for (const id of ['1612340', '1612376', '1612366']) { const e = tideStationExposure('x', id); assert.equal(e.exposure, 'open'); assert.match(e.why, /7-day mean offset/); }
   assert.equal(tideStationForSpot(21.2879, -157.6663)!.station.name, 'Waimanalo');   // Sandy Beach
   assert.equal(tideStationForSpot(21.2766, -157.8275)!.station.name, 'HONOLULU');   // Waikiki
+});
+
+test('Strait and Admiralty Inlet fallbacks say what they are, not "the open beach"; Cape Disappointment is reviewed open from 7-day timing', async () => {
+  const {tideStationFor, tideStationExposure, fallbackLabel, fallbackDetail} = await import('../ocean/tideStations.ts'), {evidenceSpots} = await import('../ocean/spots.ts');
+  const twin = tideStationFor(evidenceSpots.find((s) => s.id === 'w-usw-crescent-beach')!)!, ebey = tideStationFor(evidenceSpots.find((s) => s.id === 'w-usw-fort-ebey')!)!;
+  assert.equal(twin.station.id, '9443644'); assert.equal(twin.fallback, true); assert.equal(twin.fallbackLabel, 'Strait station'); assert.match(twin.fallbackDetail!, /about 1 h behind the outer coast/);
+  assert.equal(ebey.station.id, '9447934'); assert.equal(ebey.fallbackLabel, 'Admiralty Inlet station'); assert.match(ebey.fallbackDetail!, /hours behind the outer coast/);
+  assert.equal(fallbackLabel('9443644'), 'Strait station'); assert.equal(fallbackLabel('9432436'), 'Inlet or bay-side station'); assert.equal(fallbackDetail('9432436'), undefined);
+  assert.equal(tideStationExposure('Cape Disappointment', '9440581').exposure, 'open'); assert.match(tideStationExposure('Cape Disappointment', '9440581').why, /26 min \(sd 6\).*0\.96/);
 });

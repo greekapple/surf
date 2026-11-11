@@ -1,0 +1,10 @@
+[
+ {
+  "id": "w-usw-coos-bay-bastendorff-beach",
+  "name": "Coos Bay-Bastendorff Beach",
+  "keptId": "cs-bastendorff",
+  "keptName": "Bastendorff Beach",
+  "km": 1.1,
+  "reason": "the same beach as the app spot \"Bastendorff Beach\" (1.1 km apart; the catalogue's rule drops only within 1 km)"
+ }
+]

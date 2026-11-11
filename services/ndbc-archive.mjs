@@ -7,11 +7,13 @@
 // Rows are NDBC's lines byte for byte (header lines kept). A day slice is the lines whose `YY MM DD` columns match. Writes are idempotent: a rerun overwrites the same key with the same bytes.
 // Its own invocation and its own subrequest budget (worker/cloudflare.mjs: a separate cron trigger, never the 5-minute refresh).
 
-/** The buoys archived (73): the NDBC-hosted union of the split audit, the HI/East audit (minus 46656) and the app's context buoys. A test keeps every NDBC context buoy in it. */
+/** The buoys archived (83): the NDBC-hosted union of the split audit, the HI/East audit (minus 46656) and the app's context buoys. A test keeps every NDBC context buoy in it. */
 export const ARCHIVE_BUOYS = [
   '46012', '46026', '46214', '46221', '46235', '46236', '46237', '46254', '46275',
   '51201', '51202', '51207', '51210', '51211', '51212',
   '41024', '41025', '41029', '41033', '41038', '41065', '41066', '41067', '41068', '41069', '41070', '41076', '41108', '41110', '41112', '41113', '41114', '41117', '41120', '41122', '41159',
+  // US West batch 2 (2026-11-10): the 10 Oregon, Washington and Sitka buoys (each has a realtime2 .spec)
+  '46084', '46087', '46088', '46267', '46211', '46243', '46278', '46050', '46229', '46015',
   // US West round 4 (2026-11-10): the 19 California context / scoring buoys added with the west-ca batch (each has a realtime2 .spec)
   '46014', '46025', '46028', '46042', '46053', '46215', '46218', '46222', '46232', '46244', '46253', '46256', '46266', '46268', '46274', '46277', '46285', '46286', 'LJPC1',
   '44013', '44022', '44025', '44029', '44056', '44064', '44065', '44069', '44085', '44086', '44087', '44090', '44091', '44095', '44097', '44098', '44099', '44100',

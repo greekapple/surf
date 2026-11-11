@@ -37,7 +37,14 @@ test('every spot region belongs to a browsing zone (no spot sits under "Other"),
   const lost = evidenceSpots.filter((e) => zoneOf(e.region) === 'Other').map((e) => `${e.name} (${e.region})`);
   assert.deepEqual(lost, [], 'spots whose county is in no zone: ' + lost.join(', '));
   assert.equal(stateOfZone(zoneOf('Clatsop')), 'Oregon'); assert.equal(stateOfZone(zoneOf('Grays Harbor')), 'Washington'); assert.equal(stateOfZone(zoneOf('Curry')), 'Oregon'); assert.equal(stateOfZone(zoneOf('San Diego')), 'California'); assert.equal(stateOfZone(zoneOf('Marin')), 'California');
-  assert.deepEqual(ZONES.map(([z]) => z).slice(0, 3), ['Washington Coast', 'Oregon North Coast', 'Oregon South Coast'], 'north to south');
+  assert.deepEqual(ZONES.map(([z]) => z).slice(0, 4), ['Alaska · Sitka', 'Washington Coast', 'Oregon North Coast', 'Oregon South Coast'], 'north to south'); assert.equal(stateOfZone(zoneOf('Sitka')), 'Alaska'); assert.equal(zoneOf('Island'), 'Washington Coast'); assert.equal(zoneOf('Douglas'), 'Oregon South Coast');
+});
+
+test('no spot asks the marine model for a point on land: every marine point is sea (Natural Earth land polygons), and the explicit ones carry a reason', async () => {
+  const {pointOnLand} = await import('../map/landCheck.ts'), {MARINE_POINT_OVERRIDES} = await import('../data/marinePoints.ts'), {evidenceSpots} = await import('../ocean/spots.ts');
+  assert.equal(pointOnLand(37.85, -122.5), true, 'the Marin Headlands are land'); assert.equal(pointOnLand(37.75, -122.6), false, 'off Ocean Beach is sea'); assert.equal(pointOnLand(45.976, -123.947), true, 'Seaside beach point'); assert.equal(pointOnLand(21.5, -158.0), true, 'Oahu (Wahiawa)'); assert.equal(pointOnLand(21.3, -157.5 - 5), false);
+  const land = evidenceSpots.filter((s) => pointOnLand(s.marineLatitude, s.marineLongitude)).map((s) => s.id); assert.deepEqual(land, [], 'spots whose marine query point is on land');
+  for (const [id, o] of Object.entries(MARINE_POINT_OVERRIDES)) { assert.ok(o.reason.length > 40, id); const s = evidenceSpots.find((x) => x.id === id)!; assert.ok(s, id + ' exists'); assert.equal(s.marineLatitude, o.lat); assert.equal(s.marineLongitude, o.lon); }
 });
 
 test('no spot asks the marine model for a point on land: every marine point is sea (Natural Earth land polygons), and the explicit ones carry a reason', async () => {

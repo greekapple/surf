@@ -36,8 +36,8 @@ function fakeNdbc(files: (id: string, kind: 'spec' | 'data_spec') => string | nu
 const make = (n: {fetcher: typeof fetch}, now: () => number, extra: object = {}) => createNdbcArchive({fetcher: n.fetcher, now, sleep: async () => {}, ...extra});
 const gzKeys = (store: Map<string, unknown>) => [...store.keys()].filter((k) => k.endsWith('.gz')).sort();
 
-test('the 73 archived buoys: unique 5-character NDBC ids, every NDBC context buoy of the app is in the list, CDIP-only ids are not', () => {
-  assert.equal(ARCHIVE_BUOYS.length, 73); assert.equal(new Set(ARCHIVE_BUOYS).size, 73);
+test('the 83 archived buoys: unique 5-character NDBC ids, every NDBC context buoy of the app is in the list, CDIP-only ids are not', () => {
+  assert.equal(ARCHIVE_BUOYS.length, 83); assert.equal(new Set(ARCHIVE_BUOYS).size, 83);
   for (const id of ARCHIVE_BUOYS) assert.match(id, /^((41|44|46|51)\d{3}|LJPC1)$/);
   const missing = contextBuoys.filter((b) => b.provider === 'NDBC' && !ARCHIVE_BUOYS.includes(b.id)).map((b) => b.id);
   assert.deepEqual(missing, [], 'an NDBC context buoy of the app is not archived');
@@ -123,7 +123,7 @@ test('a failed R2 write is recorded and the cursor still moves', async () => {
   assert.equal(rep.failures, 2); assert.ok(!gzKeys(r2.store).some((k) => k.includes('2026-11-08'))); assert.ok(gzKeys(r2.store).some((k) => k.includes('2026-11-09')));
   assert.equal(JSON.parse(r2.store.get(ARCHIVE_KEYS.cursor) as string).lastDay, '2026-11-09');
 });
-test('the cursor: a 73-buoy 45-day backfill resumes across invocations, every invocation stays under the 800-subrequest budget, then it switches to the daily mode', async () => {
+test('the cursor: a 83-buoy 45-day backfill resumes across invocations, every invocation stays under the 800-subrequest budget, then it switches to the daily mode', async () => {
   const r2 = fakeR2(), n = fakeNdbc((id, k) => synth(k, NOW)); let clock = NOW; const a = make(n, () => clock);
   const runs: any[] = [], used: number[] = [];
   for (let i = 0; i < 12 && !runs.at(-1)?.backfill?.startsWith?.('done'); i++) {
@@ -132,18 +132,18 @@ test('the cursor: a 73-buoy 45-day backfill resumes across invocations, every in
   }
   assert.equal(runs.at(-1).backfill, 'done'); assert.ok(runs.length >= 9 && runs.length <= 11, `${runs.length} invocations`);
   assert.deepEqual(runs.map((r) => r.mode), runs.map(() => 'backfill'));
-  const cur = JSON.parse(r2.store.get(ARCHIVE_KEYS.cursor) as string); assert.equal(cur.backfill.done, true); assert.equal(cur.backfill.next, 73); assert.equal(cur.lastDay, '2026-11-09');
+  const cur = JSON.parse(r2.store.get(ARCHIVE_KEYS.cursor) as string); assert.equal(cur.backfill.done, true); assert.equal(cur.backfill.next, 83); assert.equal(cur.lastDay, '2026-11-09');
   // every buoy has every one of the 45 complete days, for both files
-  const keys = gzKeys(r2.store); assert.equal(keys.length, 73 * 2 * BACKFILL_DAYS);
+  const keys = gzKeys(r2.store); assert.equal(keys.length, 83 * 2 * BACKFILL_DAYS);
   for (const id of ARCHIVE_BUOYS) assert.equal(keys.filter((k) => k.includes('/spec/' + id + '/')).length, BACKFILL_DAYS);
   // the cursor never skips or repeats a buoy: the fetch log of the runs covers each buoy once
   const seen = new Map<string, number>(); for (const m of Object.values(JSON.parse(r2.store.get(ARCHIVE_KEYS.manifest('2026-11-10')) as string).runs) as any[]) for (const e of m.entries) if (e.kind === 'spec') seen.set(e.buoy, (seen.get(e.buoy) ?? 0) + 1);
-  assert.equal(seen.size, 73); assert.ok([...seen.values()].every((c) => c === 1));
-  // finished: an extra tick is a one-read no-op; the next day's tick is the daily mode over all 73 buoys with its own budget
+  assert.equal(seen.size, 83); assert.ok([...seen.values()].every((c) => c === 1));
+  // finished: an extra tick is a one-read no-op; the next day's tick is the daily mode over all 83 buoys with its own budget
   r2.ops.gets = 0; r2.ops.puts = 0; n.log.length = 0; const noop = await a.run({BUCKET: r2.bucket}, {backfillOnly: true}); assert.equal(noop.mode, 'noop'); assert.equal(r2.ops.gets + r2.ops.puts + n.log.length, 1);
   clock = NOW + DAY; r2.ops.gets = 0; r2.ops.puts = 0; n.log.length = 0;
-  const d = await a.run({BUCKET: r2.bucket}); assert.equal(d.mode, 'daily'); assert.equal(d.buoys, 73);
-  const ops = n.log.length + r2.ops.gets + r2.ops.puts; assert.ok(ops <= ARCHIVE_BUDGET, `${ops} daily operations`); assert.equal(n.log.length, 146);
+  const d = await a.run({BUCKET: r2.bucket}); assert.equal(d.mode, 'daily'); assert.equal(d.buoys, 83);
+  const ops = n.log.length + r2.ops.gets + r2.ops.puts; assert.ok(ops <= ARCHIVE_BUDGET, `${ops} daily operations`); assert.equal(n.log.length, 166);
   if (process.env.SHOW) console.log(`backfill: ${runs.length} invocations, per-invocation operations ${used.join(', ')}; daily run ${ops} operations (${n.log.length} GETs)`);
 });
 test('the daily run on the second day takes the new day and rewrites the others unchanged (partial days are completed by the next run)', async () => {

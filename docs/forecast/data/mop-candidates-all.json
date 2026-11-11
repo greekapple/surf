@@ -9276,6 +9276,152 @@
    "lon": -121.805,
    "nearest": [],
    "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-rainbow-rocks",
+   "name": "Rainbow Rocks",
+   "lat": 42.082,
+   "lon": -124.327,
+   "nearest": [
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 12.65
+    },
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 12.96
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 13.05
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 13.06
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 13.16
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 13.66
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 14.06
+    },
+    {
+     "id": "DN364",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 258.48,
+     "distanceKm": 14.16
+    }
+   ],
+   "retrievedOn": "2026-11-10"
+  },
+  {
+   "id": "w-usw-state-line",
+   "name": "State Line",
+   "lat": 42.002,
+   "lon": -124.217,
+   "nearest": [
+    {
+     "id": "DN372",
+     "lat": 41.99295,
+     "lon": -124.22573,
+     "depthM": 15.01,
+     "shoreNormalDeg": 250.99,
+     "distanceKm": 1.24
+    },
+    {
+     "id": "DN371",
+     "lat": 41.99237,
+     "lon": -124.22506,
+     "depthM": 15.01,
+     "shoreNormalDeg": 256.25,
+     "distanceKm": 1.26
+    },
+    {
+     "id": "DN370",
+     "lat": 41.99227,
+     "lon": -124.22501,
+     "depthM": 15.01,
+     "shoreNormalDeg": 264.51,
+     "distanceKm": 1.27
+    },
+    {
+     "id": "DN369",
+     "lat": 41.99086,
+     "lon": -124.22527,
+     "depthM": 15,
+     "shoreNormalDeg": 266.48,
+     "distanceKm": 1.41
+    },
+    {
+     "id": "DN368",
+     "lat": 41.98679,
+     "lon": -124.22255,
+     "depthM": 15.01,
+     "shoreNormalDeg": 253.48,
+     "distanceKm": 1.75
+    },
+    {
+     "id": "DN373",
+     "lat": 41.99168,
+     "lon": -124.2338,
+     "depthM": 15.02,
+     "shoreNormalDeg": 247.99,
+     "distanceKm": 1.8
+    },
+    {
+     "id": "DN367",
+     "lat": 41.98229,
+     "lon": -124.22238,
+     "depthM": 15,
+     "shoreNormalDeg": 240.99,
+     "distanceKm": 2.24
+    },
+    {
+     "id": "DN363",
+     "lat": 41.98093,
+     "lon": -124.22272,
+     "depthM": 15,
+     "shoreNormalDeg": 266.26,
+     "distanceKm": 2.39
+    }
+   ],
+   "retrievedOn": "2026-11-10"
   }
  ]
 }

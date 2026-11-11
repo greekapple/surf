@@ -1,8 +1,9 @@
 /** Coast zones, north to south, for browsing and comparing spots by place (Zone › County › Spot). */
 export const ZONES: [string, string[]][] = [
-  ['Washington Coast', ['Clallam', 'Grays Harbor', 'Pacific']],
+  ['Alaska · Sitka', ['Sitka']],
+  ['Washington Coast', ['Clallam', 'Jefferson', 'Island', 'Grays Harbor', 'Pacific']],
   ['Oregon North Coast', ['Clatsop', 'Tillamook', 'Lincoln']],
-  ['Oregon South Coast', ['Lane', 'Coos', 'Curry']],
+  ['Oregon South Coast', ['Douglas', 'Lane', 'Coos', 'Curry']],
   ['North Coast', ['Del Norte', 'Humboldt', 'Mendocino', 'Sonoma']],
   ['Bay Area', ['Marin', 'San Francisco', 'San Mateo']],
   ['Santa Cruz & Monterey', ['Santa Cruz', 'Monterey', 'Big Sur']],
@@ -30,5 +31,5 @@ export const ZONES: [string, string[]][] = [
 ];
 /** The state of a zone, for the breadcrumb (Zone › County › Spot sits under a state, not always California). */
 const EAST_STATES = ['Maine', 'New Hampshire', 'Massachusetts', 'Rhode Island', 'New York', 'New Jersey', 'Delaware', 'Maryland', 'Virginia', 'North Carolina', 'South Carolina', 'Georgia', 'Florida'];
-export const stateOfZone = (zone: string) => (zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : zone.startsWith('Hawaii') ? 'Hawaii' : EAST_STATES.includes(zone) ? zone : 'California');
+export const stateOfZone = (zone: string) => (zone.startsWith('Alaska') ? 'Alaska' : zone.startsWith('Washington') ? 'Washington' : zone.startsWith('Oregon') ? 'Oregon' : zone.startsWith('Hawaii') ? 'Hawaii' : EAST_STATES.includes(zone) ? zone : 'California');
 export const zoneOf = (region: string) => ZONES.find(([, rs]) => rs.includes(region))?.[0] ?? 'Other';
