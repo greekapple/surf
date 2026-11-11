@@ -51,13 +51,13 @@
   },
   "hdontap": {
    "embed": {
-    "value": "unknown",
-    "clause": "No public terms of use found: hdontap.com links only /privacy-policy/, and /terms, /terms-of-use, /legal, /tos return 404 (checked 2026-11-09). The help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only. HDOnTap says it does not offer free third-party embedding and will not whitelist external domains (paid licensing only).",
     "url": "https://help.hdontap.com/?p=516"
    },
    "analysis": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no frame analysis.",
     "url": null
    },
    "notes": "Embed codes and snapshot proxies are features for HDOnTap customers (camera owners) via portal.hdontap.com; no third-party embed or partner programme found. Contact: https://sales.hdontap.com/contact-us/"
@@ -2684,13 +2684,13 @@
    "viewsSurfEvidence": "Owner: 'fixed 4K Ultra HD camera ... looks northwest across landscaped grounds, trees, the beach, and Monterey Bay.'",
    "streamType": "iframe",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "HDOnTap host terms (see hostTermsRef hdontap); page publishes an embedUrl in its JSON-LD but no licence to embed.",
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
     "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "licence": "unknown",
@@ -2904,13 +2904,13 @@
    "viewsSurfEvidence": "Owner: 'looking southwest over the Pacific Ocean. The fixed HD webcam captures ... the pristine beach below, and the dramatic waves crashing against the shore' (Carmel Highlands, ~6 km south of Carmel Beach).",
    "streamType": "iframe",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "HDOnTap host terms (hostTermsRef hdontap).",
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
     "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "licence": "unknown",
@@ -3196,13 +3196,13 @@
    "viewsSurfEvidence": "Owner page: \"live views of Hermosa Beach North of the Pier ... Watch the surf\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3253,13 +3253,13 @@
    "viewsSurfEvidence": "Owner page: \"Watch live views of Hermosa Beach South of the Pier, surf, and sunsets\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3310,13 +3310,13 @@
    "viewsSurfEvidence": "Owner page: \"Watch real-time surf and beach views of Hermosa Beach South\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3367,13 +3367,13 @@
    "viewsSurfEvidence": "Page: \"See surfers, waves and the broad sandy shoreline\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -3532,13 +3532,13 @@
    "viewsSurfEvidence": "Page title and description: \"Topanga Beach in Malibu California Live Surf Cam\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -3587,13 +3587,13 @@
    "viewsSurfEvidence": "Owner page: \"Live surf cam at Malibu Point — experience waves breaking at rock reefs\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3644,13 +3644,13 @@
    "viewsSurfEvidence": "Owner page: \"Check the waves, beach activity, and stunning views from Manhattan Beach\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3811,13 +3811,13 @@
    "viewsSurfEvidence": "Owner page: \"Watch live from Malibu Pier in California, with dynamic ocean surf\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3868,13 +3868,13 @@
    "viewsSurfEvidence": "Owner page: \"a fixed 4MP view toward Malibu mountains, perfect for surf, weather and sunset conditions\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3925,13 +3925,13 @@
    "viewsSurfEvidence": "Owner page: \"Watch El Porto Beach from above in real-time with our live surf camera.\"",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -3982,13 +3982,13 @@
    "viewsSurfEvidence": "Owner page: \"Watch live footage of Hermosa Beach, the surf, volleyball courts, boardwalk\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -4039,13 +4039,13 @@
    "viewsSurfEvidence": "Owner page: \"showing ocean waves, surfers, and the Venice Pier\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -4096,13 +4096,13 @@
    "viewsSurfEvidence": "Owner page: \"Watch live footage of Venice Beach, the surf, boardwalk, and weather\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "Page credits partner \"Swell Magnet\"; no required credit text published",
@@ -4208,13 +4208,13 @@
    "viewsSurfEvidence": "Page: \"Watch live surf, beach, and sunset views from North Manhattan Beach\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4318,13 +4318,13 @@
    "viewsSurfEvidence": "Owner page: \"Live surf cam at Carlsbad State Beach ... See waves, surfers, tides ... as a PTZ view pans the shoreline\".",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4373,13 +4373,13 @@
    "viewsSurfEvidence": "Owner page: \"a fixed 1080p stream at 30 FPS showing clear beach surf and downtown La Jolla in the background.\"",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4428,13 +4428,13 @@
    "viewsSurfEvidence": "Owner page: \"a roaming PTZ camera showing the surf, Scripps Pier and sunset coastline in real time.\" Roaming, so not a fixed view of any one break.",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "\"Brought to you by Hotel La Jolla\"",
@@ -4483,13 +4483,13 @@
    "viewsSurfEvidence": "Owner page: \"Live views of Dana Point Harbor, Laguna Cliffs Resort & Spa, and the Ocean Institute ... Watch the harbor, beach, and ocean activities.\"",
    "streamType": "HLS (HDOnTap iframe player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "No public terms of use or third-party embed licence found on hdontap.com (the site footer links only /privacy-policy/). Its help centre addresses camera owners: \"Once your camera is online, add one line of HTML code to your website to display your live stream.\"",
-    "url": "https://help.hdontap.com/?p=516"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4538,13 +4538,13 @@
    "viewsSurfEvidence": "City page is titled \"Beach & Surf Cameras\" and lists this cam; the Coastal Commission webcam list links it as \"Del Mar\".",
    "streamType": "HLS (HDOnTap iframe player) + snapshot JPEG",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "City copyright notice: \"All content © 2006-2026 Del Mar, CA and its representatives. All rights reserved.\" Nothing grants reuse or embedding.",
-    "url": "https://www.delmar.ca.us/site/copyright"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4593,13 +4593,13 @@
    "viewsSurfEvidence": "City page is titled \"Beach & Surf Cameras\" and lists this cam; the Coastal Commission webcam list links it as \"Del Mar\".",
    "streamType": "HLS (HDOnTap iframe player) + snapshot JPEG",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "City copyright notice: \"All content © 2006-2026 Del Mar, CA and its representatives. All rights reserved.\" Nothing grants reuse or embedding.",
-    "url": "https://www.delmar.ca.us/site/copyright"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4703,13 +4703,13 @@
    "viewsSurfEvidence": "City page is titled \"Beach & Surf Cameras\" and lists this cam; the Coastal Commission webcam list links it as \"Del Mar\".",
    "streamType": "HLS (HDOnTap iframe player) + snapshot JPEG",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "City copyright notice: \"All content © 2006-2026 Del Mar, CA and its representatives. All rights reserved.\" Nothing grants reuse or embedding.",
-    "url": "https://www.delmar.ca.us/site/copyright"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -4758,13 +4758,13 @@
    "viewsSurfEvidence": "City page is titled \"Beach & Surf Cameras\" and lists this cam; the Coastal Commission webcam list links it as \"Del Mar\".",
    "streamType": "HLS (HDOnTap iframe player) + snapshot JPEG",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "City copyright notice: \"All content © 2006-2026 Del Mar, CA and its representatives. All rights reserved.\" Nothing grants reuse or embedding.",
-    "url": "https://www.delmar.ca.us/site/copyright"
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
+    "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": null,
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": null,
@@ -5750,13 +5750,13 @@
    "viewsSurfEvidence": "Page: 'fixed 4K Ultra HD stream ... See surf, clouds, and sunsets over mountains and ocean.'",
    "streamType": "HLS (HDOnTap player)",
    "embedAllowed": {
-    "value": "unknown",
-    "clause": "HDOnTap generic terms (see host); no grant for this stream.",
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: HDOnTap support (lead #10098) replied that it offers no free third-party embedding and will not whitelist external domains; embedding is a paid licence (a monthly content licence plus a streaming fee, per camera). SWELLO shows a link only.",
     "url": null
    },
    "analysisAllowed": {
-    "value": "unknown",
-    "clause": "See HDOnTap terms.",
+    "value": "no",
+    "clause": "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only: no permission for frame analysis either.",
     "url": null
    },
    "attribution": "HDOnTap / Hanalei Bay Resort",

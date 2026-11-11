@@ -14,8 +14,8 @@ test('the committed camera data is exactly what the generator builds from camera
   assert.equal(fs.readFileSync(new URL('../data/liveCamsSourced.ts', import.meta.url), 'utf8'), built + (built.endsWith('\n') ? '' : '\n'));
 });
 test('only spots with a usable-now camera row have a camera: Cowell\'s, Steamer Lane (partial), Sharp Park (four streams, west first), Linda Mar; nobody else', () => {
-  assert.deepEqual([...new Set(LIVE_CAMS.filter((c) => c.enabled).map((c) => c.spotId))].sort(), ['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'], 'only enabled cameras count (the HDOnTap embeds are switched off)');
-  for (const s of evidenceSpots) if (!['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'].includes(s.id)) assert.equal(liveCamsFor(s.id).length, 0, s.id + ' has no camera row');
+  assert.deepEqual([...new Set(LIVE_CAMS.filter((c) => c.enabled && c.kind !== 'hdontap').map((c) => c.spotId))].sort(), ['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'], 'only enabled cameras count (HDOnTap embeds are enabled but drawn only when the Worker allows them)');
+  for (const s of evidenceSpots) if (!['cs-sharp-park', 'spot-3', 'spot-6', 'spot-7'].includes(s.id)) assert.equal(liveCamsFor(s.id).filter((c) => c.kind !== 'hdontap').length, 0, s.id + ' has no camera row');
   for (const id of ['spot-2', 'cs-kellys-cove', 'cs-sloat', 'cs-rockaway', 'spot-1', 'spot-0', 'spot-4', 'spot-5', 'cs-half-moon-bay', 'cs-princeton-jetty', 'spot-8', 'cs-capitola', 'cs-natural-bridges', 'cs-rodeo-beach']) assert.deepEqual(liveCamsFor(id), [], id);
   assert.deepEqual(liveCamsFor('cs-sharp-park').map((c) => c.rowId), ['chamberlin-sharp-park-west', 'chamberlin-pacifica-pier-north', 'chamberlin-pacifica-pier-closeup', 'chamberlin-mori-point-south']);
   assert.deepEqual(liveCamsFor('spot-3').map((c) => c.rowId), ['linda-mar-beach-cam-youtube']); assert.deepEqual(liveCamsFor('spot-7').map((c) => c.rowId), ['usgs-coastcam-santa-cruz-dream-inn']); assert.deepEqual(liveCamsFor('spot-6').map((c) => c.rowId), ['usgs-coastcam-santa-cruz-dream-inn']);

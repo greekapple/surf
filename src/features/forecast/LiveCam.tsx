@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from 'react';
+import {useEmbedAllowed} from './embedAllowed';
 import {liveCamsFor, type LiveCam as Cam} from '../../data/liveCamsSourced';
 import {STILL_REFRESH_MS, STREAM_LOAD_TIMEOUT_MS, ageWords, checkedWords, distanceWords, offlineWords, postedLabel, stillState, streamErrorWords, streamLiveness, type StreamState} from './liveCamLogic';
 
@@ -65,19 +66,21 @@ function StreamCam({cam}: {cam: Cam}) {
   </div>;
 }
 
-/** An HDOnTap stream: a lite poster; HDOnTap's own player page (an iframe, as HDOnTap's help gives to its customers) is created only on a tap. Never the raw HLS, never a proxy. HDOnTap's player says by itself whether the stream is live, so SWELLO says nothing about it. Only rendered for an ENABLED camera (the kill switch): all are disabled until HDOnTap approves our site. */
+/** An HDOnTap stream: a lite poster; HDOnTap's own player page (an iframe, as HDOnTap's help gives to its customers) is created only on a tap. Never the raw HLS, never a proxy. HDOnTap's player says by itself whether the stream is live, so SWELLO says nothing about it. Only rendered for an ENABLED camera (the kill switch) AND when the Worker confirms HDOnTap's headers allow our site (useEmbedAllowed). */
 function HdontapCam({cam}: {cam: Cam}) {
   const [open, setOpen] = useState(false);
   return <div className="lc-body" data-state={open ? 'loading' : 'idle'}>
     {!open && <button type="button" className="lc-poster" onClick={() => setOpen(true)} aria-label={`Load the video stream: ${cam.view}. This loads HDOnTap's player.`}>
-      <span className="lc-play" aria-hidden="true">▶</span><b>Video stream · HDOnTap / {cam.credit.replace(/^HDOnTap \/ /, '')}</b><small>Tap to load HDOnTap's player; it shows whether the stream is live now. Nothing is loaded from HDOnTap before you tap.</small></button>}
+      <span className="lc-play" aria-hidden="true">▶</span><b>Video stream · {cam.credit}</b><small>Tap to load HDOnTap's player; it shows whether the stream is live now. Nothing is loaded from HDOnTap before you tap.</small></button>}
     {open && <div className="lc-player"><iframe src={cam.embedUrl} title={`${cam.title}, video stream from HDOnTap`} allow="autoplay; fullscreen" allowFullScreen referrerPolicy="strict-origin-when-cross-origin" /></div>}
   </div>;
 }
 
 /** The panel: one card per camera of the spot (the first one open; Chamberlin's west view is first), each with its distance, what it shows and its credit. */
 export function LiveCamPanel({spotId, zone}: {spotId: string; zone: string}) {
-  const cams = liveCamsFor(spotId), [sel, setSel] = useState(0); if (!cams.length) return null;
+  const all = liveCamsFor(spotId), allowed = useEmbedAllowed(all.filter((c) => c.kind === 'hdontap' && c.embedId).map((c) => c.embedId!));
+  // an HDOnTap camera is drawn only when HDOnTap's own headers allow our site (confirmed by the Worker); otherwise its "HDOnTap cam ↗" link is what shows (HdontapLinks)
+  const cams = all.filter((c) => c.kind !== 'hdontap' || (c.embedId && allowed[c.embedId] === true)), [sel, setSel] = useState(0); if (!cams.length) return null;
   const cam = cams[Math.min(sel, cams.length - 1)];
   return <section className="sp-live-cam card" aria-labelledby="lc-h">
     <h2 id="lc-h">Camera</h2>

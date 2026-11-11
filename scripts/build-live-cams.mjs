@@ -37,10 +37,13 @@ for (const w of WIRING) {
     ...(w.offline ? {offlineNote: w.offline} : {}), ...(w.operatorNote ? {operatorNote: w.operatorNote} : {})});
 }
 
-// ---- HDOnTap (hdontap-embeds). HDOnTap's player only allows sites it approves (CSP frame-ancestors; checked 2026-11-10, 17 streams): every HDOnTap camera is DISABLED until HDOnTap adds our domain.
-// To switch one on: add its row id to HDONTAP_ENABLED and rerun. The raw HLS (m3u8) and any proxy are never used; only HDOnTap's own player page, in an iframe, after a tap.
+// ---- HDOnTap (hdontap-embeds, hdontap-auto, hdontap-licence). Basis: "HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only". HDOnTap replied (support, lead #10098) that it offers no free third-party
+// embedding and will not whitelist external domains: a monthly content licence plus a streaming fee, per camera. So EVERY HDOnTap camera is DISABLED here (the panel never draws one; each keeps its "HDOnTap cam ↗" link). The auto switch-on
+// plumbing stays (services/embed-allowed.mjs, useEmbedAllowed): if a licence is ever bought for a camera, add its row id to HDONTAP_ENABLED and rerun, and the panel will draw it only when HDOnTap's own headers allow our origin.
+// The raw HLS (m3u8) and any proxy are never used; only HDOnTap's own player page, in an iframe, after a tap.
 export const HDONTAP_ENABLED = new Set([]);
-const HDONTAP_REASON = "HDOnTap's player only allows sites it approves (frame-ancestors); waiting for HDOnTap's answer";
+export const HDONTAP_BASIS = 'HDOnTap: embedding needs a paid licence (HDOnTap email, 2026-11-10); link only';
+const HDONTAP_REASON = 'HDOnTap requires a paid licence for embedding (email 2026-11-10)';
 /** The player id of each stream, read from its public stream page on 2026-11-10 (the page's customer-embed id); streams with no id in their page have none. */
 const HDONTAP_EMBED_IDS = {
  'hdontap-seascape-beach-resort': 'seascape_ttv-HDOT',
@@ -69,8 +72,8 @@ const hdCandidates = hdRows.filter((r) => (r.nearestSpots?.[0]?.km ?? 99) <= 5 &
 for (const r of hdCandidates) {
   const near = r.nearestSpots[0], embedId = HDONTAP_EMBED_IDS[r.id]; if (!embedId) continue;
   const id = `${r.id}@${near.id}`, on = HDONTAP_ENABLED.has(r.id) && !(id in DISABLED);
-  out.push({id, enabled: on, ...(on ? {} : {disabledReason: DISABLED[id] ?? HDONTAP_REASON}), rowId: r.id, spotId: near.id, kind: 'hdontap', title: r.name, owner: r.owner, credit: `HDOnTap / ${ownerShort(r.owner)}`, pageUrl: r.pageUrl, embedUrl: `https://portal.hdontap.com/s/embed/?stream=${embedId}&ratio=16:9`, embedId,
-    km: near.km, kmApprox: true, view: viewNote(r), refresh: r.refresh, licence: 'unknown (no licence stated)', checked: r.uptime?.checked ?? '', operatorNote: "Embedded with credit; HDOnTap's terms don't address third-party embedding. Removed on request."});
+  out.push({id, enabled: on, ...(on ? {} : {disabledReason: DISABLED[id] ?? HDONTAP_REASON}), rowId: r.id, spotId: near.id, kind: 'hdontap', title: r.name, owner: r.owner, credit: ownerShort(r.owner) === 'Swell Magnet' ? 'Swell Magnet via HDOnTap' : `HDOnTap / ${ownerShort(r.owner)}`, pageUrl: r.pageUrl, embedUrl: `https://portal.hdontap.com/s/embed/?stream=${embedId}&ratio=16:9`, embedId,
+    km: near.km, kmApprox: true, view: viewNote(r), refresh: r.refresh, licence: HDONTAP_BASIS, checked: r.uptime?.checked ?? ''});
 }
 if (process.argv.includes('--links')) {
   const links = hdCandidates.map((r) => ({id: r.id, spotId: r.nearestSpots[0].id, owner: ownerShort(r.owner), label: viaLabel(r.owner), name: r.name, url: r.pageUrl, km: r.nearestSpots[0].km, view: viewNote(r), partial: r.viewsSurf === 'partial', ...(['down', 'stale'].includes(r.uptime?.status) ? {status: r.uptime.status, statusChecked: r.uptime.checked} : {}), embedId: HDONTAP_EMBED_IDS[r.id] ?? null}));
