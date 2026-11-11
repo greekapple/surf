@@ -65,8 +65,7 @@ test('deep link time: any valid time rounds down to its hour; junk is ignored', 
   assert.equal(hourFromParam('2026-11-03T20:00:00Z'), '2026-11-03T20:00:00.000Z'); assert.equal(hourFromParam('2026-11-03T20:41:10Z'), '2026-11-03T20:00:00.000Z');
   for (const bad of [null, '', 'tomorrow', '99']) assert.equal(bad === '99' ? null : hourFromParam(bad as never), null);
 });
-test('Share uses navigator.share({title, text, url}) and falls back to copying the link with a toast; it is wired on the spot page Call and Home cards', () => {
+test('a shared deep link opens the shared hour, or now when it has passed (the Share button itself: share-card.test.ts)', () => {
   const src = (f: string) => fs.readFileSync(new URL('../' + f, import.meta.url), 'utf8');
-  const sw = src('features/forecast/ShareWindow.tsx'); assert.match(sw, /navigator\.share\(\{title: plan\.title, text: plan\.text, url: plan\.url\}\)/); assert.match(sw, /clipboard\.writeText\(plan\.url\)/); assert.match(sw, /role="status"/); assert.match(sw, /AbortError/); assert.match(src('app/store.tsx'), /That shared hour has passed; showing now\./);
-  assert.match(src('features/forecast/ForecastView.tsx'), /share=\{sharePlanFor\(/); assert.match(src('features/home/HomeView.tsx'), /<ShareWindow plan=\{planOf\(/); assert.match(src('app/store.tsx'), /hourFromParam/);
+  assert.match(src('app/store.tsx'), /That shared hour has passed; showing now\./); assert.match(src('app/store.tsx'), /hourFromParam/);
 });

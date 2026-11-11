@@ -254,7 +254,7 @@
   .sp-band { height: 116px; border-radius: var(--r2); }
   .sp-band-in { padding: 10px 12px 10px 14px; align-items: stretch; }
   /* Phone band: meta on top (credit top right), then the hour, the star and Now along the bottom */
-  .sp-band .sp-head { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: 'meta meta meta' 'time fav now'; align-content: space-between; column-gap: 12px; row-gap: 0; height: 100%; }
+  .sp-band .sp-head { display: grid; grid-template-columns: minmax(0, 1fr) auto auto auto; grid-template-areas: 'meta meta meta meta' 'time fav share now'; align-content: space-between; column-gap: 12px; row-gap: 0; height: 100%; }
   .sp-band .sp-title, .sp-band .sp-when { display: contents; }
   .sp-band .sp-title p { grid-area: meta; max-width: 52%; font-size: 12px; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .sp-band .fc-fav { grid-area: fav; align-self: end; }
@@ -312,7 +312,7 @@
   .sp-card > header > h2 { overflow: visible; }
   /* The spot's name is in the band on phones too: name (credit at the right), meta, then hour · star · Now. */
   .sp-band { height: 144px; }
-  .sp-band .sp-head { grid-template-areas: 'name name name' 'meta meta meta' 'time fav now'; grid-template-rows: auto auto 1fr; }
+  .sp-band .sp-head { grid-template-areas: 'name name name name' 'meta meta meta meta' 'time fav share now'; grid-template-rows: auto auto 1fr; }
   .sp-band .sp-title h1 { grid-area: name; max-width: 60%; font-size: 22px; line-height: 1.15; }
   .sp-band .sp-title p { max-width: 100%; -webkit-line-clamp: 1; margin-top: 2px; }
   .sp .sp-day + .sp-day { box-shadow: none; }
@@ -375,7 +375,7 @@
 .sp-cam { display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; color: inherit; font-size: 13px; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
 .sp-band.is-plan .sp-cam { color: var(--accent-ink, var(--accent)); }
 @media (max-width: 860px) { .sp-band .sp-cam { grid-area: cam; justify-self: start; max-width: 100%; overflow: hidden; text-overflow: ellipsis; font-size: 12px; min-height: 32px; }
-  .sp-band.has-cam .sp-head { grid-template-areas: 'name name name' 'meta meta meta' 'cam cam cam' 'time fav now'; } }
+  .sp-band.has-cam .sp-head { grid-template-areas: 'name name name name' 'meta meta meta meta' 'cam cam cam cam' 'time fav share now'; } }
 @media (max-width: 860px) { .sp-band.has-cam { height: 176px; } .sp-band.has-cam .sp-head { grid-template-rows: auto auto auto 1fr; } }
 /* Plan band credit: full text on wide screens; on phones a one-line credit top right, clear of the hour, star and Now row. */
 .sp-band .credit .cr-short { display: none; }
@@ -604,6 +604,12 @@ p.sp-wn { display: block; }
 .call-share { padding: 0 14px 10px; }
 .dc-share { padding: 0 12px 12px; }
 .sp-sharenote { margin: 0; font-size: 14px; color: var(--muted); }
+/* share-card: the header's Share (now / next window); on phones it sits between the star and Now, its toast above the button (the band clips below) */
+.sp-when .share-w { position: relative; }
+.sp-when .share-toast { position: absolute; bottom: calc(100% + 6px); right: 0; color: var(--text); white-space: nowrap; background: var(--s1); padding: 2px 6px; border-radius: var(--r1); z-index: 2; }
+@media (max-width: 860px) {
+  .sp-band .sp-when .sp-share { grid-area: share; align-self: end; }
+}
 /* water quality line */
 .sp-wq { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; font-size: 14px; }
 .sp-wq b { font-weight: 600; }

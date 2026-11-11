@@ -1,6 +1,7 @@
 import {nearSfBuoy} from '../../ocean/buoys';
 import {SimilarSession} from './SimilarSession';
-import {sharePlanFor} from '../../services/sharePlan';
+import {shareCardFor} from '../../services/shareCard';
+import {ShareWindow} from './ShareWindow';
 import {slugFor} from '../../app/routes';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf, differsFromViewer, zoneAbbr} from '../../ocean/spotZone';
@@ -123,6 +124,9 @@ export function ForecastView({go}: ViewProps) {
   const daylight = daylightFor(spot.id, dateIn(timeZoneOf(spot), selected.timestamp));
   const band = surfBandSeries(spot, records, {bundle, nowMs: now});
   const env = {records: view.mapRecords, bundle, profile: p, nowMs: now};
+  // share-card (user, 2026-11-11): the header's Share is for NOW: the current hour's call and its window (or the next one); with no window, the current hour, saying so
+  const nowRec = nowIdx >= 0 ? series[nowIdx].forecast : null, nowCall = nowRec ? (isNow ? call : callFor(spot, nowRec, p, {records, bundle, nowMs: now})) : null;
+  const nowCard = nowCall ? shareCardFor(spot, nowCall, records, p, now, slugFor(spot.id), location.origin, bundle, {fallbackNow: true}) : null;
   // T-108: the subtitle follows what the spot actually has: surf estimates, or only offshore heights.
   const hasEstimates = band.some((b) => b.kind === 'estimate');
   const meta = [spot.region, ...(spot.type ? [`${spot.type.toLowerCase()} break`] : []), !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
@@ -139,12 +143,13 @@ export function ForecastView({go}: ViewProps) {
             <span className="sp-time" data-sp="time">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)}, {timeLabelPT(selected.timestamp)}{spotZoneTag(selected.timestamp)}{isNow ? ' · now' : ''}</span>
             {!isNow && <button className="btn" onClick={toNow}>Now</button>}
             <button className="btn sp-map" onClick={() => go('explore')}><Icon name="explore" size={16} />Map</button>
+            <ShareWindow card={nowCard} className="sp-share" />
           </div>
         </div>
       </SpotBand>
       {shareNote && <p className="sp-sharenote" role="status">{shareNote}</p>}
       <NwsBanner spotId={spot.id} />
-      <CallBar call={call} share={sharePlanFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
+      <CallBar call={call} share={shareCardFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
       <DaylightRow d={daylight} />
       <SimilarSession spot={spot} forecast={selected.forecast} profile={p} bundle={bundle} nowMs={now} />
       {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}

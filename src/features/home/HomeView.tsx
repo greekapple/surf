@@ -1,6 +1,6 @@
 import {fmtIn} from '../../ocean/time';
 import {ShareWindow} from '../forecast/ShareWindow';
-import {sharePlanFor} from '../../services/sharePlan';
+import {shareCardFor} from '../../services/shareCard';
 import {slugFor} from '../../app/routes';
 import {differsFromViewer, timeZoneOf, viewerTag} from '../../ocean/spotZone';
 import {useEffect, useMemo} from 'react';
@@ -91,7 +91,7 @@ export function HomeView({go}: ViewProps) {
     const sp = spotOptions.find((x) => x.id === id), rec = validTime ? view.mapRecords.find((f) => f.spotId === id && f.timestamp === validTime) : undefined;
     return sp && rec ? callFor(sp, rec, profile, {records: view.mapRecords, bundle, nowMs: now}) : null;
   };
-  const planOf = (id: string, k: ReturnType<typeof callOf>) => { const sp = spotOptions.find((x) => x.id === id); return sp && k ? sharePlanFor(sp, k, view.mapRecords, profile, now, slugFor(id), location.origin, bundle) : null; };
+  const planOf = (id: string, k: ReturnType<typeof callOf>) => { const sp = spotOptions.find((x) => x.id === id); return sp && k ? shareCardFor(sp, k, view.mapRecords, profile, now, slugFor(id), location.origin, bundle) : null; };
   /** The same kind of number everywhere: the surf estimate, or a muted line when only offshore height exists (never styled as surf). */
   const surfOf = (c: DashCard, small = false) => c.surf.headline.kind === 'offshore'
     ? <span className="dc-na">Surf est. unavailable · offshore {c.surf.value}</span>
@@ -142,7 +142,7 @@ export function HomeView({go}: ViewProps) {
                 </span>
               </a>
               <div className="dc-more">
-                {k && <ShareWindow plan={planOf(c.id, k)} className="dc-share" />}
+                {k && <ShareWindow card={planOf(c.id, k)} className="dc-share" />}
                 <button type="button" className="dc-rb-t" aria-expanded={openId === c.id} aria-controls={`rb-${c.id}`} onClick={() => setOpenId(openId === c.id ? null : c.id)}>Next 12 hours<span aria-hidden="true">{openId === c.id ? '–' : '+'}</span></button>
                 <div id={`rb-${c.id}`} className="dc-rb"><Ribbon hours={ribbons[c.id]} name={c.name} tz={timeZoneOf(c.id)} /></div>
               </div>
