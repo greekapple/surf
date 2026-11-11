@@ -159,6 +159,13 @@ After a few "felt right?" taps or logged sessions at a spot, the headline shows 
 
 If the groundwork isn't merged, skip this track.
 
+### Track 6a: live camera as the hero, with replay (user vision, 2026-11-10)
+The user: when we embed cameras, "replacing the current images on the spot at the very top of forecasting pages and the first comparison diagram thing at home with the recommended spot will be a live cam … it should also be replayable … so you can ultimately find yourself surfing."
+- **Spot-page hero:** where a spot has an enabled camera (the Camera panel's data), the hero shows that camera instead of the photo. A still is shown directly; a stream as a poster plus tap to play. Credit and live status as in the Camera panel. Without a camera, the current photo stays.
+- **Home:** the recommended spot's camera replaces the comparison drawing when it has one. The drawing stays as the fallback, and stays available elsewhere.
+- **Replay ("find yourself surfing"):** a scrubbable rewind of the last hours. It needs **recording**, which needs the camera owner's explicit permission to record and keep footage. The current permissions cover display only (HDOnTap, YouTube owners), and USGS stills are public domain, so a still-frame rewind is possible for USGS now. Build replay first for USGS stills (a frame strip of the last 24 h stored in R2, with retention) and for SWELLO's own camera when it exists. Ask HDOnTap and owners about recording rights before any video replay. Never record a stream without permission.
+- **No Surfline in any form.**
+
 ### Track 6: surf cameras, AI reading (only if the inventory found cameras that allow analysis)
 **Input:** `docs/forecast/CAMERAS-INVENTORY.md` and `docs/forecast/data/camera-sources.json` (the Phase A inventory, 2026-11-10). The rules in vault `10-Projects/SWELLO/09-AI-Surf-Cameras.md` are non-negotiable:
 - written permission for display, and separately for analysis;
@@ -168,7 +175,7 @@ If the groundwork isn't merged, skip this track.
 
 **Steps:**
 1. **Display first.** Show attributed embeds on the spot page, only for cameras with `embedAllowed: yes`.
-2. **Then Phase C, only for cameras with `analysisAllowed: yes`.**
+2. **Then Phase C, only for cameras with `analysisAllowed: yes`.** First candidate: the USGS Dream Inn camera at Cowell's (public domain, so display and analysis are both allowed).
    - Process daylight stills every 5–10 min on the server.
    - Output aggregates only: breaking or not, the set interval, and relative height against calibrated markers, with uncertainty.
    - Delete each frame after inference.
