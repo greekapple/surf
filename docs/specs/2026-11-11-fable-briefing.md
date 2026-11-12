@@ -30,7 +30,7 @@ The user's bar: **"exponentially better than Surfline"**. Their focus order:
    - journeys 8/8 and the toolkit checks for the area you touched pass;
    - you looked at the 1440 and 390 screenshots against the references in `docs/design/`.
 
-## Where the app is (updated 2026-11-12, live version f4fd3b9c)
+## Where the app is (updated 2026-11-12, live version 23b0166a)
 Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C is live. Since then, also live:
 - **1,078 spots:** Oregon, Washington and Sitka; the East Coast, Gulf and Puerto Rico; minus 3 merged duplicates. One slug system, a 404 page and "Spot not found".
 - **The surf number, in order of trust:**
@@ -55,10 +55,19 @@ Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C 
   - **Water quality:** the water-quality line.
   - **Go windows:** stable Go windows.
   - **Cameras:** Huntington, Hermosa and Venice.
-- **In flight (check before touching):** product-term's phone pass items 8–12 plus "signature A"; eng-term's Europe land check.
-- **Open user decisions:**
-  - the **Atlantic 8 s minimum period** (about 97 East Coast spots refuse most hours; bring evidence, don't change it);
-  - **HDOnTap:** their free auto-updating snapshots, with credit, logo and a link back, are offered; reply pending the user's OK. Quiver's HDOnTap streams are unlicensed and being taken down: never copy that.
+- **Live since the first draft (2026-11-12, live version 23b0166a):**
+  - **Map dots** (`docs/specs/2026-11-12-map-dots.md`): clean when zoomed out, numbered rating dots close in, dot style = kind of number, group stacks at z6–8.5; 1,236 DOM pins → 0; region pills removed.
+  - **Phone pass 8–12:** header (wordmark, status dot, search icon, avatar), day-strip confidence said once, board period clauses, Home "This week" key behind an (i), Quiver fit line.
+  - **Signature A, the Today ribbon** on the spot page (night, surf band, wind vs this beach, tide, window with its own verdict), plus the Call hierarchy (the actionable verdict first; after dark "Next: Go" / "Today: Skip").
+  - **Call honesty:** the next-day answer names the hour it judged; "no estimate for this hour", never "for this spot"; a test that the Call and the Surf block never disagree unlabelled.
+  - **Small pass:** tide sign rule (no "−0.0"), no board line under Skip, NWS box spacing (now loads on Home too), two-letter day labels on phones, map controls shield place names.
+  - **Home:** compact Popular spots list, phone week table sticky/clamped/fade, smaller hero drawing.
+  - **Atlantic 7 s minimum period (user approved):** 412 US Atlantic profiles use 7 s, 490 keep 8 s; labelled "our own evidence" (`docs/forecast/ATLANTIC-8S.md`). Re-check 6 s around 2026-12-03.
+  - **How-right all-spots scorecard fix:** scoring ran out of hourly stages (420 of ~763); the cron now runs 00:20–13:20 UTC. The first full v2 card lands about 2026-11-13 13:20 UTC.
+  - **3D:** the clean-room wave is the default (no licensed input).
+- **In flight (check before touching):** product-term: journey 3's End-key "NaN" at Ocean Beach (time-dependent, fails before the Atlantic merge too). eng-term: Europe land check (2,075 of 4,002; resumes after 00:00 UTC) and the local SWAN capture loop.
+- **Decided since:** HDOnTap: the user sent their own reply (stills now, partnership later). Map attribution stays as is (full at open, folded to an (i) at the first interaction; OSMF).
+- **Known open from the last design critique:** the sea-field scrub cost on the map (audit B8; glField texImage2D, buildField and getShaderParameter on every step; engineering's code).
 
 ## The user's two asks for this session (2026-11-12)
 1. **"Just make the overall functionality"**: everything works, fast, with no dead ends, before anything new.
@@ -91,7 +100,8 @@ Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C 
 - **Known flaky checks to stabilise:**
   - search-fly at 1440 (Pipeline);
   - t043 under the map's background fill;
-  - the coast-pills-snapshot crash when /api/coast-ratings has no capture.
+  - journey 3 End-key at the forecast's last hour (see In flight);
+  - map-dots' snapshot check prints SKIP once the recorded day on 5194 expires (record a newer day).
 - **Deliverable:** a table of job × width × theme with pass or fail, before and after; the toolkit gaining a check for every bug you fix.
 
 ### Track 1: declutter, and stop it looking AI-made
@@ -131,8 +141,8 @@ The user, again: avoid overcrowding.
 - **Show it on every spot page:** a "How right we've been" line (last 7 and 30 days) with the typical error and whether we ran high or low, against the nearest open-ocean buoy; in California, also against CDIP MOP's analysis. The first real numbers land about Nov 12 (v1) and Nov 14 (v2); make sure they render well and briefly. Where there's no eligible buoy, it says so. There is never a number without a source.
 - **Surf-height calibration:** run `srf-compare` and `gauge-compare` on everything captured so far. Report the error per region and per method (MOP, v1, NWS), with n.
 - **Then bring the user two evidence-backed proposals:**
-  1. the Atlantic 8 s minimum period: does v1 below 8 s track the NWS and the gauges?
-  2. a per-region correction of the breaking step, if the low bias holds.
+  1. ~~the Atlantic 8 s minimum period~~ done: 7 s on the US Atlantic (ATLANTIC-8S.md);
+  2. a per-region correction of the breaking step, if the low bias holds (ATLANTIC-8S.md: about 25% low against the gauges at every period band; the wave model itself reads about 0.5 ft under).
   - Apply nothing that changes a number until the user approves.
 - **Calibration of the rating:** use `docs/forecast/RATING-AUDIT-SPLIT.md` if it has landed. Make one rating-calibration spec; apply it only after the user approves, and byte-compare every unaffected spot.
 - **Review:** data-honesty-reviewer.
