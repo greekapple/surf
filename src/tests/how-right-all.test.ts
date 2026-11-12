@@ -97,7 +97,7 @@ const noRating = {pairs: [] as RatingPair[], windHours: 0};
 test('"collecting": fewer than 3 days of paired hours gives no number at all, with the day count; 7 days need 3, 30 days need 14', () => {
   const none = spotResult('s', PICK, true, [], noRating, null, NOW); assert.equal(none.status, 'collecting'); if (none.status === 'collecting') assert.equal(none.haveDays, 0);
   const two = spotResult('s', PICK, true, pairsFor(2), noRating, null, NOW); assert.equal(two.status, 'collecting'); if (two.status === 'collecting') assert.equal(two.haveDays, 2);
-  for (const s of [none, two]) { const l = offshoreLine(s), r = ratingLine(s)!; assert.equal(l.hasNumber, false); assert.equal(r.hasNumber, false); assert.doesNotMatch(l.text + r.text, /\d\.\d (m|ft)|typical error \d|of \d days within/); assert.match(l.text, /collecting: \d days? so far/); }
+  for (const s of [none, two]) { const l = offshoreLine(s), r = ratingLine(s)!; assert.equal(l.hasNumber, false); assert.equal(r.hasNumber, false); assert.doesNotMatch(l.text + r.text, /\d\.\d (m|ft)|typical error \d|of \d days within/); assert.match(l.text, /collecting: \d days? checked so far/); }
   const five = spotResult('s', PICK, true, pairsFor(5), noRating, null, NOW); assert.equal(five.status, 'ok'); if (five.status === 'ok') { assert.ok(five.d7); assert.equal(five.d30, null, '30 days need 14'); assert.equal(five.haveDays, 5); }
   const twenty = spotResult('s', PICK, true, pairsFor(20), noRating, null, NOW); if (twenty.status === 'ok') { assert.ok(twenty.d7 && twenty.d30); assert.equal(twenty.d30!.daysWithData, 20); } else assert.fail();
 });
@@ -106,7 +106,7 @@ test('the labels say exactly what was compared: buoy id, name, km, "not surf at 
   assert.equal(line.text, "Offshore wave height at the buoy (not surf at the spot): Hs forecast at buoy 51201's position (Buoy 51201) vs the buoy, 18 km from this spot: typical difference 0.3 m, ran 0.3 m low (last 7 days).");
   assert.equal(offshoreLine(s, 'ft').text, "Offshore wave height at the buoy (not surf at the spot): Hs forecast at buoy 51201's position (Buoy 51201) vs the buoy, 18 km from this spot: typical difference 1.0 ft, ran 1.0 ft low (last 7 days).");
   assert.equal(leanOf(0.02, 'm'), 'no lean high or low'); assert.equal(leanOf(0.04, 'm'), 'no lean high or low', '0.04 m rounds to 0.0 m: not "ran 0.0 m"'); assert.equal(leanOf(0.06, 'm'), 'ran 0.1 m high'); assert.equal(leanOf(-0.4, 'm'), 'ran 0.4 m low'); assert.equal(leanText(0.1, 'm'), 'no lean high or low', 'the MOP line too: 0.1 ft is 0.03 m');
-  assert.equal(collectingText(1), 'collecting: 1 day so far (we need 3 before showing a number)');
+  assert.equal(collectingText(1), 'collecting: 1 day checked so far (a day counts once 12 of its hours are checked against the buoy; we need 3 before showing a number)');
   const nb = offshoreLine({status: 'no-buoy', spotId: 'x', reason: 'no wave buoy within 100 km', nearest: null}); assert.equal(nb.hasNumber, false); assert.equal(nb.text, 'No offshore check: no wave buoy within 100 km.');
   assert.equal(ratingLine({status: 'no-buoy', spotId: 'x', reason: 'r', nearest: null}), null);
   const both = spotResult('s', PICK, true, pairsFor(20), noRating, null, NOW); assert.match(offshoreLine(both, 'm').text, /\(last 7 days\); last 30 days: typical difference 0\.3 m, ran 0\.3 m low\.$/, 'when the 30-day figure exists it is shown too');
@@ -271,7 +271,7 @@ import * as awaitedModule from '../services/howRightAll.ts';
 test('collecting counts are the real ones: the 7-day rating count is carried and printed while d7 is null; the 30-day rating figure is shown when it exists', () => {
   const two = spotResult('s', PICK, true, pairsFor(10), {pairs: ratingPairsFor(2, () => 45, () => 45), windHours: 0}, null, NOW);
   assert.equal(two.status, 'ok'); if (two.status === 'ok') { assert.equal(two.rating.d7, null); assert.equal(two.rating.daysScored7, 2); }
-  assert.equal(ratingLine(two)!.text, "Rating vs the rating from buoy 51201's readings (+ our forecast wind), offshore, not at the break: collecting: 2 days so far (we need 3 before showing a number).");
+  assert.equal(ratingLine(two)!.text, "Rating vs the rating from buoy 51201's readings (+ our forecast wind), offshore, not at the break: collecting: 2 days checked so far (a day counts once 12 of its hours are checked against the buoy; we need 3 before showing a number).");
   const long = spotResult('s', PICK, true, pairsFor(20), {pairs: ratingPairsFor(20, () => 45, () => 45), windHours: 0}, null, NOW);
   if (long.status === 'ok') { assert.ok(long.rating.d7 && long.rating.d30); assert.match(ratingLine(long)!.text, /; last 30 days: 20 of 20 scored days$|; last 30 days: \d+ of \d+ scored days\.$/); } else assert.fail();
 });

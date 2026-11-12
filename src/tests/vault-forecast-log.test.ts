@@ -62,7 +62,7 @@ test('the How-right lines are the scorecard\'s own words verbatim when it has nu
   const {vault, r2, files} = fixture({scorecard: true}); await run({vault, dir: r2, now: NOW, spots: SPOTS, log: quiet});
   const sc = JSON.parse(fs.readFileSync(path.join(r2, 'howright/v2/scorecard.json'), 'utf8')).spots, ob = fs.readFileSync(files.byId, 'utf8'), ml = fs.readFileSync(files.byName, 'utf8'), cr = fs.readFileSync(files.headingOnly, 'utf8');
   assert.equal(sc['spot-2'].status, 'ok'); assert.ok(ob.includes(`- ${offshoreLine(sc['spot-2']).text}`)); assert.match(ob, /Offshore wave height at the buoy \(not surf at the spot\): .*typical difference/); if (ratingLine(sc['spot-2'])) assert.ok(ob.includes(`- ${ratingLine(sc['spot-2'])!.text}`));
-  assert.equal(sc['cs-malibu'].status, 'collecting'); assert.match(ml, /- How right we've been: collecting: 1 day so far \(we need 3 before showing a number\)/); assert.doesNotMatch(ml, /typical difference/);
+  assert.equal(sc['cs-malibu'].status, 'collecting'); assert.match(ml, /- How right we've been: collecting: 1 day checked so far \(a day counts once 12 of its hours are checked against the buoy; we need 3 before showing a number\)/); assert.doesNotMatch(ml, /typical difference/);
   assert.match(cr, /- How right we've been: no scorecard yet|collecting|No offshore check/); assert.match(ob, /Source: SWELLO daily forecast capture .*capture 2026-11-10T07:40:44\.464Z\), rated with the current rules, as of the model run; scorecard computed 2026-11-10T07:44:28\.925Z\. Offshore model values, not surf at the spot\./);
 });
 test('the table keeps the last 14 capture days and drops older rows; an older day\'s row is read back unchanged, and today\'s row replaces the same date', () => {

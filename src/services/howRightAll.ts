@@ -266,7 +266,7 @@ export function spotResult(spotId: string, pick: BuoyPick, split: boolean, pairs
 /** a height difference in the person's unit, rounded to one decimal; "0.0" is not a difference, so it reads as no lean */
 const mText = (m: number, unit: 'ft' | 'm') => (unit === 'm' ? `${(Math.round(Math.abs(m) * 10) / 10).toFixed(1)} m` : `${(Math.round(Math.abs(m) / 0.3048 * 10) / 10).toFixed(1)} ft`);
 export const leanOf = (biasM: number, unit: 'ft' | 'm') => (mText(biasM, unit).startsWith('0.0') ? 'no lean high or low' : `ran ${mText(biasM, unit)} ${biasM > 0 ? 'high' : 'low'}`);
-export const collectingText = (haveDays: number, needDays: number = HRA_RULE.minDays7) => `collecting: ${haveDays} ${haveDays === 1 ? 'day' : 'days'} so far (we need ${needDays} before showing a number)`;
+export const collectingText = (haveDays: number, needDays: number = HRA_RULE.minDays7) => `collecting: ${haveDays} ${haveDays === 1 ? 'day' : 'days'} checked so far (a day counts once 12 of its hours are checked against the buoy; we need ${needDays} before showing a number)`;
 /** One phrase on both lines: the median absolute difference. */
 export const TYPICAL_DIFF = 'typical difference';
 export const TYPICAL_DIFF_NOTE = 'Typical difference = the median absolute difference: half the hours were closer than this. Lean = our forecast minus the buoy.';

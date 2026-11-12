@@ -172,7 +172,7 @@ export const shortDay = (iso: string) => dayFmt.format(new Date(iso));
 /** The one line under the spot's surf number, and a fine second line. A number ONLY for a scored spot (status 'ok'). */
 export function howRightLine(s: HowRightSpot, shownSince: string | null, unit: 'ft' | 'm' = 'ft'): {text: string; source: string | null; hasNumber: boolean} {
   if (s.status === 'no-buoy') return {text: 'How right we\'ve been: no buoy can check this spot this month.', source: `${s.reason[0].toUpperCase()}${s.reason.slice(1)}.`, hasNumber: false};
-  if (s.status === 'collecting') return {text: `How right we've been: starts once we've kept 3 days of our own forecasts (${shownSince ? `kept since ${shortDay(shownSince)}` : 'we start keeping them tonight'}).`, source: null, hasNumber: false};
+  if (s.status === 'collecting') return {text: `How right we've been: starts once ${s.need} of our past forecast hours can be checked against the buoy (${s.have} so far; ${shownSince ? `kept since ${shortDay(shownSince)}` : 'we start keeping them tonight'}).`, source: null, hasNumber: false};
   const w = s.d7, source = `Buoy height carried to our point ${s.mopId} by CDIP's model.`;
   if (!w) return {text: `Our forecast from the day before vs the ${s.buoy.name} buoy: too few hours this week to say.`, source, hasNumber: false};
   return {text: `Our forecast from the day before vs the ${s.buoy.name} buoy: typical difference ${diffText(w.typicalFt, unit)}, ${leanText(w.biasFt, unit)}.`, source, hasNumber: true};

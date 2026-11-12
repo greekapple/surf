@@ -69,7 +69,7 @@ test('Ocean Beach: NO number until we have kept 3 days of our own forecasts; the
   assert.equal(waiting.buoy.id, '142'); assert.equal(waiting.have, 0); assert.equal(waiting.need, 24);
   assert.ok(!('d7' in waiting) && !('days' in waiting), 'no score is even served while collecting');
   const wl = howRightLine(waiting, '2026-11-07T00:30:00Z');
-  assert.equal(wl.hasNumber, false); assert.equal(wl.text, "How right we've been: starts once we've kept 3 days of our own forecasts (kept since Nov 6)."); assert.doesNotMatch(wl.text, /ft/);
+  assert.equal(wl.hasNumber, false); assert.equal(wl.text, "How right we've been: starts once 24 of our past forecast hours can be checked against the buoy (0 so far; kept since Nov 6)."); assert.doesNotMatch(wl.text, /ft/);
   assert.match(howRightLine(waiting, null).text, /start keeping them tonight/);
   // 2 days of 3-hourly shown values: still collecting (16 < 24)
   const two = new Map(hours(NOW - 2 * D, NOW, 3 * H).map((t) => [t, {hs: wave(t) * 1.2 + 0.5, leadH: 20}]));
