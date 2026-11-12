@@ -439,6 +439,16 @@ function OceanMap({section, go}: ViewProps) {
       .sort((a, b) => Number(b.id === focused) - Number(a.id === focused) || (rank.current.get(b.id) ?? -1) - (rank.current.get(a.id) ?? -1)).slice(0, 60).map((e) => e.id) : [];
     if (reportTimer.current) window.clearTimeout(reportTimer.current);
     reportTimer.current = window.setTimeout(() => reportVisibleRef.current(vis), 500);
+    // design re-critique: the floating controls (search, chips, the layer and zoom buttons, notes, the credit) shield the basemap's place names, so no
+    // town name hides under a button (the engine leaves out a name that would collide with these boxes; nothing is drawn)
+    if (m.shieldLabels) {
+      const edge = m.container.getBoundingClientRect(), root = m.container.parentElement;
+      const top = Array.from(root?.querySelectorAll<HTMLElement>('.xtopbar > *') ?? []).flatMap((el) => (el.tagName === 'DIV' && el.children.length ? Array.from(el.children) : [el]));
+      const boxes = [...top, ...Array.from(root?.querySelectorAll<HTMLElement>('.xfabs > *, .xfabs .xzoom > *, .xsrcwarn, .xcredit, .xdark, .xspotpop') ?? [])]
+        .map((el) => el.getBoundingClientRect()).filter((r) => r.width && r.height && r.right > edge.left && r.left < edge.right && r.bottom > edge.top && r.top < edge.bottom)
+        .map((r) => { const c = m.unproject(r.left - edge.left + r.width / 2, r.top - edge.top + r.height / 2); return {lat: c.lat, lon: c.lon, w: r.width + 6, h: r.height + 6}; });
+      m.shieldLabels(boxes);
+    }
   };
   // T-058: on phones the map opens with the selected spot in the clear area above the time bar (never under it or the attribution).
   useEffect(() => {

@@ -1,3 +1,4 @@
+import {withSign} from '../utils/signed.ts';
 import type {Forecast, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
@@ -45,7 +46,7 @@ export function tideOf(f: Forecast, p: UserProfile, nowMs: number = Date.now()):
   const trend = f.tide?.trend ?? f.tide?.stage, st = firstStale([f.evidence?.tide?.source], nowMs, TIDE_MAX_AGE_MS);
   if (!finite(f.tide?.height) && trend !== 'Rising' && trend !== 'Falling') return null;
   return {state: trend === 'Rising' ? 'rising' : trend === 'Falling' ? 'falling' : 'unknown',
-    heightLabel: finite(f.tide?.height) ? formatWaveHeight({kind: 'nearshore', valueFt: Math.abs(f.tide.height)}, p, 'technical').text.replace(/^/, f.tide.height < 0 ? '-' : '') + (st ? (st.reason === 'saved' ? ' · saved copy' : ' · stale') : '') : null,
+    heightLabel: finite(f.tide?.height) ? withSign(f.tide.height, formatWaveHeight({kind: 'nearshore', valueFt: Math.abs(f.tide.height)}, p, 'technical').text) + (st ? (st.reason === 'saved' ? ' · saved copy' : ' · stale') : '') : null,
     note: `Regional reference station (San Francisco), MLLW; not a local tide gauge.${st ? ` ${staleText(st)}.` : ''}`, ...(st ? {stale: st} : {})};
 }
 

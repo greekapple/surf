@@ -65,7 +65,8 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
       const data = shieldFc(boxes), src = map.getSource(SHIELD) as maplibregl.GeoJSONSource | undefined;
       if (src) { src.setData(data); return; }
       map.addSource(SHIELD, {type: 'geojson', data});
-      map.addLayer({id: SHIELD, type: 'symbol', source: SHIELD, layout: {'icon-image': ['get', 'i'], 'icon-allow-overlap': true, 'icon-ignore-placement': false, 'icon-anchor': 'center'}, paint: {'icon-opacity': 0}});
+      // below the dot layers (map-dots): the dots are placed first and never give way to a shield box; the basemap's names, further down, still do
+      map.addLayer({id: SHIELD, type: 'symbol', source: SHIELD, layout: {'icon-image': ['get', 'i'], 'icon-allow-overlap': true, 'icon-ignore-placement': false, 'icon-anchor': 'center'}, paint: {'icon-opacity': 0}}, map.getLayer('swello-dots-group') ? 'swello-dots-group' : undefined);
     } catch { /* style not ready: the next declutter sends the boxes again */ }
   };
   // map-dots: the spot and group dots as symbol layers on top of the style (above the place names, so a name that would collide with a dot gives way).

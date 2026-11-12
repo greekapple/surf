@@ -720,3 +720,8 @@ p.sp-wn { display: block; }
 .call-wl { grid-area: wl; font-size: 16px; font-weight: 650; color: var(--text); }
 .call-meta { grid-area: meta; font-size: 13px; color: var(--muted); }
 .call-more { align-self: start; padding-top: 6px; }
+/* design re-critique: no blank band above "+3 more" (its text sat centred in a 44 px row under a 12 px gap) */
+@media (max-width: 860px) {
+  .nws { gap: 12px; }   /* t034: 12 px between the alert link and the button */
+  .nws-more { display: flex; align-items: flex-start; min-height: 44px; padding: 2px 14px 0; }   /* the text at the top of its 44 px target: no band above it */
+}

@@ -180,7 +180,8 @@ export function ForecastView({go}: ViewProps) {
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
         Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
         Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}
-      <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />
+      {/* lead triage (design re-critique): no board suggestion under a Skip (or after dark with no window ahead): 'Ride your …' there reads as advice to paddle out */}
+      {!(call.verdict === 'Skip' || (call.verdict === 'Dark' && !call.nextWindow)) && <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />}
       <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
 
       <section className="card sp-chart" aria-label="Forecast detail">

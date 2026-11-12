@@ -1,3 +1,4 @@
+import {withSign} from '../../utils/signed';
 // Presentation helpers for the Forecast area. They only reshape existing data.
 import {dateIn} from '../../ocean/time';
 import {activeZone} from '../../ocean/spotZone';
@@ -37,6 +38,8 @@ export function bestDaylight(series: HourSample[], spot: SurfSpot, from: number,
 }
 
 /** Offshore and swell heights are never converted to Hawaiian (that scale is for breaking faces only). */
+/** A signed height (tide): the minus only when the shown number is not zero (a −0.04 ft tide read "−0.0 ft", design re-critique 2026-11-12). */
+export const htSigned = (ft: number, p: UserProfile, digits = 1) => withSign(ft, ht(Math.abs(ft), p, digits));
 export const ht = (ft: number | null | undefined, p: UserProfile, digits = 1) =>
   ft === null || ft === undefined || !Number.isFinite(ft) ? '—' : heightValue(ft, p, false).toFixed(digits);
 export const windVal = (mph: number | null | undefined, p: UserProfile) =>

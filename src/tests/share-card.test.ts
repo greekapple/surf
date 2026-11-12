@@ -1,3 +1,4 @@
+import {withSign} from '../utils/signed.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
@@ -51,14 +52,14 @@ test('the condensed text: SWELLO · spot; the window, the rating at its first ho
 });
 test('every number in the text is the spot page\'s displayed value for that hour (Surf, Swell, Wind and Tide cards: the same formulas as features/forecast/helpers.ts ht / windVal)', () => {
   const records = build(spot.id), c = cardOf(spot, records)!, f = windowHour(records, spot.id, {start: tOf(c.url)!})!, hr = spotHourOf(spot, f, nowMs, p);
-  const page = {surf: hr.surf.value, period: `${Math.round(f.primary!.period)} s`, dir: compass(f.primary!.direction), wind: `${windText(f.wind.speed, p).split(' ')[0]} ${p.windUnit} ${compass(f.wind.direction)}`, tide: `${f.tide.height < 0 ? '−' : ''}${heightValue(Math.abs(f.tide.height), p, false).toFixed(1)} ${p.heightUnit}`};
+  const page = {surf: hr.surf.value, period: `${Math.round(f.primary!.period)} s`, dir: compass(f.primary!.direction), wind: `${windText(f.wind.speed, p).split(' ')[0]} ${p.windUnit} ${compass(f.wind.direction)}`, tide: `${withSign(f.tide.height, heightValue(Math.abs(f.tide.height), p, false).toFixed(1))} ${p.heightUnit}`};
   for (const v of Object.values(page)) assert.ok(c.text.includes(v), `${v} in ${c.text}`);
   const numbers = c.text.split('\n').slice(1, 4).join(' ').replace(/at \d+ (AM|PM)/, '').replace(/shared \d+:\d\d (AM|PM)/, '').replace(/^\w{3} [^·]+·/, '').match(/−?\d+(\.\d+)?/g) ?? [];
   const shown = Object.values(page).join(' ').match(/−?\d+(\.\d+)?/g)!;
   for (const n of numbers) assert.ok(shown.includes(n) || /×/.test(c.text) && c.text.includes(`×${n}`), `${n} is a spot-page value (${shown.join(', ')})`);
   // the page shows these with the same expressions (guards the copies above)
   const sp = fs.readFileSync(new URL('../features/forecast/SpotPage.tsx', import.meta.url), 'utf8'), hp = fs.readFileSync(new URL('../features/forecast/helpers.ts', import.meta.url), 'utf8');
-  assert.match(sp, /\{windVal\(f\.wind\.speed, p\)\}<small>\{p\.windUnit\}<\/small>/); assert.match(sp, /\{f\.tide\.height < 0 \? '−' : ''\}\{ht\(Math\.abs\(f\.tide\.height\), p\)\}/); assert.match(sp, /\{Math\.round\(s\.period\)\}<small>s/);
+  assert.match(sp, /\{windVal\(f\.wind\.speed, p\)\}<small>\{p\.windUnit\}<\/small>/); assert.match(sp, /\{htSigned\(f\.tide\.height, p\)\}/); assert.match(hp, /htSigned = \(ft: number, p: UserProfile, digits = 1\) => withSign\(ft, ht\(Math\.abs\(ft\), p, digits\)\)/); assert.match(sp, /\{Math\.round\(s\.period\)\}<small>s/);
   assert.match(hp, /heightValue\(ft, p, false\)\.toFixed\(digits\)/); assert.match(hp, /windText\(mph, p\)\.split\(' '\)\[0\]/);
 });
 test('a field the app has no value for is left out: no wind, no tide', () => {

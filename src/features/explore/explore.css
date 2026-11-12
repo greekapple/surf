@@ -994,3 +994,9 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xdk-b { color: var(--xw-ink, var(--text)); }
 .xdk-b .xg-dot { display: inline-grid; place-items: center; line-height: 1; }
 .xdk-note { margin: 0; font-size: 12px; line-height: 1.35; color: var(--muted); overflow-wrap: anywhere; }
+
+/* design re-critique ("SunMon"): a phone's day cells are 16–30 px, too narrow for three letters between the dividers; two letters up to 34 px, one under 20 px */
+.xs-days .xs-two, .xs-days .xs-one { display: none; }
+@container (max-width: 34px) { .xs-days .xs-tiny { display: none; } .xs-days .xs-two { display: inline; } }
+@container (max-width: 20px) { .xs-days .xs-two { display: none; } .xs-days .xs-one { display: inline; } }
+@container (max-width: 9px) { .xs-days .xs-one { display: none; } }

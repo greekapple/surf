@@ -123,7 +123,7 @@ export function DayStrip({times, index, playing, onPlay, onScrub, valueText}: {t
       <div className="xs-track">
         <div className="xs-days" aria-hidden="true">
           {days.map((d) => <span key={d.k} style={{width: `${((d.to - d.from + 1) / Math.max(1, n)) * 100}%`}} data-on={index >= d.from && index <= d.to || undefined}>
-            <b className="xs-long">{mapWeekLong(d.t)}</b><b className="xs-short">{mapWeekShort(d.t)}</b><b className="xs-tiny">{mapWeekdayShort(d.t)}</b></span>)}
+            <b className="xs-long">{mapWeekLong(d.t)}</b><b className="xs-short">{mapWeekShort(d.t)}</b><b className="xs-tiny">{mapWeekdayShort(d.t)}</b><b className="xs-two">{mapWeekdayShort(d.t).slice(0, 2)}</b><b className="xs-one">{mapWeekdayShort(d.t).slice(0, 1)}</b></span>)}
         </div>
         <i className="xs-fill" style={{width: `${pct}%`}} aria-hidden="true" />
         <span className="xs-bubble" style={{left: `${pct}%`}} aria-hidden="true">{hour}</span>
