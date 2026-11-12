@@ -1,3 +1,39 @@
 /* T-065: the compact call (Home, nearby list, spot page). Loaded by Trust.tsx so every page that shows a call has it. */
 .call-c { font-size: 13px; color: var(--muted); } .call-c b { font-weight: 700; }
 .call-c.go b { color: var(--good-ink, var(--good)); } .call-c.look b { color: var(--fair-ink, #7d5f00); } .call-c.nogo b { color: var(--bad-ink, var(--bad)); } .call-c.dark b { color: var(--text); }
+
+/* T-109 / phone pass / design re-critique: the NWS hazard box. Moved from forecast.css (lead, 2026-11-12): the same NwsBanner shows on Home, and
+   forecast.css only loads with the Forecast page, so Home's copy missed the phone rules. Order kept: later rules still win as before. */
+.nws { padding: 10px 14px; border-left: 3px solid var(--warn, #b4531a); background: color-mix(in srgb, var(--warn, #b4531a) 7%, transparent); font-size: 14px; }
+.nws p + p { margin-top: 4px; } .nws b { font-weight: 650; } .nws a { margin-left: 8px; color: var(--accent-ink, var(--accent)); }
+@media (max-width: 860px) {
+  .nws { padding: 6px 10px; font-size: 13px; }
+  .nws p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+}
+@media (max-width: 860px) {
+  .nws p { -webkit-line-clamp: 1; }
+  .nws { padding: 4px 10px; }
+}
+.nws { display: grid; gap: 12px; padding: 4px 6px; border-left: 0; border-radius: 12px; background: color-mix(in srgb, var(--warn, #b4531a) 7%, transparent); }
+.nws-a { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 10px 8px; border-radius: 8px; color: var(--text); text-decoration: none; font-size: 14px; line-height: 1.4; }
+.nws-a:hover { background: color-mix(in srgb, var(--warn, #b4531a) 8%, transparent); }
+.nws-a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.nws-i { flex: none; margin-top: 1px; fill: none; stroke: var(--warn-ink, var(--warn, #b4531a)); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.nws-t b { font-weight: 650; } .nws-w { color: var(--text); } .nws-s { color: var(--muted); font-size: 12.5px; }
+@media (max-width: 860px) { .nws { padding: 2px 4px; } .nws-a { font-size: 13px; padding: 8px 6px; } .nws-a .nws-t { display: block; -webkit-line-clamp: unset; overflow: visible; } }
+/* T-109: the alert row is the link, but its text keeps the page ink (an older `.nws a` rule tinted it link blue and indented it). */
+.nws .nws-a { margin-left: 0; color: var(--text); }
+.nws-more { display: none; }
+@media (max-width: 860px) {
+  .nws:not(.open) > .nws-a ~ .nws-a { display: none; }      /* the first alert, the rest one tap away */
+  .nws-more { display: block; width: 100%; min-height: 44px; padding: 0 16px; border: 0; background: none; color: var(--accent); font: 600 14px/1 var(--sans); text-align: left; cursor: pointer; }
+}
+/* design re-critique: no blank band above "+3 more" (its text sat centred in a 44 px row under a 12 px gap) */
+@media (max-width: 860px) {
+  /* lead (Home's copy): no empty band. The "+N more" text sits right under the alert; its 44 px tap target is an invisible ::after
+     (t034 counts it), so the box needs no blank rows above or below the words */
+  .nws { gap: 0; }
+  .nws-more { position: relative; display: block; min-height: 0; padding: 4px 14px 8px; line-height: 1.35; }
+  .nws-more::after { content: ''; position: absolute; left: 0; right: 0; top: -10px; bottom: -14px; }
+  main#main .nws .nws-more { min-height: 0; }   /* the page's 44 px button floor: the ::after is this button's tap area */
+  .nws:not(.open) > .nws-a:first-child { padding-bottom: 2px; }

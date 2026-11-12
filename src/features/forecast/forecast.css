@@ -400,8 +400,6 @@
 .call-basis { font-size: 12px; color: var(--dim); }
 .daylight { display: flex; flex-wrap: wrap; gap: 4px 24px; margin: -8px 0 0; font-size: 13px; }
 .daylight div { display: flex; gap: 6px; } .daylight dt { color: var(--muted); } .daylight dd { font-weight: 600; font-variant-numeric: tabular-nums; }
-.nws { padding: 10px 14px; border-left: 3px solid var(--warn, #b4531a); background: color-mix(in srgb, var(--warn, #b4531a) 7%, transparent); font-size: 14px; }
-.nws p + p { margin-top: 4px; } .nws b { font-weight: 650; } .nws a { margin-left: 8px; color: var(--accent-ink, var(--accent)); }
 .felt { display: flex; flex-wrap: wrap; align-items: center; gap: 0 4px; margin-top: 4px; font-size: 13px; }
 .felt-q { color: var(--muted); margin-right: 4px; }
 .felt button { min-height: 32px; padding: 0 8px; border: 1px solid transparent; border-radius: 8px; background: none; color: var(--accent-ink, var(--accent)); font: 600 13px/1 inherit; cursor: pointer; }
@@ -436,8 +434,6 @@
 [data-card=surf] .ob-line:empty { display: none; }
 [data-card=surf] .felt { margin-top: 0; }
 @media (max-width: 860px) {
-  .nws { padding: 6px 10px; font-size: 13px; }
-  .nws p { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
   .call-why { display: -webkit-box; -webkit-line-clamp: 1; -webkit-box-orient: vertical; overflow: hidden; }
   .sp { gap: 12px; }
 }
@@ -446,8 +442,6 @@
 .call-b { min-height: 56px; padding: 8px 0; }
 .daylight { margin: -12px 0 -4px; }
 @media (max-width: 860px) {
-  .nws p { -webkit-line-clamp: 1; }
-  .nws { padding: 4px 10px; }
   .daylight { margin: -8px 0 -4px; }
   .daylight div { gap: 0; } .daylight dd { line-height: 1.2; }
   [data-card=surf] .felt button { min-height: 36px; }
@@ -475,17 +469,8 @@
   .wel .sp-band > .photo::after { background: linear-gradient(90deg, rgb(7 12 17 / 0.6) 0%, rgb(7 12 17 / 0.3) 55%, rgb(7 12 17 / 0.1) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.55), transparent 60%); } }
 
 /* ---------- T-109: hazard banner (icon + bold title, no coloured stripe; each alert one full-height link that wraps, so end times show) ---------- */
-.nws { display: grid; gap: 12px; padding: 4px 6px; border-left: 0; border-radius: 12px; background: color-mix(in srgb, var(--warn, #b4531a) 7%, transparent); }
-.nws-a { display: flex; align-items: flex-start; gap: 10px; min-height: 44px; padding: 10px 8px; border-radius: 8px; color: var(--text); text-decoration: none; font-size: 14px; line-height: 1.4; }
-.nws-a:hover { background: color-mix(in srgb, var(--warn, #b4531a) 8%, transparent); }
-.nws-a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.nws-i { flex: none; margin-top: 1px; fill: none; stroke: var(--warn-ink, var(--warn, #b4531a)); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.nws-t b { font-weight: 650; } .nws-w { color: var(--text); } .nws-s { color: var(--muted); font-size: 12.5px; }
-@media (max-width: 860px) { .nws { padding: 2px 4px; } .nws-a { font-size: 13px; padding: 8px 6px; } .nws-a .nws-t { display: block; -webkit-line-clamp: unset; overflow: visible; } }
 /* T-109: the "Felt right?" answers are at least 44 px wide. */
 .felt button { min-width: 44px; }
-/* T-109: the alert row is the link, but its text keeps the page ink (an older `.nws a` rule tinted it link blue and indented it). */
-.nws .nws-a { margin-left: 0; color: var(--text); }
 /* T-109: on phones the hero subtitle wraps to two lines instead of being cut off mid-word. */
 @media (max-width: 860px) { .sp-band .sp-title p { -webkit-line-clamp: 2; } }
 /* T-109: the surf estimate is one continuous band with its middle drawn as a line (not a bar per hour). */
@@ -621,14 +606,11 @@ p.sp-wn { display: block; }
 .sp-h1b { all: unset; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; border-radius: 8px; }
 .sp-h1b:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .sp-h1c { display: none; opacity: 0.8; }
-.nws-more { display: none; }
 @media (max-width: 860px) {
   .sp-h1c { display: inline-block; }                       /* the name is the spot selector on a phone */
   .favbar-end .spotpick { display: none; }                  /* ...so the separate picker row goes */
   .favbar:has(.favbar-empty) { display: none; }             /* and with no saved spots the bar has nothing left to show */
   .sp-meta-b { display: none; }                             /* "heights are model estimates · ratings provisional": said beside the number and the rating */
-  .nws:not(.open) > .nws-a ~ .nws-a { display: none; }      /* the first alert, the rest one tap away */
-  .nws-more { display: block; width: 100%; min-height: 44px; padding: 0 16px; border: 0; background: none; color: var(--accent); font: 600 14px/1 var(--sans); text-align: left; cursor: pointer; }
 }
 @media (max-width: 860px) {
   /* no saved spots: the strip is hidden, so the page stops reserving its height under the header */
@@ -720,8 +702,3 @@ p.sp-wn { display: block; }
 .call-wl { grid-area: wl; font-size: 16px; font-weight: 650; color: var(--text); }
 .call-meta { grid-area: meta; font-size: 13px; color: var(--muted); }
 .call-more { align-self: start; padding-top: 6px; }
-/* design re-critique: no blank band above "+3 more" (its text sat centred in a 44 px row under a 12 px gap) */
-@media (max-width: 860px) {
-  .nws { gap: 12px; }   /* t034: 12 px between the alert link and the button */
-  .nws-more { display: flex; align-items: flex-start; min-height: 44px; padding: 2px 14px 0; }   /* the text at the top of its 44 px target: no band above it */
-}
