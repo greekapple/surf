@@ -38,7 +38,7 @@ Cards sit side by side with arrows (or scroll on a phone), so you can compare th
 |---|---|---|---|
 | 1 | **First waves** | ride whitewater to the beach; pop up most of the time; you're mostly in a lesson or on a soft-top | 1–2 ft |
 | 2 | **Beginner** | catch unbroken (green) waves; ride straight or with a small angle; paddle out through small surf | 1–3 ft |
-| 3 | **Improver** | angle along the face on purpose; trim and keep speed; turtle-roll or push through whitewater; pick your own waves | 1–4 ft |
+| 3 | **Improver** | angle along the face on purpose; trim and keep speed; turtle-roll, or push up and let small whitewater pass under you (not yet a duck-dive); pick your own waves | 1–4 ft |
 | 4 | **Intermediate** | duck-dive; bottom turn and basic cutback; read sets and get back to the peak; surf most beach breaks | 2–6 ft |
 | 5 | **Advanced intermediate** | link turns down the line; surf overhead waves calmly; handle currents and crowds; points and reefs on mellow days | 3–8 ft |
 | 6 | **Advanced** | critical turns and the occasional barrel; double-overhead days; heavy reefs and points; long hold-downs | 3–12 ft |
