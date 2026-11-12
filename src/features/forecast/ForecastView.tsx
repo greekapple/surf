@@ -5,12 +5,13 @@ import {ShareWindow} from './ShareWindow';
 import {slugFor} from '../../app/routes';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf, differsFromViewer, zoneAbbr} from '../../ocean/spotZone';
-import {Fragment, useEffect, useMemo, useState} from 'react';
+import {useEffect, useMemo, useState} from 'react';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
 import {Icon} from '../../ui/Icon';
-import {PolarSwell, TideDay, Timeline, windInk, type ChartTab} from './charts';
+import {PolarSwell, TideDay} from './charts';
+import {ForecastCharts} from './ForecastCharts';
 import {bestDaylight, groupDays, spotLatLon} from './helpers';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
 import {Skeleton} from '../../ui/Skeleton';
@@ -38,7 +39,6 @@ import {callFor, daylightFor, surfBandSeries, windowOnDay} from './trustApi';
 import {BREAKER_WORD, breakerType} from '../../services/breaker';
 import {outsideFacingForHour} from '../../services/headlineSurf';
 import './forecast.css';
-import {windWhole} from '../../utils/units';
 
 function Sources() {
   const {view, live} = useSwello();
@@ -54,22 +54,15 @@ function Sources() {
   );
 }
 
-const CHART_TABS: [ChartTab, string][] = [['surf', 'Surf'], ['swell', 'Swell'], ['wind', 'Wind'], ['tide', 'Tide']];
-/** Stacked chart heights by need (px, including the shared axes the chart carries): Surf has the day labels and rating strip, Tide the hour labels. */
-const STACK_H: Record<ChartTab, number> = {surf: 250, swell: 170, wind: 140, tide: 130}, STACK_H_PHONE: Record<ChartTab, number> = {surf: 210, swell: 140, wind: 120, tide: 115};
 
 export function ForecastView({go}: ViewProps) {
   const {view, data, now, spot, series, selected, live, shareNote} = useSwello();
   const p = data.state.profile;
   const days = useMemo(() => groupDays(series), [series]);
-  const [range, setRange] = useState<'week' | 'day'>('week');
-  const [mode, setMode] = useState<'graph' | 'table'>(() => (new URLSearchParams(location.search).get('view') === 'table' ? 'table' : 'graph'));
   // A2: the highs and lows of the spot's OWN tide station (the curve, the chart, the timeline and the table all read the same station)
   const [tla, tlo] = spotLatLon(spot), extrema = extremaForOwnStation(view.ocean.bundle, tideStationFor({id: spot.id, latitude: tla, longitude: tlo})?.station.id, SF_STATION);
   const selIdx = selected ? series.indexOf(selected) : -1;
   const curDay = selIdx >= 0 ? days.findIndex((d) => selIdx >= d.start && selIdx <= d.end) : -1;
-  const setParam = (k: string, v: string | null) => { const u = new URL(location.href); if (v === null) u.searchParams.delete(k); else u.searchParams.set(k, v); history.replaceState(history.state, '', u); };
-  const pickMode = (m: 'graph' | 'table') => { setMode(m); setParam('view', m === 'graph' ? null : m); };
   const fav = data.state.favorites.includes(spot.id);
   const [openCard, setOpenCard] = useState<CardKey | null>(null);
   const [observing, setObserving] = useState(false), [saved, setSaved] = useState('');
@@ -187,40 +180,10 @@ export function ForecastView({go}: ViewProps) {
       {!(call.verdict === 'Skip' || (call.verdict === 'Dark' && !call.nextWindow)) && <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />}
       <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
 
-      <section className="card sp-chart" aria-label="Forecast detail">
-        <div className="sp-chart-h">
-          <div className="seg" role="radiogroup" aria-label="Detail view">
-            <button role="radio" aria-checked={mode === 'graph'} onClick={() => pickMode('graph')}>Graph</button>
-            <button role="radio" aria-checked={mode === 'table'} onClick={() => pickMode('table')}>Table</button>
-          </div>
-          {mode === 'graph' ? <>
-            <div className="seg" role="radiogroup" aria-label="Range">
-              <button role="radio" aria-checked={range === 'week'} onClick={() => setRange('week')}>7 days</button>
-              <button role="radio" aria-checked={range === 'day'} onClick={() => setRange('day')}>{weekdayPT(selected.timestamp)}</button>
-            </div>
-          </> : <span className="fine">{weekdayPT(selected.timestamp)} {dayNumPT(selected.timestamp)} · every 3 hours · wind colored by shore relation</span>}
-        </div>
-        {mode === 'graph' ? <>
-          {/* user, 2026-11-08: the four series stacked, tidied (docs/specs/2026-11-08-stacked-charts-tidy.md): day labels once on top, hours once at the bottom,
-              one rating strip under Surf, heights by need, flush so the selected-hour line runs through all four */}
-          <div className="sp-stack">
-          {CHART_TABS.map(([tab, label]) => (
-            <section key={tab} className="sp-series" aria-label={`${label} chart`}>
-              <Timeline series={series} spot={spot} p={p} selectedTime={view.selectedTime} onSelect={view.selectTime} now={now} dayIndex={range === 'day' ? Math.max(0, curDay) : null} tab={tab} band={band} extrema={extrema} height={(narrow ? STACK_H_PHONE : STACK_H)[tab]} title={label} showDays={tab === 'surf'} showRibbon={tab === 'surf'} showHours={tab === 'tide'} stacked />
-            </section>
-          ))}
-          </div>
-          <ul className="legend" aria-hidden="true">
-          {CHART_TABS.map(([tab]) => <Fragment key={tab}>
-            {tab === 'surf' && <>{hasEstimates && <><li><i style={{background: 'var(--hs-hi)', opacity: 0.45, height: 8}} />Surf estimate (range)</li><li><i style={{background: 'var(--hs-hi)', height: 0, borderTop: '2px solid var(--hs-hi)'}} />Middle of the range</li><li><i className="lg-sure" />Fainter: less certain</li>{band.some((b) => b.wide) && <li><i className="lg-wide" />Could be (models differ)</li>}{band.some((b) => b.certainty === 'too-far') && <li><i className="lg-far" />Too far out to call</li>}</>}<li><i style={{background: 'var(--muted)', height: 0, borderTop: '1.5px solid var(--muted)'}} />{hasEstimates ? 'Offshore Hs' : 'Offshore Hs · not surf size'}</li></>}
-            {tab === 'swell' && <><li><i style={{background: 'var(--sw1)'}} />Primary swell · period in s</li><li><i style={{background: 'var(--sw2)'}} />Secondary</li>{series.some((h) => h.forecast.tertiary) && <li><i style={{background: 'var(--sw3)'}} />Third swell</li>}<li>▲ arrows show where each swell travels</li></>}
-            {tab === 'wind' && <><li><i style={{background: 'var(--accent)'}} />Wind speed</li><li><i style={{background: 'var(--muted)'}} />Gusts</li><li><i style={{width: 44, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to {windWhole(24, p).replace(' ', '+ ')}</li></>}
-            {tab === 'tide' && <li><i style={{background: 'var(--tide)'}} />Predicted tide, MLLW</li>}
-            {tab === 'surf' && <><li><i style={{background: 'var(--good)'}} />Rating good+</li><li><i style={{background: 'var(--fair)'}} />fair</li><li><i style={{background: 'var(--poor)'}} />poor</li></>}
-          </Fragment>)}
-          </ul>
-        </> : <HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />}
-      </section>
+      {/* forecast-charts (user, 2026-11-12): the four panels as one instrument that fits the screen, one cursor, one readout, a day zoom (ForecastCharts.tsx) */}
+      <ForecastCharts series={series} days={days} curDay={curDay} spot={spot} p={p} band={band} extrema={extrema} now={now} selectedTime={view.selectedTime} onSelect={view.selectTime} onZoomDay={pickDay}
+        narrow={narrow} hasEstimates={hasEstimates} dayHoursLabel={`${weekdayPT(selected.timestamp)} ${dayNumPT(selected.timestamp)} · every 3 hours · wind colored by shore relation`}
+        table={<HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />} />
 
       <details className="card sp-src"><summary><h2>Sources &amp; data</h2><span>nearshore model, buoys, offshore heights and sources · {selected.rating.reliability.category.toLowerCase()} reliability</span></summary>
         <div className="sp-two">

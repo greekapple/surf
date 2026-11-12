@@ -30,10 +30,10 @@ test('wind legend top end follows the wind unit', () => {
 test('no hard-coded ft/mph left in the board ranges, Home pick or chart legend', () => {
   const files = ['src/features/quiver/QuiverView.tsx', 'src/features/quiver/Rack.tsx', 'src/features/quiver/BoardRoom.tsx', 'src/features/home/Welcome.tsx'];
   for (const f of files) assert.doesNotMatch(readFileSync(f, 'utf8'), /board\[1\]\} ft|board\[1\]\}–?\s?ft|Math\.round\(est\[1\]\)\} ft/, f);
-  assert.doesNotMatch(readFileSync('src/features/forecast/ForecastView.tsx', 'utf8'), /24\+ mph/);
+  assert.doesNotMatch(readFileSync('src/features/forecast/ForecastCharts.tsx', 'utf8'), /24\+ mph/);
   const pv = readFileSync('src/features/personal/PersonalView.tsx', 'utf8');
   assert.match(pv, /<UnitNumber ft=\{p\.minWave\} unit=\{p\.heightUnit\}/);
   assert.match(pv, /if \(!text\.trim\(\) \|\| !Number\.isFinite\(v\)\) return;/, 'empty or NaN drafts are dropped, not saved as 0');
-  assert.match(readFileSync('src/features/forecast/ForecastView.tsx', 'utf8'), /Arrows 0 to \{windWhole\(24, p\)\.replace\(' ', '\+ '\)\}/);
+  assert.match(readFileSync('src/features/forecast/ForecastCharts.tsx', 'utf8'), /Arrows 0 to \{windWhole\(24, p\)\.replace\(' ', '\+ '\)\}/);
   assert.equal(windWhole(24, {windUnit: 'kn'}).replace(' ', '+ '), '21+ kn');
 });
