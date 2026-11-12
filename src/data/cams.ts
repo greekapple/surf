@@ -1,3 +1,4 @@
+import {hasSnapshot} from '../ocean/hdontapCams.ts';
 /** T-063 "Live cam" links (the owner's page, opened in a new tab). The camera rule (amended 2026-11-10, user decision): SHOWING a camera is allowed when it is public domain, when the owner's terms allow embedding, or when the owner turned
  *  embedding on for their own YouTube stream; it must be credited, load only when the visitor taps (a video) and say honestly whether it is live (src/data/liveCamsSourced.ts, the Camera panel on the spot page). Analysing a camera's frames
  *  (AI, scraping, measuring) still needs written permission or public domain. SECOND AMENDMENT (2026-11-10, user decision and accepted risk while they email the host): a camera with UNKNOWN terms may also be embedded when its host
@@ -46,5 +47,5 @@ export const camFor = (spotId: string): Cam | null => CAMS.find((c) => c.spotId 
  *  other owners' pages: links, unless a camera qualifies for the Camera panel under the rule at the top of this file. An entry is added only once our camera streams. */
 export interface OwnCam {spotId: string; /** A stream the browser plays directly (HLS for Safari, or an MP4/WebM loop). */ src: string; label: 'Live cam · SWELLO'; since: string}
 export const OWN_CAMS: readonly OwnCam[] = [];
-/** T-111: every verified public cam for a spot (the spot page lists them as links). */
-export const camsFor = (spotId: string): readonly Cam[] => CAMS.filter((c) => c.spotId === spotId);
+/** T-111: every verified public cam for a spot (the spot page lists them as links). hdontap-snaps: an HDOnTap camera that has a snapshot is shown by the snapshot block instead (src/ocean/hdontapCams.ts). */
+export const camsFor = (spotId: string): readonly Cam[] => CAMS.filter((c) => c.spotId === spotId && !hasSnapshot(c.url, spotId));

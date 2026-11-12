@@ -22,6 +22,7 @@ import {SpotBand} from './SpotBand';
 import {camsFor} from '../../data/cams';
 import {LiveCamPanel} from './LiveCam';
 import {HdontapLinks} from './HdontapLinks';
+import {HdontapSnaps} from './HdontapSnaps';
 import {WaterQuality} from './WaterQuality';
 import {glyphFor} from '../../services/waveGlyph';
 import {userHeight} from '../../services/heightMath';
@@ -175,6 +176,8 @@ export function ForecastView({go}: ViewProps) {
       <HdontapLinks spotId={spot.id} exclude={cams.map((c) => c.url)} />
 
       <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
+      {/* hdontap-snaps: HDOnTap's live-updating snapshots (src/ocean/hdontapCams.ts); below the conditions grid, so on a phone it is never on the first screen. Nothing for a spot without one. */}
+      <HdontapSnaps spotId={spot.id} zone={timeZoneOf(spot)} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
       <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}

@@ -572,6 +572,16 @@ p.sp-wn { display: block; }
 .lc-hidden { display: none; }
 .lc-dim { opacity: 0.35; filter: grayscale(1); }   /* the player says the stream is not live: paused and dimmed */
 .lc-credit { margin: 0; } .lc-credit a { color: inherit; text-decoration: underline; }
+/* hdontap-snaps: the snapshot is a 16:9 link to its HDOnTap page; the attribution line and HDOnTap's logo (colour on light, white on dark) close the block */
+.hds-a { display: block; border-radius: 8px; }
+.hds-a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.hds-img { aspect-ratio: 16 / 9; object-fit: cover; max-height: none; }
+.sp-hds .lc-fig { max-width: 640px; }   /* HDOnTap's 640x360 picture at its own size, never blown up on a wide screen */
+.hds-credit { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; row-gap: 4px; }
+.hds-credit .hds-logo { display: inline-flex; align-items: center; min-height: 44px; }
+.hds-logo img { display: block; height: 22px; width: auto; }
+.hds-logo .hds-logo-d, :root[data-theme='dark'] .hds-logo .hds-logo-l { display: none; }
+:root[data-theme='dark'] .hds-logo .hds-logo-d { display: block; }
 
 /* hdontap-embeds: link buttons to HDOnTap camera pages (link only) */
 .sp-hd ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }

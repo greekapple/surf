@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from 'react';
 import {useEmbedAllowed} from './embedAllowed';
+import {hasSnapshot} from '../../ocean/hdontapCams';
 import {liveCamsFor, type LiveCam as Cam} from '../../data/liveCamsSourced';
 import {STILL_REFRESH_MS, STREAM_LOAD_TIMEOUT_MS, ageWords, checkedWords, distanceWords, offlineWords, postedLabel, stillState, streamErrorWords, streamLiveness, type StillBasis, type StreamState} from './liveCamLogic';
 
@@ -90,7 +91,7 @@ function HdontapCam({cam}: {cam: Cam}) {
 export function LiveCamPanel({spotId, zone}: {spotId: string; zone: string}) {
   const all = liveCamsFor(spotId), allowed = useEmbedAllowed(all.filter((c) => c.kind === 'hdontap' && c.embedId).map((c) => c.embedId!));
   // an HDOnTap camera is drawn only when HDOnTap's own headers allow our site (confirmed by the Worker); otherwise its "HDOnTap cam ↗" link is what shows (HdontapLinks)
-  const cams = all.filter((c) => c.kind !== 'hdontap' || (c.embedId && allowed[c.embedId] === true)), [sel, setSel] = useState(0); if (!cams.length) return null;
+  const cams = all.filter((c) => c.kind !== 'hdontap' || (c.embedId && allowed[c.embedId] === true)).filter((c) => !hasSnapshot(c.pageUrl, spotId)), [sel, setSel] = useState(0); if (!cams.length) return null;
   const cam = cams[Math.min(sel, cams.length - 1)];
   return <section className="sp-live-cam card" aria-labelledby="lc-h">
     <h2 id="lc-h">Camera</h2>

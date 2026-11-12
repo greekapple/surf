@@ -1,6 +1,7 @@
 import type {Go} from '../app/routes';
 import {LIVE_CAMS} from '../data/liveCamsSourced';
 import {HDONTAP_LINKS} from '../data/hdontapLinksSourced';
+import {HDONTAP_ATTRIBUTION, HDONTAP_CAMS, HDONTAP_LOGO_LINK} from '../ocean/hdontapCams';
 import {CAMS} from '../data/cams';
 import {PHOTOS} from './photos';
 import {SPREAD_MODELS} from '../ocean/openMeteo';
@@ -51,7 +52,7 @@ export function Credits({go}: {go: Go}) {
     <article className="legal credits">
       <p className="fine"><a href="/personal" onClick={(e) => { e.preventDefault(); go('personal'); }}>‹ Personal</a></p>
       <h1>Data sources & credits</h1>
-      <p>Last updated November 10, 2026. Swello is built on public data. Each source below is what the app actually uses, with its license and the credit its owner asks for.</p>
+      <p>Last updated November 12, 2026. Swello is built on public data. Each source below is what the app actually uses, with its license and the credit its owner asks for.</p>
       <h2>Forecast, tide, buoy and map data</h2>
       <ul className="cr-list">{SOURCES.map((s) => (
         <li key={s.name}>
@@ -71,6 +72,7 @@ export function Credits({go}: {go: Go}) {
       <ul className="cr-list">
         {streams.map((c) => <li key={c.credit}><b>{c.credit}</b><span>{c.kind === 'still' ? 'Still images, loaded from the owner\'s host.' : 'A YouTube stream, loaded only when you tap it.'} {c.licence}</span>
           <span><a href={c.pageUrl} target="_blank" rel="noopener noreferrer">Source page ↗</a>{c.channelUrl && <> · <a href={c.channelUrl} target="_blank" rel="noopener noreferrer">Channel ↗</a></>}</span></li>)}
+        {HDONTAP_CAMS.some((c) => c.snapshotUrl) && <li><b>HDOnTap snapshots</b><span>{HDONTAP_ATTRIBUTION}. Live-updating pictures, loaded from HDOnTap's host about once a minute, each linking to its camera page. Cameras: {HDONTAP_CAMS.filter((c) => c.snapshotUrl).map((c) => c.name).join(', ')}.</span><span><a href={HDONTAP_LOGO_LINK} target="_blank" rel="noopener noreferrer">HDOnTap.com ↗</a></span></li>}
         {hd.length > 0 && <li><b>HDOnTap cameras</b><span>Links, unless HDOnTap allows this site, in which case its player loads only when you tap. Owners: {hd.join(', ')}.</span></li>}
         {camLinks.length > 0 && <li><b>Other public cameras</b><span>Links to the owners' own pages: {camLinks.join(', ')}.</span></li>}
       </ul>
