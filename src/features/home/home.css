@@ -300,3 +300,10 @@
   .hd .dc-more .dc-share { order: 2; }
   .hd .dc-more .dc-rb { order: 3; flex-basis: 100%; }
 }
+
+/* lead (design re-critique): on a phone the hero's drawing is a 90 px strip, not 140 px; the caption keeps the estimate's label and the "drawn,
+   approximate" note, and drops the spot and time the sentence above already says */
+@media (max-width: 860px) {
+  .wel-media .wglyph { height: 90px; width: auto; max-width: 100%; }
+  .wel-media figcaption .wel-cap-where { display: none; }
+}

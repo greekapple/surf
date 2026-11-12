@@ -136,7 +136,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
           ? <figure className="wel-media"><CamPlayer cam={media.cam} onFail={() => setCamFailed(true)} /><figcaption>{media.cam.label} · {spot.name}</figcaption></figure>
           : glyph && <figure className="wel-media" style={heroBand ? {'--band': heroBand} as React.CSSProperties : undefined}>
               <WaveGlyph glyph={glyph} size="lg" personIn={me.inches} unit={profile.heightUnit} />
-              <figcaption><span>{spot.name} · {heroWhen} · {glyph.kind !== 'offshore' ? `${heroEstimateText(heroHour!.surf.headline, profile) ?? `Est. ${heroHour!.surf.value}`} · you ${formatHeight(me.inches, profile.heightUnit)}${me.isDefault ? ' (default)' : ''}` : 'offshore swell only'}</span><span>{DRAWN_CAPTION}</span></figcaption>
+              <figcaption><span><span className="wel-cap-where">{spot.name} · {heroWhen} · </span>{glyph.kind !== 'offshore' ? `${heroEstimateText(heroHour!.surf.headline, profile) ?? `Est. ${heroHour!.surf.value}`} · you ${formatHeight(me.inches, profile.heightUnit)}${me.isDefault ? ' (default)' : ''}` : 'offshore swell only'}</span><span>{DRAWN_CAPTION}</span></figcaption>
             </figure>}
       </div>
       <NwsBanner spotId={spot.id} />
