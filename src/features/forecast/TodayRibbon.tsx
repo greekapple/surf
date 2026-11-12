@@ -12,7 +12,7 @@ import {relClass} from './SpotPage';
  *  arrows coloured by their relation to THIS beach, and the tide curve, with the call's best window bracketed in the accent. Every value is one the page
  *  already shows (the call, daylightFor, surfBandSeries, the hour records); each track keeps its kind in the left gutter. Tap an hour to select it. */
 export interface RibbonHour {timestamp: string; forecast: {wind: {speed: number; direction: number}; tide: {height: number}; availability?: {tide?: boolean}}}
-const MIN_HOUR_W = 22, GUT = 64, H = {surf: 36, wind: 26, tide: 28}, PAD = 6;
+const MIN_HOUR_W = 22, gutFor = (w: number) => (w >= 600 ? 104 : 64), H = {surf: 36, wind: 26, tide: 28}, PAD = 6;
 const fin = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 
 export function TodayRibbon({spot, hours, band, daylight, win, today = false, selected, p, tideLabel, onSelect}: {
@@ -26,7 +26,7 @@ export function TodayRibbon({spot, hours, band, daylight, win, today = false, se
   const firstKey = hours[0]?.timestamp ?? '';
   useLayoutEffect(() => {
     const el = box.current; if (!el || el.scrollWidth <= el.clientWidth + 1 || !hours.length) return;
-    const n0 = hours.length, hw = Math.max(MIN_HOUR_W, (el.clientWidth - GUT - 2) / n0), t00 = Date.parse(hours[0].timestamp), st = (Date.parse(hours[n0 - 1].timestamp) - t00) / Math.max(1, n0 - 1) || 3600000;
+    const n0 = hours.length, hw = Math.max(MIN_HOUR_W, (el.clientWidth - gutFor(el.clientWidth) - 2) / n0), t00 = Date.parse(hours[0].timestamp), st = (Date.parse(hours[n0 - 1].timestamp) - t00) / Math.max(1, n0 - 1) || 3600000;
     const tEnd = Date.parse(hours[n0 - 1].timestamp), wS = win && Date.parse(win.end) > t00 && Date.parse(win.start) <= tEnd ? Math.max(t00, Date.parse(win.start)) : null;
     const selAt = selected && hours.some((h) => h.timestamp === selected) ? Date.parse(selected) : Date.parse(daylight.firstLight), at = wS !== null ? Math.min(wS, selAt) : selAt;   // the window's start in view when it comes first
     el.scrollLeft = Math.max(0, ((at - t00) / st) * hw - 2 * hw);
@@ -34,14 +34,15 @@ export function TodayRibbon({spot, hours, band, daylight, win, today = false, se
   // the caption (window, the four daylight times, the tide source) always shows, even on a day too short to draw
   const caption = <p className="rb-k">{win ? <b className="rb-best">{win.verdict ?? 'Window'} · {win.label}</b> : <span>{today ? 'No window left today' : 'No window this day'}</span>}<span> · first light {timeLabelPT(daylight.firstLight)} · sunrise {timeLabelPT(daylight.sunrise)} · sunset {timeLabelPT(daylight.sunset)} · last light {timeLabelPT(daylight.lastLight)}</span>{tideLabel ? <span className="rb-src"> · tide: {tideLabel}</span> : null}</p>;
   if (hours.length < 6) return <section className="rb" aria-label="Today">{caption}</section>;
-  const n = hours.length, HOUR_W = Math.max(MIN_HOUR_W, cw ? (cw - GUT - 2) / n : MIN_HOUR_W), W = n * HOUR_W, t0 = Date.parse(hours[0].timestamp), step = (Date.parse(hours[n - 1].timestamp) - t0) / Math.max(1, n - 1) || 3600000;
+  const GUT = gutFor(cw), n = hours.length, HOUR_W = Math.max(MIN_HOUR_W, cw ? (cw - GUT - 2) / n : MIN_HOUR_W), W = n * HOUR_W, t0 = Date.parse(hours[0].timestamp), step = (Date.parse(hours[n - 1].timestamp) - t0) / Math.max(1, n - 1) || 3600000;
   const X = (iso: string | number) => ((typeof iso === 'string' ? Date.parse(iso) : iso) - t0) / step * HOUR_W + HOUR_W / 2;
   const byT = new Map(band.map((b) => [b.t, b]));
   const pts = hours.map((h) => byT.get(h.timestamp) ?? null);
   // the surf track: the estimate band (lo..hi) where the hour has one; an offshore-only hour is a thin dashed line (never filled as surf)
   const est = pts.some((b) => b?.kind === 'estimate'), off = !est && pts.some((b) => b?.kind === 'offshore'), demo = !est && !off && pts.some((b) => b?.kind === 'demonstration');
   const top = Math.max(1, ...pts.map((b) => (b && fin(b.hi) && (b.kind === 'estimate' || (off && b.kind === 'offshore')) ? b.hi : 0)));   // scaled by the kind drawn, never by an undrawn offshore or demo height
-  const Ys = (ft: number) => PAD + H.surf - (ft / top) * (H.surf - 2);
+  const HEAD = 8;   // headroom above the day's highest surf (the band never touches the top of its track)
+  const Ys = (ft: number) => PAD + H.surf - (ft / top) * (H.surf - 2 - HEAD);
   const runs: [number, number, number][][] = []; let cur: [number, number, number][] = [];
   pts.forEach((b, i) => { if (b && b.kind === 'estimate' && fin(b.lo) && fin(b.hi)) cur.push([X(hours[i].timestamp), b.lo, b.hi]); else if (cur.length) { runs.push(cur); cur = []; } }); if (cur.length) runs.push(cur);
   const area = (r: [number, number, number][]) => `M${r.map(([x, , hi]) => `${x.toFixed(1)},${Ys(hi).toFixed(1)}`).join('L')}L${[...r].reverse().map(([x, lo]) => `${x.toFixed(1)},${Ys(lo).toFixed(1)}`).join('L')}Z`;
@@ -65,11 +66,11 @@ export function TodayRibbon({spot, hours, band, daylight, win, today = false, se
   return (
     <section className="rb" aria-label={aria}>
       <div ref={box} className="rb-scroll" tabIndex={0} role="group" aria-label="Hours of the day (scrolls sideways)">
-        <div className="rb-in" style={{'--rb-w': `${W + GUT}px`} as CSSProperties}>
+        <div className="rb-in" style={{'--rb-w': `${W + GUT}px`, '--rb-gut': `${GUT}px`} as CSSProperties}>
           <div className="rb-gut" aria-hidden="true">
-            <span style={{top: PAD + H.surf / 2 - 6}}>{est ? 'Surf est.' : off ? 'Offshore' : demo ? 'Demo' : 'Surf'}<small>{est ? 'model, shape' : off ? 'not surf' : demo ? 'not live' : 'no height'}</small></span>
-            <span style={{top: yW - 6}}>Wind<small>vs. this beach</small></span>
-            <span style={{top: yT0 + H.tide / 2 - 6}}>Tide{tideLabel ? <small title={tideLabel}>NOAA</small> : <small>none</small>}</span>
+            <span style={{top: PAD, height: H.surf}}>{est ? 'Surf est.' : off ? 'Offshore' : demo ? 'Demo' : 'Surf'}<small>{est ? 'model, shape' : off ? 'not surf' : demo ? 'not live' : 'no height'}</small></span>
+            <span style={{top: PAD + H.surf + 4, height: H.wind}}>Wind<small>vs. this beach</small></span>
+            <span style={{top: yT0, height: H.tide}}>Tide{tideLabel ? <small title={tideLabel}>NOAA</small> : <small>none</small>}</span>
           </div>
           <svg className="rb-svg" width={W} height={total} viewBox={`0 0 ${W} ${total}`} aria-hidden="true">
             {/* night and twilight */}

@@ -691,9 +691,10 @@ p.sp-wn { display: block; }
 .rb-scroll::-webkit-scrollbar { display: none; }
 .rb-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .rb-in { position: relative; display: flex; width: max(100%, var(--rb-w)); }
-.rb-gut { position: sticky; left: 0; z-index: 2; flex: none; width: 64px; background: linear-gradient(90deg, var(--s1, var(--bg)) 80%, transparent); }
-.rb-gut span { position: absolute; left: 8px; display: grid; font-size: 11px; font-weight: 600; line-height: 1.1; color: var(--text); }
-.rb-gut small { font-size: 10px; font-weight: 500; color: var(--dim); }
+.rb-gut { position: sticky; left: 0; z-index: 2; flex: none; width: var(--rb-gut, 64px); background: linear-gradient(90deg, var(--s1, var(--bg)) 80%, transparent); }
+.rb-gut span { position: absolute; left: 8px; right: 4px; display: grid; align-content: center; overflow: hidden; font-size: 11px; font-weight: 600; line-height: 1.15; color: var(--text); white-space: nowrap; }   /* one row box per track: labels can't run into the next */
+.rb-gut small { font-size: 10px; font-weight: 500; color: var(--dim); overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 860px) { .rb-gut small { display: none; } }   /* phones: one short line per track; the long names stay in the ribbon's accessible name and caption */
 .rb-svg { flex: 1 0 auto; display: block; }
 .rb-night { fill: color-mix(in srgb, var(--text) 9%, transparent); }
 .rb-twi { fill: color-mix(in srgb, var(--text) 4%, transparent); }
