@@ -240,7 +240,7 @@ test('service: /api/how-right-all is pending until the daily job has scored; a p
 });
 test('the worker: its own cron expression, hourly 00:20-06:20 UTC, in wrangler.jsonc; it never takes a refresh tick', async () => {
   const {HRA_CRON} = await import('../../worker/cloudflare.mjs'), {readFileSync} = await import('node:fs');
-  assert.equal(HRA_CRON, '20 0-6 * * *'); assert.ok(readFileSync(new URL('../../wrangler.jsonc', import.meta.url), 'utf8').includes(`"${HRA_CRON}"`));
+  assert.equal(HRA_CRON, '20 0-13 * * *'); assert.ok(readFileSync(new URL('../../wrangler.jsonc', import.meta.url), 'utf8').includes(`"${HRA_CRON}"`));
 });
 test('Open-Meteo budget: the capture (cold spots + buoy points) plus the hot refresh stays under the 10,000 free calls a day at every hot-set size up to the cap', async () => {
   const {captureBudget} = await import('../../docs/forecast/data/how-right-all-budget.ts');

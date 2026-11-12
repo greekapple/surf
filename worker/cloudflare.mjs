@@ -27,7 +27,7 @@ export const ARCHIVE_CRON = '17 6 * * *';
 export const BACKFILL_CRON = '47 * * * *';
 // server-captures (services/surf-capture.mjs, docs/forecast/SURF-CAPTURE.md): the same hourly tick first runs the evidence captures (nearshore gauges every hour, NWS surf zone forecasts at 02/08/14/20 UTC, one SWAN slice every hour) into R2, then the NDBC backfill continuation. No fifth cron trigger.
 // "How right we've been" for every spot (services/how-right-all.mjs, round 4C): hourly 00:20-06:20 UTC, its own invocations: capture what we show (resumable), then score once.
-export const HRA_CRON = '20 0-6 * * *';
+export const HRA_CRON = '20 0-13 * * *';   // 2026-11-12: 0-6 left 6 scoring stages x 70 = 420 < ~763 eligible spots, so the card never finished; 0-13 gives up to 13 stages (910)
 export default {
   fetch: (request, env, ctx) => handle(request, env, ctx),
   scheduled: (event, env, ctx) => {
