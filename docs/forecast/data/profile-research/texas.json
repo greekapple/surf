@@ -1,0 +1,199 @@
+[
+ {
+  "spotId": "w-us-port-o-connor-jetties",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/port-o-connor-jetties",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Port O'Connor Jetties",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - SW",
+   "fromDeg": 135,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "ESE - S",
+   "fromDeg": 112.5,
+   "toDeg": 180
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-us-fish-pass-jetties",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/fish-pass-jetties",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Fish Pass Jetties",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/Fish_Pass_Jetties/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Fish Pass Jetties",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE - SSW",
+   "fromDeg": 45,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NE - S",
+   "fromDeg": 45,
+   "toDeg": 180
+  },
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. wannasurf good swell directions \"NorthWest, SouthEast, East\" are not one contiguous range."
+ },
+ {
+  "spotId": "w-us-j-p-luby-surf-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/j-p-luby-surf-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: J.P. Luby Surf Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE - SSW",
+   "fromDeg": 45,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "ENE - SSE",
+   "fromDeg": 67.5,
+   "toDeg": 157.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-us-north-padre-seawall",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/north-padre-seawall",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: North Padre Seawall",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - SSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-bob-hall-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/bob-hall-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bob Hall Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Gulf_Coast/Texas/bob_hall_pier/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Bob Hall Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE - SSW",
+   "fromDeg": 22.5,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E to E (wannasurf: East)",
+   "fromDeg": 90,
+   "toDeg": 90
+  },
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Man-made danger (buoys etc..) - Sharks (wannasurf)"
+  ],
+  "notes": "surf-forecast page \"Bob Hall Pier\" is 4.7 km from our pin (over 3 km); not used. wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surfnerd workable swell \"SW - NE\" (drawn clockwise, so it runs over the landward side of a ESE-facing beach) contradicts its own swell exposure \"NNE - SSW\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNE - SSW\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ }
+]

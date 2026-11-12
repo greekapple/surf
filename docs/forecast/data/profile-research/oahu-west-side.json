@@ -1,0 +1,40 @@
+[
+ {
+  "spotId": "w-hawaii-maili",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/maili",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ma'ili",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSW - NNW",
+   "fromDeg": 202.5,
+   "toDeg": 337.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ }
+]

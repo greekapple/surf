@@ -1,0 +1,138 @@
+[
+ {
+  "spotId": "w-hawaii-kahuku",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kahuku",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kahuku",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW - SE",
+   "fromDeg": 315,
+   "toDeg": 135,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNW - ESE",
+   "fromDeg": 337.5,
+   "toDeg": 112.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-popoia-island-kailua",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/popoia-island-kailua",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Popoia Island Kailua",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/Popoia_Island/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Popoia Island Kailua",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - E, ESE - SE",
+   "fromDeg": 0,
+   "toDeg": 135,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - E",
+   "fromDeg": 0,
+   "toDeg": 90
+  },
+  "idealSwell": null,
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 5.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Urchins - Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.3 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-sandy-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Sandys-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Sandy Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/sandy_beach/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Sandy Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ENE - E, ESE - SW",
+   "fromDeg": 67.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E - SW",
+   "fromDeg": 90,
+   "toDeg": 225
+  },
+  "idealSwell": "south",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include rips, rocks and locals. (surf-forecast)"
+  ],
+  "notes": "wannasurf pin 0.5 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach and reef\". Types differ (surfnerd Beach; surf-forecast exposed beach and reef); the non-beach type is recorded."
+ }
+]

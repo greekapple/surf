@@ -1,0 +1,154 @@
+[
+ {
+  "spotId": "w-hawaii-pohakuloa",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pohakuloa",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pohakuloa",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - ENE",
+   "fromDeg": 270,
+   "toDeg": 67.5,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W - ENE",
+   "fromDeg": 270,
+   "toDeg": 67.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"NE - ENE, W - WNW\" has a gap between its pieces; not one range."
+ },
+ {
+  "spotId": "w-hawaii-kaiolohia-bay-shipwreck-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kaiolohia-bay-shipwreck-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kaiolohia Bay/Shipwreck Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE - ENE",
+   "fromDeg": 45,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NE - ENE",
+   "fromDeg": 45,
+   "toDeg": 67.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-lopa-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lopa-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lopa Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - SE, SSE - SSW",
+   "fromDeg": 112.5,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - SSW",
+   "fromDeg": 22.5,
+   "toDeg": 202.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-manele-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/manele-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Manele Bay",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSE - W",
+   "fromDeg": 157.5,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 7.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ }
+]

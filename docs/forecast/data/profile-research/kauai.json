@@ -1,0 +1,185 @@
+[
+ {
+  "spotId": "w-hawaii-anahola-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/anahola-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Anahola Bay",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/anahola_bay/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Anahola Bay",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - ENE",
+   "fromDeg": 337.5,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - E",
+   "fromDeg": 0,
+   "toDeg": 90
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Lava, Rock, Coral, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.4 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-polihale",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/polihale-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Polihale",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Polihale",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Polihale",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - NNE",
+   "fromDeg": 247.5,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Lava, Rock, Coral, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for Strong rips. (surf-forecast)"
+  ],
+  "notes": "wannasurf page is 3.6 km from our pin (over 3 km); not used. surfnerd pin 0.0 km from ours. surf-forecast pin 1.3 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach\". Types differ (surfnerd Beach, Reef; surf-forecast exposed beach); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-hawaii-kealia",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kealia",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kealia",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kealia",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Kealia",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Kauai/kealia/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Kealia",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE - S",
+   "fromDeg": 45,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips and rocks. (surf-forecast)",
+   "Rips / undertow - Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.4 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach and reef\". Types differ (surfnerd Beach; surf-forecast exposed beach and reef); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-hawaii-poipu-outer-reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/poipu-outer-reef",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Poipu Outer Reef",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Rock, Coral, Lava",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ }
+]

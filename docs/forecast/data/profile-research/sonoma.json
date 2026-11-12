@@ -1,0 +1,48 @@
+[
+ {
+  "spotId": "w-usw-timber-cove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/timber-cove",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Timber Cove",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Timber-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Timber Cove",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low (Best at Low, Better on rising) (surfnerd); Best around low tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Take care of sharks, rips and rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surf-forecast: \"quite exposed beach\". Types differ (surfnerd Reef; surf-forecast quite exposed beach); the non-beach type is recorded."
+ }
+]

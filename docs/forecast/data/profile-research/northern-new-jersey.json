@@ -1,0 +1,148 @@
+[
+ {
+  "spotId": "w-us-long-branch",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/long-branch",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Long Branch",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/Pavilion_Ave__Long_Branch/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Long Branch",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E to SW",
+   "fromDeg": 90,
+   "toDeg": 225,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "E to SW (wannasurf: SouthWest, South, SouthEast, East)",
+   "fromDeg": 90,
+   "toDeg": 225
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "LBI - Ship Bottom, 31th.,... Loch Arbor Loch Arbor,Darlington,Dea... Long Branch Manasquan Inlet Mantoloking Margate Pier Margate-Iroquois, Hunting... Metros Middlesex Midway Beach Monmouth beach Normandy Beach - 7th Stre... North St. North Wildwood Nuns beach Ocean City - 14th 15th St Ocean City - 1st Catamar... Ocean City - 37th St Ocean City - 7th Street Ocean City - 8th Ave Jett... Ocean City - 8th Street Ocean Lane, Deal Pavilion Ave, Long Branch Pennas Phillips Pump House Pipes Point Lookout Porkrolls Poverty Beach Princeton Ave. Riddle Way Rockies Samastian Sands Sandy Hook The Cove Sea Bright Sea Isle City 48th St. Seacrest Drive Seagrit Private Beach Seaside Park Seaside Park, NJ Seaspray Second Street Seven Presidents Sherman Ave. Sholes Silver Beach Spray Beach Spring Lake St Phillip's Stockon Beach Stone Harbor 110 Strathmere, 7th street Sunset Beach The Box The Cove, Cape May The Cove, Sandy Hook The Jetty The Pit Tices Sholls Townsends Inlet Trestles TwentySevens Under the Bridge Ventnor Pier Villas bay - Ohio ave Waverly Wildwood 2nd Street Wooden Jetty This is an interactive map! Use controls to pan and zoom this map. Datum: WGS84 [ Help ] Precision: Approximate GPS History ( 1 ) Latitude: 40° 17.838' N Longitude: 73° 58.768' W Weather Forecast User rating (0) Please login to use this tool. No account yet? Register first; it's free! Add to my surfed spots Rate it! (0) View user votes statistics Comments (0) sessions (0) trips (0) Photos (1) Videos (0) PDF guide Wannasurf.com is not responsible for the accuracy of the information contained in this guide. You use this guide at your own risk. Choose your format: please login first KML & GPS files ( 1 ) You are free to use Wannasurf.com KML/GPS data files ONLY for your personal use. See Terms of use for more information. KML file : please login first Share facebook twitter del.icio.us digg Favourite Your favourites and future surf spot lists Please login to use this tool. No account yet? Register first; it's free! Add surf spots to your profile Access Just take 36 to Ocean Blvd south. English (Translate this text in English): Just take 36 to Ocean Blvd south. English (Translate this text in English): Just take 36 to Ocean Blvd south. English (Translate this text in English): Just take 36 to Ocean Blvd south. Distance Walk Instant access (&lt; 5min) Easy to find? Easy to find Public access? Special access Surf Spot Characteristics Alternative name Pav Surf Spot Quality Wave quality Regional Classic Experience All surfers Frequency Very consistent (150 day/year) Wave Type Beach-break Direction Right Bottom Sandy (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "wannasurf pin 0.9 km from ours. surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NE - S) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (SouthWest, South, SouthEast, East)."
+ },
+ {
+  "spotId": "w-us-lavallette-new-jersey",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lavallette-new-jersey",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lavallette",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lavallette",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Lavallette",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/New_Jersey/lavallette/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Lavallette",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE - S",
+   "fromDeg": 22.5,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NE - SSE",
+   "fromDeg": 45,
+   "toDeg": 157.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Take care of rips and rocks. (surf-forecast)",
+   "Rips / undertow (wannasurf)"
+  ],
+  "notes": "wannasurf pin 1.6 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 1.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach\". Types differ (surfnerd Beach, Jetty; surf-forecast exposed beach); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-us-barnegat-light",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/barnegat-light",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Barnegat Light",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NE - SSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-surf-city",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/surf-city",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Surf City",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - SSW) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from SE, which is onshore for its own ESE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ }
+]

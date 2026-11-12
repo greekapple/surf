@@ -1,0 +1,184 @@
+[
+ {
+  "spotId": "w-hawaii-turtle-bay-west",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/turtle-bay-west",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Turtle Bay West",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Turtle-Bay",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Turtle Bay",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/turtle_bay/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Turtle Bay West",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - NNE",
+   "fromDeg": 247.5,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WNW - NNE",
+   "fromDeg": 292.5,
+   "toDeg": 22.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast)",
+  "bottom": "Lava, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 7.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for rocks. (surf-forecast)",
+   "Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.4 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 1.5 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-hawaii-marijuanas",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/marijuanas",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Marijuana's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - NNE",
+   "fromDeg": 247.5,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NE",
+   "fromDeg": 270,
+   "toDeg": 45
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-hultins",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hultins",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hultin's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - NNE",
+   "fromDeg": 247.5,
+   "toDeg": 22.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW - NNW",
+   "fromDeg": 315,
+   "toDeg": 337.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 6.0,
+   "max": 14.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-puaena-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/puaena-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Puaena Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Puaena-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Puaena Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/puaena_point/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Puaena Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of urchins, rocks and pollution. (surf-forecast)",
+   "Urchins - Rocks - Pollution (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed reef\"."
+ }
+]

@@ -1,0 +1,48 @@
+[
+ {
+  "spotId": "w-usw-shark-pit-marin",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shark-pit-marin",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shark Pit - Marin",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Shark-Pit_1",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Shark Pit",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WNW - NW",
+   "fromDeg": 292.5,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": "northwest (surfnerd); west (surf-forecast)",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 6.0,
+   "max": 18.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for sharks, rips and rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach\". Types differ (surfnerd Rivermouth; surf-forecast exposed beach); the non-beach type is recorded."
+ }
+]

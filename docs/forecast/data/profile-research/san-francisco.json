@@ -1,0 +1,93 @@
+[
+ {
+  "spotId": "w-usw-fort-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/fort-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Fort Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Fort-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Fort Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/SF_Marin/fort_point/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Fort Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low (Best at Low, Better on rising) (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips, rocks, locals and sharks. (surf-forecast)",
+   "Rips / undertow - Rocks - Localism - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach and reef\"."
+ },
+ {
+  "spotId": "w-usw-deadmans",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/deadmans",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Deadmans",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - WNW",
+   "fromDeg": 270,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low (Best at Low, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 6.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ }
+]

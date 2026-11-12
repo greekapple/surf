@@ -1,0 +1,919 @@
+[
+ {
+  "spotId": "w-carib-middles-isabela",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/middles-isabela",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Middles",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - ENE",
+   "fromDeg": 270,
+   "toDeg": 67.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW - E",
+   "fromDeg": 315,
+   "toDeg": 90
+  },
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-carib-montones",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/montones",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Montones",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - E",
+   "fromDeg": 270,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW - NE",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "north",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd swell exposure \"W - E\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-carib-cibuco",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cibuco",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cibuco",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - E) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-carib-hallows",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hallows",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hallows",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/hollows/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Hallows",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "Urchins - Rips / undertow - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WNW - E) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthWest, NorthEast)."
+ },
+ {
+  "spotId": "w-carib-cueva-del-indio",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cueva-del-indio",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cueva del Indio",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cueva-del-Indio",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Cueva del Indio",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/Cueva_del_Indio/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Cueva del Indio",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include - Urchins - Rips / undertow - Rocks. (surf-forecast)",
+   "Urchins - Rips / undertow - Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (W - NNE) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthWest, NorthEast). surf-forecast: \"reasonably exposed reef\"."
+ },
+ {
+  "spotId": "w-carib-las-pasas",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/las-pasas",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Las Pasas",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/las_pasas/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Las Pasas",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to E",
+   "fromDeg": 270,
+   "toDeg": 90,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to E (wannasurf: North, NorthWest, West, East, NorthEast)",
+   "fromDeg": 270,
+   "toDeg": 90
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "Urchins - Rips / undertow - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.6 km from ours. surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WNW - NE) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthWest, West, East, NorthEast)."
+ },
+ {
+  "spotId": "w-carib-caza-y-pesca",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/caza-y-pesca",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Caza y Pesca",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (W - NE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-carib-kikita-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kikita-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kikita Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Playa-Kikitas",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Playa Kikitas",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/kikita_beach/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Kikita Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of - Urchins - Rips / undertow - Localism. (surf-forecast)",
+   "Urchins - Rips / undertow - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WNW - E) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthWest, NorthEast). surf-forecast: \"fairly exposed reef\"."
+ },
+ {
+  "spotId": "w-carib-el-unico",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/el-unico",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: El Unico",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/El-Unico",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: El Unico",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/el_unico/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: El Unico",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "north",
+  "tide": null,
+  "bottom": "Sandy with rock (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include rips, locals and pollution. (surf-forecast)",
+   "Rips / undertow - Localism - Pollution (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.2 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WNW - E) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthWest, NorthEast). surf-forecast: \"fairly exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-carib-san-juan-san-juan",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/san-juan-san-juan",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: San Juan",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW - E",
+   "fromDeg": 315,
+   "toDeg": 90,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNW - NE",
+   "fromDeg": 337.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-carib-crash-boat",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/crash-boat",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Crash Boat",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Crash-Boat",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Crash Boat",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/crashboats/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Crash Boat",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - WSW, WSW - NNW",
+   "fromDeg": 225,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Uneven Reef, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of urchins, rips and rocks. (surf-forecast)",
+   "Rips / undertow - Rocks - Man-made danger (buoys etc..) - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.9 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach and reef\"."
+ },
+ {
+  "spotId": "w-carib-cochino",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cochino",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cochino",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Levittown-Cochino",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Cochino (Playa de Levittown)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/cochino/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Cochino",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NE",
+   "deg": 45,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N to NE",
+   "fromDeg": 0,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "N to NE (wannasurf: North, NorthEast)",
+   "fromDeg": 0,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Flat rocks with sand (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips and rocks. (surf-forecast)",
+   "Rips / undertow - Rocks - Nudist colony (France only!) (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - ENE) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthEast). surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-carib-la-bomba-2",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/la-bomba-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: La Bomba",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/La-Bomba",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: La Bomba",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/la_bomba/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: La Bomba",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNE",
+   "deg": 22.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": {
+   "text": "N to N (wannasurf: North)",
+   "fromDeg": 0,
+   "toDeg": 0
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Flat rocks with sand (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Urchins - Rips / undertow - Rocks - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WNW - E) is not a stated window for this break (it follows the facing), so no window is recorded. wannasurf lists a single good swell direction (North), too narrow for a window. surf-forecast: \"fairly exposed reef\"."
+ },
+ {
+  "spotId": "w-carib-pine-grove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pine-grove",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pine Grove",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Pine-Grove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Pine Grove",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/pine_grove/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Pine Grove",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "N",
+   "deg": 0,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NW to NE",
+   "fromDeg": 315,
+   "toDeg": 45,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "north",
+  "tide": null,
+  "bottom": "Sandy with rock (wannasurf)",
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "sheltered",
+  "hazards": [
+   "Urchins - Man-made danger (buoys etc..) (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WNW - NE) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (North, NorthWest, NorthEast). surf-forecast: \"sheltered sandbar break\". surfnerd lists its workable wind as offshore from N, which is onshore for its own N facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-carib-bridges",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/bridges",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bridges",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Bridges",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Bridges",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/bridges/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Bridges",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - W, W - NNW",
+   "fromDeg": 247.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Hazards include - Rocks - Localism. (surf-forecast)",
+   "Rocks - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered point\". Types differ (surfnerd Reef; surf-forecast sheltered point); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-carib-antonios",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/antonios",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Antonio's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - W, W - NE",
+   "fromDeg": 247.5,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-carib-pools-2",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pools-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pools",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - W, W - NE",
+   "fromDeg": 247.5,
+   "toDeg": 45,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WNW - N",
+   "fromDeg": 292.5,
+   "toDeg": 0
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-carib-indicators-rincon",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/indicators-rincon",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Indicators",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/indicators/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Indicators",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W, W - N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NNW",
+   "fromDeg": 270,
+   "toDeg": 337.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Urchins - Rips / undertow - Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surfnerd swell exposure \"S - W, W - N\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-carib-the-point-rincon",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-point-rincon",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W, W - NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WNW - NNW",
+   "fromDeg": 292.5,
+   "toDeg": 337.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-carib-marias",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/marias",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Maria's",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Marias",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Maria's (Rincon)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/maria_s/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Maria's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W, W - NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NW - NE",
+   "fromDeg": 315,
+   "toDeg": 45
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for urchins, rips and rocks. (surf-forecast)",
+   "Urchins - Rips / undertow - Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.3 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surf-forecast: \"quite exposed reef\"."
+ },
+ {
+  "spotId": "w-carib-little-malibu",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/little-malibu",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Little Malibu",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Little-Malibu",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Little Malibu (Rincon)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/Central_America/Puerto_Rico/little_malibu/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Little Malibu",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W, WNW - NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - NE",
+   "fromDeg": 0,
+   "toDeg": 45
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Live Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Hazards include Urchin and locals. (surf-forecast)",
+   "Urchins - Rips / undertow - Rocks - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). wannasurf good swell directions \"North, NorthWest, SouthWest\" are not one contiguous range. surf-forecast: \"sheltered reef\"."
+ }
+]

@@ -1,0 +1,351 @@
+[
+ {
+  "spotId": "w-us-sakonnet",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sakonnet",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sakonnet",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surf-forecast page \"Sakonnet River Break\" is 4.6 km from our pin (over 3 km); not used. wannasurf page is 4.4 km from our pin (over 3 km); not used. surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (SSE - S, SSW - SW, SW - WSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-narragansett-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/narragansett-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Narragansett Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Narragansett-Town-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Narragansett Town Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S",
+   "fromDeg": 90,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E - S",
+   "fromDeg": 90,
+   "toDeg": 180
+  },
+  "idealSwell": "east (surfnerd); southeast (surf-forecast)",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-us-monahans-dock",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/monahans-dock",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Monahan's Dock",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Monahans-Dock",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Monahans Dock",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/monahans_dock/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Monahan's Dock",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - SSE",
+   "fromDeg": 90,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E - S",
+   "fromDeg": 90,
+   "toDeg": 180
+  },
+  "idealSwell": "south (surfnerd); east (surf-forecast)",
+  "tide": "works at Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 18.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Rips / undertow - Rocks - Man-made danger (buoys etc..) - Localism - Pollution (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered reef\"."
+ },
+ {
+  "spotId": "w-us-matunuck",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/matunuck",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Matunuck",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Matunuck",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Matunuck",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/matunuck/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Matunuck",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - S, SSW - SW, SW - WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "ESE - S",
+   "fromDeg": 112.5,
+   "toDeg": 180
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Take care of - Rips / undertow - Rocks. (surf-forecast)",
+   "Rips / undertow - Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered reef\"."
+ },
+ {
+  "spotId": "w-us-point-judith",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/point-judith",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Point Judith",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_East/Southern_New_England/Point_Judith/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Point Judith",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - SSW",
+   "fromDeg": 90,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - S",
+   "fromDeg": 135,
+   "toDeg": 180
+  },
+  "idealSwell": null,
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "wannasurf pin 0.3 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-us-east-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/east-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: East Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (E - SE, SSE - SSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-dunes-park-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/dunes-park-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Dunes Park Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (SSE - SSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-weekapaug",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/weekapaug",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Weekapaug",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (ESE - SE, SSE - SSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-mansion-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/mansion-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Mansion Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NE - SSE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-black-rock-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/black-rock-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Black Rock Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (E - WSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ }
+]

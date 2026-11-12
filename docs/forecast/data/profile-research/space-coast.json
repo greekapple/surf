@@ -1,0 +1,460 @@
+[
+ {
+  "spotId": "w-us-bicentennial-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/bicentennial-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bicentennial Park",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Bicentenial-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Bicentenial Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include - Rips / undertow - Rocks - Localism - Sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.1 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surf-forecast: \"exposed reef\". surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-ormond-beach-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ormond-beach-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ormond Beach Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-main-street-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/main-street-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Main Street Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/mainstreet_pier/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Main Street Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Man-made danger (buoys etc..) - Localism - Pollution - Sharks (wannasurf)"
+  ],
+  "notes": "surf-forecast page \"Main Street Pier\" is 9.2 km from our pin (over 3 km); not used. wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. wannasurf good swell directions \"North, South\" are not one contiguous range."
+ },
+ {
+  "spotId": "w-us-sunglow-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sunglow-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sunglow Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surf-forecast page \"Sunglow Pier\" is 4.6 km from our pin (over 3 km); not used. surfnerd pin 0.1 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-wilbur-by-the-sea",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/wilbur-by-the-sea",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Wilbur By The Sea",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from NNE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-the-inlet-new-smyrna",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-inlet-new-smyrna",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Inlet (New Smyrna)",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-apollo-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/apollo-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Apollo Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-shepard-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shepard-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shepard Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NE - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from E, which is onshore for its own E facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-minuteman",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/minuteman",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Minuteman",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - SSE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-2nd-light",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/2nd-light",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: 2nd Light",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Florida/2nd_light/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: 2nd Light",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NE to SE",
+   "fromDeg": 45,
+   "toDeg": 135,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "NE to SE (wannasurf: SouthEast, East, NorthEast)",
+   "fromDeg": 45,
+   "toDeg": 135
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Sandy (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (SouthEast, East, NorthEast). surfnerd lists its workable wind as offshore from E, which is onshore for its own E facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-hightower-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hightower-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hightower Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - SSE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-bicentennial-beach-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/bicentennial-beach-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bicentennial Beach Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from E, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-paradise-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/paradise-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Paradise Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-coconut-point-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/coconut-point-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Coconut Point Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-ponce-de-leon-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ponce-de-leon-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ponce De Leon Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ }
+]

@@ -1,0 +1,49 @@
+[
+ {
+  "spotId": "w-usw-fort-ebey",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/fort-ebey",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Fort Ebey",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Fort-Ebey",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Fort. Ebey",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_West/Washington/fort_ebey/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Fort Ebey",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W to NW",
+   "fromDeg": 270,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "W to NW (wannasurf: NorthWest, West)",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Flat rocks (wannasurf)",
+  "waveType": "point",
+  "sizeFt": null,
+  "exposure": "sheltered",
+  "hazards": [],
+  "notes": "wannasurf pin 0.9 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 1.5 km from ours (its coordinates are given to 0.01°). surfnerd says it has no detailed condition notes and no specific guidance on its swell window; its swell-exposure compass (W - WNW, NW) is not a stated window for this break (it follows the facing), so no window is recorded. Window from wannasurf's good swell directions (NorthWest, West). surf-forecast: \"sheltered reef\"."
+ }
+]

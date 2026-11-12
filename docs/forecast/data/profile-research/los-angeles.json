@@ -1,0 +1,868 @@
+[
+ {
+  "spotId": "cs-leo-carrillo",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/leo-carrillo-state-beach-secos-arroyo-sequit",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Leo Carrillo State Beach/Secos/Arroyo Sequit",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - WSW",
+   "fromDeg": 112.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Boulders",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.6 km from ours."
+ },
+ {
+  "spotId": "w-usw-zero-nicholas-canyon-county-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/zero-nicholas-canyon-county-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Zero/Nicholas Canyon County Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Zero",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Zero",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd); Best around mid tide. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed point\"."
+ },
+ {
+  "spotId": "w-usw-big-rock",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/big-rock-california",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Big Rock",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Boulders, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-trancas-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/trancas-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Trancas Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Trancas-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Trancas Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd); Best around mid tide. (surf-forecast)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed point\"."
+ },
+ {
+  "spotId": "w-usw-point-dume",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/point-dume",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Point Dume",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Point-Dume-Little-Dume",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Point Dume Little Dume",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/LA_County/point_dume/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Point Dume / Little Dume",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SE",
+   "deg": 135,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": {
+   "text": "S to S (wannasurf: South)",
+   "fromDeg": 180,
+   "toDeg": 180
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 12.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of - Urchins - Rips / undertow - Rocks - Private beach - Localism. (surf-forecast)",
+   "Urchins - Rips / undertow - Rocks - Private beach - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.3 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (SE - SW) is not a stated window for this break (it follows the facing), so no window is recorded. wannasurf lists a single good swell direction (South), too narrow for a window. surf-forecast: \"exposed point\"."
+ },
+ {
+  "spotId": "w-usw-point-dume-2",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/point-dume-california",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Point Dume",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Point-Dume-Little-Dume",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Point Dume Little Dume",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/LA_County/point_dume/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Point Dume",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - SSW",
+   "fromDeg": 135,
+   "toDeg": 202.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 12.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of - Urchins - Rips / undertow - Rocks - Private beach - Localism. (surf-forecast)",
+   "Urchins - Rips / undertow - Rocks - Private beach - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 1.5 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 1.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed point\"."
+ },
+ {
+  "spotId": "w-usw-d-and-w",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/d-w",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: D & W",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/D-and-W",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: D and W",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "southwest (surfnerd); northwest (surf-forecast)",
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd); Best around mid tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 10.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of pollution, rocks, locals, rips. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-usw-haggertys-2",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/haggertys-california",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Haggerty's",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Haggertys-and-Malaga-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Haggerty's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - WNW",
+   "fromDeg": 225,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW - W",
+   "fromDeg": 247.5,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of urchins, rocks, locals and pollution. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 1.2 km from ours (its coordinates are given to 0.01°). surf-forecast: \"quite exposed reef and point\"."
+ },
+ {
+  "spotId": "w-usw-lower-haggertys",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lower-haggertys",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lower Haggertys",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Haggertys-and-Malaga-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Haggerty's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": null,
+  "waveType": "point",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of urchins, rocks, locals and pollution. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (WSW - WNW) is not a stated window for this break (it follows the facing), so no window is recorded. surf-forecast: \"quite exposed reef and point\"."
+ },
+ {
+  "spotId": "w-usw-rat-shit",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rat-shit",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Rat Shit",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Rat-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Rat Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - WNW",
+   "fromDeg": 247.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "west (surfnerd); northwest (surf-forecast)",
+  "tide": "works at Low (Best at Low, Better on rising) (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rocks and locals. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surf-forecast: \"reasonably exposed reef\"."
+ },
+ {
+  "spotId": "w-usw-upper-haggertys",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/upper-haggertys",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Upper Haggertys",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Haggertys-and-Malaga-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Haggerty's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": null,
+  "waveType": "point",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of urchins, rocks, locals and pollution. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (SW - WNW) is not a stated window for this break (it follows the facing), so no window is recorded. surf-forecast: \"quite exposed reef and point\"."
+ },
+ {
+  "spotId": "w-usw-palos-verdes-cove-north-reef-little-queens",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/palos-verdes-cove-north-reef-little-queens",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Palos Verdes Cove - North Reef/Little Queens",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - WNW",
+   "fromDeg": 225,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at High (Best at High, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-palos-verdes-cove-middles-the-channel",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/palos-verdes-cove-middles-the-channel",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Palos Verdes Cove - Middles/The Channel",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - WNW",
+   "fromDeg": 247.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Boulders",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-usw-pv-cove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pv-cove",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: PV Cove",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WNW",
+   "deg": 292.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - WNW",
+   "fromDeg": 225,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW - W",
+   "fromDeg": 247.5,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-palos-verdes-cove-boneyards",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/palos-verdes-cove-boneyards",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Palos Verdes Cove - Boneyards",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NW",
+   "deg": 315,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "WSW - WNW",
+   "fromDeg": 247.5,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-indicator",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/indicator",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Indicator",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Indicator",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Indicator",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/LA_County/indicators/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Indicator",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - WNW",
+   "fromDeg": 225,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low, Mid, High (surfnerd); Best around mid tide. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 18.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include rocks and rips. (surf-forecast)",
+   "Rocks - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 1.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"reasonably exposed reef and point\"."
+ },
+ {
+  "spotId": "w-usw-abalone-cove-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/abalone-cove-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Abalone Cove Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Abalone-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Abalone Cove",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/LA_County/abalone_cove/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Abalone Cove Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - S, SSW - WNW",
+   "fromDeg": 135,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "south",
+  "tide": "works at Low, Mid (surfnerd); Best around mid tide. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Watch out for rocks and locals. (surf-forecast)",
+   "Rocks - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 2.5 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 2.1 km from ours (its coordinates are given to 0.01°). wannasurf good swell directions \"NorthWest, West, South\" are not one contiguous range. surf-forecast: \"sheltered reef\"."
+ },
+ {
+  "spotId": "w-usw-palm-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/palm-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Palm Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Royal-Palms-State-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Royal Palms State Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd); There are left and right breaking reefs Best around low tide. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Take care of rocks and locals. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 1.4 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"SE - S, SW - WNW\" has a gap between its pieces; not one range. surf-forecast: \"sheltered reef and point\"."
+ },
+ {
+  "spotId": "w-usw-royal-palms-the-jetty",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/royal-palms-the-jetty",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Royal Palms – The Jetty",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"SE - S, SW - WNW\" has a gap between its pieces; not one range."
+ },
+ {
+  "spotId": "w-usw-cabrillo-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cabrillo-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cabrillo Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cabrillo-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Cabrillo Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/LA_County/cabrillo_point/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Cabrillo Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SE",
+   "deg": 135,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "south (surfnerd); southwest (surf-forecast)",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rocks, locals and pollution. (surf-forecast)",
+   "Rocks - Localism - Pollution (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.6 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"ESE - S, SW - WSW\" has a gap between its pieces; not one range. surf-forecast: \"sheltered point\"."
+ }
+]

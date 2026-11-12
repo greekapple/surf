@@ -1,0 +1,407 @@
+[
+ {
+  "spotId": "w-usw-pipes",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pipes-california",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pipes",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-pipes-campgrounds",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pipes-campgrounds",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pipes/Campgrounds",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-usw-15th-street",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/15th-street",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: 15th Street",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/San_Diego_County/15th_street/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: 15th Street",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - NNW",
+   "fromDeg": 180,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-la-jolla-cove",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/la-jolla-cove",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: La Jolla Cove",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/La-Jolla-Cove",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: La Jolla Cove",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/San_Diego_County/la_jolla_cove/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: La Jolla Cove",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "NNW",
+   "deg": 337.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "W - NNW",
+   "fromDeg": 270,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NW",
+   "fromDeg": 270,
+   "toDeg": 315
+  },
+  "idealSwell": "northwest",
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd); Best around mid tide when the tide is falling. (surf-forecast)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 10.0,
+   "max": 25.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Take care of rips and locals. (surf-forecast)",
+   "Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.7 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.2 km from ours (its coordinates are given to 0.01°). surf-forecast: \"reasonably exposed reef and point\"."
+ },
+ {
+  "spotId": "w-usw-pb-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pb-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: PB Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - WNW",
+   "fromDeg": 180,
+   "toDeg": 292.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-ab-abalone",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ab-abalone",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ab (Abalone)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/San_Diego_County/abs/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Ab (Abalone)",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Rocks - Localism - Pollution (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surfnerd swell exposure \"S - N\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-usw-south-ab",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-ab",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: South Ab",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"S - N\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-usw-new-break",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/new-break",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: New Break",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"S - N\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-usw-chasm",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/chasm",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Chasm",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"S - N\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-usw-tijuana-slough",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tijuana-slough",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Tijuana Slough",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Tijuana-Sloughs",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Tijuana Sloughs",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": "west",
+  "tide": null,
+  "bottom": null,
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of pollution, sharks,stingrays. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (S - SSW, SW - NW) is not a stated window for this break (it follows the facing), so no window is recorded. surf-forecast: \"exposed beach\". surfnerd lists its workable wind as offshore from WSW, which is onshore for its own WSW facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ }
+]

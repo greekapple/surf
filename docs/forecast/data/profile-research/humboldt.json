@@ -1,0 +1,40 @@
+[
+ {
+  "spotId": "w-usw-sue-meg",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sue-meg",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sue-meg",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - N",
+   "fromDeg": 225,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - NNW",
+   "fromDeg": 270,
+   "toDeg": 337.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, High (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ }
+]

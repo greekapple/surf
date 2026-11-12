@@ -1,0 +1,93 @@
+[
+ {
+  "spotId": "cs-pigeon-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pigeon-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pigeon Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - W",
+   "fromDeg": 157.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-usw-ano-nuevo-state-reserve",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ano-nuevo-state-reserve",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ano Nuevo State Reserve",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Ano-Nuevo",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Ano Nuevo",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Cruz/ano_nuevo/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Ano Nuevo State Reserve",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Take care of sharks,. (surf-forecast)",
+   "Localism - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.4 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.9 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach and reef\". surfnerd: \"Surf Forecast Guide Ano Nuevo State Reserve is a sandy-bottomed beachbreak tucked into a sheltered cove along a…\" Types differ (surfnerd Beach; surf-forecast sheltered beach and reef); the non-beach type is recorded."
+ }
+]

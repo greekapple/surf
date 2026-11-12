@@ -1,0 +1,926 @@
+[
+ {
+  "spotId": "w-us-corolla-lighthouse",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/corolla-lighthouse",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Corolla Lighthouse",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Corolla-Lighthouse",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Corolla Lighthouse",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - SSE",
+   "fromDeg": 0,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of sharks,jellyfish,sea-lice. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.7 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"N - SSE\" and facing; the two disagree, so no workable range is recorded. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-southern-duck",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/southern-duck",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Southern Duck",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-kitty-hawk-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kitty-hawk-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kitty Hawk Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Kitty-Hawk-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Kitty Hawk Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/kitty_hawk_pier/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Kitty Hawk Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips, man-made danger (buoys etc. (surf-forecast)",
+   "Rips / undertow - Man-made danger (buoys etc..) - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.9 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. wannasurf good swell directions \"North, South, SouthEast, NorthEast\" are not one contiguous range. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-laundromats",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/laundromats",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Laundromats",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Laundromats",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Laundromats",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Take care of rips and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.9 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-avalon-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/avalon-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Avalon Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Avalon-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Avalon Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "north",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-1st-street",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/1st-street",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: 1st Street",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "north",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-bath-house",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/bath-house",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Bath House",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-martin-st",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/martin-st",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Martin St.",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-eighth-street",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/eighth-street",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Eighth Street",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Firststreet",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: 1st street",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": "Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": null,
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Take care of rips,wrecks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-abalone-st",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/abalone-st",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Abalone St.",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from ENE, which is onshore for its own ENE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-nags-head-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/nags-head-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Nags Head Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Nags-Head-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Nags Head Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/nags_head/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Nags Head Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips,wrecks. (surf-forecast)",
+   "Rips / undertow - Localism - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 2.7 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. wannasurf good swell directions \"South, SouthEast, NorthEast\" are not one contiguous range. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-loggerhead-st",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/loggerhead-st",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Loggerhead St.",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNW - SSE) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-jennettes-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/jennettes-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Jennette's Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Jennettes-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Jennette's Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for dangerous rips. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 2.6 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-outer-banks-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/outer-banks-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Outer Banks Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Outer-Banks-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Outer Banks Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast (surfnerd); east (surf-forecast)",
+  "tide": "works at Low, Mid, High (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.7 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-boilers-ranger-station",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/boilers-ranger-station",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Boilers/Ranger Station",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/boiler/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Boilers/Ranger Station",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ENE",
+   "deg": 67.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNW - SSE",
+   "fromDeg": 337.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N to SE (wannasurf: North, SouthEast, East, NorthEast)",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surf-forecast page \"Boilers (Ranger Station)\" is 6.4 km from our pin (over 3 km); not used. wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ENE-facing beach) contradicts its own swell exposure \"NNW - SSE\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"NNW - SSE\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-s-turns-north-carolina",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/s-turns-north-carolina",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: S Turns",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/S-Turns",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: S-Turns",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/s_turns/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: S Turns",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE to SE (wannasurf: SouthEast)",
+   "fromDeg": 135,
+   "toDeg": 135
+  },
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of urchins, rips, man-made danger (buoys etc. (surf-forecast)",
+   "Urchins - Rips / undertow - Man-made danger (buoys etc..) - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a E-facing beach) contradicts its own swell exposure \"N - S\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed sandbar break\"."
+ },
+ {
+  "spotId": "w-us-rodanthe-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/rodanthe-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Rodanthe Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Rodanthe-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Rodanthe Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips, man-made danger (buoys etc. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a E-facing beach) contradicts its own swell exposure \"N - S\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-k-o-a",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/k-o-a",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: K.O.A",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surf-forecast page \"K.O.A\" is 3.9 km from our pin (over 3 km); not used. surfnerd pin 0.0 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a E-facing beach) contradicts its own swell exposure \"N - S\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-avon-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/avon-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Avon Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Avon-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Avon Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE - S",
+   "fromDeg": 22.5,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include rips, man-made danger (buoys etc. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ESE-facing beach) contradicts its own swell exposure \"NNE - S\" and facing; the two disagree, so no workable range is recorded. surf-forecast: \"exposed beach\"."
+ },
+ {
+  "spotId": "w-us-askins-creek",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/askins-creek",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Askins Creek",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - S) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-north-buxton",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/north-buxton",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: North Buxton",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - S) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from E, which is onshore for its own E facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-cape-hatteras-lighthouse",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cape-hatteras-lighthouse",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cape Hatteras Lighthouse",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hatteras-Light-House",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Hatteras Light House",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - S",
+   "fromDeg": 22.5,
+   "toDeg": 180
+  },
+  "idealSwell": "east",
+  "tide": "works at Low, Mid (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand, Rock",
+  "waveType": "jetty",
+  "sizeFt": {
+   "min": 6.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of - Rips / undertow - Man-made danger (buoys etc) - Localism. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 2.9 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed beach\". Types differ (surfnerd Beach, Jetty; surf-forecast exposed beach); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-us-the-lighthouse",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-lighthouse",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Lighthouse",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surf-forecast page \"The Lighthouse\" is 3.0 km from our pin (over 3 km); not used. surfnerd pin 0.0 km from ours. surfnerd workable swell \"S - N\" (drawn clockwise, so it runs over the landward side of a ESE-facing beach) contradicts its own swell exposure \"N - S\" and facing; the two disagree, so no workable range is recorded."
+ },
+ {
+  "spotId": "w-us-frisco-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/frisco-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Frisco Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Frisco-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Frisco Pier/Cape Hatteras",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/North_Carolina/frisco_pier/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Frisco Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Hazards include urchins, rips, man-made danger (buoys etc. (surf-forecast)",
+   "Rips / undertow - Man-made danger (buoys etc..) - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 1.3 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"SW - NE\" (drawn clockwise, so it runs over the landward side of a SSE-facing beach) contradicts its own swell exposure \"E - WSW\" and facing; the two disagree, so no workable range is recorded. wannasurf good swell directions \"North, South, East, NorthEast\" are not one contiguous range. Sources differ on exposure (exposed, sheltered); the more cautious word is used. surf-forecast: \"quite exposed beach\". surfnerd: \"Tucked in behind Cape Hatteras, it's sheltered from north and northeast swells, so it needs some south in the swell to…\""
+ },
+ {
+  "spotId": "w-us-hatteras-ferry-docks",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hatteras-ferry-docks",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hatteras Ferry Docks",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (E - WSW) is not a stated window for this break (it follows the facing), so no window is recorded."
+ }
+]

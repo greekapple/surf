@@ -1,0 +1,174 @@
+[
+ {
+  "spotId": "w-usw-oil-piers",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/oil-piers",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Oil Piers",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - S, S - SSW, SW - W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW - W",
+   "fromDeg": 247.5,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": null,
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-stanleys",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/stanleys",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Stanley's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - S, S - SSW, SW - W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW - W",
+   "fromDeg": 247.5,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 5.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-usw-hobson-county-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hobson-county-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hobson County Park",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hobson-County-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Hobson County Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - S, S - SSW, SW - W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Boulders, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Take care to avoid the rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 2.2 km from ours (its coordinates are given to 0.01°). surf-forecast: \"reasonably exposed reef\"."
+ },
+ {
+  "spotId": "cs-mondos",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/mondos",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Mondos",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Mondos",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Mondos",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Ventura/Mondos/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Mondos",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - S, S - SSW, SW - WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "WSW - WNW",
+   "fromDeg": 247.5,
+   "toDeg": 292.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 5.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surf-forecast: \"fairly exposed sandbar break\"."
+ }
+]

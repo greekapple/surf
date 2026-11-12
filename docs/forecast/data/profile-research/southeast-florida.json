@@ -1,0 +1,881 @@
+[
+ {
+  "spotId": "w-us-pumphouse",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pumphouse",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pumphouse",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/Pump_House/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Pumphouse",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": {
+   "text": "NE to NE (wannasurf: NorthEast)",
+   "fromDeg": 45,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Sandy with rock (wannasurf)",
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Rocks - Man-made danger (buoys etc..) - Localism - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - S) is not a stated window for this break (it follows the facing), so no window is recorded. wannasurf lists a single good swell direction (NorthEast), too narrow for a window. surfnerd lists its workable wind as offshore from E, which is onshore for its own ESE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-sunrise",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sunrise",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sunrise",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-flagpole",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/flagpole",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Flagpole",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Flagpoles",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Flagpoles",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Rock",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards include rips and rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"quite exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-us-hilton-hotel-backyard",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hilton-hotel-backyard",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hilton Hotel Backyard",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-lantana",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/lantana",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Lantana",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Lantana",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Lantana",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E - SE",
+   "fromDeg": 90,
+   "toDeg": 135
+  },
+  "idealSwell": "southeast",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips, rocks and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-us-japanese-rock",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/japanese-rock",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Japanese Rock",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Jap-Rock",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Jap Rock",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": "east",
+  "tide": null,
+  "bottom": null,
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - S) is not a stated window for this break (it follows the facing), so no window is recorded. surf-forecast: \"fairly exposed beach and reef\". surfnerd lists its workable wind as offshore from E, which is onshore for its own E facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-red-reef-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/red-reef-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Red Reef Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - S) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from E, which is onshore for its own E facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-south-beach-pavillion",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-beach-pavillion",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: South Beach Pavillion",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/South-Beach-Pavilion",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: South Beach Pavilion",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "E - SE",
+   "fromDeg": 90,
+   "toDeg": 135
+  },
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Take care of crowds, sharks and rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 1.5 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"sheltered beach and reef\". Types differ (surfnerd Beach; surf-forecast sheltered beach and reef); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-us-deerfield-beach-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/deerfield-beach-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Deerfield Beach Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Deerfield-Beach-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Deerfield Beach Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/deerfield_beach_pier/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Deerfield Beach Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Take care of - Rips / undertow - Man-made danger (buoys etc) - Localism - Pollution - Sharks. (surf-forecast)",
+   "Rips / undertow - Man-made danger (buoys etc..) - Localism - Pollution - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd workable swell \"NNE\" (drawn clockwise, so it runs over the landward side of a E-facing beach) contradicts its own swell exposure \"N - S\" and facing; the two disagree, so no workable range is recorded. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. wannasurf good swell directions \"SouthEast, NorthEast\" are not one contiguous range. surf-forecast: \"sheltered sandbar break\"."
+ },
+ {
+  "spotId": "w-us-deerfield-park-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/deerfield-park-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Deerfield Park Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Deerfield-Park-Pier",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Deerfield Park Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - SE",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "southeast",
+  "tide": "works at Low, Mid, High (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips, obstacles, locals, pollution and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 1.9 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-us-hillsboro-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hillsboro-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hillsboro Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE",
+   "fromDeg": 22.5,
+   "toDeg": 22.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-hillsboro-inlet",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hillsboro-inlet",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hillsboro Inlet",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE - S",
+   "fromDeg": 22.5,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand, Coral",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-us-pompano-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/pompano-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Pompano Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (NNE - S) is not a stated window for this break (it follows the facing), so no window is recorded. surfnerd lists its workable wind as offshore from E, which is onshore for its own E facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-commercial-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/commercial-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Commercial Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/fort_lauderdale_pier/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Commercial Pier",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": null,
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Man-made danger (buoys etc..) - Localism - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.0 km from ours. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-ne-14th-ct",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ne-14th-ct",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: NE 14th Ct.",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Fort-Lauderdale-14th-Street",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Fort Lauderdale 14th Street",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand, Rock",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Watch out for - Rips / undertow - Localism - Sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-us-spoils",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/spoils",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Spoils",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/South_East/South_Florida/spoils/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Spoils",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": "Flat rocks (wannasurf)",
+  "waveType": "jetty",
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [
+   "Rips / undertow - Man-made danger (buoys etc..) (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.3 km from ours. surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - S) is not a stated window for this break (it follows the facing), so no window is recorded. wannasurf good swell directions \"SouthEast, NorthEast\" are not one contiguous range. surfnerd lists its workable wind as offshore from E, which is onshore for its own ESE facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "w-us-dania-pier",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/dania-pier",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Dania Pier",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Dania-South-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Dania South Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd); Surfable at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.2 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"quite exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-us-franklin-street",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/franklin-street",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Franklin Street",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "NNE - NE",
+   "fromDeg": 22.5,
+   "toDeg": 45
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-us-surfside-2",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/surfside-2",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Surfside",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (N - S) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-us-dunes-hotel",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/dunes-hotel",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Dunes Hotel",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Dunes-Hotel",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Dunes Hotel (Miami)",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - S",
+   "fromDeg": 0,
+   "toDeg": 180,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - SE",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Watch out for rips, obstacles, locals, pollution and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"N - S\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"sheltered beach\"."
+ },
+ {
+  "spotId": "w-us-5th-street-florida",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/5th-street-florida",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: 5th Street (Florida)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Fifth-Street_Miami",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Fifth Street (Miami)",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "E",
+   "deg": 90,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "NNE - SSE",
+   "fromDeg": 22.5,
+   "toDeg": 157.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - SE",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "northeast (surfnerd); north (surf-forecast)",
+  "tide": "works at Low, Mid, High (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips, obstacles, locals, pollution and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach and reef\". Types differ (surfnerd Beach; surf-forecast sheltered beach and reef); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-us-south-beach-florida",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-beach-florida",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: South Beach (Florida)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/South-Beach_Miami",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: South Beach (Miami)",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "N - SE",
+   "fromDeg": 0,
+   "toDeg": 135,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - SE",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "northeast",
+  "tide": "works at Low, Mid, High (surfnerd); Best around low tide when the tide is rising. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips, rocks, obstacles, pollution and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach\"."
+ }
+]

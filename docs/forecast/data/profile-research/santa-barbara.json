@@ -1,0 +1,872 @@
+[
+ {
+  "spotId": "w-usw-molino-canyon",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/molino-canyon",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Molino Canyon",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (ESE - SSE, SSE, S - SSW, SSW - W) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "w-usw-the-ranch-drakes-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-drakes-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Drake's Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Boulders, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-the-ranch-razor-blades",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-razor-blades",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Razor Blades",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Razorblades",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Razorblades",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips, rocks, private, locals and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 2.2 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"E - S, SSW - W\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"quite exposed beach and reef\". Types differ (surfnerd Point; surf-forecast quite exposed beach and reef); the non-beach type is recorded."
+ },
+ {
+  "spotId": "w-usw-the-ranch-upper-drakes",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-upper-drakes",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Upper Drake's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-the-ranch-little-drakes",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-little-drakes",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Little Drake's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-beavers-hazards",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/beavers-hazards",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Beavers/Hazards",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Beavers-Hazards",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Beavers",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - SSE, SSE - S, S - W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low (Best at Low, Better on rising) (surfnerd); Best around low tide. (surf-forecast)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Hazards in Santa Barbara is a reasonably exposed beach and reef break that has reasonably… (surf-forecast)",
+   "Beware of rips, rocks, private, locals and sharks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.1 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surf-forecast: \"reasonably exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-usw-refugio-state-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/refugio-state-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Refugio State Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Refugio-State-Beach",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Refugio State Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/refugio/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Refugio State Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - SSE, SSE - S, S - WSW",
+   "fromDeg": 112.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - N",
+   "fromDeg": 225,
+   "toDeg": 0
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd); Good surf at all stages of the tide. (surf-forecast)",
+  "bottom": "Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips, rocks, private, locals and sharks. (surf-forecast)",
+   "Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.7 km from ours (its coordinates are given to 0.01°). surf-forecast: \"fairly exposed beach and point\"."
+ },
+ {
+  "spotId": "w-usw-the-ranch-ranch-house-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-ranch-house-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Ranch House Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - SW",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Boulders, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-usw-the-ranch-rennys",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-rennys",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Renny's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - SW",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-the-ranch-rights-and-lefts",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-rights-and-lefts",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Rights and Lefts",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours. surfnerd swell exposure \"E - S, SSW - W\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-usw-the-ranch-utah",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-utah",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Utah",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - SW",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"E - S, SSW - W\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-usw-the-ranch-lefts-and-rights",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-lefts-and-rights",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Lefts and Rights",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, S - WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-usw-the-ranch-san-augustine-reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-san-augustine-reef",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – San Augustine Reef",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/St-Augustine-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: St Augustine Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - S, SSW - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "W - N",
+   "fromDeg": 270,
+   "toDeg": 0
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 15.0
+  },
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 1.3 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"E - S, SSW - W\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"fairly exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-usw-the-ranch-cojo-reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/the-ranch-cojo-reef",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: The Ranch – Cojo Reef",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Cojo",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Cojo",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - SSE, S - WSW",
+   "fromDeg": 90,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Rock Ledge",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 20.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips and rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 2.4 km from ours (its coordinates are given to 0.01°). surf-forecast: \"fairly exposed beach and reef\"."
+ },
+ {
+  "spotId": "w-usw-cat-canyon",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/cat-canyon",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Cat Canyon",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - SSE, S, SSW - W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Boulders",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-usw-haskells-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/haskells-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Haskell's Beach",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": null,
+  "tide": null,
+  "bottom": null,
+  "waveType": null,
+  "sizeFt": null,
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (SE - SSE, S - SSW, SSW - W) is not a stated window for this break (it follows the facing), so no window is recorded."
+ },
+ {
+  "spotId": "cs-hammonds",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/hammonds",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Hammond's",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Hammonds-Reef",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Hammonds Reef",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/hammonds_reef/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Hammond's",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Mid, High (surfnerd); Best around mid tide. (surf-forecast)",
+  "bottom": "Boulders, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Hazards include rocks, private and locals. (surf-forecast)",
+   "Rocks - Private beach - Localism (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"SE - SSE, SW - WSW\" has a gap between its pieces; not one range. surf-forecast: \"sheltered reef\"."
+ },
+ {
+  "spotId": "w-usw-santa-claus-padaro-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/santa-claus-padaro-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Santa Claus (Padaro Beach)",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Santa-Clause",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Santa Clause",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/santa_clause/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Santa Claus (Padaro Beach)",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": null,
+  "idealSwell": "southwest",
+  "tide": null,
+  "bottom": "Sandy (wannasurf)",
+  "waveType": "beach",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"SE - SSE, SW - W\" has a gap between its pieces; not one range. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (SE - SSE, SW - W) is not a stated window for this break (it follows the facing), so no window is recorded. wannasurf good swell directions \"NorthWest, SouthWest, South\" are not one contiguous range. surf-forecast: \"quite exposed beach\". surfnerd lists its workable wind as offshore from SW, which is onshore for its own SW facing (its wind-exposure compass agrees with the facing); this page is low-confidence."
+ },
+ {
+  "spotId": "cs-campus-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/campus-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Campus Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Campus-Point",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Campus Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/campus_point/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Campus Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low, Mid (surfnerd); Best around low tide. (surf-forecast)",
+  "bottom": "Rock Ledge",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 12.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of rips and rocks. (surf-forecast)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.2 km from ours. surf-forecast pin 0.8 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"ESE - SE, SSW - W\" has a gap between its pieces; not one range. wannasurf good swell directions \"NorthWest, West, SouthEast\" are not one contiguous range. surf-forecast: \"fairly exposed point\"."
+ },
+ {
+  "spotId": "cs-leadbetter",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/leadbetter-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Leadbetter Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Leadbetter",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Leadbetter",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/ledbetter/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Leadbetter",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315,
+   "basis": "workable"
+  },
+  "workable": {
+   "text": "SW - NW",
+   "fromDeg": 225,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Low, Mid (surfnerd); Best around low tide. (surf-forecast)",
+  "bottom": "Rock Ledge, Sand",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 10.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Watch out for rips and rocks. (surf-forecast)"
+  ],
+  "notes": "wannasurf pin 0.2 km from ours. surfnerd pin 0.4 km from ours. surf-forecast pin 0.1 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"ESE - SSE, SSW - WSW\" has a gap between its pieces; not one range. surf-forecast: \"sheltered point\"."
+ },
+ {
+  "spotId": "w-usw-mesa-lane",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/mesa-lane",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Mesa Lane",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Mesa",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Mesa",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/California/Santa_Barbara/mesa/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Mesa Lane",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": null,
+  "workable": {
+   "text": "W to W (wannasurf: West)",
+   "fromDeg": 270,
+   "toDeg": 270
+  },
+  "idealSwell": null,
+  "tide": "Best around mid tide. (surf-forecast)",
+  "bottom": "Reef (coral, sharp rocks etc..) (wannasurf)",
+  "waveType": "reef",
+  "sizeFt": null,
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for rocks. (surf-forecast)",
+   "Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.1 km from ours. surf-forecast pin 0.5 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"ESE - SSE, SW - W\" has a gap between its pieces; not one range. surfnerd gives no workable swell (\"Unknown\") and no break notes; its swell-exposure compass (ESE - SSE, SW - W) is not a stated window for this break (it follows the facing), so no window is recorded. wannasurf lists a single good swell direction (West), too narrow for a window. surf-forecast: \"fairly exposed reef\"."
+ }
+]

@@ -1,0 +1,320 @@
+[
+ {
+  "spotId": "w-ak-good-rats",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/good-rats",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Good Rats",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SW - WNW",
+   "fromDeg": 225,
+   "toDeg": 292.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - W",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "idealSwell": "west",
+  "tide": "works at Mid (Best at Mid, Better on rising) (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-ak-sandy-beach-sitka-alaska",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sandy-beach-sitka-alaska",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sandy Beach - Sitka, Alaska",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Alaska/Sandy_Beach/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Sandy Beach - Sitka, Alaska",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "WSW",
+   "deg": 247.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW - SW",
+   "fromDeg": 202.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - SW",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Boulders, Sand",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 1.0,
+   "max": 5.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Rocks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.0 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-ak-kais-place",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/kais-place",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Kai's Place",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW - NNW",
+   "fromDeg": 202.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - W",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-ak-red-tree-reef",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/red-tree-reef",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Red Tree Reef",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - N",
+   "fromDeg": 180,
+   "toDeg": 0,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - W",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"S - N\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ },
+ {
+  "spotId": "w-ak-neva-bay",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/neva-bay",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Neva Bay",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "W",
+   "deg": 270,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSW - NNW",
+   "fromDeg": 202.5,
+   "toDeg": 337.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SW - W",
+   "fromDeg": 225,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-ak-shoals-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shoals Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - SW, WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "south",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "point",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-ak-shoals-reef-wall",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/shoals-reef-wall",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Shoals Reef/Wall",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Alaska/shoals_reef/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Shoals Reef/Wall",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - SW, WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - W",
+   "fromDeg": 180,
+   "toDeg": 270
+  },
+  "idealSwell": "south",
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 15.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "wannasurf pin 0.7 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-ak-low-island",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/low-island",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Low Island",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "ESE",
+   "deg": 112.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - SW",
+   "fromDeg": 157.5,
+   "toDeg": 225,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - SW",
+   "fromDeg": 180,
+   "toDeg": 225
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Uneven Reef",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ }
+]

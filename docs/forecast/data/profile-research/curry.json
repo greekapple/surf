@@ -1,0 +1,54 @@
+[
+ {
+  "spotId": "w-usw-port-orford",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/port-orford",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Port Orford",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Port-Orford",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Port Orford",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/North_West/Oregon_South/Port_Orford/",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Port Orford",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "S - WSW",
+   "fromDeg": 180,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "S - NW",
+   "fromDeg": 180,
+   "toDeg": 315
+  },
+  "idealSwell": "west",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Sand",
+  "waveType": "beach",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "sheltered",
+  "hazards": [
+   "Beware of rips and sharks. (surf-forecast)"
+  ],
+  "notes": "wannasurf pin 0.6 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.3 km from ours (its coordinates are given to 0.01°). surf-forecast: \"sheltered beach\"."
+ }
+]

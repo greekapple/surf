@@ -1,0 +1,421 @@
+[
+ {
+  "spotId": "w-hawaii-coves",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/coves-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Coves",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Dead Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-ewa-beach",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ewa-beach",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ewa Beach",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Ewa-Beach-Park",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Ewa Beach Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - WSW",
+   "fromDeg": 112.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSE - WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Watch out for rocks. (surf-forecast)"
+  ],
+  "notes": "surfnerd pin 0.0 km from ours. surf-forecast pin 1.5 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed reef\"."
+ },
+ {
+  "spotId": "w-hawaii-sand-island",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/sand-island",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Sand Island",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/Sand_Island/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Sand Island",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270
+  },
+  "idealSwell": "southwest",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Dead Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [
+   "Pollution - Sharks (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-barbers-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/barbers-point",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Barbers Point",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Barbers-Point-Coast-Guard-Jetty",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Barber's Point - Coast Guard Jetty",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - NW",
+   "fromDeg": 90,
+   "toDeg": 315,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "N - SE",
+   "fromDeg": 0,
+   "toDeg": 135
+  },
+  "idealSwell": "west",
+  "tide": "works at Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast)",
+  "bottom": "Dead Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 3.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of sharks,. (surf-forecast)"
+  ],
+  "notes": "wannasurf page is 3.5 km from our pin (over 3 km); not used. surfnerd pin 0.0 km from ours. surf-forecast pin 0.6 km from ours (its coordinates are given to 0.01°). surfnerd swell exposure \"E - NW\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side. surf-forecast: \"exposed reef\"."
+ },
+ {
+  "spotId": "w-hawaii-south-shore-ala-moana-park",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/south-shore-ala-moana-park",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: South Shore - Ala Moana Park",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SSE - W",
+   "fromDeg": 157.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SSE - WSW",
+   "fromDeg": 157.5,
+   "toDeg": 247.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-ala-moana-bowls",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/ala-moana-bowls",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Ala Moana Bowls",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.surf-forecast.com/breaks/Ala-Moana-Bowls",
+    "site": "surf-forecast",
+    "title": "Surf-Forecast.com surf guide: Ala Moana Bowls",
+    "retrievedOn": "2026-11-12"
+   },
+   {
+    "url": "https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/ala_moana_bowls/index.html",
+    "site": "wannasurf",
+    "title": "Wannasurf spot guide: Ala Moana Bowls",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSW",
+   "deg": 202.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "SE - W",
+   "fromDeg": 135,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - SW",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": "south",
+  "tide": "works at Low, Mid, High (surfnerd); The quality of the surf isn't affected by the tide. (surf-forecast)",
+  "bottom": "Live Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 10.0
+  },
+  "exposure": "exposed",
+  "hazards": [
+   "Beware of urchins, rocks, obstacles, locals and pollution. (surf-forecast)",
+   "Urchins - Rocks - Man-made danger (buoys etc..) - Localism - Pollution (wannasurf)"
+  ],
+  "notes": "wannasurf pin 0.1 km from ours. surfnerd pin 0.0 km from ours. surf-forecast pin 0.4 km from ours (its coordinates are given to 0.01°). surf-forecast: \"exposed reef\"."
+ },
+ {
+  "spotId": "w-hawaii-secrets-toes",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/secrets-toes",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Secrets/Toes",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - WSW",
+   "fromDeg": 112.5,
+   "toDeg": 247.5,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - SW",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": "south",
+  "tide": "works at Mid, High (surfnerd)",
+  "bottom": "Dead Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-tonggs",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/tonggs",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Tonggs",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SW",
+   "deg": 225,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "ESE - W",
+   "fromDeg": 112.5,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - SW",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": "south",
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Dead Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 2.0,
+   "max": 6.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "wannasurf page https://www.wannasurf.com/spot/North_America/USA/Hawaii/Oahu/tongg_s/index.html had no coordinates; not used. surfnerd pin 0.0 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-black-point",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/black-point-hawaii",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Black Point",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "SSE",
+   "deg": 157.5,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - SW",
+   "fromDeg": 135,
+   "toDeg": 225
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid, High (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 4.0,
+   "max": 8.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.1 km from ours."
+ },
+ {
+  "spotId": "w-hawaii-diamond-head",
+  "sources": [
+   {
+    "url": "https://www.surfnerd.com/surf-forecast/diamond-head",
+    "site": "surfnerd",
+    "title": "Surfnerd spot guide: Diamond Head",
+    "retrievedOn": "2026-11-12"
+   }
+  ],
+  "facing": {
+   "text": "S",
+   "deg": 180,
+   "basis": "guide"
+  },
+  "swellWindow": {
+   "text": "E - W",
+   "fromDeg": 90,
+   "toDeg": 270,
+   "basis": "exposure"
+  },
+  "workable": {
+   "text": "SE - WSW",
+   "fromDeg": 135,
+   "toDeg": 247.5
+  },
+  "idealSwell": null,
+  "tide": "works at Low, Mid (surfnerd)",
+  "bottom": "Lava, Rock, Coral",
+  "waveType": "reef",
+  "sizeFt": {
+   "min": 5.0,
+   "max": 10.0
+  },
+  "exposure": "not stated",
+  "hazards": [],
+  "notes": "surfnerd pin 0.0 km from ours. surfnerd swell exposure \"E - W\" is the half-circle centred on its facing; its break notes and workable swell support swell from that side."
+ }
+]
