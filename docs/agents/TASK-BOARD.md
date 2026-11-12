@@ -618,3 +618,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-12 merged + deployed j3-last-hour (ae0239e): no-estimate hours marked on the offshore line, not 0 ft; journeys 8/8, 1098 tests.
 - 2026-11-12 merged hdontap-snaps (1fa29e4): 17-camera registry, Venice snapshot live locally, switcher at 2+, attribution + real logos; 1105 tests, journeys 8/8. Awaiting user deploy OK.
 - 2026-11-12 deployed 00ab53e0: ca-mop (CA offshore-only 143→14; 122 new MOP ids filling), NWS multi-day blocks (SGX), forecast-charts (fit week, shared cursor), profile-setup (Why-we-ask, age band, 7 skill cards; sex and stance not asked yet). 1125 tests, journeys 8/8, phone-pass, t034. Prod checked 1440/390.
+- 2026-11-12 deployed profile-sex + figure-head (81079fd): optional sex question, female figure (solid head), Improver wording. 1129 tests, journeys 8/8.
