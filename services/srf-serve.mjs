@@ -11,7 +11,7 @@ export const OFFICES = ['BOX', 'BRO', 'CAR', 'CRP', 'EKA', 'GUM', 'HFO', 'JAX', 
 export function slimProduct(prod, office) {
   let p; try { p = parseSrf(prod); } catch { return null; }
   if (!p?.id || !p.issuedAt) return null;
-  const zones = p.zones.map((z) => ({ugc: z.ugc, name: z.name, expires: z.expires, issued: z.issued, periods: z.periods.filter((x) => x.surf?.length).map((x) => ({label: x.label, date: x.date, part: x.part, surf: x.surf.map((s) => ({label: s.label, facing: s.facing, lo: s.lo, hi: s.hi, kind: s.kind, raw: s.raw, then: s.then, sets: s.sets}))}))})).filter((z) => z.periods.length);
+  const zones = p.zones.map((z) => ({ugc: z.ugc, name: z.name, expires: z.expires, issued: z.issued, periods: z.periods.filter((x) => x.surf?.length).map((x) => ({label: x.label, date: x.date, ...(x.dateEnd ? {dateEnd: x.dateEnd} : {}), part: x.part, surf: x.surf.map((s) => ({label: s.label, facing: s.facing, lo: s.lo, hi: s.hi, kind: s.kind, raw: s.raw, then: s.then, sets: s.sets}))}))})).filter((z) => z.periods.length);
   return zones.length ? {schema: 1, office, id: p.id, issuedAt: p.issuedAt, zones} : null;
 }
 

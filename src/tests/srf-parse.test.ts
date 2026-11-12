@@ -178,13 +178,13 @@ test('a surf value keeps the facing label, the "becoming" remainder and the sets
   const d = parseSurfValue('Large and dangerous'); assert.deepEqual([d[0].kind, d[0].lo, d[0].hi], ['text', null, null]);
 });
 
-test('period labels give the local date: TODAY is the issue date, a weekday the first such day after it, a holiday or a multi-day label no date', () => {
+test('period labels give the local date: TODAY is the issue date, a weekday the first such day after it, a holiday no date (a multi-day block: see the THROUGH test below)', () => {
   assert.deepEqual(periodWhen('WEDNESDAY', '2026-11-10'), {date: '2026-11-11', part: 'day'});
   assert.deepEqual(periodWhen('TUESDAY', '2026-11-10'), {date: '2026-11-17', part: 'day'});
   assert.deepEqual(periodWhen('REST OF TODAY', '2026-11-09'), {date: '2026-11-09', part: 'day'});
   assert.deepEqual(periodWhen('TONIGHT', '2026-11-09'), {date: '2026-11-09', part: 'night'});
   assert.deepEqual(periodWhen('THURSDAY NIGHT', '2026-11-10'), {date: '2026-11-12', part: 'night'});
-  for (const l of ['VETERANS DAY', 'EXTENDED', 'THIS AFTERNOON THROUGH WEDNESDAY']) assert.deepEqual(periodWhen(l, '2026-11-10'), {date: null, part: null});
+  for (const l of ['VETERANS DAY', 'EXTENDED']) assert.deepEqual(periodWhen(l, '2026-11-10'), {date: null, part: null});
   assert.equal(facingOf('Northwest Facing Beaches'), 'northwest'); assert.equal(facingOf('East Coast'), 'east'); assert.equal(facingOf(null), null);
 });
 
@@ -234,4 +234,11 @@ test('pickEntry: zone-wide entry as it is; facing matched within 45 degrees; tie
   assert.match(pickEntry(two, 90).reason!, /more than 45 degrees/); assert.match(pickEntry(two, undefined).reason!, /no seaward bearing/);
   assert.match(pickEntry([E('west', 5, 7), E('north', 3, 4)], 315).reason!, /ambiguous/);
   assert.match(pickEntry([E(null, null, 1, 'or_less')], 0).reason!, /or less/); assert.match(pickEntry([{...E(null, null, null, 'text')}], 0).reason!, /no readable/);
+});
+
+test('a multi-day block ("THIS AFTERNOON THROUGH FRIDAY", SGX 2026-11-12) covers each day from its start to its end', () => {
+  assert.deepEqual(periodWhen('THIS AFTERNOON THROUGH FRIDAY', '2026-11-12'), {date: '2026-11-12', part: 'day', dateEnd: '2026-11-13'});
+  assert.deepEqual(periodWhen('SATURDAY THROUGH MONDAY', '2026-11-12'), {date: '2026-11-14', part: 'day', dateEnd: '2026-11-16'});
+  assert.deepEqual(periodWhen('NONSENSE THROUGH FRIDAY', '2026-11-12'), {date: null, part: null});
+  assert.deepEqual(periodWhen('SATURDAY', '2026-11-12'), {date: '2026-11-14', part: 'day'});   // single days unchanged
 });

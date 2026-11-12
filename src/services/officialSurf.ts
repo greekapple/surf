@@ -6,7 +6,7 @@ import {COAST_ROWS, UPGRADED_ROWS} from '../data/coast.ts';
 import {timeZoneOf} from '../ocean/spotZone.ts';
 
 export interface SrfEntry {label: string; facing: string | null; lo: number | null; hi: number | null; kind: 'range' | 'around' | 'or_less' | 'single' | 'text'; raw: string; then: string | null; sets: string | null}
-export interface SrfPeriod {label: string; date: string | null; part: string | null; surf: SrfEntry[]}
+export interface SrfPeriod {label: string; date: string | null; /** last day of a multi-day block ("THIS AFTERNOON THROUGH FRIDAY"), inclusive */ dateEnd?: string | null; part: string | null; surf: SrfEntry[]}
 export interface SrfZone {ugc: string[]; name: string; expires: string | null; issued: {date: string; time: string; tz: string; weekday: string} | null; periods: SrfPeriod[]}
 export interface SrfProduct {schema: 1; office: string; id: string; issuedAt: string; zones: SrfZone[]}
 
@@ -74,9 +74,9 @@ export function officialRange(h: Pick<OfficialSurf, 'loFt' | 'hiFt' | 'upTo'> & 
   return h.upTo ? `up to ${c(h.hiFt)} ${u}` : h.about ? `about ${c(h.loFt)} ${u}` : h.loFt === h.hiFt ? `${c(h.loFt)} ${u}` : `${c(h.loFt)}–${c(h.hiFt)} ${u}`;
 }
 /** "NWS surf forecast: 6–8 ft (North Facing, Kauai), issued Tue 3:43 PM HST": labelled as the NWS's, with its issue time */
-export function officialLabel(h: Pick<OfficialSurf, 'loFt' | 'hiFt' | 'upTo' | 'about' | 'half' | 'zoneName' | 'facing' | 'entryLabel' | 'issuedText'>, unit: 'ft' | 'm'): string {
+export function officialLabel(h: Pick<OfficialSurf, 'loFt' | 'hiFt' | 'upTo' | 'about' | 'half' | 'zoneName' | 'facing' | 'entryLabel' | 'issuedText'> & {span?: string | null}, unit: 'ft' | 'm'): string {
   const who = h.facing ? `${h.entryLabel}, ${h.zoneName}` : h.zoneName;
-  return `NWS surf forecast: ${officialRange(h, unit)}${h.half ? ` ${h.half}` : ''} (${who})${h.issuedText ? `, issued ${h.issuedText}` : ''}`;
+  return `NWS surf forecast: ${officialRange(h, unit)}${h.half ? ` ${h.half}` : ''}${h.span ? ` for ${h.span}` : ''} (${who})${h.issuedText ? `, issued ${h.issuedText}` : ''}`;
 }
 
 /** The NWS surf forecast for a spot's local day at `hourMs`. Reasons, never a fallback: no zone, no product, zone not in the product, no period for that day, no readable height, no matching facing. */
@@ -85,7 +85,7 @@ export function officialFor(spotId: string, hourMs: number, product: SrfProduct 
   if (!product || product.office !== z.office || !Array.isArray(product.zones)) return {ok: false, reason: 'no NWS surf forecast loaded for this zone'};
   const zone = product.zones.find((x) => x.ugc.includes(z.zone)); if (!zone) return {ok: false, reason: 'the zone is not in the latest NWS product'};
   const tz = timeZoneOf(spotId), date = dateIn(tz, hourMs), hr = hourIn(tz, hourMs);
-  let periods = zone.periods.filter((p) => p.date === date && !/^night/.test(p.part ?? '') && p.surf?.length);
+  let periods = zone.periods.map((p) => (p.date ? p : {...p, ...spanOf(p.label, zone.issued?.date ?? null)})).filter((p) => (p.date === date || (!!p.dateEnd && !!p.date && p.date <= date && date <= p.dateEnd)) && !/^night/.test(p.part ?? '') && p.surf?.length);
   if (!periods.length) return {ok: false, reason: 'the NWS product has no surf period for this day'};
   // Honolulu publishes AM and PM halves: the hour takes ITS half, and a day whose halves do not include this hour's shows nothing (an AM range is never passed off as the whole day)
   const halved = periods.some((p) => /-(am|pm)$/i.test(p.part ?? ''));
@@ -93,7 +93,27 @@ export function officialFor(spotId: string, hourMs: number, product: SrfProduct 
   const per = periods[0], pick = pickFacingEntry(per.surf, seawardOf(spotId)); if ('reason' in pick) return {ok: false, reason: pick.reason};
   const e = pick.entry, upTo = e.kind === 'or_less', hi = e.hi as number, lo = upTo ? 0 : (e.lo as number);
   const exp = expiryOf(product.issuedAt, zone.expires) ?? (Date.parse(product.issuedAt) + 30 * 3600000), stale = Number.isFinite(exp) && nowMs > exp + STALE_AFTER_EXPIRY_H * 3600000 ? {expiredAt: new Date(exp).toISOString()} : null;
-  const base = {loFt: lo, hiFt: hi, half: halfOf(per.part), upTo, about: e.kind === 'around', zoneName: zone.name, facing: e.facing, entryLabel: e.label, issuedText: issuedText(zone)};
+  // a multi-day block ("THIS AFTERNOON THROUGH FRIDAY") says so: one NWS range for several days, never passed off as this day's own
+  const span = per.dateEnd ? per.label.toLowerCase().replace(/\b(sunday|monday|tuesday|wednesday|thursday|friday|saturday)\b/g, (d) => d[0].toUpperCase() + d.slice(1)) : null;
+  const base = {loFt: lo, hiFt: hi, half: halfOf(per.part), upTo, about: e.kind === 'around', zoneName: zone.name, facing: e.facing, entryLabel: e.label, issuedText: issuedText(zone), span};
   const label = officialLabel(base, 'ft');
   return {ok: true, official: {kind: 'official', ...base, label, office: z.office, zone: z.zone, raw: e.raw, sets: e.sets, then: e.then, periodLabel: per.label, periodDate: date, issuedAt: product.issuedAt, productId: product.id, stale}};
+}
+
+const WEEKDAYS = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+const addDay = (d: string, n: number) => new Date(Date.parse(d + 'T12:00:00Z') + n * 86400000).toISOString().slice(0, 10);
+/** The same reading as services/srf-parse.mjs periodWhen, for products served before the parser understood "X THROUGH Y" (2026-11-12, SGX): start and end day of a block, or nulls. */
+export function spanOf(label: string, issueDate: string | null): {date: string | null; dateEnd: string | null; part: string | null} {
+  const one = (l: string): {date: string | null; part: string | null} => {
+    const L = l.toUpperCase().trim();
+    if (/^(TODAY|REST OF TODAY|THIS AFTERNOON|THIS MORNING)$/.test(L)) return {date: issueDate, part: 'day'};
+    if (/^(TONIGHT|THIS EVENING|REST OF TONIGHT)$/.test(L)) return {date: issueDate, part: 'night'};
+    const m = /^(SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY)( NIGHT)?$/.exec(L);
+    if (m && issueDate) { const want = WEEKDAYS.indexOf(m[1]); let d = addDay(issueDate, 1); while (new Date(d + 'T12:00:00Z').getUTCDay() !== want) d = addDay(d, 1); return {date: d, part: m[2] ? 'night' : 'day'}; }
+    return {date: null, part: null};
+  };
+  const t = /^(.+?)\s+THROUGH\s+(.+)$/i.exec(label.trim());
+  if (!t) return {...one(label), dateEnd: null};
+  const a = one(t[1]), b = one(t[2]);
+  return a.date && b.date && b.date >= a.date ? {date: a.date, part: a.part ?? 'day', dateEnd: b.date} : {date: null, part: null, dateEnd: null};
 }

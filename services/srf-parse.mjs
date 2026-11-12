@@ -52,6 +52,9 @@ export function parseSurfValue(value, label = null) {
 /** A period label -> {date (local YYYY-MM-DD) or null, part: 'day' | 'night' | null}. issueDate is the zone block's own local issue date. A weekday is the first such day AFTER the issue date; a label that names neither (a holiday) has no date. */
 export function periodWhen(label, issueDate) {
   const L = label.toUpperCase().trim();
+  // 2026-11-12: some offices (SGX) write one block for several days, "THIS AFTERNOON THROUGH FRIDAY": the block covers each day from its start to its end (dateEnd), both inclusive
+  const thru = /^(.+?)\s+THROUGH\s+(.+)$/.exec(L);
+  if (thru) { const a = periodWhen(thru[1], issueDate), b = periodWhen(thru[2], issueDate); return a.date && b.date && b.date >= a.date ? {date: a.date, part: a.part ?? 'day', dateEnd: b.date} : {date: null, part: null}; }
   if (/^(TODAY|REST OF TODAY|THIS AFTERNOON|THIS MORNING)$/.test(L)) return {date: issueDate, part: 'day'};
   if (/^(TONIGHT|THIS EVENING|REST OF TONIGHT)$/.test(L)) return {date: issueDate, part: 'night'};
   const m = /^(SUNDAY|MONDAY|TUESDAY|WEDNESDAY|THURSDAY|FRIDAY|SATURDAY)( NIGHT)?$/.exec(L);

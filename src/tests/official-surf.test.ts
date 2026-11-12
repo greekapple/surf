@@ -167,3 +167,16 @@ test('Honolulu half-days (real HFO table): AM and PM ranges differ; an hour take
   assert.equal(day.kind, 'official'); assert.equal(day.officialHalves?.length, 2); assert.match(day.label!, /^NWS AM .* · PM /); assert.doesNotMatch(day.label!, /^NWS \d/);
   void tz; void hs; void z;
 });
+
+test('a multi-day NWS block reaches every day it covers, also in a product served before the parser read "THROUGH" (date null)', async () => {
+  const {spanOf} = await import('../services/officialSurf.ts');
+  assert.deepEqual(spanOf('THIS AFTERNOON THROUGH FRIDAY', '2026-11-12'), {date: '2026-11-12', part: 'day', dateEnd: '2026-11-13'});
+  const id = 'w-usw-newport-beach', z = srfZoneOf(id)!;
+  const p: SrfProduct = {schema: 1, office: z.office, id: 'sgx-1', issuedAt: '2026-11-12T20:06:00+00:00', zones: [{ugc: [z.zone], name: 'Orange County Coastal Areas', expires: '131200',
+    issued: {date: '2026-11-12', time: '1206 PM', tz: 'PST', weekday: 'Thu'},
+    periods: [{label: 'THIS AFTERNOON THROUGH FRIDAY', date: null, part: null, surf: [{label: null, facing: null, lo: 3, hi: 6, kind: 'range', raw: '3 to 6 feet.', then: null, sets: null}]},
+      {label: 'SATURDAY', date: '2026-11-14', part: 'day', surf: [{label: null, facing: null, lo: 5, hi: 7, kind: 'range', raw: '5 to 7 feet.', then: null, sets: 8}]}]}]};
+  const at = (iso: string) => officialFor(id, Date.parse(iso), p, Date.parse('2026-11-12T21:00:00Z'));
+  const thu = at('2026-11-12T21:00:00Z'), fri = at('2026-11-13T19:00:00Z'), sat = at('2026-11-14T19:00:00Z'), sun = at('2026-11-15T19:00:00Z');
+  assert.ok(thu.ok && thu.official.hiFt === 6 && /for this afternoon through Friday/.test(thu.official.label), thu.ok ? thu.official.label : thu.reason); assert.ok(fri.ok && fri.official.hiFt === 6); assert.ok(sat.ok && sat.official.hiFt === 7); assert.equal(sun.ok, false);
+});
