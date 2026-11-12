@@ -50,6 +50,20 @@ export interface MapEngine {
   /** phone pass 3: the page's own labels (pin labels, height chips, region pills), as boxes in container pixels centred on a map point. The basemap's place
    *  names give way to them (the engine keeps these boxes in its label placement; nothing is drawn). Optional: an engine without label placement ignores it. */
   shieldLabels?(boxes: {lat: number; lon: number; w: number; h: number}[]): void;
+  /** map-dots: the spot and group dots, drawn by the engine (MapLibre: one symbol layer per kind of dot, collided by priority, above the basemap's labels;
+   *  Leaflet: plain circle markers). Replaces the whole set; the engine keeps one icon per look. */
+  setDots?(dots: MapDot[], o: DotOptions): void;
+  /** taps (and pointer hover) on a dot; the engine's own 'click' never fires for a tap on a dot */
+  onDot?(cb: (e: DotEvent) => void): () => void;
+  /** the dots actually drawn now (after collision), in container pixels: for QA and the in-view count */
+  placedDots?(): {id: string; layer: MapDot['layer']; x: number; y: number}[];
   dispose(): void;
 }
+/** One dot's look. Colours are resolved CSS colours (the page reads its tokens; the engine draws on a canvas). */
+export interface DotIcon {kind: 'est' | 'nws' | 'off' | 'snap' | 'none'; num: string | null; fill: string; ink: string; surface: string; text: string; dir: number | null; size: number; sel: boolean; faded: boolean;
+  /** an estimate with no rating this hour: drawn as an outline with the number (never a grey fill that reads as Poor) */ unrated?: boolean; /** a group's dot: drawn as a small stack */ group?: boolean}
+export interface MapDot {id: string; lat: number; lon: number; layer: 'group' | 'spot' | 'sel'; icon: DotIcon; /** higher is placed first; a lower one that collides is not drawn */ prio: number; name: string; /** after dark: drawn dimmed */ dim: boolean}
+/** zooms are Leaflet-equivalent: groups from `groupsFrom` until `spotsFrom`, spots from `spotsFrom`, names from `namesFrom`; `pad` is the extra px kept between dots */
+export interface DotOptions {groupsFrom: number; spotsFrom: number; namesFrom: number; pad: number; text: string; halo: string}
+export interface DotEvent {type: 'click' | 'enter' | 'leave'; id: string; layer: MapDot['layer']; x: number; y: number}
 export interface EngineOptions {view: View; minZoom: number; maxZoom: number; theme: Theme}

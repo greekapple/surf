@@ -4,7 +4,7 @@ import {addBasemap, BASEMAPS} from '../basemap.ts';
 import {createFieldController} from '../field.ts';
 import {mapConfig} from '../mapConfig.ts';
 import {minZoomFor} from '../mapConfig.ts';
-import type {EngineClick, EngineEvent, EngineOptions, MapEngine, MarkerHandle, MarkerOptions} from './types.ts';
+import type {DotEvent, DotOptions, EngineClick, EngineEvent, EngineOptions, MapDot, MapEngine, MarkerHandle, MarkerOptions} from './types.ts';
 
 const wrapLon = (lng: number) => ((((lng + 180) % 360) + 360) % 360) - 180;
 
@@ -22,7 +22,24 @@ export function createLeafletEngine(el: HTMLElement, o: EngineOptions): MapEngin
   const ev = {
     movestart: 'movestart', move: 'move', moveend: 'moveend', zoomend: 'zoomend', resize: 'resize', click: 'click',
   } as const satisfies Record<EngineEvent, string>;
+  // map-dots fallback (spec: "Leaflet fallback: simple circle markers"): a canvas circle per dot in its zoom band, no number, no collision
+  const dotCbs = new Set<(e: DotEvent) => void>(), dotGroup = L.layerGroup().addTo(m), rend = L.canvas({padding: 0.2});
+  let dotsNow: {dots: MapDot[]; o: DotOptions} | null = null;
+  const drawDots = () => {
+    dotGroup.clearLayers(); if (!dotsNow) return; const z = m.getZoom(), {dots, o} = dotsNow;
+    for (const d of dots) {
+      if (z < o.groupsFrom || (d.layer === 'group' && z >= o.spotsFrom) || (d.layer === 'spot' && z < o.spotsFrom)) continue;
+      const i = d.icon, solid = i.kind === 'est', r = (i.kind === 'none' ? 4 : 7) + (i.sel ? 2 : 0);
+      const c = L.circleMarker([d.lat, d.lon], {renderer: rend, radius: r, color: i.sel ? i.text : i.fill, weight: i.sel ? 3 : 2, dashArray: i.kind === 'nws' ? '3 2' : undefined, fillColor: solid ? i.fill : i.surface, fillOpacity: (i.kind === 'off' ? 0.15 : 0.9) * (d.dim || i.faded ? 0.55 : 1), opacity: d.dim || i.faded ? 0.55 : 1});
+      c.on('click', (e: L.LeafletMouseEvent) => { L.DomEvent.stopPropagation(e); const p = e.containerPoint; dotCbs.forEach((cb) => cb({type: 'click', id: d.id, layer: d.layer, x: p.x, y: p.y})); });
+      c.bindTooltip(d.name, {direction: 'right', offset: [8, 0]}); dotGroup.addLayer(c);
+    }
+  };
+  m.on('zoomend', drawDots);
   const api: MapEngine = {
+    setDots: (dots, o) => { dotsNow = {dots, o}; drawDots(); },
+    onDot: (cb) => { dotCbs.add(cb); return () => { dotCbs.delete(cb); }; },
+    placedDots: () => { const out: {id: string; layer: MapDot['layer']; x: number; y: number}[] = []; if (!dotsNow) return out; const z = m.getZoom(), o = dotsNow.o; for (const d of dotsNow.dots) { if (z < o.groupsFrom || (d.layer === 'group' && z >= o.spotsFrom) || (d.layer === 'spot' && z < o.spotsFrom)) continue; const p = m.latLngToContainerPoint([d.lat, d.lon]); out.push({id: d.id, layer: d.layer, x: p.x, y: p.y}); } return out; },
     kind: 'leaflet', container: el, field,
     getView: () => { const c = m.getCenter(); return {lat: c.lat, lon: c.lng, zoom: m.getZoom()}; },
     setView: (v, opt) => { m.setView([v.lat, v.lon], v.zoom, {animate: opt?.animate ?? false}); },

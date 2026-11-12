@@ -82,8 +82,8 @@ export function NwsBanner({spotId}: {spotId: string}) {
   return (
     <section className={`nws${more ? ' open' : ''}`} aria-label="National Weather Service alert" role="note">
       {/* T-109: each alert is one link to its NWS page (a full-height tap target), an icon and the bold title first; it wraps rather than clipping its end time. */}
-      {shown.map((a) => (
-        <a key={a.url + a.event} className="nws-a" href={a.url} target="_blank" rel="noopener noreferrer">
+      {shown.map((a, i) => (   // two alerts can share the event and the point link (two Coastal Flood Advisories, 2026-11-12): the index keeps the keys unique
+        <a key={`${a.url}|${a.event}|${i}`} className="nws-a" href={a.url} target="_blank" rel="noopener noreferrer">
           <Icon name="alert" size={18} className="nws-i" aria-hidden="true" />
           <span className="nws-t"><b>{a.event}</b>{a.approxZone && <span> for the nearby coast</span>}
             <span className="nws-w"> · {a.onset ? `from ${when(a.onset, timeZoneOf(spotId))} ` : ''}{a.ends || a.expires ? `until ${when((a.ends ?? a.expires)!, timeZoneOf(spotId))}` : ''}</span>

@@ -8,7 +8,8 @@ import {minZoomFor} from '../mapConfig.ts';
 import {ATTRIBUTION_TEXT, WORLD_SEA_ID, brandedStyle, loadBaseStyle, paintFor, palette} from './style.ts';
 import {createGLFieldController} from './glField.ts';
 import {warmParents, warmWorld} from './tileWarm.ts';
-import type {EngineClick, EngineEvent, EngineOptions, MapEngine, MarkerHandle, MarkerOptions, Theme} from './types.ts';
+import type {DotEvent, DotOptions, EngineClick, EngineEvent, EngineOptions, MapDot, MapEngine, MarkerHandle, MarkerOptions, Theme} from './types.ts';
+import {DOT_PR, dotKey, drawDot} from './dotIcon.ts';
 
 const ZOFF = 1; // Leaflet zoom = MapLibre zoom + 1
 const wrapLon = (lng: number) => ((((lng + 180) % 360) + 360) % 360) - 180;
@@ -67,8 +68,61 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
       map.addLayer({id: SHIELD, type: 'symbol', source: SHIELD, layout: {'icon-image': ['get', 'i'], 'icon-allow-overlap': true, 'icon-ignore-placement': false, 'icon-anchor': 'center'}, paint: {'icon-opacity': 0}});
     } catch { /* style not ready: the next declutter sends the boxes again */ }
   };
+  // map-dots: the spot and group dots as symbol layers on top of the style (above the place names, so a name that would collide with a dot gives way).
+  // One GeoJSON source; three layers: groups (coast zoom), spots (close zoom), and the selected spot (always placed, with its name). MapLibre collides the
+  // dots against each other in priority order (symbol-sort-key), so a lower-rated dot that would overlap is left out until you zoom in.
+  const DOT_SRC = 'swello-dots', DOT_LAYERS = ['swello-dots-sel', 'swello-dots-spot', 'swello-dots-group'] as const;
+  const dotCbs = new Set<(e: DotEvent) => void>();
+  let dotsPending: {dots: MapDot[]; o: DotOptions} | null = null, dotsWaiting = false, dotOpts: DotOptions | null = null;
+  const dotLayersHere = () => DOT_LAYERS.filter((l) => map.getLayer(l));
+  const applyDots = (dots: MapDot[], o: DotOptions) => {
+    const feats = dots.map((d) => {
+      const key = dotKey(d.icon);
+      if (!map.hasImage(key)) { const img = drawDot(d.icon); if (img) map.addImage(key, img, {pixelRatio: DOT_PR}); }
+      return {type: 'Feature' as const, properties: {id: d.id, layer: d.layer, i: key, k: -d.prio, name: d.name, dim: d.dim}, geometry: {type: 'Point' as const, coordinates: [d.lon, d.lat]}};
+    });
+    const data = {type: 'FeatureCollection' as const, features: feats}, src = map.getSource(DOT_SRC) as maplibregl.GeoJSONSource | undefined;
+    if (src) src.setData(data); else map.addSource(DOT_SRC, {type: 'geojson', data});
+    const same = dotOpts && dotOpts.groupsFrom === o.groupsFrom && dotOpts.spotsFrom === o.spotsFrom && dotOpts.namesFrom === o.namesFrom && dotOpts.pad === o.pad;
+    if (!same) for (const l of DOT_LAYERS) if (map.getLayer(l)) map.removeLayer(l);
+    const text = {'text-font': ['Noto Sans Regular'], 'text-size': 12, 'text-variable-anchor': ['left', 'right'], 'text-radial-offset': 1.15, 'text-justify': 'auto', 'text-optional': true, 'text-max-width': 9, 'text-padding': 2} as const;
+    const paint = {'icon-opacity': ['case', ['get', 'dim'], 0.65, 1], 'text-color': o.text, 'text-halo-color': o.halo, 'text-halo-width': 1.6, 'text-opacity': ['case', ['get', 'dim'], 0.7, 1]};
+    const base = {'icon-image': ['get', 'i'], 'icon-anchor': 'center', 'symbol-sort-key': ['get', 'k'], 'icon-padding': o.pad} as const;
+    if (!map.getLayer('swello-dots-group')) map.addLayer({id: 'swello-dots-group', type: 'symbol', source: DOT_SRC, filter: ['==', ['get', 'layer'], 'group'], minzoom: o.groupsFrom - ZOFF, maxzoom: o.spotsFrom - ZOFF, layout: {...base, 'icon-allow-overlap': false}, paint: {'icon-opacity': paint['icon-opacity']}} as unknown as maplibregl.AddLayerObject);
+    if (!map.getLayer('swello-dots-spot')) map.addLayer({id: 'swello-dots-spot', type: 'symbol', source: DOT_SRC, filter: ['==', ['get', 'layer'], 'spot'], minzoom: o.spotsFrom - ZOFF, layout: {...base, ...text, 'icon-allow-overlap': false, 'text-field': ['step', ['zoom'], '', o.namesFrom - ZOFF, ['get', 'name']]}, paint} as unknown as maplibregl.AddLayerObject);
+    if (!map.getLayer('swello-dots-sel')) map.addLayer({id: 'swello-dots-sel', type: 'symbol', source: DOT_SRC, filter: ['==', ['get', 'layer'], 'sel'], minzoom: o.groupsFrom - ZOFF, layout: {...base, ...text, 'icon-allow-overlap': true, 'text-field': ['get', 'name'], 'text-size': 13}, paint} as unknown as maplibregl.AddLayerObject);
+    else for (const l of ['swello-dots-spot', 'swello-dots-sel']) { map.setPaintProperty(l, 'text-color', o.text); map.setPaintProperty(l, 'text-halo-color', o.halo); }
+    dotOpts = o;
+  };
+  const setDots = (dots: MapDot[], o: DotOptions) => {
+    dotsPending = {dots, o};
+    if (!map.isStyleLoaded()) { if (!dotsWaiting) { dotsWaiting = true; map.once('idle', () => { dotsWaiting = false; if (dotsPending) setDots(dotsPending.dots, dotsPending.o); }); } return; }
+    try { applyDots(dots, o); dotsPending = null; } catch (err) { console.warn('dots', err); }
+  };
+  /** the dot under a point (a finger gets a bigger box than a mouse), nearest first */
+  const dotAt = (pt: {x: number; y: number}, slop: number) => {
+    const ls = dotLayersHere(); if (!ls.length) return null;
+    const fs = map.queryRenderedFeatures([[pt.x - slop, pt.y - slop], [pt.x + slop, pt.y + slop]], {layers: ls});
+    let best: {id: string; layer: MapDot['layer']; d: number} | null = null;
+    for (const f of fs) { const c = (f.geometry as unknown as {coordinates: [number, number]}).coordinates, q = map.project(c), d = Math.hypot(q.x - pt.x, q.y - pt.y), p = f.properties as {id: string; layer: MapDot['layer']}; if (!best || d < best.d || (p.layer === 'sel' && d <= best.d + 4)) best = {id: p.id, layer: p.layer, d}; }
+    return best;
+  };
+  const coarse = () => matchMedia('(pointer: coarse)').matches;
+  let hoverId: string | null = null;
+  map.on('click', (e) => { const h = dotAt(e.point, coarse() ? 16 : 9); if (h) dotCbs.forEach((cb) => cb({type: 'click', id: h.id, layer: h.layer, x: e.point.x, y: e.point.y})); });
+  map.on('mousemove', (e) => {
+    if (coarse()) return; const h = dotAt(e.point, 8), id = h ? h.id : null;
+    if (id === hoverId) return;
+    if (hoverId) { const old = hoverId; dotCbs.forEach((cb) => cb({type: 'leave', id: old, layer: 'spot', x: e.point.x, y: e.point.y})); }
+    hoverId = id; map.getCanvas().style.cursor = h ? 'pointer' : '';
+    if (h) dotCbs.forEach((cb) => cb({type: 'enter', id: h.id, layer: h.layer, x: e.point.x, y: e.point.y}));
+  });
+  map.on('mouseout', () => { if (hoverId) { const old = hoverId; hoverId = null; map.getCanvas().style.cursor = ''; dotCbs.forEach((cb) => cb({type: 'leave', id: old, layer: 'spot', x: 0, y: 0})); } });
   const api: MapEngine = {
     shieldLabels: shield,
+    setDots,
+    onDot: (cb) => { dotCbs.add(cb); return () => { dotCbs.delete(cb); }; },
+    placedDots: () => { const ls = dotLayersHere(); if (!ls.length) return []; const seen = new Set<string>(); return map.queryRenderedFeatures({layers: ls}).flatMap((f) => { const p = f.properties as {id: string; layer: MapDot['layer']}, k = p.layer + p.id; if (seen.has(k)) return []; seen.add(k); const q = map.project((f.geometry as unknown as {coordinates: [number, number]}).coordinates); return [{id: p.id, layer: p.layer, x: q.x, y: q.y}]; }); },
     kind: 'maplibre', container: el, field,
     getView: () => { const c = map.getCenter(); return {lat: c.lat, lon: c.lng, zoom: map.getZoom() + ZOFF}; },
     setView: (v, opt) => { const t = {center: [v.lon, v.lat] as [number, number], zoom: v.zoom - ZOFF}; if (opt?.animate) map.easeTo({...t, duration: 500}); else map.jumpTo(t); },
@@ -88,6 +142,7 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
       const h = (x?: maplibregl.MapMouseEvent) => {
         if (e !== 'click') { cb(); return; }
         if (!x || isOverlay(x.originalEvent?.target ?? null)) return; // MapLibre itself never fires click after a drag
+        if (dotAt(x.point, coarse() ? 16 : 9)) return; // map-dots: a tap on a dot is the dot's (onDot), never a tap on the sea
         cb({lat: x.lngLat.lat, lon: wrapLon(x.lngLat.lng), x: x.point.x, y: x.point.y} satisfies EngineClick);
       };
       map.on(e as never, h as never); const off = () => { map.off(e as never, h as never); }; offs.push(off); return off;
