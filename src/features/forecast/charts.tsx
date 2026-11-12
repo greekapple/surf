@@ -105,7 +105,10 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
   const PT = (showDays ? 30 : 12) + (title && (!showDays || unitInTitle) ? 12 : 0), RB = showRibbon ? (showHours ? height - 36 : height - 12) : (showHours ? height - 24 : height - 2), PB = RB - (showRibbon || tab === 'wind' ? 26 : 8);
   const top = stacked ? 0 : PT - 8, bottom = stacked ? (showHours ? height - 20 : height) : RB; // night shading / day lines / selection span the whole chart when stacked
   const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0
-    : surfBand ? (bAt(h)?.hi !== null && bAt(h)?.hi !== undefined ? (bAt(h)!.lo! + bAt(h)!.hi!) / 2 : 0) : h.heightFt ?? 0);
+    : surfBand && bAt(h) ? (bAt(h)!.lo + bAt(h)!.hi) / 2 : h.heightFt ?? 0);
+  // j3 (2026-11-12): an hour with no surf estimate (e.g. the forecast's last hour, past the nearshore run) is announced and shown as offshore Hs, so its
+  // marker sits on the offshore line in that line's grey; it used to fall to 0 ft, a flat reading the data never gave.
+  const onEst = (h: HourSample | undefined) => !!h && surfBand && !!bAt(h);
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
   const i0 = Math.max(0, Math.floor(a) - 1), i1 = Math.min(n - 1, Math.ceil(b) + 1);
   const vis = series.slice(i0, i1 + 1);
@@ -271,7 +274,7 @@ export function Timeline({series, spot, p, selectedTime, onSelect, onHover, now,
         {showRibbon && <text className="tl-row" x={0} y={RB + 5}>Rating</text>}
         {!noTide && <g className="sel-g" style={{transform: `translateX(${X(sel)}px)`}}>
           <line y1={stacked ? 0 : PT - 8} y2={stacked ? bottom : RB + 2} stroke="var(--ch-ink)" strokeWidth={1.5} />
-          <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : surfBand ? 'var(--hs-hi)' : 'var(--muted)'} strokeWidth={2.5} />
+          <circle cy={Y(val(selH))} r={5} fill="var(--bg)" stroke={tab === 'wind' ? 'var(--accent)' : tab === 'tide' ? 'var(--tide)' : tab === 'swell' ? 'var(--sw1)' : onEst(selH) ? 'var(--hs-hi)' : 'var(--muted)'} strokeWidth={2.5} />
         </g>}
         {/* phone pass 6: the day names and the panel title are drawn over the cursor (with a halo), so the cursor never cuts them; the title sits in the
             left gutter on the day row, never in the plot */}
