@@ -4,7 +4,7 @@ import {headlineSurf} from '../../services/headlineSurf.ts';
 
 /** T-119: the 7-day surf-height points for a spot card: the middle of the hour's surf estimate every 3 hours from now (offshore-only and missing
  *  hours are gaps, never surf). Pure enough to test; the same headline the card's number uses. */
-export function sparkPoints(spotId: string, records: Forecast[], nowMs: number, bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined): {t: number; ft: number | null}[] {
+export function sparkPoints(spotId: string, records: Forecast[], nowMs: number, bundle: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null | undefined): {t: number; ft: number | null}[] {
   const from = Math.floor(nowMs / 36e5) * 36e5;
   return records.filter((f) => f.spotId === spotId && Date.parse(f.timestamp) >= from && Date.parse(f.timestamp) < from + 7 * 864e5)
     .sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).filter((_, i) => i % 3 === 0)

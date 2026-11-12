@@ -11,10 +11,11 @@ import {compass, wind as windText} from '../utils/units.ts';
 import {formatWaveHeight} from '../utils/waveHeight.ts';
 import {firstStale, staleText, TIDE_MAX_AGE_MS, type Stale} from './freshness.ts';
 import {headlineSurf, headlineText, FLAT_LABEL, type HeadlineSurf} from './headlineSurf.ts';
+import {officialRange} from './officialSurf.ts';
 
 /** ONE source of truth for the numbers a spot shows at an hour (T-055): the forecast strip chip, the Surf card, Home, the map callout and the scale all read these,
  *  so the same spot and hour can never give two different surf ranges, winds, tides or ratings. Pure; nothing here invents a value. */
-export interface HourContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null}
+export interface HourContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null}
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 
 /** THE hour rule: the first record at or after the top of the hour containing `atMs`. An earlier record is never used (no stale values). */
@@ -73,7 +74,7 @@ export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: U
 /** The one hour a day card stands for (T-068, user decision "Median daylight hour"): the middle daylight hour of the day by clock time (about midday). Its numbers ARE spotHourOf at that hour.
  *  The best window stays in the Call (call.ts); the full daylight envelope stays in the day's `loFt`/`hiFt`. (T-057 used the best-rated hour; that hid part of a day-to-day dip.) */
 export interface DayTypical {atIso: string; how: 'midday'; hourLabel: string; short: string; loFt: number; hiFt: number; /** T-107: the midday hour's central surf height (estimate) or offshore height; the one value a week cell's wave glyph is drawn from. */ centralFt: number; hour: SpotHour; aria: string}
-export interface DayRange {kind: 'estimate' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
+export interface DayRange {kind: 'estimate' | 'official' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
 const hrFmt = (tz: string) => fmtIn(tz, {hour: 'numeric'});
 const hourWord = (tz: string, iso: string) => hrFmt(tz).format(new Date(iso)).replace(' ', '').toUpperCase().replace(/AM$/, ' AM').replace(/PM$/, ' PM');
 const hourShort = (tz: string, iso: string) => hrFmt(tz).format(new Date(iso)).replace(/ (A|P)M$/, (_, c) => c.toLowerCase());
@@ -83,21 +84,27 @@ export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, n
   const tz = timeZoneOf(spot), ev = evidenceSpots.find((e) => e.id === spot.id), civil = solarTimes(dateKey, ev?.latitude ?? 37.76, ev?.longitude ?? -122.51, 96, tz);
   const hours = records.filter((f) => { const t = Date.parse(f.timestamp); return f.spotId === spot.id && dateIn(tz, f.timestamp) === dateKey && t >= civil.rise && t <= civil.set; });
   const heads = hours.map((f) => headlineSurf(spot.id, f, {bundle: ctx.bundle, nowMs}));
-  const pickTypical = (kind: 'estimate' | 'offshore'): DayTypical | null => {
+  const pickTypical = (kind: 'estimate' | 'official' | 'offshore'): DayTypical | null => {
     const idx = hours.map((_, i) => i).filter((i) => heads[i].kind === kind);
     if (!idx.length) return null;
     const by = [...idx].sort((x, y) => Date.parse(hours[x].timestamp) - Date.parse(hours[y].timestamp)), pick = by[(by.length - 1) >> 1], how = 'midday' as const;
     const hour = spotHourOf(spot, hours[pick], nowMs, p, ctx), h = hour.surf.headline;
-    const lo = h.kind === 'estimate' ? h.loFt : h.kind === 'offshore' ? h.ft : 0, hi = h.kind === 'estimate' ? h.hiFt : h.kind === 'offshore' ? h.ft : 0;
+    const lo = h.kind === 'estimate' || h.kind === 'official' ? h.loFt : h.kind === 'offshore' ? h.ft : 0, hi = h.kind === 'estimate' || h.kind === 'official' ? h.hiFt : h.kind === 'offshore' ? h.ft : 0;
     const w = hourWord(tz, hours[pick].timestamp), central = h.kind === 'estimate' ? (h.centralFt ?? (lo + hi) / 2) : lo;
-    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: `midday ${hourShort(tz, hours[pick].timestamp)}`, loFt: lo, hiFt: hi, centralFt: central, hour,
-      aria: `typical for the day, midday ${w}`};
+    return {atIso: hours[pick].timestamp, how, hourLabel: w, short: kind === 'official' ? 'whole day' : `midday ${hourShort(tz, hours[pick].timestamp)}`, loFt: lo, hiFt: hi, centralFt: central, hour,
+      aria: kind === 'official' ? 'the NWS range for the whole day' : `typical for the day, midday ${w}`};
   };
   const est = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'estimate'}> => h.kind === 'estimate');
   if (est.length) {
     const lo = Math.min(...est.map((h) => h.loFt)), hi = Math.max(...est.map((h) => h.hiFt));
     const allFlat = est.every((h) => h.nearshoreOnly?.flat), text = allFlat ? FLAT_LABEL : formatWaveHeight({kind: 'breaking-estimate', valueFt: null, rangeFt: [lo, hi], rangeMethod: 'v2'}, p).text; // T-130: an all-flat day reads Flat, never "Est. 0–0 ft"
     return {kind: 'estimate', loFt: lo, hiFt: hi, hours: est.length, label: allFlat ? FLAT_LABEL : `Est. ${text}`, basis: `daylight hours (${est.length} of ${hours.length} with an estimate)`, typical: pickTypical('estimate')};
+  }
+  // offshore-surf step 3: where we have no estimate but the NWS surf zone forecast covers the day, the day's size IS the NWS range (one range for the zone and day, labelled as theirs)
+  const off0 = heads.find((h): h is Extract<HeadlineSurf, {kind: 'official'}> => h.kind === 'official');
+  if (off0) {
+    const n = heads.filter((h) => h.kind === 'official').length, u = p.heightUnit === 'm' ? 'm' : 'ft';
+    return {kind: 'official', loFt: off0.loFt, hiFt: off0.hiFt, hours: n, label: `NWS ${officialRange(off0, u)}`, basis: `the NWS surf zone forecast for ${off0.zoneName}, one range for the day${off0.stale ? ' (older than its next scheduled issue)' : ''}`, typical: pickTypical('official')};
   }
   const off = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'offshore'}> => h.kind === 'offshore').map((h) => h.ft);
   if (off.length) {

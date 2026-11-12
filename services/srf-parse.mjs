@@ -146,18 +146,18 @@ const angDiff = (a, b) => Math.abs(((a - b + 540) % 360) - 180);
 /** Which of a period's entries describes a spot facing `bearing` (degrees, the direction the beach faces the sea)? {entry, diff} or {reason}. One unlabelled entry is zone-wide; several are matched by the nearest facing within
  *  MAX_FACING_DIFF degrees; a tie, a mismatch, no bearing or an unreadable/"or less" range gives a reason, never a guess. */
 export function pickEntry(entries, bearing) {
-  const ok = entries.filter((e) => e.kind !== 'text');
-  if (!ok.length) return {reason: 'their period has no readable surf height'};
+  if (!entries.length || entries.every((e) => e.kind === 'text')) return {reason: 'their period has no readable surf height'};
   let used, diff = null;
-  if (ok.length === 1 && !ok[0].facing) used = ok[0];
+  if (entries.length === 1 && !entries[0].facing) used = entries[0];
   else {
     if (!Number.isFinite(bearing)) return {reason: 'no seaward bearing for the spot'};
-    const faced = ok.filter((e) => e.facing && e.facing in COMPASS_DEG).map((e) => ({e, d: angDiff(bearing, COMPASS_DEG[e.facing])})).sort((a, b) => a.d - b.d);
+    const faced = entries.filter((e) => e.facing && e.facing in COMPASS_DEG).map((e) => ({e, d: angDiff(bearing, COMPASS_DEG[e.facing])})).sort((a, b) => a.d - b.d);
     if (!faced.length) return {reason: 'their entries name no facing'};
     if (faced.length > 1 && Math.abs(faced[0].d - faced[1].d) < 1) return {reason: 'two facings equally near the spot (ambiguous)'};
     if (faced[0].d > MAX_FACING_DIFF) return {reason: `spot faces more than ${MAX_FACING_DIFF} degrees from every facing they list`};
     used = faced[0].e; diff = faced[0].d;
   }
+  if (used.kind === 'text') return {reason: 'their text for the nearest facing is not a number'};
   if (used.kind === 'or_less') return {reason: 'their range is "or less" (no lower bound)'};
   if (!Number.isFinite(used.lo) || !Number.isFinite(used.hi)) return {reason: 'their range has no numbers'};
   return {entry: used, diff};

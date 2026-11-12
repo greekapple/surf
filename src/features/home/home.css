@@ -227,6 +227,7 @@
 /* data-honesty P1 on T-107: a week cell from a saved or stale source is muted and says so */
 .wk-h.wk-stale { color: var(--muted); }
 .wk-stale-tag { font-size: 10px; font-weight: 500; color: var(--muted); }
+.wk-h.wk-nws { font-size: 14px; font-weight: 600; } /* offshore-surf: the NWS's own range for the zone and day, tagged NWS */
 .wk-off-tag { font-size: 10px; font-weight: 500; color: var(--dim); } /* audit F21: an offshore cell says so, not only the row label */
 .wk-unit { font-weight: 400; color: var(--muted); } /* audit F21: the cells' unit and kind */
 /* T-109: the night hero is navy in both themes, so its drawn wave uses the dark-theme blue (the light-theme blue sank into it). */

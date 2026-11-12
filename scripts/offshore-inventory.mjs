@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+// offshore-surf step 1 (docs/specs/2026-11-11-offshore-only-spots.md): which spots show the labelled offshore height instead of a surf height, and exactly why. Writes docs/forecast/OFFSHORE-ONLY.md and docs/forecast/data/offshore-only.json.
+//   node scripts/offshore-inventory.mjs [--shown <dir-or-file> ...]
+// Two layers. (1) STATIC, every app spot: a CDIP MOP assignment means the headline is a MOP value (never offshore-only); otherwise v1 needs a beach orientation, a breaking profile (face factors, swell window, minimum period) and a shelter factor (src/ocean/breakingEstimate.ts);
+// a missing one is the reason. (2) HOURLY, the spots in the stored howright shown captures (492): the real headline (headlineSurf with no MOP/SWAN bundle) for every daylight hour of the newest capture, split by what it showed and why it refused.
+// The capture holds 48 forecast hours, not 7 days: the hourly layer says so. The ctx is the same bare one srf-compare uses (uncalibrated, no spread).
+import fs from 'node:fs';
+import {evidenceSpots} from '../src/ocean/spots.ts';
+import {assignmentFor} from '../src/ocean/mop.ts';
+import {breakingProfile} from '../src/ocean/localCalibration.ts';
+import {headlineSurf} from '../src/services/headlineSurf.ts';
+import {normalizeOpenMeteo} from '../src/ocean/openMeteo.ts';
+import {toLegacy} from '../src/ocean/bridge.ts';
+import {isDark} from '../src/services/daylight.ts';
+import {loadShown, DEFAULT_SHOWN, argsOf} from './lib/compare-common.mjs';
+const a = argsOf(process.argv.slice(2)), caps = loadShown(a.multi('--shown').length ? a.multi('--shown') : DEFAULT_SHOWN), capDate = [...caps.keys()].sort().pop(), cap = caps.get(capDate);
+const asResponse = (h, units) => ({hourly: h, hourly_units: {time: 'unixtime', ...units}});
+const rows = [];
+for (const s of evidenceSpots) {
+  const row = {id: s.id, name: s.name, region: s.region, lat: s.latitude, lon: s.longitude, class: null, reason: null, detail: null, hours: null};
+  if (assignmentFor(s.id)) { row.class = 'mop'; rows.push(row); continue; }
+  const p = breakingProfile(s.id), miss = [];
+  if (!(typeof s.orientation === 'number' && Number.isFinite(s.orientation))) miss.push('no-orientation');
+  if (!p || !p.window || !p.faceFactors || p.minPeriod === null || p.minPeriod === undefined) miss.push('no-profile');
+  else if (p.shelter === null || !Number.isFinite(p.shelter) || p.shelter <= 0) miss.push('no-shelter');
+  if (miss.length) { row.class = 'static-offshore'; row.reason = miss.join('+'); rows.push(row); continue; }
+  const c = cap?.spots?.[s.id];
+  if (!c) { row.class = 'profile-ok-no-capture'; rows.push(row); continue; }
+  let recs = []; try { recs = normalizeOpenMeteo(s, asResponse(c.marine, c.marineUnits), asResponse(c.wind, c.windUnits), c.retrievedAt); } catch { /* none */ }
+  const ctx = {spread: null, bundle: null, nowMs: Date.parse(c.ratedAt ?? cap.capturedAt), felt: [], observations: []}, n = {estimate: 0, offshore: 0, none: 0, other: 0}, why = {};
+  for (const r of recs) {
+    if (isDark(s.id, r.timestamp)) continue;
+    let h; try { h = headlineSurf(s.id, toLegacy(r), ctx); } catch { h = {kind: 'none'}; }
+    n[h.kind in n ? h.kind : 'other']++;
+    if (h.kind !== 'estimate') { const k = r.faceEstimate?.refusalCode ?? (r.faceEstimate?.input ? 'unpresentable' : 'no-input'); why[k] = (why[k] ?? 0) + 1; }
+  }
+  const tot = n.estimate + n.offshore + n.none + n.other; row.hours = {...n, total: tot, why};
+  row.class = !tot ? 'no-daylight-hours' : n.estimate / tot < 0.5 ? 'hourly-offshore' : 'estimate';
+  if (row.class === 'hourly-offshore') row.reason = Object.entries(why).sort((x, y) => y[1] - x[1])[0]?.[0] ?? 'unknown';
+  rows.push(row);
+}
+const tally = (f) => { const m = {}; for (const r of rows) { const k = f(r); if (k) m[k] = (m[k] ?? 0) + 1; } return Object.entries(m).sort((x, y) => y[1] - x[1]); };
+const off = rows.filter((r) => r.class === 'static-offshore' || r.class === 'hourly-offshore'), regionOf = (r) => r.region ?? '(none)';
+const byReason = {}; for (const r of off) { const k = `${r.class === 'static-offshore' ? 'profile' : 'hourly'}:${r.reason}`; (byReason[k] ??= {}); byReason[k][regionOf(r)] = (byReason[k][regionOf(r)] ?? 0) + 1; }
+const out = {generatedAt: new Date().toISOString(), capture: capDate, spots: rows.length, classes: Object.fromEntries(tally((r) => r.class)), offshoreOnly: off.length, byReasonRegion: byReason, rows: off.map(({hours, ...r}) => ({...r, hours}))};
+fs.mkdirSync('docs/forecast/data', {recursive: true}); fs.writeFileSync('docs/forecast/data/offshore-only.json', JSON.stringify(out, null, 1) + '\n');
+const line = (k, v) => `| ${k} | ${Object.values(v).reduce((x, y) => x + y, 0)} | ${Object.entries(v).sort((x, y) => y[1] - x[1]).slice(0, 8).map(([r, n]) => `${r} ${n}`).join(', ')} |`;
+const classText = tally((r) => r.class).map(([k, n]) => `- ${k}: ${n}`).join('\n');
+fs.writeFileSync('docs/forecast/OFFSHORE-ONLY.md', `# Offshore-only spots (inventory)\n\nGenerated by \`scripts/offshore-inventory.mjs\` on ${out.generatedAt.slice(0, 10)} from the app's ${rows.length} spots and the newest stored How-right capture (${capDate}). Spec: docs/specs/2026-11-11-offshore-only-spots.md.\n\n**What this is.** The headline is a MOP value where a CDIP MOP point is assigned (California), else our v1 breaking estimate where the spot's facts allow it, else the labelled offshore height. A spot is offshore-only (a) STATICALLY when a fact v1 needs is missing (beach orientation, breaking profile, shelter) or (b) HOURLY when the facts exist but fewer than half of its daylight hours in the capture get an estimate (swell outside the window, under the minimum period, wind sea). The hourly layer covers only the ${caps.size ? 'spots in the capture' : ''} (the shown captures hold 48 forecast hours, not 7 days, and 492 of the ${rows.length} spots); spots with facts but no capture are listed as profile-ok-no-capture, not classified.\n\n## Counts\n${classText}\n\n**Offshore-only: ${off.length} spots.**\n\n| Reason | Spots | By region (top 8) |\n|---|---|---|\n${Object.entries(byReason).sort((x, y) => Object.values(y[1]).reduce((p, q) => p + q, 0) - Object.values(x[1]).reduce((p, q) => p + q, 0)).map(([k, v]) => line(k, v)).join('\n')}\n\nThe per-spot list with its reason is in docs/forecast/data/offshore-only.json.\n`);
+console.log(out.classes, 'offshoreOnly', off.length); for (const [k, v] of Object.entries(byReason)) console.log(k, Object.values(v).reduce((x, y) => x + y, 0), JSON.stringify(v).slice(0, 200));

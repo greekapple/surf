@@ -22,7 +22,7 @@ export const BODY_WORD_LIST: BodyWord[] = BODY_TICKS.map(([w]) => w as BodyWord)
 /** Our mapping from a picked word to a face height in feet: the anchors where the source gives one; overhead and double overhead are bands, so we take a mid-band value (8 ft, 14 ft). Approximate by nature. */
 export const WORD_FACE_FT: Record<BodyWord, number> = {ankle: 1, knee: 2, thigh: 2.5, waist: 3, chest: 4, shoulder: 4.5, head: 5, overhead: 8, 'double overhead': 14};
 export interface Observation {id: string; spotId: string; observedAt: string; loggedAt: string; word: BodyWord; faceFt: number; quality: 1 | 2 | 3 | 4 | 5 | null; note?: string; paired: boolean}
-export interface LogEnv {records?: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; profile?: UserProfile; nowMs?: number}
+export interface LogEnv {records?: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null; profile?: UserProfile; nowMs?: number}
 export interface LogInput {spotId: string; observedAt: string; word: BodyWord; quality?: 1 | 2 | 3 | 4 | 5 | null; note?: string}
 
 const view = (o: SessionObservation): Observation => {

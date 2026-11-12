@@ -21,7 +21,7 @@ export interface DashCard {
   tide: {state: 'rising' | 'falling' | 'unknown'; label: string | null} | null;
   window: {label: string; category: string; start: string; end: string} | null;
 }
-export interface DashContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; extrema?: TidePrediction[]}
+export interface DashContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null; extrema?: TidePrediction[]}
 const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 const hourFmt = (tz: string) => ({format: (d: Date) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(d).replace(':00', '')});
 /** A window that is running: "on now, until 2 PM" (the window's own end); otherwise its label. */

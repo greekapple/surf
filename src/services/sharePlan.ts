@@ -17,7 +17,7 @@ const titleCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1).toLowerC
 const HOUR = 3600000;
 /** The spot page's own rule (SpotPage.tsx scaleNote): on Hawaii spots the numbers are surf height, and the Hawaiian scale is named as not used unless the profile chose it. */
 export const hawaiianScaleNote = (spot: SurfSpot, profile: UserProfile): string => (stateOfZone(zoneOf(spot.region)) === 'Hawaii' && profile.scale !== 'Hawaiian' ? ', not Hawaiian scale' : '');
-export function sharePlanFor(spot: SurfSpot, call: Pick<Call, 'verdict' | 'window' | 'nextWindow'>, records: Forecast[], profile: UserProfile, nowMs: number, slug: string, origin = '', bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null): SharePlan | null {
+export function sharePlanFor(spot: SurfSpot, call: Pick<Call, 'verdict' | 'window' | 'nextWindow'>, records: Forecast[], profile: UserProfile, nowMs: number, slug: string, origin = '', bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null): SharePlan | null {
   const w = call.verdict !== 'Dark' && call.window ? call.window : call.nextWindow; if (!w) return null;
   const tz = timeZoneOf(spot), end = Date.parse(w.end), startMs = Math.max(Date.parse(w.start), Math.floor(nowMs / HOUR) * HOUR); if (!(startMs < end)) return null;
   const rec = windowHour(records, spot.id, {start: new Date(startMs).toISOString()}); if (!rec || !rec.evidence) return null;

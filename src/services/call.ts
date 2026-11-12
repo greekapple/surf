@@ -20,7 +20,7 @@ export interface Call {/** After dark: what the conditions alone would say in da
   /** Audit F5 / B15: after dark with no window ahead, the next daylight day's own call (its best daylight hour), so the evening planner still gets an answer. */
   nextDay?: {when: string; at: string; verdict: Exclude<Verdict, 'Dark'>; reason: string | null};
   verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
-export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null; nowMs: number}
+export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null; nowMs: number}
 
 /** Face-height range each skill is comfortable in, in feet. OUR OWN CHOICES (product rules, not a safety standard).
  *  Only the beginner ceiling has an outside anchor: Quiver's public example calls 5.2 ft "beyond the beginner safety range" and its beginner range starts at 0.5 ft;

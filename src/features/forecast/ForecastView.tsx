@@ -128,8 +128,8 @@ export function ForecastView({go}: ViewProps) {
   const nowRec = nowIdx >= 0 ? series[nowIdx].forecast : null, nowCall = nowRec ? (isNow ? call : callFor(spot, nowRec, p, {records, bundle, nowMs: now})) : null;
   const nowCard = nowCall ? shareCardFor(spot, nowCall, records, p, now, slugFor(spot.id), location.origin, bundle, {fallbackNow: true}) : null;
   // T-108: the subtitle follows what the spot actually has: surf estimates, or only offshore heights.
-  const hasEstimates = band.some((b) => b.kind === 'estimate');
-  const meta = [spot.region, ...(spot.type ? [`${spot.type.toLowerCase()} break`] : []), !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
+  const hasEstimates = band.some((b) => b.kind === 'estimate'), hasOfficial = band.some((b) => b.official);
+  const meta = [spot.region, ...(spot.type ? [`${spot.type.toLowerCase()} break`] : []), !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : hasOfficial ? 'surf height is the NWS forecast, not ours · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
       <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit}>
@@ -169,7 +169,7 @@ export function ForecastView({go}: ViewProps) {
       {/* hdontap-embeds: HDOnTap cameras as links (their player cannot be framed by our site); the embeds are wired but switched off. */}
       <HdontapLinks spotId={spot.id} exclude={cams.map((c) => c.url)} />
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} /><FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} /></>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
+      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
       <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}

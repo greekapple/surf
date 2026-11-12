@@ -1,3 +1,4 @@
+import {officialRange} from '../../services/officialSurf.ts';
 import {mapZone} from '../../ocean/spotZone';
 import {mapZoneAbbr, stampLabel} from './mapTime';
 import {loadSnapshot, snapshotHour, type ClientSnapshot} from './coastSnapshot';
@@ -408,7 +409,7 @@ function OceanMap({section, go}: ViewProps) {
       const color = rating ? BAND_COLOR[bandOf(rating.category)] : 'var(--none)';
       // T-116: name · height · rating word. After dark the word stays (user, 2026-11-08); one quiet mark in the bottom strip says it is dark.
       const hs = f ? headlineSurf(e.id, f, {bundle: view.ocean.bundle, nowMs: now}) : null;
-      const hText = isFlat(hs) ? 'Flat' : hs?.kind === 'estimate' ? `${ht(hs.loFt, p, 0)}–${ht(hs.hiFt, p, 0)} ${p.heightUnit}` : hs?.kind === 'offshore' ? `${ht(hs.ft, p, 0)} ${p.heightUnit} offshore` : '';
+      const hText = isFlat(hs) ? 'Flat' : hs?.kind === 'estimate' ? `${ht(hs.loFt, p, 0)}–${ht(hs.hiFt, p, 0)} ${p.heightUnit}` : hs?.kind === 'offshore' ? `${ht(hs.ft, p, 0)} ${p.heightUnit} offshore` : hs?.kind === 'official' ? `NWS ${officialRange(hs, p.heightUnit)}${hs.stale ? ' (older)' : ''}` : '';
       const word = rating && rating.score !== null ? conditionWord(rating.category) : '';
       const sub = [hText, word].filter(Boolean).join(' · ');
       const label = `<span class="xlabel"><b>${e.name}</b>${sub ? `<small>${sub}</small>` : ''}</span>`;
@@ -736,7 +737,7 @@ function OceanMap({section, go}: ViewProps) {
   const byView = zone === 'In view' && !needle;
   // the same height text as the spot's pin: the surf estimate, or the offshore height said as offshore
   const pinHeight = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null;
-    return isFlat(h) ? FLAT_ESTIMATE_TEXT : h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : null; };
+    return isFlat(h) ? FLAT_ESTIMATE_TEXT : h?.kind === 'estimate' ? `${ht(h.loFt, p, 0)}–${ht(h.hiFt, p, 0)} ${p.heightUnit}` : h?.kind === 'offshore' ? `${ht(h.ft, p, 0)} ${p.heightUnit} offshore` : h?.kind === 'official' ? `NWS ${officialRange(h, p.heightUnit)}${h.stale ? ' (older)' : ''}` : null; };
   const score = (id: string) => { const r = recAt(id), rt = r ? rateForecast(surfSpot(id), r, now) : null; return rt && rt.score !== null ? rt.score : null; };
   const hiAt = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null; return h?.kind === 'estimate' ? h.hiFt : -1; };
   // §6: typing searches every spot with the shared matcher (prefix, word starts, region, one typo; accents and apostrophes ignored), favourites and recent picks first among equals

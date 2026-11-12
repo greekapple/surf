@@ -163,7 +163,7 @@ export function PersonalView({section, go}: ViewProps) {
   /** Audit A12: a favorite row's height is the same surf estimate as Home and the spot page (spotHourOf), labeled by its kind; never "face". */
   const surfRowText = (spot: SurfSpot, f: Forecast) => {
     const sh = spotHourOf(spot, f, now, p, {bundle: view.ocean.bundle}).surf, k = sh.headline.kind;
-    return k === 'offshore' ? `${sh.value} offshore` : k === 'demonstration' ? `${sh.value} demo` : k === 'estimate' ? (isFlat(sh.headline) ? sh.value : `${sh.value} est.`) : null;
+    return k === 'official' ? `${sh.value} NWS` : k === 'offshore' ? `${sh.value} offshore` : k === 'demonstration' ? `${sh.value} demo` : k === 'estimate' ? (isFlat(sh.headline) ? sh.value : `${sh.value} est.`) : null;
   };
   /** Nearest forecast hour at or after now for one spot, from the forecast already loaded. */
   const hourFor = (spotId: string): Forecast | undefined => {

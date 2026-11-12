@@ -33,7 +33,7 @@ const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide refe
  * credited photo stays on the spot page), today at a glance and the quiver's pick. Every number comes from the existing
  * accessors (callFor, hourCall, spotHourOf, daylightFor, the tide extrema); nothing is invented, and the sentence says so when nothing is good. */
 
-type Bundle = Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined;
+type Bundle = Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null | undefined;
 interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean; confidence: BetConfidence}
 const clock = (iso: string, tz: string) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // in the zone of the spot shown
 // 'today'/'tomorrow' are the spot's days; where its clock is not the viewer's they could be a different day for the reader, so the weekday is named (round 3 data-honesty)

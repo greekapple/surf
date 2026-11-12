@@ -18,12 +18,12 @@ const finite = (n: unknown): n is number => typeof n === 'number' && Number.isFi
 
 export interface HalfDay {category: string | null; hours: number; /** How the category was reached; a single hour is said to be a single hour. */ basis: string}
 export interface SwellLine {label: 'Primary' | 'Secondary' | 'Wind sea'; heightFt: number; heightLabel: string; periodS: number | null; dirDeg: number | null; dirWord: string | null}
-export interface DayReport {date: string; label: string; am: HalfDay; pm: HalfDay; heightRange: string | null; heightKind: 'estimate' | 'offshore' | 'none'; primarySwell: (SwellLine & {at: string}) | null}
+export interface DayReport {date: string; label: string; am: HalfDay; pm: HalfDay; heightRange: string | null; heightKind: 'estimate' | 'official' | 'offshore' | 'none'; primarySwell: (SwellLine & {at: string}) | null}
 export interface TideEvent {type: 'High' | 'Low'; time: string; localTime: string; heightLabel: string}
 export interface Moment {iso: string; localTime: string}
 export interface SpotReport {
   spotId: string; name: string;
-  headline: {category: string; heightLabel: string; heightKind: 'estimate' | 'offshore' | 'none'; wind: {word: string; label: string; relation: string; gustLabel: string | null} | null; tide: {state: 'rising' | 'falling' | 'unknown'; heightLabel: string | null; note: string} | null};
+  headline: {category: string; heightLabel: string; heightKind: 'estimate' | 'official' | 'offshore' | 'none'; wind: {word: string; label: string; relation: string; gustLabel: string | null} | null; tide: {state: 'rising' | 'falling' | 'unknown'; heightLabel: string | null; note: string} | null};
   days: DayReport[];
   swells: SwellLine[];
   waterTemp: string | null;

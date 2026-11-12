@@ -135,7 +135,7 @@ export function HomeView({go}: ViewProps) {
                   <span className="dc-top"><span className="dc-name"><b title={c.region}>{c.name}</b></span><RatingBar c={c.rating} /></span>
                   <span className="dc-mid">
                     <SurfSpark points={sp} p={profile} />
-                    <span className="dc-surf">{surfOf(c, true)}{c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && <span className="dc-sub">{c.surf.headline.label}</span>}</span>
+                    <span className="dc-surf">{surfOf(c, true)}{c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && c.surf.headline.kind !== 'official' && <span className="dc-sub">{c.surf.headline.label}</span>}</span>
                   </span>
                   <span className="dc-line">{c.wind ? `Wind ${c.wind.label} · ${c.wind.relation}` : 'Wind —'} · {c.tide ? `Tide ${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}` : 'Tide —'}</span>
                   {k ? <CallBar call={k} compact tz={timeZoneOf(c.id)} /> : <span className="dc-line">{c.window ? `Best ${differsFromViewer(timeZoneOf(c.id), c.window.start) ? fmtIn(timeZoneOf(c.id), {weekday: 'short'}).format(new Date(c.window.start)) : 'today'} ${c.window.label}${viewerTag(timeZoneOf(c.id), c.window.start)}` : 'No good daylight window left'}</span>}

@@ -20,7 +20,7 @@ const lastRun = new Map<string, number>();
 
 /** Records the spot's hours from 6 h ago to 72 h ahead as predicted now (uncalibrated headline), appending a snapshot per spot-hour (at most 4 kept: the earliest and the latest).
  *  Throttled to once per 30 minutes per spot. Returns how many entries were written. */
-export function archiveHours(spotId: string, records: Forecast[], bundle: Pick<OceanBundle, 'nearshore' | 'mop'> | null | undefined, nowMs: number, store: Store | null = defaultStore()): number {
+export function archiveHours(spotId: string, records: Forecast[], bundle: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null | undefined, nowMs: number, store: Store | null = defaultStore()): number {
   if (!store || nowMs - (lastRun.get(spotId) ?? -Infinity) < ARCHIVE_THROTTLE_MS) return 0;
   const mine = records.filter((f) => f.spotId === spotId && Date.parse(f.timestamp) >= nowMs - 6 * 3600000 && Date.parse(f.timestamp) <= nowMs + 72 * 3600000);
   if (!mine.length) return 0;
@@ -31,6 +31,7 @@ export function archiveHours(spotId: string, records: Forecast[], bundle: Pick<O
   for (const f of mine) {
     const h = headlineSurf(spotId, f, {nowMs, observations: [], bundle}), run = f.evidence?.offshore.source.retrievedAt, runMs = Date.parse(run ?? ''), v = Date.parse(f.timestamp);
     const lead = Number.isFinite(runMs) ? Math.max(0, (v - runMs) / 3600000) : Math.max(0, (v - nowMs) / 3600000);
+    if (h.kind === 'official') continue;   // offshore-surf: the NWS's number is not ours; it never enters the archive that scores OUR forecasts
     if (h.kind === 'estimate' && h.method === 'swan-v2') continue;   // swan-hawaii: an unchecked source never enters the archive that scores forecasts
     const e: ArchivedHour = {s: spotId, v: f.timestamp, ...(h.kind === 'estimate' && Number.isFinite(h.centralFt) ? {cs: h.centralFt} : {}), lo: h.kind === 'estimate' ? h.loFt : h.kind === 'none' ? null : h.kind === 'offshore' || h.kind === 'demonstration' ? h.ft : null, hi: h.kind === 'estimate' ? h.hiFt : h.kind === 'none' ? null : h.ft,
       ...(h.kind === 'estimate' && h.method === 'v1' ? {tf: h.transfer?.factor ?? 1} : {}), ...((x) => ({dir: x.dirDeg, ws: x.windMph, wr: x.windRel, ti: x.tide}))(forecastInputs(spotObj, f, nowMs)), ...(h.kind === 'offshore' && h.saved || h.kind === 'estimate' && (h as {saved?: unknown}).saved ? {st: true} : {}), ...(h.kind === 'estimate' && h.nearshoreOnly ? {np: true} : {}), ...(h.kind === 'estimate' && h.nearshoreOnly?.flat ? {fl: true} : {}), k: h.kind, m: h.kind === 'estimate' && h.method !== 'swan-v2' ? h.method : null, off: Number.isFinite(f.offshore) ? Math.round(f.offshore * 10) / 10 : null, tp: Number.isFinite(f.primary?.period) ? f.primary.period : null,

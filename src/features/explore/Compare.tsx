@@ -57,7 +57,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
     const head = f ? headlineSurf(s.id, f, {bundle, nowMs: now}) : null, est = head ? estimateLabel(head, p) : null;
     return {s, f, rating, best, order, head, est, pending};
   }), [spotOptions, zone, view.mapRecords, view.ocean.bundle, p, t, now]);
-  const key = (r: (typeof rows)[number]) => sort === 'rating' ? -(r.rating?.score ?? -1) : sort === 'height' ? -(r.head?.kind === 'estimate' ? (r.head.loFt + r.head.hiFt) / 2 : r.f?.offshore ?? -1) : sort === 'period' ? -(r.f?.primary?.period ?? -1) : sort === 'wind' ? (r.f?.wind.speed ?? 99) : r.order;
+  const key = (r: (typeof rows)[number]) => sort === 'rating' ? -(r.rating?.score ?? -1) : sort === 'height' ? -(r.head?.kind === 'estimate' || r.head?.kind === 'official' ? (r.head.loFt + r.head.hiFt) / 2 : r.f?.offshore ?? -1) : sort === 'period' ? -(r.f?.primary?.period ?? -1) : sort === 'wind' ? (r.f?.wind.speed ?? 99) : r.order;
   const sorted = [...rows].sort((a, b) => Number(a.pending) - Number(b.pending) || key(a) - key(b)), pendingN = rows.filter((r) => r.pending).length;   // not-yet-loaded spots sort last and are never ranked
   const i = times.indexOf(t ?? ''), step = (d: number) => { const n = times[Math.max(0, Math.min(times.length - 1, i + d))]; if (n) view.selectTime(n); };
   // T-109: the whole row opens the spot's forecast (the 45 Forecast and map buttons are gone); a modified click keeps the browser's own behaviour.

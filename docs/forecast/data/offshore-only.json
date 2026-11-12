@@ -1,0 +1,8133 @@
+{
+ "generatedAt": "2026-11-12T02:01:27.179Z",
+ "capture": "2026-11-11",
+ "spots": 1078,
+ "classes": {
+  "static-offshore": 410,
+  "profile-ok-no-capture": 344,
+  "hourly-offshore": 170,
+  "estimate": 78,
+  "mop": 76
+ },
+ "offshoreOnly": 580,
+ "byReasonRegion": {
+  "profile:no-profile": {
+   "Sitka": 8,
+   "Clallam": 6,
+   "Island": 1,
+   "Jefferson": 1,
+   "Grays Harbor": 4,
+   "Pacific": 1,
+   "Tillamook": 2,
+   "Lincoln": 2,
+   "Maine": 7,
+   "New Hampshire": 3,
+   "Massachusetts": 23,
+   "Curry": 1,
+   "Del Norte": 3,
+   "Rhode Island": 10,
+   "Humboldt": 1,
+   "New York": 17,
+   "Northern New Jersey": 4,
+   "Mendocino": 7,
+   "Southern New Jersey": 8,
+   "Sonoma": 1,
+   "Marin": 1,
+   "San Francisco": 2,
+   "San Mateo": 2,
+   "Santa Cruz": 6,
+   "Virginia": 6,
+   "Monterey": 9,
+   "Outer Banks": 25,
+   "San Luis Obispo": 6,
+   "Southern North Carolina": 8,
+   "Santa Barbara": 21,
+   "Ventura": 4,
+   "Los Angeles": 20,
+   "Orange County": 14,
+   "South Carolina": 4,
+   "San Diego": 10,
+   "Georgia": 2,
+   "Northeast Florida": 21,
+   "Florida Panhandle": 2,
+   "Alabama": 4,
+   "Louisiana": 1,
+   "Space Coast": 15,
+   "Texas": 5,
+   "Florida Gulf Coast": 18,
+   "Treasure Coast": 8,
+   "Southeast Florida": 22,
+   "Florida Keys": 1,
+   "Kauai": 3,
+   "Oahu North Shore": 3,
+   "Oahu East Side": 2,
+   "Oahu West Side": 1,
+   "Oahu South Shore": 9,
+   "Maui": 9,
+   "Lanai": 4,
+   "Big Island": 6,
+   "Puerto Rico": 21
+  },
+  "hourly:outside-window": {
+   "Grays Harbor": 1,
+   "Clatsop": 1,
+   "Coos": 1,
+   "Curry": 1,
+   "San Mateo": 1,
+   "Space Coast": 3,
+   "Kauai": 8,
+   "Niihau": 1,
+   "Oahu East Side": 4,
+   "Oahu North Shore": 1,
+   "Oahu West Side": 4,
+   "Oahu South Shore": 3,
+   "Molokai": 4,
+   "Maui": 6,
+   "Big Island": 2
+  },
+  "hourly:wind-sea-dominant": {
+   "Massachusetts": 1,
+   "Kauai": 3,
+   "Oahu West Side": 1,
+   "Oahu East Side": 2,
+   "Oahu South Shore": 9,
+   "Molokai": 1,
+   "Maui": 10,
+   "Big Island": 5
+  },
+  "hourly:short-period": {
+   "New York": 5,
+   "Northern New Jersey": 2,
+   "Southern New Jersey": 1,
+   "Virginia": 3,
+   "Outer Banks": 4,
+   "Southern North Carolina": 15,
+   "South Carolina": 14,
+   "Georgia": 8,
+   "Northeast Florida": 9,
+   "Space Coast": 6,
+   "Treasure Coast": 1,
+   "Southeast Florida": 4,
+   "Kauai": 1,
+   "Maui": 7,
+   "Big Island": 17
+  },
+  "profile:no-orientation+no-profile": {
+   "Kauai": 1,
+   "Oahu North Shore": 1,
+   "Oahu East Side": 1,
+   "Oahu South Shore": 1,
+   "Big Island": 1
+  }
+ },
+ "rows": [
+  {
+   "id": "w-ak-good-rats",
+   "name": "Good Rats",
+   "region": "Sitka",
+   "lat": 57.373,
+   "lon": -135.767,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-sandy-beach-sitka-alaska",
+   "name": "Sandy Beach - Sitka, Alaska",
+   "region": "Sitka",
+   "lat": 57.075,
+   "lon": -135.373,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-kais-place",
+   "name": "Kai's Place",
+   "region": "Sitka",
+   "lat": 57.062,
+   "lon": -135.844,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-red-tree-reef",
+   "name": "Red Tree Reef",
+   "region": "Sitka",
+   "lat": 57.049,
+   "lon": -135.854,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-neva-bay",
+   "name": "Neva Bay",
+   "region": "Sitka",
+   "lat": 57.04,
+   "lon": -135.849,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-shoals-point",
+   "name": "Shoals Point",
+   "region": "Sitka",
+   "lat": 57.01,
+   "lon": -135.634,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-shoals-reef-wall",
+   "name": "Shoals Reef/Wall",
+   "region": "Sitka",
+   "lat": 57.01,
+   "lon": -135.65,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-ak-low-island",
+   "name": "Low Island",
+   "region": "Sitka",
+   "lat": 57.008,
+   "lon": -135.612,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-cape-flattery",
+   "name": "Cape Flattery",
+   "region": "Clallam",
+   "lat": 48.321,
+   "lon": -124.672,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-tsoo-yess-beach",
+   "name": "Tsoo-Yess Beach",
+   "region": "Clallam",
+   "lat": 48.31,
+   "lon": -124.665,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-shi-shi-beach",
+   "name": "Shi Shi Beach",
+   "region": "Clallam",
+   "lat": 48.272,
+   "lon": -124.683,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-fort-ebey",
+   "name": "Fort Ebey",
+   "region": "Island",
+   "lat": 48.217,
+   "lon": -122.768,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-twin-rivers",
+   "name": "Twin Rivers",
+   "region": "Clallam",
+   "lat": 48.165,
+   "lon": -123.95,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-crescent-beach",
+   "name": "Crescent Beach",
+   "region": "Clallam",
+   "lat": 48.161,
+   "lon": -123.711,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-rialto-beach",
+   "name": "Rialto Beach",
+   "region": "Clallam",
+   "lat": 47.922,
+   "lon": -124.641,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-ruby-beach",
+   "name": "Ruby Beach",
+   "region": "Jefferson",
+   "lat": 47.711,
+   "lon": -124.415,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-point-grenville",
+   "name": "Point Grenville",
+   "region": "Grays Harbor",
+   "lat": 47.302,
+   "lon": -124.26,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-seabrook-beach",
+   "name": "Seabrook Beach",
+   "region": "Grays Harbor",
+   "lat": 47.195,
+   "lon": -124.204,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-ocean-shores",
+   "name": "Ocean Shores",
+   "region": "Grays Harbor",
+   "lat": 46.957,
+   "lon": -124.175,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-damon-point",
+   "name": "Damon Point",
+   "region": "Grays Harbor",
+   "lat": 46.942,
+   "lon": -124.118,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-westport",
+   "name": "Westport (The Cove)",
+   "region": "Grays Harbor",
+   "lat": 46.906,
+   "lon": -124.123,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 20,
+    "none": 0,
+    "other": 0,
+    "total": 20,
+    "why": {
+     "outside-window": 20
+    }
+   }
+  },
+  {
+   "id": "w-usw-cape-disappointment-state-park",
+   "name": "Cape Disappointment State Park",
+   "region": "Pacific",
+   "lat": 46.293,
+   "lon": -124.078,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-seaside-or",
+   "name": "Seaside (The Point)",
+   "region": "Clatsop",
+   "lat": 45.976,
+   "lon": -123.947,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 20,
+    "none": 0,
+    "other": 0,
+    "total": 20,
+    "why": {
+     "outside-window": 20
+    }
+   }
+  },
+  {
+   "id": "w-usw-manzanita",
+   "name": "Manzanita",
+   "region": "Tillamook",
+   "lat": 45.712,
+   "lon": -123.945,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-short-beach",
+   "name": "Short Beach",
+   "region": "Tillamook",
+   "lat": 45.475,
+   "lon": -123.971,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-beverly-beach",
+   "name": "Beverly Beach",
+   "region": "Lincoln",
+   "lat": 44.725,
+   "lon": -124.061,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-newport",
+   "name": "Newport",
+   "region": "Lincoln",
+   "lat": 44.638,
+   "lon": -124.066,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-doc-browns",
+   "name": "Doc Browns",
+   "region": "Maine",
+   "lat": 43.56,
+   "lon": -70.219,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pine-point",
+   "name": "Pine Point",
+   "region": "Maine",
+   "lat": 43.533,
+   "lon": -70.329,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fortunes-rock-beach",
+   "name": "Fortunes Rock Beach",
+   "region": "Maine",
+   "lat": 43.44,
+   "lon": -70.352,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-bastendorff",
+   "name": "Bastendorff Beach",
+   "region": "Coos",
+   "lat": 43.347,
+   "lon": -124.347,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 20,
+    "none": 0,
+    "other": 0,
+    "total": 21,
+    "why": {
+     "outside-window": 20
+    }
+   }
+  },
+  {
+   "id": "w-us-kennebunk-beach",
+   "name": "Kennebunk Beach",
+   "region": "Maine",
+   "lat": 43.346,
+   "lon": -70.482,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-mothers-beach",
+   "name": "Mother's Beach",
+   "region": "Maine",
+   "lat": 43.343,
+   "lon": -70.498,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-crescent-beach-2-3-4",
+   "name": "Crescent Beach",
+   "region": "Maine",
+   "lat": 43.294,
+   "lon": -70.568,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-harbor-beach",
+   "name": "Harbor Beach",
+   "region": "Maine",
+   "lat": 43.132,
+   "lon": -70.637,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pirates-cove-beach",
+   "name": "Pirates Cove Beach",
+   "region": "New Hampshire",
+   "lat": 43.022,
+   "lon": -70.729,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-straws-point",
+   "name": "Straws Point",
+   "region": "New Hampshire",
+   "lat": 42.991,
+   "lon": -70.751,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-plaice-cove",
+   "name": "Plaice Cove",
+   "region": "New Hampshire",
+   "lat": 42.946,
+   "lon": -70.786,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-plum-island-point",
+   "name": "Plum Island Point",
+   "region": "Massachusetts",
+   "lat": 42.787,
+   "lon": -70.804,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-port-orford",
+   "name": "Port Orford",
+   "region": "Curry",
+   "lat": 42.737,
+   "lon": -124.489,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-crane-beach-2",
+   "name": "Crane Beach",
+   "region": "Massachusetts",
+   "lat": 42.686,
+   "lon": -70.766,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-long-beach",
+   "name": "Long Beach",
+   "region": "Massachusetts",
+   "lat": 42.628,
+   "lon": -70.617,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "wind-sea-dominant": 13,
+     "short-period": 9
+    }
+   }
+  },
+  {
+   "id": "w-us-good-harbour-beach",
+   "name": "Good Harbour Beach",
+   "region": "Massachusetts",
+   "lat": 42.619,
+   "lon": -70.629,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-prestons",
+   "name": "Prestons",
+   "region": "Massachusetts",
+   "lat": 42.469,
+   "lon": -70.886,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-lynne-beach",
+   "name": "Lynne Beach",
+   "region": "Massachusetts",
+   "lat": 42.468,
+   "lon": -70.919,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-revere-beach",
+   "name": "Revere Beach",
+   "region": "Massachusetts",
+   "lat": 42.42,
+   "lon": -70.985,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-scituate-harbor",
+   "name": "Scituate Harbor",
+   "region": "Massachusetts",
+   "lat": 42.189,
+   "lon": -70.715,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-green-harbor-duxberry",
+   "name": "Green Harbor (Duxberry)",
+   "region": "Massachusetts",
+   "lat": 42.076,
+   "lon": -70.645,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-head-of-the-meadow-beach",
+   "name": "Head of the Meadow Beach",
+   "region": "Massachusetts",
+   "lat": 42.056,
+   "lon": -70.085,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-brookings",
+   "name": "Brookings",
+   "region": "Curry",
+   "lat": 42.042,
+   "lon": -124.268,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 5,
+    "offshore": 17,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "outside-window": 17
+    }
+   }
+  },
+  {
+   "id": "w-usw-pelican-state-beach",
+   "name": "Pelican State Beach",
+   "region": "Del Norte",
+   "lat": 41.992,
+   "lon": -124.212,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-plymouth-beach",
+   "name": "Plymouth Beach",
+   "region": "Massachusetts",
+   "lat": 41.944,
+   "lon": -70.624,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-maguire-landing-beach",
+   "name": "Maguire Landing Beach",
+   "region": "Massachusetts",
+   "lat": 41.922,
+   "lon": -69.973,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-nauset-light-beach",
+   "name": "Nauset Light Beach",
+   "region": "Massachusetts",
+   "lat": 41.859,
+   "lon": -69.949,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-garths-reef",
+   "name": "Garth's Reef",
+   "region": "Del Norte",
+   "lat": 41.771,
+   "lon": -124.244,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-south-beach",
+   "name": "South Beach",
+   "region": "Del Norte",
+   "lat": 41.743,
+   "lon": -124.176,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-keyes-memorial-beach",
+   "name": "Keyes Memorial Beach",
+   "region": "Massachusetts",
+   "lat": 41.635,
+   "lon": -70.291,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-chandys",
+   "name": "Chandy's",
+   "region": "Massachusetts",
+   "lat": 41.495,
+   "lon": -71.04,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-sakonnet",
+   "name": "Sakonnet",
+   "region": "Rhode Island",
+   "lat": 41.46,
+   "lon": -71.197,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-narragansett-beach",
+   "name": "Narragansett Beach",
+   "region": "Rhode Island",
+   "lat": 41.435,
+   "lon": -71.453,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-monahans-dock",
+   "name": "Monahan's Dock",
+   "region": "Rhode Island",
+   "lat": 41.422,
+   "lon": -71.454,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-matunuck",
+   "name": "Matunuck",
+   "region": "Rhode Island",
+   "lat": 41.373,
+   "lon": -71.539,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-point-judith",
+   "name": "Point Judith",
+   "region": "Rhode Island",
+   "lat": 41.363,
+   "lon": -71.48,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-south-beach-state-park",
+   "name": "South Beach State Park",
+   "region": "Massachusetts",
+   "lat": 41.35,
+   "lon": -70.531,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-long-point-2",
+   "name": "Long Point",
+   "region": "Massachusetts",
+   "lat": 41.348,
+   "lon": -70.633,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-east-beach",
+   "name": "East Beach",
+   "region": "Rhode Island",
+   "lat": 41.345,
+   "lon": -71.681,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-abels-hill",
+   "name": "Abels Hill",
+   "region": "Massachusetts",
+   "lat": 41.342,
+   "lon": -70.708,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-lucy-vincent",
+   "name": "Lucy Vincent",
+   "region": "Massachusetts",
+   "lat": 41.339,
+   "lon": -70.724,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-dunes-park-beach",
+   "name": "Dunes Park Beach",
+   "region": "Rhode Island",
+   "lat": 41.329,
+   "lon": -71.765,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-weekapaug",
+   "name": "Weekapaug",
+   "region": "Rhode Island",
+   "lat": 41.328,
+   "lon": -71.762,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-squibnocket",
+   "name": "Squibnocket",
+   "region": "Massachusetts",
+   "lat": 41.315,
+   "lon": -70.764,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-madaket",
+   "name": "Madaket",
+   "region": "Massachusetts",
+   "lat": 41.271,
+   "lon": -70.205,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-cisco",
+   "name": "Cisco",
+   "region": "Massachusetts",
+   "lat": 41.252,
+   "lon": -70.154,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-madaquecham",
+   "name": "Madaquecham",
+   "region": "Massachusetts",
+   "lat": 41.243,
+   "lon": -70.045,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-miacomet-rd",
+   "name": "Miacomet Rd.",
+   "region": "Massachusetts",
+   "lat": 41.243,
+   "lon": -70.118,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-mansion-beach",
+   "name": "Mansion Beach",
+   "region": "Rhode Island",
+   "lat": 41.201,
+   "lon": -71.561,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-black-rock-point",
+   "name": "Black Rock Point",
+   "region": "Rhode Island",
+   "lat": 41.146,
+   "lon": -71.592,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-sue-meg",
+   "name": "Sue-meg",
+   "region": "Humboldt",
+   "lat": 41.13,
+   "lon": -124.165,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-camp-hero",
+   "name": "Camp Hero",
+   "region": "New York",
+   "lat": 41.054,
+   "lon": -71.872,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-poles",
+   "name": "Poles",
+   "region": "New York",
+   "lat": 41.038,
+   "lon": -71.92,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-napeague-beach",
+   "name": "Napeague Beach",
+   "region": "New York",
+   "lat": 40.993,
+   "lon": -72.048,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-historic-park-fishing-beach",
+   "name": "Historic Park Fishing Beach",
+   "region": "New York",
+   "lat": 40.941,
+   "lon": -73.475,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-coopers-beach",
+   "name": "Coopers Beach",
+   "region": "New York",
+   "lat": 40.863,
+   "lon": -72.404,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-k-road",
+   "name": "K Road",
+   "region": "New York",
+   "lat": 40.834,
+   "lon": -72.504,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-davis-park",
+   "name": "Davis Park",
+   "region": "New York",
+   "lat": 40.684,
+   "lon": -73.001,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-point-o-woods",
+   "name": "Point O’ Woods",
+   "region": "New York",
+   "lat": 40.649,
+   "lon": -73.128,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-ocean-bay-park",
+   "name": "Ocean Bay Park",
+   "region": "New York",
+   "lat": 40.648,
+   "lon": -73.137,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fire-island-new-york",
+   "name": "Fire Island",
+   "region": "New York",
+   "lat": 40.643,
+   "lon": -73.157,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 16,
+     "outside-window": 6
+    }
+   }
+  },
+  {
+   "id": "w-us-atlantique-beach",
+   "name": "Atlantique Beach",
+   "region": "New York",
+   "lat": 40.64,
+   "lon": -73.171,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fair-harbor",
+   "name": "Fair Harbor",
+   "region": "New York",
+   "lat": 40.637,
+   "lon": -73.183,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jones-beach-state-park",
+   "name": "Jones Beach State Park",
+   "region": "New York",
+   "lat": 40.626,
+   "lon": -73.348,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 19,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 15,
+     "wind-sea-dominant": 4
+    }
+   }
+  },
+  {
+   "id": "w-us-robert-moses",
+   "name": "Robert Moses",
+   "region": "New York",
+   "lat": 40.625,
+   "lon": -73.238,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 16,
+     "outside-window": 6
+    }
+   }
+  },
+  {
+   "id": "w-us-robert-moses-state-park",
+   "name": "Robert Moses State Park",
+   "region": "New York",
+   "lat": 40.621,
+   "lon": -73.261,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 15,
+     "wind-sea-dominant": 1,
+     "outside-window": 6
+    }
+   }
+  },
+  {
+   "id": "w-us-gilgo-beach",
+   "name": "Gilgo Beach",
+   "region": "New York",
+   "lat": 40.617,
+   "lon": -73.394,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 19,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 13,
+     "wind-sea-dominant": 6
+    }
+   }
+  },
+  {
+   "id": "w-us-tobay-beach",
+   "name": "Tobay Beach",
+   "region": "New York",
+   "lat": 40.61,
+   "lon": -73.424,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jones-beach-state-park-2",
+   "name": "Jones Beach State Park",
+   "region": "New York",
+   "lat": 40.592,
+   "lon": -73.507,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-laurelton-blvd",
+   "name": "Laurelton Blvd",
+   "region": "New York",
+   "lat": 40.583,
+   "lon": -73.673,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-rockaways",
+   "name": "Rockaways",
+   "region": "New York",
+   "lat": 40.583,
+   "lon": -73.812,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-national-blvd",
+   "name": "National Blvd",
+   "region": "New York",
+   "lat": 40.582,
+   "lon": -73.667,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-west-end-jones-beach",
+   "name": "West End, Jones Beach",
+   "region": "New York",
+   "lat": 40.576,
+   "lon": -73.569,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-long-branch",
+   "name": "Long Branch",
+   "region": "Northern New Jersey",
+   "lat": 40.305,
+   "lon": -73.977,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jenkinsons",
+   "name": "Jenkinson's",
+   "region": "Northern New Jersey",
+   "lat": 40.094,
+   "lon": -74.035,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 8,
+    "offshore": 14,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "outside-window": 3,
+     "wind-sea-dominant": 2,
+     "short-period": 9
+    }
+   }
+  },
+  {
+   "id": "w-us-lavallette-new-jersey",
+   "name": "Lavallette",
+   "region": "Northern New Jersey",
+   "lat": 39.983,
+   "lon": -74.063,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-lavallette",
+   "name": "Lavallette",
+   "region": "Northern New Jersey",
+   "lat": 39.968,
+   "lon": -74.065,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 10,
+    "offshore": 12,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "wind-sea-dominant": 3,
+     "short-period": 9
+    }
+   }
+  },
+  {
+   "id": "w-usw-needle-rock",
+   "name": "Needle Rock",
+   "region": "Mendocino",
+   "lat": 39.944,
+   "lon": -123.969,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-usal-beach",
+   "name": "Usal Beach",
+   "region": "Mendocino",
+   "lat": 39.831,
+   "lon": -123.852,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-barnegat-light",
+   "name": "Barnegat Light",
+   "region": "Northern New Jersey",
+   "lat": 39.751,
+   "lon": -74.1,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-surf-city",
+   "name": "Surf City",
+   "region": "Northern New Jersey",
+   "lat": 39.662,
+   "lon": -74.162,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-wages-creek-beach",
+   "name": "Wages Creek Beach",
+   "region": "Mendocino",
+   "lat": 39.651,
+   "lon": -123.785,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-long-beach-township",
+   "name": "Long Beach Township",
+   "region": "Southern New Jersey",
+   "lat": 39.577,
+   "lon": -74.225,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-beach-haven",
+   "name": "Beach Haven",
+   "region": "Southern New Jersey",
+   "lat": 39.561,
+   "lon": -74.234,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-holyoke",
+   "name": "Holyoke",
+   "region": "Southern New Jersey",
+   "lat": 39.552,
+   "lon": -74.243,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hollyoake",
+   "name": "Hollyoake",
+   "region": "Southern New Jersey",
+   "lat": 39.531,
+   "lon": -74.262,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 12,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-usw-ten-mile-beach",
+   "name": "Ten Mile Beach",
+   "region": "Mendocino",
+   "lat": 39.525,
+   "lon": -123.778,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-glass-beach",
+   "name": "Glass Beach",
+   "region": "Mendocino",
+   "lat": 39.453,
+   "lon": -123.814,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-jug-handle-state-beach",
+   "name": "Jug Handle State Beach",
+   "region": "Mendocino",
+   "lat": 39.377,
+   "lon": -123.818,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-caspar-creek",
+   "name": "Caspar Creek",
+   "region": "Mendocino",
+   "lat": 39.361,
+   "lon": -123.819,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-south-carolina-avenue",
+   "name": "South Carolina Avenue",
+   "region": "Southern New Jersey",
+   "lat": 39.356,
+   "lon": -74.423,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-chicken-bone-beach",
+   "name": "Chicken Bone Beach",
+   "region": "Southern New Jersey",
+   "lat": 39.352,
+   "lon": -74.435,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-sumner-avenue",
+   "name": "Sumner Avenue",
+   "region": "Southern New Jersey",
+   "lat": 39.322,
+   "lon": -74.506,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-32nd-street",
+   "name": "32nd Street",
+   "region": "Southern New Jersey",
+   "lat": 39.314,
+   "lon": -74.519,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-12-th-street-jetty",
+   "name": "12th Street Jetty",
+   "region": "Southern New Jersey",
+   "lat": 39.272,
+   "lon": -74.575,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-timber-cove",
+   "name": "Timber Cove",
+   "region": "Sonoma",
+   "lat": 38.532,
+   "lon": -123.275,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-shark-pit-marin",
+   "name": "Shark Pit - Marin",
+   "region": "Marin",
+   "lat": 38.244,
+   "lon": -122.982,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-fort-point",
+   "name": "Fort Point",
+   "region": "San Francisco",
+   "lat": 37.811,
+   "lon": -122.476,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-deadmans",
+   "name": "Deadmans",
+   "region": "San Francisco",
+   "lat": 37.788,
+   "lon": -122.494,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-princeton-jetty",
+   "name": "Princeton Jetty",
+   "region": "San Mateo",
+   "lat": 37.499,
+   "lon": -122.471,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "cs-pigeon-point",
+   "name": "Pigeon Point",
+   "region": "San Mateo",
+   "lat": 37.182,
+   "lon": -122.394,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-ano-nuevo-state-reserve",
+   "name": "Ano Nuevo State Reserve",
+   "region": "San Mateo",
+   "lat": 37.117,
+   "lon": -122.314,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-scott-creek",
+   "name": "Scott Creek",
+   "region": "Santa Cruz",
+   "lat": 37.037,
+   "lon": -122.228,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-four-mile",
+   "name": "Four Mile",
+   "region": "Santa Cruz",
+   "lat": 36.965,
+   "lon": -122.125,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-three-mile",
+   "name": "Three Mile",
+   "region": "Santa Cruz",
+   "lat": 36.961,
+   "lon": -122.114,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-santa-cruz-harbor",
+   "name": "Santa Cruz Harbor",
+   "region": "Santa Cruz",
+   "lat": 36.96,
+   "lon": -122.001,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-mitchells-cove",
+   "name": "Mitchell's Cove",
+   "region": "Santa Cruz",
+   "lat": 36.952,
+   "lon": -122.041,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-natural-bridges",
+   "name": "Natural Bridges",
+   "region": "Santa Cruz",
+   "lat": 36.95,
+   "lon": -122.057,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-north-end",
+   "name": "North End",
+   "region": "Virginia",
+   "lat": 36.905,
+   "lon": -75.987,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-virginia-beach",
+   "name": "Virginia Beach",
+   "region": "Virginia",
+   "lat": 36.846,
+   "lon": -75.971,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-1st-street-jetty",
+   "name": "1st Street Jetty",
+   "region": "Virginia",
+   "lat": 36.831,
+   "lon": -75.968,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-croatan",
+   "name": "Croatan",
+   "region": "Virginia",
+   "lat": 36.829,
+   "lon": -75.968,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-croatan-to-pendleton",
+   "name": "Croatan to Pendleton",
+   "region": "Virginia",
+   "lat": 36.818,
+   "lon": -75.967,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 12,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-us-camp-pendleton-virginia",
+   "name": "Camp Pendleton",
+   "region": "Virginia",
+   "lat": 36.817,
+   "lon": -75.966,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 12,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-us-camp-pendleton",
+   "name": "Camp Pendleton",
+   "region": "Virginia",
+   "lat": 36.789,
+   "lon": -75.958,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-sandbridge-beach",
+   "name": "Sandbridge Beach",
+   "region": "Virginia",
+   "lat": 36.737,
+   "lon": -75.939,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 12,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-us-little-island-fishing-pier",
+   "name": "Little Island Fishing Pier",
+   "region": "Virginia",
+   "lat": 36.694,
+   "lon": -75.923,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-boneyard",
+   "name": "Boneyard",
+   "region": "Monterey",
+   "lat": 36.638,
+   "lon": -121.931,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-lovers-point",
+   "name": "Lovers Point",
+   "region": "Monterey",
+   "lat": 36.626,
+   "lon": -121.915,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-spanish-bay-south-moss",
+   "name": "Spanish Bay – South Moss",
+   "region": "Monterey",
+   "lat": 36.611,
+   "lon": -121.956,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-spanish-bay-cobblestones",
+   "name": "Spanish Bay – Cobblestones",
+   "region": "Monterey",
+   "lat": 36.61,
+   "lon": -121.949,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-mole-point",
+   "name": "Mole Point",
+   "region": "Monterey",
+   "lat": 36.609,
+   "lon": -121.96,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-monterey-bay",
+   "name": "Monterey Bay",
+   "region": "Monterey",
+   "lat": 36.607,
+   "lon": -121.891,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-monterey-wall",
+   "name": "Monterey Wall",
+   "region": "Monterey",
+   "lat": 36.602,
+   "lon": -121.889,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-ghost-tree",
+   "name": "Ghost Tree",
+   "region": "Monterey",
+   "lat": 36.56,
+   "lon": -121.952,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-corolla-lighthouse",
+   "name": "Corolla Lighthouse",
+   "region": "Outer Banks",
+   "lat": 36.378,
+   "lon": -75.823,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-andrew-molera",
+   "name": "Andrew Molera",
+   "region": "Monterey",
+   "lat": 36.28,
+   "lon": -121.859,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-duck-pier",
+   "name": "Duck Pier",
+   "region": "Outer Banks",
+   "lat": 36.182,
+   "lon": -75.75,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 11,
+     "wind-sea-dominant": 2
+    }
+   }
+  },
+  {
+   "id": "w-us-southern-duck",
+   "name": "Southern Duck",
+   "region": "Outer Banks",
+   "lat": 36.158,
+   "lon": -75.74,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-kitty-hawk-pier",
+   "name": "Kitty Hawk Pier",
+   "region": "Outer Banks",
+   "lat": 36.102,
+   "lon": -75.71,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-laundromats",
+   "name": "Laundromats",
+   "region": "Outer Banks",
+   "lat": 36.072,
+   "lon": -75.692,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-avalon-pier",
+   "name": "Avalon Pier",
+   "region": "Outer Banks",
+   "lat": 36.045,
+   "lon": -75.672,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-third-street",
+   "name": "Third Street",
+   "region": "Outer Banks",
+   "lat": 36.034,
+   "lon": -75.668,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 22
+    }
+   }
+  },
+  {
+   "id": "w-us-1st-street",
+   "name": "1st Street",
+   "region": "Outer Banks",
+   "lat": 36.031,
+   "lon": -75.663,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-bath-house",
+   "name": "Bath House",
+   "region": "Outer Banks",
+   "lat": 36.016,
+   "lon": -75.653,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-martin-st",
+   "name": "Martin St.",
+   "region": "Outer Banks",
+   "lat": 36.007,
+   "lon": -75.65,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-eighth-street",
+   "name": "Eighth Street",
+   "region": "Outer Banks",
+   "lat": 35.995,
+   "lon": -75.644,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-abalone-st",
+   "name": "Abalone St.",
+   "region": "Outer Banks",
+   "lat": 35.987,
+   "lon": -75.639,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-nags-head-pier",
+   "name": "Nags Head Pier",
+   "region": "Outer Banks",
+   "lat": 35.974,
+   "lon": -75.629,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-loggerhead-st",
+   "name": "Loggerhead St.",
+   "region": "Outer Banks",
+   "lat": 35.942,
+   "lon": -75.614,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jennettes-pier",
+   "name": "Jennette's Pier",
+   "region": "Outer Banks",
+   "lat": 35.91,
+   "lon": -75.595,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-outer-banks-pier",
+   "name": "Outer Banks Pier",
+   "region": "Outer Banks",
+   "lat": 35.886,
+   "lon": -75.581,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-boilers-ranger-station",
+   "name": "Boilers/Ranger Station",
+   "region": "Outer Banks",
+   "lat": 35.717,
+   "lon": -75.492,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-s-turns-north-carolina",
+   "name": "S Turns",
+   "region": "Outer Banks",
+   "lat": 35.608,
+   "lon": -75.464,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-rodanthe-pier",
+   "name": "Rodanthe Pier",
+   "region": "Outer Banks",
+   "lat": 35.585,
+   "lon": -75.46,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-exotics",
+   "name": "Exotics",
+   "region": "San Luis Obispo",
+   "lat": 35.585,
+   "lon": -121.123,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-k-o-a",
+   "name": "K.O.A",
+   "region": "Outer Banks",
+   "lat": 35.574,
+   "lon": -75.46,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-waves-and-salvo",
+   "name": "Waves and Salvo",
+   "region": "Outer Banks",
+   "lat": 35.546,
+   "lon": -75.465,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "short-period": 22
+    }
+   }
+  },
+  {
+   "id": "w-usw-morro-strand",
+   "name": "Morro Strand",
+   "region": "San Luis Obispo",
+   "lat": 35.391,
+   "lon": -120.869,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-avon-pier",
+   "name": "Avon Pier",
+   "region": "Outer Banks",
+   "lat": 35.347,
+   "lon": -75.499,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-askins-creek",
+   "name": "Askins Creek",
+   "region": "Outer Banks",
+   "lat": 35.322,
+   "lon": -75.506,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-cable-landing",
+   "name": "Cable Landing",
+   "region": "San Luis Obispo",
+   "lat": 35.301,
+   "lon": -120.878,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-north-buxton",
+   "name": "North Buxton",
+   "region": "Outer Banks",
+   "lat": 35.267,
+   "lon": -75.518,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-cape-hatteras-lighthouse",
+   "name": "Cape Hatteras Lighthouse",
+   "region": "Outer Banks",
+   "lat": 35.255,
+   "lon": -75.521,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-the-lighthouse",
+   "name": "The Lighthouse",
+   "region": "Outer Banks",
+   "lat": 35.254,
+   "lon": -75.519,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-frisco",
+   "name": "Frisco",
+   "region": "Outer Banks",
+   "lat": 35.226,
+   "lon": -75.636,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 22,
+    "why": {
+     "outside-window": 2,
+     "short-period": 20
+    }
+   }
+  },
+  {
+   "id": "w-us-frisco-pier",
+   "name": "Frisco Pier",
+   "region": "Outer Banks",
+   "lat": 35.224,
+   "lon": -75.636,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hatteras-ferry-docks",
+   "name": "Hatteras Ferry Docks",
+   "region": "Outer Banks",
+   "lat": 35.204,
+   "lon": -75.704,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-saint-annes",
+   "name": "Saint Anne's",
+   "region": "San Luis Obispo",
+   "lat": 35.171,
+   "lon": -120.704,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-shell-beach",
+   "name": "Shell Beach",
+   "region": "San Luis Obispo",
+   "lat": 35.162,
+   "lon": -120.69,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-grover-beach",
+   "name": "Grover Beach",
+   "region": "San Luis Obispo",
+   "lat": 35.12,
+   "lon": -120.636,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-the-point-north-carolina",
+   "name": "The Point",
+   "region": "Southern North Carolina",
+   "lat": 34.643,
+   "lon": -77.096,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-camp-lejeune",
+   "name": "Camp Lejeune",
+   "region": "Southern North Carolina",
+   "lat": 34.586,
+   "lon": -77.238,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-onslow-beach",
+   "name": "Onslow Beach",
+   "region": "Southern North Carolina",
+   "lat": 34.57,
+   "lon": -77.269,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-seaview-pier",
+   "name": "Seaview Pier",
+   "region": "Southern North Carolina",
+   "lat": 34.502,
+   "lon": -77.396,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-molino-canyon",
+   "name": "Molino Canyon",
+   "region": "Santa Barbara",
+   "lat": 34.469,
+   "lon": -120.168,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-topsail-beach",
+   "name": "Topsail Beach",
+   "region": "Southern North Carolina",
+   "lat": 34.468,
+   "lon": -77.471,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-the-ranch-drakes-point",
+   "name": "The Ranch – Drake's Point",
+   "region": "Santa Barbara",
+   "lat": 34.467,
+   "lon": -120.3,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-razor-blades",
+   "name": "The Ranch – Razor Blades",
+   "region": "Santa Barbara",
+   "lat": 34.467,
+   "lon": -120.276,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-upper-drakes",
+   "name": "The Ranch – Upper Drake's",
+   "region": "Santa Barbara",
+   "lat": 34.466,
+   "lon": -120.304,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-little-drakes",
+   "name": "The Ranch – Little Drake's",
+   "region": "Santa Barbara",
+   "lat": 34.465,
+   "lon": -120.31,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-beavers-hazards",
+   "name": "Beavers/Hazards",
+   "region": "Santa Barbara",
+   "lat": 34.461,
+   "lon": -120.054,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-refugio-state-beach",
+   "name": "Refugio State Beach",
+   "region": "Santa Barbara",
+   "lat": 34.461,
+   "lon": -120.073,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-ranch-house-point",
+   "name": "The Ranch – Ranch House Point",
+   "region": "Santa Barbara",
+   "lat": 34.459,
+   "lon": -120.336,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-rennys",
+   "name": "The Ranch – Renny's",
+   "region": "Santa Barbara",
+   "lat": 34.458,
+   "lon": -120.341,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-rights-and-lefts",
+   "name": "The Ranch – Rights and Lefts",
+   "region": "Santa Barbara",
+   "lat": 34.458,
+   "lon": -120.35,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-utah",
+   "name": "The Ranch – Utah",
+   "region": "Santa Barbara",
+   "lat": 34.457,
+   "lon": -120.346,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-lefts-and-rights",
+   "name": "The Ranch – Lefts and Rights",
+   "region": "Santa Barbara",
+   "lat": 34.455,
+   "lon": -120.368,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-san-augustine-reef",
+   "name": "The Ranch – San Augustine Reef",
+   "region": "Santa Barbara",
+   "lat": 34.455,
+   "lon": -120.353,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-the-ranch-cojo-reef",
+   "name": "The Ranch – Cojo Reef",
+   "region": "Santa Barbara",
+   "lat": 34.452,
+   "lon": -120.414,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-cat-canyon",
+   "name": "Cat Canyon",
+   "region": "Santa Barbara",
+   "lat": 34.449,
+   "lon": -119.987,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-haskells-beach",
+   "name": "Haskell's Beach",
+   "region": "Santa Barbara",
+   "lat": 34.431,
+   "lon": -119.916,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-topsail-island",
+   "name": "Topsail Island",
+   "region": "Southern North Carolina",
+   "lat": 34.43,
+   "lon": -77.5,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-surf-city-pier",
+   "name": "Surf City Pier",
+   "region": "Southern North Carolina",
+   "lat": 34.425,
+   "lon": -77.545,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "cs-hammonds",
+   "name": "Hammond's",
+   "region": "Santa Barbara",
+   "lat": 34.415,
+   "lon": -119.637,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-santa-claus-padaro-beach",
+   "name": "Santa Claus (Padaro Beach)",
+   "region": "Santa Barbara",
+   "lat": 34.407,
+   "lon": -119.55,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-campus-point",
+   "name": "Campus Point",
+   "region": "Santa Barbara",
+   "lat": 34.405,
+   "lon": -119.844,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-leadbetter",
+   "name": "Leadbetter",
+   "region": "Santa Barbara",
+   "lat": 34.401,
+   "lon": -119.701,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-mesa-lane",
+   "name": "Mesa Lane",
+   "region": "Santa Barbara",
+   "lat": 34.396,
+   "lon": -119.731,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jolly-roger-pier",
+   "name": "Jolly Roger Pier",
+   "region": "Southern North Carolina",
+   "lat": 34.365,
+   "lon": -77.627,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-oil-piers",
+   "name": "Oil Piers",
+   "region": "Ventura",
+   "lat": 34.351,
+   "lon": -119.427,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-stanleys",
+   "name": "Stanley's",
+   "region": "Ventura",
+   "lat": 34.341,
+   "lon": -119.417,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-hobson-county-park",
+   "name": "Hobson County Park",
+   "region": "Ventura",
+   "lat": 34.337,
+   "lon": -119.412,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-mondos",
+   "name": "Mondos",
+   "region": "Ventura",
+   "lat": 34.32,
+   "lon": -119.377,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-figure-eight-and-shell-islands",
+   "name": "Figure Eight and Shell Islands",
+   "region": "Southern North Carolina",
+   "lat": 34.272,
+   "lon": -77.74,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-north-end-wrightsville-beach",
+   "name": "North End Wrightsville Beach",
+   "region": "Southern North Carolina",
+   "lat": 34.234,
+   "lon": -77.774,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-c-street-wrightsville-beach",
+   "name": "C Street, Wrightsville Beach",
+   "region": "Southern North Carolina",
+   "lat": 34.209,
+   "lon": -77.793,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-columbia-street",
+   "name": "Columbia Street",
+   "region": "Southern North Carolina",
+   "lat": 34.208,
+   "lon": -77.792,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-crystal-pier",
+   "name": "Crystal Pier",
+   "region": "Southern North Carolina",
+   "lat": 34.193,
+   "lon": -77.805,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-oceanic-pier",
+   "name": "Oceanic Pier",
+   "region": "Southern North Carolina",
+   "lat": 34.193,
+   "lon": -77.803,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-masonboro-inlet",
+   "name": "Masonboro Inlet",
+   "region": "Southern North Carolina",
+   "lat": 34.179,
+   "lon": -77.81,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-carolina-beach-pier",
+   "name": "Carolina Beach Pier",
+   "region": "Southern North Carolina",
+   "lat": 34.057,
+   "lon": -77.881,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "cs-leo-carrillo",
+   "name": "Leo Carrillo",
+   "region": "Los Angeles",
+   "lat": 34.044,
+   "lon": -118.939,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-zero-nicholas-canyon-county-beach",
+   "name": "Zero/Nicholas Canyon County Beach",
+   "region": "Los Angeles",
+   "lat": 34.042,
+   "lon": -118.917,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-big-rock",
+   "name": "Big Rock",
+   "region": "Los Angeles",
+   "lat": 34.036,
+   "lon": -118.609,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-trancas-point",
+   "name": "Trancas Point",
+   "region": "Los Angeles",
+   "lat": 34.034,
+   "lon": -118.861,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pelican-watch",
+   "name": "Pelican Watch",
+   "region": "Southern North Carolina",
+   "lat": 34.017,
+   "lon": -77.897,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-alabama-ave-kure-beach",
+   "name": "Alabama Ave., Kure Beach",
+   "region": "Southern North Carolina",
+   "lat": 34.013,
+   "lon": -77.899,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-point-dume",
+   "name": "Point Dume / Little Dume",
+   "region": "Los Angeles",
+   "lat": 34.008,
+   "lon": -118.793,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-point-dume-2",
+   "name": "Point Dume",
+   "region": "Los Angeles",
+   "lat": 34.002,
+   "lon": -118.805,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fort-fisher",
+   "name": "Fort Fisher",
+   "region": "Southern North Carolina",
+   "lat": 33.968,
+   "lon": -77.918,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-d-and-w",
+   "name": "D & W",
+   "region": "Los Angeles",
+   "lat": 33.94,
+   "lon": -118.443,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-holden-beach",
+   "name": "Holden Beach",
+   "region": "Southern North Carolina",
+   "lat": 33.91,
+   "lon": -78.299,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-longbeach",
+   "name": "Longbeach",
+   "region": "Southern North Carolina",
+   "lat": 33.905,
+   "lon": -78.094,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-oak-island",
+   "name": "Oak Island",
+   "region": "Southern North Carolina",
+   "lat": 33.904,
+   "lon": -78.082,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-ocean-isle-beach-pier",
+   "name": "Ocean Isle Beach Pier",
+   "region": "Southern North Carolina",
+   "lat": 33.885,
+   "lon": -78.435,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-haggertys-2",
+   "name": "Haggerty's",
+   "region": "Los Angeles",
+   "lat": 33.809,
+   "lon": -118.393,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-lower-haggertys",
+   "name": "Lower Haggertys",
+   "region": "Los Angeles",
+   "lat": 33.804,
+   "lon": -118.397,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-rat-shit",
+   "name": "Rat Shit",
+   "region": "Los Angeles",
+   "lat": 33.804,
+   "lon": -118.395,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-upper-haggertys",
+   "name": "Upper Haggertys",
+   "region": "Los Angeles",
+   "lat": 33.801,
+   "lon": -118.404,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-north-reef-little-queens",
+   "name": "Palos Verdes Cove - North Reef/Little Queens",
+   "region": "Los Angeles",
+   "lat": 33.794,
+   "lon": -118.409,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-middles-the-channel",
+   "name": "Palos Verdes Cove - Middles/The Channel",
+   "region": "Los Angeles",
+   "lat": 33.793,
+   "lon": -118.408,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-pv-cove",
+   "name": "PV Cove",
+   "region": "Los Angeles",
+   "lat": 33.793,
+   "lon": -118.407,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-palos-verdes-cove-boneyards",
+   "name": "Palos Verdes Cove - Boneyards",
+   "region": "Los Angeles",
+   "lat": 33.791,
+   "lon": -118.41,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-indicator",
+   "name": "Indicator",
+   "region": "Los Angeles",
+   "lat": 33.789,
+   "lon": -118.417,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-abalone-cove-beach",
+   "name": "Abalone Cove Beach",
+   "region": "Los Angeles",
+   "lat": 33.739,
+   "lon": -118.403,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-seal-beach-pier",
+   "name": "Seal Beach Pier",
+   "region": "Orange County",
+   "lat": 33.738,
+   "lon": -118.107,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-surfside-jetty",
+   "name": "Surfside Jetty",
+   "region": "Orange County",
+   "lat": 33.729,
+   "lon": -118.09,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-palm-point",
+   "name": "Palm Point",
+   "region": "Los Angeles",
+   "lat": 33.718,
+   "lon": -118.325,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-royal-palms-the-jetty",
+   "name": "Royal Palms – The Jetty",
+   "region": "Los Angeles",
+   "lat": 33.718,
+   "lon": -118.323,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-cabrillo-point",
+   "name": "Cabrillo Point",
+   "region": "Los Angeles",
+   "lat": 33.706,
+   "lon": -118.285,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-bolsa-chica",
+   "name": "Bolsa Chica",
+   "region": "Orange County",
+   "lat": 33.698,
+   "lon": -118.051,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-hb-cliffs",
+   "name": "HB Cliffs",
+   "region": "Orange County",
+   "lat": 33.676,
+   "lon": -118.031,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-huntington-cliffs",
+   "name": "Huntington Cliffs",
+   "region": "Orange County",
+   "lat": 33.668,
+   "lon": -118.021,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-santa-ana-river-jetties",
+   "name": "Santa Ana River Jetties",
+   "region": "Orange County",
+   "lat": 33.628,
+   "lon": -117.959,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-newport-beach",
+   "name": "Newport Beach",
+   "region": "Orange County",
+   "lat": 33.619,
+   "lon": -117.943,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-surfside-beach",
+   "name": "Surfside Beach",
+   "region": "South Carolina",
+   "lat": 33.603,
+   "lon": -78.972,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-crystal-cove",
+   "name": "Crystal Cove",
+   "region": "Orange County",
+   "lat": 33.559,
+   "lon": -117.821,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-morro-beach",
+   "name": "Morro Beach",
+   "region": "Orange County",
+   "lat": 33.557,
+   "lon": -117.82,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-crescent-bay",
+   "name": "Crescent Bay",
+   "region": "Orange County",
+   "lat": 33.546,
+   "lon": -117.802,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-thalia-street",
+   "name": "Thalia Street",
+   "region": "Orange County",
+   "lat": 33.536,
+   "lon": -117.78,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-agate-pearl-street",
+   "name": "Agate/Pearl Street",
+   "region": "Orange County",
+   "lat": 33.528,
+   "lon": -117.773,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-strands",
+   "name": "Strands",
+   "region": "Orange County",
+   "lat": 33.466,
+   "lon": -117.717,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "cs-doheny",
+   "name": "Doheny",
+   "region": "Orange County",
+   "lat": 33.46,
+   "lon": -117.685,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-south-jetty",
+   "name": "South Jetty",
+   "region": "South Carolina",
+   "lat": 33.412,
+   "lon": -79.13,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-debordieu",
+   "name": "Debordieu",
+   "region": "South Carolina",
+   "lat": 33.383,
+   "lon": -79.147,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-cape-romain",
+   "name": "Cape Romain",
+   "region": "South Carolina",
+   "lat": 33.035,
+   "lon": -79.35,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-pipes",
+   "name": "Pipes",
+   "region": "San Diego",
+   "lat": 33.025,
+   "lon": -117.289,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-pipes-campgrounds",
+   "name": "Pipes/Campgrounds",
+   "region": "San Diego",
+   "lat": 33.024,
+   "lon": -117.288,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-15th-street",
+   "name": "15th Street",
+   "region": "San Diego",
+   "lat": 32.959,
+   "lon": -117.27,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-bull-island",
+   "name": "Bull Island",
+   "region": "South Carolina",
+   "lat": 32.909,
+   "lon": -79.578,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-la-jolla-cove",
+   "name": "La Jolla Cove",
+   "region": "San Diego",
+   "lat": 32.851,
+   "lon": -117.272,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-dewees-island",
+   "name": "Dewees Island",
+   "region": "South Carolina",
+   "lat": 32.831,
+   "lon": -79.71,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-pb-point",
+   "name": "PB Point",
+   "region": "San Diego",
+   "lat": 32.807,
+   "lon": -117.269,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-wild-dunes",
+   "name": "Wild Dunes",
+   "region": "South Carolina",
+   "lat": 32.803,
+   "lon": -79.732,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-isle-of-palms-pier",
+   "name": "Isle of Palms Pier",
+   "region": "South Carolina",
+   "lat": 32.784,
+   "lon": -79.785,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-berts-bar",
+   "name": "Bert's Bar",
+   "region": "South Carolina",
+   "lat": 32.757,
+   "lon": -79.833,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-ab-abalone",
+   "name": "Ab (Abalone)",
+   "region": "San Diego",
+   "lat": 32.714,
+   "lon": -117.259,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-south-ab",
+   "name": "South Ab",
+   "region": "San Diego",
+   "lat": 32.713,
+   "lon": -117.259,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-new-break",
+   "name": "New Break",
+   "region": "San Diego",
+   "lat": 32.711,
+   "lon": -117.258,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-usw-chasm",
+   "name": "Chasm",
+   "region": "San Diego",
+   "lat": 32.708,
+   "lon": -117.258,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-the-washout",
+   "name": "The Washout",
+   "region": "South Carolina",
+   "lat": 32.668,
+   "lon": -79.908,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-10th-street",
+   "name": "10th Street",
+   "region": "South Carolina",
+   "lat": 32.662,
+   "lon": -79.92,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-folly-beach-pier",
+   "name": "Folly Beach Pier",
+   "region": "South Carolina",
+   "lat": 32.652,
+   "lon": -79.938,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-kiawah-island-seabrook-island",
+   "name": "Kiawah Island/Seabrook Island",
+   "region": "South Carolina",
+   "lat": 32.595,
+   "lon": -80.088,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-usw-tijuana-slough",
+   "name": "Tijuana Slough",
+   "region": "San Diego",
+   "lat": 32.557,
+   "lon": -117.133,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-edisto-beach",
+   "name": "Edisto Beach",
+   "region": "South Carolina",
+   "lat": 32.514,
+   "lon": -80.282,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-hunting-island",
+   "name": "Hunting Island",
+   "region": "South Carolina",
+   "lat": 32.374,
+   "lon": -80.435,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-fripp-island",
+   "name": "Fripp Island",
+   "region": "South Carolina",
+   "lat": 32.311,
+   "lon": -80.486,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-burkes-beach",
+   "name": "Burkes Beach",
+   "region": "South Carolina",
+   "lat": 32.192,
+   "lon": -80.695,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hilton-head-island",
+   "name": "Hilton Head Island",
+   "region": "South Carolina",
+   "lat": 32.144,
+   "lon": -80.744,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-north-jetty-georgia",
+   "name": "North Jetty",
+   "region": "Georgia",
+   "lat": 32.024,
+   "lon": -80.841,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-sugar-shack",
+   "name": "Sugar Shack",
+   "region": "Georgia",
+   "lat": 32.021,
+   "lon": -80.841,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-18th-st-jetty",
+   "name": "18th St. Jetty",
+   "region": "Georgia",
+   "lat": 31.987,
+   "lon": -80.848,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-little-st-simons-island",
+   "name": "Little St. Simons Island",
+   "region": "Georgia",
+   "lat": 31.27,
+   "lon": -81.273,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-coastguard-st-simons",
+   "name": "Coastguard/St Simons",
+   "region": "Georgia",
+   "lat": 31.144,
+   "lon": -81.368,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-st-simons-island",
+   "name": "St. Simons Island",
+   "region": "Georgia",
+   "lat": 31.136,
+   "lon": -81.385,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-5th-street-7th-street",
+   "name": "5th Street/7th Street",
+   "region": "Georgia",
+   "lat": 31.135,
+   "lon": -81.386,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-jekyll-island",
+   "name": "Jekyll Island",
+   "region": "Georgia",
+   "lat": 31.106,
+   "lon": -81.404,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-comfort-inn-jeckyll-island",
+   "name": "Comfort Inn/Jeckyll Island",
+   "region": "Georgia",
+   "lat": 31.068,
+   "lon": -81.402,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-cumberland-island",
+   "name": "Cumberland Island",
+   "region": "Georgia",
+   "lat": 30.851,
+   "lon": -81.423,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-ft-clinch-state-park",
+   "name": "Ft. Clinch State Park",
+   "region": "Northeast Florida",
+   "lat": 30.7,
+   "lon": -81.425,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hooks",
+   "name": "Hooks",
+   "region": "Northeast Florida",
+   "lat": 30.688,
+   "lon": -81.428,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-main-beach-florida",
+   "name": "Main Beach (Florida)",
+   "region": "Northeast Florida",
+   "lat": 30.67,
+   "lon": -81.429,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fernandina-beach-pier",
+   "name": "Fernandina Beach Pier",
+   "region": "Northeast Florida",
+   "lat": 30.667,
+   "lon": -81.429,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-amelia-pier",
+   "name": "Amelia Pier",
+   "region": "Northeast Florida",
+   "lat": 30.621,
+   "lon": -81.437,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-peters-point",
+   "name": "Peters Point",
+   "region": "Northeast Florida",
+   "lat": 30.599,
+   "lon": -81.443,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-american-beach",
+   "name": "American Beach",
+   "region": "Northeast Florida",
+   "lat": 30.577,
+   "lon": -81.444,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-talbot-island",
+   "name": "Talbot Island",
+   "region": "Northeast Florida",
+   "lat": 30.478,
+   "lon": -81.411,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 8,
+    "offshore": 16,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 16
+    }
+   }
+  },
+  {
+   "id": "w-us-little-talbot-island",
+   "name": "Little Talbot Island",
+   "region": "Northeast Florida",
+   "lat": 30.458,
+   "lon": -81.41,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-north-jetty-florida",
+   "name": "North Jetty (Florida)",
+   "region": "Northeast Florida",
+   "lat": 30.404,
+   "lon": -81.396,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 8,
+     "short-period": 16
+    }
+   }
+  },
+  {
+   "id": "w-us-hannah-park-mayport-poles",
+   "name": "Hannah Park/ Mayport Poles",
+   "region": "Northeast Florida",
+   "lat": 30.385,
+   "lon": -81.394,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-mayport-poles",
+   "name": "Mayport Poles",
+   "region": "Northeast Florida",
+   "lat": 30.382,
+   "lon": -81.397,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 8,
+    "offshore": 16,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 16
+    }
+   }
+  },
+  {
+   "id": "w-us-18th-street",
+   "name": "18th Street",
+   "region": "Northeast Florida",
+   "lat": 30.347,
+   "lon": -81.395,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 10,
+    "offshore": 14,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 14
+    }
+   }
+  },
+  {
+   "id": "w-us-atlantic-beach",
+   "name": "Atlantic Beach",
+   "region": "Northeast Florida",
+   "lat": 30.332,
+   "lon": -81.393,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-neptune-beach",
+   "name": "Neptune Beach",
+   "region": "Northeast Florida",
+   "lat": 30.325,
+   "lon": -81.392,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pickens-point-dunes",
+   "name": "Pickens Point Dunes",
+   "region": "Florida Panhandle",
+   "lat": 30.315,
+   "lon": -87.262,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-johnsons-beach",
+   "name": "Johnsons Beach",
+   "region": "Florida Panhandle",
+   "lat": 30.298,
+   "lon": -87.414,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jacksonville-beach-pier",
+   "name": "Jacksonville Beach Pier",
+   "region": "Northeast Florida",
+   "lat": 30.293,
+   "lon": -81.386,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 8,
+    "offshore": 16,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 16
+    }
+   }
+  },
+  {
+   "id": "w-us-jax-beach-pier",
+   "name": "Jax Beach Pier",
+   "region": "Northeast Florida",
+   "lat": 30.293,
+   "lon": -81.388,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-8th-ave-south",
+   "name": "8th Ave. South",
+   "region": "Northeast Florida",
+   "lat": 30.281,
+   "lon": -81.384,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 8,
+    "offshore": 16,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 16
+    }
+   }
+  },
+  {
+   "id": "w-us-terrys-cove",
+   "name": "Terry's Cove",
+   "region": "Alabama",
+   "lat": 30.269,
+   "lon": -87.58,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-gulf-state-park-pavillion",
+   "name": "Gulf State Park Pavillion",
+   "region": "Alabama",
+   "lat": 30.253,
+   "lon": -87.641,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-west-pass",
+   "name": "West Pass",
+   "region": "Alabama",
+   "lat": 30.239,
+   "lon": -87.737,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-morgantown-beach",
+   "name": "Morgantown Beach",
+   "region": "Alabama",
+   "lat": 30.23,
+   "lon": -87.919,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-sawgrass",
+   "name": "Sawgrass",
+   "region": "Northeast Florida",
+   "lat": 30.193,
+   "lon": -81.363,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-ponte-vedra",
+   "name": "Ponte Vedra",
+   "region": "Northeast Florida",
+   "lat": 30.163,
+   "lon": -81.355,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-gate-station",
+   "name": "Gate Station",
+   "region": "Northeast Florida",
+   "lat": 30.023,
+   "lon": -81.322,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-vilano-jetty",
+   "name": "Vilano Jetty",
+   "region": "Northeast Florida",
+   "lat": 29.917,
+   "lon": -81.289,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-chandeleur-islands",
+   "name": "Chandeleur Islands",
+   "region": "Louisiana",
+   "lat": 29.894,
+   "lon": -88.823,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-middles-florida",
+   "name": "Middles (Florida)",
+   "region": "Northeast Florida",
+   "lat": 29.887,
+   "lon": -81.272,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-blowhole",
+   "name": "Blowhole",
+   "region": "Northeast Florida",
+   "lat": 29.871,
+   "lon": -81.267,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-f-as",
+   "name": "F.A's",
+   "region": "Northeast Florida",
+   "lat": 29.859,
+   "lon": -81.265,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-st-augustine-pier",
+   "name": "St. Augustine Pier",
+   "region": "Northeast Florida",
+   "lat": 29.857,
+   "lon": -81.264,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 10,
+    "offshore": 14,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 14
+    }
+   }
+  },
+  {
+   "id": "w-us-a-street",
+   "name": "A Street",
+   "region": "Northeast Florida",
+   "lat": 29.844,
+   "lon": -81.262,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-crescent-beach",
+   "name": "Crescent Beach",
+   "region": "Northeast Florida",
+   "lat": 29.769,
+   "lon": -81.251,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 10,
+    "offshore": 14,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 14
+    }
+   }
+  },
+  {
+   "id": "w-us-matanzas-inlet",
+   "name": "Matanzas Inlet",
+   "region": "Northeast Florida",
+   "lat": 29.709,
+   "lon": -81.223,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-flagler-beach-pier",
+   "name": "Flagler Beach Pier",
+   "region": "Northeast Florida",
+   "lat": 29.48,
+   "lon": -81.125,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 11,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 13
+    }
+   }
+  },
+  {
+   "id": "w-us-bicentennial-park",
+   "name": "Bicentennial Park",
+   "region": "Space Coast",
+   "lat": 29.34,
+   "lon": -81.061,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-ormond-beach-pier",
+   "name": "Ormond Beach Pier",
+   "region": "Space Coast",
+   "lat": 29.293,
+   "lon": -81.038,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-main-street-pier",
+   "name": "Main Street Pier",
+   "region": "Space Coast",
+   "lat": 29.227,
+   "lon": -81.004,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-sunglow-pier",
+   "name": "Sunglow Pier",
+   "region": "Space Coast",
+   "lat": 29.146,
+   "lon": -80.963,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-wilbur-by-the-sea",
+   "name": "Wilbur By The Sea",
+   "region": "Space Coast",
+   "lat": 29.134,
+   "lon": -80.955,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-ponce-inlet",
+   "name": "Ponce Inlet",
+   "region": "Space Coast",
+   "lat": 29.08,
+   "lon": -80.917,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 12,
+     "short-period": 12
+    }
+   }
+  },
+  {
+   "id": "w-us-the-inlet-new-smyrna",
+   "name": "The Inlet (New Smyrna)",
+   "region": "Space Coast",
+   "lat": 29.071,
+   "lon": -80.907,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-flager-avenue",
+   "name": "Flager Avenue",
+   "region": "Space Coast",
+   "lat": 29.038,
+   "lon": -80.893,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 11,
+    "offshore": 13,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 13
+    }
+   }
+  },
+  {
+   "id": "w-us-apollo-beach",
+   "name": "Apollo Beach",
+   "region": "Space Coast",
+   "lat": 28.936,
+   "lon": -80.828,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-port-o-connor-jetties",
+   "name": "Port O'Connor Jetties",
+   "region": "Texas",
+   "lat": 28.418,
+   "lon": -96.323,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-jetty-park",
+   "name": "Jetty Park",
+   "region": "Space Coast",
+   "lat": 28.407,
+   "lon": -80.589,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 12,
+     "short-period": 12
+    }
+   }
+  },
+  {
+   "id": "w-us-shepard-park",
+   "name": "Shepard Park",
+   "region": "Space Coast",
+   "lat": 28.358,
+   "lon": -80.603,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-minuteman",
+   "name": "Minuteman",
+   "region": "Space Coast",
+   "lat": 28.318,
+   "lon": -80.605,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-2nd-light",
+   "name": "2nd Light",
+   "region": "Space Coast",
+   "lat": 28.253,
+   "lon": -80.603,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hightower-beach",
+   "name": "Hightower Beach",
+   "region": "Space Coast",
+   "lat": 28.194,
+   "lon": -80.593,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-bicentennial-beach-park",
+   "name": "Bicentennial Beach Park",
+   "region": "Space Coast",
+   "lat": 28.154,
+   "lon": -80.583,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-paradise-beach",
+   "name": "Paradise Beach",
+   "region": "Space Coast",
+   "lat": 28.123,
+   "lon": -80.575,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-honeymoon-island",
+   "name": "Honeymoon Island",
+   "region": "Florida Gulf Coast",
+   "lat": 28.061,
+   "lon": -82.83,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-coconut-point-park",
+   "name": "Coconut Point Park",
+   "region": "Space Coast",
+   "lat": 28.023,
+   "lon": -80.535,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-ponce-de-leon-park",
+   "name": "Ponce De Leon Park",
+   "region": "Space Coast",
+   "lat": 28.011,
+   "lon": -80.529,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pier-60",
+   "name": "Pier 60",
+   "region": "Florida Gulf Coast",
+   "lat": 27.978,
+   "lon": -82.832,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-indian-rocks-beach",
+   "name": "Indian Rocks Beach",
+   "region": "Florida Gulf Coast",
+   "lat": 27.882,
+   "lon": -82.854,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-spanish-house",
+   "name": "Spanish House",
+   "region": "Space Coast",
+   "lat": 27.877,
+   "lon": -80.455,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-chernobyl",
+   "name": "Chernobyl",
+   "region": "Space Coast",
+   "lat": 27.87,
+   "lon": -80.451,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-sebastian-inlet",
+   "name": "Sebastian Inlet",
+   "region": "Space Coast",
+   "lat": 27.862,
+   "lon": -80.446,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-monster-hole",
+   "name": "Monster Hole",
+   "region": "Space Coast",
+   "lat": 27.86,
+   "lon": -80.441,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-redington-breakwater",
+   "name": "Redington Breakwater",
+   "region": "Florida Gulf Coast",
+   "lat": 27.831,
+   "lon": -82.835,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-redington-pier",
+   "name": "Redington Pier",
+   "region": "Florida Gulf Coast",
+   "lat": 27.822,
+   "lon": -82.831,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-maderia-beach",
+   "name": "Maderia Beach",
+   "region": "Florida Gulf Coast",
+   "lat": 27.795,
+   "lon": -82.799,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-treasure-island-2",
+   "name": "Treasure Island",
+   "region": "Florida Gulf Coast",
+   "lat": 27.767,
+   "lon": -82.774,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-wabasso",
+   "name": "Wabasso",
+   "region": "Space Coast",
+   "lat": 27.764,
+   "lon": -80.396,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-middle-jetty",
+   "name": "Middle Jetty",
+   "region": "Florida Gulf Coast",
+   "lat": 27.744,
+   "lon": -82.761,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fish-pass-jetties",
+   "name": "Fish Pass Jetties",
+   "region": "Texas",
+   "lat": 27.675,
+   "lon": -97.164,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-riomar-reef",
+   "name": "Riomar Reef",
+   "region": "Space Coast",
+   "lat": 27.644,
+   "lon": -80.348,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 12,
+     "short-period": 12
+    }
+   }
+  },
+  {
+   "id": "w-us-j-p-luby-surf-park",
+   "name": "J.P. Luby Surf Park",
+   "region": "Texas",
+   "lat": 27.643,
+   "lon": -97.186,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-north-padre-seawall",
+   "name": "North Padre Seawall",
+   "region": "Texas",
+   "lat": 27.605,
+   "lon": -97.206,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-bob-hall-pier",
+   "name": "Bob Hall Pier",
+   "region": "Texas",
+   "lat": 27.581,
+   "lon": -97.218,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-spring-ave",
+   "name": "Spring Ave.",
+   "region": "Florida Gulf Coast",
+   "lat": 27.525,
+   "lon": -82.738,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-holmes-beach-pier",
+   "name": "Holmes Beach Pier",
+   "region": "Florida Gulf Coast",
+   "lat": 27.497,
+   "lon": -82.714,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-twin-piers",
+   "name": "Twin Piers",
+   "region": "Florida Gulf Coast",
+   "lat": 27.461,
+   "lon": -82.699,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-blue-heron-beach",
+   "name": "Blue Heron Beach",
+   "region": "Treasure Coast",
+   "lat": 27.433,
+   "lon": -80.278,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-blind-creek-park",
+   "name": "Blind Creek Park",
+   "region": "Treasure Coast",
+   "lat": 27.366,
+   "lon": -80.246,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-lido-beach-2-3",
+   "name": "Lido Beach",
+   "region": "Florida Gulf Coast",
+   "lat": 27.315,
+   "lon": -82.583,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-coolidge",
+   "name": "Coolidge",
+   "region": "Florida Gulf Coast",
+   "lat": 27.311,
+   "lon": -82.578,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-siesta-key",
+   "name": "Siesta Key",
+   "region": "Florida Gulf Coast",
+   "lat": 27.265,
+   "lon": -82.555,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-stickney-point",
+   "name": "Stickney Point",
+   "region": "Florida Gulf Coast",
+   "lat": 27.246,
+   "lon": -82.538,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-turtles-2",
+   "name": "Turtles",
+   "region": "Florida Gulf Coast",
+   "lat": 27.219,
+   "lon": -82.518,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-fletchers",
+   "name": "Fletcher's",
+   "region": "Treasure Coast",
+   "lat": 27.206,
+   "lon": -80.168,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-stuart-rocks",
+   "name": "Stuart Rocks",
+   "region": "Treasure Coast",
+   "lat": 27.191,
+   "lon": -80.16,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 5,
+    "offshore": 19,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 19
+    }
+   }
+  },
+  {
+   "id": "w-us-venice-pier",
+   "name": "Venice Pier",
+   "region": "Florida Gulf Coast",
+   "lat": 27.072,
+   "lon": -82.453,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hobe-sound-public-beach",
+   "name": "Hobe Sound Public Beach",
+   "region": "Treasure Coast",
+   "lat": 27.067,
+   "lon": -80.114,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-blowing-rocks",
+   "name": "Blowing Rocks",
+   "region": "Treasure Coast",
+   "lat": 26.977,
+   "lon": -80.081,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-civic-center",
+   "name": "Civic Center",
+   "region": "Treasure Coast",
+   "lat": 26.931,
+   "lon": -80.068,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-corners-2",
+   "name": "Corners",
+   "region": "Treasure Coast",
+   "lat": 26.927,
+   "lon": -80.067,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-kite-beach-2",
+   "name": "Kite Beach",
+   "region": "Treasure Coast",
+   "lat": 26.905,
+   "lon": -80.059,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-knights-point",
+   "name": "Knight's Point",
+   "region": "Florida Gulf Coast",
+   "lat": 26.882,
+   "lon": -82.336,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pumphouse",
+   "name": "Pumphouse",
+   "region": "Southeast Florida",
+   "lat": 26.775,
+   "lon": -80.031,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-sunrise",
+   "name": "Sunrise",
+   "region": "Southeast Florida",
+   "lat": 26.721,
+   "lon": -80.033,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-flagpole",
+   "name": "Flagpole",
+   "region": "Southeast Florida",
+   "lat": 26.707,
+   "lon": -80.033,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hilton-hotel-backyard",
+   "name": "Hilton Hotel Backyard",
+   "region": "Southeast Florida",
+   "lat": 26.622,
+   "lon": -80.036,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-lantana",
+   "name": "Lantana",
+   "region": "Southeast Florida",
+   "lat": 26.584,
+   "lon": -80.037,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-40th-street",
+   "name": "40th Street",
+   "region": "Southeast Florida",
+   "lat": 26.442,
+   "lon": -80.059,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-japanese-rock",
+   "name": "Japanese Rock",
+   "region": "Southeast Florida",
+   "lat": 26.392,
+   "lon": -80.065,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-red-reef-park",
+   "name": "Red Reef Park",
+   "region": "Southeast Florida",
+   "lat": 26.366,
+   "lon": -80.067,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-south-beach-pavillion",
+   "name": "South Beach Pavillion",
+   "region": "Southeast Florida",
+   "lat": 26.357,
+   "lon": -80.068,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-boca-raton-inlet",
+   "name": "Boca Raton Inlet",
+   "region": "Southeast Florida",
+   "lat": 26.335,
+   "lon": -80.07,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-deerfield-beach-pier",
+   "name": "Deerfield Beach Pier",
+   "region": "Southeast Florida",
+   "lat": 26.317,
+   "lon": -80.075,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-deerfield-park-pier",
+   "name": "Deerfield Park Pier",
+   "region": "Southeast Florida",
+   "lat": 26.316,
+   "lon": -80.074,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hillsboro-beach",
+   "name": "Hillsboro Beach",
+   "region": "Southeast Florida",
+   "lat": 26.297,
+   "lon": -80.076,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-hillsboro-inlet",
+   "name": "Hillsboro Inlet",
+   "region": "Southeast Florida",
+   "lat": 26.255,
+   "lon": -80.081,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-pompano-pier",
+   "name": "Pompano Pier",
+   "region": "Southeast Florida",
+   "lat": 26.235,
+   "lon": -80.087,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-commercial-pier",
+   "name": "Commercial Pier",
+   "region": "Southeast Florida",
+   "lat": 26.189,
+   "lon": -80.092,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-ne-14th-ct",
+   "name": "NE 14th Ct.",
+   "region": "Southeast Florida",
+   "lat": 26.146,
+   "lon": -80.101,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-spoils",
+   "name": "Spoils",
+   "region": "Southeast Florida",
+   "lat": 26.097,
+   "lon": -80.103,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-dania-pier",
+   "name": "Dania Pier",
+   "region": "Southeast Florida",
+   "lat": 26.058,
+   "lon": -80.109,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-franklin-street",
+   "name": "Franklin Street",
+   "region": "Southeast Florida",
+   "lat": 26.048,
+   "lon": -80.112,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-haulover",
+   "name": "Haulover",
+   "region": "Southeast Florida",
+   "lat": 25.914,
+   "lon": -80.12,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-surfside-2",
+   "name": "Surfside",
+   "region": "Southeast Florida",
+   "lat": 25.882,
+   "lon": -80.12,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-dunes-hotel",
+   "name": "Dunes Hotel",
+   "region": "Southeast Florida",
+   "lat": 25.814,
+   "lon": -80.12,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-21st-street",
+   "name": "21st Street",
+   "region": "Southeast Florida",
+   "lat": 25.795,
+   "lon": -80.124,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-us-5th-street-florida",
+   "name": "5th Street (Florida)",
+   "region": "Southeast Florida",
+   "lat": 25.776,
+   "lon": -80.128,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-south-beach-florida",
+   "name": "South Beach (Florida)",
+   "region": "Southeast Florida",
+   "lat": 25.765,
+   "lon": -80.129,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-us-key-west",
+   "name": "Key West",
+   "region": "Florida Keys",
+   "lat": 24.567,
+   "lon": -81.775,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-hanalei-bay",
+   "name": "Hanalei Bay",
+   "region": "Kauai",
+   "lat": 22.214,
+   "lon": -159.501,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 4,
+    "offshore": 20,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 20
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-unreals",
+   "name": "Unreals",
+   "region": "Kauai",
+   "lat": 22.149,
+   "lon": -159.298,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 7,
+    "offshore": 17,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 5,
+     "outside-window": 2,
+     "wind-sea-dominant": 10
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-anahola-bay",
+   "name": "Anahola Bay",
+   "region": "Kauai",
+   "lat": 22.148,
+   "lon": -159.301,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-polihale",
+   "name": "Polihale",
+   "region": "Kauai",
+   "lat": 22.101,
+   "lon": -159.747,
+   "class": "static-offshore",
+   "reason": "no-orientation+no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kealia",
+   "name": "Kealia",
+   "region": "Kauai",
+   "lat": 22.096,
+   "lon": -159.304,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-horners",
+   "name": "Horners",
+   "region": "Kauai",
+   "lat": 22.05,
+   "lon": -159.332,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 6,
+     "wind-sea-dominant": 18
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-majors-bay",
+   "name": "Majors Bay",
+   "region": "Kauai",
+   "lat": 22.012,
+   "lon": -159.786,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 4,
+     "outside-window": 20
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-davidson-point",
+   "name": "Davidson Point",
+   "region": "Kauai",
+   "lat": 21.959,
+   "lon": -159.702,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 21,
+     "short-period": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kalapaki",
+   "name": "Kalapaki",
+   "region": "Kauai",
+   "lat": 21.957,
+   "lon": -159.351,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-pakala",
+   "name": "Pakala",
+   "region": "Kauai",
+   "lat": 21.936,
+   "lon": -159.652,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 21,
+     "short-period": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-infinities",
+   "name": "Infinities",
+   "region": "Kauai",
+   "lat": 21.933,
+   "lon": -159.651,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 21,
+     "short-period": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-p-ks",
+   "name": "PK's",
+   "region": "Kauai",
+   "lat": 21.88,
+   "lon": -159.48,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 6,
+     "outside-window": 18
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-acid-drop",
+   "name": "Acid Drop",
+   "region": "Kauai",
+   "lat": 21.88,
+   "lon": -159.48,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 6,
+     "outside-window": 18
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-shipwrecks",
+   "name": "Shipwrecks",
+   "region": "Kauai",
+   "lat": 21.874,
+   "lon": -159.437,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 5,
+     "wind-sea-dominant": 10,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-brenneckes",
+   "name": "Brenneckes",
+   "region": "Kauai",
+   "lat": 21.873,
+   "lon": -159.452,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 6,
+     "outside-window": 18
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-poipu-outer-reef",
+   "name": "Poipu Outer Reef",
+   "region": "Kauai",
+   "lat": 21.872,
+   "lon": -159.462,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kamalino-niihau",
+   "name": "Kamalino, Niihau",
+   "region": "Niihau",
+   "lat": 21.812,
+   "lon": -160.246,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-turtle-bay-west",
+   "name": "Turtle Bay West",
+   "region": "Oahu North Shore",
+   "lat": 21.705,
+   "lon": -158.003,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kahuku",
+   "name": "Kahuku",
+   "region": "Oahu East Side",
+   "lat": 21.679,
+   "lon": -157.935,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-marijuanas",
+   "name": "Marijuana's",
+   "region": "Oahu North Shore",
+   "lat": 21.637,
+   "lon": -158.069,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-laie-beach-park",
+   "name": "Laie Beach Park",
+   "region": "Oahu East Side",
+   "lat": 21.631,
+   "lon": -157.921,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-hultins",
+   "name": "Hultin's",
+   "region": "Oahu North Shore",
+   "lat": 21.622,
+   "lon": -158.087,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-puaena-point",
+   "name": "Puaena Point",
+   "region": "Oahu North Shore",
+   "lat": 21.601,
+   "lon": -158.106,
+   "class": "static-offshore",
+   "reason": "no-orientation+no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-avalanche",
+   "name": "Avalanche",
+   "region": "Oahu North Shore",
+   "lat": 21.6,
+   "lon": -158.112,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kaena-point",
+   "name": "Kaena Point",
+   "region": "Oahu West Side",
+   "lat": 21.576,
+   "lon": -158.282,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 15,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 15
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-crouching-lion",
+   "name": "Crouching Lion",
+   "region": "Oahu East Side",
+   "lat": 21.566,
+   "lon": -157.861,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 2,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 20,
+     "outside-window": 2
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-yokohama",
+   "name": "Yokohama",
+   "region": "Oahu West Side",
+   "lat": 21.547,
+   "lon": -158.242,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-makaha-point",
+   "name": "Makaha Point",
+   "region": "Oahu West Side",
+   "lat": 21.477,
+   "lon": -158.226,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-north-beach",
+   "name": "North Beach",
+   "region": "Oahu East Side",
+   "lat": 21.456,
+   "lon": -157.744,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 4,
+     "wind-sea-dominant": 19,
+     "outside-window": 1
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-castles",
+   "name": "Castles",
+   "region": "Oahu East Side",
+   "lat": 21.421,
+   "lon": -157.742,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 4,
+     "outside-window": 19,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-maili",
+   "name": "Ma'ili",
+   "region": "Oahu West Side",
+   "lat": 21.417,
+   "lon": -158.185,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kailua",
+   "name": "Kailua",
+   "region": "Oahu East Side",
+   "lat": 21.41,
+   "lon": -157.74,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 7,
+     "wind-sea-dominant": 6,
+     "outside-window": 11
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-maili-point",
+   "name": "Maili Point",
+   "region": "Oahu West Side",
+   "lat": 21.408,
+   "lon": -158.181,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-popoia-island-kailua",
+   "name": "Popoia Island Kailua",
+   "region": "Oahu East Side",
+   "lat": 21.401,
+   "lon": -157.718,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-tracks",
+   "name": "Tracks",
+   "region": "Oahu West Side",
+   "lat": 21.36,
+   "lon": -158.133,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-ewa-beach-park",
+   "name": "Ewa Beach Park",
+   "region": "Oahu South Shore",
+   "lat": 21.315,
+   "lon": -157.983,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 6,
+     "outside-window": 18
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-makapuu",
+   "name": "Makapu’u",
+   "region": "Oahu East Side",
+   "lat": 21.311,
+   "lon": -157.66,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 4,
+     "outside-window": 19,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-coves",
+   "name": "Coves",
+   "region": "Oahu South Shore",
+   "lat": 21.303,
+   "lon": -158.035,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-ewa-beach",
+   "name": "Ewa Beach",
+   "region": "Oahu South Shore",
+   "lat": 21.302,
+   "lon": -158.002,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-white-plains-beach",
+   "name": "White Plains Beach",
+   "region": "Oahu South Shore",
+   "lat": 21.3,
+   "lon": -158.045,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-sand-island",
+   "name": "Sand Island",
+   "region": "Oahu South Shore",
+   "lat": 21.299,
+   "lon": -157.875,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-barbers-point",
+   "name": "Barbers Point",
+   "region": "Oahu South Shore",
+   "lat": 21.295,
+   "lon": -158.107,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kewalos",
+   "name": "Kewalo's",
+   "region": "Oahu South Shore",
+   "lat": 21.289,
+   "lon": -157.86,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 16,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-south-shore-ala-moana-park",
+   "name": "South Shore - Ala Moana Park",
+   "region": "Oahu South Shore",
+   "lat": 21.286,
+   "lon": -157.851,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-tennis-courts",
+   "name": "Tennis Courts",
+   "region": "Oahu South Shore",
+   "lat": 21.285,
+   "lon": -157.854,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 16,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-sandy-beach",
+   "name": "Sandy Beach",
+   "region": "Oahu East Side",
+   "lat": 21.285,
+   "lon": -157.673,
+   "class": "static-offshore",
+   "reason": "no-orientation+no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-ala-moana-bowls",
+   "name": "Ala Moana Bowls",
+   "region": "Oahu South Shore",
+   "lat": 21.28,
+   "lon": -157.844,
+   "class": "static-offshore",
+   "reason": "no-orientation+no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kaisers",
+   "name": "Kaisers",
+   "region": "Oahu South Shore",
+   "lat": 21.277,
+   "lon": -157.841,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 16,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-waikiki-beach",
+   "name": "Waikiki Beach",
+   "region": "Oahu South Shore",
+   "lat": 21.275,
+   "lon": -157.827,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 15,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-threes-and-fours",
+   "name": "Three's and Four's",
+   "region": "Oahu South Shore",
+   "lat": 21.274,
+   "lon": -157.837,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 16,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-queens",
+   "name": "Queen's",
+   "region": "Oahu South Shore",
+   "lat": 21.274,
+   "lon": -157.826,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 15,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-secrets-toes",
+   "name": "Secrets/Toes",
+   "region": "Oahu South Shore",
+   "lat": 21.274,
+   "lon": -157.746,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-queens-canoes",
+   "name": "Queens/Canoes",
+   "region": "Oahu South Shore",
+   "lat": 21.273,
+   "lon": -157.828,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 15,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-populars",
+   "name": "Populars",
+   "region": "Oahu South Shore",
+   "lat": 21.272,
+   "lon": -157.834,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 16,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-publics",
+   "name": "Publics",
+   "region": "Oahu South Shore",
+   "lat": 21.266,
+   "lon": -157.826,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 21,
+     "wind-sea-dominant": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-tonggs",
+   "name": "Tonggs",
+   "region": "Oahu South Shore",
+   "lat": 21.257,
+   "lon": -157.822,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-black-point",
+   "name": "Black Point",
+   "region": "Oahu South Shore",
+   "lat": 21.255,
+   "lon": -157.794,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-cliffs",
+   "name": "Cliffs",
+   "region": "Oahu South Shore",
+   "lat": 21.253,
+   "lon": -157.804,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 21,
+     "outside-window": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-diamond-head",
+   "name": "Diamond Head",
+   "region": "Oahu South Shore",
+   "lat": 21.252,
+   "lon": -157.805,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kawa",
+   "name": "Kawa",
+   "region": "Molokai",
+   "lat": 21.201,
+   "lon": -157.152,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kalaupapa",
+   "name": "Kalaupapa",
+   "region": "Molokai",
+   "lat": 21.198,
+   "lon": -156.984,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 20,
+     "wind-sea-dominant": 4
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kepuhi-bay",
+   "name": "Kepuhi Bay",
+   "region": "Molokai",
+   "lat": 21.189,
+   "lon": -157.249,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-halawa-bay",
+   "name": "Halawa Bay",
+   "region": "Molokai",
+   "lat": 21.159,
+   "lon": -156.736,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-halena-beach",
+   "name": "Halena Beach",
+   "region": "Molokai",
+   "lat": 21.085,
+   "lon": -157.245,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-windmills",
+   "name": "Windmills - Maui",
+   "region": "Maui",
+   "lat": 21.023,
+   "lon": -156.625,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 21,
+     "outside-window": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honokohau",
+   "name": "Honokohau",
+   "region": "Maui",
+   "lat": 21.023,
+   "lon": -156.61,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 21,
+     "wind-sea-dominant": 3
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honolua-bay",
+   "name": "Honolua Bay",
+   "region": "Maui",
+   "lat": 21.016,
+   "lon": -156.641,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 23,
+     "wind-sea-dominant": 1
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-little-makaha",
+   "name": "Little Makaha",
+   "region": "Maui",
+   "lat": 21,
+   "lon": -156.67,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-s-turns",
+   "name": "S-Turns",
+   "region": "Maui",
+   "lat": 20.972,
+   "lon": -156.682,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 4,
+     "outside-window": 15,
+     "wind-sea-dominant": 5
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-rainbows",
+   "name": "Rainbows",
+   "region": "Maui",
+   "lat": 20.95,
+   "lon": -156.693,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-peahi-jaws",
+   "name": "Peahi - Jaws",
+   "region": "Maui",
+   "lat": 20.942,
+   "lon": -156.259,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 15,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 15
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-pavilions",
+   "name": "Pavilions",
+   "region": "Maui",
+   "lat": 20.937,
+   "lon": -156.356,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 7,
+    "offshore": 17,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-hookipa",
+   "name": "Hookipa",
+   "region": "Maui",
+   "lat": 20.936,
+   "lon": -156.359,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 7,
+    "offshore": 17,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-waihee",
+   "name": "Waihee",
+   "region": "Maui",
+   "lat": 20.935,
+   "lon": -156.496,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 3,
+     "outside-window": 14,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kuau",
+   "name": "Kuau",
+   "region": "Maui",
+   "lat": 20.933,
+   "lon": -156.368,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-pohakuloa",
+   "name": "Pohakuloa",
+   "region": "Lanai",
+   "lat": 20.931,
+   "lon": -156.997,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-tavares-bay",
+   "name": "Tavares Bay",
+   "region": "Maui",
+   "lat": 20.922,
+   "lon": -156.374,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kaiolohia-bay-shipwreck-beach",
+   "name": "Kaiolohia Bay/Shipwreck Beach",
+   "region": "Lanai",
+   "lat": 20.918,
+   "lon": -156.901,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kaanapali-point",
+   "name": "Ka'anapali Point",
+   "region": "Maui",
+   "lat": 20.918,
+   "lon": -156.697,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-baldwin-beach-park",
+   "name": "Baldwin Beach Park",
+   "region": "Maui",
+   "lat": 20.915,
+   "lon": -156.394,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-sprecklesville",
+   "name": "Sprecklesville",
+   "region": "Maui",
+   "lat": 20.913,
+   "lon": -156.422,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-waiehu",
+   "name": "Waiehu",
+   "region": "Maui",
+   "lat": 20.91,
+   "lon": -156.482,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 3,
+     "outside-window": 14,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kahului-harbor",
+   "name": "Kahului Harbor",
+   "region": "Maui",
+   "lat": 20.904,
+   "lon": -156.463,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kanaha",
+   "name": "Kanaha",
+   "region": "Maui",
+   "lat": 20.901,
+   "lon": -156.45,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 17,
+     "short-period": 6
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-mala-wharf",
+   "name": "Mala Wharf",
+   "region": "Maui",
+   "lat": 20.887,
+   "lon": -156.688,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 11,
+     "short-period": 13
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-lahaina-harbour",
+   "name": "Lahaina Harbour",
+   "region": "Maui",
+   "lat": 20.872,
+   "lon": -156.681,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-lahaina-breakwall",
+   "name": "Lahaina Breakwall",
+   "region": "Maui",
+   "lat": 20.869,
+   "lon": -156.679,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 11,
+     "short-period": 13
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honomanu-bay",
+   "name": "Honomanu Bay",
+   "region": "Maui",
+   "lat": 20.866,
+   "lon": -156.166,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-shark-pit",
+   "name": "Shark Pit",
+   "region": "Maui",
+   "lat": 20.865,
+   "lon": -156.676,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 11,
+     "short-period": 11,
+     "wind-sea-dominant": 2
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-launiupoko",
+   "name": "Launiupoko",
+   "region": "Maui",
+   "lat": 20.842,
+   "lon": -156.653,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-olowalu",
+   "name": "Olowalu",
+   "region": "Maui",
+   "lat": 20.808,
+   "lon": -156.624,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-lopa-beach",
+   "name": "Lopa Beach",
+   "region": "Lanai",
+   "lat": 20.804,
+   "lon": -156.807,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-ukumehame",
+   "name": "Ukumehame",
+   "region": "Maui",
+   "lat": 20.796,
+   "lon": -156.582,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 21,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 21
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-maalaea-bay",
+   "name": "Ma'alaea Bay",
+   "region": "Maui",
+   "lat": 20.79,
+   "lon": -156.511,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 7,
+    "offshore": 17,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 17
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-hana-bay",
+   "name": "Hana Bay",
+   "region": "Maui",
+   "lat": 20.76,
+   "lon": -155.983,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-manele-bay",
+   "name": "Manele Bay",
+   "region": "Lanai",
+   "lat": 20.736,
+   "lon": -156.894,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-the-cove",
+   "name": "The Cove",
+   "region": "Maui",
+   "lat": 20.728,
+   "lon": -156.453,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-little-beach",
+   "name": "Little Beach",
+   "region": "Maui",
+   "lat": 20.635,
+   "lon": -156.452,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-dumps",
+   "name": "Dumps",
+   "region": "Maui",
+   "lat": 20.613,
+   "lon": -156.438,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-la-perouse-bay",
+   "name": "La Perouse Bay",
+   "region": "Maui",
+   "lat": 20.591,
+   "lon": -156.415,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kohala-lighthouse",
+   "name": "Kohala Lighthouse",
+   "region": "Big Island",
+   "lat": 20.243,
+   "lon": -155.775,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-waipio-valley",
+   "name": "Waipio Valley",
+   "region": "Big Island",
+   "lat": 20.12,
+   "lon": -155.592,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 15,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 3,
+     "wind-sea-dominant": 12
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kawaihae-breakwater",
+   "name": "Kawaihae Breakwater",
+   "region": "Big Island",
+   "lat": 20.038,
+   "lon": -155.836,
+   "class": "static-offshore",
+   "reason": "no-orientation+no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-hapuna-point",
+   "name": "Hapuna Point",
+   "region": "Big Island",
+   "lat": 19.994,
+   "lon": -155.827,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-anaehoomalu-bay",
+   "name": "Anaehoomalu Bay",
+   "region": "Big Island",
+   "lat": 19.922,
+   "lon": -155.892,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-keawaiki-bay",
+   "name": "Keawaiki Bay",
+   "region": "Big Island",
+   "lat": 19.887,
+   "lon": -155.911,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kolekole",
+   "name": "Kolekole",
+   "region": "Big Island",
+   "lat": 19.884,
+   "lon": -155.117,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 15,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kiholo-bay",
+   "name": "Kiholo Bay",
+   "region": "Big Island",
+   "lat": 19.855,
+   "lon": -155.929,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-mahaiula-bay",
+   "name": "Mahaiula Bay",
+   "region": "Big Island",
+   "lat": 19.784,
+   "lon": -156.038,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15,
+     "wind-sea-dominant": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honolii-point",
+   "name": "Honolii Point",
+   "region": "Big Island",
+   "lat": 19.756,
+   "lon": -155.091,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 1,
+    "offshore": 23,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-richardsons",
+   "name": "Richardsons",
+   "region": "Big Island",
+   "lat": 19.736,
+   "lon": -155.017,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 5,
+    "offshore": 19,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15,
+     "outside-window": 4
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-pinetrees",
+   "name": "Pinetrees",
+   "region": "Big Island",
+   "lat": 19.694,
+   "lon": -156.046,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 3,
+     "short-period": 12,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honokohau-beach",
+   "name": "Honokohau Beach",
+   "region": "Big Island",
+   "lat": 19.674,
+   "lon": -156.027,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 8,
+     "short-period": 12,
+     "wind-sea-dominant": 4
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kaiwi-point",
+   "name": "Kaiwi Point",
+   "region": "Big Island",
+   "lat": 19.658,
+   "lon": -156.033,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 2,
+    "offshore": 22,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 3,
+     "short-period": 12,
+     "wind-sea-dominant": 7
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-old-kona-airport",
+   "name": "Old Kona Airport",
+   "region": "Big Island",
+   "lat": 19.643,
+   "lon": -156.015,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-hulihee-palace",
+   "name": "Hulihee Palace",
+   "region": "Big Island",
+   "lat": 19.639,
+   "lon": -155.995,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 13,
+     "short-period": 11
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honls",
+   "name": "Honls",
+   "region": "Big Island",
+   "lat": 19.628,
+   "lon": -155.99,
+   "class": "hourly-offshore",
+   "reason": "outside-window",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 12,
+     "short-period": 12
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-banyans",
+   "name": "Banyans",
+   "region": "Big Island",
+   "lat": 19.606,
+   "lon": -155.978,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 21,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 10,
+     "short-period": 11
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-lymans",
+   "name": "Lymans",
+   "region": "Big Island",
+   "lat": 19.603,
+   "lon": -155.977,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 21,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 10,
+     "short-period": 11
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-laaloa-beach-park",
+   "name": "La'aloa Beach Park",
+   "region": "Big Island",
+   "lat": 19.594,
+   "lon": -155.972,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 21,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 10,
+     "short-period": 11
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kahaluu-bay",
+   "name": "Kahalu'u Bay",
+   "region": "Big Island",
+   "lat": 19.581,
+   "lon": -155.969,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 3,
+    "offshore": 21,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "outside-window": 10,
+     "short-period": 11
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kapoho-bay",
+   "name": "Kapoho Bay",
+   "region": "Big Island",
+   "lat": 19.497,
+   "lon": -154.814,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 9,
+    "offshore": 15,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 15
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-keei",
+   "name": "Keei",
+   "region": "Big Island",
+   "lat": 19.461,
+   "lon": -155.929,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-pohoiki",
+   "name": "Pohoiki",
+   "region": "Big Island",
+   "lat": 19.459,
+   "lon": -154.837,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 24
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-keauhou-point",
+   "name": "Keauhou Point",
+   "region": "Big Island",
+   "lat": 19.262,
+   "lon": -155.234,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 16,
+     "outside-window": 8
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-punaluu",
+   "name": "Punaluu",
+   "region": "Big Island",
+   "lat": 19.133,
+   "lon": -155.503,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "wind-sea-dominant": 19,
+     "short-period": 5
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-honuapo-bay",
+   "name": "Honuapo Bay",
+   "region": "Big Island",
+   "lat": 19.084,
+   "lon": -155.547,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-pohue-bay-beach",
+   "name": "Pohue Bay Beach",
+   "region": "Big Island",
+   "lat": 19.011,
+   "lon": -155.797,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-hawaii-kaalualu-point",
+   "name": "Kaalualu Point",
+   "region": "Big Island",
+   "lat": 18.966,
+   "lon": -155.61,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 6,
+     "wind-sea-dominant": 9,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-kahuku-ranch",
+   "name": "Kahuku Ranch",
+   "region": "Big Island",
+   "lat": 18.923,
+   "lon": -155.684,
+   "class": "hourly-offshore",
+   "reason": "short-period",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 14,
+     "outside-window": 10
+    }
+   }
+  },
+  {
+   "id": "w-hawaii-south-point",
+   "name": "South Point",
+   "region": "Big Island",
+   "lat": 18.91,
+   "lon": -155.678,
+   "class": "hourly-offshore",
+   "reason": "wind-sea-dominant",
+   "detail": null,
+   "hours": {
+    "estimate": 0,
+    "offshore": 24,
+    "none": 0,
+    "other": 0,
+    "total": 24,
+    "why": {
+     "short-period": 6,
+     "wind-sea-dominant": 9,
+     "outside-window": 9
+    }
+   }
+  },
+  {
+   "id": "w-carib-middles-isabela",
+   "name": "Middles",
+   "region": "Puerto Rico",
+   "lat": 18.515,
+   "lon": -67.055,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-montones",
+   "name": "Montones",
+   "region": "Puerto Rico",
+   "lat": 18.515,
+   "lon": -67.067,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-cibuco",
+   "name": "Cibuco",
+   "region": "Puerto Rico",
+   "lat": 18.491,
+   "lon": -66.396,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-hallows",
+   "name": "Hallows",
+   "region": "Puerto Rico",
+   "lat": 18.491,
+   "lon": -66.611,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-cueva-del-indio",
+   "name": "Cueva del Indio",
+   "region": "Puerto Rico",
+   "lat": 18.49,
+   "lon": -66.643,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-las-pasas",
+   "name": "Las Pasas",
+   "region": "Puerto Rico",
+   "lat": 18.482,
+   "lon": -66.342,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-caza-y-pesca",
+   "name": "Caza y Pesca",
+   "region": "Puerto Rico",
+   "lat": 18.481,
+   "lon": -66.685,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-kikita-beach",
+   "name": "Kikita Beach",
+   "region": "Puerto Rico",
+   "lat": 18.478,
+   "lon": -66.262,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-el-unico",
+   "name": "El Unico",
+   "region": "Puerto Rico",
+   "lat": 18.469,
+   "lon": -66.239,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-san-juan-san-juan",
+   "name": "San Juan",
+   "region": "Puerto Rico",
+   "lat": 18.46,
+   "lon": -66.074,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-crash-boat",
+   "name": "Crash Boat",
+   "region": "Puerto Rico",
+   "lat": 18.457,
+   "lon": -67.164,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-cochino",
+   "name": "Cochino",
+   "region": "Puerto Rico",
+   "lat": 18.456,
+   "lon": -66.18,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-la-bomba-2",
+   "name": "La Bomba",
+   "region": "Puerto Rico",
+   "lat": 18.456,
+   "lon": -66.064,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-pine-grove",
+   "name": "Pine Grove",
+   "region": "Puerto Rico",
+   "lat": 18.445,
+   "lon": -66.013,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-bridges",
+   "name": "Bridges",
+   "region": "Puerto Rico",
+   "lat": 18.426,
+   "lon": -67.156,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-antonios",
+   "name": "Antonio's",
+   "region": "Puerto Rico",
+   "lat": 18.373,
+   "lon": -67.253,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-pools-2",
+   "name": "Pools",
+   "region": "Puerto Rico",
+   "lat": 18.371,
+   "lon": -67.261,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-indicators-rincon",
+   "name": "Indicators",
+   "region": "Puerto Rico",
+   "lat": 18.361,
+   "lon": -67.272,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-the-point-rincon",
+   "name": "The Point",
+   "region": "Puerto Rico",
+   "lat": 18.359,
+   "lon": -67.272,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-marias",
+   "name": "Maria's",
+   "region": "Puerto Rico",
+   "lat": 18.358,
+   "lon": -67.272,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  },
+  {
+   "id": "w-carib-little-malibu",
+   "name": "Little Malibu",
+   "region": "Puerto Rico",
+   "lat": 18.344,
+   "lon": -67.261,
+   "class": "static-offshore",
+   "reason": "no-profile",
+   "detail": null,
+   "hours": null
+  }
+ ]
+}

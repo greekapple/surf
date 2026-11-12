@@ -1,3 +1,4 @@
+import {officialRange} from './officialSurf.ts';
 import type {Forecast, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {dateIn, fmtIn} from '../ocean/time.ts';
@@ -58,7 +59,7 @@ export const shortReason = (why: string | null | undefined): string | null => {
 };
 
 /** The day row: best daylight rating per local day from the current hour on, up to `max` days, stopping where the forecast stops. */
-export function bestEachDay(spot: SurfSpot, records: Forecast[], nowMs: number, max = 7, profile?: UserProfile, bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null): ShareDay[] {
+export function bestEachDay(spot: SurfSpot, records: Forecast[], nowMs: number, max = 7, profile?: UserProfile, bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null): ShareDay[] {
   const tz = timeZoneOf(spot), from = Math.floor(nowMs / HOUR) * HOUR;
   const mine = records.filter((f) => f.spotId === spot.id && Date.parse(f.timestamp) >= from).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp));
   const byDay = new Map<string, {light: number; best: {score: number; category: string} | null}>();
@@ -86,7 +87,7 @@ export const dayRowText = (days: ShareDay[]) => {
 
 /** The card for a spot. `call` is the Call the Share sits beside; `fallbackNow` (the spot page header) shares the current hour when there is no window, saying so with the call's reason;
  *  without it, no window = nothing to share (as sharePlanFor). */
-export function shareCardFor(spot: SurfSpot, call: Pick<Call, 'verdict' | 'window' | 'nextWindow' | 'why' | 'nextDay'>, records: Forecast[], profile: UserProfile, nowMs: number, slug: string, origin = '', bundle?: Pick<OceanBundle, 'nearshore' | 'mop'> | null, opts: {fallbackNow?: boolean} = {}): ShareCard | null {
+export function shareCardFor(spot: SurfSpot, call: Pick<Call, 'verdict' | 'window' | 'nextWindow' | 'why' | 'nextDay'>, records: Forecast[], profile: UserProfile, nowMs: number, slug: string, origin = '', bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null, opts: {fallbackNow?: boolean} = {}): ShareCard | null {
   const tz = timeZoneOf(spot), nowHour = Math.floor(nowMs / HOUR) * HOUR;
   const w = call.verdict !== 'Dark' && call.window ? call.window : call.nextWindow;
   let startMs: number, end: number | null = null, rec: Forecast | undefined, tomorrow = false;
@@ -120,7 +121,8 @@ export function shareCardFor(spot: SurfSpot, call: Pick<Call, 'verdict' | 'windo
     const n = h.calibration?.n;
     const tags = [SHORT_TAG[hr.surf.tag] ?? hr.surf.tag, h.transfer?.tag, h.calibration && !h.saved ? `tuned to your ${n ?? ''} report${n === 1 ? '' : 's'}`.replace('  ', ' ') : null, h.interval?.disagree ? 'models differ' : null].filter((x): x is string => !!x);
     surf = {main: hr.surf.value === FLAT_LABEL ? FLAT_LABEL : `${hr.surf.value} surf${hawaiianScaleNote(spot, profile)}`, tags};
-  } else if (h.kind === 'offshore') surf = {main: 'no surf estimate here', tags: ['offshore model only']};
+  } else if (h.kind === 'official') surf = {main: `NWS surf fcst ${officialRange(h, profile.heightUnit === 'm' ? 'm' : 'ft')}`, tags: h.stale ? ['older than its next issue'] : []};   // spec: "NWS surf fcst 6–8 ft"; it is the NWS's number, labelled, and its issue time stays on the spot page
+  else if (h.kind === 'offshore') surf = {main: 'no surf estimate here', tags: ['offshore model only']};
   // swell: the Swell card's first shown partition: period and direction (its height is an offshore height, so it is not shared)
   const part = shownPartitions([rec.primary, rec.secondary, rec.tertiary])[0];
   const swell = part && Number.isFinite(part.period) && Number.isFinite(part.direction) ? `${Math.round(part.period)} s ${compass(part.direction)} ${part.kind === 'chop' ? 'wind chop' : 'swell'}` : null;

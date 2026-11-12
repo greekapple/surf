@@ -5,5 +5,5 @@ import type {OceanBundle} from './types.ts';
 export function mergeSpotBundle(old: OceanBundle | null | undefined, first: OceanBundle, spotId: string): OceanBundle {
   if (!old) return first;
   const loaded = new Set([...(old.loadedSpotIds ?? old.records.map((r) => r.spotId)), ...(first.loadedSpotIds ?? [spotId])]);
-  return {...old, records: [...old.records.filter((r) => r.spotId !== spotId), ...first.records.filter((r) => r.spotId === spotId)], loadedSpotIds: [...loaded], stationTides: {...(old.stationTides ?? {}), ...(first.stationTides ?? {})}};
+  return {...old, records: [...old.records.filter((r) => r.spotId !== spotId), ...first.records.filter((r) => r.spotId === spotId)], loadedSpotIds: [...loaded], stationTides: {...(old.stationTides ?? {}), ...(first.stationTides ?? {})}, ...(old.srf || first.srf ? {srf: {...(old.srf ?? {}), ...(first.srf ?? {})}} : {})};
 }

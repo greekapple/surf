@@ -11,6 +11,7 @@
 // The Duck FRF data is private-use only and is NOT captured here (it stays in the local capture).
 import {sliceByDay, gzip} from './ndbc-archive.mjs';
 import {SWAN_CAPTURE_CELLS} from './swan-capture-cells.mjs';
+import {slimProduct, serveKey} from './srf-serve.mjs';
 
 export const UA = 'SWELLO surf forecast prototype';
 export const GAUGE_STATIONS = ['LJPC1', '46254', '46266', '46274', '46285', '46268', '46286', '41115', '41121', '51211', '44056'];
@@ -123,14 +124,15 @@ export function createSurfCapture({fetcher = fetch, now = Date.now, sleep = (ms)
       let json; try { json = JSON.parse(list.text); } catch { rep.status = 'bad json'; failures++; continue; }
       const all = parseSrfList(json), fresh = newProducts(all, seen);
       rep.listed = all.length; rep.new = newProducts(all, seen, Infinity).length;
-      const ids = [...seen];
+      const ids = [...seen]; let newest = null;
       for (const p of fresh) {
         const got = await get(`https://api.weather.gov/products/${p.id}`, c.spend, headers);
         if (got.status !== 'ok') { failures++; rep.status = got.status; if (got.status === 'budget') break; continue; }
         let prod; try { prod = JSON.parse(got.text); } catch { failures++; rep.status = 'bad product json'; continue; }
         if (prod?.id !== p.id || typeof prod?.productText !== 'string') { failures++; rep.status = 'unexpected product'; continue; }
-        if (await put(bucket, c, KEYS.srf(office, p.id), got.text, {httpMetadata: {contentType: 'application/json'}, customMetadata: {office, issuanceTime: p.issuanceTime ?? ''}})) { ids.push(p.id); rep.stored++; stored++; } else { failures++; rep.status = 'put failed'; }
+        if (await put(bucket, c, KEYS.srf(office, p.id), got.text, {httpMetadata: {contentType: 'application/json'}, customMetadata: {office, issuanceTime: p.issuanceTime ?? ''}})) { ids.push(p.id); rep.stored++; stored++; if (!newest || String(p.issuanceTime) > String(newest.issuanceTime)) newest = {issuanceTime: p.issuanceTime, prod}; } else { failures++; rep.status = 'put failed'; }
       }
+      if (newest) { const slim = slimProduct(newest.prod, office); if (slim) { if (await put(bucket, c, serveKey(office), JSON.stringify(slim), {httpMetadata: {contentType: 'application/json'}})) rep.served = slim.id; else { failures++; rep.status = 'serve put failed'; } } else rep.served = 'unparsed'; }
       index.offices[office] = {ids: ids.slice(-SEEN_CAP), updatedAt: new Date(now()).toISOString()};
       if (c.used >= c.limit) break;
     }
