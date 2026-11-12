@@ -516,3 +516,14 @@
 
 /* review P1-3: when no board suits the estimate, say so above the list */
 .qv-nofit { margin: 0; padding: 10px 12px; border-radius: var(--r2); background: var(--s2); }
+
+/* phone pass 12: the size-fit line moves under the selected board's label (it floated in the stage by the ruler and the board's nose); the thumbnail
+   strip takes the stage floor's colour, so the stage reads as one ground */
+.qv-fit-for { display: none; }
+@media (max-width: 860px) {
+  .qv-rackwrap .qv-today { display: none; }
+  .qv-rackwrap .qv-fit-for { display: block; font-size: 12px; color: var(--muted); }
+  .qv-rackwrap .qv-rackrow li.on .qv-rl { height: auto; }
+  .qv-rackwrap .qv-stage.qv-room { --rack-floor: 94px; }   /* the floor holds the 4-line label (name, length, fit, 'for est. …') */
+  .qv-rackwrap .qv-strip { background: #e4e1dc; border-top-color: rgb(27 34 39 / 0.08); }
+}

@@ -1,5 +1,5 @@
 /* Beyond-Surfline steps 2 and 3, inside the Surf card: "How right we've been" and "tuned to your reports". Text and hairlines, no boxes (RULES.md). */
-.hr { margin-top: 6px; font-size: 13px; line-height: 1.35; color: var(--muted); }
+.hr { margin-top: 6px; margin-bottom: 10px; font-size: 13px; line-height: 1.35; color: var(--muted); }
 .hr-line { margin: 0; }
 .hr-line > span { color: var(--text); }
 .hr-quiet { color: var(--dim); font-size: 12px; }

@@ -82,6 +82,8 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
                   <BoardPicture b={b} px={base} outline={outlines.get(b.id) ?? null} />
                   <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>
                     {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${surfRange(ft.board[0], ft.board[1], profile)}` : undefined}>{ft.label}</em> : null; })()}
+                    {/* phone pass 12: on a phone the 'size fit for …' line sits under the selected board's fit, not floating in the stage beside the ruler */}
+                    {estText && b.id === selected.id && <small className="qv-fit-for">for {estText}</small>}
                   </span>
                 </button>
               </li>

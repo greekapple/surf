@@ -675,3 +675,10 @@ p.sp-wn { display: block; }
 @media (max-width: 860px) {
   .sp-band.is-drawn .sp-band-in { padding-bottom: 28px; }
 }
+
+/* phone pass 8: the strip's kind and confidence, said once under it (the columns no longer repeat it) */
+.sp-days-k { margin: 4px 2px -6px; font-size: 12px; line-height: 16px; color: var(--dim); }
+/* a column whose line is empty drops it; the wind arrows and rating bars sit on the card's bottom edge, so every column lines up */
+.sp .sp-day { display: flex; flex-direction: column; align-items: center; }
+.sp .sp-day .sd-k:empty { display: none; }
+.sp .sp-day .sd-w { margin-top: auto; }

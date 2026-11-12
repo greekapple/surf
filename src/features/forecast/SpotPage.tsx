@@ -245,7 +245,7 @@ export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('.
   if (!top || top.size.state === 'none') return null;
   return (
     <section className="sp-board" aria-label="Board Match">
-      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}` : '.'} <span className="fine">Wave shape unknown.</span></p>
+      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}.` : '.'} <span className="fine">Wave shape unknown.</span></p>
       <button className="sp-link" onClick={onOpen}>Board Match</button>
     </section>
   );
@@ -259,6 +259,9 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
   // Drag across the strip with a mouse to scrub days; every card follows the selected hour live.
   const scrub = useRef(false);
   let selNote: string | null = null;
+  // phone pass 8: the kind and confidence words ("est. · high confidence") were repeated in every column; they are said once under the strip, as runs of
+  // days ("est. · high confidence Today–Thu · medium confidence Fri"). Each day's button keeps its own words in its accessible name.
+  const kw: {name: string; label: string | null}[] = [];
   const strip = (
     <nav className="sp-days days" aria-label="Forecast days" data-scrub={scrub.current || undefined}
       onPointerDown={(e) => { if (e.pointerType === 'mouse' && e.button === 0) scrub.current = true; }}
@@ -278,18 +281,19 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const kind = dr.kind === 'estimate' ? (tyFlat ? 'model estimate' : 'est.') : dr.kind === 'offshore' ? 'offshore' : dr.kind === 'official' ? (ty?.hour?.surf?.headline.kind === 'official' && ty.hour.surf.headline.stale ? 'NWS (older)' : 'NWS') : demo.length ? 'demo' : '';
         // T-112: the main number is the SAME text the week grid shows (dayText: the midday hour's headline value, in the person's unit and scale); the demo week keeps its own median.
         const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dr.kind === 'official' && (dr.officialHalves?.length ?? 0) > 1 ? dr.officialHalves!.map((x) => officialRange(x, p.heightUnit === 'm' ? 'm' : 'ft').replace(/\s*(ft|m)$/, '')).join(' / ') : dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
-        const envText = env && dr.label ? `${dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '')}${dr.kind === 'offshore' ? ` ${p.heightUnit}` : ''}` : null;
+        const envBase = env && dr.label ? dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '') : null, envText = envBase ? `${envBase}${dr.kind === 'offshore' && !/\b(ft|m)$/.test(envBase) ? ` ${p.heightUnit}` : ''}` : null;   // the offshore label can already carry its unit ("9.2 to 9.8 ft ft")
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
         // certainty (2026-11-06): the midday hour's level. Past the horizon the card says "too far out" (the model's number moves to the note under the strip and the tooltips); where the models disagree the band stays the number, with "models differ" and what it could be in the detail.
         const cv = dr.kind === 'none' ? null : dayCertainty(spot.id, dr, now), far = cv?.level === 'too-far', shown = certainLabel(mainNum, unitSuffix, cv, p);
         if (k === cur && env) selNote = `${cv ? `${far ? 'Too far out to call' : `${cv.word.replace(/^\w/, (c) => c.toUpperCase())}${shown.note ? `, ${shown.note}` : ''}`}: ${cv.why}. ${far ? `The model says ${(shown.detail ?? '').replace(/^the model says /, '')} at ${ty?.short ?? 'midday'}. ` : shown.detail ? `${shown.detail.replace(/^\w/, (c) => c.toUpperCase())}. ` : ''}` : ''}${dr.kind === 'official' ? `NWS surf zone forecast, one range for the day (${dr.basis})` : `Range over daylight: ${envText} (${kind === 'est.' || tyFlat ? 'estimated' : kind}, ${dr.hours} daylight hours)`}`;
         const name = weekdayPT(d.t) === today && k === 0 ? 'Today' : `${weekdayPT(d.t)} ${dayNumPT(d.t)}`;
+        const sumLabel = range && cv && !far ? `${kind} · ${shown.note ?? cv.word}` : null; kw.push({name, label: sumLabel});
         return (
           <button key={d.key} className={`sp-day day${cv ? ` is-${cv.level}` : ''}`} data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)} data-certainty={cv?.level}
             aria-label={`${name}: ${range ? `${far ? `too far out to call, ${shown.detail}` : `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${shown.text.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}`}${cv && !far ? `, ${cv.word}` : ''}${shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week for you: the highest average rating over its 6 AM–7 PM hours, among the next few days that have a Go or Worth-a-look window for your skill range. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
-            <span className={`sd-h${dr.kind === 'offshore' ? ' sd-off' : ''}`} title={cv ? `${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
-            <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{cv && !far ? `${kind} · ${shown.note ?? cv.word}` : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
+            <span className={`sd-h${dr.kind === 'offshore' ? ' sd-off' : ''}`} title={cv ? `${sumLabel && ty ? `${ty.aria}; ` : ''}${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
+            <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{sumLabel ? null : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
             <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
             <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark && b.h ? `${b.label}: ${conditionWord(b.h.rating.category).toLowerCase()} conditions, after dark` : undefined} style={{background: b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
           </button>
@@ -297,7 +301,14 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
       })}
     </nav>
   );
-  return <>{strip}{selNote && <p className="sp-dayrange">{selNote}</p>}</>;
+  // runs of consecutive days with the same words: "est. · high confidence Today–Thu · medium confidence Fri"
+  // grouped by label, first appearance first: "est. · high confidence Thu 12–Sat 14, Tue 17; medium confidence Sun 15" (a label that returns after a gap is not
+  // repeated; ';' separates the groups so no word can be read as another group's)
+  const groups = new Map<string, {from: string; to: string; i: number}[]>();
+  kw.forEach((d, i) => { if (!d.label) return; const g = groups.get(d.label) ?? []; const last = g[g.length - 1]; if (last && last.i === i - 1) { last.to = d.name; last.i = i; } else g.push({from: d.name, to: d.name, i}); groups.set(d.label, g); });
+  const kinds = new Set([...groups.keys()].map((l) => l.split(' · ')[0]));
+  const keyLine = groups.size ? [...groups].map(([label, rs], k) => `${kinds.size > 1 || k === 0 ? label : label.split(' · ').slice(1).join(' · ')} ${rs.map((r) => (r.from === r.to ? r.from : `${r.from}–${r.to}`)).join(', ')}`).join('; ') : null;
+  return <>{strip}{keyLine && <p className="sp-days-k">{keyLine}</p>}{selNote && <p className="sp-dayrange">{selNote}</p>}</>;
 }
 
 /** Magicseaweed-style 3-hour table for the selected day: wind cells coloured by shore relation. */

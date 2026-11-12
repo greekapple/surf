@@ -265,7 +265,7 @@ export function QuiverView({section, go}: ViewProps) {
                       <h2>{x.board.name}</h2>
                       <p className="fine">{x.board.type} · {lengthLabel(x.board.length)} · {x.board.volume} L</p>
                       <p><em className={`qv-fit ${x.size.state}`}>{x.size.label}</em>{x.size.state !== 'none' && <span className="fine"> · {x.size.source === 'board' ? 'your range' : `${x.board.type.toLowerCase()} range`} {surfRange(x.size.board[0], x.size.board[1], p)}</span>}</p>
-                      {x.period && period !== null && <p className="fine">{Math.round(period)} s period: {x.period.note}</p>}
+                      {x.period && period !== null && <p className="fine">{Math.round(period)} s period: {x.period.note}.</p>}
                     </div>
                   </li>
                 ))}</ol>

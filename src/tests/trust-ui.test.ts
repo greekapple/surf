@@ -46,9 +46,11 @@ test('rankBoards passes the board length, so the small-board long-period note ca
 test('audit A14/R17: the period fit uses the whole seconds the Swell card shows, in one lower-case clause', () => {
   const ok = periodFit('shortboard', 9.8);
   assert.equal(ok.fit, 'ok', 'a swell the Swell card shows as 10 s is not "short" for a 10 s board');
-  assert.equal(ok.note, 'this 10 s swell suits it.');
+  assert.equal(ok.note, 'this 10 s swell suits it');
   const short = periodFit('stepup', 9.4);
-  assert.equal(short.note, 'this 9 s swell is short for it (it likes 11 s or more), so expect it to feel soft.');
+  assert.equal(short.note, 'this 9 s swell is short for it (it likes 11 s or more), so expect it to feel soft');
+  // phone pass 9: clauses without closing punctuation (the caller adds it), so no "soft.." or "soft.)." anywhere they are used
+  for (const n of [ok.note, short.note, periodFit('fish', 17, 64).note, periodFit('fish', null).note]) { assert.doesNotMatch(n, /[.!?]$/); assert.match(n, /^[a-z]/); }
   for (const n of [ok.note, short.note, periodFit('fish', 17, 64).note]) assert.doesNotMatch(n, /^A |\d\.\d/);
 });
 

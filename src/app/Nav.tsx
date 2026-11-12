@@ -193,9 +193,9 @@ export function SpotPicker() {
 export function DataBadge() {
   const {view, live, labelZone} = useSwello();
   const o = view.ocean;
-  if (!live) return <span className="badge demo"><i /><span className="lbl">Demonstration · not live</span></span>;
-  if (o.loading && !o.bundle) return <span className="badge demo"><i /><span className="lbl">Loading forecast…</span></span>;
-  if (!o.bundle) return <span className="badge err"><i /><span className="lbl">Forecast unavailable</span></span>;
+  if (!live) return <span className="badge demo" title="Demonstration · not live"><i /><span className="lbl">Demonstration · not live</span></span>;
+  if (o.loading && !o.bundle) return <span className="badge demo" title="Loading forecast…"><i /><span className="lbl">Loading forecast…</span></span>;
+  if (!o.bundle) return <span className="badge err" title="Forecast unavailable"><i /><span className="lbl">Forecast unavailable</span></span>;
   const limited = limitedText(o.statuses); // audit F25: names the limited source (a source still loading is not limited)
   // 1A: the badge is in the zone of the spot in view (the viewer's on Home or an unfocused map), and always says which (PST, HST, EST, GMT)
   const zoneTag = () => ` ${zoneAbbr(labelZone, o.bundle!.loadedAt)}`;
@@ -231,7 +231,7 @@ export function TopNav({area, section, go}: {area: Area; section: string; go: Go
 function ThemeToggle() {
   const [pref, setPref] = useThemePref();
   const dark = resolveTheme(pref) === 'dark';
-  return <button className="iconbtn" aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} title={dark ? 'Light theme' : 'Dark theme'} onClick={() => setPref(dark ? 'light' : 'dark')}><Icon name={dark ? 'sun' : 'moon'} size={18} /></button>;
+  return <button className="iconbtn theme-t" aria-label={dark ? 'Switch to light theme' : 'Switch to dark theme'} title={dark ? 'Light theme' : 'Dark theme'} onClick={() => setPref(dark ? 'light' : 'dark')}><Icon name={dark ? 'sun' : 'moon'} size={18} /></button>;
 }
 
 /** One search, everywhere (Surfline's overlay): spots grouped by county, each with its condition colour and labelled height.

@@ -289,8 +289,7 @@
   .explore, .showroom { grid-template-columns: minmax(0, 1fr); }
   .mapbox { height: 58dvh; min-height: 360px; }
   .spotlist { position: fixed; left: 10px; right: 10px; top: 60px; width: auto; }
-  .badge .lbl { display: none; }
-  .num { font-size: 50px; }
+  .num { font-size: 50px; }   /* the badge's label stays visually hidden (the 1100 px rule), never display:none: screen readers read it (data-honesty review, phone pass 10) */
 }
 
 /* ---------- Skeletons (RULES.md: no loading text) ---------- */
@@ -461,3 +460,19 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
 .xsearch .acf > input:focus, .xsearch .acf > input:focus-visible, .search-in .acf > input:focus, .search-in .acf > input:focus-visible { outline: none; box-shadow: none; }
 /* phone pass 2: on a phone the map runs edge to edge under no app header (its own search replaces the header's; the tab bar stays) */
 @media (max-width: 860px) { .shell.is-map { --nav-h: 0px; } .shell.is-map .hdr { display: none; } }
+
+/* phone pass 10 (header): on a phone the bar holds the wordmark with the data-status dot right after it, then a search ICON (it opens the same full-width
+   search) and the avatar. The theme toggle stays in Personal > Appearance; the area links live in the tab bar, so no active underline under the avatar. */
+@media (max-width: 860px) {
+  .topnav .nav-end { display: contents; }
+  .topnav .wordmark { order: 0; }
+  .topnav .badge { order: 1; margin-left: -6px; padding: 6px; border: 0; background: none; }
+  .topnav .theme-t { display: none; }
+  .topnav .search { order: 2; flex: none; margin-left: auto; }
+  .topnav .searchbar { position: relative; justify-content: center; width: 44px; height: 44px; padding: 0; border-radius: 50%; }
+  .topnav .searchbar span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+  .topnav .searchbar kbd { display: none; }
+  .topnav .searchbar svg { width: 18px; height: 18px; }
+  .topnav .me-menu { order: 3; }
+  .topnav .area-link[aria-current='page']::after { display: none; }
+}

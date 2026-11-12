@@ -263,3 +263,12 @@
 .wk-c.is-too-far .wk-bar { opacity: 0.45; }
 .wk-why { display: block; font-size: 11px; font-weight: 450; color: var(--muted); line-height: 13px; }
 .wk-key-hatch { height: 9px; border: 1px solid var(--line-2); border-radius: 2px; background: repeating-linear-gradient(135deg, color-mix(in srgb, var(--text) 25%, transparent) 0 1px, transparent 1px 4px); margin-left: 2px; }
+
+/* phone pass 11: the week table's key behind an (i) beside the heading (a 44 px tap target), opening under the heading */
+.wk-head { position: relative; align-items: center; }
+.wk-info { position: static; }
+.wk-info summary { display: grid; place-items: center; width: 44px; height: 44px; margin: -10px 0; list-style: none; cursor: pointer; }
+.wk-info summary::-webkit-details-marker { display: none; }
+.wk-info summary span { display: grid; place-items: center; width: 20px; height: 20px; border: 1.5px solid var(--line-2); border-radius: 50%; color: var(--muted); font: italic 700 12px/1 Georgia, serif; }
+.wk-info summary:hover span, .wk-info[open] summary span { border-color: var(--muted); color: var(--text); }
+.wk-info .wk-key-p { position: absolute; left: 0; right: 0; top: calc(100% + 6px); z-index: 5; max-width: 440px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: var(--bg); box-shadow: 0 6px 20px var(--shadow); }
