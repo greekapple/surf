@@ -616,3 +616,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-12 merged + deployed atlantic-7s (2f52522): 412 US Atlantic profiles at 7 s, 490 keep 8 s; honesty review items fixed; 1097 tests ✓. Open: journey 3 End-key SURF card 'NaN' at OB (fails before this merge too; sent to product).
 - 2026-11-12 PROD BREAK fixed: trust.css unclosed @media (from home-nws 321d5d7) nested the bundled stylesheet into max-width:860px; wide screens unstyled on prod 55e0761a→23b0166a. Dev hid it (per-file CSS). Fix + css-balance test, deployed 4939f6d4, checked live at 1440. Lesson: after every deploy, look at prod at 1440 AND 390.
 - 2026-11-12 merged + deployed j3-last-hour (ae0239e): no-estimate hours marked on the offshore line, not 0 ft; journeys 8/8, 1098 tests.
+- 2026-11-12 merged hdontap-snaps (1fa29e4): 17-camera registry, Venice snapshot live locally, switcher at 2+, attribution + real logos; 1105 tests, journeys 8/8. Awaiting user deploy OK.
