@@ -17,7 +17,7 @@ import {dateIn,hourIn} from '../ocean/time';
 import {timeZoneOf,setActiveZone} from '../ocean/spotZone';
 import {toLegacy} from '../ocean/bridge';
 import {experimentRecord} from '../ocean/experiment';
-export interface ScopeInput{favorites:string[];visible:string[];requested:string[]}
+export interface ScopeInput{favorites:string[];visible:string[];requested:string[];/** map-fill: the map's background list, last, with its own allowance (SCOPE_FILL_MAX) */fill?:string[]}
 const NO_SCOPE:ScopeInput={favorites:[],visible:[],requested:[]};
 export function useForecast(scopeInput:ScopeInput=NO_SCOPE){
  const [dataMode,setMode]=useState<'Retrieved'|'Demonstration'>('Retrieved');
@@ -29,7 +29,7 @@ export function useForecast(scopeInput:ScopeInput=NO_SCOPE){
  const mapLayer=mapPreferences.layer,mapVariable=mapPreferences.variable,mapComponent=mapPreferences.component;
  const setMapDisplay=(patch:Partial<MapPreferences>)=>setMapPreferences(old=>({...old,...patch}));
  const mapCamera=useRef<MapCamera>({lat:37.7,lng:-124,zoom:7});
- const scope=useMemo(()=>computeScope(selected,scopeInput.favorites,scopeInput.visible,scopeInput.requested),[selected,scopeInput.favorites.join(','),scopeInput.visible.join(','),scopeInput.requested.join(',')]); // eslint-disable-line react-hooks/exhaustive-deps
+ const fillKey=(scopeInput.fill??[]).join(',');const scope=useMemo(()=>computeScope(selected,scopeInput.favorites,scopeInput.visible,scopeInput.requested,undefined,undefined,scopeInput.fill),[selected,scopeInput.favorites.join(','),scopeInput.visible.join(','),scopeInput.requested.join(','),fillKey]); // eslint-disable-line react-hooks/exhaustive-deps
  const ocean=useOceanData(dataMode==='Retrieved',scope);
  const records=ocean.bundle?.records??[];const spotRecords=records.filter(r=>r.spotId===selected);
  const realOriginal=selectedRecord(records,selected,instant);

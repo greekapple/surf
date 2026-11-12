@@ -25,6 +25,7 @@ import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
 import {buildField, legendModel, sampleField, type Field, type FieldController, type FieldLayer} from '../../map/field';
 import {mapConfig, minZoomFor, type ScaleKey} from '../../map/mapConfig';
 import {erddapHosts, schedulePrefetch, viaHosts} from '../../map/spatial';
+import {fillQueue} from './mapFill';
 import {framesBase} from '../../map/packedFrame';
 import {attachDebugOverlay, debugEnabled, type DebugInfo} from '../../map/debugOverlay';
 import type {MapLayer, MapVariable} from '../../map/types';
@@ -154,7 +155,7 @@ export function ExploreView({section, go}: ViewProps) {
 }
 
 function OceanMap({section, go}: ViewProps) {
-  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots, mapFocused, setMapFocused} = useSwello();
+  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots, fillSpots, mapFocused, setMapFocused} = useSwello();
   // 1B: the map's focus (the app's selected spot stays when it is cleared). `focused` = the spot the map highlights, or null.
   const focused = mapFocused ? spot.id : null;
   useEffect(() => { writeMapUrl({focus: mapFocused ? null : 'none'}); }, [mapFocused]);
@@ -224,6 +225,14 @@ function OceanMap({section, go}: ViewProps) {
   const [drag, setDrag] = useState<number | null>(null);
   const [callout, setCallout] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
+  // map-fill (lead, 2026-11-11): after the spots in view have loaded, the rest of the seaboard loads in the background, one region per settled load, nearest
+  // region to the selected spot first. Never ahead of the spots in view (the list goes last in the scope and only grows once nothing is loading), paused while
+  // the time plays or within 4 s of a scrub, and cleared when the map closes (so the 10-minute refresh elsewhere does not keep the whole seaboard).
+  const lastScrub = useRef(0), fillStep = useRef(0), [fillTick, setFillTick] = useState(0);
+  const fillAnchor = SPOT_BY_ID.get(spot.id);
+  const fillQ = useMemo(() => (fillAnchor ? fillQueue({lat: fillAnchor.latitude, lon: fillAnchor.longitude, region: fillAnchor.region}, evidenceSpots) : []), [fillAnchor?.id]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { fillStep.current = 0; }, [fillQ]);
+  useEffect(() => () => fillSpots([]), [fillSpots]);
   const [zoom, setZoom] = useState(9);
   const def = FIELDS.find((f) => f.id === fieldId)!;
   const mapEl = useRef<HTMLDivElement>(null);
@@ -931,6 +940,18 @@ function OceanMap({section, go}: ViewProps) {
   { const f = gframe ?? frame; debugInfo.current = f && opts.heat ? {model: modelName, source: f.provider, run: packedGlobal ? (/run ([^)]*)\)/.exec(f.provider)?.[1] ?? '?') : 'n/a (ERDDAP best series, no run id)', validAt: f.validAt, retrievedAt: f.retrievedAt, layer: (paintedDef.label ?? def.label), held: paintedDef.id !== def.id} : null; }
   useEffect(() => (debugEnabled() ? attachDebugOverlay(() => debugInfo.current) : undefined), []);
 
+  const loadedIds = view.ocean.bundle?.loadedSpotIds;
+  useEffect(() => {
+    if (!live || view.ocean.loading || playing || fillStep.current >= fillQ.length) return;
+    const t = window.setTimeout(() => {
+      if (Date.now() - lastScrub.current < 4000) { setFillTick((x) => x + 1); return; }   // scrubbing: look again shortly
+      const done = new Set(loadedIds ?? []);
+      let step = fillStep.current; while (step < fillQ.length && fillQ[step].every((id) => done.has(id))) step++;   // regions already loaded add nothing
+      fillStep.current = Math.min(fillQ.length, step + 1);
+      fillSpots(fillQ.slice(0, fillStep.current).flat());
+    }, 800);
+    return () => window.clearTimeout(t);
+  }, [live, view.ocean.loading, playing, fillQ, fillTick, loadedIds, fillSpots]);
   // lead (phone pass 2a): the phone map has no app header, so the header's source warning shows here without a tap: the sources the map depends on that are
   // not connected (unavailable, or a stale copy), or the demonstration / unavailable state. Still-loading sources are not a limit.
   const srcWarn = !live ? 'Demonstration · not live' : !view.ocean.bundle && !view.ocean.loading ? 'Forecast unavailable'
@@ -1013,7 +1034,7 @@ function OceanMap({section, go}: ViewProps) {
       <div className="xbottom">
         {darkNow && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window</p>}
         {cache && cacheDrawn && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
-        <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { setPlaying(false); view.selectTime(times[i]); }}
+        <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { lastScrub.current = Date.now(); setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {opts.heat && <ModelChip name={modelName} sub={cacheDrawn ? cache?.chip : undefined} note={<>{status} {ENCLOSED_NOTE}</>} />}

@@ -45,6 +45,9 @@ export interface Swello {
   shareNote: string;
   /** A screen that lists spots (Compare, Find spots, the spot picker) asks for the ones it shows: they load on demand. */
   requestSpots: (ids: string[]) => void;
+  /** map-fill (lead, 2026-11-11): the map's background list, lowest priority: every region of the seaboard in view, loaded one region at a time after the
+   *  spots in view, so the pills go live without panning. Replaces the list; [] clears it (the map clears it when it closes). */
+  fillSpots: (ids: string[]) => void;
   /** Spec 2026-11-09 1B: whether the map has a spot focused. False = "no spot focused": the map highlights nothing and its clocks use the viewer's
    *  zone, while the app's selected spot (`spot`) stays, so Forecast still opens it. Picking a spot anywhere focuses it again. ?focus=none in the URL. */
   mapFocused: boolean;
@@ -66,7 +69,10 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   const data = useAppData();
   // subset loading (ocean/spotScope.ts): the selected spot, favourites, the spots near them, the pins on the map and whatever a screen asks for load; the rest on demand
   const [visibleSpots, setVisibleSpots] = useState<string[]>([]), [requestedSpots, setRequestedSpots] = useState<string[]>([]);
-  const view = useForecast({favorites: data.state.favorites, visible: visibleSpots, requested: requestedSpots});
+  const [fillList, setFillList] = useState<string[]>([]);
+  // the background list goes last in the scope (spotScope.ts computeScope `fill`, its own allowance SCOPE_FILL_MAX): everything else stays ahead of it
+  const view = useForecast({favorites: data.state.favorites, visible: visibleSpots, requested: requestedSpots, fill: fillList});
+  const fillSpots = useCallback((ids: string[]) => setFillList((old) => (old.length === ids.length && old.every((x, i) => x === ids[i]) ? old : ids)), []);
   const reportVisible = useCallback((ids: string[]) => setVisibleSpots((old) => (old.length === ids.length && old.every((x, i) => x === ids[i]) ? old : ids.slice(0, 60))), []);
   const requestSpots = useCallback((ids: string[]) => setRequestedSpots((old) => { const add = ids.filter((id) => !old.includes(id)); return add.length ? [...old, ...add].slice(-250) : old; }), []);
   const now = useNow();
@@ -129,6 +135,6 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   // 1A: set before the children render (the map's time helpers read it), like setActiveZone in useForecast
   const labelZone = setMapZone(labelZoneFor(area, section, timeZoneOf(view.spot), mapFocused));
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, mapFocused, setMapFocused, labelZone, missingSpot};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, fillSpots, mapFocused, setMapFocused, labelZone, missingSpot};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
