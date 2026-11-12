@@ -18,17 +18,40 @@ There are no accounts yet. Today this is the **first-run setup** (the existing `
 | Sex | female · male · prefer not to say | Shapes the figure drawn next to the wave, and (later) wetsuit size suggestions. Nothing else; never used for ratings. |
 | Height | ft/in or cm | The person drawn next to the wave, plus "waist / head / overhead" words in your own body heights. Already used (`heightIn`). |
 | Weight | lb or kg, or skip | Board Match: the board volume that suits you (volume ≈ weight × a skill factor). |
-| Skill | beginner · intermediate · advanced · expert | The Call (Go / Skip) and the wave sizes it treats as yours. Already used. |
+| Skill | one of the 7 levels below, picked from cards that show what each level can do | The Call (Go / Skip), the wave sizes it treats as yours, and Board Match. Already used (today only 3 levels). |
 | Stance | regular · goofy · not sure | Whether a spot's lefts or rights are your frontside, in the spot notes and the 3D view (peel direction). |
 | Comfortable wave size | min–max range (prefilled from skill) | The Call: "above the range you prefer". Already used. |
 | Home spot / region | pick from the map or search | Home's best bet and "nearby" ranking. |
 | Units | ft/m, mph/kn/km/h, face/Hawaiian | Every number on screen. Already used. |
 | Boards | add now or later | Board Match and "Take your …". Already used. |
 
+## Skill: 7 levels, each showing what that surfer can do (user request 2026-11-12)
+Today `Skill` is 3 values (Beginner / Intermediate / Expert, `src/services/call.ts` SKILL_RANGE_FT). It becomes 7. Each level is a card with:
+- a name and a one-line summary;
+- **"You can…"**: 3–4 concrete things a surfer at that level does;
+- **a picture of the level:** the app's own drawn wave at that level's typical comfortable size, next to the person (the same drawing as the Home hero, using their height if given; no AI imagery);
+- its default comfortable size range, which prefills the next question.
+
+Cards sit side by side with arrows (or scroll on a phone), so you can compare the level below and above. A "Not sure?" link asks 3 quick yes/no questions ("Can you duck-dive?", "Do you surf overhead waves?", "Do you ride the barrel?") and suggests a level.
+
+| # | Level | You can… | Typical comfortable size (surf height) |
+|---|---|---|---|
+| 1 | **First waves** | ride whitewater to the beach; pop up most of the time; you're mostly in a lesson or on a soft-top | 1–2 ft |
+| 2 | **Beginner** | catch unbroken (green) waves; ride straight or with a small angle; paddle out through small surf | 1–3 ft |
+| 3 | **Improver** | angle along the face on purpose; trim and keep speed; turtle-roll or push through whitewater; pick your own waves | 1–4 ft |
+| 4 | **Intermediate** | duck-dive; bottom turn and basic cutback; read sets and get back to the peak; surf most beach breaks | 2–6 ft |
+| 5 | **Advanced intermediate** | link turns down the line; surf overhead waves calmly; handle currents and crowds; points and reefs on mellow days | 3–8 ft |
+| 6 | **Advanced** | critical turns and the occasional barrel; double-overhead days; heavy reefs and points; long hold-downs | 3–12 ft |
+| 7 | **Expert / big wave** | barrels on purpose; big-wave days; you know the risks and the spot | 4–20+ ft |
+
+- **Migration:** today's Beginner → 2, Intermediate → 4, Expert → 7. Nobody's call changes until they pick a new level. A test byte-compares the Call for the three old values.
+- **The size ranges are our own rule**, labelled as such and editable in "Comfortable wave size". The descriptions are written fresh (no surf school's wording copied). The data-honesty review checks the Call text names the level and its range.
+- **Plunging-wave rule (call.ts):** "experts only" becomes "levels 6–7".
+
 ## Screens
 1. **Welcome:** "Set up your surf profile: about 30 seconds. Your answers stay on this device." [Start] [Skip for now]
 2. **About you:** age (required), sex, height, weight. Each field has a small "Why we ask" line under it; tapping (i) shows the full reason and where it's used.
-3. **How you surf:** skill, stance, comfortable size (prefilled from skill), home spot.
+3. **How you surf:** skill (the 7 level cards with "You can…" and the drawn wave at that size), stance, comfortable size (prefilled from the level), home spot.
 4. **Done:** shows one result of the answers straight away (e.g. the wave drawn next to *you* at today's best spot) and an "Edit anytime in Personal → Profile" link.
 
 ## Elsewhere
