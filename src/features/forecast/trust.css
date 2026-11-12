@@ -37,3 +37,4 @@
   .nws-more::after { content: ''; position: absolute; left: 0; right: 0; top: -10px; bottom: -14px; }
   main#main .nws .nws-more { min-height: 0; }   /* the page's 44 px button floor: the ::after is this button's tap area */
   .nws:not(.open) > .nws-a:first-child { padding-bottom: 2px; }
+}
