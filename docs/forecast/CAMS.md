@@ -40,3 +40,9 @@ T-080 searched: the Santa Cruz harbor and Visit Santa Cruz County pages, Swell M
 - Free, no streaming licence, on these conditions: the line "Live Streaming Cams Provided by HDOnTap.com"; the HDOnTap logo (files attached to the email) linking to `https://hdontap.com/?utm_source=swello&utm_medium=referral&utm_campaign=logo+swello`; each snapshot links to its own HDOnTap.com camera page with the referral/UTM link HDOnTap supplies.
 - Delivery: one snapshot URL per camera (`portal.hdontap.com/snapshot/<cam>-SWELLO-REFERRAL?...`, optional overlay and size such as 640x360), or ready HTML embed code. Cached about 60 s (updates about once a minute). No request limits for now. Use their URLs as given; never proxy, cache-copy or record them (recording and analysis need a separate licence, especially for customer-owned cameras).
 - Status: waiting on us to send the HDOnTap.com page URL for each camera; HDOnTap then generates the snapshot URLs.
+
+## Later: rewind / "was it right?" footage (user idea, 2026-11-12; not started)
+- One timeline: the forecast hour scrubber also scrubs recorded camera footage; past hours show the clip next to our forecast and the buoy reading; jump to "Go" hours; session clips from a logged session time.
+- Needs HDOnTap's separate recording/playback licence (snapshots may never be stored to fake a history), plus the owner's OK for customer-owned cameras.
+- Option 1 (preferred): HDOnTap records and we play back from their platform. First question for Tim: do they already record and offer rewind or clip access, and at what price for a small set?
+- Option 2: we record licensed streams ourselves. About 11 GB per camera per day (2 Mbps, 12 daylight hours); 30-day retention is about 330 GB, about $5 per month in R2. That is on top of the $100–125 per camera per month stream licence. A starter set of 4–5 cameras is roughly $500–700 a month, so it comes after launch revenue.
