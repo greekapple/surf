@@ -17,7 +17,7 @@ export const isGeometrySource = (s: {site: string}) => /CDIP coastline geometry/
 export interface GuideFacts {
   spotId: string; sources: GuideSource[];
   facing: {text: string; deg: number; basis?: 'guide' | 'coastline geometry'; sources?: GuideSource[]} | null;
-  swellWindow: {text: string; fromDeg: number; toDeg: number; basis: 'exposure' | 'workable'} | null;
+  swellWindow: {text: string; fromDeg: number; toDeg: number; basis: 'exposure' | 'workable'; /** the guide page the range was read from (for the method label) */ source?: 'surfnerd' | 'wannasurf' | 'surf-forecast'} | null;
   /** T-073: the guide's workable range (the swell that makes surf), kept even when the exposure range is the window. */
   workable?: {text: string; fromDeg: number; toDeg: number} | null;
   idealSwell: string | null; /** surfnerd's "workable wind" text (wind directions the guide says work, with its own offshore note): a guide quote, never rendered as the spot's offshore direction */ surfnerdWorkableWind: string | null; tide: string | null; bottom: string | null; waveType: 'beach' | 'point' | 'reef' | 'jetty' | null;

@@ -208,7 +208,7 @@ test('over 5 daily captures the card goes from collecting to numbers: offshore f
   const cards: any[] = [];
   for (let d = 0; d < 5; d++) {
     clock.t = T0 + d * DAY; let rep: any, n = 0;
-    do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12);
+    do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 16);
     assert.equal(rep.step, 'idle', `day ${d}: capture, then score once, then idle`); cards.push(JSON.parse(r2.store.get(HRA_KEYS.card)!));
   }
   card = cards.at(-1);
@@ -223,7 +223,7 @@ test('over 5 daily captures the card goes from collecting to numbers: offshore f
   const first = cards[0]; assert.equal(Object.values(first.spots).filter((x: any) => x.status === 'ok').length, 0); assert.ok(Object.values(first.spots).some((x: any) => x.status === 'collecting' && x.haveDays <= 1));
   assert.ok(Object.values(first.spots).every((x: any) => x.status !== 'ok' || false));
   for (const c of cards) assert.ok(c.budget.used <= HRA_BUDGET);
-  const bytes = r2.store.get(HRA_KEYS.card)!.length; assert.ok(bytes < 600000, `card ${bytes} bytes`);
+  const bytes = r2.store.get(HRA_KEYS.card)!.length; assert.ok(bytes < 800000, `card ${bytes} bytes`);   // 600000 before the 2026-11-12 profile research raised the scored spots from 549 to 763 (the card is served gzip and cached)
   const unit = offshoreLine(s.status === 'ok' ? s : (null as never), 'm'); assert.match(unit.text, /^Offshore wave height at the buoy \(not surf at the spot\): Hs forecast at buoy \w+'s position \(.+\) vs the buoy, \d+ km from this spot: typical difference 0\.3 m, ran 0\.3 m low \(last 7 days\)\.$/);
   assert.ok(s.buoy.gridKm > 5 && s.buoy.gridKm < 6, `model cell ${s.buoy.gridKm} km from the buoy`);
   if (process.env.SHOW) console.log(`scored ${ok.length}, collecting ${col.length}, no buoy ${nb.length}; card ${(bytes / 1024).toFixed(0)} KB; score budget ${card.budget.used}`);
@@ -233,7 +233,7 @@ test('service: /api/how-right-all is pending until the daily job has scored; a p
   const {createForecastService} = await import('../../services/forecast-service.mjs'), clock = {t: T0}, log: string[] = [], r2 = fakeR2();
   const svc = createForecastService({fetcher: world(clock, log).fetcher, now: () => clock.t, sleep: async () => {}}) as any, env = {BUCKET: r2.bucket};
   const pending = await (await svc(new Request('https://x/api/how-right-all'), env)).json(); assert.equal(pending.pending, true); assert.equal(log.length, 0);
-  let rep: any, n = 0; do { rep = await svc.howRightAll(env); n++; } while (rep.step !== 'idle' && n < 12);
+  let rep: any, n = 0; do { rep = await svc.howRightAll(env); n++; } while (rep.step !== 'idle' && n < 16);
   assert.equal(rep.step, 'idle'); assert.ok(r2.store.has(HRA_KEYS.card));
   const card = await (await svc(new Request('https://x/api/how-right-all'), env)).json(); assert.equal(card.schema, 2); assert.equal(Object.keys(card.spots).length, N);
   const noBucket = await (await svc(new Request('https://x/api/how-right-all'), {})).json(); assert.equal(noBucket.pending, true);
@@ -309,10 +309,10 @@ test('status and capture reads that throw abort the tick before any write (no ov
   for (const r of [await j1.capture({BUCKET: badStatus.bucket}), await j1.score({BUCKET: badStatus.bucket}), await j1.daily({BUCKET: badStatus.bucket})] as any[]) { assert.equal(r.ok, false); assert.match(r.reason, /R2 read/); }
   assert.equal(badStatus.ops.puts, 0);
   // two days: the second day's buoy fetches fail
-  let rep: any, n = 0; do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12);
-  for (let d = 1; d < 6; d++) { clock.t = T0 + d * DAY; n = 0; do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12); }
+  let rep: any, n = 0; do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 16);
+  for (let d = 1; d < 6; d++) { clock.t = T0 + d * DAY; n = 0; do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 16); }
   const good = JSON.parse(r2.store.get(HRA_KEYS.card)!), withNumber = Object.values(good.spots).find((s: any) => s.status === 'ok') as any; assert.ok(withNumber, 'a scored spot exists after 6 days');
-  const jf = makeJob(clock, r2, [], {}, {failSpec: () => true}); clock.t = T0 + 6 * DAY; n = 0; do { rep = await jf.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12);
+  const jf = makeJob(clock, r2, [], {}, {failSpec: () => true}); clock.t = T0 + 6 * DAY; n = 0; do { rep = await jf.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 16);
   const card = JSON.parse(r2.store.get(HRA_KEYS.card)!), s = card.spots[withNumber.spotId]; assert.equal(s.status, 'skipped'); assert.equal(s.last.status, 'ok'); assert.equal(s.last.d7.hs.n, withNumber.d7.hs.n);
   assert.match(offshoreLine(s, 'm').text, new RegExp(`^Offshore check skipped today: buoy ${s.buoy.id}'s data could not be fetched\\. Last check \\(2026-11-1\\d UTC\\): Offshore wave height at the buoy`)); assert.ok(ratingLine(s)); assert.ok(Object.values(card.buoys).every((b: any) => !b.ok));
   const status = JSON.parse(r2.store.get(HRA_KEYS.status)!); assert.ok(status.failedBuoys.length > 0);
@@ -324,7 +324,7 @@ test('scoring runs in stages: each stage keeps a partial in R2, the last one wri
   const clock = {t: T0}, mk2 = (stage: number, r2: ReturnType<typeof fakeR2>, onCapture?: () => void) => makeJob(clock, r2, [], {stageSize: stage, onCapture});
   const a = fakeR2(), b = fakeR2(); let live = 0, maxLive = 0;
   const ja = mk2(70, a, () => { live++; maxLive = Math.max(maxLive, live); }), jb = mk2(1000, b);
-  const days = async (j: ReturnType<typeof mk2>, r2: ReturnType<typeof fakeR2>) => { const steps: string[] = []; for (let d = 0; d < 6; d++) { clock.t = T0 + d * DAY; let rep: any, n = 0; do { rep = await j.daily({BUCKET: r2.bucket}); steps.push(rep.step); n++; } while (rep.step !== 'idle' && n < 12); } return steps; };
+  const days = async (j: ReturnType<typeof mk2>, r2: ReturnType<typeof fakeR2>) => { const steps: string[] = []; for (let d = 0; d < 6; d++) { clock.t = T0 + d * DAY; let rep: any, n = 0; do { rep = await j.daily({BUCKET: r2.bucket}); steps.push(rep.step); n++; } while (rep.step !== 'idle' && n < 16); } return steps; };
   const sa = await days(ja, a), sb = await days(jb, b);
   assert.ok(sa.includes('score-stage') && !sb.includes('score-stage')); assert.equal(sa.filter((x) => x === 'score').length, 6); assert.ok(sa.filter((x) => x === 'score-stage').length >= 12, 'about 2 stages before the last, each day');
   const ca = JSON.parse(a.store.get(HRA_KEYS.card)!), cb = JSON.parse(b.store.get(HRA_KEYS.card)!);
@@ -336,7 +336,7 @@ test('buoys with no realtime `.spec` file are not offered to any spot; a score r
   const {NO_SPEC_FILE} = await import('../ocean/scoringBuoys.ts'); for (const id of NO_SPEC_FILE) assert.equal(scoringBuoy(id), null, id);
   assert.ok(spotPicks().every((p) => !p.choice.ok || !NO_SPEC_FILE.has(p.choice.pick.buoy.id)));
   const clock = {t: T0}, r2 = fakeR2(), job = makeJob(clock, r2, []); let rep: any, n = 0;
-  do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 12);
+  do { rep = await job.daily({BUCKET: r2.bucket}); n++; } while (rep.step !== 'idle' && n < 16);
   const again = await job.score({BUCKET: r2.bucket}) as any; for (let i = 0; i < Math.ceil(N / 70) + 2 && again.step === 'score-stage'; i++) Object.assign(again, await job.score({BUCKET: r2.bucket}));   // 70 spots a stage: enough turns to finish the whole catalogue as it grows
   assert.equal(again.ok, true); assert.equal(again.spots, N);
 }, {timeout: 120000});

@@ -63,11 +63,12 @@ export function outsideFacingForHour(spotId: string, hour: Forecast | undefined)
 /** One source line for a guide-derived estimate (T-071b), said once in the method label: where the inputs came from and that they are unreviewed. */
 export function guideBasis(spotId: string): string | null {
   if (!isGuideProfile(spotId)) return null;
-  const f = guideFactsFor(spotId), sites = [...new Set((f?.sources ?? []).filter((x) => !isGeometrySource(x)).map((x) => (x.site === 'surf-forecast' ? 'Surf-Forecast' : x.site === 'surfnerd' ? 'Surfnerd' : x.site)))];
+  const f = guideFactsFor(spotId), sites = [...new Set((f?.sources ?? []).filter((x) => !isGeometrySource(x)).map((x) => (x.site === 'surf-forecast' ? 'Surf-Forecast' : x.site === 'surfnerd' ? 'Surfnerd' : x.site === 'wannasurf' ? 'Wannasurf' : x.site)))];
+  const sw = f?.swellWindow, SRC = {surfnerd: "Surfnerd's", wannasurf: "Wannasurf's", 'surf-forecast': "Surf-Forecast's"}, winSrc = sw?.source ? `; swell window from ${SRC[sw.source]} ${sw.basis === 'exposure' ? 'swell exposure compass' : 'workable swell range'} (${sw.text})` : '';
   // A facing derived from CDIP coastline geometry is not a guide fact: say so, and keep the guide list for the swell window only.
   const guides = `${sites.length ? ` (${sites.join(', ')})` : ''}`;
   const outside = outsideFacingNote(spotId) ? `; ${outsideFacingNote(spotId)}` : '';
-  return f && derivedFacing(f) ? `facing derived from coastline geometry (CDIP); swell window from published guides${guides}, not reviewed; 8 s generic minimum period${outside}` : `facing and swell window from published guides${guides}, not reviewed; 8 s generic minimum period${outside}`;
+  return f && derivedFacing(f) ? `facing derived from coastline geometry (CDIP); swell window from published guides${guides}, not reviewed; 8 s generic minimum period${winSrc}${outside}` : `facing and swell window from published guides${guides}, not reviewed; 8 s generic minimum period${winSrc}${outside}`;
 }
 /** T-077 (user decision "Surfer convention"): the headline is the height surfers and surf reports quote, about the nearshore significant wave height (a CDIP MOP value at 10–15 m depth), NOT the larger breaking height (about 1.3 times that for Ocean Beach swells, docs/forecast/OB-BIAS-T076.md). The breaking height stays in the detail. */
 const METHOD_LABEL = {'mop-v2': `Surf height (common convention: about the CDIP nearshore wave height) from the nearshore point (${BREAKING_V2_VERSION}, unvalidated)`, v1: 'Surf height (common convention: about the nearshore wave height) estimated from offshore swell carried to 10 m (v1, unvalidated)'} as const;

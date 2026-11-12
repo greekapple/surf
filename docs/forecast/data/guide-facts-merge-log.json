@@ -1,0 +1,6028 @@
+{
+ "generatedFrom": "docs/forecast/data/build-guide-facts.ts",
+ "spots": [
+  {
+   "spotId": "w-us-terrys-cove",
+   "file": "alabama.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "E to SW (wannasurf: SouthWest, South, SouthEast, East)",
+      "fromDeg": 90,
+      "toDeg": 225
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "E - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E to SW",
+      "fromDeg": 90,
+      "toDeg": 225,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-gulf-state-park-pavillion",
+   "file": "alabama.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-west-pass",
+   "file": "alabama.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-morgantown-beach",
+   "file": "alabama.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-kawaihae-breakwater",
+   "file": "big-island.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "facing",
+     "kept": null,
+     "rejected": {
+      "text": "SW",
+      "deg": 225,
+      "basis": "guide"
+     },
+     "why": "the old guides disagree about the facing: a contradiction stays null"
+    },
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW to NW",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SW - NW",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "exposure"
+     },
+     "why": "facing contradicts"
+    }
+   ]
+  },
+  {
+   "spotId": "w-hawaii-hapuna-point",
+   "file": "big-island.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SW to NNW",
+      "fromDeg": 225,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SW - NNW",
+      "fromDeg": 225,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-keawaiki-bay",
+   "file": "big-island.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "WSW to N",
+      "fromDeg": 247.5,
+      "toDeg": 0,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "WSW - N",
+      "fromDeg": 247.5,
+      "toDeg": 0,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-old-kona-airport",
+   "file": "big-island.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-keei",
+   "file": "big-island.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSW to NW",
+      "fromDeg": 202.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSW - NW",
+      "fromDeg": 202.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-honuapo-bay",
+   "file": "big-island.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ENE to S",
+      "fromDeg": 67.5,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ENE - S",
+      "fromDeg": 67.5,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-pohue-bay-beach",
+   "file": "big-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-cape-flattery",
+   "file": "clallam.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-tsoo-yess-beach",
+   "file": "clallam.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-shi-shi-beach",
+   "file": "clallam.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-twin-rivers",
+   "file": "clallam.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-crescent-beach",
+   "file": "clallam.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "W to NW (wannasurf: NorthWest, West)",
+      "fromDeg": 270,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - NW",
+      "fromDeg": 292.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "W to NW",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "workable"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-rialto-beach",
+   "file": "clallam.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-port-orford",
+   "file": "curry.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-pelican-state-beach",
+   "file": "del-norte.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-garths-reef",
+   "file": "del-norte.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - N (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - S, SSW - WSW",
+      "fromDeg": 157.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-south-beach",
+   "file": "del-norte.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-honeymoon-island",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pier-60",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-indian-rocks-beach",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-redington-breakwater",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-redington-pier",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-maderia-beach",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-treasure-island-2",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-middle-jetty",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-spring-ave",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-holmes-beach-pier",
+   "file": "florida-gulf-coast.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSE - NW",
+      "fromDeg": 157.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - NW",
+      "fromDeg": 157.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SW to NW (wannasurf: NorthWest, West, SouthWest)",
+      "fromDeg": 225,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-twin-piers",
+   "file": "florida-gulf-coast.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSE - NNW",
+      "fromDeg": 157.5,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - NNW",
+      "fromDeg": 157.5,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SW to NW (wannasurf: NorthWest, West, SouthWest)",
+      "fromDeg": 225,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-lido-beach-2-3",
+   "file": "florida-gulf-coast.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SW to NW (wannasurf: NorthWest, West, SouthWest)",
+      "fromDeg": 225,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SSE - NW",
+      "fromDeg": 157.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SW to NW",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-coolidge",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-siesta-key",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-stickney-point",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-turtles-2",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-venice-pier",
+   "file": "florida-gulf-coast.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-knights-point",
+   "file": "florida-gulf-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-key-west",
+   "file": "florida-keys.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pickens-point-dunes",
+   "file": "florida-panhandle.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-johnsons-beach",
+   "file": "florida-panhandle.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-18th-st-jetty",
+   "file": "georgia.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-little-st-simons-island",
+   "file": "georgia.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-point-grenville",
+   "file": "grays-harbor.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-seabrook-beach",
+   "file": "grays-harbor.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-ocean-shores",
+   "file": "grays-harbor.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "S to SW (wannasurf: SouthWest, South)",
+      "fromDeg": 180,
+      "toDeg": 225
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "jetty",
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - NNW",
+      "fromDeg": 180,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "S to SW",
+      "fromDeg": 180,
+      "toDeg": 225,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-damon-point",
+   "file": "grays-harbor.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SW to W (wannasurf: West, SouthWest)",
+      "fromDeg": 225,
+      "toDeg": 270
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - WSW",
+      "fromDeg": 225,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SW to W",
+      "fromDeg": 225,
+      "toDeg": 270,
+      "basis": "workable"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-sue-meg",
+   "file": "humboldt.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-fort-ebey",
+   "file": "island.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": null,
+     "to": {
+      "text": "W to NW",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "wannasurf"
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "W to NW (wannasurf: NorthWest, West)",
+      "fromDeg": 270,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Flat rocks (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-ruby-beach",
+   "file": "jefferson.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-anahola-bay",
+   "file": "kauai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NNW to ENE",
+      "fromDeg": 337.5,
+      "toDeg": 67.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NNW - ENE",
+      "fromDeg": 337.5,
+      "toDeg": 67.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-polihale",
+   "file": "kauai.json",
+   "changed": [
+    {
+     "field": "facing",
+     "from": null,
+     "to": {
+      "text": "WNW",
+      "deg": 292.5,
+      "basis": "guide"
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "WSW to NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "WSW - NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-kealia",
+   "file": "kauai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NE to S",
+      "fromDeg": 45,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NE - S",
+      "fromDeg": 45,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "S - NW",
+      "fromDeg": 180,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-hawaii-poipu-outer-reef",
+   "file": "kauai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-pohakuloa",
+   "file": "lanai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W to ENE (surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 67.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "W - ENE",
+      "fromDeg": 270,
+      "toDeg": 67.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-kaiolohia-bay-shipwreck-beach",
+   "file": "lanai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NE to ENE",
+      "fromDeg": 45,
+      "toDeg": 67.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NE - ENE",
+      "fromDeg": 45,
+      "toDeg": 67.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-lopa-beach",
+   "file": "lanai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to SE, SSE to SSW",
+      "fromDeg": 112.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - SE, SSE - SSW",
+      "fromDeg": 112.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-manele-bay",
+   "file": "lanai.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S to W",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - W",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-beverly-beach",
+   "file": "lincoln.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "W to W (wannasurf: West)",
+      "fromDeg": 270,
+      "toDeg": 270
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-newport",
+   "file": "lincoln.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-leo-carrillo",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-zero-nicholas-canyon-county-beach",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-big-rock",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-trancas-point",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-point-dume",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "S to S (wannasurf: South)",
+      "fromDeg": 180,
+      "toDeg": 180
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-point-dume-2",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-d-and-w",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-haggertys-2",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-lower-haggertys",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "point",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-rat-shit",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-upper-haggertys",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "point",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-palos-verdes-cove-north-reef-little-queens",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-palos-verdes-cove-middles-the-channel",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-pv-cove",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-palos-verdes-cove-boneyards",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-indicator",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-abalone-cove-beach",
+   "file": "los-angeles.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - W(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SE - S, SSW - WNW",
+      "fromDeg": 135,
+      "toDeg": 292.5,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-palm-point",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - W (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - W",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-royal-palms-the-jetty",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SE - W(surfnerd)",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-cabrillo-point",
+   "file": "los-angeles.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - W(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - W",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-chandeleur-islands",
+   "file": "louisiana.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-doc-browns",
+   "file": "maine.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pine-point",
+   "file": "maine.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "E - S(surfnerd)",
+      "fromDeg": 90,
+      "toDeg": 180,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "E - S",
+      "fromDeg": 90,
+      "toDeg": 180,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-fortunes-rock-beach",
+   "file": "maine.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-kennebunk-beach",
+   "file": "maine.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "NE - SE(surfnerd)",
+      "fromDeg": 45,
+      "toDeg": 135,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "ESE - S, S - SSW",
+      "fromDeg": 112.5,
+      "toDeg": 202.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-mothers-beach",
+   "file": "maine.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-crescent-beach-2-3-4",
+   "file": "maine.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-harbor-beach",
+   "file": "maine.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-shark-pit-marin",
+   "file": "marin.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-plum-island-point",
+   "file": "massachusetts.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "E to E (wannasurf: East)",
+      "fromDeg": 90,
+      "toDeg": 90
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-crane-beach-2",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-good-harbour-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-prestons",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-lynne-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-revere-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-scituate-harbor",
+   "file": "massachusetts.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NE - SE(surfnerd)",
+      "fromDeg": 45,
+      "toDeg": 135,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NNE - ESE, ESE - SSE",
+      "fromDeg": 22.5,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-green-harbor-duxberry",
+   "file": "massachusetts.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N - E(surfnerd)",
+      "fromDeg": 0,
+      "toDeg": 90,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NE - E, ESE - SE",
+      "fromDeg": 45,
+      "toDeg": 135,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-head-of-the-meadow-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-plymouth-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-maguire-landing-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-nauset-light-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-keyes-memorial-beach",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-chandys",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-south-beach-state-park",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-long-point-2",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-abels-hill",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-lucy-vincent",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-squibnocket",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-madaket",
+   "file": "massachusetts.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SE to SW (wannasurf: SouthWest, South, SouthEast)",
+      "fromDeg": 135,
+      "toDeg": 225
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "ESE - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SE to SW",
+      "fromDeg": 135,
+      "toDeg": 225,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-cisco",
+   "file": "massachusetts.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SE to SW (wannasurf: SouthWest, South, SouthEast)",
+      "fromDeg": 135,
+      "toDeg": 225
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "ESE - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SE to SW",
+      "fromDeg": 135,
+      "toDeg": 225,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-madaquecham",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-miacomet-rd",
+   "file": "massachusetts.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-little-makaha",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W to N, best N (surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "W - N",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-rainbows",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NW to NE, best NW (surfnerd)",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NW - NE",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-kaanapali-point",
+   "file": "maui.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-lahaina-harbour",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S to SW, best SW (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 225,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - SW",
+      "fromDeg": 180,
+      "toDeg": 225,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-honomanu-bay",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N to E",
+      "fromDeg": 0,
+      "toDeg": 90,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "N - E",
+      "fromDeg": 0,
+      "toDeg": 90,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-launiupoko",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NW (wannasurf: NorthWest)",
+      "fromDeg": 315,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Reef (coral, sharp rocks etc..) (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-olowalu",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSW to WSW (surfnerd)",
+      "fromDeg": 202.5,
+      "toDeg": 247.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSW - WSW",
+      "fromDeg": 202.5,
+      "toDeg": 247.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-hana-bay",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NE to ESE",
+      "fromDeg": 45,
+      "toDeg": 112.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NE - ESE",
+      "fromDeg": 45,
+      "toDeg": 112.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-la-perouse-bay",
+   "file": "maui.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S to WSW",
+      "fromDeg": 180,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - WSW",
+      "fromDeg": 180,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-needle-rock",
+   "file": "mendocino.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-usal-beach",
+   "file": "mendocino.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Reef (coral,sharp rocks etc..) with sand (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-wages-creek-beach",
+   "file": "mendocino.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-ten-mile-beach",
+   "file": "mendocino.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-glass-beach",
+   "file": "mendocino.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-jug-handle-state-beach",
+   "file": "mendocino.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": null,
+     "to": {
+      "text": "W to NW",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "wannasurf"
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "W to NW (wannasurf: NorthWest, West)",
+      "fromDeg": 270,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-caspar-creek",
+   "file": "mendocino.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-boneyard",
+   "file": "monterey.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-lovers-point",
+   "file": "monterey.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W - N(surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "W - N",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-spanish-bay-south-moss",
+   "file": "monterey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-spanish-bay-cobblestones",
+   "file": "monterey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-mole-point",
+   "file": "monterey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-monterey-bay",
+   "file": "monterey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-monterey-wall",
+   "file": "monterey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-ghost-tree",
+   "file": "monterey.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NW (wannasurf: NorthWest)",
+      "fromDeg": 315,
+      "toDeg": 315
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Boulders (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-andrew-molera",
+   "file": "monterey.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSE to SW",
+      "fromDeg": 157.5,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - SW",
+      "fromDeg": 157.5,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pirates-cove-beach",
+   "file": "new-hampshire.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-straws-point",
+   "file": "new-hampshire.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "E - SE (surfnerd)",
+      "fromDeg": 90,
+      "toDeg": 135,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "ENE - E, ESE - SSE",
+      "fromDeg": 67.5,
+      "toDeg": 157.5,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-plaice-cove",
+   "file": "new-hampshire.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SSW - NNW (surfnerd)",
+      "fromDeg": 202.5,
+      "toDeg": 337.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NE - ENE, E - SSE",
+      "fromDeg": 45,
+      "toDeg": 157.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-camp-hero",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-poles",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-napeague-beach",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-historic-park-fishing-beach",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-coopers-beach",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-k-road",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-davis-park",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-point-o-woods",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-ocean-bay-park",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-atlantique-beach",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-fair-harbor",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-tobay-beach",
+   "file": "new-york.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SE to S (wannasurf: South, SouthEast, Don't know)",
+      "fromDeg": 135,
+      "toDeg": 180
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "E - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SE to S",
+      "fromDeg": 135,
+      "toDeg": 180,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-jones-beach-state-park-2",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-laurelton-blvd",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-rockaways",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-national-blvd",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-west-end-jones-beach",
+   "file": "new-york.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-ft-clinch-state-park",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-hooks",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N - S",
+      "fromDeg": 0,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "N - S",
+      "fromDeg": 0,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "E to SE (wannasurf: SouthEast, East)",
+      "fromDeg": 90,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-main-beach-florida",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-fernandina-beach-pier",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-amelia-pier",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-peters-point",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-american-beach",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-little-talbot-island",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N - SSE",
+      "fromDeg": 0,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "N - SSE",
+      "fromDeg": 0,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "N to S (wannasurf: North, South, SouthEast, East, NorthEast)",
+      "fromDeg": 0,
+      "toDeg": 180
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-hannah-park-mayport-poles",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-atlantic-beach",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-neptune-beach",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-jax-beach-pier",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N - SSE",
+      "fromDeg": 0,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "N - SSE",
+      "fromDeg": 0,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NE to SE (wannasurf: SouthEast, East, NorthEast)",
+      "fromDeg": 45,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-sawgrass",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-ponte-vedra",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-gate-station",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-vilano-jetty",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-middles-florida",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-blowhole",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-f-as",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "S - N",
+      "fromDeg": 180,
+      "toDeg": 0
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "reef"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-a-street",
+   "file": "northeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-matanzas-inlet",
+   "file": "northeast-florida.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "S - N",
+      "fromDeg": 180,
+      "toDeg": 0
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-long-branch",
+   "file": "northern-new-jersey.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "E to SW (wannasurf: SouthWest, South, SouthEast, East)",
+      "fromDeg": 90,
+      "toDeg": 225
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "NE - S",
+      "fromDeg": 45,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E to SW",
+      "fromDeg": 90,
+      "toDeg": 225,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-lavallette-new-jersey",
+   "file": "northern-new-jersey.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-barnegat-light",
+   "file": "northern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-surf-city",
+   "file": "northern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-kahuku",
+   "file": "oahu-east-side.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NW to SE",
+      "fromDeg": 315,
+      "toDeg": 135,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NW - SE",
+      "fromDeg": 315,
+      "toDeg": 135,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-popoia-island-kailua",
+   "file": "oahu-east-side.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N to E, ESE to SE",
+      "fromDeg": 0,
+      "toDeg": 135,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "N - E, ESE - SE",
+      "fromDeg": 0,
+      "toDeg": 135,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-sandy-beach",
+   "file": "oahu-east-side.json",
+   "changed": [
+    {
+     "field": "facing",
+     "from": null,
+     "to": {
+      "text": "SSE",
+      "deg": 157.5,
+      "basis": "guide"
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ENE to E, ESE to SW",
+      "fromDeg": 67.5,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ENE - E, ESE - SW",
+      "fromDeg": 67.5,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "reef"
+    }
+   ]
+  },
+  {
+   "spotId": "w-hawaii-turtle-bay-west",
+   "file": "oahu-north-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "WSW to NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "WSW - NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-marijuanas",
+   "file": "oahu-north-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "WSW to NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "WSW - NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-hultins",
+   "file": "oahu-north-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "WSW to NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "WSW - NNE",
+      "fromDeg": 247.5,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-puaena-point",
+   "file": "oahu-north-shore.json",
+   "changed": [
+    {
+     "field": "facing",
+     "from": null,
+     "to": {
+      "text": "W",
+      "deg": 270,
+      "basis": "guide"
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W to NW",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "W - NW",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-coves",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-ewa-beach",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-sand-island",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SE to W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-barbers-point",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "E to NW",
+      "fromDeg": 90,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "E - NW",
+      "fromDeg": 90,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-south-shore-ala-moana-park",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSE to W",
+      "fromDeg": 157.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - W",
+      "fromDeg": 157.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-ala-moana-bowls",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "facing",
+     "from": null,
+     "to": {
+      "text": "SSW",
+      "deg": 202.5,
+      "basis": "guide"
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SE to W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-secrets-toes",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-tonggs",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "ESE to W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-black-point",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "E to W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "E - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-diamond-head",
+   "file": "oahu-south-shore.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "E to W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "E - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-hawaii-maili",
+   "file": "oahu-west-side.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S to NW",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - NW",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-seal-beach-pier",
+   "file": "orange-county.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "jetty"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-surfside-jetty",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - SSW, SW - WSW",
+      "fromDeg": 135,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-bolsa-chica",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-hb-cliffs",
+   "file": "orange-county.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-huntington-cliffs",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - NW",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-santa-ana-river-jetties",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - SW, WSW - WNW",
+      "fromDeg": 135,
+      "toDeg": 292.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "point",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-newport-beach",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - SW, WSW - WNW",
+      "fromDeg": 135,
+      "toDeg": 292.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-crystal-cove",
+   "file": "orange-county.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-morro-beach",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-crescent-bay",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy with rock (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "reef"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-thalia-street",
+   "file": "orange-county.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-agate-pearl-street",
+   "file": "orange-county.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-strands",
+   "file": "orange-county.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-doheny",
+   "file": "orange-county.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SE to SW",
+      "fromDeg": 135,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - SW",
+      "fromDeg": 135,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-corolla-lighthouse",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-southern-duck",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-kitty-hawk-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-laundromats",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-avalon-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-1st-street",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-bath-house",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-martin-st",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-eighth-street",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-abalone-st",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-nags-head-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-loggerhead-st",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-jennettes-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-outer-banks-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-boilers-ranger-station",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NNW - SSE",
+      "fromDeg": 337.5,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NNW - SSE",
+      "fromDeg": 337.5,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "N to SE (wannasurf: North, SouthEast, East, NorthEast)",
+      "fromDeg": 0,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-s-turns-north-carolina",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "N - S",
+      "fromDeg": 0,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "N - S",
+      "fromDeg": 0,
+      "toDeg": 180,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "SE to SE (wannasurf: SouthEast)",
+      "fromDeg": 135,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-rodanthe-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-k-o-a",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-avon-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-askins-creek",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-north-buxton",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-cape-hatteras-lighthouse",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-the-lighthouse",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-frisco-pier",
+   "file": "outer-banks.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "exposure",
+     "kept": "exposed",
+     "rejected": "sheltered"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-hatteras-ferry-docks",
+   "file": "outer-banks.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-cape-disappointment-state-park",
+   "file": "pacific.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-middles-isabela",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-montones",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-cibuco",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-hallows",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+      "fromDeg": 315,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - E",
+      "fromDeg": 292.5,
+      "toDeg": 90,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NW to NE",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-cueva-del-indio",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+      "fromDeg": 315,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "W - NNE",
+      "fromDeg": 270,
+      "toDeg": 22.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NW to NE",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-las-pasas",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "W to E (wannasurf: North, NorthWest, West, East, NorthEast)",
+      "fromDeg": 270,
+      "toDeg": 90
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - NE",
+      "fromDeg": 292.5,
+      "toDeg": 45,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "W to E",
+      "fromDeg": 270,
+      "toDeg": 90,
+      "basis": "workable"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-caza-y-pesca",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-kikita-beach",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+      "fromDeg": 315,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - E",
+      "fromDeg": 292.5,
+      "toDeg": 90,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NW to NE",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-el-unico",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+      "fromDeg": 315,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - E",
+      "fromDeg": 292.5,
+      "toDeg": 90,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NW to NE",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-san-juan-san-juan",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-crash-boat",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W - N(surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SW - WSW, WSW - NNW",
+      "fromDeg": 225,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-cochino",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "N to NE (wannasurf: North, NorthEast)",
+      "fromDeg": 0,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "N - ENE",
+      "fromDeg": 0,
+      "toDeg": 67.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "N to NE",
+      "fromDeg": 0,
+      "toDeg": 45,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-la-bomba-2",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "N to N (wannasurf: North)",
+      "fromDeg": 0,
+      "toDeg": 0
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-carib-pine-grove",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NW to NE (wannasurf: North, NorthWest, NorthEast)",
+      "fromDeg": 315,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - NE",
+      "fromDeg": 292.5,
+      "toDeg": 45,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NW to NE",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-bridges",
+   "file": "puerto-rico.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W - N(surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "WSW - W, W - NNW",
+      "fromDeg": 247.5,
+      "toDeg": 337.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-antonios",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "W - N (surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "WSW - W, W - NE",
+      "fromDeg": 247.5,
+      "toDeg": 45,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-pools-2",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - N (surfnerd)",
+      "fromDeg": 292.5,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "WSW - W, W - NE",
+      "fromDeg": 247.5,
+      "toDeg": 45,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-indicators-rincon",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "W - NNW (surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 337.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "S - W, W - N",
+      "fromDeg": 180,
+      "toDeg": 0,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-the-point-rincon",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "WNW - NNW (surfnerd)",
+      "fromDeg": 292.5,
+      "toDeg": 337.5,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "S - W, W - NNW",
+      "fromDeg": 180,
+      "toDeg": 337.5,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-marias",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "NW - NE(surfnerd)",
+      "fromDeg": 315,
+      "toDeg": 45,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "S - W, W - NNW",
+      "fromDeg": 180,
+      "toDeg": 337.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-carib-little-malibu",
+   "file": "puerto-rico.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "N - NE(surfnerd)",
+      "fromDeg": 0,
+      "toDeg": 45,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "S - W, WNW - NNW",
+      "fromDeg": 180,
+      "toDeg": 337.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-sakonnet",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-narragansett-beach",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-monahans-dock",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-matunuck",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "ESE - S (surfnerd)",
+      "fromDeg": 112.5,
+      "toDeg": 180,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "SE - S, SSW - SW, SW - WSW",
+      "fromDeg": 135,
+      "toDeg": 247.5,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-point-judith",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-east-beach",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-dunes-park-beach",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-weekapaug",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-mansion-beach",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-black-rock-point",
+   "file": "rhode-island.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-pipes",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-pipes-campgrounds",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-15th-street",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-la-jolla-cove",
+   "file": "san-diego.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-pb-point",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-ab-abalone",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-south-ab",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-new-break",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-chasm",
+   "file": "san-diego.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-tijuana-slough",
+   "file": "san-diego.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    },
+    {
+     "field": "idealSwell",
+     "from": null,
+     "to": "west",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-fort-point",
+   "file": "san-francisco.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "W - NW(surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "W - NW",
+      "fromDeg": 270,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "reef",
+     "rejected": "point"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-deadmans",
+   "file": "san-francisco.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-exotics",
+   "file": "san-luis-obispo.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-morro-strand",
+   "file": "san-luis-obispo.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-cable-landing",
+   "file": "san-luis-obispo.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-saint-annes",
+   "file": "san-luis-obispo.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-shell-beach",
+   "file": "san-luis-obispo.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S to W",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - W",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-grover-beach",
+   "file": "san-luis-obispo.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-pigeon-point",
+   "file": "san-mateo.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSE to W",
+      "fromDeg": 157.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - W",
+      "fromDeg": 157.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-ano-nuevo-state-reserve",
+   "file": "san-mateo.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "reef"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-molino-canyon",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-the-ranch-drakes-point",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - NW (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-razor-blades",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - NW (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-upper-drakes",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - NW (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-little-drakes",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - NW (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-beavers-hazards",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "ESE - SSE, SSE - S, S - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-refugio-state-beach",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - N(surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "ESE - SSE, SSE - S, S - WSW",
+      "fromDeg": 112.5,
+      "toDeg": 247.5,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-ranch-house-point",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - SW (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 225,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-rennys",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - SW (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 225,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-rights-and-lefts",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "SW - NW (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-utah",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - SW (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 225,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-lefts-and-rights",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - W (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, S - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-san-augustine-reef",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "W - N (surfnerd)",
+      "fromDeg": 270,
+      "toDeg": 0,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E - S, SSW - W",
+      "fromDeg": 90,
+      "toDeg": 270,
+      "basis": "exposure"
+     }
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-the-ranch-cojo-reef",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "E - SSE, S - WSW",
+      "fromDeg": 90,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    },
+    {
+     "field": "idealSwell",
+     "from": null,
+     "to": "southwest",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-cat-canyon",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "S - W (surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "ESE - SSE, S, SSW - W",
+      "fromDeg": 112.5,
+      "toDeg": 270,
+      "basis": "exposure"
+     },
+     "why": "the newer window is more than 1.5x wider: a widening is not an agreement"
+    }
+   ]
+  },
+  {
+   "spotId": "w-usw-haskells-beach",
+   "file": "santa-barbara.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-hammonds",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SW to NW, best W (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SW - NW",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-santa-claus-padaro-beach",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Sandy (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-campus-point",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SW to NW, best W (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SW - NW",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-leadbetter",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SW to NW, best W (surfnerd)",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SW - NW",
+      "fromDeg": 225,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-mesa-lane",
+   "file": "santa-barbara.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "W to W (wannasurf: West)",
+      "fromDeg": 270,
+      "toDeg": 270
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "bottom",
+     "from": null,
+     "to": "Reef (coral, sharp rocks etc..) (wannasurf)",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-scott-creek",
+   "file": "santa-cruz.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SSE to NW",
+      "fromDeg": 157.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - NW",
+      "fromDeg": 157.5,
+      "toDeg": 315,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-four-mile",
+   "file": "santa-cruz.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-three-mile",
+   "file": "santa-cruz.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-santa-cruz-harbor",
+   "file": "santa-cruz.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-mitchells-cove",
+   "file": "santa-cruz.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-natural-bridges",
+   "file": "santa-cruz.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S to WSW",
+      "fromDeg": 180,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "S - WSW",
+      "fromDeg": 180,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "sheltered",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-good-rats",
+   "file": "sitka.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-sandy-beach-sitka-alaska",
+   "file": "sitka.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-kais-place",
+   "file": "sitka.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-red-tree-reef",
+   "file": "sitka.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-neva-bay",
+   "file": "sitka.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-shoals-point",
+   "file": "sitka.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - W(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - SW, WSW",
+      "fromDeg": 157.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-shoals-reef-wall",
+   "file": "sitka.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - W(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 270,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SSE - SW, WSW",
+      "fromDeg": 157.5,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-ak-low-island",
+   "file": "sitka.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-timber-cove",
+   "file": "sonoma.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-surfside-beach",
+   "file": "south-carolina.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-south-jetty",
+   "file": "south-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-debordieu",
+   "file": "south-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-burkes-beach",
+   "file": "south-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pumphouse",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NE to NE (wannasurf: NorthEast)",
+      "fromDeg": 45,
+      "toDeg": 45
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-sunrise",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-flagpole",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-hilton-hotel-backyard",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-lantana",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-japanese-rock",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-red-reef-park",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-south-beach-pavillion",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "reef"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-deerfield-beach-pier",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-deerfield-park-pier",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-hillsboro-beach",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NNE",
+      "fromDeg": 22.5,
+      "toDeg": 22.5
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-hillsboro-inlet",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pompano-pier",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-commercial-pier",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-ne-14th-ct",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-spoils",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "jetty",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-dania-pier",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-franklin-street",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-surfside-2",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-dunes-hotel",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-5th-street-florida",
+   "file": "southeast-florida.json",
+   "changed": [],
+   "contradictions": [
+    {
+     "field": "waveType",
+     "kept": "beach",
+     "rejected": "reef"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-south-beach-florida",
+   "file": "southeast-florida.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-long-beach-township",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-beach-haven",
+   "file": "southern-new-jersey.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NE to S (wannasurf: South, SouthEast, East, NorthEast)",
+      "fromDeg": 45,
+      "toDeg": 180
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "NNE - SSW",
+      "fromDeg": 22.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NE to S",
+      "fromDeg": 45,
+      "toDeg": 180,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-holyoke",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-south-carolina-avenue",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-chicken-bone-beach",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-sumner-avenue",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-32nd-street",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-12-th-street-jetty",
+   "file": "southern-new-jersey.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-camp-lejeune",
+   "file": "southern-north-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-onslow-beach",
+   "file": "southern-north-carolina.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "E to S (wannasurf: South, SouthEast, East)",
+      "fromDeg": 90,
+      "toDeg": 180
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "ENE - SW",
+      "fromDeg": 67.5,
+      "toDeg": 225,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "E to S",
+      "fromDeg": 90,
+      "toDeg": 180,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-seaview-pier",
+   "file": "southern-north-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-jolly-roger-pier",
+   "file": "southern-north-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-north-end-wrightsville-beach",
+   "file": "southern-north-carolina.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NE to SE (wannasurf: SouthEast, East, NorthEast)",
+      "fromDeg": 45,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "NE - SSW",
+      "fromDeg": 45,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NE to SE",
+      "fromDeg": 45,
+      "toDeg": 135,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-oceanic-pier",
+   "file": "southern-north-carolina.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-pelican-watch",
+   "file": "southern-north-carolina.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-fort-fisher",
+   "file": "southern-north-carolina.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NNE - SSW",
+      "fromDeg": 22.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NNE - SSW",
+      "fromDeg": 22.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NE to SE (wannasurf: SouthEast, East, NorthEast)",
+      "fromDeg": 45,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-bicentennial-park",
+   "file": "space-coast.json",
+   "changed": [
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "reef",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-ormond-beach-pier",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-main-street-pier",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-sunglow-pier",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-wilbur-by-the-sea",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-the-inlet-new-smyrna",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-apollo-beach",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-shepard-park",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-minuteman",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-2nd-light",
+   "file": "space-coast.json",
+   "changed": [
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "NE to SE (wannasurf: SouthEast, East, NorthEast)",
+      "fromDeg": 45,
+      "toDeg": 135
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": [
+    {
+     "field": "swellWindow",
+     "kept": {
+      "text": "NNE - SSE",
+      "fromDeg": 22.5,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "rejected": {
+      "text": "NE to SE",
+      "fromDeg": 45,
+      "toDeg": 135,
+      "basis": "workable"
+     },
+     "why": "the exposure range comes first (the research order); a workable range does not replace it"
+    }
+   ]
+  },
+  {
+   "spotId": "w-us-hightower-beach",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-bicentennial-beach-park",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-paradise-beach",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-coconut-point-park",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-ponce-de-leon-park",
+   "file": "space-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-port-o-connor-jetties",
+   "file": "texas.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-fish-pass-jetties",
+   "file": "texas.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-j-p-luby-surf-park",
+   "file": "texas.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-north-padre-seawall",
+   "file": "texas.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-bob-hall-pier",
+   "file": "texas.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NNE - SSW",
+      "fromDeg": 22.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NNE - SSW",
+      "fromDeg": 22.5,
+      "toDeg": 202.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "E to E (wannasurf: East)",
+      "fromDeg": 90,
+      "toDeg": 90
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-manzanita",
+   "file": "tillamook.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-short-beach",
+   "file": "tillamook.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-blue-heron-beach",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-blind-creek-park",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-fletchers",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-hobe-sound-public-beach",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-blowing-rocks",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-civic-center",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-corners-2",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-kite-beach-2",
+   "file": "treasure-coast.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-oil-piers",
+   "file": "ventura.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": null,
+     "to": {
+      "text": "SE - S, S - SSW, SW - W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-stanleys",
+   "file": "ventura.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": null,
+     "to": {
+      "text": "SE - S, S - SSW, SW - W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-usw-hobson-county-park",
+   "file": "ventura.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "S - NW(surfnerd)",
+      "fromDeg": 180,
+      "toDeg": 315,
+      "basis": "workable",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - S, S - SSW, SW - W",
+      "fromDeg": 135,
+      "toDeg": 270,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "exposure",
+     "from": "not stated",
+     "to": "exposed",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "cs-mondos",
+   "file": "ventura.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "SE to S, S to SSW, SW to WSW",
+      "fromDeg": 135,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "SE - S, S - SSW, SW - WSW",
+      "fromDeg": 135,
+      "toDeg": 247.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "why": "newer cited, agrees"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-north-end",
+   "file": "virginia.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-virginia-beach",
+   "file": "virginia.json",
+   "changed": [
+    {
+     "field": "swellWindow",
+     "from": {
+      "text": "NNE - SSE",
+      "fromDeg": 22.5,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "surfnerd"
+     },
+     "to": {
+      "text": "NNE - SSE",
+      "fromDeg": 22.5,
+      "toDeg": 157.5,
+      "basis": "exposure",
+      "source": "wannasurf"
+     },
+     "why": "newer cited, agrees"
+    },
+    {
+     "field": "workable",
+     "from": null,
+     "to": {
+      "text": "N to N (wannasurf: North)",
+      "fromDeg": 0,
+      "toDeg": 0
+     },
+     "why": "was missing"
+    },
+    {
+     "field": "waveType",
+     "from": null,
+     "to": "beach",
+     "why": "was missing"
+    }
+   ],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-1st-street-jetty",
+   "file": "virginia.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-croatan",
+   "file": "virginia.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-camp-pendleton",
+   "file": "virginia.json",
+   "changed": [],
+   "contradictions": []
+  },
+  {
+   "spotId": "w-us-little-island-fishing-pier",
+   "file": "virginia.json",
+   "changed": [],
+   "contradictions": []
+  }
+ ]
+}
