@@ -30,7 +30,8 @@ export const LIVE_ROOT = BASE + 'media/scale3d-live/';
  *  the licensed one; wave-clean: the atlas from cross-sections drawn from scratch (tools/blender/clean_source.py, CLEAN-WAVE.md; no licensed
  *  input). `?atlas=proc` / `?atlas=clean` picks one while they are compared; the default stays the licensed atlas. */
 const ATLAS_KIND = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('atlas') : null;
-export const ATLAS_ROOT = BASE + (ATLAS_KIND === 'proc' ? 'media/scale3d-proc/' : ATLAS_KIND === 'clean' ? 'media/scale3d-clean/' : 'media/scale3d-atlas/');
+// The default wave is the clean-room atlas (tools/blender/CLEAN-WAVE.md): no licensed input. ?atlas=licensed / ?atlas=proc compare against the old TurboSquid-derived atlases where present locally.
+export const ATLAS_ROOT = BASE + (ATLAS_KIND === 'proc' ? 'media/scale3d-proc/' : ATLAS_KIND === 'licensed' ? 'media/scale3d-atlas/' : 'media/scale3d-clean/');
 /** The light comes from the sun's position at the spot and hour (P5a); null keeps a neutral daylight. */
 export interface LiveLight {spotId: string; iso: string}
 
