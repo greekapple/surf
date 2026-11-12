@@ -611,3 +611,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-12 merged home-hero (merge after eefe0a8): phone hero 90 px strip. 1096 tests ✓, journeys 8/8, phone-pass ✓. OB no-Share on Home is by design (no window → nothing to share, B1). Awaiting user deploy OK.
 - 2026-11-12 merged home-nws: NWS box CSS in trust.css (Home missed forecast.css rules). 1096 tests ✓, journeys 8/8, t034 ✓. Awaiting user deploy OK.
 - 2026-11-12 fix: How-right v2 scorecard stuck (partial next=420 of ~763 at 06:20Z); cron widened to 20 0-13 (commit 52b5430). Needs deploy.
+- 2026-11-12 Atlantic 7 s (user approved): WIP on branch atlantic-7s d345de4, 1097 tests pass; NOT merged until the data-honesty fixes listed in its commit message (P0 method label in headlineSurf.ts:71). Then merge, deploy, check an East Coast spot under 8 s.
