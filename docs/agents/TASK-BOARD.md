@@ -605,3 +605,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-12 merged phone-pass-2 items 8–12 (9d095ec): tsc ✓, 1094 tests ✓, build ✓, journeys 8/8, phone-pass ALL PASS, t034 fixed. Open (honesty): Call range vs Surf block disagree unlabelled (OB 13–16 vs 11–14); Hookipa Call says no estimate while page shows 9–12.
 - 2026-11-12 merged call-honesty (b1d3b04): the Call names the hour it judged; 'for this hour', never 'for this spot'. 1095 tests ✓, journeys 8/8. Closes the OB 13–16 vs 11–14 and Hookipa items.
 - 2026-11-12 merged phone-pass-2 signature A Today ribbon + Call hierarchy (3bc9c65): 1095 tests ✓, journeys 8/8, phone-pass ✓, t034 ✓. Open: ribbon gutter labels overlap at 390 (sent back). Not deployed (awaiting user OK).
+- 2026-11-12 merged ribbon-fix (a44eb1f): ribbon gutter one line per track, headroom; phone-pass gutter assert ALL PASS. Awaiting user deploy OK.
