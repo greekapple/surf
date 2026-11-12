@@ -26,10 +26,11 @@ import type {Surfboard} from '../../models/index';
  *  Loaded lazily; Spin360 stays the fallback (no WebGL, reduced motion, or no atlas files). */
 const BASE = import.meta.env.BASE_URL ?? '/';
 export const LIVE_ROOT = BASE + 'media/scale3d-live/';
-/** wave-proc: the procedural break-cycle atlas (tools/blender/proc_source.py, no licensed input) next to the licensed one; `?atlas=licensed`
- *  or `?atlas=proc` picks one while the two are compared. */
+/** wave-proc: the break-cycle atlas from splines traced off the licensed rows (tools/blender/proc_source.py, still licensed-derived) next to
+ *  the licensed one; wave-clean: the atlas from cross-sections drawn from scratch (tools/blender/clean_source.py, CLEAN-WAVE.md; no licensed
+ *  input). `?atlas=proc` / `?atlas=clean` picks one while they are compared; the default stays the licensed atlas. */
 const ATLAS_KIND = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('atlas') : null;
-export const ATLAS_ROOT = BASE + (ATLAS_KIND === 'proc' ? 'media/scale3d-proc/' : 'media/scale3d-atlas/');
+export const ATLAS_ROOT = BASE + (ATLAS_KIND === 'proc' ? 'media/scale3d-proc/' : ATLAS_KIND === 'clean' ? 'media/scale3d-clean/' : 'media/scale3d-atlas/');
 /** The light comes from the sun's position at the spot and hour (P5a); null keeps a neutral daylight. */
 export interface LiveLight {spotId: string; iso: string}
 

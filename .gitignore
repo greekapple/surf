@@ -25,3 +25,6 @@ __pycache__/
 .wrangler/
 # wave-proc: traced from the licensed rows, licensed-derived (private site only)
 public/media/scale3d-proc/
+# wave-clean: built from tools/blender/clean-curves.json (drawn from scratch, NO licensed input: could be committed and served
+# publicly); kept out of git until the lead decides. Rebuild: python -I tools/blender/clean_source.py public/media/scale3d-clean
+public/media/scale3d-clean/

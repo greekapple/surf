@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import {ATLAS_BANDS, type Atlas, type AtlasMeta, ampAt, bendW, bendZ, blendAtlas, breakX, bucketsFor, faceDistanceAt, makeAtlas, profileAt, scaleAtlas, sections, stageAt, stripX, withPeriod} from '../features/scale/waveAtlas.ts';
 
 const ROOT = process.env.SWELLO_ATLAS_ROOT ?? new URL('../../public/media/', import.meta.url).pathname;   // the env var: another checkout's atlases (before/after runs)
-const KINDS = ['scale3d-atlas', 'scale3d-proc'];
+const KINDS = ['scale3d-atlas', 'scale3d-proc', 'scale3d-clean'];   // wave-clean: drawn from scratch (tools/blender/CLEAN-WAVE.md)
 const load = (dir: string, id: string): Atlas | null => {
   const j = `${ROOT}${dir}/${id}.json`, b = `${ROOT}${dir}/${id}.bin`;
   if (!fs.existsSync(j) || !fs.existsSync(b)) return null;
