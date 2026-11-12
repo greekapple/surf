@@ -116,28 +116,46 @@ export function createSurfCapture({fetcher = fetch, now = Date.now, sleep = (ms)
     if (!c.spend()) return {ok: false, job: 'srf', reason: 'budget'};
     try { const o = await bucket.get(KEYS.srfSeen); index = o ? await o.json() : null; } catch (e) { return {ok: false, job: 'srf', reason: `R2 read of the index failed: ${String(e?.message ?? e).slice(0, 80)}`}; }
     index = {schema: 1, runs: 0, offices: {}, ...(index ?? {})}; index.offices ??= {};
-    const rot = (index.runs ?? 0) % offices.length, order = [...offices.slice(rot), ...offices.slice(0, rot)], report = {}; let stored = 0, failures = 0;
+    const rot = (index.runs ?? 0) % offices.length, order = [...offices.slice(rot), ...offices.slice(0, rot)], report = {}, state = {}; let stored = 0, failures = 0;
+    const store = (office, id, text, issuanceTime) => put(bucket, c, KEYS.srf(office, id), text, {httpMetadata: {contentType: 'application/json'}, customMetadata: {office, issuanceTime: issuanceTime ?? ''}});
+    const readProduct = async (id, rep) => {
+      const got = await get(`https://api.weather.gov/products/${id}`, c.spend, headers);
+      if (got.status !== 'ok') { failures++; rep.status = got.status; return {budget: got.status === 'budget'}; }
+      let prod; try { prod = JSON.parse(got.text); } catch { failures++; rep.status = 'bad product json'; return {}; }
+      if (prod?.id !== id || typeof prod?.productText !== 'string') { failures++; rep.status = 'unexpected product'; return {}; }
+      return {text: got.text, prod};
+    };
+    // PHASE A, serve-first: EVERY office gets its newest product served before any archival backlog is drained (a backlog of about 1,300 products would otherwise use the whole budget on the first offices and leave the rest unserved for days).
+    // Cost: one list read per office, and only where the newest listed product is newer than the one served: one product read, the serve put, and the archive put. The served product only ever moves FORWARD (the index remembers it); phase B never writes a serve key.
     for (const office of order) {
-      const rep = report[office] = {listed: 0, new: 0, stored: 0}, seen = index.offices[office]?.ids ?? [];
+      const rep = report[office] = {listed: 0, new: 0, stored: 0}, seen = index.offices[office]?.ids ?? [], served0 = index.offices[office]?.served ?? null;
       const list = await get(`https://api.weather.gov/products/types/SRF/locations/${office}`, c.spend, headers);
       if (list.status !== 'ok') { rep.status = list.status; failures++; if (list.status === 'budget') break; continue; }
       let json; try { json = JSON.parse(list.text); } catch { rep.status = 'bad json'; failures++; continue; }
-      const all = parseSrfList(json), fresh = newProducts(all, seen);
-      rep.listed = all.length; rep.new = newProducts(all, seen, Infinity).length;
-      const ids = [...seen]; let newest = null;
-      for (const p of fresh) {
-        const got = await get(`https://api.weather.gov/products/${p.id}`, c.spend, headers);
-        if (got.status !== 'ok') { failures++; rep.status = got.status; if (got.status === 'budget') break; continue; }
-        let prod; try { prod = JSON.parse(got.text); } catch { failures++; rep.status = 'bad product json'; continue; }
-        if (prod?.id !== p.id || typeof prod?.productText !== 'string') { failures++; rep.status = 'unexpected product'; continue; }
-        if (await put(bucket, c, KEYS.srf(office, p.id), got.text, {httpMetadata: {contentType: 'application/json'}, customMetadata: {office, issuanceTime: p.issuanceTime ?? ''}})) { ids.push(p.id); rep.stored++; stored++; if (!newest || String(p.issuanceTime) > String(newest.issuanceTime)) newest = {issuanceTime: p.issuanceTime, prod}; } else { failures++; rep.status = 'put failed'; }
-      }
-      // The served product only ever moves FORWARD: a backlog drained after a newer product was served (MAX_PER_OFFICE per run, newest first, so later runs hold OLDER products) must never overwrite it. The index remembers what was served.
-      const servedAt = Date.parse(index.offices[office]?.served?.issuedAt ?? ''); let served = index.offices[office]?.served ?? null;
-      if (newest) { const slim = slimProduct(newest.prod, office); if (!slim) rep.served = 'unparsed'; else if (Number.isFinite(servedAt) && Date.parse(slim.issuedAt) <= servedAt) rep.served = 'kept newer'; else if (await put(bucket, c, serveKey(office), JSON.stringify(slim), {httpMetadata: {contentType: 'application/json'}})) { rep.served = slim.id; served = {id: slim.id, issuedAt: slim.issuedAt}; } else { failures++; rep.status = 'serve put failed'; } }
-      index.offices[office] = {ids: ids.slice(-SEEN_CAP), updatedAt: new Date(now()).toISOString(), ...(served ? {served} : {})};
-      if (c.used >= c.limit) break;
+      const all = parseSrfList(json); rep.listed = all.length; rep.new = newProducts(all, seen, Infinity).length;
+      const st = state[office] = {all, ids: [...seen], served: served0, unparsed: index.offices[office]?.unparsed ?? null};
+      const top = [...all].sort((a, b) => String(b.issuanceTime).localeCompare(String(a.issuanceTime)))[0], servedAt = Date.parse(served0?.issuedAt ?? '');
+      if (!top) continue;
+      if (st.unparsed === top.id) { rep.served = 'unparsed (remembered)'; continue; }   // an unreadable product is not read again every run
+      if (Number.isFinite(servedAt) && Date.parse(top.issuanceTime ?? '') <= servedAt) { rep.served = 'kept newer'; continue; }
+      const r = await readProduct(top.id, rep); if (r.budget) break; if (!r.prod) continue;
+      const slim = slimProduct(r.prod, office);
+      if (!slim) { rep.served = 'unparsed'; st.unparsed = top.id; }
+      else if (Number.isFinite(servedAt) && Date.parse(slim.issuedAt) <= servedAt) rep.served = 'kept newer';
+      else if (await put(bucket, c, serveKey(office), JSON.stringify(slim), {httpMetadata: {contentType: 'application/json'}})) { rep.served = slim.id; st.served = {id: slim.id, issuedAt: slim.issuedAt}; }
+      else { failures++; rep.status = 'serve put failed'; }
+      if (!st.ids.includes(top.id) && await store(office, top.id, r.text, top.issuanceTime)) { st.ids.push(top.id); rep.stored++; stored++; }
     }
+    // PHASE B: the archival backlog, newest first, what is left of the budget; offices in the same rotated order.
+    for (const office of order) {
+      const st = state[office], rep = report[office]; if (!st) continue;
+      if (c.used >= c.limit) break;
+      for (const p of newProducts(st.all, st.ids)) {
+        const r = await readProduct(p.id, rep); if (r.budget) break; if (!r.prod) continue;
+        if (await store(office, p.id, r.text, p.issuanceTime)) { st.ids.push(p.id); rep.stored++; stored++; } else { failures++; rep.status = 'put failed'; }
+      }
+    }
+    for (const [office, st] of Object.entries(state)) index.offices[office] = {ids: st.ids.slice(-SEEN_CAP), updatedAt: new Date(now()).toISOString(), ...(st.served ? {served: st.served} : {}), ...(st.unparsed ? {unparsed: st.unparsed} : {})};
     index.runs = (index.runs ?? 0) + 1; index.updatedAt = new Date(now()).toISOString();
     await put(bucket, c, KEYS.srfSeen, JSON.stringify(index), {httpMetadata: {contentType: 'application/json'}}, true);
     await put(bucket, c, KEYS.srfStatus, JSON.stringify({schema: 1, updatedAt: index.updatedAt, stored, failures, used: c.used, offices: report}), {httpMetadata: {contentType: 'application/json'}}, true);

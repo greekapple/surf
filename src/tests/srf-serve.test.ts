@@ -74,7 +74,26 @@ test('the served product never regresses: an older backlog drained after the new
   const cap = createSurfCapture({fetcher: fetcher as any, now: () => Date.parse('2026-11-11T14:00:00Z'), sleep: async () => {}, politeMs: 0, budgets: {gauges: 48, srf: 400, swan: 80}});
   const env = {BUCKET: bucket(store)} as any;
   await cap.srf(env); assert.equal(JSON.parse(store.get(serveKey('MTR'))!).id, id(N - 1), 'first run serves the newest');
-  const archived1 = [...store.keys()].filter((k) => /archive\/surf-height\/srf\/MTR\//.test(k)).length; assert.equal(archived1, MAX_PER_OFFICE);
+  const archived1 = [...store.keys()].filter((k) => /archive\/surf-height\/srf\/MTR\//.test(k)).length; assert.equal(archived1, MAX_PER_OFFICE + 1, 'the newest (phase A) plus one drain batch');
   await cap.srf(env); const after = [...store.keys()].filter((k) => /archive\/surf-height\/srf\/MTR\//.test(k)).length; assert.equal(after, N, 'the backlog drained');
   assert.equal(JSON.parse(store.get(serveKey('MTR'))!).id, id(N - 1), 'the served product is still the newest');
+});
+test('serve-first: with 19 offices each holding a backlog far bigger than the budget, EVERY office still ends the run with a served product (production 02:47Z: MFR and everything after MLB had none)', async () => {
+  const {SRF_OFFICES: OFFS, MAX_PER_OFFICE} = await import('../../services/surf-capture.mjs');
+  const store = new Map<string, string>(), N = 80, id = (o: string, i: number) => `${o}-${String(i).padStart(10, '0')}`, at = (i: number) => new Date(Date.parse('2026-11-01T00:00:00Z') + i * 3600000).toISOString().replace('.000Z', '+00:00');
+  const fetcher = async (url: string) => {
+    const l = /products\/types\/SRF\/locations\/([A-Z]+)$/.exec(url); if (l) return new Response(JSON.stringify({'@graph': [...Array(N).keys()].reverse().map((i) => ({id: id(l[1], i), issuanceTime: at(i), issuingOffice: 'K' + l[1]}))}), {status: 200});
+    const m = /products\/([\w-]+)$/.exec(url)!; const i = Number(m[1].split('-')[1]); return new Response(JSON.stringify(prod(m[1], at(i))), {status: 200});
+  };
+  for (const srfBudget of [200, 95]) {
+    store.clear();
+    const cap = createSurfCapture({fetcher: fetcher as any, now: () => Date.parse('2026-11-11T14:00:00Z'), sleep: async () => {}, politeMs: 0, budgets: {gauges: 48, srf: srfBudget, swan: 80}});
+    const env = {BUCKET: bucket(store)} as any; const out = await cap.srf(env); assert.equal(out.ok, true);
+    for (const o of OFFS) { const k = serveKey(o); assert.ok(store.has(k), `${o} has a served key (budget ${srfBudget})`); assert.equal(JSON.parse(store.get(k)!).id, id(o, N - 1), `${o} serves its NEWEST product`); }
+    const st: any = JSON.parse(store.get(KEYS.srfStatus)!); assert.ok(Object.values(st.offices).every((r: any) => r.status !== 'serve put failed' && r.served === undefined === false), 'every office reports a served product and none a failed serve put: ' + JSON.stringify(Object.entries(st.offices).filter(([, r]: any) => r.status === 'serve put failed' || !r.served).slice(0, 3)));
+    assert.ok(st.used <= srfBudget, `used ${st.used} of ${srfBudget}`);
+    // a second run (the next tick) serves nothing new, only drains the backlog; the served key never moves back
+    await cap.srf(env); for (const o of OFFS) assert.equal(JSON.parse(store.get(serveKey(o))!).id, id(o, N - 1));
+    void MAX_PER_OFFICE;
+  }
 });

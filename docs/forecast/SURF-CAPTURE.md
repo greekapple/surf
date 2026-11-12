@@ -35,3 +35,6 @@ Measured on live endpoints 2026-11-11 (fake bucket, real NDBC, NWS, ERDDAP and T
 - `npx wrangler r2 object get swello-forecast-cache/archive/surf-height/_status-gauges.json --remote --pipe`: `hour` is the previous UTC hour, `failures` mostly 0 (some stations have no `.spec`: recorded as 404).
 - `.../archive/surf-height/_status-srf.json` after 02, 08, 14 or 20 UTC; `.../archive/swan/_status.json` every hour.
 - Keep the local SWAN capture (`scripts/swan-capture-local.mjs`) running until the R2 objects of one full day (24 `swan-<HH>.json.gz`) exist.
+
+## SRF serving is serve-first (production fix, 2026-11-12)
+Each SRF run first serves the NEWEST product of EVERY office (phase A: one list read per office; where the newest listed product is newer than the one served, one product read, the serve put and the archive put: about 77 operations for 19 offices), and only then drains the archival backlog with the rest of the budget (phase B, which never writes a serve key). The 02:47Z run drained the first offices' backlog and ran out before MLB..TBW (no serve key) and its serve put for MFR was refused by the closing-write reserve ("serve put failed"). The index remembers `served` (id, issuedAt) per office so the key only moves forward, and an unreadable newest product (`unparsed`) is not read again every run.
