@@ -1,4 +1,4 @@
-# Briefing for Fable: make SWELLO the best surf forecast there is (for Wednesday 2026-11-11)
+# Briefing for Fable: make SWELLO the best surf forecast there is (updated for Thursday 2026-11-12)
 
 You are taking over the SWELLO repo for one focused session. Read this whole brief, then `CLAUDE.md`, `PRODUCT.md`, `docs/agents/README.md` and `docs/agents/CONTRACTS.md` before touching anything.
 
@@ -10,7 +10,7 @@ The user's bar: **"exponentially better than Surfline"**. Their focus order:
 5. the 3D size view and the quiver, which are the differentiators.
 
 ## How to run
-- **Session:** work in this repo as a Claude Code session on the Fable model. Use a worktree branch from `forecast-trust` (`git worktree add .claude/worktrees/fable fable-wed forecast-trust`), not a copy of the website: the tests, the private 3D assets and the browser toolkit only exist here.
+- **Session:** work in this repo as a Claude Code session on the Fable model. Use a worktree branch from `forecast-trust` (`git worktree add .claude/worktrees/fable -b fable-thu forecast-trust`), not a copy of the website: the tests, the private 3D assets and the browser toolkit only exist here.
 - **Node via fnm:** `zsh -lic 'cd <worktree> && …'`.
 - **Dev server:** `npm run dev -- --port 5186 --strictPort`. 5180 is the lead's and 5184 is product's.
 - **Browser checks:** `~/Development/ai-system-setup/playwright-toolkit/swello/` (journeys, t043, t062, t104, t034, clock-deselect, point-panel-390, t091 perf).
@@ -30,26 +30,122 @@ The user's bar: **"exponentially better than Surfline"**. Their focus order:
    - journeys 8/8 and the toolkit checks for the area you touched pass;
    - you looked at the 1440 and 390 screenshots against the references in `docs/design/`.
 
-## Where the app is (2026-11-09, live version 60a46f96)
-- **492 spots:**
-  - California, Oregon and Washington: 102;
-  - Hawaii: 152;
-  - the US East Coast: 238.
+## Where the app is (updated 2026-11-12, live version f4fd3b9c)
+Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C is live. Since then, also live:
+- **1,078 spots:** Oregon, Washington and Sitka; the East Coast, Gulf and Puerto Rico; minus 3 merged duplicates. One slug system, a 404 page and "Spot not found".
+- **The surf number, in order of trust:**
+  1. CDIP MOP in California;
+  2. the v1 profile estimate wherever cited guide facts allow it (breaking profiles 664 → 902 after the guide-facts round, `docs/forecast/GUIDE-FACTS-ROUND2.md`);
+  3. **new:** the NWS Surf Zone Forecast as a labelled "official" fallback ("NWS surf forecast … not ours", with its issue time, HFO AM/PM halves kept; `docs/forecast/OFFICIAL-SURF.md`);
+  4. otherwise the offshore height, labelled "offshore · not surf size".
+  - Offshore-only for a static reason: 410 → 206 (`docs/forecast/OFFSHORE-ONLY.md`).
+  - Hawaii SWAN is built but OFF (it read about 1.5 ft low against the buoys).
+- **Evidence being recorded:** Worker hourly cron into R2:
+  - nearshore gauges hourly;
+  - NWS SRF four times a day;
+  - Hawaii SWAN every 3 h;
+  - the daily "How right" capture (now 763 spots; the first v1 numbers are due about Nov 12 and v2 about Nov 14).
+  - Comparison tooling: `scripts/srf-compare.mjs` and `scripts/gauge-compare.mjs` (`docs/forecast/SRF-COMPARE.md`). The first read: ours is about 1 ft below the NWS (median ratio 0.67 on newly estimated spots).
+- **Also live:**
+  - **Phone pass 1–7:** answer first, the map takes the screen, honest limited/fallback pills, the legend chip "offshore · not surf".
+  - **Map:** fills its whole seaboard in the background.
+  - **Share card:** Wordle-style text plus a PNG.
+  - **Quiver:** real retail example boards.
+  - **Personal:** backup restore.
+  - **Water quality:** the water-quality line.
+  - **Go windows:** stable Go windows.
+  - **Cameras:** Huntington, Hermosa and Venice.
+- **In flight (check before touching):** product-term's phone pass items 8–12 plus "signature A"; eng-term's Europe land check.
+- **Open user decisions:**
+  - the **Atlantic 8 s minimum period** (about 97 East Coast spots refuse most hours; bring evidence, don't change it);
+  - **HDOnTap:** their free auto-updating snapshots, with credit, logo and a link back, are offered; reply pending the user's OK. Quiver's HDOnTap streams are unlicensed and being taken down: never copy that.
 
-  Each has sourced positions, facing and guide facts; a tide station chosen by a reviewed open-coast rule; NWS alerts; shore wind where a station is close; and buoys shown with their distance.
-- **Per-spot local time:** the clocks follow the spot in view. The map has a deselect state.
-- **Hot/cold refresh:** the server refreshes only spots viewed in the last 24 h, so cost stays flat as the catalogue grows.
-- **World catalogue (not in the app yet):** 5,220 sourced spots in `docs/forecast/data/world-spots/`, with a vault note for each.
-- **In progress this round:** `docs/specs/2026-11-09-round-3.md`. Check what has merged before you start, so you don't redo it:
-  - phone map speed;
-  - landscape tap and Home zone tags;
-  - the Hawaii tide leftovers;
-  - a split-swell rating audit;
-  - Australia groundwork.
+## The user's two asks for this session (2026-11-12)
+1. **"Just make the overall functionality"**: everything works, fast, with no dead ends, before anything new.
+2. **"Avoid overcrowding"**: fewer things on each screen, each one earning its place. When in doubt, move it behind one tap rather than add it.
 
 ## Tracks, in order (finish and hand back each before starting the next)
 
-### Track 1: the 3D wave-to-surfer view (`src/features/scale/WaveLive.tsx`, `rideSim.ts`, `riderBody.ts`, `boardObject.ts`, `peelDirection.ts`)
+### Track 0: it all just works (do this first)
+**Goal:** a surfer can do every core job on a phone without a dead end, a wrong number, a stuck loader or a confusing state.
+- **The jobs to walk, at 390 and 1440, light and dark:**
+  - open the app → see today's best bet;
+  - pick a spot by search and by map;
+  - read the call and the surf number, then why;
+  - change the hour and day;
+  - compare two spots;
+  - share;
+  - add a board and get Board Match;
+  - log a session and a "felt right";
+  - change units;
+  - back up and restore;
+  - an unknown or old link;
+  - offline or slow network;
+  - a spot with each surf-number kind (MOP, v1, NWS official, offshore-only, demo).
+- **For each job:** record time to the answer (cold and warm), errors in the console, layout breaks, wrong or contradictory labels, and states that never resolve.
+- **Fix:**
+  - every dead end and every stuck "loading";
+  - every place two screens disagree (the Home best bet vs the spot page, the map pill vs the spot, the share vs the spot);
+  - every console error.
+- **Speed budget:** the spot page's surf number within 3 s on a warm cache and 6 s cold on the phone profile. The map is usable within 2 s, with no long tasks over 200 ms while scrubbing (this includes audit B8: pins updated in place, model steps blended on the GPU).
+- **Known flaky checks to stabilise:**
+  - search-fly at 1440 (Pipeline);
+  - t043 under the map's background fill;
+  - the coast-pills-snapshot crash when /api/coast-ratings has no capture.
+- **Deliverable:** a table of job × width × theme with pass or fail, before and after; the toolkit gaining a check for every bug you fix.
+
+### Track 1: declutter, and stop it looking AI-made
+The user, again: avoid overcrowding.
+- **Screen budget:**
+  - The phone spot page's first screen shows exactly: name, time, the call (word plus reason), the surf number with its kind, and one row of wind, tide and swell. Everything else is below or behind one tap.
+  - Home's first screen shows the best bet and at most 3 other spots.
+  - The phone map shows the map, search, time bar and legend chip; nothing else is pinned.
+- **Remove or fold:**
+  - repeated labels (the same source line in three places);
+  - helper prose that a tap can hold;
+  - decorative icons;
+  - duplicate numbers (the same height shown twice in different styles);
+  - empty states that take a whole card.
+  - Each removal must keep the data-honesty labels reachable. Never drop a required label (offshore · not surf, the model estimate, NWS "not ours", provisional, stale or saved); shorten it instead.
+- **Also look for the AI tells:**
+  - generic gradients;
+  - filler copy (e.g. "Swello reads … honest");
+  - over-rounded cards;
+  - an inconsistent type scale;
+  - crowded phone screens.
+- **The design rules:**
+  - follow `docs/design/RULES.md` and the reference crops;
+  - minimal, functional, data first: Surfline and Windy structure, done more beautifully;
+  - no AI imagery on condition surfaces.
+- **Decided by the user (2026-11-11):**
+  - font: **Archivo**, as PRODUCT.md says; Inter goes;
+  - example boards stay real retail models, labelled "Example board (retail model)" (done).
+- **Also in this track:** the design-audit items D1–D15 and the three system fixes (`docs/reviews/2026-11-10-audit-summary.md` §D: type tokens, colour roles in both themes, five shared components).
+- **Process:**
+  - run the `design-critic` agent first, asking it to name every crowded screen and count the elements on each first screen;
+  - fix its top 5;
+  - re-critique once;
+  - report the element counts before and after.
+
+### Track 2: honest about how right we are (accuracy scorecard plus surf-height calibration)
+- **Show it on every spot page:** a "How right we've been" line (last 7 and 30 days) with the typical error and whether we ran high or low, against the nearest open-ocean buoy; in California, also against CDIP MOP's analysis. The first real numbers land about Nov 12 (v1) and Nov 14 (v2); make sure they render well and briefly. Where there's no eligible buoy, it says so. There is never a number without a source.
+- **Surf-height calibration:** run `srf-compare` and `gauge-compare` on everything captured so far. Report the error per region and per method (MOP, v1, NWS), with n.
+- **Then bring the user two evidence-backed proposals:**
+  1. the Atlantic 8 s minimum period: does v1 below 8 s track the NWS and the gauges?
+  2. a per-region correction of the breaking step, if the low bias holds.
+  - Apply nothing that changes a number until the user approves.
+- **Calibration of the rating:** use `docs/forecast/RATING-AUDIT-SPLIT.md` if it has landed. Make one rating-calibration spec; apply it only after the user approves, and byte-compare every unaffected spot.
+- **Review:** data-honesty-reviewer.
+
+### Track 3: cameras the honest way
+- **HDOnTap snapshots:** once the user has OK'd the reply and HDOnTap confirms, show their auto-updating stills on the matching spot pages, with the HDOnTap credit, their approved logo and a link to the live page. Never their streams without a licence, never a workaround.
+- **Spot-page hero:** where a spot has an enabled camera (still or stream), the hero shows it instead of the photo, with credit and live status. Without a camera, the current photo stays. Keep it uncluttered: one camera, one credit line.
+- **Replay:** only for USGS stills (public domain) and SWELLO's own camera when it exists. Ask owners about recording before any video replay. No Surfline in any form.
+
+### Track 4: personal calibration you can see
+After a few "felt right?" taps or logged sessions at a spot, the headline shows "calibrated to your N sessions here", with the calibrated range next to the model's and one tap to see why they differ. A new user sees the plain model. Nothing is uploaded; everything stays local.
+
+### Track 5: the 3D wave-to-surfer view (only after Tracks 0–2 are handed back) (`src/features/scale/WaveLive.tsx`, `rideSim.ts`, `riderBody.ts`, `boardObject.ts`, `peelDirection.ts`)
 **What it is for:** the user sees today's forecast wave at true size next to a surfer of their own height, on a board from their own quiver, riding believably. It's a size comparison first, and a ride second.
 
 **Status:**
@@ -119,42 +215,7 @@ Steps 1–6 need no capture; step 7 uses it.
 
 The lead looks at the stills before any merge.
 
-### Track 2: honest about how right we are (accuracy scorecard)
-- **Show it on every spot page:** a "How right we've been" line (last 7 and 30 days) with the typical error and whether we ran high or low, against the nearest open-ocean buoy. In California it is also measured against CDIP MOP's analysis.
-  - **Data:** the forecast archive (`services/forecastArchive`), plus the buoy readings.
-  - **No data:** where there's no eligible buoy, it says so. There is never a number without a source.
-- **Calibration:** use `docs/forecast/RATING-AUDIT-SPLIT.md` (the round-3 study) if it has landed. Turn its evidence-backed proposals into one rating-calibration spec, apply it only after the user approves, and byte-compare every unaffected spot.
-- **Review:** data-honesty-reviewer.
-
-- **Surf-height calibration (added 2026-11-11):** the surf number is a model estimate. Score it daily per zone against the NWS Surf Zone Forecasts (official, public domain, 1,040 spots mapped in `docs/forecast/data/surf-height-sources.json`), and calibrate the breaking step against the measured nearshore gauges (CDIP/NDBC, list in `docs/research/SURF-HEIGHT-SOURCES.md`). The records: `~/Development/swello-data/surf-height/` (since 2026-11-10 22:45 PST) and, once eng's server capture lands, R2 `archive/surf-height/`. Report the error per region before proposing any change; apply only after the user approves.
-
-### Track 3: personal calibration you can see
-After a few "felt right?" taps or logged sessions at a spot, the headline shows "calibrated to your N sessions here", with the calibrated range next to the model's and one tap to see why they differ. A new user sees the plain model. Nothing is uploaded; everything stays local.
-
-### Track 4: "it still looks AI-made" (the user, repeatedly)
-- **Look for the AI tells:**
-  - generic gradients;
-  - filler copy (e.g. "Swello reads … honest");
-  - over-rounded cards;
-  - inconsistent type scale;
-  - decorative icons;
-  - crowded phone screens.
-
-  Check Home, Forecast, Map and Quiver at 1440 and 390, light and dark.
-- **The design rules:**
-  - follow `docs/design/RULES.md` and the reference crops;
-  - minimal, functional, data first: Surfline and Windy structure, done more beautifully;
-  - no AI imagery on condition surfaces.
-- **Decided by the user (2026-11-11):**
-  - font: **Archivo**, as PRODUCT.md says; Inter goes (RULES.md calls it an AI tell);
-  - example boards stay real retail models, labelled "Example board (retail model)" (being done on `boards-restore`).
-- **Also in this track:** the design-audit items D1–D15 and the three system fixes (`docs/reviews/2026-11-10-audit-summary.md` §D), plus map scrub performance (B8: pins updated in place, model steps blended on the GPU).
-- **Process:**
-  - run the `design-critic` agent first;
-  - fix its top 5;
-  - re-critique once.
-
-### Track 5: Australia (only if the groundwork says go)
+### Track 6: Australia (only if the groundwork says go)
 **Update, 2026-11-10:** the source readers already exist, unwired and tested: `src/ocean/aodn.ts` (AODN/IMOS buoys) and `src/ocean/tmrTides.ts` (Queensland tides), described in `docs/forecast/AUSTRALIA-SOURCES.md`. Ireland's readers exist too (`src/ocean/marineInstitute.ts`, `docs/forecast/IRELAND-SOURCES.md`). Wire them; don't rebuild them. BoM tides are not permitted, so outside Queensland tides say "not available in this region" unless the user gets BoM permission.
 **Precondition:** `docs/forecast/AUSTRALIA-DATA.md` and `docs/specs/DRAFT-australia-wiring.md` say the buoys and tides are allowed to be displayed.
 
@@ -165,14 +226,7 @@ After a few "felt right?" taps or logged sessions at a spot, the headline shows 
 
 If the groundwork isn't merged, skip this track.
 
-### Track 6a: live camera as the hero, with replay (user vision, 2026-11-10)
-The user: when we embed cameras, "replacing the current images on the spot at the very top of forecasting pages and the first comparison diagram thing at home with the recommended spot will be a live cam … it should also be replayable … so you can ultimately find yourself surfing."
-- **Spot-page hero:** where a spot has an enabled camera (the Camera panel's data), the hero shows that camera instead of the photo. A still is shown directly; a stream as a poster plus tap to play. Credit and live status as in the Camera panel. Without a camera, the current photo stays.
-- **Home:** the recommended spot's camera replaces the comparison drawing when it has one. The drawing stays as the fallback, and stays available elsewhere.
-- **Replay ("find yourself surfing"):** a scrubbable rewind of the last hours. It needs **recording**, which needs the camera owner's explicit permission to record and keep footage. The current permissions cover display only (HDOnTap, YouTube owners), and USGS stills are public domain, so a still-frame rewind is possible for USGS now. Build replay first for USGS stills (a frame strip of the last 24 h stored in R2, with retention) and for SWELLO's own camera when it exists. Ask HDOnTap and owners about recording rights before any video replay. Never record a stream without permission.
-- **No Surfline in any form.**
-
-### Track 6: surf cameras, AI reading (only if the inventory found cameras that allow analysis)
+### Track 7: surf cameras, AI reading (only if the inventory found cameras that allow analysis)
 **Input:** `docs/forecast/CAMERAS-INVENTORY.md` and `docs/forecast/data/camera-sources.json` (the Phase A inventory, 2026-11-10). The rules in vault `10-Projects/SWELLO/09-AI-Surf-Cameras.md` are non-negotiable:
 - written permission for display, and separately for analysis;
 - no Surfline or other restricted feeds;
@@ -189,18 +243,18 @@ The user: when we embed cameras, "replacing the current images on the spot at th
    - Show the result as "Observed · AI estimate", with confidence, only after the lead and the user review it.
 
 ## What to hand back
-- **The branch:** `fable-wed`, gated, not deployed.
-- **A report** at `docs/agents/handoffs/2026-11-11-fable-report.md`:
+- **The branch:** `fable-thu`, gated, not deployed (the lead deploys after review).
+- **A report** at `docs/agents/handoffs/2026-11-12-fable-report.md`:
   - per track, what changed, with before and after numbers and stills (paths);
   - the gate output;
   - what you didn't do, and why;
   - the top 5 things you'd do next.
-- **A vault note:** `~/Knowledge/AI-Knowledge/80-Handoffs/2026-11-11-fable-session.md`, linking the report.
+- **A vault note:** `~/Knowledge/AI-Knowledge/80-Handoffs/2026-11-12-fable-session.md`, linking the report.
 
 ## Stop and ask the user (in chat) before
 - deploying;
 - spending money;
 - unpausing 3D motion work beyond Track 1;
-- changing any rating weight;
+- changing any rating weight or any rule that changes a shown number (e.g. the Atlantic 8 s minimum);
 - publishing anything;
 - anything touching licensed assets beyond local use.
