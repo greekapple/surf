@@ -1,4 +1,6 @@
 import {lazy, Suspense, useEffect, useMemo, useRef, useState, type FormEvent, type ReactNode} from 'react';
+import {levelInfo, levelOf, suggestedVolume} from '../../services/skillLevels';
+import {levelSource} from '../../services/profileFields';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
@@ -251,7 +253,9 @@ export function QuiverView({section, go}: ViewProps) {
 
       {section === 'match' && (
         <section className="qv-panel" aria-label="Board match">
-          <p className="fine">{view.spot.name} at the selected hour · {p.skill}</p>
+          <p className="fine">{view.spot.name} at the selected hour · level {levelOf(p)}, {levelInfo(levelOf(p)).name.toLowerCase()}{levelSource(p)}</p>
+          {/* profile-setup: weight × the level's litres per kg (our rule of thumb, services/skillLevels.ts); only with a weight saved in Personal › Profile */}
+          {(() => { const lv = levelOf(p), v = suggestedVolume(p.weightKg, lv); return v !== null ? <p className="fine qv-vol">Suggested volume for you: about {v} L ({p.heightUnit === 'm' ? '' : `${Math.round(p.weightKg! / 0.45359237)} lb = `}{Math.round(p.weightKg!)} kg × {levelInfo(lv).litresPerKg} L/kg for level {lv}, {levelInfo(lv).name.toLowerCase()}; our rule of thumb, not fitted to data). {boards.some((b) => Number.isFinite(b.volume)) ? `Your boards: ${boards.filter((b) => Number.isFinite(b.volume)).map((b) => `${b.name} ${Math.round(b.volume!)} L`).join(', ')}.` : ''}</p> : null; })()}
           {pending ? <Skeleton label={`Loading Board Match for ${view.spot.name}`} /> : !faceOk ? (
             sizeOk ? (
               <>

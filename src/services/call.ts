@@ -1,4 +1,5 @@
 import type {Forecast, Skill, SurfSpot, UserProfile} from '../models/index.ts';
+import {isLevel, levelInfo, PLUNGING_OK_FROM} from './skillLevels.ts';
 import type {OceanBundle} from '../ocean/types.ts';
 import {dateIn, addDaysKey, fmtIn} from '../ocean/time.ts';
 import {timeZoneOf} from '../ocean/spotZone.ts';
@@ -22,7 +23,7 @@ export interface Call {/** After dark: what the conditions alone would say in da
   verdict: Verdict; window: CallWindow | null; nextWindow: CallWindow | null; why: string[]; basis: string; /** Estimated breaker type for this hour (label "est. breaker type"); type 'unknown' where the spot has no defensible slope. */ breaker: BreakerEstimate}
 export interface CallContext {records: Forecast[]; bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null; nowMs: number}
 
-/** Face-height range each skill is comfortable in, in feet. OUR OWN CHOICES (product rules, not a safety standard).
+/** Surf-height range each skill is comfortable in, in feet. OUR OWN CHOICES (product rules, not a safety standard).
  *  Only the beginner ceiling has an outside anchor: Quiver's public example calls 5.2 ft "beyond the beginner safety range" and its beginner range starts at 0.5 ft;
  *  we use 4 ft as the ceiling, which is about "head high" in the body-word convention (OceanFit). The other bounds are our judgement, adjustable in one place. */
 export const SKILL_RANGE_FT: Record<Skill, {min: number; max: number}> = {Beginner: {min: 1, max: 4}, Intermediate: {min: 1.5, max: 8}, Expert: {min: 2, max: 20}};
@@ -54,26 +55,28 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
     const lit = inner.verdict !== 'Dark' && cat ? {verdict: inner.verdict, conditions: cat} : undefined;
     return {verdict: 'Dark', lit, why: [lit ? `It is dark (before first light or after last light), so it is not a surf window. The conditions themselves rate ${cat}.` : 'It is dark: before first light or after last light, so it is not a surf window.'], hour: hr, breaker};
   }
-  const r = SKILL_RANGE_FT[profile.skill] ?? SKILL_RANGE_FT.Intermediate, w = hr.wind, score = hr.rating.score;
+  // profile-setup: a picked level (1–7) uses its own range and name; an old profile (no level picked) keeps SKILL_RANGE_FT and the old word, byte for byte
+  const lvl = isLevel(profile.skillLevel) ? levelInfo(profile.skillLevel) : null;
+  const r = lvl ? lvl.callFt : SKILL_RANGE_FT[profile.skill] ?? SKILL_RANGE_FT.Intermediate, w = hr.wind, score = hr.rating.score;
   let verdict: Verdict = 'Go', sizeNote = '';
   // T-108: the person's OWN preferred range (Personal › Preferred conditions) is what the call names; the skill table stays the safety ceiling and floor (Skip) it never overrides.
   const lo0 = profile.minWave, hi0 = profile.maxWave, own = Number.isFinite(lo0) && Number.isFinite(hi0) && lo0 > 0 && hi0 > lo0 ? {min: lo0, max: hi0} : null;
   if (isFlat(h)) { verdict = 'Skip'; sizeNote = 'Flat (model estimate): the nearshore model has under half a foot here, so there is nothing to surf.'; } // T-130: never "the estimated 0–0 ft"
   else if (h.kind === 'estimate') {
-    const range = fmt(h.loFt, h.hiFt, profile), who = profile.skill.toLowerCase();
-    if (h.loFt > r.max) { verdict = 'Skip'; sizeNote = `The estimated ${range} is above the ${who} range (up to ${r.max} ft).`; }
-    else if (h.hiFt < r.min) { verdict = 'Skip'; sizeNote = `The estimated ${range} is below the ${who} range (from ${r.min} ft): too small to surf well.`; }
-    else if (h.hiFt > r.max * 1.15) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} may be above the ${who} range (up to ${r.max} ft).`; }
-    else if (h.loFt < r.min * 0.6 && h.hiFt < r.min * 1.6) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is small for the ${who} range.`; }
-    else if (own && h.loFt > own.max) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is above the range you prefer (up to ${own.max} ft), though within the ${who} range.`; }
-    else if (own && h.hiFt < own.min) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is below the range you prefer (from ${own.min} ft), though within the ${who} range.`; }
+    const range = fmt(h.loFt, h.hiFt, profile), who = lvl ? `level ${lvl.n} (${lvl.name.toLowerCase()})` : profile.skill.toLowerCase(), rw = lvl ? 'limits' : 'range';   // a picked level's Call floor and ceiling are its 'limits' (its cards show the comfortable size)
+    if (h.loFt > r.max) { verdict = 'Skip'; sizeNote = `The estimated ${range} is above the ${who} ${rw} (up to ${r.max} ft).`; }
+    else if (h.hiFt < r.min) { verdict = 'Skip'; sizeNote = `The estimated ${range} is below the ${who} ${rw} (from ${r.min} ft): too small to surf well.`; }
+    else if (h.hiFt > r.max * 1.15) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} may be above the ${who} ${rw} (up to ${r.max} ft).`; }
+    else if (h.loFt < r.min * 0.6 && h.hiFt < r.min * 1.6) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is small for the ${who} ${rw}.`; }
+    else if (own && h.loFt > own.max) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is above the range you prefer (up to ${own.max} ft), though within the ${who} ${rw}.`; }
+    else if (own && h.hiFt < own.min) { verdict = 'Worth a look'; sizeNote = `The estimated ${range} is below the range you prefer (from ${own.min} ft), though within the ${who} ${rw}.`; }
     else if (own && h.hiFt > own.max) sizeNote = `The estimated ${range} reaches above the range you prefer (up to ${own.max} ft).`;
     else if (own && h.loFt < own.min) sizeNote = `The estimated ${range} reaches below the range you prefer (from ${own.min} ft).`;
-    else sizeNote = own ? `The estimated ${range} is within the range you prefer (${own.min}–${own.max} ft).` : `The estimated ${range} is within the ${who} range.`;
+    else sizeNote = own ? `The estimated ${range} is within the range you prefer (${own.min}–${own.max} ft).` : `The estimated ${range} is within the ${who} ${rw}.`;
   } else sizeNote = 'No surf-size estimate for this hour (offshore height only), so size is not part of this call.';   // lead triage 2026-11-12: about the HOUR judged, never "this spot" (other hours can have one)
   // Breaker type (T-064 addendum): a plunging break at size is for experienced surfers (our own rule; Surfing Online "Types of Waves" describes plunging waves as hollow, powerful and for experienced surfers). Spilling is forgiving.
   let breakerNote = '';
-  if (breaker.type === 'plunging' && breaker.confidence === 'checked' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging at ${fmt(h.loFt, h.hiFt, profile)}: experts only.`; }
+  if (breaker.type === 'plunging' && breaker.confidence === 'checked' && h.kind === 'estimate' && (lvl ? lvl.n < PLUNGING_OK_FROM : profile.skill !== 'Expert') && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging at ${fmt(h.loFt, h.hiFt, profile)}: ${lvl ? 'levels 6–7 only' : 'experts only'}.`; }
   else if (breaker.type === 'plunging') breakerNote = 'Likely hollow, powerful.'; // an estimate: Call.breaker carries the label and the slope basis
   else if (breaker.type === 'spilling') breakerNote = 'Likely soft; check shorebreak.';
   let windNote = '';
@@ -93,7 +96,7 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
   // A4: a plain "is within the range" note is not a reason; "though within" notes (above/below the range you prefer) ARE the deciding reason
   const plainWithin = (n: string) => /is within the (range you prefer|[^.]* range)\.$/.test(n) && !/though within/.test(n);
   const sizeReason = sizeNote && !plainWithin(sizeNote) ? sizeNote : null;
-  const [lead, decider] = verdict === 'Skip' ? (breakerNote && /experts only/.test(breakerNote) ? [breakerNote, 'the breaker rule'] : windNote && /chop/.test(windNote) ? [windNote, 'the wind rule'] : sizeReason ? [sizeReason, 'the size rule'] : [null, ''])
+  const [lead, decider] = verdict === 'Skip' ? (breakerNote && /experts only|levels 6–7 only/.test(breakerNote) ? [breakerNote, 'the breaker rule'] : windNote && /chop/.test(windNote) ? [windNote, 'the wind rule'] : sizeReason ? [sizeReason, 'the size rule'] : [null, ''])
     : verdict === 'Worth a look' ? (sizeReason ? [sizeReason, 'the size rule'] : windNote && /roughen/.test(windNote) ? [windNote, 'the wind rule'] : [null, '']) : [null, ''];
   const ex = explainRating(hr.rating, {spotId: spot.id, wind: w ? {mph: w.mph, relation: w.relation} : null, fmtWind: (n) => windText(n, profile)}), items = ex.items.filter((i) => i.inScore);
   const down = items.find((i) => i.effect === '-' || (i.effect === '~' && i.factor !== 'Rating ceiling')), ceiling = items.find((i) => i.factor === 'Rating ceiling'), up = items.find((i) => i.effect === '+');
@@ -190,6 +193,6 @@ export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ct
   const nextDayWords = nextDay ? `${cap(nextDay.when)} at ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(nextDay.at)).replace(':00', '')}: ${nextDay.verdict}.${nextDay.reason ? ` ${nextDay.reason}` : ''}` : '';
   const why = hc.verdict === 'Dark' ? (nextWindow ? [`It is dark, so it is not a surf window.${litWords} The next window is ${dayWord} ${nextWindow.label}.`]
     : [...(nextDayWords ? [nextDayWords] : []), `It is dark, so it is not a surf window.${litWords} No surf window in the next ${WINDOW_DAYS} days.`]) : hc.why;
-  const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating, wind, daylight (first light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
+  const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating, wind, daylight (first light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your ${isLevel(profile.skillLevel) ? `level (level ${profile.skillLevel}, ${levelInfo(profile.skillLevel).name.toLowerCase()})` : `skill (${profile.skill})`}. Our own rules, not a measured or validated forecast.`;
   return {verdict: hc.verdict, ...(hc.lit ? {lit: hc.lit} : {}), ...(nextDay ? {nextDay} : {}), window: hc.verdict === 'Dark' ? null : window, nextWindow, why, basis, breaker: hc.breaker};
 }

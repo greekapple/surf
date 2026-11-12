@@ -1,4 +1,5 @@
 import {fmtIn} from '../../ocean/time';
+import {ProfileSetup} from '../personal/ProfileSetup';
 import {ShareWindow} from '../forecast/ShareWindow';
 import {shareCardFor} from '../../services/shareCard';
 import {slugFor} from '../../app/routes';
@@ -114,6 +115,8 @@ export function HomeView({go}: ViewProps) {
           {/* T-074: the greeting and the day's answer, the best spot's photo, today at a glance and the quiver's pick. */}
           <Welcome name={profile.displayName ?? null} spots={pool} refSpot={rowSpots[0] ?? spot} records={view.mapRecords} profile={profile} bundle={bundle} extrema={bundle?.extrema}
             boards={data.state.boards} nowMs={now} onOpen={openAt} stationTides={view.ocean.bundle?.stationTides} />
+          {/* profile-setup: the first-run setup, until finished or skipped (inline, below the day's answer, never a modal) */}
+          {!profile.onboarded && <ProfileSetup p={profile} set={data.profile} onEdit={() => go('personal', 'profile')} />}
           <section className="wk-s" aria-labelledby="wk-h">
             {/* phone pass 11 (RULES: no paragraph explaining a table): the key sits behind an (i) beside the heading, the same words */}
             <header className="hd-head wk-head"><h2 id="wk-h">This week</h2><details className="wk-info"><summary aria-label="How to read this week"><span aria-hidden="true">i</span></summary><p className="hd-note wk-key-p">Surf estimate at midday by day, the AM, midday and PM rating under it, and <span className="wk-key" aria-hidden="true" />the shape of the midday size through the week. <span className="wk-key wk-key-hatch" aria-hidden="true" />Hatched: less certain, or too far out past {HORIZON_DAYS_TEXT}. Tap a day for every hour.</p></details></header>

@@ -8,6 +8,7 @@ import {canonicalSpotId,canonicalIds} from '../data/spotAliases.ts';
 import {validHeightIn} from '../services/heightMath.ts';
 export interface AppState {version:1;profile:UserProfile;boards:Surfboard[];favorites:string[];sessions:SurfSession[]}
 export const freshState=():AppState=>({version:1,profile:{...defaultProfile,preferredBoards:[]},boards:structuredClone(demoBoards),favorites:[],sessions:[]});
+import {isLevel, validKg} from '../services/skillLevels.ts';
 export const storageKey='surf-prototype-v1';
 const object=(v:unknown):v is Record<string,unknown>=>!!v&&typeof v==='object'&&!Array.isArray(v);
 const text=(v:unknown,max=2000)=>typeof v==='string'&&v.length<=max;
@@ -21,6 +22,10 @@ export function validateState(raw:unknown):AppState{
  if(![p.minWave,p.maxWave,p.comfort].every(v=>number(v,0,40))||p.minWave>p.maxWave)return fail('Invalid wave preferences.');
  if(typeof p.onboarded!=='boolean'||typeof p.personalization!=='boolean'||!Array.isArray(p.preferredBoards)||!p.preferredBoards.every(v=>boardTypes.includes(v)))return fail('Invalid personalization settings.');
  if(p.displayName!==undefined&&!text(p.displayName,60))return fail('Invalid display name.');
+ if(p.skillLevel!==undefined&&!isLevel(p.skillLevel))return fail('Invalid skill level.');
+ if(p.weightKg!==undefined&&p.weightKg!==null&&!validKg(p.weightKg))return fail('Invalid weight.');
+ if(p.ageBand!==undefined&&p.ageBand!==null&&p.ageBand!=='13-17'&&p.ageBand!=='18+')return fail('Invalid age answer.');
+ if(p.personalData!==undefined&&typeof p.personalData!=='boolean')return fail('Invalid personal-data setting.');
  const ids=new Set<string>();
  for(const value of raw.boards){if(!object(value))return fail('Invalid board.');const b=value as unknown as Surfboard;
  if(![b.id,b.name].every(v=>text(v,100)&&v.trim().length>0)||![b.manufacturer,b.model].every(v=>text(v,100))||ids.has(b.id)||!boardTypes.includes(b.type)||typeof b.favorite!=='boolean'||!validDimensions(b.length,b.width,b.thickness,b.volume))return fail('Invalid board identity, type, or dimensions.');ids.add(b.id);
@@ -41,7 +46,7 @@ export function saveState(storage:Pick<Storage,'setItem'>,state:AppState){try{st
  *  the file must be exactly the export's shape (the five top-level keys, known profile keys only, version 1), so a foreign or hand-edited JSON
  *  file is rejected rather than half-read. Throws a message for the person; nothing is changed until the caller replaces the state. */
 const BACKUP_KEYS=['version','profile','boards','favorites','sessions'];
-const PROFILE_KEYS=new Set([...Object.keys(defaultProfile),'displayName','personalization','heightIn']);
+const PROFILE_KEYS=new Set([...Object.keys(defaultProfile),'displayName','personalization','heightIn','skillLevel','weightKg','ageBand','personalData']);
 export interface RestorePreview {boards:number;exampleBoards:number;sessions:number;favorites:number;settings:number}
 export function parseRestore(text:string):{state:AppState;preview:RestorePreview}{
  if(text.length>5_000_000)throw new Error('This file is larger than 5 MB, so it is not a SWELLO backup.');

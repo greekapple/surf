@@ -4,11 +4,10 @@ import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
 import {evidenceSpots} from '../../ocean/spots';
 import {ZONES, zoneOf, regionWithState} from '../../data/zones';
-import type {Forecast, Skill, SurfSpot, UserProfile} from '../../models/index';
+import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
 import {SkelInline} from '../../ui/Skeleton';
 import {spotPhase} from '../../services/dataPhase';
-import {formatHeight, parseHeight, userHeight} from '../../services/heightMath';
 import {readBasemapPref, saveBasemapPref, type BasemapPref} from '../../map/basemapPref';
 import {THEME_PREFS, useThemePref, type ThemePref} from '../../ui/theme';
 import {timeLabelPT} from '../forecast/format';
@@ -16,7 +15,7 @@ import {heroHeight} from '../forecast/model';
 import {spotHourOf} from '../../services/spotHour';
 import {isFlat} from '../../services/flatSurf';
 import {rateForecast} from '../../ratings/adapters';
-import {compass, fromUnit, heightRange, toUnit} from '../../utils/units';
+import {compass, heightRange} from '../../utils/units';
 import {PIcon, type PName} from './icons';
 import {Choice, SpotCover, entryDate} from './parts';
 import {AlertsManager} from './AlertsPanels';
@@ -31,6 +30,9 @@ import {headlineSurf} from '../../services/headlineSurf';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
 import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, swellSummary, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
 import {boardPickFor} from '../quiver/fit';
+import {AgeQuestion, HeightField, Why, LevelPicker, RegionField, SizeField, UnitNumber, UnitsField, VolumeHint, WeightField} from './ProfileFields';
+import {deletedProfile, levelSource} from '../../services/profileFields';
+import {levelInfo, levelOf} from '../../services/skillLevels';
 import './personal.css';
 
 function loadAvatar() { try { return localStorage.getItem(AVATAR_KEY) ?? ''; } catch { return ''; } }
@@ -75,45 +77,6 @@ function Page({title, onBack, children, action}: {title: string; onBack: () => v
  *  Hawaiian is about half of that and applies to surf-height estimates only. */
 const SCALE_NAMES = {'Face height': 'Surf height (as reports quote it)', Hawaiian: 'Hawaiian (about half)'} as const;
 
-/** Your height (T-052): saved on the profile in inches, typed as ft/in or cm by the unit preference. The Wave scale draws you at this height; until it is set a labelled 5'10" default is drawn. */
-// T-103: a MODULE-level component. It used to be declared inside PersonalView, so every PersonalView render created a new component type and REMOUNTED the field (losing the person's text and focus)
-// when a save landed.
-function HeightField({p, set}: {p: import('../../models/index').UserProfile; set: (v: Partial<import('../../models/index').UserProfile>) => void}) {
-  const me = userHeight(p), unit = p.heightUnit === 'm' ? 'm' : 'ft';
-  const [text, setText] = useState(me.isDefault ? '' : formatHeight(me.inches, unit)), [err, setErr] = useState('');
-  // T-103: the text follows the saved height only while the person is not editing: a late echo of an earlier save must not overwrite what they are typing (or an invalid entry that is still showing its message).
-  const dirty = useRef(false);
-  useEffect(() => { if (dirty.current) return; setText(userHeight(p).isDefault ? '' : formatHeight(userHeight(p).inches, unit)); }, [p.heightIn, unit]); // eslint-disable-line react-hooks/exhaustive-deps
-  const commit = () => {
-    if (!text.trim()) { dirty.current = false; setErr(''); if (p.heightIn != null) set({heightIn: null}); return; }
-    const v = parseHeight(text, unit);
-    if (v === null) { setErr(unit === 'm' ? 'Enter your height in centimetres, 100 to 230, like 178.' : `Enter your height like 5'10" (3'4" to 7'6").`); return; }
-    dirty.current = false; setErr(''); set({heightIn: v});
-  };
-  return (
-    <>
-      <label className="field"><span>Height ({unit === 'm' ? 'cm' : 'ft and in'})</span>
-        <input value={text} inputMode={unit === 'm' ? 'numeric' : 'text'} placeholder={unit === 'm' ? '178' : `5'10"`} aria-invalid={!!err} aria-describedby="height-help" onChange={(e) => { dirty.current = true; setText(e.target.value); }} onBlur={commit} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }} />
-      </label>
-      <p id="height-help" className={err ? 'pz-err' : 'fine'} role={err ? 'alert' : undefined}>{err || (me.isDefault ? `Not set: the Wave scale draws you at ${formatHeight(me.inches, unit)} (default). Used only to draw you to scale on this device.` : `The Wave scale draws you at ${formatHeight(me.inches, unit)}. Saved on this device.`)}</p>
-      {!me.isDefault && <button type="button" className="btn" onClick={() => { setText(''); setErr(''); set({heightIn: null}); }}>Use the default</button>}
-    </>
-  );
-}
-
-/** Review LOW: a height typed in the user's unit is a draft until blur or Enter; empty or non-numbers are dropped (the saved value returns), and the
- *  stored feet are clamped to the field's range. */
-function UnitNumber({ft, unit, min, max, label, onCommit}: {ft: number; unit: string; min: number; max: number; label: string; onCommit: (ft: number) => void}) {
-  const [text, setText] = useState<string | null>(null);
-  const commit = () => {
-    if (text === null) return;
-    const v = parseFloat(text.replace(',', '.')); setText(null);
-    if (!text.trim() || !Number.isFinite(v)) return;
-    onCommit(Math.min(max, Math.max(min, fromUnit(v, unit))));
-  };
-  return <input type="number" inputMode="decimal" min={toUnit(min, unit)} max={toUnit(max, unit)} step={unit === 'm' ? 0.1 : 1} value={text ?? toUnit(ft, unit)} aria-label={label}
-    onChange={(e) => setText(e.target.value)} onBlur={commit} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); commit(); } }} />;
-}
 
 export function PersonalView({section, go}: ViewProps) {
   const {data, view, setSpot, now, spotOptions} = useSwello();
@@ -137,7 +100,7 @@ export function PersonalView({section, go}: ViewProps) {
   const [rules, setRulesState] = useState<AlertRule[]>(loadRules);
   const [extras, setExtras] = useState<JournalExtras>(loadExtras);
   const [prefs, setPrefsState] = useState<BoardPrefs>(loadBoardPrefs);
-  const [avatar, setAvatar] = useState(loadAvatar);
+  const [avatar, setAvatar] = useState(loadAvatar), [confirmDel, setConfirmDel] = useState(false);
   const [note, setNote] = useState('');
   const avatarRef = useRef<HTMLInputElement>(null);
 
@@ -306,17 +269,14 @@ export function PersonalView({section, go}: ViewProps) {
       case 'profile':
         return (
           <Page title="Profile" onBack={toList}>
-            <div className="pz-panel">
-              <div className="form-grid">
+            {/* profile-setup: the setup's questions, each with its "Why we ask"; everything stays on this device */}
+            <p className="fine">Your answers stay on this device (there are no accounts yet). Each question says what it changes.</p>
+            <div className="pz-panel pf-panel">
+              <AgeQuestion p={p} set={set} onUnder13={() => setAvatar('')} />
+              {p.personalData === false ? <p className="fine" role="status">Under 13: your name, photo, height and weight are not saved on this device. Your level, wave sizes and units still work.</p> : <>
                 <label className="field"><span>Display name</span>
                   <input value={p.displayName ?? ''} maxLength={40} onChange={(e) => set({displayName: e.target.value})} placeholder="Optional" />
-                </label>
-                <label className="field"><span>Home region</span>
-                  <select value={p.region} onChange={(e) => set({region: e.target.value})}>
-                    <option value="All regions">Not set (use my location)</option>
-                    {ZONES.map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => spots.some((x) => x.region === c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
-                  </select>
-                  <small className="fine">Used by Map › Find spots as your starting point when location is off.</small>
+                  <small className="fine">Shown in Home's greeting, on this device only.</small>
                 </label>
                 <div className="field"><span>Profile photo (stays on this device)</span>
                   <span className="pz-file-row">
@@ -324,8 +284,22 @@ export function PersonalView({section, go}: ViewProps) {
                     {avatar && <button type="button" className="btn" onClick={clearAvatar}>Remove photo</button>}
                   </span>
                 </div>
-              </div>
-              <p className="fine">Surfing ability is set in Surf preferences.</p>
+                <div className="pf-q"><HeightField p={p} set={set} /><Why k="height" /></div>
+                <WeightField p={p} set={set} />
+              </>}
+            </div>
+            <div className="pz-panel pf-panel">
+              <LevelPicker p={p} set={set} />
+              <SizeField p={p} set={set} />
+              <VolumeHint p={p} />
+              <RegionField p={p} set={set} />
+              <UnitsField p={p} set={set} />
+            </div>
+            <div className="pz-panel pf-panel">
+              <h2>Delete my profile</h2>
+              <p className="fine">Clears every answer on this page from this device (back to the labelled defaults). Boards, favorite spots and your journal are kept; they have their own controls.</p>
+              {!confirmDel ? <button type="button" className="btn" onClick={() => setConfirmDel(true)}>Delete my profile</button>
+                : <p className="pf-actions" role="group" aria-label="Confirm delete"><span>Delete every profile answer?</span><button type="button" className="btn danger" onClick={() => { set(deletedProfile()); clearAvatar(); setConfirmDel(false); }}>Yes, delete</button><button type="button" className="btn" onClick={() => setConfirmDel(false)}>Cancel</button></p>}
             </div>
           </Page>
         );
@@ -365,7 +339,8 @@ export function PersonalView({section, go}: ViewProps) {
                     <UnitNumber ft={p.maxWave} unit={p.heightUnit} min={1} max={40} label={`Maximum (${p.heightUnit})`} onCommit={(maxWave) => set({maxWave})} />
                   </span>
                 </label>
-                <Choice<Skill> label="Surfing ability" value={p.skill} options={['Beginner', 'Intermediate', 'Expert']} onChange={(skill) => set({skill})} />
+                {/* profile-setup: the level (1–7) is set in one place, Personal › Profile, from its cards */}
+                <div className="field"><span>Surfing level</span><span>Level {levelOf(p)}, {levelInfo(levelOf(p)).name}{levelSource(p)} <button type="button" className="btn" onClick={() => toPage('profile')}>Change in Profile</button></span></div>
               </div>
               <div className="pz-panel"><h2>Preferred swell and tide</h2>
                 <fieldset className="pz-fs"><legend>Swell direction</legend>
@@ -485,7 +460,7 @@ export function PersonalView({section, go}: ViewProps) {
             <button type="button" className="pzl-profile" onClick={() => toPage('profile')} aria-label="Edit profile">
               <span className="pz-avatar" style={avatar ? {backgroundImage: `url(${avatar})`} : undefined} role={avatar ? 'img' : undefined} aria-label={avatar ? 'Profile photo' : undefined}>{!avatar && (initials || <PIcon name="user" size={28} />)}</span>
               <span className="pzl-pt"><b>{name}</b>
-                <small>{[p.skill, `${rangeText(p.minWave, p.maxWave, p)} preferred`, p.region !== 'All regions' ? regionWithState(p.region) : ''].filter(Boolean).join(' · ')}</small></span>
+                <small>{[`Level ${levelOf(p)}, ${levelInfo(levelOf(p)).name}${levelSource(p)}`, `${rangeText(p.minWave, p.maxWave, p)} preferred`, p.region !== 'All regions' ? regionWithState(p.region) : ''].filter(Boolean).join(' · ')}</small></span>
               <span className="pzl-pe"><i>Edit profile</i><PIcon name="next" size={16} /></span>
             </button>
 
@@ -506,7 +481,7 @@ export function PersonalView({section, go}: ViewProps) {
             </Group>
 
             <Group title="Surf preferences">
-              <Row icon="clock" label="Preferred conditions" value={rangeText(p.minWave, p.maxWave, p)} sub={`${p.skill}${p.style !== 'All-around' ? ` · ${p.style}` : ''}`} onClick={() => toPage('preferences')} />
+              <Row icon="clock" label="Preferred conditions" value={rangeText(p.minWave, p.maxWave, p)} sub={`Level ${levelOf(p)}, ${levelInfo(levelOf(p)).name}${levelSource(p)}${p.style !== 'All-around' ? ` · ${p.style}` : ''}`} onClick={() => toPage('preferences')} />
               <Row icon="swell" label="Preferred swell" value={swellSummary(prefs).value} sub={swellSummary(prefs).sub} onClick={() => toPage('preferences')} />
               <Row icon="tide" label="Preferred tide" value={tideSummary(prefs.tides)} onClick={() => toPage('preferences')} />
             </Group>

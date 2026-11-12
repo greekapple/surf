@@ -12,7 +12,9 @@ test('the list says "Not set" exactly when the form shows nothing chosen', () =>
 
 test('ability is set in one place, and the notes agree on what it shapes', () => {
   const src = readFileSync('src/features/personal/PersonalView.tsx', 'utf8');
-  assert.equal(src.match(/label="Surfing ability"/g)?.length, 1);
+  // profile-setup: the level (1–7) is chosen in one place, Personal › Profile's level cards; Surf preferences only shows it with a link there
+  assert.equal(src.match(/<LevelPicker /g)?.length, 1);
+  assert.doesNotMatch(src, /label="Surfing ability"/);
   assert.doesNotMatch(src, /Shown on your profile; forecasts are not filtered by them/);
   assert.match(src, /value=\{prefs\.periodSet \? prefs\.periodMin : ''\} placeholder="10"/);
 });

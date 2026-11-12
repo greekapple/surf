@@ -33,7 +33,7 @@ test('no hard-coded ft/mph left in the board ranges, Home pick or chart legend',
   assert.doesNotMatch(readFileSync('src/features/forecast/ForecastCharts.tsx', 'utf8'), /24\+ mph/);
   const pv = readFileSync('src/features/personal/PersonalView.tsx', 'utf8');
   assert.match(pv, /<UnitNumber ft=\{p\.minWave\} unit=\{p\.heightUnit\}/);
-  assert.match(pv, /if \(!text\.trim\(\) \|\| !Number\.isFinite\(v\)\) return;/, 'empty or NaN drafts are dropped, not saved as 0');
+  assert.match(readFileSync('src/features/personal/ProfileFields.tsx', 'utf8'), /if \(!text\.trim\(\) \|\| !Number\.isFinite\(v\)\) return;/, 'empty or NaN drafts are dropped, not saved as 0 (UnitNumber, shared with the profile setup)');
   assert.match(readFileSync('src/features/forecast/ForecastCharts.tsx', 'utf8'), /Arrows 0 to \{windWhole\(24, p\)\.replace\(' ', '\+ '\)\}/);
   assert.equal(windWhole(24, {windUnit: 'kn'}).replace(' ', '+ '), '21+ kn');
 });

@@ -1,4 +1,5 @@
 import type {Go} from '../app/routes';
+import {WHY} from '../services/profileFields';
 
 /** Plain-language privacy and terms for what SWELLO actually does today. Review with a lawyer before any public launch. */
 export function Legal({page, go}: {page: 'privacy' | 'terms'; go: Go}) {
@@ -18,6 +19,18 @@ export function Legal({page, go}: {page: 'privacy' | 'terms'; go: Go}) {
         <li>Recent map forecast frames, so the map opens quickly (IndexedDB <code>swello-map-frames</code>, the last 14 frames). They are public forecast data, nothing about you.</li>
         <li>A feature switch for the nearshore estimate (<code>swello-flag-breaking-v2</code>).</li>
       </ul>
+      <h2>Your surf profile</h2>
+      <p>The setup on Home and Personal › Profile ask a few questions. Each is asked only because it changes something you see; the answers stay in this browser's storage on this device (there are no accounts), and Personal › Profile › Delete my profile clears them.</p>
+      <ul>
+        <li><b>Age</b> (a band: under 13, 13–17, 18 or over; never a birth date). {WHY.age} If you answer under 13, your name, photo, height and weight are not saved, and no age band is stored (only a "personal data off" switch).</li>
+        <li><b>Height</b>: {WHY.height}</li>
+        <li><b>Weight</b> (optional): {WHY.weight}</li>
+        <li><b>Level</b> (1 to 7): {WHY.skill}</li>
+        <li><b>Comfortable wave size</b>: {WHY.size}</li>
+        <li><b>Home region</b>: {WHY.region}</li>
+        <li><b>Units</b>: {WHY.units}</li>
+      </ul>
+      <p>Swello does not ask your sex or stance: nothing in the app would change with them yet.</p>
       <h2>Location</h2>
       <p>Find Spots asks for your location only when you press "Use my location". It is used in the page to sort spots by distance and is not stored or sent to anyone.</p>
       <h2>Services the app contacts</h2>
