@@ -1,4 +1,4 @@
-import {useMemo} from 'react';
+import {useEffect, useMemo, useRef, useState} from 'react';
 import {hourIn, fmtIn} from '../../ocean/time';
 import {timeZoneOf, differsFromViewer, viewerTag} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
@@ -45,8 +45,17 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
     })};
   }).map((r, i) => ({r, i, est: r.cells.filter((c) => c.dr.kind === 'estimate').length}))
     .sort((a, b) => b.est - a.est || a.i - b.i).map((x) => x.r), [spots, records, keys, nowMs, profile, bundle, unit]); // T-069: spots with surf estimates first
+  // lead #5: on a phone the table scrolls sideways under a sticky spot column; a fade on the right edge says there is more, until the end is reached
+  const box = useRef<HTMLDivElement>(null), [more, setMore] = useState(false);
+  useEffect(() => {
+    const el = box.current; if (!el) return;
+    const upd = () => setMore(el.scrollLeft + el.clientWidth < el.scrollWidth - 2);
+    upd(); el.addEventListener('scroll', upd, {passive: true}); const ro = typeof ResizeObserver === 'function' ? new ResizeObserver(upd) : null; ro?.observe(el);
+    return () => { el.removeEventListener('scroll', upd); ro?.disconnect(); };
+  }, [rows.length]);
   return (
-    <div className="wk" role="region" aria-label="Your spots this week" tabIndex={0}>
+    <div className={`wk-wrap${more ? ' has-more' : ''}`}>
+    <div ref={box} className="wk" role="region" aria-label="Your spots this week" tabIndex={0}>
       <table className="wk-t">
         <thead><tr><th scope="col" className="wk-spot">Spot<small className="wk-unit"> · surf est., {unit}</small>{differsFromViewer(colTz, nowMs) ? <small> · days in {zoneAbbr(colTz, nowMs)}</small> : null}</th>{keys.map((k, i) => <th key={k} scope="col">{dayHead(k, i)}</th>)}</tr></thead>
         <tbody>{rows.map(({spot, cells, tz}) => {
@@ -87,6 +96,7 @@ export function WeekGrid({spots, records, nowMs, profile, bundle, unit, onOpen}:
           );
         })}</tbody>
       </table>
+    </div>
     </div>
   );
 }
