@@ -26,9 +26,11 @@ import {WaterQuality} from './WaterQuality';
 import {glyphFor} from '../../services/waveGlyph';
 import {userHeight} from '../../services/heightMath';
 import {ObserveEntry, ObservePanel, ObservedLine, sawWords} from './Observe';
-import {CallBar, DaylightRow, FeltRight, NwsBanner} from './Trust';
+import {CallBar, FeltRight, NwsBanner} from './Trust';
+import {TodayRibbon} from './TodayRibbon';
 import {extremaForOwnStation} from '../../ocean/stationTide';
-import {tideStationFor, SF_STATION} from '../../ocean/tideStations';
+import {tideStationFor, SF_STATION, hourlyTideStationIds} from '../../ocean/tideStations';
+import {tideCurveWords} from '../../ocean/stationTide';
 import {CALL_WINDOW_DAYS} from '../../services/call';
 import {HORIZON_HOURS} from '../../services/certainty';
 import {callFor, daylightFor, surfBandSeries, windowOnDay} from './trustApi';
@@ -151,7 +153,10 @@ export function ForecastView({go}: ViewProps) {
       {shareNote && <p className="sp-sharenote" role="status">{shareNote}</p>}
       <NwsBanner spotId={spot.id} />
       <CallBar call={call} share={shareCardFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
-      <DaylightRow d={daylight} />
+      {/* signature A (phone pass): the Today ribbon replaces the four daylight times: daylight band, surf shape, wind to the beach, tide and the call's window on one hour axis */}
+      <TodayRibbon spot={spot} hours={dayHours} band={band} daylight={daylight} win={windowOnDay(spot, dateIn(timeZoneOf(spot), selected.timestamp), p, {records, bundle, nowMs: now}, Math.min(now, Date.parse(selected.timestamp)))} today={dateIn(timeZoneOf(spot), selected.timestamp) === dateIn(timeZoneOf(spot), new Date(now).toISOString())} selected={view.selectedTime} p={p} onSelect={view.selectTime}
+        tideLabel={(() => { const [la, lo] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: la, longitude: lo}); if (!st || selected.forecast.availability.tide === false || !Number.isFinite(selected.forecast.tide.height)) return null;   // as the Tide card: only with its station, in its own words
+          return st.station.id === SF_STATION ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${st.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(st.station.id) ? 'hourly' : 'interpolated', stationName: st.station.name, stationId: st.station.id, distanceKm: st.distanceKm}) + (st.fallback ? ` · ${st.fallbackLabel ?? 'inlet or bay-side station'}` : ''); })()} />
       <SimilarSession spot={spot} forecast={selected.forecast} profile={p} bundle={bundle} nowMs={now} />
       {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}
       <WaterQuality spotId={spot.id} />

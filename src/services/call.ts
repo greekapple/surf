@@ -15,7 +15,7 @@ import {breakerType, type BreakerEstimate} from './breaker.ts';
 /** The Call (T-064): one verdict a surfer can act on, from OUR data only: the surf estimate, the rating, the wind, daylight and the user's skill.
  *  Nothing here is a measured fact or a validated accuracy; `basis` says what it is computed from. */
 export type Verdict = 'Go' | 'Worth a look' | 'Skip' | 'Dark';
-export interface CallWindow {start: string; end: string; label: string}
+export interface CallWindow {start: string; end: string; label: string; /** the verdict the window's hours share (Go, else Worth a look): what the window IS, whatever hour is selected */ verdict?: 'Go' | 'Worth a look'}
 export interface Call {/** After dark: what the conditions alone would say in daylight, and the rating word (user, 2026-11-08: dark hours keep their rating). */ lit?: {verdict: Exclude<Verdict, 'Dark'>; conditions: string};
   /** Audit F5 / B15: after dark with no window ahead, the next daylight day's own call (its best daylight hour), so the evening planner still gets an answer. */
   nextDay?: {when: string; at: string; verdict: Exclude<Verdict, 'Dark'>; reason: string | null};
@@ -124,7 +124,7 @@ export function windowOnDay(spot: SurfSpot, dateKey: string, profile: UserProfil
         if (ok && cur && t === cur.e) { cur.e = t + 3600000; cur.peak = Math.max(cur.peak, c.hour.rating.score ?? 0); }
         else { if (ok) { cur = {s: t, e: t + 3600000, peak: c.hour.rating.score ?? 0}; runs.push(cur); } else cur = null; }
       }
-      if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e, tz)}; }
+      if (runs.length) { const b = runs.sort((x, y) => (y.e - y.s) - (x.e - x.s) || y.peak - x.peak || x.s - y.s)[0], [s, e] = clampToLight(spot.id, b.s, b.e); return {start: new Date(s).toISOString(), end: new Date(e).toISOString(), label: windowLabel(s, e, tz), verdict: want}; }
     }
     return null;
   };
@@ -181,7 +181,7 @@ export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ct
   let nextWindow: CallWindow | null = null;
   // review fix B15: after today's last light, today has no daylight left, so one more day is searched and the copy's "next 4 days" stays true
   const fromMs = Math.max(from, ctx.nowMs), todayDone = Date.parse(daylightFor(spot.id, dateIn(tz, new Date(fromMs).toISOString())).lastLight) <= fromMs;
-  if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, fromMs, todayDone ? WINDOW_DAYS + 1 : WINDOW_DAYS); if (w) nextWindow = {start: w.start, end: w.end, label: w.label}; }
+  if (hc.verdict === 'Dark' || passed) { const w = bestWindowFrom(spot, profile, ctx, fromMs, todayDone ? WINDOW_DAYS + 1 : WINDOW_DAYS); if (w) nextWindow = {start: w.start, end: w.end, label: w.label, ...(w.verdict ? {verdict: w.verdict} : {})}; }
   const dayWord = nextWindow ? dayName(nextWindow.start, ctx.nowMs, tz) : '';
   const litWords = hc.lit ? ` The conditions themselves rate ${hc.lit.conditions}.` : '';
   const nextDay = hc.verdict === 'Dark' && !nextWindow ? nextDayCall(spot, profile, ctx, from) : null;

@@ -10,11 +10,10 @@ import {useObservations} from './Observe';
 import './trust.css';
 import {getFelt} from '../../services/observationStore';
 import {activeAlerts, feltForHour, firstNewReason, uniqueReasons} from './trustRules';
-import {alertsFor, logFeltRight, WINDOW_DAYS, type Call, type Daylight, type Felt, type NwsAlert} from './trustApi';
+import {alertsFor, logFeltRight, WINDOW_DAYS, type Call, type Felt, type NwsAlert, type Verdict} from './trustApi';
 
 /* T-065 forecast trust, screen side: the Call, daylight, the NWS banner and the one-tap "Felt right?". Logic is T-064's (trustApi seam). */
 
-const clock = (iso: string) => fmtIn(activeZone(), {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // the zone of the spot on screen
 // an alert's times in the zone of the spot it is shown for (Home may show a spot other than the open one), named where that clock is not the viewer's
 const when = (iso: string, tz: string = activeZone()) => fmtIn(tz, {weekday: 'short', hour: 'numeric', minute: '2-digit'}).format(new Date(iso)) + viewerTag(tz, iso);
 const VCLASS: Record<Call['verdict'], string> = {Go: 'go', 'Worth a look': 'look', Skip: 'nogo', Dark: 'dark'}; // audit B14: never 'skip', which is the skip-to-content link's class (it pushed the Skip verdict off-screen and inverted its colors)
@@ -27,15 +26,29 @@ export function CallBar({call, compact = false, tz, share}: {call: Call; compact
   const z = tz ?? activeZone(), wTag = w ? viewerTag(z, w.start) : '';
   const wText = w ? (call.verdict === 'Dark' || !call.window ? `next window ${windowPhrase(w, Date.now())}${wTag}${sameDay(w.start, z) ? '' : ` ${dayWord(w.start, z)}`}` : `${windowPhrase(w, Date.now())}${wTag}`) : call.verdict === 'Dark' ? `${call.nextDay ? `${call.nextDay.when}: ${call.nextDay.verdict}; ` : ''}no window in the next ${WINDOW_DAYS} days` : null;   // audit F5 / B15: after dark, tomorrow's own answer
   // T-069: the line under the verdict is the first reason that ADDS something; one that only restates the verdict and window is left to the tap-open list.
-  const why = firstNewReason(call.why, `${call.verdict} ${wText ?? ''}`);
   // after dark the rating stays visible: "After dark · fair conditions · next window 7–10 AM" (user, 2026-11-08)
   const label = call.verdict === 'Dark' ? 'After dark' : call.verdict, cond = call.verdict === 'Dark' && call.lit ? `${call.lit.conditions} conditions` : null;
+  // signature A / lead triage (Call hierarchy): the full Call leads with the verdict you can act on, then the window in its OWN verdict, then the hour's state.
+  // Daylight: the hour's verdict, and the day's window says its verdict when it differs ("Worth a look" now, "Go window 6:20–8 AM").
+  // After dark: the next window's verdict ("Go · Next window 1–5 PM today"), else the next day's ("Skip · Today: no window in the next 4 days"); "After dark now · solid conditions" is the small line.
+  const dark = call.verdict === 'Dark', head: Verdict = dark ? (call.nextWindow?.verdict ?? (call.nextWindow ? 'Dark' : call.nextDay?.verdict ?? 'Dark')) : call.verdict;
+  // data-honesty review: after dark the heading says WHAT its verdict is for ("Next: Go", "Today: Skip"), never a bare green "Go" at night
+  const capW = (s: string) => s.replace(/^\w/, (c) => c.toUpperCase());
+  const headLabel = !dark ? head : call.nextWindow ? (call.nextWindow.verdict ? `Next: ${call.nextWindow.verdict}` : 'Next window') : call.nextDay ? `${capW(call.nextDay.when)}: ${call.nextDay.verdict}` : 'After dark';
+  const later = dark || !call.window, wv = w?.verdict;
+  const winLine = w ? `${wv && (later || wv !== call.verdict) ? `${wv} window` : later ? 'Next window' : 'Window'} ${windowPhrase(w, Date.now())}${wTag}${later && !sameDay(w.start, z) ? ` ${dayWord(w.start, z)}` : later ? ' today' : ''}`
+    : `No window in the next ${WINDOW_DAYS} days`;
+  const meta = dark ? `After dark now${cond ? ` · ${cond}` : ''}` : null;
+  // after dark with no window ahead, the next day's own answer ("Today at 6 AM: Skip. The estimated …") always shows: it names the hour the heading's verdict is for
+  const why2 = dark && !call.nextWindow && call.nextDay ? call.why[0] : firstNewReason(call.why, `${headLabel} ${winLine}`);
   if (compact) return <p className={`call-c ${VCLASS[call.verdict]}`}><b>{label}</b>{cond && <span> · {cond}</span>}{wText && <span> · {wText}</span>}</p>;
   return (
-    <section className={`call ${VCLASS[call.verdict]}`} aria-label="The call">
+    <section className={`call ${VCLASS[head]}`} aria-label="The call">
       <button type="button" className="call-b" aria-expanded={open} aria-controls={id} onClick={() => setOpen(!open)}>
-        <span className="call-v"><i aria-hidden="true" />{label}{cond && <span className="call-w"> · {cond}</span>}{wText && <span className="call-w"> · {wText}</span>}</span>
-        {why && <span className="call-why">{why}</span>}
+        <span className="call-v"><i aria-hidden="true" />{headLabel}</span>
+        <span className="call-wl">{winLine}</span>
+        {meta && <span className="call-meta">{meta}</span>}
+        {why2 && <span className="call-why">{why2}</span>}
         <span className="call-more" aria-hidden="true">{open ? 'Less' : 'Why'}</span>
       </button>
       {share && <div className="call-share"><ShareWindow card={share} /></div>}
@@ -52,17 +65,6 @@ export function CallBar({call, compact = false, tz, share}: {call: Call; compact
 const sameDay = (iso: string, z: string = activeZone()) => !differsFromViewer(z, iso) && dateIn(z, iso) === dateInMs(z, Date.now());
 const dayWord = (iso: string, z: string = activeZone()) => !differsFromViewer(z, iso) && dateIn(z, iso) === addDaysKey(dateInMs(z, Date.now()), 1) ? 'tomorrow' : fmtIn(z, {weekday: 'short'}).format(new Date(iso));
 
-/** First light, sunrise, sunset and last light for the selected day. */
-export function DaylightRow({d}: {d: Daylight}) {
-  return (
-    <dl className="daylight" aria-label="Daylight">
-      <div><dt>First light</dt><dd>{clock(d.firstLight)}</dd></div>
-      <div><dt>Sunrise</dt><dd>{clock(d.sunrise)}</dd></div>
-      <div><dt>Sunset</dt><dd>{clock(d.sunset)}</dd></div>
-      <div><dt>Last light</dt><dd>{clock(d.lastLight)}</dd></div>
-    </dl>
-  );
-}
 
 /** NWS hazard banner: only when an alert is active for the spot's zone; quotes the event, valid time and source. Nothing when the feed fails. */
 export function NwsBanner({spotId}: {spotId: string}) {

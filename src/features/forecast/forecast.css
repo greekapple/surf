@@ -637,9 +637,10 @@ p.sp-wn { display: block; }
   .sp-band.is-photo .sp-band-in, .sp-band.is-photo.has-cam .sp-band-in { height: auto; min-height: 100px; padding: 10px 12px 8px 14px; }
   .sp-band .sp-title h1 { font-size: 24px; }
   /* the answer first: the hero, any NWS alert and the Call, then the surf/rating grid (and a card opened from it); daylight, cams and the rest follow */
-  .sp > * { order: 2; }
+  .sp > * { order: 3; }
   .sp > .sp-band, .sp > .nws, .sp > .nws-none, .sp > .call { order: 0; }
   .sp > .sp-grid, .sp > .sp-detail { order: 1; }
+  .sp > .rb { order: 2; }   /* signature A: the Today ribbon right after the numbers it charts */
 }
 /* phone pass 5: the drawn wave sits in the hero's top-right corner beside the name (capped at 60%), never across the time row or the star;
    its 'offshore only' label scales up so it reads at 12 px (the glyph's viewBox is 300 x 150, drawn 60 px tall: 0.4x) */
@@ -682,3 +683,39 @@ p.sp-wn { display: block; }
 .sp .sp-day { display: flex; flex-direction: column; align-items: center; }
 .sp .sp-day .sd-k:empty { display: none; }
 .sp .sp-day .sd-w { margin-top: auto; }
+
+/* Signature A: the Today ribbon (TodayRibbon.tsx). One band along the day's hours: night shaded, the surf estimate's shape, wind arrows coloured by their
+   relation to this beach, the tide curve, the call's window bracketed in the accent; a gutter names each track. It scrolls sideways on a phone. */
+.rb { min-width: 0; margin: -6px 0 0; }
+.rb-scroll { overflow-x: auto; scrollbar-width: none; overscroll-behavior-x: contain; border-radius: 12px; border: 1px solid var(--line); background: var(--s1, var(--bg)); }
+.rb-scroll::-webkit-scrollbar { display: none; }
+.rb-scroll:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.rb-in { position: relative; display: flex; width: max(100%, var(--rb-w)); }
+.rb-gut { position: sticky; left: 0; z-index: 2; flex: none; width: 64px; background: linear-gradient(90deg, var(--s1, var(--bg)) 80%, transparent); }
+.rb-gut span { position: absolute; left: 8px; display: grid; font-size: 11px; font-weight: 600; line-height: 1.1; color: var(--text); }
+.rb-gut small { font-size: 10px; font-weight: 500; color: var(--dim); }
+.rb-svg { flex: 1 0 auto; display: block; }
+.rb-night { fill: color-mix(in srgb, var(--text) 9%, transparent); }
+.rb-twi { fill: color-mix(in srgb, var(--text) 4%, transparent); }
+.rb-win rect { fill: color-mix(in srgb, var(--accent) 12%, transparent); }
+.rb-win path { fill: none; stroke: var(--accent); stroke-width: 2; }
+.rb-surf { fill: color-mix(in srgb, var(--sw1, var(--accent)) 55%, transparent); stroke: var(--sw1, var(--accent)); stroke-width: 1; }
+.rb-off { fill: none; stroke: var(--muted); stroke-width: 1.4; stroke-dasharray: 3 3; }
+.rb-wind { color: var(--muted); }
+.rb-wind line, .rb-wind path { fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.rb-tide { fill: none; stroke: var(--tide, #4a90b8); stroke-width: 1.6; }
+.rb-cur { stroke: var(--text); stroke-width: 1.2; stroke-dasharray: 2 2; opacity: 0.7; }
+.rb-t { font-size: 10px; fill: var(--dim); font-variant-numeric: tabular-nums; }
+.rb-hit { position: absolute; top: 0; bottom: 0; }
+.rb-hit i { position: absolute; top: 0; bottom: 0; cursor: pointer; }
+.rb-hit i:hover { background: color-mix(in srgb, var(--text) 5%, transparent); }
+.rb-k { margin: 6px 2px 0; font-size: 12px; line-height: 1.4; color: var(--muted); }
+.rb-best { color: var(--accent-ink, var(--accent)); font-weight: 650; }
+.rb-src { color: var(--dim); }
+
+/* lead triage / signature A: the Call leads with its verdict (big), then the window in its own verdict, then the hour's state (after dark) in small type */
+.call-b { grid-template-areas: 'v more' 'wl more' 'meta more' 'why more'; }
+.call-v { font-size: 22px; line-height: 1.15; }   /* t034: text ≤ 22 px */
+.call-wl { grid-area: wl; font-size: 16px; font-weight: 650; color: var(--text); }
+.call-meta { grid-area: meta; font-size: 13px; color: var(--muted); }
+.call-more { align-self: start; padding-top: 6px; }
