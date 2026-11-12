@@ -607,3 +607,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-12 merged phone-pass-2 signature A Today ribbon + Call hierarchy (3bc9c65): 1095 tests ✓, journeys 8/8, phone-pass ✓, t034 ✓. Open: ribbon gutter labels overlap at 390 (sent back). Not deployed (awaiting user OK).
 - 2026-11-12 merged ribbon-fix (a44eb1f): ribbon gutter one line per track, headroom; phone-pass gutter assert ALL PASS. Awaiting user deploy OK.
 - 2026-11-12 merged small-pass (e3d76c2): tide sign rule, no board line under Skip, NWS gap, phone day labels, controls shield labels. 1096 tests ✓, journeys 8/8, phone-pass ✓, map-dots ✓. Attribution unchanged (OSMF). Awaiting user deploy OK.
+- 2026-11-12 merged home-week (eefe0a8): phone week table sticky/clamped/fade, Popular spots compact list. 1096 tests ✓, journeys 8/8, phone-pass ✓. Check: first Popular card (OB) shows no Share button at 390. Awaiting user deploy OK.
