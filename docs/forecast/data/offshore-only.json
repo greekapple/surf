@@ -1,14 +1,14 @@
 {
- "generatedAt": "2026-11-12T03:25:41.880Z",
+ "generatedAt": "2026-11-12T22:04:49.524Z",
  "capture": "2026-11-12",
  "spots": 1078,
  "classes": {
-  "hourly-offshore": 629,
-  "static-offshore": 206,
-  "estimate": 166,
-  "mop": 77
+  "hourly-offshore": 511,
+  "estimate": 229,
+  "mop": 205,
+  "static-offshore": 133
  },
- "offshoreOnly": 835,
+ "offshoreOnly": 644,
  "byReasonRegion": {
   "profile:no-profile": {
    "Sitka": 8,
@@ -23,24 +23,15 @@
    "Massachusetts": 3,
    "Del Norte": 1,
    "Rhode Island": 5,
-   "Humboldt": 1,
    "New York": 3,
-   "Mendocino": 3,
    "Southern New Jersey": 4,
-   "Sonoma": 1,
-   "Marin": 1,
-   "San Francisco": 2,
-   "San Mateo": 1,
-   "Santa Cruz": 4,
+   "San Francisco": 1,
    "Virginia": 2,
-   "Monterey": 5,
-   "San Luis Obispo": 4,
-   "Santa Barbara": 18,
+   "San Luis Obispo": 1,
+   "Santa Barbara": 1,
    "Ventura": 1,
-   "Los Angeles": 10,
-   "Orange County": 8,
+   "Orange County": 2,
    "South Carolina": 1,
-   "San Diego": 9,
    "Georgia": 1,
    "Northeast Florida": 2,
    "Texas": 3,
@@ -66,19 +57,15 @@
    "Clatsop": 1,
    "Coos": 1,
    "Curry": 1,
-   "Humboldt": 4,
-   "Mendocino": 2,
-   "Sonoma": 4,
-   "Marin": 2,
    "San Mateo": 1,
-   "Santa Cruz": 3,
-   "Monterey": 2,
-   "San Luis Obispo": 2,
-   "Santa Barbara": 14,
-   "Ventura": 6,
-   "Los Angeles": 9,
-   "Orange County": 5,
-   "San Diego": 3,
+   "Virginia": 1,
+   "Orange County": 4,
+   "San Diego": 1,
+   "Georgia": 2,
+   "Northeast Florida": 1,
+   "Space Coast": 1,
+   "Treasure Coast": 1,
+   "Southeast Florida": 1,
    "Kauai": 9,
    "Niihau": 1,
    "Oahu East Side": 4,
@@ -94,14 +81,8 @@
    "Grays Harbor": 3,
    "Curry": 1,
    "Massachusetts": 4,
-   "Del Norte": 2,
    "Rhode Island": 2,
-   "Mendocino": 1,
-   "San Mateo": 1,
-   "Santa Cruz": 2,
-   "San Luis Obispo": 1,
-   "Los Angeles": 1,
-   "Orange County": 4,
+   "Orange County": 1,
    "Southeast Florida": 8,
    "Puerto Rico": 4
   },
@@ -113,20 +94,19 @@
    "New York": 41,
    "Northern New Jersey": 36,
    "Southern New Jersey": 22,
-   "Virginia": 10,
+   "Virginia": 9,
    "Outer Banks": 31,
    "Southern North Carolina": 27,
-   "South Carolina": 31,
-   "Georgia": 21,
-   "Northeast Florida": 28,
+   "South Carolina": 30,
+   "Georgia": 1,
+   "Northeast Florida": 27,
    "Florida Panhandle": 4,
    "Alabama": 7,
    "Louisiana": 1,
-   "Space Coast": 45,
+   "Space Coast": 8,
    "Florida Gulf Coast": 25,
    "Texas": 5,
-   "Treasure Coast": 12,
-   "Southeast Florida": 21,
+   "Southeast Florida": 4,
    "Kauai": 3,
    "Oahu South Shore": 1,
    "Maui": 12,
@@ -134,7 +114,8 @@
    "Puerto Rico": 20
   },
   "hourly:wind-sea-dominant": {
-   "San Diego": 4,
+   "South Carolina": 1,
+   "Georgia": 18,
    "Oahu West Side": 1,
    "Oahu East Side": 3,
    "Oahu South Shore": 6,
@@ -485,7 +466,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 8,
+     "short-period": 14
     }
    }
   },
@@ -499,13 +481,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 14
     }
    }
   },
@@ -530,13 +513,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 14
     }
    }
   },
@@ -556,7 +540,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 5,
+     "short-period": 17
     }
    }
   },
@@ -612,13 +597,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 17
     }
    }
   },
@@ -632,13 +618,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 17
     }
    }
   },
@@ -663,13 +650,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -689,7 +677,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -703,13 +692,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -723,13 +713,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 17
     }
    }
   },
@@ -749,7 +740,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 5,
+     "short-period": 17
     }
    }
   },
@@ -763,13 +755,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -783,14 +776,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 3
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -832,8 +825,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 18
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -853,8 +846,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 18
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -874,8 +867,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 18
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -889,14 +882,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 3
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -916,8 +909,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 18
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -931,14 +924,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 3
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -963,14 +956,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 3
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -984,14 +977,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 3
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -1005,14 +998,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 3
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -1032,8 +1025,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 8,
+     "short-period": 14
     }
    }
   },
@@ -1053,8 +1046,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 8,
+     "short-period": 14
     }
    }
   },
@@ -1096,8 +1089,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19,
-     "outside-window": 3
+     "outside-window": 6,
+     "short-period": 16
     }
    }
   },
@@ -1117,8 +1110,9 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 21,
-     "wind-sea-dominant": 1
+     "wind-sea-dominant": 6,
+     "short-period": 15,
+     "outside-window": 1
     }
    }
   },
@@ -1223,8 +1217,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 21,
-     "wind-sea-dominant": 1
+     "short-period": 20,
+     "wind-sea-dominant": 2
     }
    }
   },
@@ -1244,7 +1238,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 21,
+     "short-period": 20,
+     "wind-sea-dominant": 1,
      "outside-window": 1
     }
    }
@@ -1411,8 +1406,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
+     "short-period": 18,
+     "wind-sea-dominant": 4
     }
    }
   },
@@ -1463,8 +1458,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
+     "wind-sea-dominant": 5,
+     "short-period": 17
     }
    }
   },
@@ -1484,8 +1479,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
+     "wind-sea-dominant": 5,
+     "short-period": 17
     }
    }
   },
@@ -1505,8 +1500,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
+     "wind-sea-dominant": 5,
+     "short-period": 17
     }
    }
   },
@@ -1526,8 +1521,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 18,
-     "wind-sea-dominant": 4
+     "wind-sea-dominant": 6,
+     "short-period": 16
     }
    }
   },
@@ -1547,8 +1542,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 5,
-     "short-period": 17
+     "wind-sea-dominant": 6,
+     "short-period": 16
     }
    }
   },
@@ -1568,8 +1563,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 5,
-     "short-period": 17
+     "wind-sea-dominant": 6,
+     "short-period": 16
     }
    }
   },
@@ -1589,32 +1584,10 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 5,
-     "short-period": 17
+     "wind-sea-dominant": 6,
+     "short-period": 16
     }
    }
-  },
-  {
-   "id": "w-usw-garths-reef",
-   "name": "Garth's Reef",
-   "region": "Del Norte",
-   "lat": 41.771,
-   "lon": -124.244,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-south-beach",
-   "name": "South Beach",
-   "region": "Del Norte",
-   "lat": 41.743,
-   "lon": -124.176,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-keyes-memorial-beach",
@@ -1692,7 +1665,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -1712,7 +1686,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 1,
+     "short-period": 21
     }
    }
   },
@@ -1732,7 +1707,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 1,
+     "short-period": 21
     }
    }
   },
@@ -1783,7 +1759,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 1,
+     "short-period": 21
     }
    }
   },
@@ -1825,7 +1802,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -1876,7 +1854,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -1927,7 +1906,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -2249,7 +2229,9 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "outside-window": 1,
+     "wind-sea-dominant": 1,
+     "short-period": 20
     }
    }
   },
@@ -2270,40 +2252,10 @@
     "total": 22,
     "why": {
      "wind-sea-dominant": 2,
-     "short-period": 20
+     "short-period": 18,
+     "outside-window": 2
     }
    }
-  },
-  {
-   "id": "w-usw-patricks-point",
-   "name": "Patrick's Point",
-   "region": "Humboldt",
-   "lat": 41.142,
-   "lon": -124.152,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-sue-meg",
-   "name": "Sue-meg",
-   "region": "Humboldt",
-   "lat": 41.13,
-   "lon": -124.165,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-north-bar",
@@ -2361,8 +2313,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 5,
+     "short-period": 17
     }
    }
   },
@@ -2382,8 +2334,9 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 3,
+     "short-period": 17,
+     "outside-window": 2
     }
    }
   },
@@ -2403,8 +2356,9 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 3,
+     "short-period": 17,
+     "outside-window": 2
     }
    }
   },
@@ -2435,8 +2389,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 5,
+     "short-period": 17
     }
    }
   },
@@ -2456,8 +2410,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 5,
+     "short-period": 17
     }
    }
   },
@@ -2477,8 +2431,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 3,
+     "short-period": 19
     }
    }
   },
@@ -2519,8 +2473,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 3,
+     "short-period": 19
     }
    }
   },
@@ -2560,8 +2514,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 2,
-     "short-period": 20
+     "wind-sea-dominant": 3,
+     "short-period": 19
     }
    }
   },
@@ -2581,8 +2535,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 1,
-     "short-period": 21
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -2623,8 +2577,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 1,
-     "short-period": 21
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -2644,8 +2598,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 1,
-     "short-period": 21
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -2985,7 +2939,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3187,8 +3142,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 1,
-     "short-period": 21
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -3368,7 +3323,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3428,7 +3384,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3448,7 +3405,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3468,7 +3426,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3488,7 +3447,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3508,7 +3468,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3528,7 +3489,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3548,7 +3510,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3568,7 +3531,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3588,7 +3552,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3608,67 +3573,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-deadmans-humbolt-county",
-   "name": "Deadmans (Humbolt County)",
-   "region": "Humboldt",
-   "lat": 40.023,
-   "lon": -124.058,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-third-reef",
-   "name": "Third Reef",
-   "region": "Humboldt",
-   "lat": 40.021,
-   "lon": -124.053,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-no-pass",
-   "name": "No Pass",
-   "region": "Humboldt",
-   "lat": 40.02,
-   "lon": -124.049,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 1,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 21
+     "wind-sea-dominant": 1,
+     "short-period": 21
     }
    }
   },
@@ -3688,8 +3594,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 1,
-     "short-period": 21
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -3709,8 +3615,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "wind-sea-dominant": 1,
-     "short-period": 21
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
   },
@@ -3733,17 +3639,6 @@
      "short-period": 22
     }
    }
-  },
-  {
-   "id": "w-usw-needle-rock",
-   "name": "Needle Rock",
-   "region": "Mendocino",
-   "lat": 39.944,
-   "lon": -123.969,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-seaside-heights-casino-pier",
@@ -4037,17 +3932,6 @@
    }
   },
   {
-   "id": "w-usw-ten-mile-beach",
-   "name": "Ten Mile Beach",
-   "region": "Mendocino",
-   "lat": 39.525,
-   "lon": -123.778,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-wooden-jetties",
    "name": "Wooden Jetties",
    "region": "Southern New Jersey",
@@ -4066,17 +3950,6 @@
      "short-period": 22
     }
    }
-  },
-  {
-   "id": "w-usw-glass-beach",
-   "name": "Glass Beach",
-   "region": "Mendocino",
-   "lat": 39.453,
-   "lon": -123.814,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-kirbys-point",
@@ -4174,20 +4047,10 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 20
     }
    }
-  },
-  {
-   "id": "w-usw-caspar-creek",
-   "name": "Caspar Creek",
-   "region": "Mendocino",
-   "lat": 39.361,
-   "lon": -123.819,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-states-avenue",
@@ -4321,26 +4184,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-usw-big-rivermouth",
-   "name": "Big Rivermouth",
-   "region": "Mendocino",
-   "lat": 39.302,
-   "lon": -123.798,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
   },
   {
    "id": "w-us-north-street",
@@ -4505,168 +4348,6 @@
    }
   },
   {
-   "id": "w-usw-schooner-gulch-moat-creek",
-   "name": "Schooner Gulch-Moat Creek",
-   "region": "Mendocino",
-   "lat": 38.88,
-   "lon": -123.676,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 21
-    }
-   }
-  },
-  {
-   "id": "w-usw-timber-cove",
-   "name": "Timber Cove",
-   "region": "Sonoma",
-   "lat": 38.532,
-   "lon": -123.275,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-fort",
-   "name": "The Fort",
-   "region": "Sonoma",
-   "lat": 38.511,
-   "lon": -123.243,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-mystos",
-   "name": "Mystos",
-   "region": "Sonoma",
-   "lat": 38.509,
-   "lon": -123.24,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-goat-rock",
-   "name": "Goat Rock",
-   "region": "Sonoma",
-   "lat": 38.439,
-   "lon": -123.125,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-doran-beach",
-   "name": "Doran Beach",
-   "region": "Sonoma",
-   "lat": 38.312,
-   "lon": -123.044,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-shark-pit-marin",
-   "name": "Shark Pit - Marin",
-   "region": "Marin",
-   "lat": 38.244,
-   "lon": -122.982,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-drakes-estero",
-   "name": "Drakes Estero",
-   "region": "Marin",
-   "lat": 38.029,
-   "lon": -122.935,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-patch",
-   "name": "The Patch",
-   "region": "Marin",
-   "lat": 37.9,
-   "lon": -122.69,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
    "id": "w-us-chincoteague",
    "name": "Chincoteague",
    "region": "Virginia",
@@ -4676,13 +4357,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 3,
-    "offshore": 19,
+    "estimate": 8,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 19
+     "wind-sea-dominant": 1,
+     "short-period": 13
     }
    }
   },
@@ -4692,17 +4374,6 @@
    "region": "San Francisco",
    "lat": 37.811,
    "lon": -122.476,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-deadmans",
-   "name": "Deadmans",
-   "region": "San Francisco",
-   "lat": 37.788,
-   "lon": -122.494,
    "class": "static-offshore",
    "reason": "no-profile",
    "detail": null,
@@ -4729,35 +4400,13 @@
    }
   },
   {
-   "id": "cs-pigeon-point",
-   "name": "Pigeon Point",
-   "region": "San Mateo",
-   "lat": 37.182,
-   "lon": -122.394,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-ano-nuevo-state-reserve",
-   "name": "Ano Nuevo State Reserve",
-   "region": "San Mateo",
-   "lat": 37.117,
-   "lon": -122.314,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-fishermans-island",
    "name": "Fishermans Island",
    "region": "Virginia",
    "lat": 37.08,
    "lon": -75.963,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -4766,138 +4415,10 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "outside-window": 2
+     "outside-window": 11,
+     "short-period": 11
     }
    }
-  },
-  {
-   "id": "cs-scott-creek",
-   "name": "Scott Creek",
-   "region": "Santa Cruz",
-   "lat": 37.037,
-   "lon": -122.228,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-davenport-landing",
-   "name": "Davenport Landing",
-   "region": "Santa Cruz",
-   "lat": 37.023,
-   "lon": -122.216,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 18,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-usw-laguna-creek",
-   "name": "Laguna Creek",
-   "region": "Santa Cruz",
-   "lat": 36.982,
-   "lon": -122.158,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 18,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-usw-four-mile",
-   "name": "Four Mile",
-   "region": "Santa Cruz",
-   "lat": 36.965,
-   "lon": -122.125,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-rivermouth",
-   "name": "The Rivermouth",
-   "region": "Santa Cruz",
-   "lat": 36.963,
-   "lon": -122.012,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 23,
-    "none": 0,
-    "other": 0,
-    "total": 23,
-    "why": {
-     "outside-window": 23
-    }
-   }
-  },
-  {
-   "id": "w-usw-three-mile",
-   "name": "Three Mile",
-   "region": "Santa Cruz",
-   "lat": 36.961,
-   "lon": -122.114,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-santa-cruz-harbor",
-   "name": "Santa Cruz Harbor",
-   "region": "Santa Cruz",
-   "lat": 36.96,
-   "lon": -122.001,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-mitchells-cove",
-   "name": "Mitchell's Cove",
-   "region": "Santa Cruz",
-   "lat": 36.952,
-   "lon": -122.041,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "cs-natural-bridges",
-   "name": "Natural Bridges",
-   "region": "Santa Cruz",
-   "lat": 36.95,
-   "lon": -122.057,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-north-end",
@@ -4931,13 +4452,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 14
     }
    }
   },
@@ -4951,13 +4473,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 16
     }
    }
   },
@@ -4971,13 +4494,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 16
     }
    }
   },
@@ -4991,13 +4515,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 16
     }
    }
   },
@@ -5011,13 +4536,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 16
     }
    }
   },
@@ -5031,13 +4557,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 16
     }
    }
   },
@@ -5051,13 +4578,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 16
     }
    }
   },
@@ -5071,110 +4599,16 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 4,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 15
     }
    }
-  },
-  {
-   "id": "w-usw-boneyard",
-   "name": "Boneyard",
-   "region": "Monterey",
-   "lat": 36.638,
-   "lon": -121.931,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-lovers-point",
-   "name": "Lovers Point",
-   "region": "Monterey",
-   "lat": 36.626,
-   "lon": -121.915,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "outside-window": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-mole-point",
-   "name": "Mole Point",
-   "region": "Monterey",
-   "lat": 36.609,
-   "lon": -121.96,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-monterey-bay",
-   "name": "Monterey Bay",
-   "region": "Monterey",
-   "lat": 36.607,
-   "lon": -121.891,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-del-monte-beach",
-   "name": "Del Monte Beach",
-   "region": "Monterey",
-   "lat": 36.605,
-   "lon": -121.87,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 23,
-    "none": 0,
-    "other": 0,
-    "total": 23,
-    "why": {
-     "outside-window": 23
-    }
-   }
-  },
-  {
-   "id": "w-usw-monterey-wall",
-   "name": "Monterey Wall",
-   "region": "Monterey",
-   "lat": 36.602,
-   "lon": -121.889,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-ghost-tree",
-   "name": "Ghost Tree",
-   "region": "Monterey",
-   "lat": 36.56,
-   "lon": -121.952,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-corolla-lighthouse",
@@ -5186,13 +4620,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 6,
+     "short-period": 14
     }
    }
   },
@@ -5206,13 +4641,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 15
     }
    }
   },
@@ -5226,13 +4662,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 15
     }
    }
   },
@@ -5246,13 +4683,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 15
     }
    }
   },
@@ -5266,13 +4704,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 15
     }
    }
   },
@@ -5286,13 +4725,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 5,
+     "short-period": 15
     }
    }
   },
@@ -5306,13 +4746,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5326,13 +4767,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5346,13 +4788,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5366,13 +4809,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5386,13 +4830,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5406,13 +4851,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5426,13 +4872,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5446,13 +4893,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5466,13 +4914,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 17
     }
    }
   },
@@ -5486,13 +4935,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 3,
+    "offshore": 19,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 2,
+     "short-period": 17
     }
    }
   },
@@ -5506,13 +4956,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 22,
+    "estimate": 2,
+    "offshore": 20,
     "none": 0,
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "wind-sea-dominant": 3,
+     "short-period": 17
     }
    }
   },
@@ -5533,26 +4984,6 @@
     "total": 22,
     "why": {
      "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-arroyo-laguna",
-   "name": "Arroyo Laguna",
-   "region": "San Luis Obispo",
-   "lat": 35.651,
-   "lon": -121.221,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
     }
    }
   },
@@ -5637,17 +5068,6 @@
    }
   },
   {
-   "id": "w-usw-morro-strand",
-   "name": "Morro Strand",
-   "region": "San Luis Obispo",
-   "lat": 35.391,
-   "lon": -120.869,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-avon-pier",
    "name": "Avon Pier",
    "region": "Outer Banks",
@@ -5688,17 +5108,6 @@
    }
   },
   {
-   "id": "w-usw-cable-landing",
-   "name": "Cable Landing",
-   "region": "San Luis Obispo",
-   "lat": 35.301,
-   "lon": -120.878,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-north-buxton",
    "name": "North Buxton",
    "region": "Outer Banks",
@@ -5734,8 +5143,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
+     "short-period": 18,
+     "wind-sea-dominant": 4
     }
    }
   },
@@ -5755,8 +5164,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
+     "short-period": 18,
+     "wind-sea-dominant": 4
     }
    }
   },
@@ -5776,7 +5185,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "short-period": 19,
+     "wind-sea-dominant": 3
     }
    }
   },
@@ -5796,7 +5206,8 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "short-period": 19,
+     "wind-sea-dominant": 3
     }
    }
   },
@@ -5816,40 +5227,10 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "short-period": 19,
+     "wind-sea-dominant": 3
     }
    }
-  },
-  {
-   "id": "w-usw-avila-beach",
-   "name": "Avila Beach",
-   "region": "San Luis Obispo",
-   "lat": 35.178,
-   "lon": -120.734,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-saint-annes",
-   "name": "Saint Anne's",
-   "region": "San Luis Obispo",
-   "lat": 35.171,
-   "lon": -120.704,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "cs-shell-beach",
@@ -5878,20 +5259,10 @@
     "other": 0,
     "total": 22,
     "why": {
-     "short-period": 22
+     "short-period": 19,
+     "wind-sea-dominant": 3
     }
    }
-  },
-  {
-   "id": "w-usw-grover-beach",
-   "name": "Grover Beach",
-   "region": "San Luis Obispo",
-   "lat": 35.12,
-   "lon": -120.636,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-triple-s-pier",
@@ -6054,17 +5425,6 @@
    }
   },
   {
-   "id": "w-usw-molino-canyon",
-   "name": "Molino Canyon",
-   "region": "Santa Barbara",
-   "lat": 34.469,
-   "lon": -120.168,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-topsail-beach",
    "name": "Topsail Beach",
    "region": "Southern North Carolina",
@@ -6083,338 +5443,6 @@
      "short-period": 24
     }
    }
-  },
-  {
-   "id": "w-usw-the-ranch-drakes-point",
-   "name": "The Ranch – Drake's Point",
-   "region": "Santa Barbara",
-   "lat": 34.467,
-   "lon": -120.3,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-razor-blades",
-   "name": "The Ranch – Razor Blades",
-   "region": "Santa Barbara",
-   "lat": 34.467,
-   "lon": -120.276,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-ranch-upper-drakes",
-   "name": "The Ranch – Upper Drake's",
-   "region": "Santa Barbara",
-   "lat": 34.466,
-   "lon": -120.304,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-little-drakes",
-   "name": "The Ranch – Little Drake's",
-   "region": "Santa Barbara",
-   "lat": 34.465,
-   "lon": -120.31,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-tajiguas",
-   "name": "Tajiguas",
-   "region": "Santa Barbara",
-   "lat": 34.463,
-   "lon": -120.099,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-beavers-hazards",
-   "name": "Beavers/Hazards",
-   "region": "Santa Barbara",
-   "lat": 34.461,
-   "lon": -120.054,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-refugio-state-beach",
-   "name": "Refugio State Beach",
-   "region": "Santa Barbara",
-   "lat": 34.461,
-   "lon": -120.073,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-ranch-house-point",
-   "name": "The Ranch – Ranch House Point",
-   "region": "Santa Barbara",
-   "lat": 34.459,
-   "lon": -120.336,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-el-capitan-state-beach",
-   "name": "El Capitan State Beach",
-   "region": "Santa Barbara",
-   "lat": 34.458,
-   "lon": -120.021,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-ranch-rennys",
-   "name": "The Ranch – Renny's",
-   "region": "Santa Barbara",
-   "lat": 34.458,
-   "lon": -120.341,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-rights-and-lefts",
-   "name": "The Ranch – Rights and Lefts",
-   "region": "Santa Barbara",
-   "lat": 34.458,
-   "lon": -120.35,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch",
-   "name": "The Ranch",
-   "region": "Santa Barbara",
-   "lat": 34.457,
-   "lon": -120.342,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-ranch-utah",
-   "name": "The Ranch – Utah",
-   "region": "Santa Barbara",
-   "lat": 34.457,
-   "lon": -120.346,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-lefts-and-rights",
-   "name": "The Ranch – Lefts and Rights",
-   "region": "Santa Barbara",
-   "lat": 34.455,
-   "lon": -120.368,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-san-augustine-reef",
-   "name": "The Ranch – San Augustine Reef",
-   "region": "Santa Barbara",
-   "lat": 34.455,
-   "lon": -120.353,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-san-augustine-point",
-   "name": "The Ranch – San Augustine Point",
-   "region": "Santa Barbara",
-   "lat": 34.454,
-   "lon": -120.357,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-ranch-cojo-reef",
-   "name": "The Ranch – Cojo Reef",
-   "region": "Santa Barbara",
-   "lat": 34.452,
-   "lon": -120.414,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-ranch-cojo-point",
-   "name": "The Ranch – Cojo Point",
-   "region": "Santa Barbara",
-   "lat": 34.45,
-   "lon": -120.418,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-cat-canyon",
-   "name": "Cat Canyon",
-   "region": "Santa Barbara",
-   "lat": 34.449,
-   "lon": -119.987,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-ranch-perkos",
-   "name": "The Ranch – Perkos",
-   "region": "Santa Barbara",
-   "lat": 34.449,
-   "lon": -120.445,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-the-ranch-government-point",
-   "name": "The Ranch – Government Point",
-   "region": "Santa Barbara",
-   "lat": 34.443,
-   "lon": -120.451,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-haskells-beach",
-   "name": "Haskell's Beach",
-   "region": "Santa Barbara",
-   "lat": 34.431,
-   "lon": -119.916,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-topsail-island",
@@ -6457,17 +5485,6 @@
    }
   },
   {
-   "id": "cs-hammonds",
-   "name": "Hammond's",
-   "region": "Santa Barbara",
-   "lat": 34.415,
-   "lon": -119.637,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-usw-santa-claus-padaro-beach",
    "name": "Santa Claus (Padaro Beach)",
    "region": "Santa Barbara",
@@ -6477,119 +5494,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "cs-campus-point",
-   "name": "Campus Point",
-   "region": "Santa Barbara",
-   "lat": 34.405,
-   "lon": -119.844,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-sandspit",
-   "name": "Sandspit",
-   "region": "Santa Barbara",
-   "lat": 34.405,
-   "lon": -119.687,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "cs-leadbetter",
-   "name": "Leadbetter",
-   "region": "Santa Barbara",
-   "lat": 34.401,
-   "lon": -119.701,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-the-pit",
-   "name": "The Pit",
-   "region": "Santa Barbara",
-   "lat": 34.401,
-   "lon": -119.745,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-mesa-lane",
-   "name": "Mesa Lane",
-   "region": "Santa Barbara",
-   "lat": 34.396,
-   "lon": -119.731,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-tarpits-carpinteria-state-beach",
-   "name": "Tarpits/Carpinteria State Beach",
-   "region": "Santa Barbara",
-   "lat": 34.392,
-   "lon": -119.524,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-tarpits",
-   "name": "Tarpits",
-   "region": "Santa Barbara",
-   "lat": 34.387,
-   "lon": -119.514,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
   },
   {
    "id": "w-us-jolly-roger-pier",
@@ -6608,86 +5512,6 @@
     "total": 24,
     "why": {
      "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-little-rincon-mussel-shoals",
-   "name": "Little Rincon/Mussel Shoals",
-   "region": "Ventura",
-   "lat": 34.355,
-   "lon": -119.442,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-oil-piers",
-   "name": "Oil Piers",
-   "region": "Ventura",
-   "lat": 34.351,
-   "lon": -119.427,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-stanleys",
-   "name": "Stanley's",
-   "region": "Ventura",
-   "lat": 34.341,
-   "lon": -119.417,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-hobson-county-park",
-   "name": "Hobson County Park",
-   "region": "Ventura",
-   "lat": 34.337,
-   "lon": -119.412,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
     }
    }
   },
@@ -6843,48 +5667,6 @@
    }
   },
   {
-   "id": "w-usw-port-hueneme-beach-park",
-   "name": "Port Hueneme Beach Park",
-   "region": "Ventura",
-   "lat": 34.142,
-   "lon": -119.198,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 14,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "wind-sea-dominant": 3,
-     "outside-window": 11
-    }
-   }
-  },
-  {
-   "id": "w-usw-ormond-beach",
-   "name": "Ormond Beach",
-   "region": "Ventura",
-   "lat": 34.136,
-   "lon": -119.186,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 14,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "wind-sea-dominant": 3,
-     "outside-window": 11
-    }
-   }
-  },
-  {
    "id": "w-us-carolina-beach-pier",
    "name": "Carolina Beach Pier",
    "region": "Southern North Carolina",
@@ -6905,88 +5687,6 @@
    }
   },
   {
-   "id": "cs-leo-carrillo",
-   "name": "Leo Carrillo",
-   "region": "Los Angeles",
-   "lat": 34.044,
-   "lon": -118.939,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-zero-nicholas-canyon-county-beach",
-   "name": "Zero/Nicholas Canyon County Beach",
-   "region": "Los Angeles",
-   "lat": 34.042,
-   "lon": -118.917,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-big-rock",
-   "name": "Big Rock",
-   "region": "Los Angeles",
-   "lat": 34.036,
-   "lon": -118.609,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-trancas-point",
-   "name": "Trancas Point",
-   "region": "Los Angeles",
-   "lat": 34.034,
-   "lon": -118.861,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-latigo-canyon",
-   "name": "Latigo Canyon",
-   "region": "Los Angeles",
-   "lat": 34.026,
-   "lon": -118.755,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
    "id": "w-us-pelican-watch",
    "name": "Pelican Watch",
    "region": "Southern North Carolina",
@@ -7002,7 +5702,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 21,
+     "wind-sea-dominant": 3
     }
    }
   },
@@ -7022,47 +5723,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-point-dume",
-   "name": "Point Dume / Little Dume",
-   "region": "Los Angeles",
-   "lat": 34.008,
-   "lon": -118.793,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-point-dume-2",
-   "name": "Point Dume",
-   "region": "Los Angeles",
-   "lat": 34.002,
-   "lon": -118.805,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
+     "short-period": 21,
+     "wind-sea-dominant": 3
     }
    }
   },
@@ -7082,60 +5744,10 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 21,
+     "wind-sea-dominant": 3
     }
    }
-  },
-  {
-   "id": "w-usw-ballona-creek-the-jetty",
-   "name": "Ballona Creek/The Jetty",
-   "region": "Los Angeles",
-   "lat": 33.96,
-   "lon": -118.458,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-toes-over",
-   "name": "Toes Over",
-   "region": "Los Angeles",
-   "lat": 33.96,
-   "lon": -118.46,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-d-and-w",
-   "name": "D & W",
-   "region": "Los Angeles",
-   "lat": 33.94,
-   "lon": -118.443,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-holden-beach",
@@ -7238,26 +5850,6 @@
    }
   },
   {
-   "id": "w-usw-haggertys",
-   "name": "Haggertys and Malaga Cove",
-   "region": "Los Angeles",
-   "lat": 33.802,
-   "lon": -118.401,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
    "id": "w-us-27th-ave-north-myrtle",
    "name": "27th Ave/North Myrtle",
    "region": "South Carolina",
@@ -7274,70 +5866,6 @@
     "total": 24,
     "why": {
      "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-palos-verdes-cove-north-reef-little-queens",
-   "name": "Palos Verdes Cove - North Reef/Little Queens",
-   "region": "Los Angeles",
-   "lat": 33.794,
-   "lon": -118.409,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-palos-verdes-cove-middles-the-channel",
-   "name": "Palos Verdes Cove - Middles/The Channel",
-   "region": "Los Angeles",
-   "lat": 33.793,
-   "lon": -118.408,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-pv-cove",
-   "name": "PV Cove",
-   "region": "Los Angeles",
-   "lat": 33.793,
-   "lon": -118.407,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-palos-verdes-cove-boneyards",
-   "name": "Palos Verdes Cove - Boneyards",
-   "region": "Los Angeles",
-   "lat": 33.791,
-   "lon": -118.41,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-indicator",
-   "name": "Indicator",
-   "region": "Los Angeles",
-   "lat": 33.789,
-   "lon": -118.417,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
     }
    }
   },
@@ -7400,17 +5928,6 @@
      "outside-window": 22
     }
    }
-  },
-  {
-   "id": "w-usw-abalone-cove-beach",
-   "name": "Abalone Cove Beach",
-   "region": "Los Angeles",
-   "lat": 33.739,
-   "lon": -118.403,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-usw-7th-street",
@@ -7484,50 +6001,6 @@
    }
   },
   {
-   "id": "w-usw-surfside-jetty",
-   "name": "Surfside Jetty",
-   "region": "Orange County",
-   "lat": 33.729,
-   "lon": -118.09,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-palm-point",
-   "name": "Palm Point",
-   "region": "Los Angeles",
-   "lat": 33.718,
-   "lon": -118.325,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-royal-palms-the-jetty",
-   "name": "Royal Palms – The Jetty",
-   "region": "Los Angeles",
-   "lat": 33.718,
-   "lon": -118.323,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-cabrillo-point",
-   "name": "Cabrillo Point",
-   "region": "Los Angeles",
-   "lat": 33.706,
-   "lon": -118.285,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "cs-bolsa-chica",
    "name": "Bolsa Chica",
    "region": "Orange County",
@@ -7579,28 +6052,6 @@
    }
   },
   {
-   "id": "w-usw-hb-cliffs",
-   "name": "HB Cliffs",
-   "region": "Orange County",
-   "lat": 33.676,
-   "lon": -118.031,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-huntington-cliffs",
-   "name": "Huntington Cliffs",
-   "region": "Orange County",
-   "lat": 33.668,
-   "lon": -118.021,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-springmaid-beach",
    "name": "Springmaid Beach",
    "region": "South Carolina",
@@ -7621,48 +6072,6 @@
    }
   },
   {
-   "id": "w-usw-santa-ana-river-jetties",
-   "name": "Santa Ana River Jetties",
-   "region": "Orange County",
-   "lat": 33.628,
-   "lon": -117.959,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-newport-upper-jetties",
-   "name": "Newport Upper Jetties",
-   "region": "Orange County",
-   "lat": 33.623,
-   "lon": -117.947,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-newport-beach",
-   "name": "Newport Beach",
-   "region": "Orange County",
-   "lat": 33.619,
-   "lon": -117.943,
-   "class": "static-offshore",
-   "reason": "no-shelter",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-surfside-beach",
    "name": "Surfside Beach",
    "region": "South Carolina",
@@ -7678,7 +6087,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 23,
+     "wind-sea-dominant": 1
     }
    }
   },
@@ -7698,42 +6108,10 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 23,
+     "wind-sea-dominant": 1
     }
    }
-  },
-  {
-   "id": "w-usw-crystal-cove",
-   "name": "Crystal Cove",
-   "region": "Orange County",
-   "lat": 33.559,
-   "lon": -117.821,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-thalia-street",
-   "name": "Thalia Street",
-   "region": "Orange County",
-   "lat": 33.536,
-   "lon": -117.78,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-agate-pearl-street",
-   "name": "Agate/Pearl Street",
-   "region": "Orange County",
-   "lat": 33.528,
-   "lon": -117.773,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-us-north-end-south-carolina",
@@ -7751,20 +6129,10 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 22
     }
    }
-  },
-  {
-   "id": "w-usw-strands",
-   "name": "Strands",
-   "region": "Orange County",
-   "lat": 33.466,
-   "lon": -117.717,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "cs-doheny",
@@ -7793,7 +6161,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 22
     }
    }
   },
@@ -7813,7 +6182,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 22
     }
    }
   },
@@ -7844,7 +6214,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 22
     }
    }
   },
@@ -7864,7 +6235,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 22
     }
    }
   },
@@ -7884,7 +6256,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 21
     }
    }
   },
@@ -7904,7 +6277,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 21,
+     "wind-sea-dominant": 3
     }
    }
   },
@@ -7929,119 +6303,6 @@
    }
   },
   {
-   "id": "w-usw-pipes",
-   "name": "Pipes",
-   "region": "San Diego",
-   "lat": 33.025,
-   "lon": -117.289,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-pipes-campgrounds",
-   "name": "Pipes/Campgrounds",
-   "region": "San Diego",
-   "lat": 33.024,
-   "lon": -117.288,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-pillbox-fletcher-cove-park",
-   "name": "Pillbox/Fletcher Cove Park",
-   "region": "San Diego",
-   "lat": 32.991,
-   "lon": -117.275,
-   "class": "hourly-offshore",
-   "reason": "wind-sea-dominant",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 14,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "wind-sea-dominant": 14
-    }
-   }
-  },
-  {
-   "id": "w-usw-del-mar-rivermouth",
-   "name": "Del Mar Rivermouth",
-   "region": "San Diego",
-   "lat": 32.976,
-   "lon": -117.273,
-   "class": "hourly-offshore",
-   "reason": "wind-sea-dominant",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 14,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "wind-sea-dominant": 14
-    }
-   }
-  },
-  {
-   "id": "w-usw-del-mar-beach",
-   "name": "Del Mar Beach",
-   "region": "San Diego",
-   "lat": 32.969,
-   "lon": -117.27,
-   "class": "hourly-offshore",
-   "reason": "wind-sea-dominant",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 14,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "wind-sea-dominant": 14
-    }
-   }
-  },
-  {
-   "id": "w-usw-15th-street",
-   "name": "15th Street",
-   "region": "San Diego",
-   "lat": 32.959,
-   "lon": -117.27,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-south-del-mar",
-   "name": "South Del Mar",
-   "region": "San Diego",
-   "lat": 32.948,
-   "lon": -117.267,
-   "class": "hourly-offshore",
-   "reason": "wind-sea-dominant",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 14,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "wind-sea-dominant": 14
-    }
-   }
-  },
-  {
    "id": "w-us-bull-island",
    "name": "Bull Island",
    "region": "South Carolina",
@@ -8057,27 +6318,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-usw-la-jolla-cove",
-   "name": "La Jolla Cove",
-   "region": "San Diego",
-   "lat": 32.851,
-   "lon": -117.272,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 1,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 21
+     "short-period": 20,
+     "wind-sea-dominant": 4
     }
    }
   },
@@ -8102,17 +6344,6 @@
    }
   },
   {
-   "id": "w-usw-pb-point",
-   "name": "PB Point",
-   "region": "San Diego",
-   "lat": 32.807,
-   "lon": -117.269,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-wild-dunes",
    "name": "Wild Dunes",
    "region": "South Carolina",
@@ -8128,7 +6359,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 21
     }
    }
   },
@@ -8148,7 +6380,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 21
     }
    }
   },
@@ -8168,53 +6401,10 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 23,
+     "wind-sea-dominant": 1
     }
    }
-  },
-  {
-   "id": "w-usw-ab-abalone",
-   "name": "Ab (Abalone)",
-   "region": "San Diego",
-   "lat": 32.714,
-   "lon": -117.259,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-south-ab",
-   "name": "South Ab",
-   "region": "San Diego",
-   "lat": 32.713,
-   "lon": -117.259,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-new-break",
-   "name": "New Break",
-   "region": "San Diego",
-   "lat": 32.711,
-   "lon": -117.258,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
-   "id": "w-usw-chasm",
-   "name": "Chasm",
-   "region": "San Diego",
-   "lat": 32.708,
-   "lon": -117.258,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
   },
   {
    "id": "w-usw-coronado-city-beach-corondo-shores-beach",
@@ -8222,26 +6412,6 @@
    "region": "San Diego",
    "lat": 32.684,
    "lon": -117.197,
-   "class": "hourly-offshore",
-   "reason": "outside-window",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 22,
-    "why": {
-     "outside-window": 22
-    }
-   }
-  },
-  {
-   "id": "w-usw-coronado-beach",
-   "name": "Coronado Beach",
-   "region": "San Diego",
-   "lat": 32.674,
-   "lon": -117.174,
    "class": "hourly-offshore",
    "reason": "outside-window",
    "detail": null,
@@ -8312,7 +6482,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 23,
+     "wind-sea-dominant": 1
     }
    }
   },
@@ -8337,17 +6508,6 @@
    }
   },
   {
-   "id": "w-usw-tijuana-slough",
-   "name": "Tijuana Slough",
-   "region": "San Diego",
-   "lat": 32.557,
-   "lon": -117.133,
-   "class": "static-offshore",
-   "reason": "no-profile",
-   "detail": null,
-   "hours": null
-  },
-  {
    "id": "w-us-edisto-beach",
    "name": "Edisto Beach",
    "region": "South Carolina",
@@ -8363,7 +6523,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 1,
+     "short-period": 23
     }
    }
   },
@@ -8383,8 +6544,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 23,
-     "wind-sea-dominant": 1
+     "short-period": 21,
+     "wind-sea-dominant": 3
     }
    }
   },
@@ -8404,8 +6565,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 22,
-     "wind-sea-dominant": 2
+     "wind-sea-dominant": 8,
+     "short-period": 16
     }
    }
   },
@@ -8425,8 +6586,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 4
+     "wind-sea-dominant": 11,
+     "short-period": 13
     }
    }
   },
@@ -8437,7 +6598,7 @@
    "lat": 32.144,
    "lon": -80.744,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8446,8 +6607,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "wind-sea-dominant": 7,
-     "short-period": 17
+     "wind-sea-dominant": 14,
+     "short-period": 10
     }
    }
   },
@@ -8458,7 +6619,7 @@
    "lat": 32.024,
    "lon": -80.841,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8467,8 +6628,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "wind-sea-dominant": 10,
-     "short-period": 14
+     "wind-sea-dominant": 12,
+     "short-period": 12
     }
    }
   },
@@ -8479,7 +6640,7 @@
    "lat": 32.021,
    "lon": -80.841,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8488,8 +6649,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "wind-sea-dominant": 10,
-     "short-period": 14
+     "wind-sea-dominant": 12,
+     "short-period": 12
     }
    }
   },
@@ -8500,7 +6661,7 @@
    "lat": 31.992,
    "lon": -80.845,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8509,8 +6670,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 13,
-     "wind-sea-dominant": 11
+     "wind-sea-dominant": 20,
+     "short-period": 4
     }
    }
   },
@@ -8521,7 +6682,7 @@
    "lat": 31.99,
    "lon": -80.846,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8530,8 +6691,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 13,
-     "wind-sea-dominant": 11
+     "wind-sea-dominant": 20,
+     "short-period": 4
     }
    }
   },
@@ -8553,7 +6714,7 @@
    "lat": 31.981,
    "lon": -80.848,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8562,8 +6723,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 13,
-     "wind-sea-dominant": 11
+     "wind-sea-dominant": 20,
+     "short-period": 4
     }
    }
   },
@@ -8574,7 +6735,7 @@
    "lat": 31.967,
    "lon": -80.87,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8583,8 +6744,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 13,
-     "wind-sea-dominant": 11
+     "wind-sea-dominant": 20,
+     "short-period": 4
     }
    }
   },
@@ -8595,7 +6756,7 @@
    "lat": 31.86,
    "lon": -80.99,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8604,8 +6765,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 12,
-     "wind-sea-dominant": 12
+     "wind-sea-dominant": 20,
+     "short-period": 4
     }
    }
   },
@@ -8616,7 +6777,7 @@
    "lat": 31.765,
    "lon": -81.077,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8625,8 +6786,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 12,
-     "wind-sea-dominant": 12
+     "wind-sea-dominant": 21,
+     "short-period": 3
     }
    }
   },
@@ -8637,7 +6798,7 @@
    "lat": 31.625,
    "lon": -81.133,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8646,8 +6807,7 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 12,
-     "wind-sea-dominant": 12
+     "wind-sea-dominant": 24
     }
    }
   },
@@ -8658,7 +6818,7 @@
    "lat": 31.467,
    "lon": -81.21,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8667,8 +6827,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 12,
-     "wind-sea-dominant": 12
+     "wind-sea-dominant": 23,
+     "short-period": 1
     }
    }
   },
@@ -8679,7 +6839,7 @@
    "lat": 31.423,
    "lon": -81.247,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8688,8 +6848,9 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 14,
-     "wind-sea-dominant": 10
+     "wind-sea-dominant": 21,
+     "short-period": 2,
+     "outside-window": 1
     }
    }
   },
@@ -8700,7 +6861,7 @@
    "lat": 31.393,
    "lon": -81.262,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8709,8 +6870,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 14,
-     "wind-sea-dominant": 10
+     "wind-sea-dominant": 22,
+     "short-period": 2
     }
    }
   },
@@ -8721,7 +6882,7 @@
    "lat": 31.335,
    "lon": -81.284,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8730,8 +6891,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 14,
-     "wind-sea-dominant": 10
+     "wind-sea-dominant": 22,
+     "short-period": 2
     }
    }
   },
@@ -8742,7 +6903,7 @@
    "lat": 31.27,
    "lon": -81.273,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8751,8 +6912,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 13,
-     "wind-sea-dominant": 11
+     "wind-sea-dominant": 22,
+     "short-period": 2
     }
    }
   },
@@ -8763,7 +6924,7 @@
    "lat": 31.201,
    "lon": -81.326,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8772,8 +6933,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 18,
-     "wind-sea-dominant": 6
+     "wind-sea-dominant": 23,
+     "short-period": 1
     }
    }
   },
@@ -8784,7 +6945,7 @@
    "lat": 31.144,
    "lon": -81.368,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8793,8 +6954,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 18,
-     "wind-sea-dominant": 6
+     "wind-sea-dominant": 23,
+     "short-period": 1
     }
    }
   },
@@ -8805,7 +6966,7 @@
    "lat": 31.136,
    "lon": -81.385,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8814,9 +6975,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 14,
-     "outside-window": 8,
-     "wind-sea-dominant": 2
+     "outside-window": 17,
+     "wind-sea-dominant": 7
     }
    }
   },
@@ -8827,7 +6987,7 @@
    "lat": 31.135,
    "lon": -81.386,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8836,9 +6996,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 14,
-     "outside-window": 8,
-     "wind-sea-dominant": 2
+     "outside-window": 17,
+     "wind-sea-dominant": 7
     }
    }
   },
@@ -8849,7 +7008,7 @@
    "lat": 31.106,
    "lon": -81.404,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8858,8 +7017,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 18,
-     "wind-sea-dominant": 6
+     "wind-sea-dominant": 23,
+     "short-period": 1
     }
    }
   },
@@ -8870,7 +7029,7 @@
    "lat": 31.068,
    "lon": -81.402,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "wind-sea-dominant",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -8879,8 +7038,7 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 14,
-     "wind-sea-dominant": 10
+     "wind-sea-dominant": 24
     }
    }
   },
@@ -8894,13 +7052,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 6,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 7,
+     "short-period": 11
     }
    }
   },
@@ -8914,13 +7073,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 4,
+     "short-period": 12
     }
    }
   },
@@ -8934,13 +7094,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 4,
+     "short-period": 12
     }
    }
   },
@@ -8954,13 +7115,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 4,
+     "short-period": 12
     }
    }
   },
@@ -8974,13 +7136,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 4,
+     "short-period": 12
     }
    }
   },
@@ -8994,13 +7157,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 6,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 6,
+     "short-period": 12
     }
    }
   },
@@ -9014,13 +7178,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 6,
+    "offshore": 18,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 6,
+     "short-period": 12
     }
    }
   },
@@ -9034,13 +7199,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 4,
+     "short-period": 12
     }
    }
   },
@@ -9054,13 +7220,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 7,
+    "offshore": 17,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 5,
+     "short-period": 12
     }
    }
   },
@@ -9074,13 +7241,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 7,
+    "offshore": 17,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 5,
+     "short-period": 12
     }
    }
   },
@@ -9091,7 +7259,7 @@
    "lat": 30.404,
    "lon": -81.396,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -9100,7 +7268,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "outside-window": 12,
+     "short-period": 12
     }
    }
   },
@@ -9114,13 +7283,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 7,
+    "offshore": 17,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 5,
+     "short-period": 12
     }
    }
   },
@@ -9134,13 +7304,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 7,
+    "offshore": 17,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 5,
+     "short-period": 12
     }
    }
   },
@@ -9154,13 +7325,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 4,
+     "short-period": 12
     }
    }
   },
@@ -9174,13 +7346,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9194,13 +7367,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9274,13 +7448,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9294,13 +7469,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9334,13 +7510,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9494,13 +7671,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9514,13 +7692,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9534,13 +7713,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9554,13 +7734,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 10,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 12
     }
    }
   },
@@ -9594,13 +7775,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 10,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 12
     }
    }
   },
@@ -9614,13 +7796,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 10,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 12
     }
    }
   },
@@ -9645,13 +7828,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 10,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 12
     }
    }
   },
@@ -9665,13 +7849,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 10,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 12
     }
    }
   },
@@ -9685,13 +7870,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 10,
+    "offshore": 14,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 2,
+     "short-period": 12
     }
    }
   },
@@ -9716,13 +7902,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 11,
+    "offshore": 13,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 1,
+     "short-period": 12
     }
    }
   },
@@ -9736,13 +7923,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9756,13 +7944,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 9,
+    "offshore": 15,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "wind-sea-dominant": 3,
+     "short-period": 12
     }
    }
   },
@@ -9776,213 +7965,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 1,
-    "offshore": 23,
+    "estimate": 11,
+    "offshore": 13,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 23
-    }
-   }
-  },
-  {
-   "id": "w-us-daytona-beach",
-   "name": "Daytona Beach",
-   "region": "Space Coast",
-   "lat": 29.219,
-   "lon": -81.002,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-sunglow-pier",
-   "name": "Sunglow Pier",
-   "region": "Space Coast",
-   "lat": 29.146,
-   "lon": -80.963,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-wilbur-by-the-sea",
-   "name": "Wilbur By The Sea",
-   "region": "Space Coast",
-   "lat": 29.134,
-   "lon": -80.955,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-ponce-inlet",
-   "name": "Ponce Inlet",
-   "region": "Space Coast",
-   "lat": 29.08,
-   "lon": -80.917,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-the-inlet-new-smyrna",
-   "name": "The Inlet (New Smyrna)",
-   "region": "Space Coast",
-   "lat": 29.071,
-   "lon": -80.907,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-new-smyrna-beach",
-   "name": "New Smyrna Beach",
-   "region": "Space Coast",
-   "lat": 29.069,
-   "lon": -80.908,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-flager-avenue",
-   "name": "Flager Avenue",
-   "region": "Space Coast",
-   "lat": 29.038,
-   "lon": -80.893,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-bethune",
-   "name": "Bethune",
-   "region": "Space Coast",
-   "lat": 28.951,
-   "lon": -80.838,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-apollo-beach",
-   "name": "Apollo Beach",
-   "region": "Space Coast",
-   "lat": 28.936,
-   "lon": -80.828,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-playalinda-florida",
-   "name": "Playalinda",
-   "region": "Space Coast",
-   "lat": 28.644,
-   "lon": -80.623,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
+     "wind-sea-dominant": 1,
+     "short-period": 12
     }
    }
   },
@@ -10004,7 +7994,7 @@
    "lat": 28.407,
    "lon": -80.589,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -10013,192 +8003,9 @@
     "other": 0,
     "total": 24,
     "why": {
-     "outside-window": 2,
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-us-cocoa-beach",
-   "name": "Cocoa Beach",
-   "region": "Space Coast",
-   "lat": 28.368,
-   "lon": -80.601,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-us-shepard-park",
-   "name": "Shepard Park",
-   "region": "Space Coast",
-   "lat": 28.358,
-   "lon": -80.603,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-us-lori-wilson-park",
-   "name": "Lori Wilson Park",
-   "region": "Space Coast",
-   "lat": 28.337,
-   "lon": -80.606,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-us-minuteman",
-   "name": "Minuteman",
-   "region": "Space Coast",
-   "lat": 28.318,
-   "lon": -80.605,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-16th-st-south",
-   "name": "16th St. South",
-   "region": "Space Coast",
-   "lat": 28.29,
-   "lon": -80.606,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-picnic-tables",
-   "name": "Picnic Tables",
-   "region": "Space Coast",
-   "lat": 28.267,
-   "lon": -80.604,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-2nd-light",
-   "name": "2nd Light",
-   "region": "Space Coast",
-   "lat": 28.253,
-   "lon": -80.603,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-patrick-air-force-base",
-   "name": "Patrick Air Force Base",
-   "region": "Space Coast",
-   "lat": 28.242,
-   "lon": -80.601,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-us-perkins",
-   "name": "Perkins",
-   "region": "Space Coast",
-   "lat": 28.201,
-   "lon": -80.595,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 22
+     "outside-window": 12,
+     "wind-sea-dominant": 2,
+     "short-period": 10
     }
    }
   },
@@ -10212,173 +8019,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-us-satellite-beach-r-cs",
-   "name": "Satellite Beach/ RCs",
-   "region": "Space Coast",
-   "lat": 28.18,
-   "lon": -80.589,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 15,
-     "wind-sea-dominant": 5
-    }
-   }
-  },
-  {
-   "id": "w-us-pelican-beach-park",
-   "name": "Pelican Beach Park",
-   "region": "Space Coast",
-   "lat": 28.168,
-   "lon": -80.586,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 22
-    }
-   }
-  },
-  {
-   "id": "w-us-bicentennial-beach-park",
-   "name": "Bicentennial Beach Park",
-   "region": "Space Coast",
-   "lat": 28.154,
-   "lon": -80.583,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 15,
-     "wind-sea-dominant": 5
-    }
-   }
-  },
-  {
-   "id": "w-us-canova-beach",
-   "name": "Canova Beach",
-   "region": "Space Coast",
-   "lat": 28.139,
-   "lon": -80.579,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 15,
-     "wind-sea-dominant": 5
-    }
-   }
-  },
-  {
-   "id": "w-us-the-radisson",
-   "name": "The Radisson",
-   "region": "Space Coast",
-   "lat": 28.135,
-   "lon": -80.579,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 15,
-     "wind-sea-dominant": 5
-    }
-   }
-  },
-  {
-   "id": "w-us-paradise-beach",
-   "name": "Paradise Beach",
-   "region": "Space Coast",
-   "lat": 28.123,
-   "lon": -80.575,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 15,
-     "wind-sea-dominant": 5
-    }
-   }
-  },
-  {
-   "id": "w-us-the-boardwalk",
-   "name": "The Boardwalk",
-   "region": "Space Coast",
-   "lat": 28.092,
-   "lon": -80.565,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 15,
-     "wind-sea-dominant": 5
-    }
-   }
-  },
-  {
-   "id": "w-us-melbourne-beach",
-   "name": "Melbourne Beach",
-   "region": "Space Coast",
-   "lat": 28.069,
-   "lon": -80.556,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
-    }
-   }
   },
   {
    "id": "w-us-honeymoon-island",
@@ -10397,69 +8037,6 @@
     "total": 24,
     "why": {
      "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-spessard-holland",
-   "name": "Spessard Holland",
-   "region": "Space Coast",
-   "lat": 28.048,
-   "lon": -80.547,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-coconut-point-park",
-   "name": "Coconut Point Park",
-   "region": "Space Coast",
-   "lat": 28.023,
-   "lon": -80.535,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-ponce-de-leon-park",
-   "name": "Ponce De Leon Park",
-   "region": "Space Coast",
-   "lat": 28.011,
-   "lon": -80.529,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 3,
-    "offshore": 21,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 19,
-     "wind-sea-dominant": 2
     }
    }
   },
@@ -10544,27 +8121,6 @@
    }
   },
   {
-   "id": "w-us-bonsteel-park",
-   "name": "Bonsteel Park",
-   "region": "Space Coast",
-   "lat": 27.902,
-   "lon": -80.47,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 1,
-    "offshore": 23,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 21,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
    "id": "w-us-indian-rocks-beach",
    "name": "Indian Rocks Beach",
    "region": "Florida Gulf Coast",
@@ -10594,13 +8150,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 14,
+     "wind-sea-dominant": 2
     }
    }
   },
@@ -10614,13 +8171,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 14,
+     "wind-sea-dominant": 2
     }
    }
   },
@@ -10634,13 +8192,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 14,
+     "wind-sea-dominant": 2
     }
    }
   },
@@ -10654,13 +8213,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 14,
+     "wind-sea-dominant": 2
     }
    }
   },
@@ -10785,13 +8345,14 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 8,
+    "offshore": 16,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 14,
+     "wind-sea-dominant": 2
     }
    }
   },
@@ -10845,69 +8406,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-us-vero-pier",
-   "name": "Vero Pier",
-   "region": "Space Coast",
-   "lat": 27.67,
-   "lon": -80.36,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-vero-beach-pier",
-   "name": "Vero Beach Pier",
-   "region": "Space Coast",
-   "lat": 27.655,
-   "lon": -80.355,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-riomar-reef",
-   "name": "Riomar Reef",
-   "region": "Space Coast",
-   "lat": 27.644,
-   "lon": -80.348,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 2,
-    "offshore": 22,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 20,
-     "wind-sea-dominant": 2
-    }
-   }
   },
   {
    "id": "w-us-j-p-luby-surf-park",
@@ -11001,27 +8499,6 @@
    }
   },
   {
-   "id": "w-us-p-v-martins",
-   "name": "P.V. Martin's",
-   "region": "Space Coast",
-   "lat": 27.522,
-   "lon": -80.31,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 18,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
    "id": "w-us-holmes-beach-pier",
    "name": "Holmes Beach Pier",
    "region": "Florida Gulf Coast",
@@ -11042,27 +8519,6 @@
    }
   },
   {
-   "id": "w-us-fort-pierce-north-jetty",
-   "name": "Fort Pierce North Jetty",
-   "region": "Space Coast",
-   "lat": 27.475,
-   "lon": -80.289,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 4,
-    "offshore": 20,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 18,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
    "id": "w-us-twin-piers",
    "name": "Twin Piers",
    "region": "Florida Gulf Coast",
@@ -11079,27 +8535,6 @@
     "total": 24,
     "why": {
      "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-blue-heron-beach",
-   "name": "Blue Heron Beach",
-   "region": "Treasure Coast",
-   "lat": 27.433,
-   "lon": -80.278,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 8,
-    "offshore": 16,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 13,
-     "wind-sea-dominant": 3
     }
    }
   },
@@ -11133,48 +8568,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-us-walton-rocks-2",
-   "name": "Walton Rocks",
-   "region": "Treasure Coast",
-   "lat": 27.34,
-   "lon": -80.233,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 5,
-    "offshore": 19,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 17,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
-   "id": "w-us-walton-rocks",
-   "name": "Walton Rocks",
-   "region": "Treasure Coast",
-   "lat": 27.339,
-   "lon": -80.232,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 5,
-    "offshore": 19,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 17,
-     "wind-sea-dominant": 2
-    }
-   }
   },
   {
    "id": "w-us-lido-beach-2-3",
@@ -11237,27 +8630,6 @@
    }
   },
   {
-   "id": "w-us-jensen-beach-florida",
-   "name": "Jensen Beach",
-   "region": "Treasure Coast",
-   "lat": 27.254,
-   "lon": -80.195,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 1,
-    "offshore": 23,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 21,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
    "id": "w-us-stickney-point",
    "name": "Stickney Point",
    "region": "Florida Gulf Coast",
@@ -11298,27 +8670,6 @@
    }
   },
   {
-   "id": "w-us-stuart-public-beach",
-   "name": "Stuart Public Beach",
-   "region": "Treasure Coast",
-   "lat": 27.215,
-   "lon": -80.172,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 1,
-    "offshore": 23,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 21,
-     "wind-sea-dominant": 2
-    }
-   }
-  },
-  {
    "id": "w-us-fletchers",
    "name": "Fletcher's",
    "region": "Treasure Coast",
@@ -11328,26 +8679,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-us-stuart-rocks",
-   "name": "Stuart Rocks",
-   "region": "Treasure Coast",
-   "lat": 27.191,
-   "lon": -80.16,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
   },
   {
    "id": "w-us-venice-jetties-north",
@@ -11375,26 +8706,6 @@
    "region": "Florida Gulf Coast",
    "lat": 27.111,
    "lon": -82.468,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-hobe-sound",
-   "name": "Hobe Sound",
-   "region": "Treasure Coast",
-   "lat": 27.09,
-   "lon": -80.126,
    "class": "hourly-offshore",
    "reason": "short-period",
    "detail": null,
@@ -11452,33 +8763,13 @@
    "hours": null
   },
   {
-   "id": "w-us-coral-cove-park",
-   "name": "Coral Cove Park",
-   "region": "Treasure Coast",
-   "lat": 26.965,
-   "lon": -80.078,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
    "id": "w-us-jupiter-inlet-south-jetty",
    "name": "Jupiter Inlet South Jetty",
    "region": "Treasure Coast",
    "lat": 26.943,
    "lon": -80.071,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -11487,47 +8778,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-civic-center",
-   "name": "Civic Center",
-   "region": "Treasure Coast",
-   "lat": 26.931,
-   "lon": -80.068,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-corners-2",
-   "name": "Corners",
-   "region": "Treasure Coast",
-   "lat": 26.927,
-   "lon": -80.067,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
+     "outside-window": 14,
+     "short-period": 10
     }
    }
   },
@@ -11537,46 +8789,6 @@
    "region": "Florida Gulf Coast",
    "lat": 26.91,
    "lon": -82.354,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-kite-beach-2",
-   "name": "Kite Beach",
-   "region": "Treasure Coast",
-   "lat": 26.905,
-   "lon": -80.059,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-juno-pier",
-   "name": "Juno Pier",
-   "region": "Southeast Florida",
-   "lat": 26.893,
-   "lon": -80.055,
    "class": "hourly-offshore",
    "reason": "short-period",
    "detail": null,
@@ -11612,26 +8824,6 @@
    }
   },
   {
-   "id": "w-us-ocean-reef-park",
-   "name": "Ocean Reef Park",
-   "region": "Southeast Florida",
-   "lat": 26.794,
-   "lon": -80.031,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
    "id": "w-us-pumphouse",
    "name": "Pumphouse",
    "region": "Southeast Florida",
@@ -11641,126 +8833,6 @@
    "reason": "no-profile",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-us-reef-road-florida",
-   "name": "Reef Road",
-   "region": "Southeast Florida",
-   "lat": 26.763,
-   "lon": -80.036,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-sunrise",
-   "name": "Sunrise",
-   "region": "Southeast Florida",
-   "lat": 26.721,
-   "lon": -80.033,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-flagpole",
-   "name": "Flagpole",
-   "region": "Southeast Florida",
-   "lat": 26.707,
-   "lon": -80.033,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-palm-beach-jetties",
-   "name": "Palm Beach Jetties",
-   "region": "Southeast Florida",
-   "lat": 26.706,
-   "lon": -80.032,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-hilton-hotel-backyard",
-   "name": "Hilton Hotel Backyard",
-   "region": "Southeast Florida",
-   "lat": 26.622,
-   "lon": -80.036,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-lake-worth-pier",
-   "name": "Lake Worth Pier",
-   "region": "Southeast Florida",
-   "lat": 26.614,
-   "lon": -80.035,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
   },
   {
    "id": "w-us-lantana",
@@ -11780,7 +8852,7 @@
    "lat": 26.542,
    "lon": -80.041,
    "class": "hourly-offshore",
-   "reason": "short-period",
+   "reason": "outside-window",
    "detail": null,
    "hours": {
     "estimate": 0,
@@ -11789,107 +8861,8 @@
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-boynton-beach",
-   "name": "Boynton Beach",
-   "region": "Southeast Florida",
-   "lat": 26.533,
-   "lon": -80.045,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-delray-beach",
-   "name": "Delray Beach",
-   "region": "Southeast Florida",
-   "lat": 26.46,
-   "lon": -80.057,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-40th-street",
-   "name": "40th Street",
-   "region": "Southeast Florida",
-   "lat": 26.442,
-   "lon": -80.059,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-japanese-rock",
-   "name": "Japanese Rock",
-   "region": "Southeast Florida",
-   "lat": 26.392,
-   "lon": -80.065,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-red-reef-park",
-   "name": "Red Reef Park",
-   "region": "Southeast Florida",
-   "lat": 26.366,
-   "lon": -80.067,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
+     "outside-window": 12,
+     "short-period": 12
     }
    }
   },
@@ -11903,26 +8876,6 @@
    "reason": "no-shelter",
    "detail": null,
    "hours": null
-  },
-  {
-   "id": "w-us-boca-raton-inlet",
-   "name": "Boca Raton Inlet",
-   "region": "Southeast Florida",
-   "lat": 26.335,
-   "lon": -80.07,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
   },
   {
    "id": "w-us-deerfield-beach-pier",
@@ -11969,46 +8922,6 @@
    "hours": null
   },
   {
-   "id": "w-us-pompano-pier",
-   "name": "Pompano Pier",
-   "region": "Southeast Florida",
-   "lat": 26.235,
-   "lon": -80.087,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
-   "id": "w-us-commercial-pier",
-   "name": "Commercial Pier",
-   "region": "Southeast Florida",
-   "lat": 26.189,
-   "lon": -80.092,
-   "class": "hourly-offshore",
-   "reason": "short-period",
-   "detail": null,
-   "hours": {
-    "estimate": 0,
-    "offshore": 24,
-    "none": 0,
-    "other": 0,
-    "total": 24,
-    "why": {
-     "short-period": 24
-    }
-   }
-  },
-  {
    "id": "w-us-ne-14th-ct",
    "name": "NE 14th Ct.",
    "region": "Southeast Florida",
@@ -12040,13 +8953,13 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 11,
+    "offshore": 13,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 13
     }
    }
   },
@@ -12071,13 +8984,13 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 2,
+    "offshore": 22,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 22
     }
    }
   },
@@ -12091,13 +9004,13 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 2,
+    "offshore": 22,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 22
     }
    }
   },
@@ -12122,13 +9035,13 @@
    "reason": "short-period",
    "detail": null,
    "hours": {
-    "estimate": 0,
-    "offshore": 24,
+    "estimate": 1,
+    "offshore": 23,
     "none": 0,
     "other": 0,
     "total": 24,
     "why": {
-     "short-period": 24
+     "short-period": 23
     }
    }
   },

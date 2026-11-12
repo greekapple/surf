@@ -143,7 +143,7 @@ test('service: /api/how-right is pending until the daily job runs; the job captu
   const pending = await (await svc(new Request('https://x/api/how-right'), env)).json();
   assert.equal(pending.pending, true); assert.equal(calls.length, 0, 'a page view never fetches upstream');
   const rep = await svc.howRight(env);
-  assert.equal(rep.ok, true); assert.ok(rep.budget.used <= HOW_RIGHT_BUDGET && rep.budget.used < 200, `used ${rep.budget.used}`);
+  assert.equal(rep.ok, true); assert.ok(rep.budget.used <= HOW_RIGHT_BUDGET && rep.budget.used < 300, `used ${rep.budget.used}`);
   const cap = JSON.parse(b.objects.get(HOW_RIGHT_KEYS.shown('2026-11-07'))!);
   assert.deepEqual(Object.keys(cap.points), ['SF023']); assert.ok(Object.keys(cap.points.SF023.hs).length >= 15);
   const card = await (await svc(new Request('https://x/api/how-right'), env)).json();

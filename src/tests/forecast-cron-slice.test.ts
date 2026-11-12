@@ -72,7 +72,7 @@ test('P1-3: successive runs with NEW service instances on the same bucket comple
     return new Response(body, {status: 200, headers: {'content-type': t.csv || t.das || t.text ? 'text/plain' : 'application/json'}}); };
   const wanted = targets.filter((t) => !t.field && !(t as {onDemand?: boolean}).onDemand).map((t) => 'forecast/v8/latest/' + t.key + '.json'), perRun: number[] = [];
   let full = -1;
-  for (let run = 0; run < 12; run++) {
+  for (let run = 0; run < 14; run++) {
     const svc = createForecastService({fetcher: fetcher as unknown as typeof fetch, sleep: async () => {}, now: () => NOWMS, spots: COLD_SPOTS}); ops = 0; fetches = 0;
     const r = await svc.refresh({BUCKET}, {...CRON_OPTS, budget: 800, tick: run, hotHours: 24}); perRun.push(ops + fetches);
     assert.ok(ops + fetches <= 1000, `run ${run}: ${ops + fetches} subrequests`);
@@ -80,6 +80,7 @@ test('P1-3: successive runs with NEW service instances on the same bucket comple
   }
   if (process.env.SHOW) console.log('cold fill complete after run', full + 1, '; subrequests per run', perRun.join(','));
   // A2: +77 daily hourly-tide targets (harmonic stations) make a one-time cold fill one run longer (10 runs, about 50 min at 5-min ticks); warm cost is unchanged (their TTL is 24 h)
-  assert.ok(full >= 0 && full <= 9, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
-  assert.ok(perRun[11] < 40, `a warm run costs ${perRun[11]} subrequests (the index object, no per-target reads)`);
+  // ca-mop: +122 California MOP points (198 ids x nowcast+forecast) make the one-time cold fill 13 runs (about 65 min at 5-min ticks; each run still <= 710 subrequests); warm cost is 30
+  assert.ok(full >= 0 && full <= 13, `the cold fill completed in ${full + 1} runs (${perRun.join(', ')} subrequests per run)`);
+  assert.ok(perRun[13] < 40, `a warm run costs ${perRun[13]} subrequests (the index object, no per-target reads)`);
 });

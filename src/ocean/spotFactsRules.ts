@@ -122,6 +122,23 @@ export function breakingProfileFromGuide(f: GuideFacts, minPeriodS: number = GEN
   return {spotId: f.spotId, faceFactors: [0.7, 1.4], window, minPeriod: minPeriodS, shelter: e.shelter!,
     note: `Spot facts from published guides (${src(f).length ? [...new Set(f.sources.filter((s) => !isGeometrySource(s)).map((s) => s.site))].join(', ') : 'none'}): window "${f.swellWindow.text}" limited to ±60° of the facing, facing ${derivedFacing(f) ? `${f.facing.deg}° derived from coastline geometry (CDIP MOP shore normals)` : f.facing.text}. ${outsideFacing(f, window) ? `${outsideFacing(f, window)!.text.replace(/^./, (c) => c.toUpperCase())}. ` : ''}${minPeriodS === GENERIC_MIN_PERIOD_S ? 'Minimum period is the generic 8 s. ' : `Minimum period is the US Atlantic ${minPeriodS} s (docs/forecast/ATLANTIC-8S.md). `}${openSector(f) ? 'Shelter 0 for the offshore-swell estimate (v1 refuses): a source calls it sheltered, and only the CDIP nearshore model (v2), which includes the sheltering, may estimate inside the open sector the guide lists' : `Shelter 1 (${ f.exposure === 'exposed' ? 'a source says exposed' : 'no source says sheltered'}${f.waveType && f.waveType !== 'beach' && !openSector(f) ? `; for this ${f.waveType} that rests on one guide's "exposed" statement` : ''}). Unvalidated.`}${openSector(f) ? '. Unvalidated.' : ''}`};
 }
+/** ca-mop: the nearest-point rule for a spot pickMop cannot place (no guide facing, or no window). Bounds are the lead's: the nearest depth-OK point within 1.0 km, 10 to 20 m deep, whose shore normal agrees within 30 degrees with the spot's known facing (guide or coastline geometry) OR with the median normal of its neighbours. Never "nearest wins" without those checks. */
+export const NEAREST_MOP = {maxKm: 1.0, minDepthM: 10, maxDepthM: 20, harbourDepthM: 8, normalTolDeg: 30} as const;
+export type NearestMopRefusal = 'none within 1 km' | 'shallower than 8 m (behind a breakwater or in a harbour)' | 'not 10 to 20 m deep' | 'normal disagrees with the coast (points into a harbour or bay)' | 'no neighbours to check the normal against';
+export interface NearestMopCandidate {id: string; shoreNormalDeg: number; depthM: number; distanceKm: number}
+export function pickNearestMop(facingDeg: number | null, cands: NearestMopCandidate[]): {pick: {id: string; distanceKm: number; depthM: number; shoreNormalDeg: number; agreed: 'facing' | 'neighbours'; offsetDeg: number}} | {refused: NearestMopRefusal; id: string | null} {
+  const near = cands.filter((c) => c.distanceKm <= NEAREST_MOP.maxKm).sort((a, b) => a.distanceKm - b.distanceKm);
+  if (!near.length) return {refused: 'none within 1 km', id: null};
+  const c = near.find((x) => x.depthM >= NEAREST_MOP.minDepthM && x.depthM <= NEAREST_MOP.maxDepthM) ?? null;
+  if (!c) { const n = near[0]!; return {refused: n.depthM < NEAREST_MOP.harbourDepthM ? 'shallower than 8 m (behind a breakwater or in a harbour)' : 'not 10 to 20 m deep', id: n.id}; }
+  const signed = (a: number, b: number) => (((a - b + 540) % 360) + 360) % 360 - 180;
+  const others = cands.filter((x) => x.id !== c.id), med = others.length >= 2 ? [...others.map((x) => signed(x.shoreNormalDeg, c.shoreNormalDeg))].sort((p, q) => p - q) : null;
+  const medOff = med ? Math.abs(med.length % 2 ? med[(med.length - 1) / 2]! : (med[med.length / 2 - 1]! + med[med.length / 2]!) / 2) : null;
+  const facOff = facingDeg === null ? null : diff(c.shoreNormalDeg, facingDeg);
+  if (facOff !== null && facOff <= NEAREST_MOP.normalTolDeg) return {pick: {id: c.id, distanceKm: c.distanceKm, depthM: c.depthM, shoreNormalDeg: c.shoreNormalDeg, agreed: 'facing', offsetDeg: Math.round(facOff)}};
+  if (medOff !== null && medOff <= NEAREST_MOP.normalTolDeg) return {pick: {id: c.id, distanceKm: c.distanceKm, depthM: c.depthM, shoreNormalDeg: c.shoreNormalDeg, agreed: 'neighbours', offsetDeg: Math.round(medOff)}};
+  return {refused: medOff === null && facOff === null ? 'no neighbours to check the normal against' : 'normal disagrees with the coast (points into a harbour or bay)', id: c.id};
+}
 /** A MOP candidate qualifies when its shore normal is within the tolerance of the guide's facing; the closest one wins. */
 export function pickMop(f: GuideFacts, candidates: {id: string; shoreNormalDeg: number}[]): {id: string; offsetDeg: number} | null {
   if (!f.facing || !enablement(f).estimate) return null;
