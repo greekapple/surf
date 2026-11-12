@@ -1,4 +1,5 @@
 import {lazy, Suspense, useEffect, useMemo, useRef, useState} from 'react';
+import {PersonShape, figureOf} from '../../ui/PersonShape';
 import type {Surfboard} from '../../models/index';
 import {useSwello} from '../../app/store';
 import {spotPhase} from '../../services/dataPhase';
@@ -168,8 +169,7 @@ export function ScaleStage() {
           ); })}
           {range && <><line x1={WAVE_X} x2={px - 14} y1={y(hi)} y2={y(hi)} stroke="var(--hs-hi)" strokeDasharray="4 4" strokeWidth={1} /><text x={WAVE_X + 4} y={y(hi) - 6} fontSize={12} fontWeight={600} fill="var(--text)">{Math.round(hi * k * 10) / 10} {p.heightUnit}</text><text x={WAVE_X + 4} y={y(lo) + 14} fontSize={12} fill="var(--text)">{Math.round(lo * k * 10) / 10} {p.heightUnit}</text></>}
           <g transform={`translate(${px} ${BASE - ph}) scale(${ph / 100})`} fill="var(--text)" opacity={0.85}>
-            <circle cx={15} cy={7} r={6.4} />
-            <path d="M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z" />
+            <PersonShape figure={figureOf(p)} />
           </g>
           {board && boardFt && <rect x={bx} y={y(boardFt)} width={14} height={(boardFt / top) * H} rx={7} fill="var(--s3, #e8ecef)" stroke="var(--muted)" strokeWidth={1} />}
           <text x={WAVE_X + 70} y={350} fontSize={12} textAnchor="middle" fill="var(--muted)">{range ? (band !== null ? 'band, illustrative' : 'est. surf height') : loading ? '' : 'no surf estimate'}</text>

@@ -1,10 +1,11 @@
 import {useEffect, useRef, useState} from 'react';
 import type {UserProfile} from '../../models/index';
-import {AgeQuestion, HeightField, Why, LevelPicker, RegionField, SizeField, UnitsField, VolumeHint, WeightField} from './ProfileFields';
+import {AgeQuestion, HeightField, SexQuestion, Why, LevelPicker, RegionField, SizeField, UnitsField, VolumeHint, WeightField} from './ProfileFields';
 import {levelInfo, levelOf} from '../../services/skillLevels';
 import {levelSource, sizeIsDefault} from '../../services/profileFields';
 import {userHeight, formatHeight} from '../../services/heightMath';
 import {WaveGlyph} from '../../ui/WaveGlyph';
+import {figureOf} from '../../ui/PersonShape';
 
 /** profile-setup: the first-run setup, shown on Home until it is finished or skipped (`onboarded`). Inline on the page, never a modal: the forecast stays one
  *  scroll away. Welcome → About you (age first; under 13 ends setup with nothing personal saved) → How you surf → Done. "Skip for now" on every step; answers are
@@ -27,7 +28,7 @@ export function ProfileSetup({p, set, onEdit}: {p: UserProfile; set: (v: Partial
     {step === 'about' && <>
       <h2 id="pf-setup-h" ref={head} tabIndex={-1}>About you</h2>
       <AgeQuestion p={p} set={set} onUnder13={() => setStep('child')} />
-      {ageDone && p.personalData !== false && <><div className="pf-q"><HeightField p={p} set={set} /><Why k="height" /></div><WeightField p={p} set={set} /></>}
+      {ageDone && p.personalData !== false && <><SexQuestion p={p} set={set} /><div className="pf-q"><HeightField p={p} set={set} /><Why k="height" /></div><WeightField p={p} set={set} /></>}
       <div className="pf-actions"><button type="button" className="btn" onClick={() => setStep('welcome')}>Back</button><button type="button" className="btn primary" disabled={!ageDone} onClick={() => setStep(p.personalData === false ? 'child' : 'surf')}>Next</button>{skip}</div>
       {!ageDone && <p className="fine">Answer the age question to go on, or skip setup for now.</p>}
     </>}
@@ -43,14 +44,14 @@ export function ProfileSetup({p, set, onEdit}: {p: UserProfile; set: (v: Partial
     {step === 'done' && <>
       <h2 id="pf-setup-h" ref={head} tabIndex={-1}>You're set</h2>
       <div className="pf-done">
-        <WaveGlyph glyph={{kind: 'surf', midFt: (p.minWave + p.maxWave) / 2, loFt: p.minWave, hiFt: p.maxWave, personFt: me.feet, steep: 0.5, curl: false}} size="lg" personIn={me.inches} unit={unit} decorative />
+        <WaveGlyph glyph={{kind: 'surf', midFt: (p.minWave + p.maxWave) / 2, loFt: p.minWave, hiFt: p.maxWave, personFt: me.feet, steep: 0.5, curl: false}} size="lg" personIn={me.inches} unit={unit} figure={figureOf(p)} decorative />
         <p>Your comfortable size{sizeIsDefault(p) ? ' (default)' : ''}, {unit === 'm' ? `${(p.minWave * 0.3048).toFixed(1)}–${(p.maxWave * 0.3048).toFixed(1)} m` : `${p.minWave}–${p.maxWave} ft`}, drawn beside {me.isDefault ? `a ${formatHeight(me.inches, unit)} person (default height)` : `you (${formatHeight(me.inches, unit)})`}. The Call now judges size for level {lv}, {L.name.toLowerCase()}{levelSource(p)}.</p>
       </div>
       <div className="pf-actions"><button type="button" className="btn primary" onClick={finish}>Done</button><button type="button" className="btn" onClick={() => { finish(); onEdit(); }}>Edit anytime in Personal › Profile</button></div>
     </>}
     {step === 'child' && <>
       <h2 id="pf-setup-h" ref={head} tabIndex={-1}>You're all set</h2>
-      <p>Swello works without a profile. Because you're under 13, your name, photo, height and weight are not saved on this device.</p>
+      <p>Swello works without a profile. Because you're under 13, your name, photo, sex, height and weight are not saved on this device.</p>
       <div className="pf-actions"><button type="button" className="btn primary" onClick={finish}>Done</button></div>
     </>}
   </section>;

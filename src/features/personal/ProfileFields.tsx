@@ -5,6 +5,7 @@ import {fromUnit, toUnit} from '../../utils/units';
 import {WHY, ageAnswer, levelSource} from '../../services/profileFields';
 import {LEVELS, levelInfo, levelOf, pickLevel, suggestLevel, suggestedVolume, validKg, type SkillLevel} from '../../services/skillLevels';
 import {WaveGlyph} from '../../ui/WaveGlyph';
+import {figureOf} from '../../ui/PersonShape';
 import {ZONES} from '../../data/zones';
 import {allSpots} from '../../data/catalog';
 import {AVATAR_KEY} from './journal';
@@ -69,6 +70,17 @@ export function AgeQuestion({p, set, onUnder13}: {p: UserProfile; set: Set; onUn
   </div>;
 }
 
+/** Sex: female, male or prefer not to say. Only the drawn figure changes (female; the standard figure otherwise). */
+export function SexQuestion({p, set}: {p: UserProfile; set: Set}) {
+  return <div className="field pf-q">
+    <span id="pf-sex-l">Sex <small className="fine">(optional)</small></span>
+    <div className="seg" role="radiogroup" aria-labelledby="pf-sex-l" aria-describedby="pf-sex-why">
+      {([['female', 'Female'], ['male', 'Male'], ['prefer-not', 'Prefer not to say']] as const).map(([v, t]) => <button key={v} type="button" role="radio" aria-checked={p.sex === v} onClick={() => set({sex: v})}>{t}</button>)}
+    </div>
+    <Why k="sex" id="pf-sex-why" />
+  </div>;
+}
+
 /** Weight, in kg (metric heights) or lb; empty clears it. Used only for Board Match's suggested volume. */
 export function WeightField({p, set}: {p: UserProfile; set: Set}) {
   const kgUnit = p.heightUnit === 'm', toShow = (kg: number) => String(Math.round(kgUnit ? kg : kg / 0.45359237));
@@ -103,7 +115,7 @@ export function LevelPicker({p, set}: {p: UserProfile; set: Set}) {
       {LEVELS.map((L) => <div key={L.n} className={`pf-level${cur === L.n ? ' on' : ''}`} onClick={() => set(pickLevel(L.n))}>
         <label className="pf-lv-h"><input type="radio" name="pf-level" checked={cur === L.n} onChange={() => set(pickLevel(L.n))} /><span><span className="pf-lv-n">Level {L.n}</span> <b>{L.name}</b></span></label>
         <span className="pf-lv-s">{L.summary}</span>
-        <WaveGlyph glyph={{kind: 'surf', midFt: (L.comfortFt[0] + L.comfortFt[1]) / 2, loFt: L.comfortFt[0], hiFt: L.comfortFt[1], personFt: me.feet, steep: 0.5, curl: false}} size="md" personIn={me.inches} unit={unit} decorative />
+        <WaveGlyph glyph={{kind: 'surf', midFt: (L.comfortFt[0] + L.comfortFt[1]) / 2, loFt: L.comfortFt[0], hiFt: L.comfortFt[1], personFt: me.feet, steep: 0.5, curl: false}} size="md" personIn={me.inches} unit={unit} figure={figureOf(p)} decorative />
         <span className="pf-lv-r">{range(L.comfortFt[0], L.comfortFt[1])} comfortable; the Call skips above {unit === 'm' ? `${(L.callFt.max * 0.3048).toFixed(1)} m` : `${L.callFt.max} ft`} · drawn beside {me.isDefault ? `a ${formatHeight(me.inches, unit)} person (default)` : `you (${formatHeight(me.inches, unit)})`}</span>
         <span className="pf-lv-can">You can:</span>
         <ul>{L.can.map((c) => <li key={c}>{c}</li>)}</ul>

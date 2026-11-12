@@ -1,4 +1,5 @@
 import {officialScaleNote, officialProductUrl, officialRange} from '../../services/officialSurf.ts';
+import {PersonShape, figureOf} from '../../ui/PersonShape';
 import {zoneOf, stateOfZone} from '../../data/zones';
 import {tideStationFor, SF_STATION, noTideNote, hourlyTideStationIds} from '../../ocean/tideStations';
 import {tideCurveWords} from '../../ocean/stationTide';
@@ -388,8 +389,7 @@ export function ScalePanel({hs, p, board, outsideNote, onOpen}: {hs: HeadlineSur
         </g>}
         {/* surfer silhouette, to scale */}
         <g transform={`translate(${px} ${base - ph}) scale(${ph / 100})`} fill="var(--text)" opacity={0.85}>
-          <circle cx={15} cy={7} r={6.4} />
-          <path d="M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z" />
+          <PersonShape figure={figureOf(p)} />
         </g>
         {board && <rect x={px + pw + 18} y={y(boardFt)} width={11} height={(boardFt / top) * H} rx={5.5} fill="var(--s3, #e8ecef)" stroke="var(--muted)" strokeWidth={1} />}
         <text x={66} y={164} fontSize={10.5} textAnchor="middle" fill="var(--muted)">{est ? 'est. surf height' : 'no surf estimate'}</text>

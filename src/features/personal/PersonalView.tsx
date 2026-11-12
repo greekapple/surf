@@ -30,7 +30,7 @@ import {headlineSurf} from '../../services/headlineSurf';
 import {evaluateRule, loadRules, saveRules, type AlertRule} from './alerts';
 import {AVATAR_KEY, COMPASS8, downscale, loadBoardPrefs, loadExtras, saveBoardPrefs, saveExtras, swellSummary, tideSummary, type BoardPrefs, type JournalExtras} from './journal';
 import {boardPickFor} from '../quiver/fit';
-import {AgeQuestion, HeightField, Why, LevelPicker, RegionField, SizeField, UnitNumber, UnitsField, VolumeHint, WeightField} from './ProfileFields';
+import {AgeQuestion, HeightField, SexQuestion, Why, LevelPicker, RegionField, SizeField, UnitNumber, UnitsField, VolumeHint, WeightField} from './ProfileFields';
 import {deletedProfile, levelSource} from '../../services/profileFields';
 import {levelInfo, levelOf} from '../../services/skillLevels';
 import './personal.css';
@@ -273,7 +273,7 @@ export function PersonalView({section, go}: ViewProps) {
             <p className="fine">Your answers stay on this device (there are no accounts yet). Each question says what it changes.</p>
             <div className="pz-panel pf-panel">
               <AgeQuestion p={p} set={set} onUnder13={() => setAvatar('')} />
-              {p.personalData === false ? <p className="fine" role="status">Under 13: your name, photo, height and weight are not saved on this device. Your level, wave sizes and units still work.</p> : <>
+              {p.personalData === false ? <p className="fine" role="status">Under 13: your name, photo, sex, height and weight are not saved on this device. Your level, wave sizes and units still work.</p> : <>
                 <label className="field"><span>Display name</span>
                   <input value={p.displayName ?? ''} maxLength={40} onChange={(e) => set({displayName: e.target.value})} placeholder="Optional" />
                   <small className="fine">Shown in Home's greeting, on this device only.</small>
@@ -284,6 +284,7 @@ export function PersonalView({section, go}: ViewProps) {
                     {avatar && <button type="button" className="btn" onClick={clearAvatar}>Remove photo</button>}
                   </span>
                 </div>
+                <SexQuestion p={p} set={set} />
                 <div className="pf-q"><HeightField p={p} set={set} /><Why k="height" /></div>
                 <WeightField p={p} set={set} />
               </>}

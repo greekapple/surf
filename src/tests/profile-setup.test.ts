@@ -94,10 +94,10 @@ test('age (COPPA): under 13 saves nothing personal, removes what was saved, and 
   assert.doesNotMatch(read('../features/personal/ProfileFields.tsx'), /type="date"|year of birth|birthYear|dateOfBirth/i, 'no birth date is asked');
 });
 
-test('the profile: never asks sex or stance (nothing would change with them yet); every question has its "Why we ask"; delete clears every answer', () => {
+test('the profile: never asks stance (nothing would change with it yet); every question has its "Why we ask"; delete clears every answer', () => {
   const fields = read('../features/personal/ProfileFields.tsx');
-  assert.doesNotMatch(fields, /\b(sex|gender|stance|goofy)\b/i);
-  for (const k of ['age', 'weight', 'skill', 'size', 'region', 'units'] as const) assert.match(fields, new RegExp(`<Why k="${k}"`), `${k} has its why line`);
+  assert.doesNotMatch(fields, /\b(stance|goofy|regular foot)\b/i);
+  for (const k of ['age', 'sex', 'weight', 'skill', 'size', 'region', 'units'] as const) assert.match(fields, new RegExp(`<Why k="${k}"`), `${k} has its why line`);
   for (const f of ['../features/personal/ProfileSetup.tsx', '../features/personal/PersonalView.tsx']) assert.match(read(f), /<HeightField p=\{p\} set=\{set\} \/><Why k="height" \/>/, `${f}: height has its why line`);
   const del = deletedProfile();
   for (const k of [...PERSONAL_KEYS, 'skillLevel', 'personalData'] as const) assert.equal(del[k], undefined);
@@ -105,7 +105,7 @@ test('the profile: never asks sex or stance (nothing would change with them yet)
   const saved = JSON.parse(JSON.stringify(guardProfile(prof({displayName: 'Kai', heightIn: 70, skillLevel: 5, weightKg: 80}), del)));
   for (const k of ['displayName', 'heightIn', 'weightKg', 'skillLevel'] as const) assert.equal(k in saved, false, `${k} gone after delete`);
   const legal = read('../ui/Legal.tsx');
-  assert.match(legal, /Your surf profile/); assert.match(legal, /\{WHY\.age\}/); assert.match(legal, /does not ask your sex or stance/);
+  assert.match(legal, /Your surf profile/); assert.match(legal, /\{WHY\.age\}/); assert.match(legal, /does not ask your stance/);
 });
 
 test('storage: the new fields load and are validated; an impossible value is refused', () => {

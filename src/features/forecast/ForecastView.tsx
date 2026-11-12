@@ -1,4 +1,5 @@
 import {nearSfBuoy} from '../../ocean/buoys';
+import {figureOf} from '../../ui/PersonShape';
 import {SimilarSession} from './SimilarSession';
 import {shareCardFor} from '../../services/shareCard';
 import {ShareWindow} from './ShareWindow';
@@ -128,7 +129,7 @@ export function ForecastView({go}: ViewProps) {
   const meta = [spot.region, ...(spot.type ? [`${spot.type.toLowerCase()} break`] : []), !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : hasOfficial ? 'surf height is the NWS forecast, not ours · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
-      <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit}>
+      <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit} figure={figureOf(p)}>
         <div className="sp-head">
           <div className="sp-title">
             {/* phone pass 1: on a phone the name is the spot selector (the separate picker row is gone): it opens the spot search */}

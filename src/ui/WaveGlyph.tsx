@@ -1,5 +1,6 @@
 import {glyphLayout, swellLine, type Glyph} from '../services/waveGlyph';
 import {formatHeight} from '../services/heightMath';
+import {PersonShape, type Figure} from './PersonShape';
 import './waveglyph.css';
 
 /** T-106: the drawn wave (see services/waveGlyph.ts), in the spot page Wave scale card's style (blue outer/inner range, the same person).
@@ -16,13 +17,12 @@ export function glyphAria(g: Glyph, personIn: number, unit: 'ft' | 'm'): string 
     : `Offshore swell only, ${fmt(g.ft, unit)} offshore; no surf estimate to draw`;
 }
 
-/** The spot page Wave scale card's person (a 100-unit-tall silhouette, about 30 wide), standing on the waterline at height h. */
-const PERSON = 'M9 15 h12 q5 1 5.5 6 l1.8 27 q.2 2.4-1.8 2.4 h-.6 q-1.2 0-1.4-1.6 l-2.2-21 v31 l-.6 41 h-5.2 l-1.2-38 h-1 l-1.2 38 h-5.2 l-.6-41 v-31 l-2.2 21 q-.2 1.6-1.4 1.6 h-.6 q-2 0-1.8-2.4 l1.8-27 q.5-5 5.5-6z';
-function Person({x, w, h, base}: {x: number; w: number; h: number; base: number}) {
-  return <g className="wg-person" transform={`translate(${(x + w / 2 - (15 * h) / 100).toFixed(2)} ${(base - h).toFixed(2)}) scale(${(h / 100).toFixed(4)})`}><circle cx={15} cy={7} r={6.4} /><path d={PERSON} /></g>;
+/** The person (ui/PersonShape: the standard figure, or the female one), standing on the waterline at height h. */
+function Person({x, w, h, base, figure}: {x: number; w: number; h: number; base: number; figure: Figure}) {
+  return <g className="wg-person" transform={`translate(${(x + w / 2 - (15 * h) / 100).toFixed(2)} ${(base - h).toFixed(2)}) scale(${(h / 100).toFixed(4)})`}><PersonShape figure={figure} /></g>;
 }
 
-export function WaveGlyph({glyph, size, personIn, unit, decorative = false, className = ''}: {glyph: Glyph; size: keyof typeof SIZES; personIn: number; unit: 'ft' | 'm'; decorative?: boolean; className?: string}) {
+export function WaveGlyph({glyph, size, personIn, unit, decorative = false, className = '', figure = 'standard'}: {glyph: Glyph; size: keyof typeof SIZES; personIn: number; unit: 'ft' | 'm'; decorative?: boolean; className?: string; /** profile-sex: which figure stands beside the wave */ figure?: Figure}) {
   const [W, H] = SIZES[size], label = glyphAria(glyph, personIn, unit);
   const a11y = decorative ? {'aria-hidden': true as const} : {role: 'img', 'aria-label': label};
   if (glyph.kind === 'offshore') return (
@@ -36,7 +36,7 @@ export function WaveGlyph({glyph, size, personIn, unit, decorative = false, clas
     return (
       <svg className={`wglyph wglyph-${size} is-flat ${className}`} viewBox={`0 0 ${W} ${H}`} width={W} height={H} {...a11y}>
         <path className="wg-water" d={`M0 ${base} H${W}`} />
-        <Person x={x} w={pw} h={ph} base={base} />
+        <Person x={x} w={pw} h={ph} base={base} figure={figure} />
         {size !== 'xs' && <text className="wg-off" x={W * 0.3} y={H * 0.62} textAnchor="middle">Flat</text>}
       </svg>
     );
@@ -47,7 +47,7 @@ export function WaveGlyph({glyph, size, personIn, unit, decorative = false, clas
       <path className="wg-hi" d={L.hi} />
       <path className="wg-lo" d={L.lo} />
       <path className="wg-water" d={L.water} />
-      <Person x={L.person.x} w={L.person.w} h={L.person.h} base={L.base} />
+      <Person x={L.person.x} w={L.person.w} h={L.person.h} base={L.base} figure={figure} />
     </svg>
   );
 }
