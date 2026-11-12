@@ -132,8 +132,10 @@ export function createSurfCapture({fetcher = fetch, now = Date.now, sleep = (ms)
         if (prod?.id !== p.id || typeof prod?.productText !== 'string') { failures++; rep.status = 'unexpected product'; continue; }
         if (await put(bucket, c, KEYS.srf(office, p.id), got.text, {httpMetadata: {contentType: 'application/json'}, customMetadata: {office, issuanceTime: p.issuanceTime ?? ''}})) { ids.push(p.id); rep.stored++; stored++; if (!newest || String(p.issuanceTime) > String(newest.issuanceTime)) newest = {issuanceTime: p.issuanceTime, prod}; } else { failures++; rep.status = 'put failed'; }
       }
-      if (newest) { const slim = slimProduct(newest.prod, office); if (slim) { if (await put(bucket, c, serveKey(office), JSON.stringify(slim), {httpMetadata: {contentType: 'application/json'}})) rep.served = slim.id; else { failures++; rep.status = 'serve put failed'; } } else rep.served = 'unparsed'; }
-      index.offices[office] = {ids: ids.slice(-SEEN_CAP), updatedAt: new Date(now()).toISOString()};
+      // The served product only ever moves FORWARD: a backlog drained after a newer product was served (MAX_PER_OFFICE per run, newest first, so later runs hold OLDER products) must never overwrite it. The index remembers what was served.
+      const servedAt = Date.parse(index.offices[office]?.served?.issuedAt ?? ''); let served = index.offices[office]?.served ?? null;
+      if (newest) { const slim = slimProduct(newest.prod, office); if (!slim) rep.served = 'unparsed'; else if (Number.isFinite(servedAt) && Date.parse(slim.issuedAt) <= servedAt) rep.served = 'kept newer'; else if (await put(bucket, c, serveKey(office), JSON.stringify(slim), {httpMetadata: {contentType: 'application/json'}})) { rep.served = slim.id; served = {id: slim.id, issuedAt: slim.issuedAt}; } else { failures++; rep.status = 'serve put failed'; } }
+      index.offices[office] = {ids: ids.slice(-SEEN_CAP), updatedAt: new Date(now()).toISOString(), ...(served ? {served} : {})};
       if (c.used >= c.limit) break;
     }
     index.runs = (index.runs ?? 0) + 1; index.updatedAt = new Date(now()).toISOString();

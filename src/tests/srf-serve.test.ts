@@ -63,3 +63,18 @@ test('the capture writes the newest parsed product per office under serve/srf/<O
   assert.ok(store.has(KEYS.srf('MTR', id(1))) && store.has(KEYS.srf('MTR', id(2))));
   assert.ok(![...store.keys()].some((k) => k === serveKey('BOX')), 'no product, nothing served');
 });
+test('the served product never regresses: an older backlog drained after the newest was served does not overwrite it (Codex P1)', async () => {
+  const {MAX_PER_OFFICE} = await import('../../services/surf-capture.mjs');
+  const store = new Map<string, string>(), N = MAX_PER_OFFICE + 6, id = (i: number) => `00000000-aaaa-bbbb-cccc-${String(i).padStart(12, '0')}`, at = (i: number) => new Date(Date.parse('2026-11-01T00:00:00Z') + i * 3600000).toISOString().replace('.000Z', '+00:00');
+  const fetcher = async (url: string) => {
+    if (/products\/types\/SRF\/locations\/MTR/.test(url)) return new Response(JSON.stringify({'@graph': [...Array(N).keys()].reverse().map((i) => ({id: id(i), issuanceTime: at(i), issuingOffice: 'KMTR'}))}), {status: 200});
+    if (/locations\//.test(url)) return new Response(JSON.stringify({'@graph': []}), {status: 200});
+    const m = /products\/([\w-]+)$/.exec(url)!; const i = Number(m[1].slice(-12)); return new Response(JSON.stringify(prod(m[1], at(i))), {status: 200});
+  };
+  const cap = createSurfCapture({fetcher: fetcher as any, now: () => Date.parse('2026-11-11T14:00:00Z'), sleep: async () => {}, politeMs: 0, budgets: {gauges: 48, srf: 400, swan: 80}});
+  const env = {BUCKET: bucket(store)} as any;
+  await cap.srf(env); assert.equal(JSON.parse(store.get(serveKey('MTR'))!).id, id(N - 1), 'first run serves the newest');
+  const archived1 = [...store.keys()].filter((k) => /archive\/surf-height\/srf\/MTR\//.test(k)).length; assert.equal(archived1, MAX_PER_OFFICE);
+  await cap.srf(env); const after = [...store.keys()].filter((k) => /archive\/surf-height\/srf\/MTR\//.test(k)).length; assert.equal(after, N, 'the backlog drained');
+  assert.equal(JSON.parse(store.get(serveKey('MTR'))!).id, id(N - 1), 'the served product is still the newest');
+});

@@ -48,11 +48,13 @@ export function pickFacingEntry(entries: SrfEntry[], bearing: number | null): En
 }
 
 export interface OfficialSurf {
-  kind: 'official'; loFt: number; hiFt: number; /** "around N feet": shown "about N ft" */ about: boolean; /** "N feet or less": shown "up to N ft", there is no lower bound */ upTo: boolean;
+  kind: 'official'; loFt: number; hiFt: number; /** Honolulu publishes AM and PM halves: which half this number is, else null (a whole-day period) */ half: 'AM' | 'PM' | null; /** "around N feet": shown "about N ft" */ about: boolean; /** "N feet or less": shown "up to N ft", there is no lower bound */ upTo: boolean;
   label: string; office: string; zone: string; zoneName: string; facing: string | null; entryLabel: string; raw: string; sets: string | null; then: string | null;
   periodLabel: string; periodDate: string; issuedAt: string; /** "Wed 4:35 AM PST", as the NWS wrote it */ issuedText: string | null; productId: string;
   /** set when the product is older than its zone's next scheduled issue plus STALE_AFTER_EXPIRY_H */ stale: {expiredAt: string} | null;
 }
+/** AM/PM half of a half-day period (Honolulu's table), or null for a whole-day period */
+export const halfOf = (part: string | null | undefined): 'AM' | 'PM' | null => (/-am$/i.test(part ?? '') ? 'AM' : /-pm$/i.test(part ?? '') ? 'PM' : null);
 export type OfficialResult = {ok: true; official: OfficialSurf} | {ok: false; reason: string};
 
 /** the instant an SRF zone block expires: its UGC header carries DDHHMM (UTC), in the month of issue or the next */
@@ -72,9 +74,9 @@ export function officialRange(h: Pick<OfficialSurf, 'loFt' | 'hiFt' | 'upTo'> & 
   return h.upTo ? `up to ${c(h.hiFt)} ${u}` : h.about ? `about ${c(h.loFt)} ${u}` : h.loFt === h.hiFt ? `${c(h.loFt)} ${u}` : `${c(h.loFt)}–${c(h.hiFt)} ${u}`;
 }
 /** "NWS surf forecast: 6–8 ft (North Facing, Kauai), issued Tue 3:43 PM HST": labelled as the NWS's, with its issue time */
-export function officialLabel(h: Pick<OfficialSurf, 'loFt' | 'hiFt' | 'upTo' | 'about' | 'zoneName' | 'facing' | 'entryLabel' | 'issuedText'>, unit: 'ft' | 'm'): string {
+export function officialLabel(h: Pick<OfficialSurf, 'loFt' | 'hiFt' | 'upTo' | 'about' | 'half' | 'zoneName' | 'facing' | 'entryLabel' | 'issuedText'>, unit: 'ft' | 'm'): string {
   const who = h.facing ? `${h.entryLabel}, ${h.zoneName}` : h.zoneName;
-  return `NWS surf forecast: ${officialRange(h, unit)} (${who})${h.issuedText ? `, issued ${h.issuedText}` : ''}`;
+  return `NWS surf forecast: ${officialRange(h, unit)}${h.half ? ` ${h.half}` : ''} (${who})${h.issuedText ? `, issued ${h.issuedText}` : ''}`;
 }
 
 /** The NWS surf forecast for a spot's local day at `hourMs`. Reasons, never a fallback: no zone, no product, zone not in the product, no period for that day, no readable height, no matching facing. */
@@ -83,13 +85,15 @@ export function officialFor(spotId: string, hourMs: number, product: SrfProduct 
   if (!product || product.office !== z.office || !Array.isArray(product.zones)) return {ok: false, reason: 'no NWS surf forecast loaded for this zone'};
   const zone = product.zones.find((x) => x.ugc.includes(z.zone)); if (!zone) return {ok: false, reason: 'the zone is not in the latest NWS product'};
   const tz = timeZoneOf(spotId), date = dateIn(tz, hourMs), hr = hourIn(tz, hourMs);
-  let periods = zone.periods.filter((p) => p.date === date && p.part !== 'night' && p.surf?.length);
+  let periods = zone.periods.filter((p) => p.date === date && !/^night/.test(p.part ?? '') && p.surf?.length);
   if (!periods.length) return {ok: false, reason: 'the NWS product has no surf period for this day'};
-  if (periods.length > 1) { const half = periods.filter((p) => (hr < 12 ? /am/i : /pm/i).test(p.part ?? '')); if (half.length) periods = half; }
+  // Honolulu publishes AM and PM halves: the hour takes ITS half, and a day whose halves do not include this hour's shows nothing (an AM range is never passed off as the whole day)
+  const halved = periods.some((p) => /-(am|pm)$/i.test(p.part ?? ''));
+  if (halved) { periods = periods.filter((p) => (hr < 12 ? /-am$/i : /-pm$/i).test(p.part ?? '')); if (!periods.length) return {ok: false, reason: 'the NWS product has no half-day period for this hour'}; }
   const per = periods[0], pick = pickFacingEntry(per.surf, seawardOf(spotId)); if ('reason' in pick) return {ok: false, reason: pick.reason};
   const e = pick.entry, upTo = e.kind === 'or_less', hi = e.hi as number, lo = upTo ? 0 : (e.lo as number);
   const exp = expiryOf(product.issuedAt, zone.expires) ?? (Date.parse(product.issuedAt) + 30 * 3600000), stale = Number.isFinite(exp) && nowMs > exp + STALE_AFTER_EXPIRY_H * 3600000 ? {expiredAt: new Date(exp).toISOString()} : null;
-  const base = {loFt: lo, hiFt: hi, upTo, about: e.kind === 'around', zoneName: zone.name, facing: e.facing, entryLabel: e.label, issuedText: issuedText(zone)};
+  const base = {loFt: lo, hiFt: hi, half: halfOf(per.part), upTo, about: e.kind === 'around', zoneName: zone.name, facing: e.facing, entryLabel: e.label, issuedText: issuedText(zone)};
   const label = officialLabel(base, 'ft');
   return {ok: true, official: {kind: 'official', ...base, label, office: z.office, zone: z.zone, raw: e.raw, sets: e.sets, then: e.then, periodLabel: per.label, periodDate: date, issuedAt: product.issuedAt, productId: product.id, stale}};
 }

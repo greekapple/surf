@@ -74,7 +74,8 @@ export function spotHour(spot: SurfSpot, records: Forecast[], atMs: number, p: U
 /** The one hour a day card stands for (T-068, user decision "Median daylight hour"): the middle daylight hour of the day by clock time (about midday). Its numbers ARE spotHourOf at that hour.
  *  The best window stays in the Call (call.ts); the full daylight envelope stays in the day's `loFt`/`hiFt`. (T-057 used the best-rated hour; that hid part of a day-to-day dip.) */
 export interface DayTypical {atIso: string; how: 'midday'; hourLabel: string; short: string; loFt: number; hiFt: number; /** T-107: the midday hour's central surf height (estimate) or offshore height; the one value a week cell's wave glyph is drawn from. */ centralFt: number; hour: SpotHour; aria: string}
-export interface DayRange {kind: 'estimate' | 'official' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
+export interface OfficialHalf {half: 'AM' | 'PM' | null; loFt: number; hiFt: number; upTo: boolean; about: boolean}
+export interface DayRange {kind: 'estimate' | 'official' | 'offshore' | 'none'; loFt: number | null; hiFt: number | null; hours: number; label: string | null; basis: string; /** official only: the NWS range of each distinct half-day (Honolulu publishes AM and PM); one entry, half null, for a whole-day range. Never one half presented as the day. */ officialHalves?: OfficialHalf[]; /** The day's representative hour; null when no daylight hour has a height of the day's kind. */ typical: DayTypical | null}
 const hrFmt = (tz: string) => fmtIn(tz, {hour: 'numeric'});
 const hourWord = (tz: string, iso: string) => hrFmt(tz).format(new Date(iso)).replace(' ', '').toUpperCase().replace(/AM$/, ' AM').replace(/PM$/, ' PM');
 const hourShort = (tz: string, iso: string) => hrFmt(tz).format(new Date(iso)).replace(/ (A|P)M$/, (_, c) => c.toLowerCase());
@@ -101,10 +102,12 @@ export function dayRange(spot: SurfSpot, records: Forecast[], dateKey: string, n
     return {kind: 'estimate', loFt: lo, hiFt: hi, hours: est.length, label: allFlat ? FLAT_LABEL : `Est. ${text}`, basis: `daylight hours (${est.length} of ${hours.length} with an estimate)`, typical: pickTypical('estimate')};
   }
   // offshore-surf step 3: where we have no estimate but the NWS surf zone forecast covers the day, the day's size IS the NWS range (one range for the zone and day, labelled as theirs)
-  const off0 = heads.find((h): h is Extract<HeadlineSurf, {kind: 'official'}> => h.kind === 'official');
-  if (off0) {
-    const n = heads.filter((h) => h.kind === 'official').length, u = p.heightUnit === 'm' ? 'm' : 'ft';
-    return {kind: 'official', loFt: off0.loFt, hiFt: off0.hiFt, hours: n, label: `NWS ${officialRange(off0, u)}`, basis: `the NWS surf zone forecast for ${off0.zoneName}, one range for the day${off0.stale ? ' (older than its next scheduled issue)' : ''}`, typical: pickTypical('official')};
+  const offs = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'official'}> => h.kind === 'official');
+  if (offs.length) {
+    const u = p.heightUnit === 'm' ? 'm' : 'ft', first = offs[0], halves: OfficialHalf[] = [];
+    for (const h of [...offs].sort((x, y) => (x.half === 'AM' ? 0 : 1) - (y.half === 'AM' ? 0 : 1))) if (!halves.some((x) => x.half === h.half && x.loFt === h.loFt && x.hiFt === h.hiFt)) halves.push({half: h.half, loFt: h.loFt, hiFt: h.hiFt, upTo: h.upTo, about: h.about});
+    const label = `NWS ${halves.map((x) => `${x.half ? `${x.half} ` : ''}${officialRange(x, u)}`).join(' · ')}`;
+    return {kind: 'official', loFt: Math.min(...halves.map((x) => x.loFt)), hiFt: Math.max(...halves.map((x) => x.hiFt)), hours: offs.length, label, officialHalves: halves, basis: `the NWS surf zone forecast for ${first.zoneName}, ${halves.length > 1 ? 'a range for each half of the day' : 'one range for the day'}${offs.some((h) => h.stale) ? ' (older than its next scheduled issue)' : ''}`, typical: pickTypical('official')};
   }
   const off = heads.filter((h): h is Extract<HeadlineSurf, {kind: 'offshore'}> => h.kind === 'offshore').map((h) => h.ft);
   if (off.length) {

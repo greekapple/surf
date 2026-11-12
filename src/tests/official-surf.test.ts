@@ -116,3 +116,54 @@ test('share card: an NWS-only hour shares as "NWS surf fcst 4–7 ft" (never as 
   assert.ok(card, 'a card is produced for the current (daylight) hour');
   assert.equal(card!.surf?.main, 'NWS surf fcst 4–7 ft'); assert.doesNotMatch(JSON.stringify(card), /no surf estimate here/);
 });
+const HFO_TEXT = `000
+FZHW52 PHFO 110143
+SRFHFO
+
+Surf Zone Forecast for Hawaii
+National Weather Service Honolulu HI
+343 PM HST Tue Nov 10 2026
+
+HIZ003-029>031-120245-
+Kauai-
+343 PM HST Tue Nov 10 2026
+
+...HIGH SURF ADVISORY FOR NORTH AND WEST FACING SHORES...
+__________________________________________________________________
+                      Tonight                    Wednesday
+
+Shores                  Surf                       Surf     
+                     PM     AM                  AM     PM 
+__________________________________________________________________
+
+North Facing         6-8   8-12               14-18  15-20 
+West Facing          4-6    5-7                9-12  10-15 
+South Facing         1-3    1-3                 2-4    2-4 
+East Facing          3-5    3-5                 4-6    5-7 
+                                                                  
+
+.TONIGHT...
+Weather.....................Partly cloudy. Isolated showers. 
+
+.VETERANS DAY...
+Weather.....................Mostly sunny. Scattered showers. 
+
+$$
+`;
+test('Honolulu half-days (real HFO table): AM and PM ranges differ; an hour takes ITS half, the day card says both, never one half as the day (Codex P2)', async () => {
+  const {slimProduct} = await import('../../services/srf-serve.mjs'), {dayRange} = await import('../services/spotHour.ts');
+  const slim = slimProduct({id: 'hfo-1', issuingOffice: 'PHFO', issuanceTime: '2026-11-11T01:43:00+00:00', productText: HFO_TEXT}, 'HFO') as any; assert.ok(slim);
+  const wed = slim.zones[0].periods.filter((p: any) => p.date === '2026-11-11'); assert.ok(wed.some((p: any) => /-am$/.test(p.part)) && wed.some((p: any) => /-pm$/.test(p.part)), JSON.stringify(wed.map((p: any) => p.part)));
+  const hs = allSpots.find((s) => s.id.startsWith('cs-') === false && srfZoneOf(s.id)?.zone === 'HIZ003') ?? allSpots.find((s) => srfZoneOf(s.id)?.office === 'HFO' && srfZoneOf(s.id)?.zone === 'HIZ003');
+  const sp = allSpots.find((s) => { const z = srfZoneOf(s.id); return z?.office === 'HFO' && slim.zones.some((q: any) => q.ugc.includes(z.zone)) && !assignmentFor(s.id); }); assert.ok(sp, 'an HFO spot in a zone of the product');
+  const z = srfZoneOf(sp!.id)!; const tz = 'Pacific/Honolulu', hrAt = (h: number) => new Date(Date.UTC(2026, 10, 11, h + 10)).toISOString();   // HST = UTC-10
+  const mk = (h: number): any => ({spotId: sp!.id, timestamp: hrAt(h), offshore: 3, availability: {}});
+  const bundle: any = {srf: {HFO: slim}};
+  const am = headlineSurf(sp!.id, mk(9), {nowMs: Date.parse('2026-11-11T19:00:00Z'), bundle, observations: [], felt: []}), pm = headlineSurf(sp!.id, mk(14), {nowMs: Date.parse('2026-11-11T19:00:00Z'), bundle, observations: [], felt: []});
+  assert.ok(am.kind === 'official' && pm.kind === 'official'); if (am.kind !== 'official' || pm.kind !== 'official') return;
+  assert.equal(am.half, 'AM'); assert.equal(pm.half, 'PM'); assert.match(am.label, / AM \(/); assert.match(pm.label, / PM \(/);
+  assert.notDeepEqual([am.loFt, am.hiFt], [pm.loFt, pm.hiFt], 'the table has different AM and PM ranges for this shore');
+  const day = dayRange(sp!, [mk(8), mk(9), mk(10), mk(13), mk(14), mk(15)], '2026-11-11', Date.parse('2026-11-11T19:00:00Z'), DEFAULT_PROFILE, {bundle});
+  assert.equal(day.kind, 'official'); assert.equal(day.officialHalves?.length, 2); assert.match(day.label!, /^NWS AM .* · PM /); assert.doesNotMatch(day.label!, /^NWS \d/);
+  void tz; void hs; void z;
+});

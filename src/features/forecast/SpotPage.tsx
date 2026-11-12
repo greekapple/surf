@@ -1,4 +1,4 @@
-import {officialScaleNote, officialProductUrl} from '../../services/officialSurf.ts';
+import {officialScaleNote, officialProductUrl, officialRange} from '../../services/officialSurf.ts';
 import {zoneOf, stateOfZone} from '../../data/zones';
 import {tideStationFor, SF_STATION, noTideNote, hourlyTideStationIds} from '../../ocean/tideStations';
 import {tideCurveWords} from '../../ocean/stationTide';
@@ -277,7 +277,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const tyFlat = isFlat(ty?.hour?.surf?.headline); // T-130: a Flat midday reads "Flat · model estimate", never "Flat est."
         const kind = dr.kind === 'estimate' ? (tyFlat ? 'model estimate' : 'est.') : dr.kind === 'offshore' ? 'offshore' : dr.kind === 'official' ? (ty?.hour?.surf?.headline.kind === 'official' && ty.hour.surf.headline.stale ? 'NWS (older)' : 'NWS') : demo.length ? 'demo' : '';
         // T-112: the main number is the SAME text the week grid shows (dayText: the midday hour's headline value, in the person's unit and scale); the demo week keeps its own median.
-        const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
+        const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dr.kind === 'official' && (dr.officialHalves?.length ?? 0) > 1 ? dr.officialHalves!.map((x) => officialRange(x, p.heightUnit === 'm' ? 'm' : 'ft').replace(/\s*(ft|m)$/, '')).join(' / ') : dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
         const envText = env && dr.label ? `${dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '')}${dr.kind === 'offshore' ? ` ${p.heightUnit}` : ''}` : null;
         const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
         // certainty (2026-11-06): the midday hour's level. Past the horizon the card says "too far out" (the model's number moves to the note under the strip and the tooltips); where the models disagree the band stays the number, with "models differ" and what it could be in the detail.

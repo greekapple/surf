@@ -1,3 +1,4 @@
+import {officialRange} from './officialSurf.ts';
 import type {DayRange} from './spotHour.ts';
 import {isFlat} from './flatSurf.ts';
 
@@ -19,7 +20,9 @@ export function weekCell(dr: DayRange, _unit: string): WeekCell {
   if (dr.kind === 'estimate' && ty && isFlat(hl)) return {kind: 'estimate', flat: true, label: 'Flat', loFt: 0, hiFt: 0, centralFt: 0, spreadLoFt: dr.loFt, spreadHiFt: dr.hiFt, spread, midday: ty.short, stale, confidence: null};
   if (dr.kind === 'estimate' && ty) return {kind: 'estimate', label: dt?.numbers ?? `${Math.round(ty.loFt)}–${Math.round(ty.hiFt)}`, loFt: ty.loFt, hiFt: ty.hiFt, centralFt: ty.centralFt, spreadLoFt: dr.loFt, spreadHiFt: dr.hiFt, spread, midday: ty.short, stale, confidence: ty?.hour?.surf?.confidenceText ? (hl && (hl.kind === 'estimate') ? (hl.confidence ?? null) : null) : null};
   // offshore-surf: the NWS's range for the zone and day (the label reads "NWS 6–8 ft" elsewhere; the cell shows the numbers and the grid tags it NWS)
-  if (dr.kind === 'official' && ty) return {kind: 'official', label: dt?.numbers ?? `${ty.loFt}–${ty.hiFt}`, loFt: ty.loFt, hiFt: ty.hiFt, centralFt: ty.centralFt, spreadLoFt: null, spreadHiFt: null, spread: null, midday: null, stale: hl && hl.kind === 'official' && hl.stale ? 'stale' as const : null, confidence: null};
+  // two different half-day ranges (Honolulu): both are shown, "4–6 / 6–8" (AM / PM), never one half as the day
+  const halves = dr.kind === 'official' && (dr.officialHalves?.length ?? 0) > 1 ? dr.officialHalves!.map((x) => officialRange(x, _unit === 'm' ? 'm' : 'ft').replace(/\s*(ft|m)$/, '')).join(' / ') : null;
+  if (dr.kind === 'official' && ty) return {kind: 'official', label: halves ?? dt?.numbers ?? `${ty.loFt}–${ty.hiFt}`, loFt: ty.loFt, hiFt: ty.hiFt, centralFt: ty.centralFt, spreadLoFt: null, spreadHiFt: null, spread: null, midday: null, stale: hl && hl.kind === 'official' && hl.stale ? 'stale' as const : null, confidence: null};
   if (dr.kind === 'offshore' && ty) return {kind: 'offshore', label: dt?.numbers ?? String(Math.round(ty.hiFt)), loFt: ty.loFt, hiFt: ty.hiFt, centralFt: ty.centralFt, spreadLoFt: dr.loFt, spreadHiFt: dr.hiFt, spread, midday: ty.short, stale, confidence: null};
   return {kind: 'none', label: '—', loFt: null, hiFt: null, centralFt: null, spreadLoFt: null, spreadHiFt: null, spread: null, midday: null, stale: null, confidence: null};
 }
