@@ -137,6 +137,24 @@ test('audit B15: after dark with no window ahead, the call still answers for tom
   assert.ok(c.nextDay, 'the next day has an answer');
   assert.equal(c.nextDay!.when, 'tomorrow'); assert.equal(c.nextDay!.verdict, 'Skip'); assert.ok(c.nextDay!.reason);
   assert.equal(isDark('spot-2', c.nextDay!.at), false, 'judged at a daylight hour');
-  assert.match(c.why[0], /^Tomorrow: Skip\. ./); assert.match(c.why[1], /No surf window in the next 4 days\.$/);
+  assert.match(c.why[0], /^Tomorrow at \d{1,2}( |:\d\d )[AP]M: Skip\. ./, 'the next day\'s answer names the hour it judged'); assert.match(c.why[1], /No surf window in the next 4 days\.$/);
   assert.doesNotMatch(c.why.join(' '), /in this forecast/);
+});
+
+// lead triage 2026-11-12 (design re-critique): the Call's range and the Surf block can't disagree unlabelled. For the SAME hour the Call's estimate is the Surf
+// block's own text (headlineText of the same headline); a range from ANOTHER hour (the dark-hour 'next day' answer) always names that hour; and a hour with no
+// estimate never claims the spot has none.
+test('the Call and the Surf block never disagree unlabelled', async () => {
+  const {headlineSurf, headlineText} = await import('../services/headlineSurf.ts');
+  const r = recs(6, 20, 270), p = prof('Intermediate');
+  let same = 0;
+  for (const f of r.filter((x) => !isDark('spot-2', x.timestamp))) {
+    const c = callFor(spot, f, p, ctxFor(r, f.timestamp)), h = headlineSurf(spot.id, f, {bundle: null, nowMs: Date.parse(f.timestamp)});
+    const m = /The estimated (\S+ (?:ft|m)(?: ≈ Hawaiian)?)/.exec(c.why.join(' '));
+    if (h.kind === 'estimate' && m) { assert.equal(m[1], headlineText(h, p).value, `${f.timestamp}: the Call's range is the Surf block's`); same++; }
+    assert.doesNotMatch(c.why.join(' '), /for this spot/, 'never "no estimate for this spot"');
+  }
+  assert.ok(same > 0, 'estimate hours were compared');
+  const d = callFor(spot, at(r, dark646pm), p, ctxFor(r, dark646pm));
+  for (const w of d.why) if (/The estimated/.test(w)) assert.match(w, /^(Today|Tomorrow|\w+day) at \d/, 'a range from another hour names that hour');
 });

@@ -70,7 +70,7 @@ export function hourCall(spot: SurfSpot, f: Forecast, profile: UserProfile, ctx:
     else if (own && h.hiFt > own.max) sizeNote = `The estimated ${range} reaches above the range you prefer (up to ${own.max} ft).`;
     else if (own && h.loFt < own.min) sizeNote = `The estimated ${range} reaches below the range you prefer (from ${own.min} ft).`;
     else sizeNote = own ? `The estimated ${range} is within the range you prefer (${own.min}–${own.max} ft).` : `The estimated ${range} is within the ${who} range.`;
-  } else sizeNote = 'No surf-size estimate for this spot, so size is not part of this call.';
+  } else sizeNote = 'No surf-size estimate for this hour (offshore height only), so size is not part of this call.';   // lead triage 2026-11-12: about the HOUR judged, never "this spot" (other hours can have one)
   // Breaker type (T-064 addendum): a plunging break at size is for experienced surfers (our own rule; Surfing Online "Types of Waves" describes plunging waves as hollow, powerful and for experienced surfers). Spilling is forgiving.
   let breakerNote = '';
   if (breaker.type === 'plunging' && breaker.confidence === 'checked' && h.kind === 'estimate' && profile.skill !== 'Expert' && h.hiFt >= 4) { verdict = 'Skip'; breakerNote = `Plunging at ${fmt(h.loFt, h.hiFt, profile)}: experts only.`; }
@@ -186,7 +186,8 @@ export function callFor(spot: SurfSpot, hour: Forecast, profile: UserProfile, ct
   const litWords = hc.lit ? ` The conditions themselves rate ${hc.lit.conditions}.` : '';
   const nextDay = hc.verdict === 'Dark' && !nextWindow ? nextDayCall(spot, profile, ctx, from) : null;
   // with no window ahead, tomorrow's own answer leads (the evening planner's question), then why tonight is not a window
-  const nextDayWords = nextDay ? `${cap(nextDay.when)}: ${nextDay.verdict}.${nextDay.reason ? ` ${nextDay.reason}` : ''}` : '';
+  // lead triage 2026-11-12: the next day's answer names the HOUR it judged, so its range never reads as the hour on screen ("Today at 12 PM: Skip. The estimated 13–16 ft…" over a 12 AM "11–14 ft")
+  const nextDayWords = nextDay ? `${cap(nextDay.when)} at ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(nextDay.at)).replace(':00', '')}: ${nextDay.verdict}.${nextDay.reason ? ` ${nextDay.reason}` : ''}` : '';
   const why = hc.verdict === 'Dark' ? (nextWindow ? [`It is dark, so it is not a surf window.${litWords} The next window is ${dayWord} ${nextWindow.label}.`]
     : [...(nextDayWords ? [nextDayWords] : []), `It is dark, so it is not a surf window.${litWords} No surf window in the next ${WINDOW_DAYS} days.`]) : hc.why;
   const dl = daylightFor(spot.id, day), basis = `From the surf estimate, the rating, wind, daylight (first light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.firstLight))}, last light ${fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(dl.lastLight))}) and your skill (${profile.skill}). Our own rules, not a measured or validated forecast.`;
