@@ -68,7 +68,8 @@ export function guideBasis(spotId: string): string | null {
   // A facing derived from CDIP coastline geometry is not a guide fact: say so, and keep the guide list for the swell window only.
   const guides = `${sites.length ? ` (${sites.join(', ')})` : ''}`;
   const outside = outsideFacingNote(spotId) ? `; ${outsideFacingNote(spotId)}` : '';
-  return f && derivedFacing(f) ? `facing derived from coastline geometry (CDIP); swell window from published guides${guides}, not reviewed; 8 s generic minimum period${winSrc}${outside}` : `facing and swell window from published guides${guides}, not reviewed; 8 s generic minimum period${winSrc}${outside}`;
+  const minP = breakingProfile(spotId)?.minPeriod, period = minP === 7 ? '7 s US Atlantic minimum period (our own check against NWS forecasts and gauges, docs/forecast/ATLANTIC-8S.md)' : '8 s generic minimum period';
+  return f && derivedFacing(f) ? `facing derived from coastline geometry (CDIP); swell window from published guides${guides}, not reviewed; ${period}${winSrc}${outside}` : `facing and swell window from published guides${guides}, not reviewed; ${period}${winSrc}${outside}`;
 }
 /** T-077 (user decision "Surfer convention"): the headline is the height surfers and surf reports quote, about the nearshore significant wave height (a CDIP MOP value at 10–15 m depth), NOT the larger breaking height (about 1.3 times that for Ocean Beach swells, docs/forecast/OB-BIAS-T076.md). The breaking height stays in the detail. */
 const METHOD_LABEL = {'mop-v2': `Surf height (common convention: about the CDIP nearshore wave height) from the nearshore point (${BREAKING_V2_VERSION}, unvalidated)`, v1: 'Surf height (common convention: about the nearshore wave height) estimated from offshore swell carried to 10 m (v1, unvalidated)'} as const;

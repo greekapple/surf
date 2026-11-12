@@ -4,7 +4,7 @@ export type Status = 'unknown' | 'sourced' | 'owner-reviewed' | 'measured' | 'va
 export interface Source {url: string; title: string; retrievedOn: string; quote?: string}
 export interface Proposal<T> {value: T; sources: Source[]; note: string}
 /** Where a sourced value comes from: a published spot guide (T-071, user decision "look at public sources and apply"), a generic published rule that is not specific to the spot, or an agency dataset. */
-export type Provenance = 'published guide' | 'published guide (generic)' | 'agency data' | 'derived from coastline geometry';
+export type Provenance = 'published guide' | 'published guide (generic)' | 'agency data' | 'derived from coastline geometry' | 'our own evidence';   // 'our own evidence': SWELLO's own measured check (e.g. the US Atlantic 7 s minimum, docs/forecast/ATLANTIC-8S.md); never labelled a published value
 export interface Sourced<T> {value: T | null; status: Status; sources: Source[]; provenance?: Provenance; reviewedBy?: string; reviewedOn?: string; note?: string; proposal?: Proposal<T>}
 
 export interface SpotProfile {

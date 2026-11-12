@@ -1,5 +1,6 @@
 import {guideFacts} from './spotFactsSourced.ts';
-import {breakingProfileFromGuide} from './spotFactsRules.ts';
+import {breakingProfileFromGuide, GENERIC_MIN_PERIOD_S, ATLANTIC_MIN_PERIOD_S} from './spotFactsRules.ts';
+import {isUsAtlanticSpot} from './atlantic.ts';
 import type {MeasurementKind} from '../services/verification.ts';
 export interface CalibrationProfile {spotId:string;status:'uncalibrated'|'reviewed'|'validated';input:MeasurementKind;output:'breaking-face';methodVersion:string|null;coefficients:Record<string,number>|null;sampleCount:number;facts:{source:string;description:string}[];unknowns:string[]}
 /** Registry of evidence, deliberately without invented fitting coefficients. No active breaking conversion. */
@@ -8,7 +9,7 @@ export const calibrationProfiles:CalibrationProfile[]=[{spotId:'spot-2',status:'
 export interface BreakingCalibration {spotId:string;faceFactors:[number,number];window:[number,number];minPeriod:number;shelter:number;note:string}
 const reviewedBreakingProfiles:BreakingCalibration[]=[{spotId:'spot-2',faceFactors:[0.7,1.4],window:[203,323],minPeriod:8,shelter:1,note:'Ocean Beach: window is beach normal 263.49° ±60° (lead decision); minPeriod 8 s and shelter 1 are lead-set, not measured.'}];
 /** T-071: spots whose published guides state the facing and the swell window (and no source calls them sheltered) get a profile of the same shape; Ocean Beach keeps its reviewed one. */
-export const breakingProfiles:BreakingCalibration[]=[...reviewedBreakingProfiles,...guideFacts.filter(f=>!reviewedBreakingProfiles.some(p=>p.spotId===f.spotId)).map(breakingProfileFromGuide).filter((p):p is BreakingCalibration=>p!==null)];
+export const breakingProfiles:BreakingCalibration[]=[...reviewedBreakingProfiles,...guideFacts.filter(f=>!reviewedBreakingProfiles.some(p=>p.spotId===f.spotId)).map(f=>breakingProfileFromGuide(f,isUsAtlanticSpot(f.spotId)?ATLANTIC_MIN_PERIOD_S:GENERIC_MIN_PERIOD_S)).filter((p):p is BreakingCalibration=>p!==null)];
 /** True when a spot's breaking profile comes from published guides (T-071) rather than the reviewed Ocean Beach one. */
 export const isGuideProfile=(spotId:string)=>!reviewedBreakingProfiles.some(p=>p.spotId===spotId)&&breakingProfiles.some(p=>p.spotId===spotId);
 export const breakingProfile=(spotId:string)=>breakingProfiles.find(p=>p.spotId===spotId)??null;

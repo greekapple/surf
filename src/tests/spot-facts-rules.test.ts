@@ -55,7 +55,7 @@ test('a sheltered spot with no published open sector gets facts but no estimate;
   assert.match(enablement(guideFactsFor('spot-7')!).reasons.join(), /no source lists the swell directions it is open to/);
   assert.equal(breakingProfile('cs-shelter-cove'), null); assert.equal(spotProfiles.find((p) => p.spotId === 'cs-shelter-cove')!.orientation.value, null);
   assert.deepEqual(enablement(guideFactsFor('cs-shelter-cove')!).reasons, ['no source states which way the beach faces', 'a reef break needs a source that says it is exposed']);
-  assert.equal(breakingProfiles.length, 902); assert.equal(spotProfiles.length, 1078); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && p.minPeriod === 8 && p.shelter === (SHELTER0.includes(p.spotId) || openSector(guideFactsFor(p.spotId)!) ? 0 : 1)), 'shelter 0 only at the sheltered open-sector spots');
+  assert.equal(breakingProfiles.length, 902); assert.equal(spotProfiles.length, 1078); assert.ok(breakingProfiles.every((p) => p.window[0] !== p.window[1] && (p.minPeriod === 8 || p.minPeriod === 7) && p.shelter === (SHELTER0.includes(p.spotId) || openSector(guideFactsFor(p.spotId)!) ? 0 : 1)), 'shelter 0 only at the sheltered open-sector spots');
   assert.ok(profileFromGuide({...base, facing: null, swellWindow: null}).orientation.value === null);
 });
 test('T-073 sheltered with a published open sector: shelter 0 so the offshore-swell v1 refuses, CDIP v2 estimates inside that sector only; a generic workable range is not enough', () => {
@@ -214,4 +214,24 @@ test('round 2 review: an exposure compass on a page with no break notes is not a
   const wan = guideFacts.find((f) => f.swellWindow?.source === 'wannasurf'); assert.ok(wan); assert.ok(wan!.sources.some((s) => s.site === 'wannasurf'), 'a wannasurf window cites wannasurf');
   assert.ok(guideFacts.every((f) => !f.swellWindow || !!f.swellWindow.source), 'every window names the page it was read from');
   assert.ok(guideFacts.every((f) => !/\. (?:Faces|Best from)/.test(f.swellWindow?.text ?? '') && !/\. (?:Faces|Best from)/.test(f.workable?.text ?? '')), 'surfnerd tails are not part of a range text');
+});
+
+test('US Atlantic spots get the 7 s minimum period; the West Coast, Hawaii and Europe keep 8 s (docs/forecast/ATLANTIC-8S.md)', async () => {
+  const {breakingProfiles} = await import('../ocean/localCalibration.ts'), {evidenceSpot} = await import('../ocean/spots.ts'), {isUsAtlantic} = await import('../ocean/atlantic.ts');
+  const {ATLANTIC_MIN_PERIOD_S} = await import('../ocean/spotFactsRules.ts');
+  assert.equal(ATLANTIC_MIN_PERIOD_S, 7);
+  let atl = 0, other = 0;
+  for (const p of breakingProfiles) {
+    const s = evidenceSpot(p.spotId); if (!s) continue;
+    if (isUsAtlantic(s)) { atl++; assert.equal(p.minPeriod, 7, p.spotId); assert.match(p.note, /US Atlantic 7 s/); }
+    else { other++; assert.equal(p.minPeriod, 8, p.spotId); }
+  }
+  assert.ok(atl > 50, `atlantic profiles ${atl}`); assert.ok(other > 100, `other profiles ${other}`);
+  assert.equal(breakingProfiles.find((p) => p.spotId === 'spot-2')!.minPeriod, 8);
+  assert.equal(breakingProfiles.find((p) => p.spotId === 'w-us-kitty-hawk-pier')!.minPeriod, 7);
+  const {coastEvidence} = await import('../data/coast.ts'), {evidenceSpots} = await import('../ocean/spots.ts'), {isUsAtlanticSpot} = await import('../ocean/atlantic.ts');
+  for (const s of evidenceSpots) assert.equal(isUsAtlanticSpot(s.id), isUsAtlantic(s), s.id);
+  assert.equal(coastEvidence.filter(isUsAtlantic).length, evidenceSpots.filter(isUsAtlantic).length);
+  const {spotProfiles} = await import('../ocean/spotProfiles.ts'), kh = spotProfiles.find((p) => p.spotId === 'w-us-kitty-hawk-pier')!;
+  assert.equal(kh.periodResponse.provenance, 'our own evidence'); assert.equal(kh.periodResponse.value!.minUsefulS, 7); assert.doesNotMatch(kh.periodResponse.provenance ?? "", /^published guide/);
 });
