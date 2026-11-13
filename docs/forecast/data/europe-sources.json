@@ -39514,7 +39514,7 @@
    "region": "Galicia",
    "lat": 43.651,
    "lon": -8.058,
-   "seaward": 347.0,
+   "seaward": 300,
    "waveBuoy": [
     {
      "id": "CMEMS-6201070",
@@ -39553,14 +39553,16 @@
       -8.058
      ],
      "seaward2km": [
-      43.669,
-      -8.064
+      43.66,
+      -8.08
      ],
      "appMarine9km": [
-      43.729,
-      -8.083
+      43.693,
+      -8.158
      ]
-    }
+    },
+    "seawardFixed": {"from": 347, "to": 300, "reason": "OSM coastline (Overpass, base 2026-11-13T18:04Z): the stored 347 meets the coast at 0.8 km and its 2 km point (43.669, -8.064) is land. The beach is in a cove: open water lies west to north-west (straight clear run 270 to 305, reachable water 240 to 320 at 2 km and 304 at 5.5 km). Surf-forecast guide: \"sheltered beach break\", best wind from the southeast, groundswell from the northwest (https://www.surf-forecast.com/breaks/Playade-Baleo, pin 43.6512, -8.0581 = our pin). 300 = mean of guide 315, clear-sector middle 287 and reachable-water 304.", "recheck": {"seaward2km": "24/24 non-null hours at [43.66, -8.08], answered from a grid cell 15 km away", "appMarine9km": "24/24 non-null hours at [43.693, -8.158], answered from a grid cell 11.3 km away"}},
+    "sheltered": {"flag": true, "text": "sheltered: open-coast reading likely optimistic", "reason": "Surf-forecast guide calls it a sheltered beach break (https://www.surf-forecast.com/breaks/Playade-Baleo); in OSM the beach is in a cove whose open water lies west to north-west."}
    },
    "wind": {
     "sid": "LECO",
@@ -71561,7 +71563,8 @@
      ]
     },
     "appMarineMoved": {"from": [58.454, -4.305], "reason": "0/24 non-null hours at the original point (checked 2026-11-13); recomputed 9.3 km along the corrected seaward bearing (30) and rechecked 24/24"},
-    "seawardFixed": {"from": 135, "to": 30, "reason": "OSM coastline (Overpass, base 2026-11-13T18:00Z): the pin (58.511, -4.413) is in the Kyle of Tongue estuary; a ray along 135 meets the coast at 0.9 km and the 2 km point (58.498, -4.389) is land. Open water from the pin lies to the north to north-east (bearings 0 to 45); 30 is the middle of that sector. This is the bearing to open water, not a beach facing: the pin is sheltered estuary water."}
+    "seawardFixed": {"from": 135, "to": 30, "reason": "OSM coastline (Overpass, base 2026-11-13T18:00Z): the pin (58.511, -4.413) is in the Kyle of Tongue estuary; a ray along 135 meets the coast at 0.9 km and the 2 km point (58.498, -4.389) is land. Open water from the pin lies to the north to north-east (bearings 0 to 45); 30 is the middle of that sector. This is the bearing to open water, not a beach facing: the pin is sheltered estuary water."},
+    "sheltered": {"flag": true, "text": "sheltered: open-coast reading likely optimistic", "reason": "The pin (58.511, -4.413) is in the Kyle of Tongue estuary, 0.7 km from the nearest coast (OSM coastline, base 2026-11-13T18:00Z); the straight clear run from the pin is at most about 6 km in any direction."}
    },
    "wind": {
     "sid": "EGPC",
@@ -72303,7 +72306,7 @@
    "region": "Scotland, Na h-Eileanan an Iar",
    "lat": 58.223,
    "lon": -6.968,
-   "seaward": 292.5,
+   "seaward": 320,
    "waveBuoy": [
     {
      "id": "WN-WHEBRIDSWN",
@@ -72346,14 +72349,15 @@
       -6.968
      ],
      "seaward2km": [
-      58.23,
-      -7.0
+      58.237,
+      -6.99
      ],
      "appMarine9km": [
-      58.254,
-      -7.108
+      58.287,
+      -7.07
      ]
-    }
+    },
+    "seawardFixed": {"from": 292.5, "to": 320, "reason": "OSM coastline (Overpass, base 2026-11-13T18:04Z): the stored 292.5 meets the coast at 1.5 km (headland south of the bay mouth) and its 2 km point (58.230, -7.000) is land. The pin is on an open bay-head beach; the straight clear run to 12 km is 310 to 340. Surf-forecast guide for Cliff Beach (Lewis): \"exposed beach break\", best wind from the southeast, ideal swell from the northwest (https://www.surf-forecast.com/breaks/Cliff-Beach, pin 58.223, -6.9728 = our pin). 320 = mean of guide 315 and clear-sector middle 325 (reachable water at 5.5 km, 355, is spread over several arms and was not used).", "recheck": {"seaward2km": "24/24 non-null hours at [58.237, -6.99], answered from a grid cell 3.7 km away", "appMarine9km": "24/24 non-null hours at [58.287, -7.07], answered from a grid cell 1.7 km away"}}
    },
    "wind": {
     "sid": "EGPO",
@@ -82045,7 +82049,7 @@
    "region": "Devon (North)",
    "lat": 51.07,
    "lon": -4.21,
-   "seaward": 209.7,
+   "seaward": 270,
    "waveBuoy": [
     {
      "id": "WN-223",
@@ -82088,14 +82092,16 @@
       -4.21
      ],
      "seaward2km": [
-      51.054,
-      -4.224
+      51.07,
+      -4.239
      ],
      "appMarine9km": [
-      51.001,
-      -4.273
+      51.07,
+      -4.343
      ]
-    }
+    },
+    "seawardFixed": {"from": 209.7, "to": 270, "reason": "OSM coastline (Overpass, base 2026-11-13T18:04Z): the stored 209.7 meets the coast at 0.7 km and its 2 km point (51.054, -4.224) is land. The pin is at the Taw-Torridge estuary mouth: land to north, east and south within 0.3 to 2.4 km; open water west (straight clear run 240 to 290, reachable open water 220 to 330). Surf-forecast guide: \"fairly exposed point break\", best swell direction from the west, offshore wind from the northeast (https://www.surf-forecast.com/breaks/Crow-Point). 270 = mean of guide swell west 270, clear-sector middle 265 and reachable-water 275. The guide wind direction (northeast) would imply 225, which meets the estuary shore at 0.8 km, so it was not used.", "recheck": {"seaward2km": "24/24 non-null hours at [51.07, -4.239], answered from a grid cell 10 km away", "appMarine9km": "24/24 non-null hours at [51.07, -4.343], answered from a grid cell 3.9 km away"}},
+    "shelterNote": "Pin is at the Taw-Torridge estuary mouth (OSM: land to N, E and S within 0.3 to 2.4 km), but the guide calls it a fairly exposed point break, so not flagged sheltered."
    },
    "wind": {
     "sid": "EGSY",
@@ -86422,7 +86428,7 @@
    "region": "Donegal",
    "lat": 54.793,
    "lon": -8.502,
-   "seaward": 0,
+   "seaward": 305,
    "waveBuoy": [
     {
      "id": "WN-BLKSTONEWN",
@@ -86462,14 +86468,16 @@
       -8.502
      ],
      "seaward2km": [
-      54.811,
-      -8.502
+      54.803,
+      -8.528
      ],
      "appMarine9km": [
-      54.873,
-      -8.502
+      54.841,
+      -8.621
      ]
-    }
+    },
+    "seawardFixed": {"from": 0, "to": 305, "reason": "OSM coastline (Overpass, base 2026-11-13T18:04Z): the stored 0 (north) meets the coast at 1.7 km and its 2 km point (54.811, -8.502) is land. Water open to the sea lies west to north-west (straight clear run 270 to 315, reachable open water 260 to 340 at 2 km). Surf-forecast guide for the neighbouring Loughros Beg (pin 0.45 km away; no guide exists under the Loughros More Bay name): \"fairly exposed beach break\", offshore wind from the southeast, ideal swell from the northwest (https://www.surf-forecast.com/breaks/Loughros-Beg). 305 = mean of guide 315, clear-sector middle 292 and reachable-water 303.", "recheck": {"seaward2km": "24/24 non-null hours at [54.803, -8.528], answered from a grid cell 8.1 km away", "appMarine9km": "24/24 non-null hours at [54.841, -8.621], answered from a grid cell 3.8 km away"}},
+    "shelterNote": "Pin is in an estuarine bay head (OSM: land within 0.3 to 3 km on every bearing except 270 to 315), but the neighbouring Loughros Beg guide says fairly exposed, so not flagged sheltered."
    },
    "wind": {
     "sid": "EIDL",
