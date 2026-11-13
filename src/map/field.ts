@@ -194,7 +194,7 @@ export type FrameState =
   | {state: 'ready'; key: string; validAt: string; source: string}
   | {state: 'failed'; key: string; error: string; heldValidAt: string | null};
 export const frameKey = (f: Pick<Field, 'layer' | 'validAt'>) => `${f.layer}|${f.validAt}`;
-export interface FieldController {update(fields: Field[], opts: FieldOpts & {onFrame?: (s: FrameState) => void}): void; clear(): void; dispose(): void; /** QA: how many field layers exist right now (2 during a crossfade). */ count(): number}
+export interface FieldController {update(fields: Field[], opts: FieldOpts & {onFrame?: (s: FrameState) => void}): void; clear(): void; dispose(): void; /** QA: how many field layers exist right now (2 during a crossfade). */ count(): number; /** sea-field (B8): the hours are being scrubbed; hold back work that only matters once an hour settles (the particles' flow grids) */ holdFlow?(): void}
 export function createFieldController(map: L.Map, fadeMs: number = mapConfig.crossfadeMs): FieldController {
   let layers: {dispose: () => void; heat: HTMLCanvasElement; flow: HTMLCanvasElement; timer?: number}[] = [], alive = true, ready: {key: string; validAt: string; source: string} | null = null;
   const setHeat = (on: boolean) => { try { map.getContainer().dataset.heat = on ? 'on' : 'off'; } catch { /* map removed */ } };

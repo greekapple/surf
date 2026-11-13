@@ -30,7 +30,8 @@ vec4 samp(highp sampler2D t, vec4 g, vec4 d, float lat, float lon, int nch, out 
   return o;
 }
 // The colour pass's copy of samp for the value alone, on the R32F value texture (an empty cell holds -1e30): the same kernel, a quarter of the memory traffic (map-smooth perf).
-float sampV(highp sampler2D t, vec4 g, vec4 d, float lat, float lon, out float ok, out float cov){
+// o = the uploaded crop of the grid (fieldCrop.ts): (first column, first row, width, height); width 0 = the whole grid. The index math stays over the full grid; only the texel address shifts.
+float sampV(highp sampler2D t, vec4 g, vec4 d, ivec4 o, float lat, float lon, out float ok, out float cov){
   ok = 0.0; cov = 0.0; float W = d.x, H = d.y; float latN = g.x + g.y * (H - 1.0), lonN = g.z + g.w * (W - 1.0);
   if (lat < g.x || lat > latN) return 0.0;
   bool wrap = d.z > 0.5;
@@ -39,6 +40,7 @@ float sampV(highp sampler2D t, vec4 g, vec4 d, float lat, float lon, out float o
   float ixf = wrap ? floor(gx) : min(W - 2.0, floor(gx)), iyf = min(H - 2.0, floor(gy)); float fx = gx - ixf, fy = gy - iyf;
   int Wi = int(W), Hi = int(H), ix = int(ixf), iy = int(iyf);
   ivec4 xs = ivec4(ix - 1, ix, ix + 1, ix + 2); xs = wrap ? ((xs % Wi) + Wi) % Wi : clamp(xs, 0, Wi - 1); ivec4 ys = clamp(ivec4(iy - 1, iy, iy + 1, iy + 2), 0, Hi - 1);
+  if (o.z > 0) { xs = min((xs - o.x + Wi) % Wi, o.z - 1); ys = clamp(ys - o.y, 0, o.w - 1); }
   vec4 r0 = vec4(texelFetch(t, ivec2(xs.x, ys.x), 0).r, texelFetch(t, ivec2(xs.y, ys.x), 0).r, texelFetch(t, ivec2(xs.z, ys.x), 0).r, texelFetch(t, ivec2(xs.w, ys.x), 0).r);
   vec4 r1 = vec4(texelFetch(t, ivec2(xs.x, ys.y), 0).r, texelFetch(t, ivec2(xs.y, ys.y), 0).r, texelFetch(t, ivec2(xs.z, ys.y), 0).r, texelFetch(t, ivec2(xs.w, ys.y), 0).r);
   vec4 r2 = vec4(texelFetch(t, ivec2(xs.x, ys.z), 0).r, texelFetch(t, ivec2(xs.y, ys.z), 0).r, texelFetch(t, ivec2(xs.z, ys.z), 0).r, texelFetch(t, ivec2(xs.w, ys.z), 0).r);
@@ -56,12 +58,12 @@ float sampV(highp sampler2D t, vec4 g, vec4 d, float lat, float lon, out float o
 float nestW(vec4 g, vec4 d, float lat, float lon){ float latN = g.x + g.y * (d.y - 1.0), lonN = g.z + g.w * (d.x - 1.0); float dd = min(min(lat - g.x, latN - lat), min(lon - g.z, lonN - lon)); float t = clamp(dd / d.w, 0.0, 1.0); return t * t * (3.0 - 2.0 * t); }
 // the shared sampler (fieldData.ts sampleAll): one grid, or a regional nest (t0, not wrapping) feathered into the global grid (t1), else the first grid with a value. Deep inside the nest (weight 1, value there) the global grid is not read.
 // sampleAll for the value alone (the colour pass): the same nest/global rule as below.
-float sampleAllV(highp sampler2D t0, highp sampler2D t1, vec4 g0, vec4 d0, vec4 g1, vec4 d1, int n, bool blend, float lat, float lon, out float ok){
-  float ok0, ok1, c0, c1; float s0 = sampV(t0, g0, d0, lat, lon, ok0, c0);
+float sampleAllV(highp sampler2D t0, highp sampler2D t1, vec4 g0, vec4 d0, ivec4 o0, vec4 g1, vec4 d1, ivec4 o1, int n, bool blend, float lat, float lon, out float ok){
+  float ok0, ok1, c0, c1; float s0 = sampV(t0, g0, d0, o0, lat, lon, ok0, c0);
   if (n < 2) { ok = ok0; g_cov = c0; return s0; }
   float w = blend ? nestW(g0, d0, lat, lon) : 1.0;
   if (ok0 > 0.5 && (!blend || w >= 1.0)) { ok = 1.0; g_cov = c0; return s0; }
-  float s1 = sampV(t1, g1, d1, lat, lon, ok1, c1);
+  float s1 = sampV(t1, g1, d1, o1, lat, lon, ok1, c1);
   if (ok0 < 0.5) { ok = ok1; g_cov = c1; return s1; }
   if (ok1 < 0.5 || !blend) { ok = 1.0; g_cov = c0; return s0; }
   ok = 1.0; g_cov = mix(c1, c0, w); return s1 + (s0 - s1) * w;

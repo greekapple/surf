@@ -17,6 +17,7 @@ import type {FieldController, FieldOpts, FrameState} from '../field.ts';
 import {frameKey} from '../field.ts';
 import {FIELD_SLOT_ID, palette} from './style.ts';
 import {SAMPLER_GLSL, ENC_GLSL, makeProgram, SPARE_UNIT} from './glCommon.ts';
+import {cropFor, covers, cropValues, type Crop, type ViewBox} from '../fieldCrop.ts';
 import {sampleAll as sampleAllFields, isRealCell} from '../fieldData.ts';
 import {createParticles, type Particles} from './glParticles.ts';
 
@@ -31,7 +32,7 @@ const FS = `#version 300 es
 precision highp float; precision highp int; precision highp sampler2D;
 uniform sampler2D u_fb, u_enc, u_c0, u_c1, u_p0, u_p1, u_lutC, u_lutP, u_cache; uniform int u_mode; // mode 0 = draw, 1 = write the colour cache, 2 = composite from the cache
 uniform vec3 u_land, u_sea; uniform vec2 u_px;
-uniform vec4 u_cg0, u_cd0, u_cg1, u_cd1, u_pg0, u_pd0, u_pg1, u_pd1; uniform ivec2 u_n; uniform ivec2 u_blend; uniform vec4 u_lohi; // lohi = (loC, hiC, loP, hiP)
+uniform vec4 u_cg0, u_cd0, u_cg1, u_cd1, u_pg0, u_pd0, u_pg1, u_pd1; uniform ivec4 u_co0, u_co1, u_po0, u_po1; uniform ivec2 u_n; uniform ivec2 u_blend; uniform vec4 u_lohi; // lohi = (loC, hiC, loP, hiP)
 uniform vec4 u_encGeo; uniform vec2 u_encDim; uniform float u_mix; uniform vec2 u_has; // has = (cur frame, prev frame)
 in vec2 v_merc; out vec4 o;
 ${SAMPLER_GLSL}
@@ -48,8 +49,8 @@ void main(){
     if (u_mode == 0 && w < 0.004) discard;   // (the cache is written everywhere: a tile that loads later may turn land into sea)
     vec3 cC = u_sea, cP = u_sea;
     if (encl < 0.999) {
-      if (u_has.x > 0.5) { float okc, s = sampleAllV(u_c0, u_c1, u_cg0, u_cd0, u_cg1, u_cd1, u_n.x, u_blend.x > 0, lat, lon, okc); if (okc > 0.5) cC = mix(u_sea, lut(u_lutC, s, u_lohi.x, u_lohi.y), smoothstep(0.35, 0.85, g_cov)); }
-      if (u_has.y > 0.5 && u_mix < 0.999) { float okp, s = sampleAllV(u_p0, u_p1, u_pg0, u_pd0, u_pg1, u_pd1, u_n.y, u_blend.y > 0, lat, lon, okp); if (okp > 0.5) cP = mix(u_sea, lut(u_lutP, s, u_lohi.z, u_lohi.w), smoothstep(0.35, 0.85, g_cov)); }
+      if (u_has.x > 0.5) { float okc, s = sampleAllV(u_c0, u_c1, u_cg0, u_cd0, u_co0, u_cg1, u_cd1, u_co1, u_n.x, u_blend.x > 0, lat, lon, okc); if (okc > 0.5) cC = mix(u_sea, lut(u_lutC, s, u_lohi.x, u_lohi.y), smoothstep(0.35, 0.85, g_cov)); }
+      if (u_has.y > 0.5 && u_mix < 0.999) { float okp, s = sampleAllV(u_p0, u_p1, u_pg0, u_pd0, u_po0, u_pg1, u_pd1, u_po1, u_n.y, u_blend.y > 0, lat, lon, okp); if (okp > 0.5) cP = mix(u_sea, lut(u_lutP, s, u_lohi.z, u_lohi.w), smoothstep(0.35, 0.85, g_cov)); }
       cC = mix(cC, u_sea, encl); cP = mix(cP, u_sea, encl);
     }
     col = mix(cP, cC, u_mix);
@@ -58,26 +59,46 @@ void main(){
   o = vec4(w * col + w * (1.0 - w) * (u_land - u_sea), w); // see the header: exactly fb - w*sea + w*colour (land is lighter than sea in both themes, so this is never negative)
 }`;
 
-/** One frame on the GPU: up to two grids (regional nest + global), each an RGBA32F texture (val, u, v, flags), plus the layer's ramp. */
-export interface GLFrame {textures: WebGLTexture[]; /** the value alone (R32F, empty = -1e30), for the colour pass */ vals: WebGLTexture[]; geo: [number, number, number, number][]; dim: [number, number, number, number][]; blend: boolean; n: number; lut: WebGLTexture; lo: number; hi: number; layer: string; validAt: string; source: string; key: string; fields: Field[]; scaleKey: string | null}
-function frameFrom(gl: WebGL2RenderingContext, fields: Field[], theme: Theme): GLFrame {
-  const textures: WebGLTexture[] = [], vals: WebGLTexture[] = [], geo: GLFrame['geo'] = [], dim: GLFrame['dim'] = [];
+/** One frame on the GPU: up to two grids (regional nest + global), each a value texture (R32F) for the colour and, once settled, an RGBA32F flow texture (val, u, v, flags) for the particles, plus the layer's ramp. */
+export interface GLFrame {/** the packed flow grids (RGBA32F: val, u, v, flags), for the particles only; empty until the hour has settled (flowTextures) */ textures: WebGLTexture[]; /** when the flow grids may be uploaded (performance.now() ms) */ flowAt: number; /** the value alone (R32F, empty = -1e30), for the colour pass: the part of each grid the view needs (uploaded in render, see fieldCrop.ts) */ vals: WebGLTexture[]; crops: Crop[]; geo: [number, number, number, number][]; dim: [number, number, number, number][]; blend: boolean; n: number; lut: WebGLTexture; lo: number; hi: number; layer: string; validAt: string; source: string; key: string; fields: Field[]; scaleKey: string | null}
+/** sea-field (B8): the colour pass reads only the 4 MB value texture; the 16 MB flow texture feeds the particles, which restart on every new hour anyway. While the hours are being scrubbed it is not uploaded
+ *  for every step: only once an hour has stayed on screen this long. The colours never wait. */
+const FLOW_SETTLE_MS = 1000;
+function frameFrom(gl: WebGL2RenderingContext, fields: Field[], theme: Theme, flowNow = false): GLFrame {
+  const geo: GLFrame['geo'] = [], dim: GLFrame['dim'] = [];
   for (const f of fields.slice(0, 2)) {
-    const W = f.lons.length, H = f.lats.length, buf = new Float32Array(W * H * 4);
-    // Every value cell is painted, the two-cell coastal fill included (map-smooth): the fill runs under the land, and only sea pixels are repainted, so the colour reaches the shoreline instead of stopping short of it in grid squares.
-    for (let k = 0; k < W * H; k++) { const v = f.val[k], u = f.u[k], w = f.v[k]; buf[k * 4] = Number.isNaN(v) ? 0 : v; buf[k * 4 + 1] = Number.isNaN(u) ? 0 : u; buf[k * 4 + 2] = Number.isNaN(w) ? 0 : w; buf[k * 4 + 3] = (Number.isNaN(v) ? 0 : 1) | (Number.isNaN(u) ? 0 : 2) | (Number.isNaN(w) ? 0 : 4) | (f.real[k] ? 8 : 0); }
-    const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA32F, W, H, 0, gl.RGBA, gl.FLOAT, buf);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    const vb = new Float32Array(W * H); for (let k = 0; k < W * H; k++) vb[k] = Number.isNaN(f.val[k]) ? -1e30 : f.val[k];
-    const vt = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, vt); gl.texImage2D(gl.TEXTURE_2D, 0, gl.R32F, W, H, 0, gl.RED, gl.FLOAT, vb);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-    vals.push(vt);
-    textures.push(t); geo.push([f.lats[0], (f.lats[H - 1] - f.lats[0]) / (H - 1), f.lons[0], (f.lons[W - 1] - f.lons[0]) / (W - 1)]); dim.push([W, H, f.wrap ? 1 : 0, mapConfig.fill.nestFeatherDeg]);
+    const W = f.lons.length, H = f.lats.length;
+    geo.push([f.lats[0], (f.lats[H - 1] - f.lats[0]) / (H - 1), f.lons[0], (f.lons[W - 1] - f.lons[0]) / (W - 1)]); dim.push([W, H, f.wrap ? 1 : 0, mapConfig.fill.nestFeatherDeg]);
   }
   const f0 = fields[0], key = scaleKeyOf(f0.layer), lut = gl.createTexture()!;
   gl.bindTexture(gl.TEXTURE_2D, lut); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1); gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB8, LUT_STEPS, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, key ? colorLut(key, theme) : new Uint8Array(LUT_STEPS * 3)); gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4);
   gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  return {textures, vals, geo, dim, blend: fields.length > 1 && !f0.wrap, n: textures.length, lut, lo: key ? breakpointsNative(key)[0] : 0, hi: key ? nativeMax(key) : 1, layer: f0.layer, validAt: f0.validAt, source: f0.source, key: frameKey(f0), fields, scaleKey: key};
+  return {textures: [], flowAt: performance.now() + (flowNow ? 0 : FLOW_SETTLE_MS), vals: [], crops: [], geo, dim, blend: fields.length > 1 && !f0.wrap, n: geo.length, lut, lo: key ? breakpointsNative(key)[0] : 0, hi: key ? nativeMax(key) : 1, layer: f0.layer, validAt: f0.validAt, source: f0.source, key: frameKey(f0), fields, scaleKey: key};
+}
+/** The value textures of a frame, cropped to what this view reads (every grid cell the colour pass fetches, with a quarter of the view to spare on each side, so a small pan needs no upload).
+ *  Re-cropped only when the view leaves the crop. Every cell value uploaded is the field's own, so the colours are the same as with the whole grid. The caller has made a spare texture unit active. */
+function valueTextures(gl: WebGL2RenderingContext, fr: GLFrame, view: ViewBox): void {
+  fr.fields.slice(0, 2).forEach((f, i) => {
+    const [lat0, dlat, lon0, dlon] = fr.geo[i], [W, H] = fr.dim[i], geo = {lat0, dlat, lon0, dlon, W, H, wrap: f.wrap};
+    if (fr.vals[i] && covers(fr.crops[i], cropFor(geo, view, 0), W)) return;
+    const c = cropFor(geo, view, 0.25); if (fr.vals[i]) gl.deleteTexture(fr.vals[i]);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); fr.vals[i] = gridTexture(gl, 'r', c.cw || W, c.ch || H, cropValues(f.val, W, H, c)); fr.crops[i] = c;
+  });
+}
+/** The flow grids of a frame (val, u, v and the flags), uploaded on first use. The caller has made a spare texture unit active. */
+function flowTextures(gl: WebGL2RenderingContext, fr: GLFrame): void {
+  if (fr.textures.length) return;
+  for (const f of fr.fields.slice(0, 2)) {
+    const W = f.lons.length, H = f.lats.length, buf = new Float32Array(W * H * 4);
+    for (let k = 0; k < W * H; k++) { const v = f.val[k], u = f.u[k], w = f.v[k]; buf[k * 4] = Number.isNaN(v) ? 0 : v; buf[k * 4 + 1] = Number.isNaN(u) ? 0 : u; buf[k * 4 + 2] = Number.isNaN(w) ? 0 : w; buf[k * 4 + 3] = (Number.isNaN(v) ? 0 : 1) | (Number.isNaN(u) ? 0 : 2) | (Number.isNaN(w) ? 0 : 4) | (f.real[k] ? 8 : 0); }
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 4); fr.textures.push(gridTexture(gl, 'rgba', W, H, buf));
+  }
+}
+type Fmt = 'rgba' | 'r';
+function gridTexture(gl: WebGL2RenderingContext, fmt: Fmt, W: number, H: number, data: Float32Array): WebGLTexture {
+  const t = gl.createTexture()!; gl.bindTexture(gl.TEXTURE_2D, t); gl.texImage2D(gl.TEXTURE_2D, 0, fmt === 'rgba' ? gl.RGBA32F : gl.R32F, W, H, 0, fmt === 'rgba' ? gl.RGBA : gl.RED, gl.FLOAT, data);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE); gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  return t;
 }
 const freeFrame = (gl: WebGL2RenderingContext, f: GLFrame | null) => { if (!f) return; f.textures.forEach((t) => gl.deleteTexture(t)); f.vals.forEach((t) => gl.deleteTexture(t)); gl.deleteTexture(f.lut); };
 
@@ -103,10 +124,15 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
     this.particles = createParticles(gl, this);
   }
   onRemove(_m: maplibregl.Map, gl: WebGLRenderingContext | WebGL2RenderingContext) { const g = gl as WebGL2RenderingContext; freeFrame(g, this.cur); freeFrame(g, this.prev); this.particles?.dispose(); g.deleteProgram(this.prog); if (this.cache) { g.deleteTexture(this.cache.t); g.deleteFramebuffer(this.cache.f); this.cache = null; } }
-  setFrame(f: GLFrame | null) { freeFrame(this.gl, this.prev); this.prev = this.cur; this.cur = f; this.mix = 0; this.particles?.reset(); }
+  /** the particles restart on a new hour; their state upload waits until they next draw (sea-field: refilling it on every scrubbed hour stalled the GPU) */
+  private particlesStale = false;
+  setFrame(f: GLFrame | null) { freeFrame(this.gl, this.prev); this.prev = this.cur; this.cur = f; this.mix = 0; this.particlesStale = true; }
   render(gl0: WebGLRenderingContext | WebGL2RenderingContext, _args: maplibregl.CustomRenderMethodInput) {
     const gl = gl0 as WebGL2RenderingContext, cv = gl.canvas as HTMLCanvasElement, W = cv.width, H = cv.height;
-    const drawColour = this.heat && (this.cur || this.prev), drawParticles = this.flow && !this.reduced && this.cur && this.particles?.ok;
+    const drawColour = this.heat && (this.cur || this.prev); let drawParticles = this.flow && !this.reduced && this.cur && this.particles?.ok;
+    if (drawParticles && !this.cur!.textures.length) { // sea-field: the flow grids wait until the hour has settled (FLOW_SETTLE_MS)
+      if (performance.now() >= this.cur!.flowAt) { gl.activeTexture(gl.TEXTURE0 + SPARE_UNIT); flowTextures(gl, this.cur!); gl.activeTexture(gl.TEXTURE0); } else { drawParticles = false; this.map.triggerRepaint(); }
+    }
     if (!drawColour && !drawParticles && !(this.arrows && this.cur)) { this.onRendered?.(); this.onRendered = null; return; }
     const pal = palette(this.theme(), true), land = hex(pal.land), sea = hex(pal.sea);
     const prevViewport = gl.getParameter(gl.VIEWPORT) as Int32Array, prevFbo = gl.getParameter(gl.FRAMEBUFFER_BINDING) as WebGLFramebuffer | null;
@@ -121,6 +147,9 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
       gl.useProgram(this.prog); gl.bindVertexArray(this.vao); gl.bindBuffer(gl.ARRAY_BUFFER, this.quad); gl.bufferData(gl.ARRAY_BUFFER, verts, gl.STREAM_DRAW);
       const ac = gl.getAttribLocation(this.prog, 'a_clip'), am = gl.getAttribLocation(this.prog, 'a_merc'); gl.enableVertexAttribArray(ac); gl.vertexAttribPointer(ac, 2, gl.FLOAT, false, 16, 0); gl.enableVertexAttribArray(am); gl.vertexAttribPointer(am, 2, gl.FLOAT, false, 16, 8);
       const U = (n: string) => gl.getUniformLocation(this.prog, n), cur = this.cur, prev = this.prev;
+      { const lonOf = (x: number) => x * 360 - 180, latOf = (y: number) => (Math.atan(Math.sinh(Math.PI * (1 - 2 * y))) * 180) / Math.PI;
+        const view: ViewBox = {lonW: lonOf(Math.min(tl[0], bl[0])), lonE: lonOf(Math.max(tr[0], br[0])), latS: latOf(Math.max(bl[1], br[1])), latN: latOf(Math.min(tl[1], tr[1]))};
+        gl.activeTexture(gl.TEXTURE0 + SPARE_UNIT); for (const fr of [cur, prev]) if (fr) valueTextures(gl, fr, view); }
       const bind = (unit: number, tex: WebGLTexture | null, name: string) => { gl.activeTexture(gl.TEXTURE0 + unit); gl.bindTexture(gl.TEXTURE_2D, tex ?? this.dummy); gl.uniform1i(U(name), unit); };
       bind(0, this.fb, 'u_fb'); bind(1, this.enc, 'u_enc');
       bind(2, cur?.vals[0] ?? null, 'u_c0'); bind(3, cur?.vals[1] ?? cur?.vals[0] ?? null, 'u_c1'); bind(4, cur?.lut ?? null, 'u_lutC');
@@ -128,6 +157,8 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
       const g4 = (n: string, v: number[] | undefined) => gl.uniform4f(U(n), ...((v ?? [0, 1, 0, 1]) as [number, number, number, number]));
       g4('u_cg0', cur?.geo[0]); g4('u_cd0', cur?.dim[0]); g4('u_cg1', cur?.geo[1] ?? cur?.geo[0]); g4('u_cd1', cur?.dim[1] ?? cur?.dim[0]);
       g4('u_pg0', prev?.geo[0]); g4('u_pd0', prev?.dim[0]); g4('u_pg1', prev?.geo[1] ?? prev?.geo[0]); g4('u_pd1', prev?.dim[1] ?? prev?.dim[0]);
+      const o4 = (n: string, c: Crop | undefined) => gl.uniform4i(U(n), c?.c0 ?? 0, c?.r0 ?? 0, c?.cw ?? 0, c?.ch ?? 0);
+      o4('u_co0', cur?.crops[0]); o4('u_co1', cur?.crops[1] ?? cur?.crops[0]); o4('u_po0', prev?.crops[0]); o4('u_po1', prev?.crops[1] ?? prev?.crops[0]);
       gl.uniform2i(U('u_n'), cur?.n ?? 1, prev?.n ?? 1); gl.uniform2i(U('u_blend'), cur?.blend ? 1 : 0, prev?.blend ? 1 : 0);
       gl.uniform4f(U('u_lohi'), cur?.lo ?? 0, cur?.hi ?? 1, prev?.lo ?? 0, prev?.hi ?? 1); gl.uniform3f(U('u_land'), ...land); gl.uniform3f(U('u_sea'), ...sea); gl.uniform2f(U('u_px'), W, H);
       gl.uniform4f(U('u_encGeo'), this.encGeo[0], this.encGeo[1], this.encGeo[2], this.encGeo[3]); gl.uniform2f(U('u_encDim'), this.encGeo[4], this.encGeo[5]);
@@ -150,6 +181,7 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
       if (cur && !firstMarked) { firstMarked = true; try { performance.mark('swello:field-first-draw'); } catch { /* no performance API */ } } // first-paint timing (t143)
     }
     if (drawParticles) { this.map.triggerRepaint(); }
+    if (drawParticles && this.particlesStale) { this.particlesStale = false; gl.activeTexture(gl.TEXTURE0 + SPARE_UNIT); this.particles!.reset(); }
     if (drawParticles) this.particles!.draw(gl, {enc: this.enc, encGeo: this.encGeo, fb: this.fb, land, sea, verts, fbW: W, fbH: H, prevFbo, prevViewport, zoom: this.map.getZoom(), cssW: w, cssH: h, opacity: this.mix, wind: this.cur!.layer === 'WIND'});
     if (this.arrows && this.cur) this.drawArrows(gl, w, h, cv);
     gl.viewport(prevViewport[0], prevViewport[1], prevViewport[2], prevViewport[3]); gl.bindFramebuffer(gl.FRAMEBUFFER, prevFbo); gl.activeTexture(gl.TEXTURE0); gl.blendEquation(gl.FUNC_ADD);
@@ -179,7 +211,7 @@ class FieldLayer implements maplibregl.CustomLayerInterface {
 
 let firstMarked = false;
 export function createGLFieldController(map: maplibregl.Map, el: HTMLElement): GLFieldController {
-  let theme: Theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', alive = true, layer: FieldLayer | null = null, anim = 0, ready: Omit<Extract<FrameState, {state: 'ready'}>, 'state'> | null = null;
+  let theme: Theme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light', lastUpdate = -Infinity, held = -Infinity, alive = true, layer: FieldLayer | null = null, anim = 0, ready: Omit<Extract<FrameState, {state: 'ready'}>, 'state'> | null = null;
   const setHeat = (on: boolean) => { try { el.dataset.heat = on ? 'on' : 'off'; } catch { /* removed */ } };
   const ensure = () => { if (layer) return layer; layer = new FieldLayer(() => theme, el); const add = () => { if (!alive || !layer) return; try { map.addLayer(layer, map.getLayer(FIELD_SLOT_ID) ? FIELD_SLOT_ID : undefined); } catch { /* style not ready */ } }; if (map.getLayer(FIELD_SLOT_ID)) add(); else map.once('style.load', add); return layer; };
   const animate = (ms: number) => { cancelAnimationFrame(anim); const t0 = performance.now(), step = (t: number) => { if (!alive || !layer) return; const k = ms <= 0 ? 1 : Math.min(1, (t - t0) / ms); layer.mix = k; map.triggerRepaint(); if (k < 1) anim = requestAnimationFrame(step); else { freeFrame((layer as unknown as {gl: WebGL2RenderingContext}).gl, layer.prev); layer.prev = null; } }; anim = requestAnimationFrame(step); };
@@ -190,17 +222,19 @@ export function createGLFieldController(map: maplibregl.Map, el: HTMLElement): G
       const apply = () => {
         const g = gl(); if (!g) { map.once('render', apply); return; }
         setHeat(opts.heat); l.heat = opts.heat; l.flow = opts.flow; l.arrows = opts.arrows; l.arrowKey = ''; l.reduced = opts.reducedMotion;
-        const fr = frameFrom(g, fields, theme), first = !l.cur && !l.prev; l.setFrame(fr);
+        const first = !l.cur && !l.prev, now = performance.now(), rapid = now - lastUpdate < 2 * mapConfig.crossfadeMs; lastUpdate = now; // the first picture gets its flow at once
+        const fr = frameFrom(g, fields, theme, first && now - held > FLOW_SETTLE_MS); l.setFrame(fr);
         ready = {key: fr.key, validAt: fr.validAt, source: fr.source};
         l.onRendered = () => { if (alive) opts.onFrame?.({state: 'ready', ...ready!}); };
-        animate(first ? 0 : mapConfig.crossfadeMs); map.triggerRepaint();
+        animate(first || rapid ? 0 : mapConfig.crossfadeMs); map.triggerRepaint(); // sea-field (B8): hours stepped faster than the cross-fade cut straight to the new hour (the fade would only redraw two frames per pixel for a picture already gone); the resting colour is the same
       };
       apply();
     },
     clear() { if (!layer) { setHeat(false); return; } setHeat(false); layer.heat = false; layer.flow = false; layer.arrows = false; layer.setFrame(null); layer.mix = 1; freeFrame((layer as unknown as {gl: WebGL2RenderingContext}).gl, layer.prev); layer.prev = null; map.triggerRepaint(); },
     dispose() { alive = false; cancelAnimationFrame(anim); if (layer && map.getLayer(layer.id)) map.removeLayer(layer.id); layer = null; },
     count: () => (layer ? (layer.cur ? 1 : 0) + (layer.prev ? 1 : 0) : 0),
-    setTheme(t: Theme) { theme = t; const l = layer; if (l?.cur) { const g = (l as unknown as {gl: WebGL2RenderingContext}).gl; const f = frameFrom(g, l.cur.fields, t); freeFrame(g, l.cur); l.cur = f; map.triggerRepaint(); } },
+    holdFlow() { const c = layer?.cur; if (c && !c.textures.length) c.flowAt = Math.max(c.flowAt, performance.now() + FLOW_SETTLE_MS); held = performance.now(); },
+    setTheme(t: Theme) { theme = t; const l = layer; if (l?.cur) { const g = (l as unknown as {gl: WebGL2RenderingContext}).gl; const f = frameFrom(g, l.cur.fields, t, true); freeFrame(g, l.cur); l.cur = f; map.triggerRepaint(); } },
   };
   return ctl;
 }

@@ -11,8 +11,8 @@ let dbP: Promise<IDBDatabase | null> | null = null;
 const open = (): Promise<IDBDatabase | null> => (dbP ??= new Promise((res) => {
   try {
     if (typeof indexedDB === 'undefined') return res(null);
-    const rq = indexedDB.open(DB_NAME, 1);
-    rq.onupgradeneeded = () => { const db = rq.result; if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, {keyPath: 'id'}).createIndex('field', ['group', 'field']); };
+    const rq = indexedDB.open(DB_NAME, 2); // v2 (sea-field): a savedAt index, so the trim walks keys instead of reading every stored frame back
+    rq.onupgradeneeded = () => { const db = rq.result, st = db.objectStoreNames.contains(STORE) ? rq.transaction!.objectStore(STORE) : db.createObjectStore(STORE, {keyPath: 'id'}); if (!st.indexNames.contains('field')) st.createIndex('field', ['group', 'field']); if (!st.indexNames.contains('savedAt')) st.createIndex('savedAt', 'savedAt'); };
     rq.onsuccess = () => res(rq.result); rq.onerror = () => res(null); rq.onblocked = () => res(null);
   } catch { res(null); }
 }));
@@ -21,17 +21,27 @@ const done = <T,>(rq: IDBRequest<T>): Promise<T | null> => new Promise((res) => 
 /** The field part of a spec (everything but its time): one cache lane per field/dataset. */
 export const fieldKeyOf = (spec: SpatialSpec): string => [spec.dataset, spec.scalar, spec.direction ?? '', spec.unit].join('|');
 
-/** Stores a frame under its own valid time (fire and forget) and trims the store to the newest KEEP rows. */
+/** sea-field (B8): writing a frame (structured clone of a ~10 MB grid) and the trim's read-back on every hour of a scrub cost ~15 ms per step on the main thread. Only the frame still on screen
+ *  once the hour has settled is written (the cache is only a first-paint picture, so the last settled frame is the one worth keeping). */
+const SAVE_SETTLE_MS = 2000;
+const pendingSave = new Map<FrameGroup, ReturnType<typeof setTimeout>>();
+/** Stores a frame under its own valid time (fire and forget, once the hour has settled) and trims the store to the newest KEEP rows. */
 export function saveFrame(group: FrameGroup, spec: SpatialSpec, frame: SpatialFrame): void {
   if (frame.cached) return; // never re-store a cached picture as if it were fresh
+  clearTimeout(pendingSave.get(group));
+  const idle = typeof window !== 'undefined' ? (window as unknown as {requestIdleCallback?: (cb: () => void, o?: {timeout: number}) => number}).requestIdleCallback : undefined;
+  pendingSave.set(group, setTimeout(() => { pendingSave.delete(group); if (idle) idle(() => writeFrame(group, spec, frame), {timeout: 10_000}); else writeFrame(group, spec, frame); }, SAVE_SETTLE_MS));
+}
+function writeFrame(group: FrameGroup, spec: SpatialSpec, frame: SpatialFrame): void {
   void open().then(async (db) => {
     if (!db) return;
     const field = fieldKeyOf(spec), validMs = Date.parse(frame.validAt); if (!Number.isFinite(validMs)) return;
     const row: Row = {id: `${group}|${field}|${validMs}`, group, field, validMs, savedAt: new Date().toISOString(), frame};
     try {
       const tx = db.transaction(STORE, 'readwrite'), st = tx.objectStore(STORE); st.put(row);
-      const all = await done(st.getAll()) as Row[] | null; // small store (a few MB at most); trim oldest-saved beyond KEEP
-      if (all && all.length > KEEP) for (const r of all.sort((a, b) => a.savedAt.localeCompare(b.savedAt)).slice(0, all.length - KEEP)) st.delete(r.id);
+      // trim the oldest-saved beyond KEEP, walking the savedAt index by key (reading every row back cost a ~100 MB deserialisation per write)
+      const n = await done(st.count()); let extra = (n ?? 0) - KEEP;
+      if (extra > 0) { const cur = st.index('savedAt').openKeyCursor(); cur.onsuccess = () => { const c = cur.result; if (!c || extra <= 0) return; st.delete(c.primaryKey); extra--; c.continue(); }; }
     } catch { /* quota or closed: skip */ }
   });
 }

@@ -11,49 +11,96 @@ export interface Field {/** swell height: an exact 0 = "no swell partition: wind
  *  (the offshore wave height, "Offshore Hs"). The colour ramp and the LUT key on the UNIT, never on this, so the classification only labels the point value. */
 export const layerOfFrame = (f: Pick<SpatialFrame, 'unit' | 'variable'>): FieldLayer => (f.unit === 'm/s' ? 'WIND' : f.unit === 's' ? 'PERIOD' : /^(shgt|sper|sdir)$|swell/i.test(f.variable) ? 'SWELL' : 'WAVES');
 export function buildField(frame: SpatialFrame, wind: boolean): Field | null {
-  let lats: number[], lons: number[], W: number, H: number, val: Float32Array, u: Float32Array, v: Float32Array;
+  let lats: number[], lons: number[], W: number, H: number, val: Float32Array, flow: () => [Float32Array, Float32Array];
   if (frame.grid) { // gridded frame (Stage 2a): typed arrays straight from the wire, latitude ascending
     const g = frame.grid; H = g.nlat; W = g.nlon; lats = Array.from({length: H}, (_, i) => g.lat0 + i * g.dlat); lons = Array.from({length: W}, (_, i) => g.lon0 + i * g.dlon);
-    val = Float32Array.from(g.val); u = new Float32Array(W * H).fill(NaN); v = new Float32Array(W * H).fill(NaN);
-    // calm air has no direction: zero flow, not a neighbour's
-    if (g.dir) for (let k = 0; k < W * H; k++) { const d = g.dir[k]; if (Number.isNaN(d)) { if (wind && !Number.isNaN(g.val[k])) { u[k] = 0; v[k] = 0; } continue; } const th = (d * Math.PI) / 180, mag = wind ? (Number.isNaN(g.val[k]) ? 0 : g.val[k]) : 1; u[k] = -Math.sin(th) * mag; v[k] = -Math.cos(th) * mag; }
+    val = new Float32Array(g.val);
+    flow = () => {
+      const n = g.nlat * g.nlon, u = new Float32Array(n).fill(NaN), v = new Float32Array(n).fill(NaN);
+      // calm air has no direction: zero flow, not a neighbour's
+      const dir = g.dir; // read once: a blended grid works its directions out on this first read (timeBlend.ts)
+      if (dir) for (let k = 0; k < n; k++) { const d = dir[k]; if (Number.isNaN(d)) { if (wind && !Number.isNaN(g.val[k])) { u[k] = 0; v[k] = 0; } continue; } const th = (d * Math.PI) / 180, mag = wind ? (Number.isNaN(g.val[k]) ? 0 : g.val[k]) : 1; u[k] = -Math.sin(th) * mag; v[k] = -Math.cos(th) * mag; }
+      return [u, v];
+    };
   } else {
-    lats = [...new Set(frame.cells.map((c) => c.lat))].sort((a, b) => a - b); lons = [...new Set(frame.cells.map((c) => c.lon))].sort((a, b) => a - b); W = lons.length; H = lats.length;
+    const la = [...new Set(frame.cells.map((c) => c.lat))].sort((a, b) => a - b), lo = [...new Set(frame.cells.map((c) => c.lon))].sort((a, b) => a - b); lats = la; lons = lo; W = lo.length; H = la.length;
     if (W < 2 || H < 2) return null;
-    val = new Float32Array(W * H).fill(NaN); u = new Float32Array(W * H).fill(NaN); v = new Float32Array(W * H).fill(NaN);
-    for (const c of frame.cells) {
-      const k = lats.indexOf(c.lat) * W + lons.indexOf(c.lon);
-      if (c.value !== null) val[k] = c.value;
-      if (c.direction !== null) {
+    const w = W; val = new Float32Array(W * H).fill(NaN);
+    for (const c of frame.cells) if (c.value !== null) val[la.indexOf(c.lat) * w + lo.indexOf(c.lon)] = c.value;
+    flow = () => {
+      const u = new Float32Array(la.length * w).fill(NaN), v = new Float32Array(la.length * w).fill(NaN);
+      for (const c of frame.cells) {
+        if (c.direction === null) continue;
         // Direction is "from"; particles travel toward direction + 180°.
-        const mag = wind ? c.speed ?? 0 : 1, th = (c.direction * Math.PI) / 180;
+        const k = la.indexOf(c.lat) * w + lo.indexOf(c.lon), mag = wind ? c.speed ?? 0 : 1, th = (c.direction * Math.PI) / 180;
         u[k] = -Math.sin(th) * mag; v[k] = -Math.cos(th) * mag;
       }
-    }
+      return [u, v];
+    };
   }
   if (W < 2 || H < 2) return null;
-  const real = Uint8Array.from(val, (x) => (Number.isNaN(x) ? 0 : 1));
-  let filled = 0;
-  for (const arr of [val, u, v]) {
-    for (let pass = 0; pass < mapConfig.fill.coastCells; pass++) { // capped: the fill reaches the shoreline, not the interior (Stage 2a)
-      const next = arr.slice(); let changed = 0;
-      for (let y = 0; y < H; y++) for (let x = 0; x < W; x++) {
-        const k = y * W + x; if (!Number.isNaN(arr[k])) continue;
-        let s = 0, n = 0;
-        for (const [dx, dy] of [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [-1, -1], [1, -1], [-1, 1]]) {
-          const xx = x + dx, yy = y + dy; if (xx < 0 || yy < 0 || xx >= W || yy >= H) continue;
-          const q = arr[yy * W + xx]; if (!Number.isNaN(q)) { s += q; n++; }
-        }
-        if (n) { next[k] = s / n; changed++; }
-      }
-      arr.set(next); if (arr === val) filled += changed;
-      if (!changed) break;
-    }
-  }
+  const real = new Uint8Array(W * H); for (let k = 0; k < W * H; k++) real[k] = val[k] === val[k] ? 1 : 0; // NaN is the only value not equal to itself
+  const filled = fillCoast(val, W, H, mapConfig.fill.coastCells);
   if (val.every((x) => Number.isNaN(x))) return null;
-  return {lats, lons, val, u, v, unit: frame.unit, noPartition: frame.noPartition, filled, real, wrap: frame.global ?? frame.resolution >= 2, layer: layerOfFrame(frame), validAt: frame.validAt, source: frame.provider}; // coarse frames are global and wrap at the date line
+  // sea-field (B8): the flow vectors (u, v) are worked out and coast-filled on first READ, not for every hour of a scrub: the colour needs only the value; the particles, the arrows and a
+  // tapped point's direction read them. Same arrays, same fill, same numbers, whenever they are read.
+  const fw = W, fh = H; let uv: [Float32Array, Float32Array] | null = null;
+  const flowFilled = () => { if (!uv) { const [u, v] = flow(); fillCoast(u, fw, fh, mapConfig.fill.coastCells); fillCoast(v, fw, fh, mapConfig.fill.coastCells); uv = [u, v]; } return uv; };
+  const field = {lats, lons, val, unit: frame.unit, noPartition: frame.noPartition, filled, real, wrap: frame.global ?? frame.resolution >= 2, layer: layerOfFrame(frame), validAt: frame.validAt, source: frame.provider} as Omit<Field, 'u' | 'v'>; // coarse frames are global and wrap at the date line
+  Object.defineProperties(field, {u: {get: () => flowFilled()[0], enumerable: true}, v: {get: () => flowFilled()[1], enumerable: true}});
+  return field as Field;
 }
 
+/** The capped coastal fill (Stage 2a), in place: each pass gives every empty cell the mean of its valid 8 neighbours from the PREVIOUS pass (neighbour order fixed, so the sums are bit-identical
+ *  to the original whole-grid loop), for at most `passes` passes or until nothing changes. Returns how many cells the passes filled.
+ *  sea-field (B8): WHICH cells fill, and from which neighbours, depends only on where the grid is empty, and that land mask is the same for every hour of a model. So the plan is worked out once per
+ *  mask and reused; each hour then only sums the listed neighbours (the mask is still compared cell by cell, so a different mask never reuses a wrong plan). */
+interface FillPlan {W: number; H: number; passes: number; empty: Uint8Array; steps: {cells: Int32Array; start: Int32Array; nb: Int32Array}[]}
+const plans: FillPlan[] = [], PLAN_KEEP = 4;
+const samePlan = (p: FillPlan, arr: Float32Array, W: number, H: number, passes: number) => {
+  if (p.W !== W || p.H !== H || p.passes !== passes) return false;
+  for (let k = 0; k < arr.length; k++) if ((p.empty[k] === 1) === (arr[k] === arr[k])) return false; // x !== x only for NaN
+  return true;
+};
+/** A new mask: fill directly (neighbours unrolled, in the fixed order) and record the plan in the same pass, so a miss costs about what the plain fill costs. */
+function fillAndPlan(arr: Float32Array, W: number, H: number, passes: number): {plan: FillPlan; total: number} {
+  const n = arr.length, empty = new Uint8Array(n); let todo = new Int32Array(n), nt = 0;
+  for (let k = 0; k < n; k++) if (arr[k] !== arr[k]) { empty[k] = 1; todo[nt++] = k; }
+  const steps: FillPlan['steps'] = []; let total = 0;
+  for (let pass = 0; pass < passes && nt; pass++) {
+    const cells = new Int32Array(nt), start = new Int32Array(nt + 1), nb = new Int32Array(nt * 8), vals = new Float64Array(nt); let nh = 0, nn = 0, nr = 0;
+    for (let i = 0; i < nt; i++) {
+      const k = todo[i], y = (k / W) | 0, x = k - y * W, s0 = nn; let s = 0, q = 0;
+      // NB order: (1,0) (-1,0) (0,1) (0,-1) (1,1) (-1,-1) (1,-1) (-1,1)
+      if (x + 1 < W) { q = arr[k + 1]; if (q === q) { s += q; nb[nn++] = k + 1; } }
+      if (x > 0) { q = arr[k - 1]; if (q === q) { s += q; nb[nn++] = k - 1; } }
+      if (y + 1 < H) { q = arr[k + W]; if (q === q) { s += q; nb[nn++] = k + W; } }
+      if (y > 0) { q = arr[k - W]; if (q === q) { s += q; nb[nn++] = k - W; } }
+      if (x + 1 < W && y + 1 < H) { q = arr[k + W + 1]; if (q === q) { s += q; nb[nn++] = k + W + 1; } }
+      if (x > 0 && y > 0) { q = arr[k - W - 1]; if (q === q) { s += q; nb[nn++] = k - W - 1; } }
+      if (x + 1 < W && y > 0) { q = arr[k - W + 1]; if (q === q) { s += q; nb[nn++] = k - W + 1; } }
+      if (x > 0 && y + 1 < H) { q = arr[k + W - 1]; if (q === q) { s += q; nb[nn++] = k + W - 1; } }
+      if (nn > s0) { cells[nh] = k; vals[nh] = s / (nn - s0); start[++nh] = nn; } else todo[nr++] = k;
+    }
+    if (!nh) break;
+    for (let i = 0; i < nh; i++) arr[cells[i]] = vals[i];
+    steps.push({cells: cells.slice(0, nh), start: start.slice(0, nh + 1), nb: nb.slice(0, nn)}); total += nh; nt = nr;
+  }
+  return {plan: {W, H, passes, empty, steps}, total};
+}
+export function fillCoast(arr: Float32Array, W: number, H: number, passes: number): number {
+  const i = plans.findIndex((p) => samePlan(p, arr, W, H, passes));
+  if (i < 0) { const {plan, total} = fillAndPlan(arr, W, H, passes); plans.unshift(plan); if (plans.length > PLAN_KEEP) plans.pop(); return total; }
+  const plan = plans[i]; if (i) { plans.splice(i, 1); plans.unshift(plan); }
+  let total = 0;
+  for (const {cells, start, nb} of plan.steps) {
+    const out = new Float64Array(cells.length);
+    for (let c = 0; c < cells.length; c++) { let s = 0; const a = start[c], b = start[c + 1]; for (let j = a; j < b; j++) s += arr[nb[j]]; out[c] = s / (b - a); }
+    for (let c = 0; c < cells.length; c++) arr[cells[c]] = out[c];
+    total += cells.length;
+  }
+  return total;
+}
 /** Catmull-Rom weights for the four samples at offsets -1, 0, 1, 2 around a cell, at fraction t of the cell (map-smooth). Interpolating (the value at a grid node IS the model value) and C1 (no creases on the grid lines). */
 export const catmullRom = (t: number): [number, number, number, number] => { const t2 = t * t, t3 = t2 * t; return [0.5 * (-t3 + 2 * t2 - t), 0.5 * (3 * t3 - 5 * t2 + 2), 0.5 * (-3 * t3 + 4 * t2 + t), 0.5 * (t3 - t2)]; };
 /** The ONE field kernel (map-smooth, 2026-11-06), shared with the GL shader (glCommon.ts `samp`): bicubic Catmull-Rom over the 4x4 cells around the point.

@@ -637,8 +637,10 @@ function OceanMap({section, go}: ViewProps) {
   // the zone filter applies BEFORE the limit of 20 (so a zone's spots are never cut by matches elsewhere); the zone lists are built once each (the matcher's index is per list)
   const zoneSpots = useMemo(() => (zone === 'All' || zone === 'In view' ? evidenceSpots : evidenceSpots.filter((e) => zoneOf(e.region) === zone)), [zone, evidenceSpots]);
   const hits = needle ? searchSpots(zoneSpots, q, {favorites: data.state.favorites, recents, limit: 20}) : [];
+  // sea-field (B8): the "in view" list rates and sorts every spot in view, so it is built only while the list is on screen (it was built, then not shown, on every hour of a scrub: ~1.8 s of 24 steps at z6)
+  const listShown = phone ? detent !== 'peek' : open;
   const list = byView
-    ? evidenceSpots.filter((e) => inView?.has(e.id)).map((e) => ({e, s: score(e.id), h: hiAt(e.id)}))
+    ? !listShown ? [] : evidenceSpots.filter((e) => inView?.has(e.id)).map((e) => ({e, s: score(e.id), h: hiAt(e.id)}))
       .sort((a, b) => (a.s === null ? 1 : 0) - (b.s === null ? 1 : 0) || (b.s ?? 0) - (a.s ?? 0) || b.h - a.h).map((x) => x.e)
     : needle ? hits.map((h) => SPOT_BY_ID.get(h.id)!)
     : [...evidenceSpots].filter((e) => zone === 'All' || zone === 'In view' || zoneOf(e.region) === zone)
@@ -747,7 +749,7 @@ function OceanMap({section, go}: ViewProps) {
     if (e.key === 'ArrowUp') { e.preventDefault(); setDetent(DETENTS[Math.min(2, DETENTS.indexOf(detent) + 1)]); }
     if (e.key === 'ArrowDown') { e.preventDefault(); setDetent(DETENTS[Math.max(0, DETENTS.indexOf(detent) - 1)]); }
   };
-  const showList = phone ? detent !== 'peek' : open;
+  const showList = listShown;
   useEffect(() => { const t = window.setTimeout(() => seenRef.current(), 320); return () => clearTimeout(t); }, [open, detent, sheetOn, phone]); // after the sheet's own transition
   const listBody = (
     <div className="xlist" aria-label="Spots">
@@ -935,7 +937,7 @@ function OceanMap({section, go}: ViewProps) {
       <div className="xbottom">
         {ms.showDark && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window{phone ? ms.darkExtras.map((t) => ` · ${t}`).join('') : ''}{phone && retryFn && <button type="button" className="xdark-retry" onClick={retryFn}>Retry</button>}</p>}
         {ms.showCacheChip && <p className="xdark xcache" role="status">{cacheNote[0].toUpperCase() + cacheNote.slice(1)}{cacheRetry && <button type="button" className="xdark-retry" onClick={cacheRetry}>Retry</button>}</p>}
-        <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { lastScrub.current = Date.now(); setPlaying(false); view.selectTime(times[i]); }}
+        <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { lastScrub.current = Date.now(); fieldCtl.current?.holdFlow?.(); setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {!phone && <DotKey unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} />}
