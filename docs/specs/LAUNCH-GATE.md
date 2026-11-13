@@ -5,7 +5,7 @@ The user, 2026-11-12: run the multi-agent ultra review before publishing anythin
 **Order:** (1) clear the dependencies → (2) work through the legal checklist → (3) the user runs `/code-review ultra` (user-triggered and billed; Claude can't start it) → (4) fix its findings → (5) publish.
 
 ## 1. Dependencies that must be gone first
-- **Open-Meteo:** the free API is non-commercial. Buy the commercial plan (the user's money decision) or replace it with NOAA sources.
+- ~~**Open-Meteo:** the free API is non-commercial.~~ **Done 2026-11-12:** Standard commercial plan bought; the key lives in the Worker secret `OPEN_METEO_KEY` (never in a file); `/api/health` shows `openMeteo.plan`.
 - **Licensed 3D assets:** the clean-room wave is now the default. Remove the TurboSquid-derived atlas and meshes from the public build (`public/media/scale3d-atlas`, `scale3d-live`), and anything else built from them (surfer.glb provenance included).
 - **Duck FRF:** private use only. Hide it from public builds.
 - **Data licences:** re-check every source on the Credits page for commercial use (CDIP, PacIOOS, NOAA, OSM/OpenFreeMap attribution, guide facts as cited facts only).
