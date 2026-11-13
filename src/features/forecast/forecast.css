@@ -835,3 +835,41 @@ p.sp-wn { display: block; }
   .sp > .sp-band.is-photo .credit a { position: relative; }
   .sp > .sp-band.is-photo .credit a::after { content: ''; position: absolute; left: -4px; right: -4px; top: -10px; bottom: -10px; }
 }
+
+/* cam-hero (user, 2026-11-13): a spot's header camera (HDOnTap snapshot, hdontapCams.ts `hero`) is the band's picture. The heading sits on the photo scrim as for a
+   photograph; the picture itself links to the camera on HDOnTap (the heading's empty space lets taps through); a slim dark caption under the picture carries the
+   camera's name and link, the honest "still picture … loaded by your browser" line and HDOnTap's attribution with its (white) logo. */
+.sp-band.is-hds { height: auto; display: flex; flex-direction: column; }
+.sp-band.is-hds > .photo { display: contents; }
+.sp-band.is-hds .sp-hero-a { position: absolute; inset: 0 0 auto; height: 220px; display: block; z-index: 0; }
+.sp-band.is-hds .sp-hero-a img { object-position: center 55%; }
+.sp-band.is-hds > .photo::after { content: none; }
+.sp-band.is-hds .sp-hero-a::after { content: ''; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgb(7 12 17 / 0.7) 0%, rgb(7 12 17 / 0.32) 50%, rgb(7 12 17 / 0.08) 100%), linear-gradient(0deg, rgb(7 12 17 / 0.62), transparent 55%); }
+.sp-band.is-hds .sp-band-in { flex: none; height: 220px; pointer-events: none; }
+.sp-band.is-hds .sp-band-in * { pointer-events: auto; }
+.sp-band.is-hds.is-photo .sp-hero-cap { order: 2; position: relative; inset: auto; z-index: 3; margin: 0; padding: 0 16px; background: rgb(7 12 17); color: rgb(255 255 255 / 0.85); font-size: 12px; line-height: 18px; text-shadow: none;
+  display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; min-height: 36px; max-width: none; white-space: normal; text-align: left; }
+.sp-band.is-hds.is-photo .sp-hero-cap a { color: #fff; display: inline-flex; align-items: center; min-height: 36px; min-width: 0; padding: 0; margin: 0; line-height: 18px; }
+.sp-hero-cap .hc-row { display: inline-flex; flex-wrap: wrap; align-items: center; column-gap: 4px; }
+.sp-hero-cap .hds-credit-in { display: inline-flex; align-items: center; gap: 6px; }
+.sp-hero-cap .hds-logo img { height: 14px; width: auto; display: block; opacity: 1; position: static; }
+.sp-hero-cap .hds-logo .hds-logo-l { display: none; } .sp-hero-cap .hds-logo .hds-logo-d { display: block; }
+@media (max-width: 860px) {
+  .sp-band.is-hds .sp-hero-a, .sp-band.is-hds .sp-band-in, .sp-band.is-hds.is-photo .sp-band-in { height: 212px; }
+  .sp-band.is-hds.is-photo .sp-hero-cap { display: block; padding: 6px 12px 2px 14px; }
+  .sp-band.is-hds.is-photo .sp-hero-cap .hc-row { display: flex; }
+  .sp-band.is-hds.is-photo .sp-hero-cap a { min-height: 36px; }
+  .sp-band.is-hds.is-photo .sp-hero-cap .hc-row .cr-sep { display: none; }
+  .sp-band.is-hds.is-photo .sp-hero-cap .hc-row + .hc-row { column-gap: 14px; }
+}
+
+/* cam-hero (2026-11-13): in the compact phone header (600 px and under) the Share button sits top right, where the drawing used to be, and the drawing's caption ran
+   into the time. The drawn wave and its caption get a row of their own under the name, star, Share and time: nothing overlaps, nothing is dropped. */
+@media (max-width: 600px) {
+  .sp > .sp-band.is-drawn { display: flex; flex-direction: column; background: linear-gradient(180deg, color-mix(in srgb, var(--hs-hi) 10%, var(--bg)), color-mix(in srgb, var(--hs-hi) 18%, var(--bg))); }
+  .sp > .sp-band.is-drawn .sp-band-in { order: 1; background: none; padding-bottom: 2px; }
+  .sp > .sp-band.is-drawn > .sp-drawn { order: 2; position: relative; inset: auto; background: none; display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; padding: 0 12px 6px 14px; }
+  .sp > .sp-band.is-drawn > .sp-drawn .wglyph { position: static; order: 2; translate: none; height: 48px; width: auto; max-width: 40%; flex: none; }
+  .sp > .sp-band.is-drawn > .sp-drawn .credit { position: static; order: 1; translate: none; white-space: normal; text-align: left; max-width: none; margin: 0; }
+  .sp > .sp-band.is-drawn .sp-title p { max-width: none; }
+}

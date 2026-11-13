@@ -28,6 +28,9 @@ export interface HdontapCam {
   neighbour?: string;
   /** the camera list says it shows only part of the break or the beach */
   partial?: boolean;
+  /** cam-hero (user, 2026-11-13: "on Venice, the cam replaces the little diagram at the top"): this camera's snapshot is the spot page's header band, the first thing on the page.
+   *  Opt-in per camera; at most one per spot (the first wins). The camera section lower down then leaves it out, so it never shows twice. */
+  hero?: true;
   /** the camera list's last status, when it said the stream was down: such a camera is not shown until it is checked again and this is cleared */
   status?: {word: 'down'; checked: string};
 }
@@ -44,7 +47,7 @@ export const HDONTAP_CAMS: readonly HdontapCam[] = [
   {stream: '190972', slug: 'malibu-point-live-surf-cam', name: 'Malibu Point', short: 'Point', spotId: 'cs-malibu', km: 0.2, snapshotUrl: null, linkUrl: null, owner: 'Swell Magnet'},
   {stream: '204757', slug: 'malibu-pier-live-webcam', name: 'Malibu Pier', short: 'Pier', spotId: 'cs-malibu', km: 0.3, snapshotUrl: null, linkUrl: null, owner: 'Swell Magnet'},
   {stream: '565350', slug: 'topanga-beach-surf-cam', name: 'Topanga Beach', short: 'Topanga', spotId: 'cs-topanga', km: 0.1, snapshotUrl: null, linkUrl: null, owner: null},
-  {stream: '322247', slug: 'venice-beach-roaming-live-surf-cam', name: 'Venice Roaming Surf Cam', short: 'Roaming', spotId: 'cs-venice-breakwater', km: 0.5,
+  {stream: '322247', slug: 'venice-beach-roaming-live-surf-cam', name: 'Venice Roaming Surf Cam', short: 'Roaming', spotId: 'cs-venice-breakwater', km: 0.5, hero: true,
     snapshotUrl: 'https://portal.hdontap.com/snapshot/venice_ptz_swellmagnet-SWELLO-REFERRAL?overlay=yes&position=ll&size=640x360&overlay_image=upload_46c1859aba858d1cb3d8ba7e97166bf9.png&padx=7&pady=7', linkUrl: null, owner: 'Swell Magnet'},
   {stream: '956353', slug: 'venice-beach-wide-view-live-webcam', name: 'Venice Wide View', short: 'Wide', spotId: 'cs-venice-breakwater', km: 0.5, snapshotUrl: null, linkUrl: null, owner: 'Swell Magnet'},
   {stream: '567567', slug: 'hermosa-beach-pier-north-live-webcam', name: 'Hermosa Pier North', short: 'Pier N', spotId: 'cs-hermosa', km: 0, snapshotUrl: null, linkUrl: null, owner: 'Swell Magnet'},
@@ -74,3 +77,7 @@ export const SNAPSHOT_REFRESH_MS = 60000;
 export const hasSnapshot = (url: string, spotId: string): boolean => { const m = /hdontap\.com\/stream\/(\d+)\//.exec(url); return !!m && snapshotCamsFor(spotId).some((c) => c.stream === m[1]); };
 /** "Swell Magnet camera via HDOnTap"; HDOnTap's own camera; or, when the list names nobody, "camera streamed on HDOnTap (owner not named)". */
 export const ownerWords = (c: HdontapCam) => (c.owner === 'HDOnTap' ? 'HDOnTap\'s own camera' : c.owner ? `${c.owner} camera via HDOnTap` : 'camera streamed on HDOnTap (owner not named)');
+/** cam-hero: the spot's header camera (a snapshot camera marked `hero`), or null: every other spot keeps its photo, drawn wave or plan. */
+export const heroCamFor = (spotId: string): HdontapCam | null => snapshotCamsFor(spotId).find((c) => c.hero) ?? null;
+/** The snapshot cameras the camera SECTION shows: all but the header's (one camera is never shown twice). */
+export const sectionCamsFor = (spotId: string): HdontapCam[] => snapshotCamsFor(spotId).filter((c) => !c.hero);

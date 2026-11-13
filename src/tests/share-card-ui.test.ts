@@ -8,7 +8,7 @@ test('the share button: PNG drawn ahead, files shared where canShare allows, els
   const sw = src('features/forecast/ShareWindow.tsx');
   assert.match(sw, /navigator\.canShare\(withFile\)/); assert.match(sw, /files: \[f\], title: card\.title, text: card\.text, url: card\.url/); assert.match(sw, /navigator\.share\(\{title: card\.title, text: card\.text, url: card\.url\}\)/);
   assert.match(sw, /clipboard\.writeText\(shareTextWithLink\(card\)\)/); assert.match(sw, /AbortError/); assert.match(sw, /role="status"/);
-  assert.match(src('features/forecast/ForecastView.tsx'), /share=\{shareCardFor\(/); assert.match(src('features/forecast/ForecastView.tsx'), /<ShareWindow card=\{nowCard\} className="sp-share" \/>/); assert.match(src('features/forecast/ForecastView.tsx'), /\{fallbackNow: true\}/);
+  assert.match(src('features/forecast/ForecastView.tsx'), /share=\{isNow \? null : shareCardFor\(/); /* cam-hero: at the current hour the header's Share sends this call, so the Call's own Share is for another hour */ assert.match(src('features/forecast/ForecastView.tsx'), /<ShareWindow card=\{nowCard\} className="sp-share" \/>/); assert.match(src('features/forecast/ForecastView.tsx'), /\{fallbackNow: true\}/);
   assert.match(src('features/home/HomeView.tsx'), /<ShareWindow card=\{planOf\(/);
 });
 test('the image uses the light-theme tokens', () => {

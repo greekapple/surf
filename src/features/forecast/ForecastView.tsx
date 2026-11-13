@@ -129,7 +129,7 @@ export function ForecastView({go}: ViewProps) {
   const meta = [spot.region, ...(spot.type ? [`${spot.type.toLowerCase()} break`] : []), !live ? 'demonstration week · not live' : hasEstimates ? 'heights are model estimates · ratings provisional' : hasOfficial ? 'surf height is the NWS forecast, not ours · ratings provisional' : 'offshore heights only · not surf size · ratings provisional'];
   return (
     <div className="sp">
-      <SpotBand spotId={spot.id} glyph={glyph} personIn={me.inches} unit={p.heightUnit} figure={figureOf(p)}>
+      <SpotBand spotId={spot.id} zone={timeZoneOf(spot)} glyph={glyph} personIn={me.inches} unit={p.heightUnit} figure={figureOf(p)}>
         <div className="sp-head">
           <div className="sp-title">
             {/* phone pass 1: on a phone the name is the spot selector (the separate picker row is gone): it opens the spot search */}
@@ -148,7 +148,7 @@ export function ForecastView({go}: ViewProps) {
       {shareNote && <p className="sp-sharenote" role="status">{shareNote}</p>}
       {/* forecast-order (user, 2026-11-12): the page runs in the order of a brief check: the Now block (the call and the key numbers), one NWS line, the week, today hour by hour, the camera, the charts; research sits below "More detail". Nothing is removed; every number shows once. */}
       <section className="sp-now" aria-label="Now">
-        <CallBar call={call} share={shareCardFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
+        <CallBar call={call} share={isNow ? null : shareCardFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />{/* cam-hero: at the current hour the header's Share already sends this call; the Call keeps its own Share for another hour */}
         <ConditionsGrid part="now" spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       </section>
       <NwsBanner spotId={spot.id} />
