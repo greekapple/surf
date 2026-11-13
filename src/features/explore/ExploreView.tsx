@@ -38,6 +38,7 @@ import {FindSpots} from './FindSpots';
 import {parseMapUrl, writeMapUrl} from './mapUrl';
 import {createEngine, engineKind, type DotIcon, type MapDot, type MapEngine, type MarkerHandle} from '../../map/engine';
 import {mapStatus} from './mapStatus';
+import {ahead, indexBySpot, near} from './recordIndex';
 import {DOT_ZOOM, dotFace, inkFor, swellFrom, type Band, type DotFace} from './dots';
 import {currentTheme} from '../../map/basemap';
 import {DayStrip, DotKey, DotKeyList, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
@@ -681,11 +682,13 @@ function OceanMap({section, go}: ViewProps) {
   const unitLabel = legend.unitLabel;
   const when = view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : 'this hour';
 
+  // list-index: the map records by spot, built once whenever they change (rangeAt and hoursFor read only their spot's records, not all of them)
+  const recBySpot = useMemo(() => indexBySpot(view.mapRecords), [view.mapRecords]);
   /** Offshore height range at a spot across the shared hour +/- 3 h (from the model records, not invented). */
   const rangeAt = (id: string) => {
     if (!view.selectedTime) return null;
     const t0 = Date.parse(view.selectedTime);
-    const hs = view.mapRecords.filter((r) => r.spotId === id && Math.abs(Date.parse(r.timestamp) - t0) <= 3 * 36e5).map((r) => Number(ht(r.offshore, p, 1)));
+    const hs = near(recBySpot.get(id), t0, 3).map((r) => Number(ht(r.offshore, p, 1)));
     if (!hs.length) return null;
     const lo = Math.floor(Math.min(...hs)), hi = Math.ceil(Math.max(...hs));
     return `${lo === hi ? lo : `${lo}–${hi}`} ${p.heightUnit} offshore`;
@@ -693,7 +696,7 @@ function OceanMap({section, go}: ViewProps) {
   // Track 2: the card's next-hours bars, from the shown hour: each record's surf estimate (offshore-only and missing hours are gaps) and its rating colour.
   const hoursFor = (id: string): HourBar[] => {
     const t0 = view.selectedTime ? Date.parse(view.selectedTime) : now, s = surfSpot(id);
-    const byT = new Map(view.mapRecords.filter((r) => r.spotId === id && Date.parse(r.timestamp) >= t0 && Date.parse(r.timestamp) < t0 + 12 * 36e5).map((r) => [Date.parse(r.timestamp), r]));
+    const byT = new Map(ahead(recBySpot.get(id), t0, 12).map((x) => [x.t, x.r]));
     if (!byT.size) return [];
     // Codex P2 (T-121): one slot per hour, so an hour with no record shows as a gap instead of the bars closing up.
     const h0 = Math.ceil(t0 / 36e5) * 36e5;
