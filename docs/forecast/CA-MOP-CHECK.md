@@ -100,7 +100,51 @@ Not compared (no NWS zone-day matched, ties or "or less" ranges, or fewer than 4
 - **Overall bias is low, not wild.** The median of spot medians is 0.68 (nearest-point rule), 0.69 (facing-match) and 0.85 (reviewed / T-130): our MOP-based number reads about a third below the NWS zone range. The same low bias shows for the spots that were already on the facing-match rule, so it is not specific to the new nearest-point rule.
 - **Where it is far off:** 32 of 190 compared spots are flagged. 28 are "too low"; 24 of them are in Santa Barbara (9), Los Angeles (7), Orange County (4) and Ventura (4), with one each in Marin, Mendocino, Monterey and San Diego: south-facing coast behind the Channel Islands, where a MOP point sees the sheltered nearshore wave and the NWS zone range is dominated by the exposed beaches of the zone. That is a plausible physical gap, not proof either number is wrong. 4 are "too high": Sand Dollar (Big Sur, 2.7x), Andrew Molera (Monterey, 2.0x), Crescent City (2.3x) and Shelter Cove (2.8x, a T-130 point), each flagged on most days.
 - **Nearest-point rule:** 57 of its 62 spots had a comparable NWS day; 9 are flagged, all too low (Big Rock, Cabrillo Point, Palm Point, Royal Palms, Campus Point, Hammond's, Haskell's, Leadbetter, Mesa Lane: all Santa Barbara / Los Angeles / Orange County). None is too high.
-- **Nearshore gauges (gauge-compare, `--mop`, 9 of 42 gauges copied so far):** mean ours minus gauge -0.53 ft over 1,035 gauge-hour x spot rows at 31 spots (gauge Hs 3.17 ft, ours 2.64 ft). By gauge: Leucadia -0.70, Scripps +0.16, Del Mar -1.36, Topanga -0.90, Capistrano -0.54, Avila Beach +1.46 ft. So the Southern California low bias is real against measured waves too, about 0.5 to 1.4 ft; Avila (San Luis Obispo) reads high. Rows share gauges and are not independent.
-- **Not changed:** no number, rule or threshold was changed. Suggested next steps for the lead: look first at the 4 "too high" spots for a closer look at their MOP point's normal and depth; decide whether a Southern California low bias of 0.5 to 1.4 ft warrants a calibration, with more days; rerun both scripts as captures accumulate (`pull-r2-captures`, then `srf-compare --mop`, `gauge-compare --mop`, `ca-mop-check`).
+- **Nearshore gauges (gauge-compare `--mop`, all California gauges now read).** The Worker captures only 9 of the 42 nearshore gauges nationwide (the 42 are US-wide: Atlantic, Gulf, Puerto Rico, Hawaii, Pacific). I fetched the NDBC realtime files (public, keyless, 45 days) for the 4 other California gauges (46215 Diablo Canyon, 46237 San Francisco Bar, 46256 Long Beach Channel, 46275 Red Beach), so every California gauge in the list now has readings; none of those 4 has a spot within 5 km, so they add no comparison rows. 29 of the 42 gauges still have no readings: they are outside California (the list's other stations are not on the California coast). The comparison therefore rests on 7 California gauges:
+
+| Region | Gauge | n (gauge-hour x spot) | gauge hours | spots | gauge Hs ft | ours ft | ours - gauge ft |
+|---|---|---|---|---|---|---|---|
+| South coast (Southern California Bight, behind the islands) | 46274 Leucadia (17 m) | 406 | 68 | 10 | 3.31 | 2.60 | -0.72 |
+| | 46266 Del Mar (17 m) | 214 | 71 | 6 | 3.63 | 2.27 | -1.36 |
+| | 46254 Scripps (41 m) | 263 | 71 | 5 | 2.83 | 2.98 | +0.16 |
+| | 46268 Topanga (20 m) | 69 | 23 | 3 | 2.37 | 1.47 | -0.90 |
+| | 46285 Capistrano Beach (11 m) | 51 | 30 | 2 | 2.87 | 2.33 | -0.54 |
+| | **All five** | **1,003** | | 26 | | | **-0.63 (weighted)** |
+| Exposed open coast | 46286 Avila Beach (15 m) | 46 | 23 | 2 | 3.37 | 4.82 | **+1.46** |
+
+So the sign differs by coast: the Bight reads 0.5 to 1.4 ft low against measured waves (except the 41 m Scripps gauge), while the one exposed open-coast gauge reads 1.5 ft high (the model's own offshore Hs there is 6.3 ft against the gauge's 3.4 ft). That matches the NWS check (south coast low, the exposed north and central coast spots high), and says one global calibration would be wrong. n counts gauge-hours times spots; the spots around one gauge share its readings, and the Avila figure rests on 23 gauge hours. Reference gauges outside California are not relevant here (Puerto Rico: 14 rows).
+- **Not changed:** no number, rule or threshold was changed. Suggested next steps for the lead: look first at the 4 "too high" spots for a closer look at their MOP point's normal and depth; decide whether a Southern California low bias of 0.5 to 1.4 ft warrants a calibration, with more days; rerun both scripts as captures accumulate (the Worker's gauge capture would need the other California stations added to `GAUGE_STATIONS` to build more than 7 gauges of history; a local NDBC fetch is the stopgap used here) (`pull-r2-captures`, then `srf-compare --mop`, `gauge-compare --mop`, `ca-mop-check`).
 
 Inputs outside the repo: `~/Development/swello-data/ca-mop-check/` (mop/, out/).
+
+
+## The 4 "too high" spots: is the point right? (follow-up)
+
+All candidate points within 2.5 km of each spot were read (15 m depth, 0.9 to 1.7 km out), and their forecast Hs for the next 3 days compared (`CDIP THREDDS`, same file the Worker ingests).
+
+| Spot | Assigned point | What the check shows | Verdict |
+|---|---|---|---|
+| Sand Dollar (Big Sur, faces W per guides) | MO111, 0.89 km, 15 m, normal 256° | The 6 nearby points read are the same output cell (same position 35.924, -121.478, identical Hs 13.8 ft mean). The NWS zone CAZ530 lists a **west** entry (Fri 8-12, Sat 17-22 ft) and a **south** entry (Fri 4-7, Sat 6-9). The comparison matched the **south** entry because it uses the `seaward` bearing in `src/data/coast.ts` (about 220°), not the guide's W facing (270°). Against the west entry our Fri 11.8 and Sat 22.7 ft mid-range are 1.2x NWS. | **Wrong comparison, point is fine.** No better point exists (same cell). |
+| Andrew Molera (faces SSW, 202.5°) | MO418, 1.08 km, 15 m, normal 207° | 4 of the 7 candidates share one cell (Hs 10.9 ft mean), MO421 reads 11.2, and the two farther ones 10.1 and 14.1 ft. Facing SSW, the NWS "south" entry (Fri 4-7, Sat 6-9) is the right one; the big W/NW swell (Dp about 243°, 17-22 ft west entry) hits the point at 15 m but the beach is turned away from it. Ours 9 and 19 ft mid. | **Real over-read: the point sees the open swell the SSW-facing beach is turned from.** No nearer or better candidate (all same cell or farther, 1.1 km). Suggest a "usually smaller than the point" caveat (as Cowell's and Bolinas have), not a different point. |
+| Crescent City (faces SSW, guide says sheltered) | DN194, 1.72 km, 15 m, normal 192° | Candidates DN193 to DN198 read 11.9 to 15.0 ft (DN194 12.5), none under 1.45 km. Ours 9.4, 11.8 and 14.7 ft against south-entry 3-5, 6-10 and 5-8. | **Point too exposed for a sheltered beach; no better point within 2.5 km.** Caveat as above. |
+| Shelter Cove (T-130 point HU029, no guide facing) | HU029, 0.85 km, normal 225° | HU028 to HU035 read 13.7 to 17.5 ft; HU029 14.3. NWS CAZ109: west 17-22 and south 5-8 on Sat. The cove faces south and is sheltered from the NW swell; the MOP point, 0.85 km out, cannot see that. Ours 12.7 (Fri) and 18.6 (Sat) ft. | **Point too exposed for the cove; no better point.** (Against the NWS *west* entry the numbers agree, 0.95 to 1.3x.) |
+
+**Proposal (not built):** add `smallerThanPoint` and a one-sentence caveat for Andrew Molera, Crescent City and Shelter Cove (the mechanism the T-131 caveats use; no number changes), and make the srf-compare facing match prefer the guide facing over the `seaward` column when a guide facing exists (that changes only the comparison, and would remove Sand Dollar from the flagged list).
+
+## The 9 nearest-rule spots flagged low: wrong comparison or too-sheltered point?
+
+For each spot the 8 nearest candidate points were read the same way. In all nine the neighbouring points (including more open ones, normals 187 to 213°) read within about 0.6 ft of the assigned point (1.3 to 2.9 ft mean), so **the choice of point is not what makes them low**. Every one of these zones' NWS entries is a single zone-wide range with no facing (CAZ350 2-6 ft, CAZ362/364 3-6 ft), while even the most exposed reviewed spots in CAZ350 sit at 0.53 of it (Rincon) and the zone median is 0.38.
+
+| Spot | Guide facing / exposure | Assigned point | Neighbours | Verdict |
+|---|---|---|---|---|
+| Hammond's (SB) | S, sheltered | B0170, 0.43 km, n174 | 1.4 to 1.9 ft | **Zone range is the wrong comparison** (zone-wide range vs a guide-sheltered spot); point fine |
+| Leadbetter (SB) | SSE, sheltered | B0231, 0.62 km, n161 | 1.2 to 1.3 ft | **Wrong comparison** (sheltered; 8 neighbouring points all at 1.3) |
+| Cabrillo Point (LA) | SE, sheltered | L0216, 0.35 km, n146 | 2.3 to 2.4 ft | **Wrong comparison** (San Pedro bay side, sheltered) |
+| Palm Point (LA) | SSW, sheltered | L0259, 0.43 km, n194 | 2.5 to 2.9 ft | **Wrong comparison** (sheltered); ratio 0.50 is at the edge of the flag |
+| Royal Palms (LA) | SSW, exposure not stated | L0256, 0.48 km, n211 | 2.5 to 2.7 ft | Neither: same as Palm Point next door; zone-wide range, ratio 0.50 |
+| Big Rock (LA) | S, not stated | L0833, 0.30 km, n155 | 2.3 to 2.5 ft | **Not a point problem**; zone median in CAZ362 is 0.47 for every spot. Consistent with the Bight's gauge low bias |
+| Haskell's (SB) | SSW, not stated, no window | B0459, 0.70 km, n210 | 2.2 to 2.4 ft | Not a point problem; same zone-wide pattern |
+| Mesa Lane (SB) | SSW, exposed | B0265, 0.39 km, n208 | 2.2 to 2.4 ft | **Not a point problem.** It is "exposed" and still reads 0.41 of the zone range: a systematic low (the Bight gauge bias), not sheltering |
+| Campus Point (SB) | SSE, exposed | B0382, 0.33 km, n138 | 1.6 to 2.3 ft (n207 points 2.2) | **Possibly the point**: the assigned normal faces 138° (into the bay), while the points 0.46 to 0.75 km away with normals 187 to 207° read 2.1 to 2.3 ft instead of 1.7. A 0.5 ft difference, too small to explain a 0.25 ratio; the zone-wide range is also the cause. |
+
+**Summary:** 4 of 9 are best explained by the wrong comparison (sheltered spots against a zone range for exposed beaches: Hammond's, Leadbetter, Cabrillo Point, Palm Point); 4 are neither a point problem nor a sheltering one but the same Southern California low that the gauges show (Big Rock, Haskell's, Mesa Lane, Royal Palms); Campus Point's point may be one of the shielded ones but a better one gains only 0.5 ft. Nothing was changed; no point looks wrong enough to move.
