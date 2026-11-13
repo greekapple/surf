@@ -127,3 +127,16 @@ test('ca-only-fix 6-9: Home asks nearIds with the gated list, saved spots that a
   assert.match(read('src/features/explore/FindSpots.tsx'), /No surf spot within 75 mi of you\. SWELLO covers California for now\./); assert.match(read('src/features/explore/FindSpots.tsx'), /Math\.min\(\.\.\.rows\.map\(\(r\) => r\.dist\)\) > 75/);
   const nf = read('src/ui/NotFound.tsx'); assert.match(nf, /is in a region that isn't open yet/); assert.doesNotMatch(nf, /opens later/);
 });
+
+// ca-scope: the load scope draws from the gated list, so a hidden spot is never requested even as a near neighbour of a California spot
+import {computeScope, nearIds} from '../ocean/spotScope.ts';
+test('ca-scope: with the gate, the scope of a California spot near the Oregon border holds no hidden spot; without it (the owner preview) it still can', () => {
+  const gated = visibleEvidence(null, false), all = visibleEvidence({previewRegions: true}, true), hidden = new Set(all.filter((s) => !isCaliforniaSpot(s)).map((s) => s.id));
+  const border = gated.find((s) => nearIds(s.id, all).some((id) => hidden.has(id)));
+  assert.ok(border, 'a California spot with a hidden spot within 100 km exists (the Oregon border)');
+  assert.ok(computeScope(border!.id, [], [], [], all).some((id) => hidden.has(id)), 'ungated scope includes a hidden neighbour');
+  assert.ok(!computeScope(border!.id, [], [], [], gated).some((id) => hidden.has(id)), 'gated scope has none');
+  assert.ok(!computeScope(gated[0].id, [[...hidden][0]].map(String), [], [], gated).some((id) => hidden.has(id)), 'a hidden favourite is not loaded either');
+  assert.match(read('src/app/store.tsx'), /useForecast\(\{[^}]*spots: gate\.evidence\}\)/, 'the store gives useForecast the gated list');
+  assert.match(read('src/hooks/useForecast.ts'), /computeScope\(selected,scopeInput\.favorites,scopeInput\.visible,scopeInput\.requested,scopeInput\.spots/);
+});

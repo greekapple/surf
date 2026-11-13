@@ -78,7 +78,9 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   const [visibleSpots, setVisibleSpots] = useState<string[]>([]), [requestedSpots, setRequestedSpots] = useState<string[]>([]);
   const [fillList, setFillList] = useState<string[]>([]);
   // the background list goes last in the scope (spotScope.ts computeScope `fill`, its own allowance SCOPE_FILL_MAX): everything else stays ahead of it
-  const view = useForecast({favorites: data.state.favorites, visible: visibleSpots, requested: requestedSpots, fill: fillList});
+  const profile = data.state.profile, preview = previewActive(profile);
+  const gate = useMemo(() => ({preview, evidence: visibleEvidence(profile), visible: (s: GateSpot) => visibleSpot(s, profile)}), [preview]); // eslint-disable-line react-hooks/exhaustive-deps
+  const view = useForecast({favorites: data.state.favorites, visible: visibleSpots, requested: requestedSpots, fill: fillList, spots: gate.evidence});   // ca-only: the load scope draws from the gated list only
   const fillSpots = useCallback((ids: string[]) => setFillList((old) => (old.length === ids.length && old.every((x, i) => x === ids[i]) ? old : ids)), []);
   const reportVisible = useCallback((ids: string[]) => setVisibleSpots((old) => (old.length === ids.length && old.every((x, i) => x === ids[i]) ? old : ids.slice(0, 60))), []);
   const requestSpots = useCallback((ids: string[]) => setRequestedSpots((old) => { const add = ids.filter((id) => !old.includes(id)); return add.length ? [...old, ...add].slice(-250) : old; }), []);
@@ -90,8 +92,6 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   }, [prefs]);
 
   const live = view.dataMode === 'Retrieved';
-  const profile = data.state.profile, preview = previewActive(profile);
-  const gate = useMemo(() => ({preview, evidence: visibleEvidence(profile), visible: (s: GateSpot) => visibleSpot(s, profile)}), [preview]); // eslint-disable-line react-hooks/exhaustive-deps
   const spotOptions = useMemo(() => (live ? gate.evidence.map((e) => allSpots.find((s) => s.id === e.id)!).filter(Boolean) : spots.filter(gate.visible)), [live, gate]);
 
   const [sharedT, setSharedT] = useState<string | null>(null), [shareNote, setShareNote] = useState('');
