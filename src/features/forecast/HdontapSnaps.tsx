@@ -55,18 +55,18 @@ export function HdontapSnaps({spotId, zone}: {spotId: string; zone: string}) {
   </section>;
 }
 
-/** cam-hero: the spot's header camera (hdontapCams.ts `hero`): HDOnTap's snapshot as the header band's picture, under the name, star, time, Map and Share.
+/** cam-hero: the spot's header camera (hdontapCams.ts `hero`): HDOnTap's snapshot as its own block directly under the spot's header row, with nothing on top of it.
  *  The same terms as the section: HDOnTap's URL with the per-minute cache-bust, loaded by the browser from HDOnTap (never proxied, cached or recorded), the attribution
  *  and logo link, the camera's own link, and an honest caption (a still picture, about every minute, when THIS browser loaded it). Refreshed about once a minute while on screen.
  *  It shows only once its first picture has loaded (`onReady`); a picture that fails, or has not arrived in SNAPSHOT_LOAD_TIMEOUT_MS, calls `onFail` and the band falls back to its drawn wave: never an empty box. */
 export function HdontapHero({cam, zone, hidden, onReady, onFail}: {cam: HdontapCam; zone: string; hidden: boolean; onReady: () => void; onFail: () => void}) {
-  const box = useRef<HTMLAnchorElement>(null), [loadedAt, setLoadedAt] = useState<number | null>(null), {now} = useSnapshotClock(box, true);   // watch the picture's link: the figure itself is display: contents in the band (no box to observe)
+  const box = useRef<HTMLAnchorElement>(null), [loadedAt, setLoadedAt] = useState<number | null>(null), {now} = useSnapshotClock(box, true);   // watch the picture's link
   useEffect(() => { if (loadedAt) return; const t = window.setTimeout(onFail, SNAPSHOT_LOAD_TIMEOUT_MS); return () => window.clearTimeout(t); }, [loadedAt, onFail]);
-  return <figure className="photo sp-hero-cam" hidden={hidden}>
+  return <figure className="sp-hero-cam" hidden={hidden}>
     <a className="sp-hero-a" ref={box} href={hdontapLink(cam)} target="_blank" rel="noopener noreferrer" tabIndex={-1} aria-hidden="true">
-      <img className="ready" src={snapshotSrc(cam.snapshotUrl!, now)} alt="" width={640} height={360} decoding="async" onLoad={() => { setLoadedAt(Date.now()); onReady(); }} onError={onFail} />
+      <img src={snapshotSrc(cam.snapshotUrl!, now)} alt="" width={640} height={360} decoding="async" onLoad={() => { setLoadedAt(Date.now()); onReady(); }} onError={onFail} />
     </a>
-    <figcaption className="credit sp-hero-cap">
+    <figcaption className="sp-hero-cap">
       <span className="hc-row">still picture · updates about every minute{loadedAt ? ` · loaded by your browser ${postedLabel(loadedAt, zone, loadedAt)}` : ''}</span>
       <span className="hc-row"><a href={hdontapLink(cam)} target="_blank" rel="noopener noreferrer" aria-label={`${cam.name}: open this camera on HDOnTap.com in a new tab`}>{cam.name} ↗</a><span className="cr-sep"> · </span><HdontapCredit /></span>
     </figcaption>

@@ -26,17 +26,21 @@ export function SpotBand({spotId, zone, glyph, personIn = 70, unit = 'ft', figur
   const heroReady = useCallback(() => setHeroState((s) => (s === 'off' ? s : 'on')), []), heroFail = useCallback(() => setHeroState('off'), []);
   const heroOn = !!hero && heroState === 'on';
   const m = camFailed ? {kind: SPOT_PHOTOS[spotId]?.length ? 'photo' as const : glyph ? 'drawn' as const : 'plan' as const} : spotMediaFor(spotId, {photo: !!SPOT_PHOTOS[spotId]?.length, drawn: !!glyph});
-  const photoLike = heroOn || m.kind === 'photo' || m.kind === 'cam';
+  const photoLike = !heroOn && (m.kind === 'photo' || m.kind === 'cam');
+  // cam-hero-2 (user, 2026-11-13: "it shouldn't be overlay"): with the camera on, the header is a plain row (page background, normal text, no scrim) and the picture is
+  // its own block directly under it, with nothing on top of it. Before it loads, and if it fails, the band is the usual drawn header.
   return (
-    <header className={`sp-band ${photoLike ? 'is-photo' : 'is-plan'}${!heroOn && m.kind === 'drawn' ? ' is-drawn' : ''}${heroOn ? ' is-hds' : ''}`}>
+    <>
+      <header className={`sp-band ${heroOn ? 'is-plain' : photoLike ? 'is-photo' : 'is-plan'}${!heroOn && m.kind === 'drawn' ? ' is-drawn' : ''}`}>
+        {heroOn ? null
+          : m.kind === 'cam' ? <figure className="photo sp-band-cam"><video src={m.cam.src} muted autoPlay playsInline loop onError={() => setCamFailed(true)} aria-label={`${m.cam.label}, live view`} /><figcaption className="credit">{m.cam.label}</figcaption></figure>
+          : m.kind === 'photo' ? <SpotPhoto spotId={spotId} className="sp-band-img" />
+          : m.kind === 'drawn' && glyph ? <figure className="sp-drawn"><WaveGlyph glyph={glyph} size="lg" personIn={personIn} unit={unit} figure={figure} /><figcaption className="credit">{DRAWN_CAPTION}</figcaption></figure>
+          : <SpotPlan spotId={spotId} />}
+        <div className="sp-band-in">{children}</div>
+      </header>
       {hero && heroState !== 'off' && <HdontapHero cam={hero} zone={zone} hidden={!heroOn} onReady={heroReady} onFail={heroFail} />}
-      {heroOn ? null
-        : m.kind === 'cam' ? <figure className="photo sp-band-cam"><video src={m.cam.src} muted autoPlay playsInline loop onError={() => setCamFailed(true)} aria-label={`${m.cam.label}, live view`} /><figcaption className="credit">{m.cam.label}</figcaption></figure>
-        : m.kind === 'photo' ? <SpotPhoto spotId={spotId} className="sp-band-img" />
-        : m.kind === 'drawn' && glyph ? <figure className="sp-drawn"><WaveGlyph glyph={glyph} size="lg" personIn={personIn} unit={unit} figure={figure} /><figcaption className="credit">{DRAWN_CAPTION}</figcaption></figure>
-        : <SpotPlan spotId={spotId} />}
-      <div className="sp-band-in">{children}</div>
-    </header>
+    </>
   );
 }
 
