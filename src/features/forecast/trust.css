@@ -38,3 +38,11 @@
   main#main .nws .nws-more { min-height: 0; }   /* the page's 44 px button floor: the ::after is this button's tap area */
   .nws:not(.open) > .nws-a:first-child { padding-bottom: 2px; }
 }
+
+/* forecast-order: the NWS alert is one line at every width (the first alert), the rest behind "+N more"; every alert stays a link */
+.nws:not(.open) > .nws-a ~ .nws-a { display: none; }
+.nws { gap: 0; }
+.nws-more { position: relative; display: block; width: 100%; min-height: 0; padding: 4px 14px 8px; border: 0; background: none; color: var(--accent); font: 600 14px/1.35 var(--sans); text-align: left; cursor: pointer; }
+.nws-more::after { content: ''; position: absolute; left: 0; right: 0; top: -10px; bottom: -14px; }
+main#main .nws .nws-more { min-height: 0; }
+.nws:not(.open) > .nws-a:first-child { padding-bottom: 2px; }

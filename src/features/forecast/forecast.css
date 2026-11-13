@@ -628,11 +628,6 @@ p.sp-wn { display: block; }
   /* the hero: name, meta and time in as little height as they need (the photo credit keeps its own full-width line under them: T-132, CC BY/BY-SA) */
   .sp-band.is-photo .sp-band-in, .sp-band.is-photo.has-cam .sp-band-in { height: auto; min-height: 100px; padding: 10px 12px 8px 14px; }
   .sp-band .sp-title h1 { font-size: 24px; }
-  /* the answer first: the hero, any NWS alert and the Call, then the surf/rating grid (and a card opened from it); daylight, cams and the rest follow */
-  .sp > * { order: 3; }
-  .sp > .sp-band, .sp > .nws, .sp > .nws-none, .sp > .call { order: 0; }
-  .sp > .sp-grid, .sp > .sp-detail { order: 1; }
-  .sp > .rb { order: 2; }   /* signature A: the Today ribbon right after the numbers it charts */
 }
 /* phone pass 5: the drawn wave sits in the hero's top-right corner beside the name (capped at 60%), never across the time row or the star;
    its 'offshore only' label scales up so it reads at 12 px (the glyph's viewBox is 300 x 150, drawn 60 px tall: 0.4x) */
@@ -746,4 +741,97 @@ p.sp-wn { display: block; }
   .fc-read { gap: 2px 12px; font-size: 12.5px; }
   .fc-read .fc-when { width: 100%; }
   .fc-key { gap: 1px 8px; max-width: calc(100% - 56px); }
+}
+
+/* ---------- forecast-order (user, 2026-11-12): the Now block, one NWS line, "More detail" ---------- */
+/* DOM order is the page order now (the phone-only `order` rules that pulled the grid up are gone); the Now block is the call plus the key numbers */
+.sp { gap: 16px; }
+.sp-now { display: grid; gap: 0; }
+.sp-ng { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.25fr 1fr 1fr; gap: 0 24px; border-bottom: 1px solid var(--line); }
+.sp-nc { display: grid; align-content: start; gap: 2px; min-width: 0; padding: 10px 0 12px; }
+.sp-nc h2 { font-size: 13px; font-weight: 500; letter-spacing: 0; text-transform: none; color: var(--muted); }
+.sp-nc .sp-v, .sp-nc .sp-s { padding-right: 0; }
+.sp-nc .sp-per { font-size: 18px; font-weight: 650; color: var(--muted); }
+.sp-nc .sp-per small { font-size: 13px; }
+.sp-nc .sp-bar { margin: 2px 0; }
+@media (max-width: 1100px) { .sp-ng { grid-template-columns: repeat(3, minmax(0, 1fr)); } .sp-nc-surf { grid-column: 1 / -1; } }
+@media (max-width: 860px) {
+  .sp { gap: 12px; padding-top: 8px; }
+  .sp-ng { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 16px; }
+  .sp-nc { padding: 8px 0 8px; border-top: 1px solid var(--line); }
+  .sp-nc-surf, .sp-nc-water { grid-column: 1 / -1; }
+  .sp-nc-surf { border-top: 0; }
+  .sp-nc-surf .sp-v { font-size: 22px; }
+}
+.sp-more { margin: 8px 0 -8px; padding-top: 12px; border-top: 2px solid var(--text); font-size: 16px; font-weight: 650; }
+/* the detail grid has no Water card (it is in the Now block) */
+.sp-grid { grid-template-areas: 'surf scale rating wind' 'tide scale swell swell'; }
+@media (max-width: 1100px) { .sp-grid { grid-template-areas: 'surf rating' 'wind tide' 'scale scale' 'swell swell'; } }
+@media (max-width: 480px) { .sp-grid { grid-template-areas: 'surf' 'scale' 'rating' 'wind' 'tide' 'swell'; } }
+/* a shorter header band (spec: phone about 120 px) */
+@media (min-width: 861px) { .sp-band { height: 132px; } .sp-band-in { padding-bottom: 22px; } }
+/* the call sits inside the Now block: no top rule, a tighter row */
+.sp-now > .call { border-top: 0; }
+.sp-now > .call .call-b { padding: 6px 0; min-height: 0; }
+@media (max-width: 860px) {
+  /* phone: water is one line (value, wetsuit), the call's reason is one line; the week strip stays as near the first screen as it honestly can */
+  .sp-nc-water { grid-template-columns: auto minmax(0, 1fr); align-items: baseline; gap: 0 10px; }
+  .sp-nc-water h2, .sp-nc-water .sp-f { grid-column: 1 / -1; }
+  .sp-now .call-why { -webkit-line-clamp: 1; }
+  .sp-ng .sp-f { line-height: 1.25; }
+}
+@media (min-width: 861px) { .nws-more { padding-top: 0; } .nws-a { min-height: 0; } }
+@media (max-width: 480px) { .sp-grid { row-gap: 12px; } }
+
+/* forecast-order follow-up (coordinator): a compact phone header, about 100 px: name (smaller) and star, the Share button, the time/now row, and the
+   credit as a small line along the bottom edge (still visible, every link still a link). Nothing is dropped. */
+@media (max-width: 600px) {
+  .sp > .sp-band { height: auto; min-height: 0; }
+  .sp > .sp-band.is-photo .sp-band-in, .sp > .sp-band.is-photo.has-cam .sp-band-in, .sp > .sp-band .sp-band-in { height: auto; min-height: 0; padding: 6px 12px 0 14px; align-items: stretch; }
+  .sp > .sp-band .sp-head { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; grid-template-areas: 'name fav share' 'meta meta share' 'time time now'; grid-template-rows: auto auto auto; align-content: start; row-gap: 0; column-gap: 6px; }
+  .sp > .sp-band .sp-title h1 { grid-area: name; font-size: 20px; line-height: 1.2; max-width: none; }
+  .sp > .sp-band .sp-title p { grid-area: meta; max-width: none; font-size: 12px; line-height: 1.3; -webkit-line-clamp: 1; margin: 0; }
+  .sp > .sp-band .fc-fav { grid-area: fav; align-self: center; }
+  .sp > .sp-band .sp-when .sp-share { grid-area: share; align-self: center; }
+  .sp > .sp-band .sp-time { grid-area: time; align-self: center; font-size: 13px; line-height: 1.5; }
+  .sp > .sp-band .sp-when .btn:not(.sp-map):not(.sp-share) { grid-area: now; }
+  .sp > .sp-band .sp-map { display: none; }
+  .sp > .sp-band.is-photo .credit { margin: 0; padding: 0 12px 2px 14px; font-size: 11px; line-height: 24px; }
+  .sp > .sp-band.is-photo .credit a { min-height: 24px; min-width: 24px; padding: 2px 0; line-height: 20px; }
+  .sp > .sp-band.is-photo .credit .cr-tail { white-space: normal; }
+  .sp-ng .sp-f { font-size: 12px; }
+  .sp-nc { padding: 6px 0; }
+  .sp-nc-surf .sp-v { font-size: 22px; }
+}
+.sp-nc .hr-short { margin: 4px 0 0; font-size: 12px; line-height: 1.3; color: var(--muted); }
+
+/* phone: the surf number sits beside its words, and water is one row, so the NWS line and the week strip come up the first screen */
+@media (max-width: 600px) {
+  .sp-nc-surf { grid-template-columns: auto minmax(0, 1fr); column-gap: 14px; align-items: center; }
+  .sp-nc-surf > h2, .sp-nc-surf > .hr-short { grid-column: 1 / -1; }
+  .sp-nc-surf > .sp-v { grid-column: 1; grid-row: 2 / span 2; font-size: 28px; }
+  .sp-nc-surf > .sp-s, .sp-nc-surf > .sp-f, .sp-nc-surf > .sp-brk { grid-column: 2; }
+  .sp-nc-water { grid-template-columns: auto auto minmax(0, 1fr); gap: 0 10px; align-items: baseline; }
+  .sp-nc-water > h2 { grid-column: 1; }
+  .sp-nc-water > .sp-v { grid-column: 2; }
+  .sp-nc-water > .sp-s { grid-column: 3; }
+  .sp-nc-water > .sp-f { grid-column: 1 / -1; }
+  .sp-now .call-b { gap: 0 12px; }
+  .sp-now .call-v { font-size: 20px; }
+}
+
+@media (max-width: 600px) {
+  .sp { gap: 8px; }
+  .nws { padding: 0 2px; }
+  .nws-a { padding: 6px 6px 0; font-size: 13px; line-height: 1.3; min-height: 0; }
+  .nws-more { padding: 2px 14px 6px; font-size: 13px; }
+  .sp-ng .sp-s { line-height: 1.25; }
+  .sp-ng .sp-rel { font-size: 12px; }
+}
+
+@media (max-width: 600px) {
+  .sp > .sp-band .sp-head { column-gap: 12px; }
+  .nws-a { min-height: 44px; }
+  .sp > .sp-band.is-photo .credit a { position: relative; }
+  .sp > .sp-band.is-photo .credit a::after { content: ''; position: absolute; left: -4px; right: -4px; top: -10px; bottom: -10px; }
 }

@@ -109,7 +109,7 @@ const shortFactor = (n: string) => (/organi[sz]ation/i.test(n) ? 'Swell quality'
 /** Wetsuit by water temperature (°F): a common surf-shop guide, labelled as such. */
 const wetsuit = (f: number) => (f >= 72 ? 'Boardshorts or a top' : f >= 65 ? '2 mm spring suit' : f >= 62 ? '3/2 mm full suit' : f >= 58 ? '4/3 mm full suit' : f >= 52 ? '4/3 mm + booties' : f >= 48 ? '5/4 mm hooded + booties' : '6/5 mm hooded, booties, gloves');
 
-export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scale, observe, observeEntry, breaker, open, onToggle}: {spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; observe?: ReactNode; observeEntry?: ReactNode; breaker?: string | null; open: CardKey | null; onToggle: (k: CardKey) => void}) {
+export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now, scale, observe, observeEntry, breaker, open, onToggle}: {part: 'now' | 'detail'; spot: SurfSpot; h: HourSample; p: UserProfile; dayHours: HourSample[]; extrema: TidePrediction[]; bundle: OceanBundle | null | undefined; now: number; scale?: ReactNode; observe?: ReactNode; observeEntry?: ReactNode; breaker?: string | null; open: CardKey | null; onToggle: (k: CardKey) => void}) {
   const f = h.forecast, r = h.rating, u = p.heightUnit, {h: hs, t} = surfOf(spot, f, p, bundle, now);
   const rel = f.availability.wind && fin(f.wind.speed) ? windRelationship(spot, f) : 'Unknown';
   // The rating explains itself (T-049 explainRating): scored factors as ticks on the card; context items (nearshore, tide) in the detail.
@@ -125,14 +125,65 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
   // Hawaii spots: the numbers are face heights (trough to crest); a local reader may expect the Hawaiian scale (about half). Say which one this is unless the profile chose Hawaiian.
   const scaleNote = stateOfZone(zoneOf(spot.region)) === 'Hawaii' && p.scale !== 'Hawaiian' ? 'surf height, not Hawaiian scale' : null;
   const water = fin(f.waterTempF) ? f.waterTempF : null;
-  return (
-    <div className="sp-grid">
-      <Card k="surf" title="Surf" aside={observeEntry}>
-        {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
+  // the Wind card's own line: the day's forecast range (daylight hours), so the card has content beyond the dial
+  const dw = dayHours.filter((x) => x.hour >= 6 && x.hour <= 19 && Date.parse(x.timestamp) >= now - 3600000 && fin(x.forecast.wind.speed) && x.forecast.availability.wind !== false).map((x) => ({v: x.forecast.wind.speed, t: x.timestamp}));
+  const windDay = dw.length > 1 ? {lo: dw.reduce((a, b) => (b.v < a.v ? b : a)), hi: dw.reduce((a, b) => (b.v > a.v ? b : a))} : null;
+  // Now block: the surf number with its kind (model estimate · confidence / NWS / offshore) and body word, once; the detail cards below do not repeat it.
+  const surfNum = <>
         <p className="v sp-v" aria-label={scaleNote && hs.kind === 'estimate' ? `${t.label}, ${scaleNote}` : t.label}>{hs.kind === 'offshore' ? <>{ht(hs.ft, p)}<small>{u}</small></> : t.value === '—' ? '—' : <>{t.value.replace(/ (ft|m)( ≈ Hawaiian)?$/, '')}<small>{t.value.match(/ (ft|m)( ≈ Hawaiian)?$/)?.[0]}</small></>}</p>
         <p className="sp-s">{isFlat(hs) ? <span title={hs.kind === 'estimate' ? hs.methodLabel : undefined}>{flatWhy(hs)}</span> : hs.kind === 'official' ? <span title={t.detail}><b className="sp-words">NWS surf forecast</b> · {hs.facing ? `${hs.entryLabel}, ${hs.zoneName}` : hs.zoneName}</span> : hs.kind === 'estimate' ? <>{t.words ? <b className="sp-words">{t.words[0].toUpperCase() + t.words.slice(1)}</b> : null} <span title={hs.wordsNote}>{scaleNote ?? 'surf height'}</span></> : t.detail}</p>
-        {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
         {hs.kind === 'estimate' && hs.calibration && !hs.saved ? <TunedLine hs={hs as Parameters<typeof TunedLine>[0]['hs']} p={p} spotName={spot.name} /> : hs.kind === 'estimate' ? <p className="sp-f" title={`${hs.methodLabel}${t.confidenceDetail ? `; ${t.confidenceDetail}` : ''}`}>{hs.saved ? `${hs.saved.reason === 'saved' ? 'saved copy' : 'stale data'} · retrieved ${hs.saved.retrievedAt && Number.isFinite(Date.parse(hs.saved.retrievedAt)) ? timeLabelPT(hs.saved.retrievedAt) : 'at an unknown time'} · not current` : `model estimate${transferTag(hs) ? ` · ${transferTag(hs)}` : ''}${t.confidenceText ? ` · ${t.confidenceText}` : ''}${nowcastNearby(hs) ? ` · ${NOWCAST_NEARBY_TEXT}` : ''}`}<span className="sr-only"> {hs.methodLabel.replace(/^Model estimate /, '')}{t.confidenceDetail ? `. ${t.confidenceDetail}` : ''}</span></p> : hs.kind === 'official' ? <p className="sp-f" title={t.detail}>{`the National Weather Service's forecast for the zone, not ours${(hs as {span?: string | null}).span ? ` · one range for ${(hs as {span?: string | null}).span}` : ''}${hs.issuedText ? ` · issued ${hs.issuedText}` : ''}${hs.stale ? ' · older than its next scheduled issue' : ''}${officialScaleNote(hs.office) ? ` · ${officialScaleNote(hs.office)}` : ''} · `}<a href={officialProductUrl(hs.productId)} target="_blank" rel="noopener noreferrer">NWS product</a></p> : hs.kind === 'demonstration' ? <p className="sp-f">demonstration week, not live</p> : null}
+  </>;
+  if (part === 'now') {
+    const sw0 = swells[0], tz = timeZoneOf(spot);
+    // the next high or low after this hour at the spot's OWN station (the same extrema the Tide card and the chart read); no day word when it is the same day
+    const nextTurn = extrema.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > Date.parse(h.timestamp)).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))[0];
+    const hourTag = Date.parse(h.timestamp) === Math.floor(now / 3600000) * 3600000 ? '' : `, ${weekdayPT(h.timestamp, tz)} ${timeLabelPT(h.timestamp, tz)}`;
+    const sameDay = (ts: string) => dateIn(tz, ts) === dateIn(tz, h.timestamp);
+    return (
+      <div className="sp-ng">
+        <section className="sp-nc sp-nc-surf" aria-label={`Surf${hourTag}`} data-card="surf"><h2>Surf</h2>{surfNum}{hs.kind === 'estimate' && (hs.method === 'mop-v2' || hs.transfer) && assignmentFor(spot.id)?.caveat && <p className="sp-f sp-cav">model point caveat · full text under More detail</p>}<HowRightLine spotId={spot.id} p={p} short /></section>
+        <section className="sp-nc" aria-label={`Rating${hourTag}`} data-card="rating"><h2>Rating</h2>
+          <p className={`v sp-v sp-rate${r.score === null ? ' unr' : ''}`} style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}{(r as {dark?: boolean}).dark && <small className="sp-dark"> · after dark</small>}</p>
+          <RatingBar score={r.score} category={r.category} />
+          <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
+        </section>
+        <section className="sp-nc" aria-label={`Wind${hourTag}`} data-card="wind"><h2>Wind</h2>
+          {f.availability.wind !== false && fin(f.wind.speed) ? <>
+            <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small><StaleTag s={hourFreshness(f, now).wind} />{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
+            <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
+          </> : <p className="sp-s">Wind not in this record.</p>}
+        </section>
+        <section className="sp-nc" aria-label={`Tide${hourTag}`} data-card="tide"><h2>Tide</h2>
+          {tideOk && ownTide ? <>
+            <p className="v sp-v">{htSigned(f.tide.height, p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
+            {nextTurn && <p className="sp-s"><b>{nextTurn.type}</b> {sameDay(nextTurn.timestamp) ? '' : `${weekdayPT(nextTurn.timestamp, tz)} `}{timeLabelPT(nextTurn.timestamp, tz)} · {htSigned(nextTurn.height.value!, p)} {u}</p>}
+            <p className="sp-f">{ownIsSf ? `regional prediction · San Francisco · ${ownTide.distanceKm} km · not at the beach` : `NOAA prediction · ${ownTide.station.name} · ${ownTide.distanceKm} km${hourlyTideStationIds.includes(ownTide.station.id) ? '' : ' · interpolated'} · not at the beach`}</p>
+            {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> times and range differ from the open beach</p>}
+          </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} compact />}
+        </section>
+        <section className="sp-nc" aria-label={`Main swell${hourTag}`} data-card="swell"><h2>Main swell</h2>
+          {sw0 ? <>
+            <p className="v sp-v">{ht(sw0.height, p)}<small>{u}</small> <span className="sp-per">{Math.round(sw0.period)}<small>s{sw0.kind === 'chop' ? ' wind chop' : ''}</small></span></p>
+            <p className="sp-s"><span className="sp-dir"><DirArrow from={sw0.direction} size={14} color="var(--sw1)" /> {compass(sw0.direction)} {Math.round(sw0.direction)}°</span></p>
+            <p className="sp-f">offshore model, not surf size</p>
+          </> : <p className="sp-s">{partNotes.onlyNoise ? 'Only model noise (under 2 s) in this record.' : 'No swell partitions in this record.'}</p>}
+        </section>
+        <section className="sp-nc sp-nc-water" aria-label={`Water${hourTag}`} data-card="water"><h2>Water</h2>
+          {water !== null ? <>
+            <p className="v sp-v">{Math.round(water)}<small>°F</small></p>
+            <p className="sp-s"><b>{wetsuit(water)}</b></p>
+            <p className="sp-f">wetsuit: common surf-shop guide</p>
+          </> : <p className="sp-s">Water temperature not in this record.</p>}
+        </section>
+      </div>
+    );
+  }
+  return (
+    <div className="sp-grid">
+      <Card k="surf" title="Surf notes" aside={observeEntry}>
+        {/* Offshore Hs keeps one decimal, like every other offshore value on the page (the chart, the table). */}
+        {breaker && <p className="sp-brk">est. breaker type: <b>{breaker}</b></p>}
         {/* T-130: what the model point cannot say about THIS spot, beside the number (the full provenance stays in Sources & data) */}
         {hs.kind === 'estimate' && (hs.method === 'mop-v2' || hs.transfer) && assignmentFor(spot.id)?.caveat && <p className="sp-f sp-cav">Model point caveat: {assignmentFor(spot.id)!.caveat}.</p>}
         <HowRightLine spotId={spot.id} p={p} />
@@ -140,8 +191,6 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       </Card>
       {scale && <Card k="scale" title="Wave scale">{scale}</Card>}
       <Card k="rating" title="Rating" open={open === 'rating'} onToggle={() => onToggle('rating')}>
-        <p className={`v sp-v sp-rate${r.score === null ? ' unr' : ''}`} style={{'--c': BAND_COLOR[bandOf(r.category)]} as CSSProperties}>{conditionWord(r.category)}{(r as {dark?: boolean}).dark && <small className="sp-dark"> · after dark</small>}</p>
-        <RatingBar score={r.score} category={r.category} />
         {scored.length ? <ul className="sp-why" aria-label="Why">{/* T-108: with no surf estimate there is no "swell size" to rate: the engine's wave-potential factor is OFFSHORE swell energy, so it is named that, and the list says plainly that size has no estimate here. */}
           {hs.kind !== 'estimate' && <li className="sp-why-none" title="No surf-size estimate for this hour (offshore height only), so surf size is not part of the call"><i aria-hidden="true" />Swell size: no estimate</li>}
           {scored.map((x) => <li key={`${x.factor}|${x.reason}`} className={MARK[x.effect].c} title={`${x.factor}: ${x.reason}`}><i aria-hidden="true" />{hs.kind !== 'estimate' && shortFactor(x.factor) === 'Swell size' ? 'Offshore swell energy' : shortFactor(x.factor)} <span className="w">{MARK[x.effect].m}</span></li>)}</ul>
@@ -150,33 +199,24 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
       </Card>
       <Card k="wind" title="Wind" open={open === 'wind'} onToggle={() => onToggle('wind')}>
         {f.availability.wind !== false && fin(f.wind.speed) ? <>
-          <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small><StaleTag s={hourFreshness(f, now).wind} />{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
-          <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
           {fin(f.wind.direction) && <WindDial from={f.wind.direction} facing={facing} cls={relClass(rel)} />}
         </> : <p className="sp-s">Wind not in this record.</p>}
+        {windDay && <p className="sp-s">Model forecast, 6 AM–7 PM (hours still ahead): {windVal(windDay.lo.v, p)}–{windVal(windDay.hi.v, p)} {p.windUnit}, strongest around {timeLabelPT(windDay.hi.t, timeZoneOf(spot))}</p>}
         <WindNow spot={spot} hours={dayHours} now={now} p={p} />
       </Card>
       <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk && ownTide ? <>
-          <p className="v sp-v">{htSigned(f.tide.height, p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
           <TideMini hours={dayHours} at={h.timestamp} extrema={extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
           <p className="sp-f">{ownIsSf ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${ownTide.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(ownTide.station.id) ? 'hourly' : 'interpolated', stationName: ownTide.station.name, stationId: ownTide.station.id, distanceKm: ownTide.distanceKm})}</p>
           {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {ownTide.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
         </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} />}
       </Card>
-      <Card k="swell" title="Swell" open={open === 'swell'} onToggle={() => onToggle('swell')}>
-        {swells.length ? <ul className="sp-swells">{swells.map((s, i) => (
-          <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s{s.kind === 'chop' ? ' wind chop' : ''}</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color={i === 0 ? 'var(--sw1)' : 'var(--sw2)'} /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
-        ))}</ul> : <p className="sp-s">{partNotes.onlyNoise ? 'Only model noise (under 2 s) in this record.' : 'No swell partitions in this record.'}</p>}
+      <Card k="swell" title="Other swells" open={open === 'swell'} onToggle={() => onToggle('swell')}>
+        {swells.length > 1 ? <ul className="sp-swells">{swells.slice(1).map((s, i) => (
+          <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s{s.kind === 'chop' ? ' wind chop' : ''}</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color="var(--sw2)" /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
+        ))}</ul> : <p className="sp-s">{swells.length ? 'No other swell partition in this record (the main swell is above).' : partNotes.onlyNoise ? 'Only model noise (under 2 s) in this record.' : 'No swell partitions in this record.'}</p>}
         {swells.length > 0 && <SwellRose swells={swells} facing={facing} />}
         <p className="sp-f">Offshore model partitions{partNotes.smallHidden ? ' · small partitions under 0.5 ft hidden' : ''}</p>
-      </Card>
-      <Card k="water" title="Water">
-        {water !== null ? <>
-          <p className="v sp-v">{Math.round(water)}<small>°F</small></p>
-          <p className="sp-s"><b>{wetsuit(water)}</b></p>
-          <p className="sp-f">Wetsuit: common surf-shop guide</p>
-        </> : <p className="sp-s">Water temperature not in this record.</p>}
       </Card>
     </div>
   );
@@ -184,17 +224,18 @@ export function ConditionsGrid({spot, h, p, dayHours, extrema, bundle, now, scal
 
 /** Today's tide as a small curve: the selected hour marked, highs and lows labelled with time. */
 /** The Tide card for a spot with no hourly tide series: the next highs and lows of ITS nearest open-coast CO-OPS station (the same one Home names), in the spot's own zone, labelled a station prediction. Outside the US, or with no station in range: the honest message. */
-function StationTideNext({spot, bundle, p, now}: {spot: SurfSpot; bundle: OceanBundle | null | undefined; p: UserProfile; now: number}) {
+function StationTideNext({spot, bundle, p, now, compact = false}: {spot: SurfSpot; bundle: OceanBundle | null | undefined; p: UserProfile; now: number; compact?: boolean}) {
   const [lat, lon] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: lat, longitude: lon});
   const turns = !st ? [] : (st.station.id === SF_STATION ? bundle?.extrema ?? [] : bundle?.stationTides?.[st.station.id]?.extrema ?? []);
-  const next = turns.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > now).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).slice(0, 4);
+  const next = turns.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > now).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).slice(0, compact ? 1 : 4);
   if (!st || st.distanceKm > 40) return <p className="sp-s">{regionNote(spot, 'tide') ?? noTideNote(spot.id)}</p>;
   if (!next.length) return <p className="sp-s">No prediction loaded for {st.station.name}, {st.distanceKm} km away.</p>;
   const tz = timeZoneOf(spot);
   return <>
     <ul className="sp-tn" aria-label={`Next tides at ${st.station.name}`}>{next.map((e) => <li key={e.timestamp}><b>{e.type}</b> {weekdayPT(e.timestamp, tz)} {timeLabelPT(e.timestamp, tz)} · {htSigned(e.height.value!, p)} {p.heightUnit}</li>)}</ul>
     <p className="sp-f">NOAA CO-OPS prediction at {st.station.name}, {st.distanceKm} km away, not at the beach</p>
-    {st.fallback && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {st.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
+    {st.fallback && compact && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> times and range differ from the open beach</p>}
+    {st.fallback && !compact && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {st.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
   </>;
 }
 function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; extrema: {timestamp: string; v: number; type: string}[]; p: UserProfile}) {

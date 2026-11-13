@@ -35,12 +35,13 @@ const day = (d: string) => md.format(new Date(d.length === 10 ? `${d}T20:00:00Z`
 const stamp = (iso: string) => `${weekdayPT(iso)} ${day(iso)}, ${timeLabelPT(iso)} PT`;
 
 /** The spot page's line: the California MOP check where the spot has a MOP point, and for every spot the offshore check against a buoy (round 4C). */
-export function HowRightLine({spotId, p}: {spotId: string; p: UserProfile}) {
+/** `short`: the one-line version for the Now block (the claim only; the source, the buoy and the 7/30-day detail stay in the full version under More detail). */
+export function HowRightLine({spotId, p, short = false}: {spotId: string; p: UserProfile; short?: boolean}) {
   const {live} = useSwello();
   if (!live) return null; // the demonstration week is not checked against anything
-  return <>{assignmentFor(spotId) ? <HowRightMop spotId={spotId} p={p} /> : null}<HowRightOffshore spotId={spotId} p={p} /></>;
+  return <>{assignmentFor(spotId) ? <HowRightMop spotId={spotId} p={p} short={short} /> : null}{short && assignmentFor(spotId) ? null : <HowRightOffshore spotId={spotId} p={p} short={short} />}</>;
 }
-function HowRightMop({spotId, p}: {spotId: string; p: UserProfile}) {
+function HowRightMop({spotId, p, short = false}: {spotId: string; p: UserProfile; short?: boolean}) {
   const load = useHowRight(spotId), late = useLate(), [open, setOpen] = useState(false), id = useId(), unit = p.heightUnit === 'm' ? 'm' : 'ft';
   useEffect(() => setOpen(false), [spotId]);
   if (load.state === 'loading') return late ? <p className="hr hr-skel" role="status" aria-label="Loading how right we have been"><i /></p> : <p className="hr hr-skel" aria-hidden="true" />;
@@ -48,6 +49,8 @@ function HowRightMop({spotId, p}: {spotId: string; p: UserProfile}) {
   const s = load.card.spots[spotId];
   if (!s) return <p className="hr hr-quiet">How right we've been: this spot is not in today's check.</p>;
   const line = howRightLine(s, load.card.shownSince, unit);
+  // the buoy is carried to our point by CDIP's model: never worded as a direct check at the break
+  if (short) return <p className="hr hr-short" data-hr="short">{line.text.replace(/ buoy([:\s(])/, ' buoy (via CDIP\'s model)$1')}</p>;
   return (
     <div className="hr">
       <p className="hr-line">
@@ -129,7 +132,7 @@ function useHowRightAll(spotId: string): LoadAll {
   useEffect(() => { let live = true; loadAll().then((x) => { if (live) set(x); }); return () => { live = false; }; }, [spotId]);
   return s;
 }
-function HowRightOffshore({spotId, p}: {spotId: string; p: UserProfile}) {
+function HowRightOffshore({spotId, p, short = false}: {spotId: string; p: UserProfile; short?: boolean}) {
   const load = useHowRightAll(spotId), late = useLate(), [open, setOpen] = useState(false), id = useId(), unit = p.heightUnit === 'm' ? 'm' : 'ft', hasMop = !!assignmentFor(spotId);
   useEffect(() => setOpen(false), [spotId]);
   if (load.state === 'loading') return hasMop ? null : late ? <p className="hr hr-skel" role="status" aria-label="Loading how right we have been"><i /></p> : <p className="hr hr-skel" aria-hidden="true" />;
@@ -137,6 +140,7 @@ function HowRightOffshore({spotId, p}: {spotId: string; p: UserProfile}) {
   const s = load.card.spots[spotId];
   if (!s) return hasMop ? null : <p className="hr hr-quiet">How right we've been: this spot is not in today's check.</p>;
   const off = offshoreLine(s, unit), rat = ratingLine(s), detail = s.status === 'ok' || s.status === 'collecting' ? s : null;
+  if (short) return <p className="hr hr-short" data-hr="short">{off.text}</p>;
   return (
     <div className="hr hr-all">
       <p className="hr-line">

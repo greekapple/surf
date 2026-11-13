@@ -146,12 +146,36 @@ export function ForecastView({go}: ViewProps) {
         </div>
       </SpotBand>
       {shareNote && <p className="sp-sharenote" role="status">{shareNote}</p>}
+      {/* forecast-order (user, 2026-11-12): the page runs in the order of a brief check: the Now block (the call and the key numbers), one NWS line, the week, today hour by hour, the camera, the charts; research sits below "More detail". Nothing is removed; every number shows once. */}
+      <section className="sp-now" aria-label="Now">
+        <CallBar call={call} share={shareCardFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
+        <ConditionsGrid part="now" spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
+      </section>
       <NwsBanner spotId={spot.id} />
-      <CallBar call={call} share={shareCardFor(spot, call, records, p, now, slugFor(spot.id), location.origin, bundle)} />
+      <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
+
       {/* signature A (phone pass): the Today ribbon replaces the four daylight times: daylight band, surf shape, wind to the beach, tide and the call's window on one hour axis */}
       <TodayRibbon spot={spot} hours={dayHours} band={band} daylight={daylight} win={windowOnDay(spot, dateIn(timeZoneOf(spot), selected.timestamp), p, {records, bundle, nowMs: now}, Math.min(now, Date.parse(selected.timestamp)))} today={dateIn(timeZoneOf(spot), selected.timestamp) === dateIn(timeZoneOf(spot), new Date(now).toISOString())} selected={view.selectedTime} p={p} onSelect={view.selectTime}
         tideLabel={(() => { const [la, lo] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: la, longitude: lo}); if (!st || selected.forecast.availability.tide === false || !Number.isFinite(selected.forecast.tide.height)) return null;   // as the Tide card: only with its station, in its own words
           return st.station.id === SF_STATION ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${st.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(st.station.id) ? 'hourly' : 'interpolated', stationName: st.station.name, stationId: st.station.id, distanceKm: st.distanceKm}) + (st.fallback ? ` · ${st.fallbackLabel ?? 'inlet or bay-side station'}` : ''); })()} />
+      {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
+      <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
+      {/* hdontap-snaps: HDOnTap's live-updating snapshots (src/ocean/hdontapCams.ts); the camera step of the page (after the ribbon, before the charts). Nothing for a spot without one. */}
+      <HdontapSnaps spotId={spot.id} zone={timeZoneOf(spot)} />
+      {/* forecast-charts (user, 2026-11-12): the four panels as one instrument that fits the screen, one cursor, one readout, a day zoom (ForecastCharts.tsx) */}
+      <ForecastCharts series={series} days={days} curDay={curDay} spot={spot} p={p} band={band} extrema={extrema} now={now} selectedTime={view.selectedTime} onSelect={view.selectTime} onZoomDay={pickDay}
+        narrow={narrow} hasEstimates={hasEstimates} dayHoursLabel={`${weekdayPT(selected.timestamp)} ${dayNumPT(selected.timestamp)} · every 3 hours · wind colored by shore relation`}
+        table={<HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />} />
+
+      <h2 className="sp-more" id="sp-more">More detail</h2>
+      <ConditionsGrid part="detail" spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
+      {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
+      <p className="sr-only" role="status" aria-live="polite">{saved}</p>
+      {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
+        Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
+        Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}
+      {/* lead triage (design re-critique): no board suggestion under a Skip (or after dark with no window ahead): 'Ride your …' there reads as advice to paddle out */}
+      {!(call.verdict === 'Skip' || (call.verdict === 'Dark' && !call.nextWindow)) && <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />}
       <SimilarSession spot={spot} forecast={selected.forecast} profile={p} bundle={bundle} nowMs={now} />
       {/* water quality: the agency's own words and date for the spot's rule-checked station (distance and name; 19 by hand); nothing without one. */}
       <WaterQuality spotId={spot.id} />
@@ -164,27 +188,9 @@ export function ForecastView({go}: ViewProps) {
           </a></li>)}</ul>
       </section>}
 
-      {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
-      <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
       {/* hdontap-embeds: HDOnTap cameras as links (their player cannot be framed by our site); the embeds are wired but switched off. */}
       <HdontapLinks spotId={spot.id} exclude={cams.map((c) => c.url)} />
 
-      <ConditionsGrid spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
-      {/* hdontap-snaps: HDOnTap's live-updating snapshots (src/ocean/hdontapCams.ts); below the conditions grid, so on a phone it is never on the first screen. Nothing for a spot without one. */}
-      <HdontapSnaps spotId={spot.id} zone={timeZoneOf(spot)} />
-      {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
-      <p className="sr-only" role="status" aria-live="polite">{saved}</p>
-      {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
-        Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
-        Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}
-      {/* lead triage (design re-critique): no board suggestion under a Skip (or after dark with no window ahead): 'Ride your …' there reads as advice to paddle out */}
-      {!(call.verdict === 'Skip' || (call.verdict === 'Dark' && !call.nextWindow)) && <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />}
-      <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
-
-      {/* forecast-charts (user, 2026-11-12): the four panels as one instrument that fits the screen, one cursor, one readout, a day zoom (ForecastCharts.tsx) */}
-      <ForecastCharts series={series} days={days} curDay={curDay} spot={spot} p={p} band={band} extrema={extrema} now={now} selectedTime={view.selectedTime} onSelect={view.selectTime} onZoomDay={pickDay}
-        narrow={narrow} hasEstimates={hasEstimates} dayHoursLabel={`${weekdayPT(selected.timestamp)} ${dayNumPT(selected.timestamp)} · every 3 hours · wind colored by shore relation`}
-        table={<HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />} />
 
       <details className="card sp-src"><summary><h2>Sources &amp; data</h2><span>nearshore model, buoys, offshore heights and sources · {selected.rating.reliability.category.toLowerCase()} reliability</span></summary>
         <div className="sp-two">
