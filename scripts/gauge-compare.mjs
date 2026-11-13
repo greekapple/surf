@@ -13,10 +13,11 @@
 //    spots near one gauge share its readings, so n_hours (distinct gauge hours) is shown beside n.
 import fs from 'node:fs';
 import path from 'node:path';
-import {DATA, HOUR, M_TO_FT, DEFAULT_SHOWN, argsOf, files, readJson, r2, median, csvCell, kmBetween, loadShown, ourHours} from './lib/compare-common.mjs';
+import {DATA, HOUR, M_TO_FT, DEFAULT_SHOWN, argsOf, files, readJson, r2, median, csvCell, kmBetween, loadShown, ourHours, setBundle, loadMopBundle} from './lib/compare-common.mjs';
 
 const {multi} = argsOf(process.argv.slice(2)), KM = Number(multi('--km')[0] ?? 5), TOL_MIN = 15;
 const shownIn = multi('--shown').length ? multi('--shown') : DEFAULT_SHOWN;
+{ const m = multi('--mop'); if (m.length) setBundle(loadMopBundle(m[0])); }   // ca-mop-check: our range from the CDIP MOP points (a dir of <id>.json), as the app does for MOP-assigned spots
 const gaugeIn = multi('--gauges').length ? multi('--gauges') : [path.join(DATA, 'surf-height', 'gauges'), path.join(DATA, 'srf-compare', 'r2gauges')];
 const outDir = multi('--out')[0] ?? path.join(DATA, 'srf-compare', 'out'), today = multi('--date')[0] ?? new Date().toISOString().slice(0, 10);
 const map = readJson(new URL('../docs/forecast/data/surf-height-sources.json', import.meta.url).pathname);

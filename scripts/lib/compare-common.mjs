@@ -6,6 +6,7 @@ import {surfBand} from '../../src/services/headlineSurf.ts';
 import {normalizeOpenMeteo} from '../../src/ocean/openMeteo.ts';
 import {toLegacy} from '../../src/ocean/bridge.ts';
 import {evidenceSpot} from '../../src/ocean/spots.ts';
+import {normalizeNearshore} from '../../src/ocean/nearshore.ts';
 
 export const DATA = path.join(os.homedir(), 'Development', 'swello-data'), HOUR = 3600000, M_TO_FT = 3.28084;
 export const DEFAULT_SHOWN = [path.join(DATA, 'srf-compare', 'r2'), path.join(DATA, 'r2', 'howright', 'v2', 'shown')];
@@ -25,6 +26,12 @@ export function loadShown(inputs) {
 }
 const asResponse = (h, units) => ({hourly: h, hourly_units: {time: 'unixtime', ...units}});
 const cache = new Map();
+/** ca-mop-check: with a MOP bundle (loadMopBundle) the re-derived range uses the CDIP MOP point of every MOP-assigned spot exactly as the app does; without one it is the v1 chain, as before. */
+let BUNDLE = null; export const setBundle = (b) => { BUNDLE = b; cache.clear(); };
+export function loadMopBundle(dir) {
+  const mop = {}; for (const f of fs.existsSync(dir) ? fs.readdirSync(dir).filter((x) => /\.json$/.test(x)) : []) { const j = readJson(path.join(dir, f)); const id = f.replace(/\.json$/, ''); if (j?.payload) mop[id] = {records: normalizeNearshore(j.payload, j.retrievedAt, 'file://' + f, 'forecast')}; }
+  return {mop, nearshore: undefined};
+}
 /** Our surf range for each captured hour of one spot, re-derived now with the current engine from the stored Open-Meteo hours: Map<ms, {lo, hi, central, mid, offshoreFt}>. Uncalibrated (no personal observations) and without the
  *  CDIP MOP, SWAN and model-spread inputs (none is in the capture), so it is the v1 offshore-to-break chain. offshoreFt is the model's own wave_height (metres) in feet, for reference. */
 export function ourHours(captures, capDate, spotId) {
@@ -32,7 +39,7 @@ export function ourHours(captures, capDate, spotId) {
   const cap = captures.get(capDate), s = cap?.spots[spotId], out = new Map(); cache.set(key, out);
   const ev = (() => { try { return evidenceSpot(spotId); } catch { return null; } })(); if (!s || !ev) return out;
   let recs; try { recs = normalizeOpenMeteo(ev, asResponse(s.marine, s.marineUnits), asResponse(s.wind, s.windUnits), s.retrievedAt); } catch { return out; }
-  const nowMs = Date.parse(s.ratedAt ?? cap.capturedAt), ctx = {spread: null, bundle: null, nowMs, felt: [], observations: []}, wave = new Map(s.marine.time.map((t, i) => [t * 1000, s.marine.wave_height?.[i]]));
+  const nowMs = Date.parse(s.ratedAt ?? cap.capturedAt), ctx = {spread: null, bundle: BUNDLE, nowMs, felt: [], observations: []}, wave = new Map(s.marine.time.map((t, i) => [t * 1000, s.marine.wave_height?.[i]]));
   for (const r of recs) {
     let b = null; try { b = surfBand(spotId, toLegacy(r), ctx); } catch { /* no estimate this hour */ }
     if (b && Number.isFinite(b.loFt) && Number.isFinite(b.hiFt)) { const t = Date.parse(r.timestamp), w = wave.get(t); out.set(t, {lo: b.loFt, hi: b.hiFt, central: b.centralFt, mid: (b.loFt + b.hiFt) / 2, offshoreFt: Number.isFinite(w) ? w * M_TO_FT : null}); }

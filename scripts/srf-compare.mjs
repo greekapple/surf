@@ -19,11 +19,12 @@ import {parseSrf, pickEntry, MAX_FACING_DIFF} from '../services/srf-parse.mjs';
 import {isDark} from '../src/services/daylight.ts';
 import {timeZoneOf} from '../src/ocean/spotZone.ts';
 import {dateInMs} from '../src/ocean/time.ts';
-import {DATA, HOUR, DEFAULT_SHOWN, argsOf, files, readJson, r2, median, csvCell, loadShown, ourHours} from './lib/compare-common.mjs';
+import {DATA, HOUR, DEFAULT_SHOWN, argsOf, files, readJson, r2, median, csvCell, loadShown, ourHours, setBundle, loadMopBundle} from './lib/compare-common.mjs';
 import {COAST_ROWS, UPGRADED_ROWS} from '../src/data/coast.ts';
 
 const MIN_HOURS = 4, {multi} = argsOf(process.argv.slice(2));
 const shownIn = multi('--shown').length ? multi('--shown') : DEFAULT_SHOWN;
+{ const m = multi('--mop'); if (m.length) setBundle(loadMopBundle(m[0])); }   // ca-mop-check: our range from the CDIP MOP points (a dir of <id>.json), as the app does for MOP-assigned spots
 const srfIn = multi('--srf').length ? multi('--srf') : [path.join(DATA, 'surf-height', 'srf', 'products'), path.join(DATA, 'srf-compare', 'r2srf', 'products')];
 const outDir = multi('--out')[0] ?? path.join(DATA, 'srf-compare', 'out'), today = multi('--date')[0] ?? new Date().toISOString().slice(0, 10);
 
