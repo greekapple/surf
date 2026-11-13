@@ -114,7 +114,7 @@ test('ca-only-fix 5 and 10: choosing a hidden spot from anywhere says "not open 
   const maui = evidenceSpots.find((s) => s.region === 'Maui')!, ca = caByRegion[0];
   assert.equal(hiddenOnChoose(maui.id, null, false), maui.id); assert.equal(hiddenOnChoose(ca.id, null, false), null); assert.equal(hiddenOnChoose(maui.id, {previewRegions: true}, true), null);
   const store = read('src/app/store.tsx'), app = read('src/app/App.tsx');
-  assert.match(store, /const hid = hiddenOnChoose\(id, profile\); if \(hid\) \{ setHiddenSpot\(hid\); setMissingSpot\(null\); return; \}/, 'setSpot stops at a hidden spot before it selects anything');
+  assert.match(store, /const hid = hiddenOnChoose\(id, profile\); if \(hid\) \{ setHiddenSpot\(hid\); setMissingSpot\(null\); const hq = [\s\S]*?hq\.set\('spot', slugFor\(id\)\); history\.replaceState[\s\S]*?return; \}/, 'setSpot stops at a hidden spot before it selects anything, and the URL names that spot (a reload shows the same page)');
   assert.match(store, /clearHiddenSpot = \(\) => \{ setHiddenSpot\(null\);[^}]*q\.delete\('spot'\)/, 'clearing drops ?spot= from the URL too');
   assert.match(app, /if \(area !== 'forecast' && hiddenSpot\) clearHiddenSpot\(\)/, 'leaving Forecast clears it, so Home then Forecast shows the forecast');
   assert.ok(store.indexOf('hiddenOnChoose(id, profile)') < store.indexOf('if (id !== view.selected) view.selectSpot(id)'), 'the hidden check comes before selectSpot');
@@ -124,6 +124,6 @@ test('ca-only-fix 6-9: Home asks nearIds with the gated list, saved spots that a
   assert.equal((home.match(/nearIds\(refIdEarly, evidenceSpots,/g) ?? []).length, 2, 'both nearIds calls get the gated list');
   assert.match(home, /const personal = saved\.some\(\(id\) => spotOptions\.some\(\(s\) => s\.id === id\)\)/, 'personal means at least one saved spot is shown');
   assert.match(read('src/features/personal/PersonalView.tsx'), /p\.region !== 'All regions' && spotOptions\.some\(\(x\) => x\.region === p\.region\) \? regionWithState/);
-  assert.match(read('src/features/explore/FindSpots.tsx'), /SWELLO covers California for now\./); assert.match(read('src/features/explore/FindSpots.tsx'), /Math\.min\(\.\.\.rows\.map\(\(r\) => r\.dist\)\) > 75/);
+  assert.match(read('src/features/explore/FindSpots.tsx'), /No surf spot within 75 mi of you\. SWELLO covers California for now\./); assert.match(read('src/features/explore/FindSpots.tsx'), /Math\.min\(\.\.\.rows\.map\(\(r\) => r\.dist\)\) > 75/);
   const nf = read('src/ui/NotFound.tsx'); assert.match(nf, /is in a region that isn't open yet/); assert.doesNotMatch(nf, /opens later/);
 });

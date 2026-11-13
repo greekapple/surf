@@ -132,7 +132,7 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   const clearHiddenSpot = () => { setHiddenSpot(null); const q = new URLSearchParams(location.search); if (q.has('spot')) { q.delete('spot'); const s = q.toString(); history.replaceState(null, '', location.pathname + (s ? `?${s}` : '')); } };
   const setSpot = (id: string) => {
     // ca-only: a link from the journal, an alert or a saved spot to a spot the gate hides says "not open yet" and never opens it
-    const hid = hiddenOnChoose(id, profile); if (hid) { setHiddenSpot(hid); setMissingSpot(null); return; }
+    const hid = hiddenOnChoose(id, profile); if (hid) { setHiddenSpot(hid); setMissingSpot(null); const hq = new URLSearchParams(location.search); hq.set('spot', slugFor(id)); history.replaceState(null, '', `${location.pathname}?${hq}`); return; }   // the URL names the hidden spot, so a reload shows the same page, not the previous spot
     setMapFocused(true);   // choosing a spot (pin, list, search, Home, the strip) focuses it on the map again
     if (missingSpot) setMissingSpot(null);
     if (hiddenSpot) setHiddenSpot(null);
