@@ -12,7 +12,7 @@ import type {Band, GroupSummary} from './coastGroups.ts';
 export type DotKind = 'est' | 'nws' | 'off' | 'snap' | 'none';
 /** The zoom bands (Leaflet-equivalent zoom, as everywhere at the engine seam): nothing below GROUPS_FROM; group dots up to SPOTS_FROM; spot dots from there;
  *  spot names on the map (where they do not collide) from NAMES_FROM. The selected spot shows from GROUPS_FROM, with its name. */
-export const DOT_ZOOM = {groupsFrom: 6, spotsFrom: 8.5, namesFrom: 11} as const;
+export const DOT_ZOOM = {groupsFrom: 6, spotsFrom: 8.5, namesFrom: 11, clusterTo: 11} as const;   // map-clusters: clusters from groupsFrom up to clusterTo; past it every spot is its own pill
 
 /** The dot's number from the SAME display string the spot page shows for the hour (headlineText().value), so the two can never disagree:
  *  a range "4–6 ft" gives its midpoint (5), "about 4 ft" gives 4, the NWS "up to 3 ft" gives "≤3", "Flat" gives "<1". Feet are whole numbers,
@@ -30,13 +30,25 @@ export function dotNumber(value: string, unit: 'ft' | 'm'): string | null {
   return null;
 }
 
+/** map-clusters (spec docs/specs/2026-11-12-forecast-order-and-map-clusters.md B): the pill's text, from the SAME display string the spot page shows for the hour,
+ *  shortened only in form: "4–6 ft" stays, "about 4 ft" is "~4 ft", the NWS "up to 3 ft" is "≤3 ft", "Flat" stays; the Hawaiian scale keeps its mark ("4–6 ft (H)").
+ *  Anything else (Unavailable, a dash) gives null: no size. */
+export function pillText(value: string): string | null {
+  const haw = /Hawaiian/.test(value), v = value.replace(/\s*≈\s*Hawaiian/, '').trim(), tail = haw ? ' (H)' : '';
+  if (/^flat\b/i.test(v)) return 'Flat';
+  let m = /^up to ([\d.]+)\s*(ft|m)\b/.exec(v); if (m) return `≤${m[1]} ${m[2]}${tail}`;
+  m = /^about ([\d.]+)\s*(ft|m)\b/.exec(v); if (m) return `~${m[1]} ${m[2]}${tail}`;
+  m = /^([\d.]+–[\d.]+|[\d.]+)\s*(ft|m)\b/.exec(v); if (m) return `${m[1]} ${m[2]}${tail}`;
+  return null;
+}
+
 /** What a spot's dot is at the hour: its kind, its number (only for `est` and `nws`) and whether it is a faded (saved, stale) copy. */
-export interface DotFace {kind: DotKind; num: string | null; faded: boolean; /** the number with its unit and kind in words, for the tooltip, the list and screen readers */ words: string}
+export interface DotFace {kind: DotKind; num: string | null; /** map-clusters: the pill's surf text (est and nws only), the page's own range */ pill?: string | null; faded: boolean; /** the number with its unit and kind in words, for the tooltip, the list and screen readers */ words: string}
 export function dotFace(h: HeadlineSurf | null, t: HeadlineText | null, unit: 'ft' | 'm', o: {loaded: boolean; snap?: boolean; /** the daily forecast's capture time in words */ captured?: string}): DotFace {
   if (o.snap) return {kind: 'snap', num: null, faded: false, words: `daily forecast, not live${o.captured ? ` · captured ${o.captured}` : ''}`};
   if (!h || !t || !o.loaded) return {kind: 'none', num: null, faded: false, words: o.loaded ? 'no surf number this hour' : 'not loaded yet'};
-  if (h.kind === 'estimate') { const num = dotNumber(t.value, unit); return num === null ? {kind: 'none', num: null, faded: false, words: 'no surf number this hour'} : {kind: 'est', num, faded: !!h.saved, words: `${t.value} · ${t.tag}`}; }
-  if (h.kind === 'official') { const num = dotNumber(t.value, unit); return num === null ? {kind: 'none', num: null, faded: false, words: 'no surf number this hour'} : {kind: 'nws', num, faded: !!h.stale, words: `${t.value} · ${t.tag}`}; }
+  if (h.kind === 'estimate') { const num = dotNumber(t.value, unit); return num === null ? {kind: 'none', num: null, faded: false, words: 'no surf number this hour'} : {kind: 'est', num, pill: pillText(t.value), faded: !!h.saved, words: `${t.value} · ${t.tag}`}; }
+  if (h.kind === 'official') { const num = dotNumber(t.value, unit); return num === null ? {kind: 'none', num: null, faded: false, words: 'no surf number this hour'} : {kind: 'nws', num, pill: pillText(t.value), faded: !!h.stale, words: `${t.value} · ${t.tag}`}; }
   if (h.kind === 'offshore') return {kind: 'off', num: null, faded: !!h.saved, words: t.label.replace(/^≈ /, '')};   // "7 ft offshore · not surf size" (+ "· saved copy")
   return {kind: 'none', num: null, faded: false, words: h.kind === 'demonstration' ? 'demonstration · not live' : 'no surf number this hour'};
 }

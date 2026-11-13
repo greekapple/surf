@@ -44,7 +44,7 @@ import {ZONES, zoneOf} from '../../data/zones';
 import {AutofillInput} from '../../ui/AutofillInput';
 import {LEGEND_NAMES} from './legendNames';
 import {completion as completeOf, rememberSpot, recentSpots, searchSpots} from '../../services/spotSearch';
-import {COAST_MAX_ZOOM, TIER, buildNodes, displayName, leavesOf, summarise, type NodeId, type SpotState} from './coastGroups';
+import {COAST_MAX_ZOOM, buildNodes, displayName, type NodeId, type SpotState} from './coastGroups';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
 import {SpotCallout, type HourBar} from './Callout';
@@ -66,13 +66,10 @@ const PHONE = '(max-width: 860px)';
 const isPhone = () => typeof matchMedia === 'function' && matchMedia(PHONE).matches;
 
 /** 4E coast groups: the nodes (regions, zones, coasts, seaboards) with their spots, the regions the layout starts from, and one pill's DOM. */
-const COAST_NODES = buildNodes(evidenceSpots), COAST_LEAVES = leavesOf(COAST_NODES);   // clusters of 10-20 spots and the regions small enough not to split
+const COAST_NODES = buildNodes(evidenceSpots);   // the coast groups (regions, zones, coasts); map-clusters replaced their dots with MapLibre clusters
 const SPOT_BY_ID = new Map(evidenceSpots.map((e) => [e.id, e] as const));
 /** map-dots: where a group's dot sits: the member spot nearest the group's centre (on the coast, and fixed while the hour changes). */
 const groupAnchor = (ids: string[]) => { const c = centroid(ids); return ids.map((sid) => SPOT_BY_ID.get(sid)!).reduce((a, b) => (Math.hypot(b.latitude - c.lat, b.longitude - c.lon) < Math.hypot(a.latitude - c.lat, a.longitude - c.lon) ? b : a)); };
-/** the group dot's anchor, once per group */
-const GROUP_AT = new Map<string, {latitude: number; longitude: number}>();
-const groupAt = (id: string) => { let a = GROUP_AT.get(id); if (!a) { a = groupAnchor(COAST_NODES.get(id)!); GROUP_AT.set(id, a); } return a; };
 const centroid = (ids: string[]) => { let lat = 0, lon = 0; for (const id of ids) { const e = SPOT_BY_ID.get(id)!; lat += e.latitude; lon += e.longitude; } return {lat: lat / ids.length, lon: lon / ids.length}; };
 type Detent = 'peek' | 'half' | 'full';
 const DETENTS: Detent[] = ['peek', 'half', 'full'];
@@ -144,6 +141,8 @@ function useAnchored(eng: MapEngine | null, box: HTMLElement, at: {lat: number; 
   useEffect(() => () => { box.remove(); }, [box]);
 }
 
+/** map-load: how long one field request may stay open before the map says it is slow (still loading, with Retry); generous for a phone on a slow connection. */
+export const SLOW_MS = 20000;
 export function ExploreView({section, go}: ViewProps) {
   if (section === 'discover') return <FindSpots go={go} />;
   if (section === 'compare') return <CompareSpots go={go} />;
@@ -247,7 +246,9 @@ function OceanMap({section, go}: ViewProps) {
   const field = useMemo(() => (nestPainted && frame ? buildField(frame, def.layer === 'WIND') : null), [frame, def.layer, nestPainted]);
   // Map-seamless Stage 1: a non-blocking "Still loading · Retry" after 5 s (was 20 s); the held frame stays on screen meanwhile.
   const anyLoading = spatial.loading || globe.loading;
-  useEffect(() => { setSlow(false); if (!anyLoading) return; const t = window.setTimeout(() => setSlow(true), 5000); return () => window.clearTimeout(t); }, [anyLoading, spatial.status]); // eslint-disable-line react-hooks/exhaustive-deps
+  // map-load (user, 2026-11-12: "a bunch of error messages that fill the screen"): 'slow' only after SLOW_MS of one request still open (it restarts with each new request,
+  // never counted from page start), and it still says LOADING (with Retry), never a 'failed' wording: a failure is only an error or an empty answer (seaFailed).
+  useEffect(() => { setSlow(false); if (!anyLoading) return; const t = window.setTimeout(() => setSlow(true), SLOW_MS); return () => window.clearTimeout(t); }, [anyLoading, spatial.status]); // eslint-disable-line react-hooks/exhaustive-deps
   const allTimes = view.timeline;
   // The forecast window (1 / 3 / 7 days from the first frame) bounds the slider, stepping and playback.
   const times = allTimes; // T-117: the day strip spans the whole forecast range
@@ -348,6 +349,7 @@ function OceanMap({section, go}: ViewProps) {
   /** what each dot stands for (spots by id, groups by node id), for the tooltip and the group list */
   const dotInfo = useRef(new Map<string, {name: string; face: DotFace; band: Band; word: string; dark: boolean; ink: string; /** groups: the spot the dot stands for */ best?: string}>());
   const [groupOpen, setGroupOpen] = useState<NodeId | null>(null);
+  const [statusOpen, setStatusOpen] = useState(false);   // map-clusters (lead): the status line is one line with an ellipsis; a tap shows all of it
   // B8 (scrub): the dots are built only for the part of the world around the view (the view plus half a screen each side), refreshed when a settled move
   // leaves that box or crosses a zoom band; far out (no dots) nothing is built. A scrub step then rates tens of spots, not all 1,168.
   const [dotBox, setDotBox] = useState<{s: number; n: number; w: number; e: number; band: 0 | 1 | 2} | null>(null), dotBoxRef = useRef<typeof dotBox>(null);
@@ -367,9 +369,9 @@ function OceanMap({section, go}: ViewProps) {
     if (!x?.setDots || !fontsOk || !dotBox) return;
     rank.current.clear();
     const box = dotBox, inBox = (lat: number, lon: number) => lat >= box.s && lat <= box.n && [lon, lon + 360, lon - 360].some((l) => l >= box.w && l <= box.e);
-    const groupsHere = box.band === 1 ? COAST_LEAVES.filter((id) => { const a = groupAt(id); return inBox(a.latitude, a.longitude); }) : [];
-    const needIds = new Set<string>(groupsHere.flatMap((id) => COAST_NODES.get(id)!)); if (focused) needIds.add(focused);
-    if (box.band === 2) for (const e of evidenceSpots) if (inBox(e.latitude, e.longitude)) needIds.add(e.id);
+    // map-clusters: from the cluster zoom on, every spot in the box goes to the engine, which clusters them (the cluster's number is how many spots it holds)
+    const needIds = new Set<string>(); if (focused) needIds.add(focused);
+    if (box.band >= 1) for (const e of evidenceSpots) if (inBox(e.latitude, e.longitude)) needIds.add(e.id);
     const need = evidenceSpots.filter((e) => needIds.has(e.id));
     const css = getComputedStyle(document.documentElement), tok = (n: string, d: string) => css.getPropertyValue(n).trim() || d;
     const surface = tok('--bg', '#ffffff'), text = tok('--text', '#1d1d1f'), muted = tok('--muted', '#8a949c');
@@ -387,44 +389,36 @@ function OceanMap({section, go}: ViewProps) {
       const face = sn ? dotFace(null, null, unit, {loaded: false, snap: true, captured: `${stampLabel(new Date(sn[3] * 60000).toISOString())} ${mapZoneAbbr(sn[3] * 60000)}`}) : dotFace(hs, hs ? headlineText(hs, p) : null, unit, {loaded: !!f});
       const category = sn ? sn[1] : rating && rating.score !== null ? rating.category : null, band: Band = category ? bandOf(category) : 'none', dark = sn ? sn[2] === 1 : !!rating?.dark;
       const fill = face.kind === 'none' ? muted : fillOf[band];
-      const icon: DotIcon = {kind: face.kind, num: face.num, fill, ink: inkOf(fill), surface, text, dir: f && face.kind !== 'snap' ? swellFrom(f.primary) : null, size: face.kind === 'none' ? 12 : 22, sel: false, faded: face.faded, unrated: face.kind === 'est' && band === 'none'};
+      const icon: DotIcon = {kind: face.kind, num: face.num, fill, ink: inkOf(fill), surface, text, dir: f && face.kind !== 'snap' ? swellFrom(f.primary) : null, size: face.kind === 'none' ? 12 : 22, sel: false, faded: face.faded, unrated: face.kind === 'est' && band === 'none', pill: face.pill ?? null};
       icons.set(e.id, icon);
       states.set(e.id, sn ? {id: e.id, name: e.name, loaded: false, snap: true, retrieved: sn[3] * 60000, score: sn[0], category: sn[1], band, dark, rank: r.rank} : {id: e.id, name: e.name, loaded: !!f || view.ocean.isSpotLoaded(e.id), score: rating?.score ?? null, category: rating?.category ?? null, band: rating ? bandOf(rating.category) : 'none', dark, rank: r.rank});
       info.set(e.id, {name: e.name, face, band, word: hs?.kind !== 'demonstration' && category && (sn || (rating && rating.score !== null)) ? conditionWord(category) : '', dark, ink: icon.ink});   // a demonstration value never carries a rating word
       // a dot with nothing to show is placed last; the selected spot is its own layer (always drawn, bigger, ringed, named)
       const prio = (face.kind === 'none' ? -10000 : face.kind === 'snap' ? -5000 : 0) + r.rank;
       if (e.id === focused) dots.push({id: e.id, lat: e.latitude, lon: e.longitude, layer: 'sel', icon: {...icon, size: face.kind === 'none' ? 14 : 26, sel: true}, prio: 1e6, name: e.name, dim: dark});
-      else if (box.band === 2) dots.push({id: e.id, lat: e.latitude, lon: e.longitude, layer: 'spot', icon, prio, name: e.name, dim: dark});
+      else if (box.band >= 1) dots.push({id: e.id, lat: e.latitude, lon: e.longitude, layer: 'spot', icon, prio, name: e.name, dim: dark, band: face.kind === 'none' || face.kind === 'snap' ? 'none' : band});
     }
-    // a group's dot is its best spot's dot (the same summary the pills used: highest-rated daylit spot, live before daily forecast), at the member spot nearest
-    // the group's centre (on the coast, and still while the hour changes)
-    for (const id of groupsHere) {
-      const ids = COAST_NODES.get(id)!, sum = summarise(ids.map((sid) => states.get(sid)!)), best = sum.best ? sum.best.id : null, at = groupAt(id);
-      const bi = best ? icons.get(best)! : null, icon: DotIcon = bi ? {...bi, group: true} : {kind: 'none', num: null, fill: muted, ink: '#ffffff', surface, text, dir: null, size: 12, sel: false, faded: false};
-      const name = displayName(id), bInfo = best ? info.get(best)! : null;
-      info.set('g:' + id, {name, face: bInfo?.face ?? {kind: 'none', num: null, faded: false, words: sum.loaded ? 'not rated this hour' : 'not loaded yet'}, band: bInfo?.band ?? 'none', word: bInfo?.word ?? '', dark: !!bInfo?.dark, ink: bInfo?.ink ?? '#ffffff', best: best ? SPOT_BY_ID.get(best)!.name : undefined});
-      const fav = ids.some((sid) => data.state.favorites.includes(sid)) ? TIER : 0;
-      dots.push({id, lat: at.latitude, lon: at.longitude, layer: 'group', icon, prio: (bi && bi.kind !== 'none' ? 0 : -10000) + fav + (sum.best?.score ?? -1), name, dim: !!bInfo?.dark});
-    }
-    x.setDots(dots, {...DOT_ZOOM, pad: isPhone() ? 9 : 4, text, halo: surface});
+    x.setDots(dots, {...DOT_ZOOM, pad: isPhone() ? 9 : 4, text, halo: surface, ring: {good: fillOf.good, fair: fillOf.fair, poor: fillOf.poor, none: muted, surface}});
     x.container.dataset.dots = String(dots.length);   // the dots are set (QA waits on [data-dots]; they are drawn on the map canvas, not as DOM)
+    x.container.dataset.dotsAt = view.selectedTime ?? '';   // map-clusters (QA): the hour the dots were built for
     declutterRef.current();
   }, [eng, fontsOk, dotBox, themeKey, view.mapRecords, view.selectedTime, snap, focused, p.heightUnit, p.scale, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
   // taps and hover on the dots: a spot dot opens its callout (as the pin did), a group dot its list; hover names the dot
   useEffect(() => {
     const x = map.current; if (!x?.onDot) return;
     const off = x.onDot((ev) => {
-      const group = ev.layer === 'group';
-      if (ev.type === 'click') { setHoverDot(null); if (group) { setCallout(null); setGroupOpen(ev.id); } else { setGroupOpen(null); pickRef.current(ev.id); } }
-      else if (ev.type === 'enter') { setHoverDot({id: ev.id, group}); if (!group) setHover(ev.id); }
+      const group = ev.layer === 'group' || ev.layer === 'cluster';   // map-clusters: a cluster tap zooms to its spots (the engine); it closes any callout
+      if (ev.type === 'click') { setHoverDot(null); if (group) { setCallout(null); setGroupOpen(null); } else { setGroupOpen(null); pickRef.current(ev.id); } }
+      else if (ev.type === 'enter') { if (!group) { setHoverDot({id: ev.id, group}); setHover(ev.id); } }
       else { setHoverDot(null); setHover(null); }
     });
     const offMove = x.on('movestart', () => setHoverDot(null));
     // QA hook (dev only): the dots drawn now, after collision, with what each one shows
     const w = window as unknown as {__xdots?: unknown};
     if (import.meta.env.DEV) w.__xdots = () => { const placed = x.placedDots?.() ?? [], {width, height} = x.getSize(), on = placed.filter((d) => d.x >= 0 && d.y >= 0 && d.x <= width && d.y <= height);
-      return {spots: on.filter((d) => d.layer === 'spot').length, groups: on.filter((d) => d.layer === 'group').length, sel: on.filter((d) => d.layer === 'sel').length,
-        list: on.map((d) => { const i = dotInfo.current.get(d.layer === 'group' ? 'g:' + d.id : d.id); return {...d, kind: i?.face.kind, num: i?.face.num ?? null, band: i?.band, word: i?.word, name: i?.name}; })}; };
+      return {spots: on.filter((d) => d.layer === 'spot').length, groups: on.filter((d) => d.layer === 'group').length, clusters: on.filter((d) => d.layer === 'cluster').length, sel: on.filter((d) => d.layer === 'sel').length,
+        list: on.map((d) => { if (d.layer === 'cluster') return d; const i = dotInfo.current.get(d.id); return {...d, kind: i?.face.kind, num: i?.face.num ?? null, pill: i?.face.pill ?? null, band: i?.band, word: i?.word, name: i?.name}; })}; };
+    if (import.meta.env.DEV) (w as {__xleaves?: unknown}).__xleaves = (id: string) => x.clusterLeaves?.(id) ?? Promise.resolve([]);
     return () => { off(); offMove(); if (import.meta.env.DEV) delete w.__xdots; };
   }, [eng]);
 
@@ -678,7 +672,7 @@ function OceanMap({section, go}: ViewProps) {
   const shownPacked = !!shownFrame?.provider.startsWith('NOAA GFS-Wave');
   const status = !live ? 'Model layers need live data; the demonstration week shows spots only.'
     : cache && cacheDrawn && opts.heat ? cache.line
-    : spatial.loading && !frame && slow ? 'Sea color is not loading right now · spots and forecasts still work'
+    : spatial.loading && !frame && slow ? 'Sea color still loading (taking longer than usual) · spots and forecasts still work'
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
     : frame || gframe ? `${def.label} · ${shownPacked ? shownFrame!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${viaHosts(shownUrls)}`}${shownPacked ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}${interpNote ? ` · ${interpNote}` : ''}`} · valid ${weekdayPT(shownFrame!.validAt, mapZone())} ${hourLabel(shownFrame!.validAt, mapZone())} ${mapZoneAbbr(shownFrame!.validAt)}${stepNote}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
@@ -889,10 +883,18 @@ function OceanMap({section, go}: ViewProps) {
     : cache ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}…`
     : !view.selectedTime && dataPhase(view.ocean) === 'loading' ? 'Loading the forecast…'
     : seaFailed ? `Couldn't load ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}${showing}`
-    : slow && anyLoading ? (paintedFrame ? `Sea color not loading${showing}` : 'Sea color not loading · spots still work')
+    : slow && anyLoading ? `Still loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'} (taking longer than usual)${paintedFrame ? showing : ' · spots still work'}`
     : isHeld ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}…${showing}` : '';
   const seaRetry = !!heldNote && (seaFailed || (slow && anyLoading)) ? () => { setSlow(false); spatial.retry(); } : null;
   const seaNote = heldNote || (fallbackName ? `${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word ?? def.short} model: ${fallbackName}` : seaLoading);
+  // map-load: ONE status on the map at a time, by priority: a real failure (the forecast or a source unavailable, or the layer failed) > the after-dark note > loading
+  // and model notes. On phones everything else is held back; the after-dark note carries the model fallback name when both apply (an honesty label, kept).
+  // (data-honesty review) no label is ever dropped by the one-status rule: the one message on a phone FOLDS the others in. A real failure is the forecast
+  // unavailable or the sea layer failed; 'Limited: …' (a source stale for some spots) and 'Demonstration' are labels, carried by whichever note shows.
+  const cacheNote = cache && cacheDrawn && opts.heat ? cache.chip : '';
+  const failNote = !!srcWarn || (seaFailed && !!heldNote);   // a source unavailable or limited is the prominent message (it leads the note, and the note carries 'after dark')
+  const statusNow: 'fail' | 'dark' | 'note' | null = failNote ? 'fail' : darkNow ? 'dark' : srcWarn || seaNote ? 'note' : null;
+  const phoneTop = [srcWarn, seaNote, seaNote && !/cached/.test(seaNote) ? cacheNote : '', darkNow && failNote ? 'after dark · not a surf window' : ''].filter(Boolean).join(' · ');   // the source warning first, then what the sea shows, then the hour
   // the warning sits in the top bar: pills and labels lay out again when it appears or changes, so none sits under it
   useEffect(() => { const id = requestAnimationFrame(() => declutterRef.current()); return () => cancelAnimationFrame(id); }, [srcWarn, seaNote]);
   return (
@@ -914,8 +916,8 @@ function OceanMap({section, go}: ViewProps) {
       ) : null}
       <div className="xsearchbox">
         {topBar}
-        {phone && srcWarn && <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" />{srcWarn}</p>}
-        {phone && seaNote && <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined}><i aria-hidden="true" /><span>{seaNote}</span>{seaRetry && <button type="button" onClick={seaRetry}>Retry</button>}</p>}
+        {phone && (statusNow === 'fail' || statusNow === 'note') && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{seaRetry && <button type="button" onClick={seaRetry}>Retry</button>}</p>
+          : <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" />{phoneTop}</p>)}
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
 
@@ -931,7 +933,7 @@ function OceanMap({section, go}: ViewProps) {
         const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held, mapZone())} ${hourLabel(held, mapZone())} ${mapZoneAbbr(held)}` : '';
         const retry = () => { setSlow(false); spatial.retry(); };
         if (failed) return <p className="xload err" role="alert">Couldn't load {def.short.toLowerCase()} for {when}{showing} <button type="button" onClick={retry}>Retry</button></p>;
-        if (slow && anyLoading) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
+        if (slow && anyLoading && !darkNow) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
         return null;
       })()}
       {/* T-117 (Windy): the layers down the right edge as labelled round thumbnails (a menu button and sheet on phones), the zoom and centre controls under them. */}
@@ -946,15 +948,16 @@ function OceanMap({section, go}: ViewProps) {
 
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
-        {darkNow && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window</p>}
-        {cache && cacheDrawn && opts.heat && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
+        {darkNow && (phone ? statusNow === 'dark' : !seaFailed) && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window{phone ? [fallbackName, cacheNote].filter(Boolean).map((t) => ` · ${t}`).join('') : ''}</p>}
+        {cache && cacheDrawn && opts.heat && (!phone || statusNow === null) && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { lastScrub.current = Date.now(); setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {!phone && <DotKey unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} />}
           {opts.heat && <ModelChip name={modelName} sub={cacheDrawn ? cache?.chip : undefined} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={LEGEND_NAMES[paintedDef.id].full} short={LEGEND_NAMES[paintedDef.id].short} word={LEGEND_NAMES[paintedDef.id].word} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} ><DotKeyList unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} /></LegendChip>
-          : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined}>{opts.heat ? status : 'Sea color off'}</p>}
+          : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined} data-open={statusOpen ? 'true' : undefined} title={opts.heat ? status : undefined}
+              onClick={() => setStatusOpen((v) => !v)}>{opts.heat ? status : 'Sea color off'}</p>}
         </div>
       </div>
       {pt && panel && <ForecastPanel pt={pt} data={point.data} error={point.error} time={view.selectedTime} p={p} bundle={view.ocean.bundle}

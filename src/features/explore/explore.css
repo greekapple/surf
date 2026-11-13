@@ -1000,3 +1000,20 @@ button.xstatus { cursor: pointer; font: inherit; }
 @container (max-width: 34px) { .xs-days .xs-tiny { display: none; } .xs-days .xs-two { display: inline; } }
 @container (max-width: 20px) { .xs-days .xs-two { display: none; } .xs-days .xs-one { display: inline; } }
 @container (max-width: 9px) { .xs-days .xs-one { display: none; } }
+
+/* map-clusters (lead, 2026-11-12): at 390 the status line was a 607 px line inside the bottom bar, starting under the play button. On a phone it takes its own row,
+   one line with an ellipsis, never under the play button; a tap shows the whole text (wrapped). */
+.xb-right > .xstatus { min-width: 0; cursor: pointer; }
+.xb-right > .xstatus[data-open='true'] { white-space: normal; line-height: 1.35; padding-top: 8px; padding-bottom: 8px; border-radius: 14px; overflow: visible; }
+@media (max-width: 860px) {
+  /* the status (inside .xb-right, which never shrank) moves to its own full-width row under the scrubber, so it can never widen the strip or sit under the play button */
+  .xbottom { flex-wrap: wrap; }
+  .xb-right:has(> .xstatus) { flex: 1 1 100%; order: 3; min-width: 0; max-width: 100%; }
+  .xb-right > .xstatus { flex: 1 1 auto; max-width: 100%; }
+}
+@media (max-width: 860px) {
+  /* map-load: the one after-dark note may carry the model and cached-map labels: it wraps inside the screen instead of running off it */
+  .xbottom .xdark:not(.xcache) { left: 12px; white-space: normal; max-width: calc(100vw - 24px); box-sizing: border-box; border-radius: 12px; }
+  /* the credit moves up while the after-dark note is shown, so the note (which may take two lines) never sits on it */
+  .xmap:has(.xbottom .xdark:not(.xcache)) .xcredit { bottom: calc(var(--peek, 0px) + 184px); }
+}

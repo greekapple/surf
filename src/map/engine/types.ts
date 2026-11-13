@@ -56,14 +56,18 @@ export interface MapEngine {
   /** taps (and pointer hover) on a dot; the engine's own 'click' never fires for a tap on a dot */
   onDot?(cb: (e: DotEvent) => void): () => void;
   /** the dots actually drawn now (after collision), in container pixels: for QA and the in-view count */
-  placedDots?(): {id: string; layer: MapDot['layer']; x: number; y: number}[];
+  placedDots?(): {id: string; layer: MapDot['layer'] | 'cluster'; x: number; y: number; /** clusters: how many spots, and how many at each rating */ count?: number; bands?: {good: number; fair: number; poor: number; none: number}}[];
+  /** map-clusters (QA): the spot ids a cluster holds */
+  clusterLeaves?(id: string): Promise<string[]>;
   dispose(): void;
 }
 /** One dot's look. Colours are resolved CSS colours (the page reads its tokens; the engine draws on a canvas). */
 export interface DotIcon {kind: 'est' | 'nws' | 'off' | 'snap' | 'none'; num: string | null; fill: string; ink: string; surface: string; text: string; dir: number | null; size: number; sel: boolean; faded: boolean;
-  /** an estimate with no rating this hour: drawn as an outline with the number (never a grey fill that reads as Poor) */ unrated?: boolean; /** a group's dot: drawn as a small stack */ group?: boolean}
-export interface MapDot {id: string; lat: number; lon: number; layer: 'group' | 'spot' | 'sel'; icon: DotIcon; /** higher is placed first; a lower one that collides is not drawn */ prio: number; name: string; /** after dark: drawn dimmed */ dim: boolean}
+  /** an estimate with no rating this hour: drawn as an outline with the number (never a grey fill that reads as Poor) */ unrated?: boolean; /** a group's dot: drawn as a small stack */ group?: boolean;
+  /** map-clusters: the pill's surf text (est and nws), the spot page's own range ('3–4 ft'); without it the old round dot is drawn */ pill?: string | null}
+export interface MapDot {id: string; lat: number; lon: number; layer: 'group' | 'spot' | 'sel'; icon: DotIcon; /** map-clusters: the spot's rating band this hour, summed into its cluster's ring ('none' = no live rating) */ band?: 'good' | 'fair' | 'poor' | 'none'; /** counted in its cluster but not drawn as a lone pill (the selected spot, drawn on its own layer) */ hide?: boolean; /** higher is placed first; a lower one that collides is not drawn */ prio: number; name: string; /** after dark: drawn dimmed */ dim: boolean}
 /** zooms are Leaflet-equivalent: groups from `groupsFrom` until `spotsFrom`, spots from `spotsFrom`, names from `namesFrom`; `pad` is the extra px kept between dots */
-export interface DotOptions {groupsFrom: number; spotsFrom: number; namesFrom: number; pad: number; text: string; halo: string}
-export interface DotEvent {type: 'click' | 'enter' | 'leave'; id: string; layer: MapDot['layer']; x: number; y: number}
+export interface DotOptions {groupsFrom: number; spotsFrom: number; namesFrom: number; pad: number; text: string; halo: string;
+  /** map-clusters: spots are clustered (MapLibre GeoJSON clustering) up to this zoom (Leaflet-equivalent); the cluster ring's colours by band, and the surface */ clusterTo?: number; ring?: {good: string; fair: string; poor: string; none: string; surface: string}}
+export interface DotEvent {type: 'click' | 'enter' | 'leave'; id: string; layer: MapDot['layer'] | 'cluster'; x: number; y: number}
 export interface EngineOptions {view: View; minZoom: number; maxZoom: number; theme: Theme}
