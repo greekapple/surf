@@ -5,7 +5,7 @@
 // and ~/Development/swello-data/srf-compare/r2srf/products (R2 copies, services/surf-capture.mjs). Output (outside the repo): <out>/srf-compare-<date>.csv and .md; the summary is also printed.
 // What is compared, exactly:
 //  - THEIRS: the zone's "Surf Height" range for one local calendar day (a `.WEDNESDAY...` period, or TODAY / REST OF TODAY), as the NWS wrote it, from services/srf-parse.mjs. A zone split by facing is matched to the spot by the
-//    spot's seaward bearing (src/data/coast.ts) to the nearest facing label within 45 degrees; a tie, a mismatch or no bearing excludes the row (never a guess). "N feet or less" has no lower bound and is excluded from the mid-range
+//    spot's facing (the guides' facing where one exists, else the seaward bearing in src/data/coast.ts; `--coast-bearing` forces the latter) to the nearest facing label within 45 degrees; a tie, a mismatch or no bearing excludes the row (never a guess). "N feet or less" has no lower bound and is excluded from the mid-range
 //    comparison (counted); "around N feet" is lo = hi = N. Their mid-range is (lo + hi) / 2.
 //  - OURS: the app's surf range (src/services/headlineSurf.ts surfBand: lo, hi of the displayed band) re-derived NOW with the current engine from the hours stored in the shown capture (the same convention as the stored rating),
 //    UNCALIBRATED (no personal observations) and WITHOUT the CDIP MOP / SWAN / model-spread inputs (none is in the capture), so it is the v1 offshore-to-break chain, not necessarily what a visitor saw. Our mid-range for a day is the mean of
@@ -21,6 +21,7 @@ import {timeZoneOf} from '../src/ocean/spotZone.ts';
 import {dateInMs} from '../src/ocean/time.ts';
 import {DATA, HOUR, DEFAULT_SHOWN, argsOf, files, readJson, r2, median, csvCell, loadShown, ourHours, setBundle, loadMopBundle} from './lib/compare-common.mjs';
 import {COAST_ROWS, UPGRADED_ROWS} from '../src/data/coast.ts';
+import {guideFactsFor} from '../src/ocean/spotFactsSourced.ts';
 
 const MIN_HOURS = 4, {multi} = argsOf(process.argv.slice(2));
 const shownIn = multi('--shown').length ? multi('--shown') : DEFAULT_SHOWN;
@@ -31,7 +32,9 @@ const outDir = multi('--out')[0] ?? path.join(DATA, 'srf-compare', 'out'), today
 const map = readJson(new URL('../docs/forecast/data/surf-height-sources.json', import.meta.url).pathname);
 const spotsByZone = new Map();
 for (const [id, s] of Object.entries(map.spots)) if (s.nws_srf?.zone) { const k = s.nws_srf.zone; if (!spotsByZone.has(k)) spotsByZone.set(k, []); spotsByZone.get(k).push({id, name: s.name, region: s.region, km: s.nws_srf.km, office: s.nws_srf.office}); }
-const seaward = new Map([...UPGRADED_ROWS, ...COAST_ROWS].map((r) => [r[0], r[6]]));
+const coastBearing = new Map([...UPGRADED_ROWS, ...COAST_ROWS].map((r) => [r[0], r[6]]));
+// ca-mop-caveats: the bearing used to pick the NWS facing entry is the facing the published guides give (src/ocean/spotFactsSourced.ts, basis 'guide') when there is one, else the coast.ts seaward bearing (the old rule; `--coast-bearing` restores it for every spot). The coast.ts column is a rough 9 km marine-point direction and disagreed with the guides by up to 50 degrees (Sand Dollar: 220 vs W 270).
+const bearingOf = (id) => { if (!process.argv.includes('--coast-bearing')) { const f = guideFactsFor(id)?.facing; if (f && f.basis === 'guide' && Number.isFinite(f.deg)) return f.deg; } return coastBearing.get(id); };
 
 const captures = loadShown(shownIn);
 // SRF products, read once per id
@@ -57,7 +60,7 @@ for (const [capDate, cap] of captures) {
       const shown = cap.spots[sp.id]; if (!shown) continue;
       const base = {date: per.date, spot: sp, zone, office: p.office, product: p, per, capDate, cap, gapH: gap / HOUR};
       // THEIRS: the entry for this spot
-      const pick = pickEntry(per.surf, seaward.get(sp.id)); if (pick.reason) { skip(pick.reason); continue; }
+      const pick = pickEntry(per.surf, bearingOf(sp.id)); if (pick.reason) { skip(pick.reason); continue; }
       const used = pick.entry, diff = pick.diff;
       // OURS: the daylight hours of that local date (from the issue time on when it is the issue day)
       const tz = timeZoneOf(sp.id), from = per.date === z.issued?.date ? Date.parse(p.issuedAt) : -Infinity;

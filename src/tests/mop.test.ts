@@ -105,3 +105,25 @@ test('ca-mop: pickNearestMop bounds (distance, depth, breakwater, normal agreeme
   assert.match((pickNearestMop(null, [c('A', 270, 15, 0.3)]) as any).refused, /no neighbours/);
   assert.ok('pick' in pickNearestMop(null, [c('A', 359, 15, 0.3), c('B', 5, 15, 0.5), c('C', 352, 15, 0.6)]), 'the check wraps around north');
 });
+
+// ca-mop-caveats: the exposed-point caveat is text beside the number, on exactly three spots, and changes no number
+import {headlineSurf} from '../services/headlineSurf.ts';
+test('ca-mop-caveats: the "expect smaller surf" caveat is on exactly Andrew Molera, Crescent City and Shelter Cove, cites its sources, and no headline number changes', () => {
+  const withCaveat = mopAssignments.filter((a) => /expect smaller surf than shown/.test(a.caveat ?? '')).map((a) => a.spotId).sort();
+  assert.deepEqual(withCaveat, ['cs-andrew-molera', 'cs-crescent-city', 'cs-shelter-cove']);
+  for (const id of withCaveat) { const a = assignmentFor(id)!; assert.equal(a.smallerThanPoint, true); assert.match(a.note, /https:\/\/www\.(surfnerd|mondo)\.[^ ]+/); assert.match(a.note, /retrieved 2026-11-0\d|\/guide\/10902/); assert.match(a.note, /CA-MOP-CHECK\.md/); }
+  const FT = 1 / 0.3048, T = '2026-11-02T18:00:00.000Z', NOW = Date.parse('2026-11-02T12:00:00Z');
+  const hourOf = (spotId: string) => ({spotId, timestamp: T, day: 0, hour: 18, face: NaN, offshore: 5.2, availability: {face: false, swell: true, wind: true, tide: true, organization: false}, evidence: undefined}) as any;
+  const run = (spotId: string, dp: number) => { const a = assignmentFor(spotId)!, mk = (unit: any, value: number) => ({value, unit, source: {} as any}); const rec = {timestamp: T, height: mk('ft', 1.8 * FT), period: mk('s', 14), direction: mk('deg', dp), qualityFlag: 1, mopId: a.mopId, product: 'forecast'};
+    return headlineSurf(spotId, hourOf(spotId), {bundle: {nearshore: [], mop: {[a.mopId]: {mopId: a.mopId, records: [rec], issue: null, retrievedAt: T, url: 'x'}}} as any, nowMs: NOW}); };
+  const numbers = (h: any) => JSON.stringify({k: h.kind, lo: h.loFt, hi: h.hiFt, c: h.centralFt, m: h.method, band: h.band, i: h.interval, w: h.words, ft: h.ft, label: h.label});
+  const caSpots = mopAssignments.filter((a) => { const p = mopPoint(a.mopId); return p && p.lat >= 32.5 && p.lat <= 42 && p.lon < -117; }).map((a) => a.spotId);
+  assert.ok(caSpots.length > 150, `${caSpots.length} California assigned spots`);
+  const before = new Map<string, string>(), confBefore = new Map<string, string>(); let estimates = 0;
+  const saved = withCaveat.map((id) => { const a = assignmentFor(id)!; return {a, caveat: a.caveat, smaller: a.smallerThanPoint, note: a.note}; });
+  for (const s of saved) { delete s.a.caveat; delete s.a.smallerThanPoint; }
+  for (const id of caSpots) for (const dp of [200, 250, 290]) { let h: any; try { h = run(id, dp); } catch { h = {kind: 'error'}; } before.set(id + dp, numbers(h)); confBefore.set(id + dp, String(h.confidence)); }
+  for (const s of saved) { s.a.caveat = s.caveat; s.a.smallerThanPoint = s.smaller; }
+  for (const id of caSpots) for (const dp of [200, 250, 290]) { let h: any; try { h = run(id, dp); } catch { h = {kind: 'error'}; } if (h.kind === 'estimate') estimates++; assert.equal(numbers(h), before.get(id + dp), `${id} at ${dp}°: headline numbers are byte-identical with and without the caveat`); const cb = confBefore.get(id + dp); assert.ok(String(h.confidence) === cb || (withCaveat.includes(id) && h.confidence === 'low'), `${id}: confidence may only drop to low on the three caveated spots (the existing rule for a caveated point), was ${cb} now ${h.confidence}`); }
+  assert.ok(estimates > 100, `${estimates} estimates compared`);
+});
