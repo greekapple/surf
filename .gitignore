@@ -28,3 +28,6 @@ public/media/scale3d-proc/
 # wave-clean: built from tools/blender/clean-curves.json (drawn from scratch, NO licensed input: could be committed and served
 # publicly); kept out of git until the lead decides. Rebuild: python -I tools/blender/clean_source.py public/media/scale3d-clean
 # public/media/scale3d-clean/ is committed: clean-room, no licensed input (lead, 2026-11-12)
+
+# local Open-Meteo usage counter (counts and dates only)
+/data/open-meteo-local-usage.json
