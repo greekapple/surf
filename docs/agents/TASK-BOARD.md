@@ -624,3 +624,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-13 Open-Meteo paid plan live: OPEN_METEO_KEY set by the user; /api/health openMeteo.plan='paid' (6/6 calls 200 on customer endpoints, ~0.27 s each). Cold Home first content 6–10 s (was ~15 s); still above the 6 s budget → Fable Track 0.
 - 2026-11-13 06:47Z: all 122 new California MOP ids have forecast + das data on prod (eng).
 - 2026-11-13 deployed forecast-order (0205e994): spot page in brief-check order, honesty P1s fixed; 1137 tests, journeys 8/8, phone-pass, t034. Merged ca-mop-check (evidence): CA MOP reads ~0.68x NWS mid in SoCal behind the islands, gauges -0.53 ft mean; 32 flagged spots; calibration = user decision.
+- 2026-11-13 deployed ca-mop-caveats: 'expect smaller surf than shown' at Andrew Molera, Crescent City, Shelter Cove; 1138 tests, journeys 8/8.
