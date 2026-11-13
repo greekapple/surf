@@ -844,8 +844,8 @@ p.sp-wn { display: block; }
 .sp > .sp-band.is-plain .sp-band-in, .sp-band.is-plain .sp-band-in { height: auto; min-height: 0; padding: 0; background: none; }
 .sp-hero-cam { margin: 0; display: grid; gap: 6px; }
 .sp-hero-cam[hidden] { display: none; }
-.sp-hero-a { display: block; height: 220px; border-radius: var(--r3); overflow: hidden; background: var(--s2); }
-.sp-hero-a img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center 55%; }
+.sp-hero-a { display: block; aspect-ratio: 16 / 9; width: 100%; max-width: 800px; border-radius: var(--r3); overflow: hidden; background: var(--s2); } /* cam-hero-3: always the whole 16:9 frame (HDOnTap's LIVE/logo overlay included), never cropped, never past ~1.25x of the 640 px snapshot */
+.sp-hero-a img { display: block; width: 100%; height: 100%; object-fit: contain; }
 .sp-hero-a:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .sp-hero-cap { display: flex; flex-wrap: wrap; align-items: center; column-gap: 10px; font-size: 12px; line-height: 18px; color: var(--muted); }
 .sp-hero-cap a { color: var(--text); display: inline-flex; align-items: center; min-height: 32px; }
@@ -854,7 +854,7 @@ p.sp-wn { display: block; }
 .sp-hero-cap .hds-logo img { height: 14px; width: auto; }
 .sp-hero-cap .hds-logo { display: inline-flex; align-items: center; min-height: 32px; }
 @media (max-width: 860px) {
-  .sp-hero-a { height: 212px; border-radius: var(--r2); }
+  .sp-hero-a { border-radius: var(--r2); }
   .sp-hero-cap { display: block; }
   .sp-hero-cap .hc-row { display: flex; }
   .sp-hero-cap .hc-row .cr-sep { display: none; }
@@ -872,3 +872,19 @@ p.sp-wn { display: block; }
   .sp > .sp-band.is-drawn > .sp-drawn .credit { position: static; order: 1; translate: none; white-space: normal; text-align: left; max-width: none; margin: 0; }
   .sp > .sp-band.is-drawn .sp-title p { max-width: none; }
 }
+
+/* cam-hero-3 (lead, 2026-11-13): on a wide screen the camera keeps its own 16:9 frame at about native size (544 px wide, 0.85x of the 640 px snapshot: sharp, uncropped)
+   and the Call (verdict, window, reason, Share) sits beside it; the title row stays above both and the rest of the Now block runs full width below. The Now section's
+   children join the page grid only for this layout (display: contents), so nothing moves for any other spot or on a phone. */
+@media (min-width: 861px) {
+  .sp:has(> .sp-hero-cam:not([hidden])) { grid-template-columns: minmax(0, 544px) minmax(0, 1fr); column-gap: 32px; }
+  .sp:has(> .sp-hero-cam:not([hidden])) > * { grid-column: 1 / -1; }
+  .sp:has(> .sp-hero-cam:not([hidden])) > .sp-hero-cam { grid-column: 1; grid-row: 2; }
+  .sp:has(> .sp-hero-cam:not([hidden])) > .sp-now { display: contents; }
+  .sp:has(> .sp-hero-cam:not([hidden])) > .sp-now > * { grid-column: 1 / -1; }
+  .sp:has(> .sp-hero-cam:not([hidden])) > .sp-now > .call { grid-column: 2; grid-row: 2; align-self: start; }
+}
+/* cam-hero-3: on wide screens the drawing sat behind the Map and Share buttons (bottom right). From 1200 px it sits left of the time, Map and Share; between 861 and
+   1199 px it is drawn smaller in the top-right corner, above them. */
+@media (min-width: 861px) { .sp-band.is-drawn .sp-drawn .wglyph { top: 10px; height: 52px; right: 24px; } }
+@media (min-width: 1200px) { .sp-band.is-drawn .sp-drawn .wglyph { top: 16px; height: 88px; right: 400px; } }

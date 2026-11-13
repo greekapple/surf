@@ -25,3 +25,10 @@ test('the header camera keeps HDOnTap\'s terms: their URL as given plus the per-
   assert.equal(snapshotSrc(hero.snapshotUrl!, t + 29_000), snapshotSrc(hero.snapshotUrl!, t), 'the same minute asks for the same picture');
   assert.ok(hasSnapshot(hdontapPage(hero), 'cs-venice-breakwater'));
 });
+test('cam-hero-3: the header camera is never cropped or blown up: an exact 16:9 box, the whole frame (contain), at most 800 px wide (~1.25x of the 640 px snapshot)', async () => {
+  const {readFileSync} = await import('node:fs'); const css = readFileSync(new URL('../features/forecast/forecast.css', import.meta.url), 'utf8');
+  const rule = (sel: string) => [...css.matchAll(new RegExp(`${sel.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\s*\\{([^}]*)\\}`, 'g'))].map((m) => m[1]).join(';');
+  const box = rule('.sp-hero-a'), img = rule('.sp-hero-a img');
+  assert.match(box, /aspect-ratio:\s*16\s*\/\s*9/); assert.match(box, /max-width:\s*800px/); assert.doesNotMatch(box, /(^|;)\s*height:\s*\d/, 'no fixed height (that crops the frame)');
+  assert.match(img, /object-fit:\s*contain/); assert.doesNotMatch(css, /\.sp-hero-a[^{]*\{[^}]*height:\s*\d+px/, 'no media query gives the box a fixed height');
+});
