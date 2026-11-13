@@ -625,3 +625,4 @@ None block use; each is a small correctness gap. Reviews in `docs/reviews/2026-1
 - 2026-11-13 06:47Z: all 122 new California MOP ids have forecast + das data on prod (eng).
 - 2026-11-13 deployed forecast-order (0205e994): spot page in brief-check order, honesty P1s fixed; 1137 tests, journeys 8/8, phone-pass, t034. Merged ca-mop-check (evidence): CA MOP reads ~0.68x NWS mid in SoCal behind the islands, gauges -0.53 ft mean; 32 flagged spots; calibration = user decision.
 - 2026-11-13 deployed ca-mop-caveats: 'expect smaller surf than shown' at Andrew Molera, Crescent City, Shelter Cove; 1138 tests, journeys 8/8.
+- 2026-11-13 merged map-clusters 8b439aa (local, not deployed): tsc, 1143/0 tests, build, journeys 8/8, t034, phone-pass (map-load-844), map-dots all pass. Data-honesty: 4 P1 (labels dropped at night/failed/cached; 'off' pill reads as wind) sent back to product-term.
