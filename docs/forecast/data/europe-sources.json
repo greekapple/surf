@@ -71509,7 +71509,7 @@
    "region": "Scotland, Highland",
    "lat": 58.511,
    "lon": -4.413,
-   "seaward": 135,
+   "seaward": 30,
    "waveBuoy": [
     {
      "id": "WN-336",
@@ -71552,15 +71552,16 @@
       -4.413
      ],
      "seaward2km": [
-      58.498,
-      -4.389
+      58.527,
+      -4.396
      ],
      "appMarine9km": [
-      58.595,
-      -4.413
+      58.583,
+      -4.333
      ]
     },
-    "appMarineMoved": {"from": [58.454, -4.305], "reason": "0/24 non-null hours at the original point (checked 2026-11-13); moved one 9 km grid step north of the pin: the stored seaward bearing (135) points inland and a step along it (58.395, -4.192) answered 0/24 as well; the coast faces open water to the north"}
+    "appMarineMoved": {"from": [58.454, -4.305], "reason": "0/24 non-null hours at the original point (checked 2026-11-13); recomputed 9.3 km along the corrected seaward bearing (30) and rechecked 24/24"},
+    "seawardFixed": {"from": 135, "to": 30, "reason": "OSM coastline (Overpass, base 2026-11-13T18:00Z): the pin (58.511, -4.413) is in the Kyle of Tongue estuary; a ray along 135 meets the coast at 0.9 km and the 2 km point (58.498, -4.389) is land. Open water from the pin lies to the north to north-east (bearings 0 to 45); 30 is the middle of that sector. This is the bearing to open water, not a beach facing: the pin is sheltered estuary water."}
    },
    "wind": {
     "sid": "EGPC",

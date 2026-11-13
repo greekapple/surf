@@ -237,3 +237,18 @@ Sources: the IEM networks and currents; the Marine Institute ERDDAP; the Cefas W
 - `w-uk-point-of-ness`: (58.563, -3.477) -> (58.504, -3.590), one 9 km step further along the stored seaward bearing (225). 24/24; Open-Meteo answered from (58.708, -3.792), 25.5 km from the asked point (the nearest ocean cell is on the west side of Orkney, so a wave there is only a rough guide for this Pentland Firth spot).
 - `w-uk-kyle-of-tongue`: (58.454, -4.305) -> (58.595, -4.413), one 9 km step north of the pin. A step along the stored seaward bearing (135) at (58.395, -4.192) was 0/24 again: that bearing points inland, and the coast faces open water to the north. 24/24; answered from (58.708, -4.375), 12.8 km away. **For review:** the stored `seaward: 135` for this spot looks wrong (north-facing coast); it was not changed here.
 The moves are recorded in `europe-sources.json` (`model.appMarineMoved`) and `europe-model-check.json` (`movedFrom`).
+
+**Update 2026-11-13 (kyle-bearing): `w-uk-kyle-of-tongue` seaward bearing fixed, and the other Europe spots checked for the same fault.**
+- **Kyle of Tongue: stored `seaward` 135 -> 30.** Evidence: OSM coastline (`natural=coastline`, Overpass, data base 2026-11-13T18:00Z). The pin (58.511, -4.413) is in the Kyle estuary, 0.7 km from the nearest coast. A ray from the pin along 135 meets the coast at 0.9 km and its 2 km point (58.498, -4.389) is land, so 135 pointed onto the far shore. Open water from the pin lies to the north to north-east: bearings 0 to 45 are water, the clear run is longest at 40 to 45 (about 6 km) and 30 is the middle of that sector. This is the bearing to open water, not a beach facing: the pin is sheltered estuary water, so an open-coast reading of this spot is optimistic (a decision for the lead, not made here). The 2 km point is now (58.527, -4.396) and the app-marine point (58.583, -4.333) (9.3 km along 30); both returned 24/24 on the paid key, answered from grid cells 20 and 14 km from the asked points (the model has no sea cell nearer). Recorded in `europe-sources.json` (`model.seawardFixed`) and `europe-model-check.json`.
+- **Other spots whose 2 km seaward point is on land.** Method: Natural Earth 10 m land polygons (public domain) first, all 1,334 spots: 24 have the 2 km point inside land, 1 by more than 1 km (Kyle), 7 by more than 0.5 km. Natural Earth is coarse (about 0.5 to 1 km at this scale), so the 12 that were inside by 0.2 km or more were re-checked against the OSM coastline (side of the nearest coastline way; land is on the left of the way). **Confirmed on land at 2 km by OSM (5):**
+
+| Spot | Stored seaward | OSM: 2 km point | Longest open-water bearing within 6 km (not applied) |
+|---|---|---|---|
+| `w-uk-kyle-of-tongue` (fixed above) | 135 | land | 40 |
+| `w-ireland-loughros-more-bay` | 0 | land | 265 |
+| `w-uk-crow-point` | 209.7 | land | 235 |
+| `w-spain-playa-de-baleo` | 347 | land | 305 |
+| `w-uk-cliff` | 292.5 | land | 305 |
+
+  The other 7 of the 12 are sea at 2 km in OSM (`w-spain-luanco`, `w-uk-oxwich-bay`, `w-spain-playa-la-espasa`, `w-spain-playa-de-viso`, `w-uk-sandside-bay`, `w-france-kerloch`, `w-uk-the-gare`): Natural Earth's coarseness, not a bearing fault. The 12 spots inside Natural Earth land by less than 0.2 km were not re-checked (within its own error). The 4 other spots are estuary or bay pins (Loughros More Bay, Crow Point, Cliff, Playa de Baleo) where a straight 2 km ray can cross a headland while the bearing is still the right open-sea direction; each needs a person to look at the chart before changing it, so **only Kyle of Tongue was changed**. Every spot still has at least one 24/24 Open-Meteo point (the earlier check), so no forecast is blocked.
+
