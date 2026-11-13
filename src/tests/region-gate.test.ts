@@ -95,3 +95,35 @@ test('ca-only: California headlines are byte-identical to forecast-trust', () =>
   assert.equal(ca.length, 205); assert.equal(out.length, 615);
   assert.equal(crypto.createHash('sha256').update(out.join('\n')).digest('hex').slice(0, 16), '483017460e6d2218');
 });
+
+// ca-only-fix (data-honesty review of ca-only): every zone chip list, the hidden-spot state and the Home "saved" logic
+import {zonesWithSpots, hiddenOnChoose} from '../ocean/regionGate.ts';
+test('ca-only-fix 1-3: the chips on the map, Compare and Favorite spots are the zones that hold a gated spot (no Oregon, Hawaii or East Coast zone); the owner preview lists them all', () => {
+  const ca = visibleEvidence(null, false), all = visibleEvidence({previewRegions: true}, true);
+  const caZones = zonesWithSpots(ca), allZones = zonesWithSpots(all);
+  assert.deepEqual(caZones, ['North Coast', 'Bay Area', 'Santa Cruz & Monterey', 'Central Coast', 'Southern California'].filter((z) => caZones.includes(z)));
+  assert.ok(caZones.length >= 4 && caZones.every((z) => (CA_ZONES as readonly string[]).includes(z)), `California zones only: ${caZones.join(', ')}`);
+  for (const bad of ['Oregon North Coast', 'Oregon South Coast', 'Washington Coast', 'Hawaii · Oahu', 'Florida', 'Maine', 'Alaska · Sitka']) assert.ok(!caZones.includes(bad) && allZones.includes(bad), `${bad}: hidden by default, offered with the preview`);
+  const src = (f: string) => read(f);
+  assert.match(src('src/features/explore/ExploreView.tsx'), /\['In view', 'All', \.\.\.zonesWithSpots\(evidenceSpots\)\]/);
+  assert.match(src('src/features/explore/Compare.tsx'), /\['All', \.\.\.zonesWithSpots\(spotOptions\)\]/);
+  assert.match(src('src/features/personal/PersonalView.tsx'), /\['All', \.\.\.zonesWithSpots\(spotOptions\)\]/);
+  for (const f of ['src/features/explore/ExploreView.tsx', 'src/features/explore/Compare.tsx', 'src/features/personal/PersonalView.tsx']) assert.doesNotMatch(src(f), /\.\.\.ZONES\.map\(/, `${f}: no chip list built from all of ZONES`);
+});
+test('ca-only-fix 5 and 10: choosing a hidden spot from anywhere says "not open yet" and leaves the selection alone; the state clears when Forecast is left', () => {
+  const maui = evidenceSpots.find((s) => s.region === 'Maui')!, ca = caByRegion[0];
+  assert.equal(hiddenOnChoose(maui.id, null, false), maui.id); assert.equal(hiddenOnChoose(ca.id, null, false), null); assert.equal(hiddenOnChoose(maui.id, {previewRegions: true}, true), null);
+  const store = read('src/app/store.tsx'), app = read('src/app/App.tsx');
+  assert.match(store, /const hid = hiddenOnChoose\(id, profile\); if \(hid\) \{ setHiddenSpot\(hid\); setMissingSpot\(null\); return; \}/, 'setSpot stops at a hidden spot before it selects anything');
+  assert.match(store, /clearHiddenSpot = \(\) => \{ setHiddenSpot\(null\);[^}]*q\.delete\('spot'\)/, 'clearing drops ?spot= from the URL too');
+  assert.match(app, /if \(area !== 'forecast' && hiddenSpot\) clearHiddenSpot\(\)/, 'leaving Forecast clears it, so Home then Forecast shows the forecast');
+  assert.ok(store.indexOf('hiddenOnChoose(id, profile)') < store.indexOf('if (id !== view.selected) view.selectSpot(id)'), 'the hidden check comes before selectSpot');
+});
+test('ca-only-fix 6-9: Home asks nearIds with the gated list, saved spots that are all hidden count as none, the summary and Find spots follow the gate, and the wording does not promise a date', () => {
+  const home = read('src/features/home/HomeView.tsx');
+  assert.equal((home.match(/nearIds\(refIdEarly, evidenceSpots,/g) ?? []).length, 2, 'both nearIds calls get the gated list');
+  assert.match(home, /const personal = saved\.some\(\(id\) => spotOptions\.some\(\(s\) => s\.id === id\)\)/, 'personal means at least one saved spot is shown');
+  assert.match(read('src/features/personal/PersonalView.tsx'), /p\.region !== 'All regions' && spotOptions\.some\(\(x\) => x\.region === p\.region\) \? regionWithState/);
+  assert.match(read('src/features/explore/FindSpots.tsx'), /SWELLO covers California for now\./); assert.match(read('src/features/explore/FindSpots.tsx'), /Math\.min\(\.\.\.rows\.map\(\(r\) => r\.dist\)\) > 75/);
+  const nf = read('src/ui/NotFound.tsx'); assert.match(nf, /is in a region that isn't open yet/); assert.doesNotMatch(nf, /opens later/);
+});

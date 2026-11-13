@@ -25,7 +25,7 @@ export function NotFound({kind, go}: {kind: 'page' | 'spot' | 'region'; go: Go})
   if (kind === 'region') return (
     <article className="legal nf">
       <h1>This region isn't open yet</h1>
-      <p>SWELLO covers California for now. The spot in this link is in another region, which opens later.</p>
+      <p>SWELLO covers California for now. The spot in this link is in a region that isn't open yet.</p>
       <p className="nf-links"><a href="/explore" onClick={(e) => { e.preventDefault(); go('explore'); }}>See California on the map</a> · <a href="/" onClick={(e) => { e.preventDefault(); go('home'); }}>Home</a></p>
     </article>
   );

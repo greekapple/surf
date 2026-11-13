@@ -49,8 +49,10 @@ export default function App() {
 }
 
 function Shell({route, navigate}: {route: Route; navigate: Go}) {
-  const {spot, missingSpot, hiddenSpot, data} = useSwello();
+  const {spot, missingSpot, hiddenSpot, clearHiddenSpot, data} = useSwello();
   const {area, section} = route;
+  // ca-only: the "region isn't open yet" page belongs to the Forecast visit it was opened in; leaving Forecast clears it (and ?spot=), so Home then Forecast shows the forecast again
+  useEffect(() => { if (area !== 'forecast' && hiddenSpot) clearHiddenSpot(); }, [area]); // eslint-disable-line react-hooks/exhaustive-deps
   // Audit B2: an unknown path, or a Forecast URL whose ?spot= names no spot (or several), shows "not found" with search, never another page or spot.
   const notFound = route.notFound ? 'page' as const : area === 'forecast' && hiddenSpot ? 'region' as const : area === 'forecast' && missingSpot ? 'spot' as const : null;
   // Audit R20: one document title per route ("Ocean Beach surf forecast · Swello").

@@ -87,6 +87,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
       <header className="fs-h">
         <div>
           <h1>Find spots</h1>
+          {geo && rows.length > 0 && Math.min(...rows.map((r) => r.dist)) > 75 && <p className="fine" role="status">SWELLO covers California for now.</p>}
           <p>{anchor ? <>Around <b>{anchor.label}</b>, sorted by how far and how good it is at {view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())}` : 'the selected hour'}.</> : 'Choose where you are to see spots by distance.'}</p>
         </div>
         <div className="fs-loc">

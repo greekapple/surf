@@ -56,13 +56,14 @@ function Ribbon({hours, name, tz}: {hours: RibbonHour[]; name: string; tz: strin
 export function HomeView({go}: ViewProps) {
   const {data, now, spotOptions, view, setSpot, spot, spreadV, requestSpots, gate} = useSwello();
   const evidenceSpots = gate.evidence;   // ca-only: the gated list
-  const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
+  const saved = data.state.favorites, profile = data.state.profile;
+  const personal = saved.some((id) => spotOptions.some((s) => s.id === id));   // ca-only: saved spots that are all hidden count as none, so Home shows the popular spots and no "not repeated" note
   const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema, spreadV}), [bundle, spreadV]); // spreadV: a wave-model spread arrived, so the ranges are recomputed
   const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
   const cards = useMemo(() => ids.map((id) => dashCard(spotOptions.find((s) => s.id === id)!, view.mapRecords, now, profile, ctx)), [ids.join('|'), spotOptions, view.mapRecords, now, profile, ctx]); // eslint-disable-line react-hooks/exhaustive-deps
   const ribbons = useMemo(() => Object.fromEntries(ids.map((id) => [id, ribbon12(spotOptions.find((s) => s.id === id)!, view.mapRecords, now)])), [ids.join('|'), spotOptions, view.mapRecords, now]); // eslint-disable-line react-hooks/exhaustive-deps
   // subset loading: Home needs its cards (favourites, or the popular three), the reference spot and the spots near it for the "nearby" ranking, wherever the selection is
-  const refIdEarly = ids[0] ?? spot.id, nearSet = useMemo(() => nearIds(refIdEarly, undefined, SCOPE_NEAR_KM, SCOPE_NEAR_N), [refIdEarly]), nearAll = useMemo(() => nearIds(refIdEarly, undefined, SCOPE_NEAR_KM, 9999).length, [refIdEarly]);
+  const refIdEarly = ids[0] ?? spot.id, nearSet = useMemo(() => nearIds(refIdEarly, evidenceSpots, SCOPE_NEAR_KM, SCOPE_NEAR_N), [refIdEarly, evidenceSpots]), nearAll = useMemo(() => nearIds(refIdEarly, evidenceSpots, SCOPE_NEAR_KM, 9999).length, [refIdEarly, evidenceSpots]);
   useEffect(() => { requestSpots([...ids, refIdEarly, ...nearSet]); }, [ids.join('|'), refIdEarly]); // eslint-disable-line react-hooks/exhaustive-deps
   const nearPending = nearSet.some((id) => !view.ocean.isSpotLoaded(id)) || ids.some((id) => !view.ocean.isSpotLoaded(id));
   // Skeletons while the first retrieval is in flight; "No forecast data" only after it has actually failed (T-055).

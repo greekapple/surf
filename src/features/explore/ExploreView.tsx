@@ -41,7 +41,8 @@ import {ahead, indexBySpot, near} from './recordIndex';
 import {DOT_ZOOM, dotFace, inkFor, swellFrom, type Band, type DotFace} from './dots';
 import {currentTheme} from '../../map/basemap';
 import {DayStrip, DotKey, DotKeyList, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
-import {ZONES, zoneOf} from '../../data/zones';
+import {zoneOf} from '../../data/zones';
+import {zonesWithSpots} from '../../ocean/regionGate';
 import {AutofillInput} from '../../ui/AutofillInput';
 import {LEGEND_NAMES} from './legendNames';
 import {completion as completeOf, rememberSpot, recentSpots, searchSpots} from '../../services/spotSearch';
@@ -147,7 +148,7 @@ export function ExploreView({section, go}: ViewProps) {
 
 function OceanMap({section, go}: ViewProps) {
   const {view, data, spot, setSpot, now, live, reportVisible, requestSpots, fillSpots, mapFocused, setMapFocused, gate} = useSwello();
-  // ca-only: every list on the map (dots, clusters, "N spots in view", search, the region chips) reads the gated list, never the whole catalogue
+  // ca-only: every list on the map (dots, clusters, "N spots in view", search) reads the gated list, never the whole catalogue; the region chips are the zones that hold a gated spot (zonesWithSpots)
   const evidenceSpots = gate.evidence;
   const COAST_NODES = useMemo(() => buildNodes(evidenceSpots), [evidenceSpots]);   // the coast groups (regions, zones, coasts); map-clusters replaced their dots with MapLibre clusters
   const SPOT_BY_ID = useMemo(() => new Map(evidenceSpots.map((e) => [e.id, e] as const)), [evidenceSpots]);
@@ -751,7 +752,7 @@ function OceanMap({section, go}: ViewProps) {
   const listBody = (
     <div className="xlist" aria-label="Spots">
       <div className="xtb-chips" role="group" aria-label="Region">
-        {['In view', 'All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={zone === z} onClick={() => pickZone(z)}>{z}</button>)}
+        {['In view', 'All', ...zonesWithSpots(evidenceSpots)].map((z) => <button key={z} type="button" aria-pressed={zone === z} onClick={() => pickZone(z)}>{z}</button>)}
       </div>
       {byView && <p className="xinv-h" aria-live="polite">{list.length ? `${list.length} spot${list.length === 1 ? '' : 's'} in view · best rated first` : 'No surf spot in view: zoom out or pan along the coast.'}</p>}
       {!byView && !list.length && <p className="fine">No spot matches “{q}”{zone !== 'All' && zone !== 'In view' ? ` in ${zone}` : ''}.</p>}

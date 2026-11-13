@@ -2,7 +2,8 @@ import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
-import {ZONES, zoneOf, regionWithState} from '../../data/zones';
+import {zoneOf, regionWithState} from '../../data/zones';
+import {zonesWithSpots} from '../../ocean/regionGate';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
 import {SkelInline} from '../../ui/Skeleton';
@@ -313,7 +314,7 @@ export function PersonalView({section, go}: ViewProps) {
             <p className="fine">Star a spot to keep it on Home. {data.state.favorites.length} saved. Saved spots come first, then the spots nearest {spotName(view.selected)}.</p>
             <input className="pz-spot-search" type="search" value={spotQ} onChange={(e) => { setSpotQ(e.target.value); setSpotPage(0); }} placeholder="Search spots by name or region" aria-label="Search spots" />
             <div className="pz-spot-chips" role="group" aria-label="Region">
-              {['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} type="button" aria-pressed={spotZone === z} onClick={() => pickZone(z)}>{z}</button>)}
+              {['All', ...zonesWithSpots(spotOptions)].map((z) => <button key={z} type="button" aria-pressed={spotZone === z} onClick={() => pickZone(z)}>{z}</button>)}
             </div>
             {!orderedSpots.length ? <p className="fine" role="status">No spot matches{spotQ ? ` “${spotQ}”` : ''}{spotZone !== 'All' ? ` in ${spotZone}` : ''}.</p> : <>
               <p className="fine" role="status">Showing {from + 1}–{from + shown.length} of {orderedSpots.length} spots</p>
@@ -463,7 +464,7 @@ export function PersonalView({section, go}: ViewProps) {
             <button type="button" className="pzl-profile" onClick={() => toPage('profile')} aria-label="Edit profile">
               <span className="pz-avatar" style={avatar ? {backgroundImage: `url(${avatar})`} : undefined} role={avatar ? 'img' : undefined} aria-label={avatar ? 'Profile photo' : undefined}>{!avatar && (initials || <PIcon name="user" size={28} />)}</span>
               <span className="pzl-pt"><b>{name}</b>
-                <small>{[`Level ${levelOf(p)}, ${levelInfo(levelOf(p)).name}${levelSource(p)}`, `${rangeText(p.minWave, p.maxWave, p)} preferred`, p.region !== 'All regions' ? regionWithState(p.region) : ''].filter(Boolean).join(' · ')}</small></span>
+                <small>{[`Level ${levelOf(p)}, ${levelInfo(levelOf(p)).name}${levelSource(p)}`, `${rangeText(p.minWave, p.maxWave, p)} preferred`, p.region !== 'All regions' && spotOptions.some((x) => x.region === p.region) ? regionWithState(p.region) : ''].filter(Boolean).join(' · ')}</small></span>
               <span className="pzl-pe"><i>Edit profile</i><PIcon name="next" size={16} /></span>
             </button>
 

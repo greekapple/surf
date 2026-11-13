@@ -5,7 +5,7 @@ import {useForecast, type ForecastState} from '../hooks/useForecast';
 import {useNow} from '../hooks/useNow';
 import {spots} from '../data/demo';
 import {allSpots} from '../data/catalog';
-import {previewActive, visibleEvidence, visibleSpot, hiddenSpotId, type GateSpot} from '../ocean/regionGate';
+import {previewActive, visibleEvidence, visibleSpot, hiddenSpotId, hiddenOnChoose, type GateSpot} from '../ocean/regionGate';
 import type {SpotEvidence} from '../ocean/types';
 import {useArchive} from '../hooks/useArchive';
 import {useModelSpread} from '../hooks/useModelSpread';
@@ -38,6 +38,8 @@ export interface Swello {
   gate: {preview: boolean; evidence: SpotEvidence[]; visible: (spot: GateSpot) => boolean};
   /** ca-only: a shared ?spot= link names a spot in a region that is not open yet (id), so Forecast says so and links to California instead of showing the spot or "not found". */
   hiddenSpot: string | null;
+  /** ca-only: forget the hidden-spot state and drop ?spot= from the URL; the shell calls it when Forecast is left so the region page does not come back on the next visit. */
+  clearHiddenSpot: () => void;
   series: HourSample[];
   selected: HourSample | null;
   live: boolean;
@@ -127,7 +129,10 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   useEffect(() => { if (!shareNote) return; const h = window.setTimeout(() => setShareNote(''), 12000); return () => window.clearTimeout(h); }, [shareNote]);
 
   const [mapFocused, setMapFocused] = useState(() => typeof location === 'undefined' || new URLSearchParams(location.search).get('focus') !== 'none');
+  const clearHiddenSpot = () => { setHiddenSpot(null); const q = new URLSearchParams(location.search); if (q.has('spot')) { q.delete('spot'); const s = q.toString(); history.replaceState(null, '', location.pathname + (s ? `?${s}` : '')); } };
   const setSpot = (id: string) => {
+    // ca-only: a link from the journal, an alert or a saved spot to a spot the gate hides says "not open yet" and never opens it
+    const hid = hiddenOnChoose(id, profile); if (hid) { setHiddenSpot(hid); setMissingSpot(null); return; }
     setMapFocused(true);   // choosing a spot (pin, list, search, Home, the strip) focuses it on the map again
     if (missingSpot) setMissingSpot(null);
     if (hiddenSpot) setHiddenSpot(null);
@@ -146,6 +151,6 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   // 1A: set before the children render (the map's time helpers read it), like setActiveZone in useForecast
   const labelZone = setMapZone(labelZoneFor(area, section, timeZoneOf(view.spot), mapFocused));
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, gate, hiddenSpot, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, fillSpots, mapFocused, setMapFocused, labelZone, missingSpot};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, gate, hiddenSpot, clearHiddenSpot, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, fillSpots, mapFocused, setMapFocused, labelZone, missingSpot};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

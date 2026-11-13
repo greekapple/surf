@@ -9,7 +9,8 @@ import {StaleTag} from '../../ui/StaleTag';
 import {slugFor, type ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {rateForecast} from '../../ratings/adapters';
-import {ZONES, zoneOf} from '../../data/zones';
+import {zoneOf} from '../../data/zones';
+import {zonesWithSpots} from '../../ocean/regionGate';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from '../forecast/model';
 import {compass, ht, windVal} from '../forecast/helpers';
@@ -73,7 +74,7 @@ export function CompareSpots({go}: {go: ViewProps['go']}) {
         </div>
       </header>
       <div className="cmpx-bar">
-        <div className="cmpx-chips" role="group" aria-label="Zone">{['All', ...ZONES.map(([z]) => z)].map((z) => <button key={z} aria-pressed={zone === z} onClick={() => setZone(z)}>{z}</button>)}</div>
+        <div className="cmpx-chips" role="group" aria-label="Zone">{['All', ...zonesWithSpots(spotOptions)].map((z) => <button key={z} aria-pressed={zone === z} onClick={() => setZone(z)}>{z}</button>)}</div>
         <label className="cmpx-sort">Sort<select value={sort} onChange={(e) => setSort(e.target.value as Sort)}>{SORTS.map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select></label>
       </div>
       <div className="cmpx-head" aria-hidden="true">{HEAD.map((h, i) => <span key={i}>{h}</span>)}</div>

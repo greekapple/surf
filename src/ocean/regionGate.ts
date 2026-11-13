@@ -31,3 +31,7 @@ export const visibleEvidence = (profile: {previewRegions?: boolean} | null | und
 export const hiddenSpotId = (id: string | null | undefined, profile: {previewRegions?: boolean} | null | undefined, flag: boolean = ownerToolsEnabled()): string | null => {
   if (!id) return null; const e = evidenceSpots.find((s) => s.id === id); return e && !visibleSpot(e, profile, flag) ? id : null;
 };
+/** The zone chips a screen may offer: only zones that contain at least one spot of the (gated) list it shows. Same rule as the Nav spot picker. */
+export const zonesWithSpots = (spots: readonly {region: string}[]): string[] => ZONES.filter(([, counties]) => spots.some((s) => counties.includes(s.region))).map(([z]) => z);
+/** A spot the gate hides, chosen from anywhere (a journal, alert or favourite link): the id to say "not open yet" about, and no change of the selected spot; null when the spot is shown. */
+export const hiddenOnChoose = (id: string, profile: {previewRegions?: boolean} | null | undefined, flag: boolean = ownerToolsEnabled()): string | null => hiddenSpotId(id, profile, flag);
