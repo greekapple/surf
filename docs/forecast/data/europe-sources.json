@@ -70349,10 +70349,11 @@
       -3.392
      ],
      "appMarine9km": [
-      58.563,
-      -3.477
+      58.504,
+      -3.59
      ]
-    }
+    },
+    "appMarineMoved": {"from": [58.563, -3.477], "reason": "0/24 non-null hours at the original point (checked 2026-11-13); moved one 9 km grid step further along the stored seaward bearing (225)"}
    },
    "wind": {
     "sid": "EGPC",
@@ -71555,10 +71556,11 @@
       -4.389
      ],
      "appMarine9km": [
-      58.454,
-      -4.305
+      58.595,
+      -4.413
      ]
-    }
+    },
+    "appMarineMoved": {"from": [58.454, -4.305], "reason": "0/24 non-null hours at the original point (checked 2026-11-13); moved one 9 km grid step north of the pin: the stored seaward bearing (135) points inland and a step along it (58.395, -4.192) answered 0/24 as well; the coast faces open water to the north"}
    },
    "wind": {
     "sid": "EGPC",
