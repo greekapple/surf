@@ -1,11 +1,11 @@
 import {useMemo, useState} from 'react';
 import {figureOf} from '../../ui/PersonShape';
-import {windowPhrase} from '../../services/homeDash';
+import {betHour, windowPhrase} from '../../services/homeDash';
 import {dateInMs, hourInMs, fmtIn, addDaysKey} from '../../ocean/time';
 import {differsFromViewer, timeZoneOf, viewerTag, viewerZone} from '../../ocean/spotZone';
 import type {Forecast, SurfSpot, Surfboard, UserProfile} from '../../models/index';
 import type {OceanBundle, TidePrediction} from '../../ocean/types';
-import {callFor, hourCall, windowHour, type CallWindow, type Verdict} from '../../services/call';
+import {callFor, hourCall, type CallWindow, type Verdict} from '../../services/call';
 import {daylightFor} from '../../services/daylight';
 import {spotHourOf, windOf} from '../../services/spotHour';
 import {breakerType} from '../../services/breaker';
@@ -35,7 +35,7 @@ const TIDE_RANGE_KM = 40; // a station further than this is not a fair tide refe
  * accessors (callFor, hourCall, spotHourOf, daylightFor, the tide extrema); nothing is invented, and the sentence says so when nothing is good. */
 
 type Bundle = Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null | undefined;
-interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; when: string; /** The window's first hour has a surf estimate. */ sized: boolean; confidence: BetConfidence}
+interface Bet {spot: SurfSpot; window: CallWindow; verdict: Verdict; rec: Forecast; /** the window is on now: `rec` is the current hour */ onNow: boolean; when: string; /** The window's first hour has a surf estimate. */ sized: boolean; confidence: BetConfidence}
 const clock = (iso: string, tz: string) => fmtIn(tz, {hour: 'numeric', minute: '2-digit'}).format(new Date(iso)); // in the zone of the spot shown
 // 'today'/'tomorrow' are the spot's days; where its clock is not the viewer's they could be a different day for the reader, so the weekday is named (round 3 data-honesty)
 const dayWord = (iso: string, nowMs: number, tz: string) => { if (differsFromViewer(tz, iso)) return fmtIn(tz, {weekday: 'long'}).format(new Date(iso)); const d = dateInMs(tz, Date.parse(iso)), today = dateInMs(tz, nowMs); if (d === today) return 'today'; if (d === addDaysKey(today, 1)) return 'tomorrow'; return fmtIn(tz, {weekday: 'long'}).format(new Date(iso)); };
@@ -50,11 +50,11 @@ export function bestBet(spots: SurfSpot[], records: Forecast[], profile: UserPro
     const cur = mine.find((f) => Date.parse(f.timestamp) + 36e5 > nowMs); if (!cur) continue; // no current or future record: not evaluated
     withData++;
     const call = callFor(spot, cur, profile, ctx), w = call.window && Date.parse(call.window.end) > nowMs ? call.window : call.nextWindow; if (!w) continue;
-    const rec = windowHour(mine, spot.id, w); if (!rec) continue; // the hour holding the start (a window may start at first light)
+    const {rec, onNow} = betHour(mine, spot.id, w, nowMs); if (!rec) continue; // hero-now: the current hour when the window is on now, else the hour holding its start (a window may start at first light)
     if (Date.parse(w.start) - nowMs >= HORIZON_HOURS * 36e5) continue; // certainty: never a best bet past the horizon (too far out to call)
     const v = hourCall(spot, rec, profile, ctx).verdict; if (v !== 'Go' && v !== 'Worth a look') continue;
     const hl = spotHourOf(spot, rec, nowMs, profile, {bundle}).surf.headline;
-    bets.push({spot, window: w, verdict: v, rec, when: dayWord(w.start, nowMs, timeZoneOf(spot)), sized: hl.kind === 'estimate', confidence: certaintyOf(spot.id, hl, rec.timestamp, nowMs)?.level ?? null});
+    bets.push({spot, window: w, verdict: v, rec, onNow, when: dayWord(w.start, nowMs, timeZoneOf(spot)), sized: hl.kind === 'estimate', confidence: certaintyOf(spot.id, hl, rec.timestamp, nowMs)?.level ?? null});
   }
   const ranked = rankBets(bets), bet = ranked[0] ?? null;
   // the runner-up, offered only when the first answer is shaky: another spot, with its own surf estimate
@@ -119,8 +119,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const glyph = heroRec && heroHour ? glyphFor(heroHour.surf.headline, me.feet, heroRec.primary?.period, breakerType(spot, heroRec).type) : null;
   const heroBand = heroRec ? BAND_COLOR[bandOf(rateForecast(spot, heroRec, nowMs).category)] : undefined;
   // Audit F19: the caption names the same time as the sentence and the button (the window's start, e.g. 6:20), not the top of the hour holding it.
-  const heroT = bet ? bet.window.start : heroRec?.timestamp;
-  const heroWhen = heroT ? `${dayWord(heroT, nowMs, tz) === 'today' ? '' : dayWord(heroT, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroT, tz)}${viewerTag(tz, heroT)}` : '';
+  // hero-now: a window on now is shown and opened at the current hour, and called "now"
+  const heroT = bet ? (bet.onNow ? bet.rec.timestamp : bet.window.start) : heroRec?.timestamp;
+  const heroWhen = bet?.onNow ? 'now' : heroT ? `${dayWord(heroT, nowMs, tz) === 'today' ? '' : dayWord(heroT, nowMs, tz).replace(/^\w/, (c) => c.toUpperCase()) + ' '}${clock(heroT, tz)}${viewerTag(tz, heroT)}` : '';
   return (
     <section className={`wel wel-${tintOf(nowMs, spot.id)}`} aria-labelledby="wel-h">
       <div className={`wel-hero is-${media.kind}`}>
@@ -131,7 +132,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
             {[boardText && <>Take your <b>{boardText}</b>{boardNote}</>, cv && cv.level !== 'too-far' && <span title={`${cap(cv.word)}: ${cv.why}`}>{cap(cv.word)}</span>].filter(Boolean).map((x, k) => <span key={k}>{k ? ' · ' : ''}{x}</span>)}
           </p>}
           {altText && <p className="wel-sub">Second choice: {altText}</p>}
-          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.when} {clock(bet.window.start, timeZoneOf(bet.spot))}{viewerTag(timeZoneOf(bet.spot), bet.window.start)}</button>}
+          {bet && <button type="button" className="wel-go" onClick={() => onOpen(bet.spot.id, bet.rec.timestamp)}>Open {bet.spot.name}, {bet.onNow ? 'now' : <>{bet.when} {clock(bet.window.start, timeZoneOf(bet.spot))}{viewerTag(timeZoneOf(bet.spot), bet.window.start)}</>}</button>}
         </div>
         {media.kind === 'cam'
           ? <figure className="wel-media"><CamPlayer cam={media.cam} onFail={() => setCamFailed(true)} /><figcaption>{media.cam.label} · {spot.name}</figcaption></figure>

@@ -1,3 +1,4 @@
+import {windowHour} from './call.ts';
 import type {Forecast, SurfSpot, UserProfile} from '../models/index.ts';
 import type {OceanBundle, TidePrediction} from '../ocean/types.ts';
 import {evidenceSpots} from '../ocean/spots.ts';
@@ -151,4 +152,12 @@ export function bestNearbyAt(spots: SurfSpot[], records: Forecast[], now: number
   const preferred = (x: {card: DashCard; at: string}) => !!prefer && x.card.id === prefer.id && Date.parse(x.at) + 3600000 > Date.parse(prefer.start) && Date.parse(x.at) < Date.parse(prefer.end);
   return out.sort((a, b) => (verdictOf ? vr(b) - vr(a) || Number(preferred(b)) - Number(preferred(a)) : 0)
     || (b.card.rating.score as number) - (a.card.rating.score as number) || a.km - b.km).slice(0, limit);
+}
+
+/** hero-now (lead, 2026-11-12: live on Home at 3:02 PM the hero said "on now, until 5:30 PM" but its button and caption named 6:25 AM): the hour a best bet
+ *  is shown and opened at. A window that is ON NOW is the current hour (the one holding nowMs), labelled "now"; a window still ahead is the hour holding its start. */
+export function betHour<T extends {spotId: string; timestamp: string}>(records: T[], spotId: string, w: {start: string; end: string}, nowMs: number): {rec: T | undefined; onNow: boolean} {
+  const onNow = Date.parse(w.start) <= nowMs && nowMs < Date.parse(w.end);
+  if (onNow) { const rec = records.filter((f) => f.spotId === spotId).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp)).find((f) => Date.parse(f.timestamp) <= nowMs && nowMs < Date.parse(f.timestamp) + 36e5); if (rec) return {rec, onNow}; }
+  return {rec: windowHour(records, spotId, w), onNow: false};
 }
