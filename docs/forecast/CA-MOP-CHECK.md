@@ -148,3 +148,30 @@ For each spot the 8 nearest candidate points were read the same way. In all nine
 | Campus Point (SB) | SSE, exposed | B0382, 0.33 km, n138 | 1.6 to 2.3 ft (n207 points 2.2) | **Possibly the point**: the assigned normal faces 138° (into the bay), while the points 0.46 to 0.75 km away with normals 187 to 207° read 2.1 to 2.3 ft instead of 1.7. A 0.5 ft difference, too small to explain a 0.25 ratio; the zone-wide range is also the cause. |
 
 **Summary:** 4 of 9 are best explained by the wrong comparison (sheltered spots against a zone range for exposed beaches: Hammond's, Leadbetter, Cabrillo Point, Palm Point); 4 are neither a point problem nor a sheltering one but the same Southern California low that the gauges show (Big Rock, Haskell's, Mesa Lane, Royal Palms); Campus Point's point may be one of the shielded ones but a better one gains only 0.5 ft. Nothing was changed; no point looks wrong enough to move.
+
+## South coast behind the islands: is the gauge bias stable enough to correct? (socal-cal, 2026-11-13)
+
+**Result: NOT stable. No number, rule or label was changed.** Rule agreed in advance: correct only if the bias has the same sign, is within ±0.2 ft between the first and second half of the data, and holds across at least 3 gauges.
+
+Data: `gauge-compare --mop` rerun on everything captured to 2026-11-13 17Z: 4 shown-capture days (2026-11-10 to 11-13), hours 2026-11-10T08Z to 11-13T17Z, 82 distinct gauge hours, the 5 Bight gauges (Avila, an exposed open-coast gauge, and the San Francisco Bar gauge are not part of this question). Rows are gauge-hours × spots; spots near one gauge share its readings, so the table also gives a one-value-per-gauge-hour mean. "Ours − gauge" is the app's central surf height minus the gauge's Hs (negative = ours reads **low**; the earlier −0.63 ft was also low, not high).
+
+| | 1st half (to 11-12 01Z) | 2nd half (from 11-12 01Z) |
+|---|---|---|
+| All 5 gauges, mean ours − gauge | **+0.03 ft** (n 278, 3 gauges) | **−1.04 ft** (n 1,003, 5 gauges) |
+| Same 3 gauges in both halves | +0.03 ft | −1.11 ft |
+| One value per gauge-hour | −0.09 ft (120) | −0.92 ft (197) |
+| Ours / gauge (ratio of means) | 1.01 | 0.69 |
+
+| Gauge | 1st half | 2nd half | by day (11-10 / 11-11 / 11-12 / 11-13) |
+|---|---|---|---|
+| 46254 Scripps (41 m) | +0.81 (123) | −0.43 (195) | +1.08 / +0.63 / −0.40 / −0.43 |
+| 46266 Del Mar (17 m) | −0.49 (41) | −1.68 (239) | −0.47 / −0.47 / −1.51 / −1.89 |
+| 46274 Leucadia (17 m) | −0.61 (114) | −1.09 (397) | −0.83 / −0.50 / −0.74 / −1.53 |
+| 46268 Topanga (20 m) | no data | −0.90 (99) | − / − / −0.95 / −0.84 |
+| 46285 Capistrano Beach (11 m) | no data | −0.53 (73) | − / − / −0.55 / −0.50 |
+
+**Why it fails each test:** the halves differ by 1.07 ft (limit 0.2); the sign is not the same (Scripps flips from +0.81 to −0.43, and the all-gauge mean is about zero in the first half); only 3 gauges have both halves, and 2 gauges have only 2 days. The size of the waves did not change: the gauge mean Hs was 3.28 ft in the first half and 3.42 ft in the second, and the model's own offshore Hs 3.63 and 3.52 ft. Yet our central number fell from 3.32 to 2.38 ft. So the miss is not a fixed offset or ratio on wave height; it moved with something else that changed between the two halves (swell direction or period, and with it how much the islands shadow the point), and one factor fitted to the first half would have been wrong by about a foot on the second. A direction- or period-dependent correction would need more swell types than 3.4 days hold.
+
+**What this does and does not say:** the low reading on the Bight is real on the latest two days (−0.9 to −1.5 ft at Del Mar, Leucadia and Topanga) but cannot be separated from one swell event. The compared quantities also differ (gauge Hs at 11–41 m against a breaking surf range). Nothing here justifies changing a number.
+
+**Next:** rerun `pull-r2-captures`, local NDBC fetch, `gauge-compare --mop` as captures accumulate; revisit when the data holds at least two clearly different swell directions on the south coast (for example a south swell and a west swell), at least 10 days and at least 3 gauges per half, and fit on the earlier part with the rest held out.
