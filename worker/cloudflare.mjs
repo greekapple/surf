@@ -3,7 +3,10 @@
 import {createForecastService} from '../services/forecast-service.mjs';
 import {createNdbcArchive} from '../services/ndbc-archive.mjs';
 import {createSurfCapture, BUDGETS as CAPTURE_BUDGETS} from '../services/surf-capture.mjs';
-const handle = createForecastService({});
+import {openMeteoFetcher} from '../services/open-meteo-key.mjs';
+// Open-Meteo commercial plan: the key comes from the Worker secret OPEN_METEO_KEY (set with `wrangler secret put`), never from a file
+let omKey = null;
+const handle = createForecastService({fetcher: openMeteoFetcher(() => omKey)});
 const archive = createNdbcArchive({});
 const surfCapture = createSurfCapture({});
 // The hourly tick runs the captures and then the NDBC backfill continuation in ONE invocation (Codex P1 on 8765edc): together they must stay under
@@ -29,8 +32,9 @@ export const BACKFILL_CRON = '47 * * * *';
 // "How right we've been" for every spot (services/how-right-all.mjs, round 4C): hourly 00:20-06:20 UTC, its own invocations: capture what we show (resumable), then score once.
 export const HRA_CRON = '20 0-13 * * *';   // 2026-11-12: 0-6 left 6 scoring stages x 70 = 420 < ~763 eligible spots, so the card never finished; 0-13 gives up to 13 stages (910)
 export default {
-  fetch: (request, env, ctx) => handle(request, env, ctx),
+  fetch: (request, env, ctx) => { omKey = env?.OPEN_METEO_KEY || null; return handle(request, env, ctx); },
   scheduled: (event, env, ctx) => {
+    omKey = env?.OPEN_METEO_KEY || null;
     if (event.cron === HRA_CRON) { ctx.waitUntil(handle.howRightAll(env)); return; }
     if (event.cron === BACKFILL_CRON) { ctx.waitUntil((async () => { try { await surfCapture.run(env, event.scheduledTime); } catch { /* the captures never block the NDBC continuation */ } await backfill.run(env, {backfillOnly: true}); })()); return; }
     if (event.cron === ARCHIVE_CRON) { ctx.waitUntil(archive.run(env, {backfillOnly: false})); return; }
