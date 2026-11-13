@@ -13,7 +13,7 @@ test('map-status P1-1: phone, after dark, a held or slow sea: the after-dark not
     assert.equal(o.status, 'dark'); assert.equal(o.showDark, true); assert.equal(o.showTop, false, 'one message');
     assert.deepEqual(o.darkExtras, [h, 'WW3 fallback', 'cached Fri 11 PM PST · updating…'], 'no label dropped');
   }
-  assert.match(read('../features/explore/ExploreView.tsx'), /\{phone && seaRetry && <button type="button" className="xdark-retry" onClick=\{seaRetry\}>Retry<\/button>\}/, 'the Retry rides in the after-dark note');
+  assert.match(read('../features/explore/ExploreView.tsx'), /\{phone && retryFn && <button type="button" className="xdark-retry" onClick=\{retryFn\}>Retry<\/button>\}/, 'the Retry rides in the after-dark note');
 });
 
 test('map-status P1-2: wide screen, after dark and the sea failed (or slow): both are shown (they sit in different places)', () => {
@@ -43,4 +43,14 @@ test('map-status P1-4: the offshore-only pill is hollow and empty (no "off", whi
   assert.equal((read('../features/explore/Panels.tsx').match(/Dimmed: after dark\./g) ?? []).length, 1);
   assert.match(read('../features/explore/ExploreView.tsx'), /<button type="button" className="xchip xstatus"/, 'the status line is a button (keyboard)');
   assert.doesNotMatch(read('../map/engine/maplibreEngine.ts'), /'hide'/, 'no filter on a property that no longer exists (a null get would hide every pill)');
+});
+
+test('map-tidy (lead P2): over a cached map the cache label says "not updated" and gets the Retry; the offshore sample in the key is a pill; the group sheet is gone', () => {
+  const ev = read('../features/explore/ExploreView.tsx');
+  assert.match(ev, /const cacheRetry = !seaRetry && !!cache && cacheDrawn && opts\.heat && live && \(!anyLoading \|\| slow\)/);
+  assert.match(ev, /\{cacheRetry && <button type="button" className="xdark-retry" onClick=\{cacheRetry\}>Retry<\/button>\}/, 'the cache chip carries it');
+  assert.match(read('../features/explore/cacheLabel.ts'), /chip: `cached \$\{valid\} · not updated`/, 'not loading any more: "not updated"');
+  assert.match(read('../features/explore/explore.css'), /\.xg-dot\.k-off \{ border: 2\.5px solid var\(--c\); width: 28px; border-radius: 999px; \}/);
+  assert.doesNotMatch(ev, /groupOpen|className="xgroup"/, 'the old coast-group list is removed');
+  assert.doesNotMatch(read('../map/engine/dotIcon.ts'), /screen readers say so/);
 });

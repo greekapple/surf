@@ -2,7 +2,7 @@
 // (spec docs/specs/2026-11-12-map-dots.md, -forecast-order-and-map-clusters.md B):
 // - est: a pill filled with the rating colour, the surf range in the person's unit ('3–4 ft'); an unrated estimate is an outline pill;
 // - nws: a dashed-outline pill with the NWS range (theirs, not ours);
-// - off: a hollow, empty pill (offshore height only: never a size; the tooltip and screen readers say so);
+// - off: a hollow, empty pill (offshore height only: never a size; the hover tooltip, the callout and the spot list say so: a canvas pill itself has no accessible name);
 // - snap: a striped pill, no number (the daily forecast, not live);
 // - none: a small grey ring (not loaded, or nothing this hour).
 // A tick on the rim points where the swell comes from. Faded = a saved or stale copy. The selected spot is bigger and ringed.

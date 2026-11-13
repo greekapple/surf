@@ -973,7 +973,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 .xg-dot { grid-area: d; display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; font: 700 10.5px/1 var(--font, 'Archivo'), sans-serif; font-style: normal; font-variant-numeric: tabular-nums; box-sizing: border-box; }
 .xg-dot.k-est { background: var(--c); }
 .xg-dot.k-nws { border: 2px dashed var(--c); color: var(--text); background: var(--bg); }
-.xg-dot.k-off { border: 2.5px solid var(--c); }
+.xg-dot.k-off { border: 2.5px solid var(--c); width: 28px; border-radius: 999px; }   /* the map draws a pill: so does the key */
 .xg-dot.k-snap { border: 1.5px solid var(--c); background: repeating-linear-gradient(135deg, var(--c) 0 2px, transparent 2px 5px); }
 .xg-dot.k-none { width: 12px; height: 12px; margin: 4px; border: 2px solid var(--muted); }
 .xg-dot.faded { opacity: 0.55; }
@@ -1020,3 +1020,8 @@ button.xstatus { cursor: pointer; font: inherit; }
 /* map-labels: the sea's Retry rides in the after-dark note on phones; the status line is a button (keyboard-reachable) that looks like the chip */
 .xbottom .xdark .xdark-retry { pointer-events: auto; margin-left: 8px; min-height: 32px; padding: 0 10px; border-radius: 999px; border: 1px solid currentColor; background: none; color: inherit; font: inherit; font-weight: 650; }
 button.xchip.xstatus { font: inherit; font-size: 12px; text-align: left; border: 1px solid var(--xc-line); }
+.xbottom .xcache .xdark-retry { pointer-events: auto; }
+/* map-tidy: the key's samples are shaped like what the map draws: pills with the surf text, a striped pill for the daily forecast */
+.xdk-l .xg-dot.k-est, .xdk-l .xg-dot.k-nws { width: auto; min-width: 40px; padding: 0 7px; border-radius: 999px; white-space: nowrap; box-sizing: border-box; }
+.xdk-l .xg-dot.k-snap { width: 28px; border-radius: 999px; }
+.xdk-l li { grid-template-columns: 56px 1fr; }   /* map-tidy: room for the pill samples */

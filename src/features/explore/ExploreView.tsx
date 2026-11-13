@@ -38,14 +38,14 @@ import {FindSpots} from './FindSpots';
 import {parseMapUrl, writeMapUrl} from './mapUrl';
 import {createEngine, engineKind, type DotIcon, type MapDot, type MapEngine, type MarkerHandle} from '../../map/engine';
 import {mapStatus} from './mapStatus';
-import {DOT_ZOOM, KIND_WORDS, dotFace, inkFor, swellFrom, type Band, type DotFace} from './dots';
+import {DOT_ZOOM, dotFace, inkFor, swellFrom, type Band, type DotFace} from './dots';
 import {currentTheme} from '../../map/basemap';
 import {DayStrip, DotKey, DotKeyList, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
 import {ZONES, zoneOf} from '../../data/zones';
 import {AutofillInput} from '../../ui/AutofillInput';
 import {LEGEND_NAMES} from './legendNames';
 import {completion as completeOf, rememberSpot, recentSpots, searchSpots} from '../../services/spotSearch';
-import {COAST_MAX_ZOOM, buildNodes, displayName, type NodeId, type SpotState} from './coastGroups';
+import {COAST_MAX_ZOOM, buildNodes, type NodeId, type SpotState} from './coastGroups';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {isDark} from '../forecast/trustApi';
 import {SpotCallout, type HourBar} from './Callout';
@@ -69,9 +69,6 @@ const isPhone = () => typeof matchMedia === 'function' && matchMedia(PHONE).matc
 /** 4E coast groups: the nodes (regions, zones, coasts, seaboards) with their spots, the regions the layout starts from, and one pill's DOM. */
 const COAST_NODES = buildNodes(evidenceSpots);   // the coast groups (regions, zones, coasts); map-clusters replaced their dots with MapLibre clusters
 const SPOT_BY_ID = new Map(evidenceSpots.map((e) => [e.id, e] as const));
-/** map-dots: where a group's dot sits: the member spot nearest the group's centre (on the coast, and fixed while the hour changes). */
-const groupAnchor = (ids: string[]) => { const c = centroid(ids); return ids.map((sid) => SPOT_BY_ID.get(sid)!).reduce((a, b) => (Math.hypot(b.latitude - c.lat, b.longitude - c.lon) < Math.hypot(a.latitude - c.lat, a.longitude - c.lon) ? b : a)); };
-const centroid = (ids: string[]) => { let lat = 0, lon = 0; for (const id of ids) { const e = SPOT_BY_ID.get(id)!; lat += e.latitude; lon += e.longitude; } return {lat: lat / ids.length, lon: lon / ids.length}; };
 type Detent = 'peek' | 'half' | 'full';
 const DETENTS: Detent[] = ['peek', 'half', 'full'];
 
@@ -219,7 +216,6 @@ function OceanMap({section, go}: ViewProps) {
   // The point label and the spot callout are our own DOM, anchored at their point (engine-neutral; data-map-overlay keeps map clicks off them).
   const popupBox = useMemo(() => overlayBox('xpopup xpl-pop'), []), popupEl = popupBox.firstElementChild as HTMLElement;
   const spotPopBox = useMemo(() => overlayBox('xpopup xspotpop'), []), spotPopEl = spotPopBox.firstElementChild as HTMLElement;
-  const groupPopBox = useMemo(() => overlayBox('xpopup xgrouppop'), []), groupPopEl = groupPopBox.firstElementChild as HTMLElement;
   const sheetRef = useRef<HTMLElement>(null);
   const point = usePointForecast(pt);
   const [slow, setSlow] = useState(false);
@@ -297,7 +293,7 @@ function OceanMap({section, go}: ViewProps) {
       for (const e of ['zoomend', 'moveend', 'resize'] as const) x.on(e, () => declutterRef.current()); // panels stay put while the map pans
       // T-117: a clean tap on the sea opens the point there (the engine never reports clicks on markers, overlays, or after a drag); it also closes the spot callout.
       // 1B: on wide screens a click on empty map (never a pin: the engine does not report those) also clears the map's spot focus.
-      x.on('click', (c) => { setCallout(null); setGroupOpen(null); if (!isPhone()) setMapFocused(false); if (c && Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: c.lat, lon: c.lon}); } });
+      x.on('click', (c) => { setCallout(null); if (!isPhone()) setMapFocused(false); if (c && Date.now() - closedAt.current > 400) { setPanel(false); setPt({lat: c.lat, lon: c.lon}); } });
       setEng(x);
     });
     return () => { alive = false; made?.dispose(); map.current = null; fieldCtl.current = null; };
@@ -349,7 +345,6 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => { let on = true; const done = () => { if (on) setFontsOk(true); }; const t = window.setTimeout(done, 1500); (document.fonts?.load('700 12px Archivo') ?? Promise.resolve()).then(done, done); return () => { on = false; window.clearTimeout(t); }; }, []);
   /** what each dot stands for (spots by id, groups by node id), for the tooltip and the group list */
   const dotInfo = useRef(new Map<string, {name: string; face: DotFace; band: Band; word: string; dark: boolean; ink: string; /** groups: the spot the dot stands for */ best?: string}>());
-  const [groupOpen, setGroupOpen] = useState<NodeId | null>(null);
   const [statusOpen, setStatusOpen] = useState(false);   // map-clusters (lead): the status line is one line with an ellipsis; a tap shows all of it
   // B8 (scrub): the dots are built only for the part of the world around the view (the view plus half a screen each side), refreshed when a settled move
   // leaves that box or crosses a zoom band; far out (no dots) nothing is built. A scrub step then rates tens of spots, not all 1,168.
@@ -367,7 +362,7 @@ function OceanMap({section, go}: ViewProps) {
     };
     upd(); const offs = [x.on('moveend', upd), x.on('zoomend', upd)]; return () => offs.forEach((f) => f());
   }, [eng]);
-  const [hoverDot, setHoverDot] = useState<{id: string; group: boolean} | null>(null);
+  const [hoverDot, setHoverDot] = useState<{id: string} | null>(null);
   useEffect(() => {
     const x = map.current;
     if (!x?.setDots || !fontsOk || !dotBox) return;
@@ -412,8 +407,8 @@ function OceanMap({section, go}: ViewProps) {
     const x = map.current; if (!x?.onDot) return;
     const off = x.onDot((ev) => {
       const group = ev.layer === 'group' || ev.layer === 'cluster';   // map-clusters: a cluster tap zooms to its spots (the engine); it closes any callout
-      if (ev.type === 'click') { setHoverDot(null); if (group) { setCallout(null); setGroupOpen(null); } else { setGroupOpen(null); pickRef.current(ev.id); } }
-      else if (ev.type === 'enter') { if (!group) { setHoverDot({id: ev.id, group}); setHover(ev.id); } }
+      if (ev.type === 'click') { setHoverDot(null); if (group) setCallout(null); else pickRef.current(ev.id); }
+      else if (ev.type === 'enter') { if (!group) { setHoverDot({id: ev.id}); setHover(ev.id); } }
       else { setHoverDot(null); setHover(null); }
     });
     const offMove = x.on('movestart', () => setHoverDot(null));
@@ -496,7 +491,7 @@ function OceanMap({section, go}: ViewProps) {
   // 1B: Esc clears the map's spot focus (and closes its callout); typing in a field keeps its own Esc.
   const clearFocus = () => { setCallout(null); setMapFocused(false); };
   useEffect(() => {
-    if (!focused && !callout && !groupOpen) return;
+    if (!focused && !callout) return;
     // An Esc that closes something else (a menu, popover, the layers sheet, the spot picker) is theirs: they mark it handled (preventDefault),
     // and an Esc from inside an open dialog, menu or popover is skipped too. Checked after the other listeners ran (whatever order they were added in).
     const OPEN = '[role="dialog"], [role="menu"], [role="listbox"], .xpop, .menu, [aria-modal="true"]';
@@ -507,11 +502,11 @@ function OceanMap({section, go}: ViewProps) {
       const overlayOpen = !!document.querySelector('[aria-expanded="true"]:not(.xtb-search input):not(.xcredit):not(.leaflet-control-attribution)');
       window.setTimeout(() => {
         if (e.defaultPrevented || overlayOpen) return;
-        setCallout(null); setMapFocused(false); setGroupOpen(null);
+        setCallout(null); setMapFocused(false);
       }, 0);
     };
     addEventListener('keydown', key); return () => removeEventListener('keydown', key);
-  }, [callout, focused, spot.id, groupOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [callout, focused, spot.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const stepBy = useCallback((dir: -1 | 1, wrap = false) => {
     if (!times.length) return;
@@ -711,31 +706,12 @@ function OceanMap({section, go}: ViewProps) {
   };
   const callSpot = callout ? surfSpot(callout) : null, callRec = callout ? recAt(callout) : undefined;
   const callEv = evidenceSpots.find((e) => e.id === callout);
-  // map-dots: a group dot's list (name, number, rating word, kind of number), anchored at the dot; a row opens that spot
-  const gIds = groupOpen ? COAST_NODES.get(groupOpen) ?? null : null, gAt = gIds ? groupAnchor(gIds) : null;
-  useAnchored(eng, groupPopBox, gAt ? {lat: gAt.latitude, lon: gAt.longitude} : null, -16, phone ? {top: (rootRef.current?.querySelector('.xtopbar')?.getBoundingClientRect().bottom ?? 120) - (map.current?.container.getBoundingClientRect().top ?? 0) + 8, left: 16, right: 16, bottom: sheetPx() + 70} : {top: 80, left: open ? 380 : 80, right: 80, bottom: 90}, true, () => null, () => flying.current);
-  const unitWord = p.heightUnit === 'm' ? 'm' : 'ft';
-  const group$ = groupOpen && gIds ? (() => {
-    const rows = gIds.map((id) => ({id, d: dotInfo.current.get(id), s: score(id)})).filter((r): r is {id: string; d: NonNullable<typeof r.d>; s: number | null} => !!r.d)
-      .sort((a, b) => (a.s === null ? 1 : 0) - (b.s === null ? 1 : 0) || (b.s ?? 0) - (a.s ?? 0) || a.d.name.localeCompare(b.d.name));
-    return (
-      <div className="xgroup" role="dialog" aria-label={`${displayName(groupOpen)}: ${gIds.length} spots`}>
-        <header><div><b>{displayName(groupOpen)}</b><small>{gIds.length} spots · {when}</small></div><button className="xg-x" aria-label="Close the list" onClick={() => setGroupOpen(null)}><Icon name="close" size={14} /></button></header>
-        <ul>{rows.map(({id, d}) => (
-          <li key={id}><button onClick={() => { setGroupOpen(null); pickRef.current(id); }} aria-label={`${d.name}: ${d.face.words}${d.word ? `, ${d.word}` : ''}${d.dark ? ', after dark' : ''}`}>
-            <i className={`xg-dot k-${d.face.kind}${d.face.faded ? ' faded' : ''}`} style={{'--c': d.face.kind === 'none' ? 'var(--muted)' : BAND_COLOR[d.band], color: d.face.kind === 'est' ? d.ink : undefined} as React.CSSProperties} aria-hidden="true">{d.face.num}</i>
-            <span className="xg-n">{d.name}</span>
-            <span className="xg-v">{d.face.num ? `${d.face.num} ${unitWord}${d.face.kind === 'est' && p.scale === 'Hawaiian' ? ' Hawaiian' : ''}` : ''}{d.word ? <em>{d.word}</em> : null}</span>
-            <small className="xg-k">{d.face.kind === 'none' || d.face.kind === 'snap' ? d.face.words : KIND_WORDS[d.face.kind]}{d.dark ? ' · after dark' : ''}</small>
-          </button></li>))}</ul>
-      </div>);
-  })() : null;
-  const tipFor = hoverDot ?? (hover && !phone ? {id: hover, group: false} : null);
+  const tipFor = hoverDot ?? (hover && !phone ? {id: hover} : null);
   const tip$ = eng && tipFor ? (() => {
-    const d = dotInfo.current.get(tipFor.group ? 'g:' + tipFor.id : tipFor.id), ll = tipFor.group ? (COAST_NODES.get(tipFor.id) ? groupAnchor(COAST_NODES.get(tipFor.id)!) : null) : SPOT_BY_ID.get(tipFor.id);
+    const d = dotInfo.current.get(tipFor.id), ll = SPOT_BY_ID.get(tipFor.id);
     if (!d || !ll) return null;
     const q = eng.project(ll.latitude, ll.longitude), sz = eng.getSize(); if (q.x < 0 || q.y < 0 || q.x > sz.width || q.y > sz.height) return null;
-    return <div className="xdot-tip" role="tooltip" style={{left: q.x, top: q.y}}><b>{d.name}</b><span>{tipFor.group ? (d.best ? `Best: ${d.best} · ${d.face.words}${d.word ? ` · ${d.word}` : ''}` : d.face.words) : `${d.face.words}${d.word ? ` · ${d.word}` : ''}`}{d.dark ? ' · after dark' : ''}</span></div>;
+    return <div className="xdot-tip" role="tooltip" style={{left: q.x, top: q.y}}><b>{d.name}</b><span>{`${d.face.words}${d.word ? ` · ${d.word}` : ''}`}{d.dark ? ' · after dark' : ''}</span></div>;
   })() : null;
   const callout$ = callSpot && callEv ? (
     <SpotCallout spot={callSpot} region={callEv.region} f={callRec} rating={callRec ? rateForecast(callSpot, callRec, now) : null} when={when} p={p} hours={hoursFor(callSpot.id)}
@@ -890,13 +866,15 @@ function OceanMap({section, go}: ViewProps) {
     : slow && anyLoading ? `Still loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'} (taking longer than usual)${paintedFrame ? showing : ' · spots still work'}`
     : isHeld ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}…${showing}` : '';
   const seaRetry = !!heldNote && (seaFailed || (slow && anyLoading)) ? () => { setSlow(false); spatial.retry(); } : null;
+  // (lead P2) over a cached map heldNote is '': the cache label says 'not updated' (or is slow), and its note gets the Retry instead
+  const cacheRetry = !seaRetry && !!cache && cacheDrawn && opts.heat && live && (!anyLoading || slow) ? () => { setSlow(false); spatial.retry(); } : null, retryFn = seaRetry ?? cacheRetry;
   const seaNote = heldNote || (fallbackName ? `${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word ?? def.short} model: ${fallbackName}` : seaLoading);
   // map-load: ONE status on the map at a time, by priority: a real failure (the forecast or a source unavailable, or the layer failed) > the after-dark note > loading
   // and model notes. On phones everything else is held back; the after-dark note carries the model fallback name when both apply (an honesty label, kept).
   // (data-honesty review) no label is ever dropped by the one-status rule: the one message on a phone FOLDS the others in. A real failure is the forecast
   // unavailable or the sea layer failed; 'Limited: …' (a source stale for some spots) and 'Demonstration' are labels, carried by whichever note shows.
   const cacheNote = cache && cacheDrawn && opts.heat ? cache.chip : '';
-  const ms = mapStatus({phone, srcWarn, heldNote, seaNote, fallbackName, cacheNote, darkNow, seaFailed}), statusNow = ms.status, phoneTop = ms.top;   // mapStatus.ts: one message, no label dropped
+  const ms = mapStatus({phone, srcWarn, heldNote, seaNote, fallbackName, cacheNote, darkNow, seaFailed}), phoneTop = ms.top;   // mapStatus.ts: one message, no label dropped
   // the warning sits in the top bar: pills and labels lay out again when it appears or changes, so none sits under it
   useEffect(() => { const id = requestAnimationFrame(() => declutterRef.current()); return () => cancelAnimationFrame(id); }, [srcWarn, seaNote]);
   return (
@@ -918,8 +896,8 @@ function OceanMap({section, go}: ViewProps) {
       ) : null}
       <div className="xsearchbox">
         {topBar}
-        {ms.showTop && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{seaRetry && <button type="button" onClick={seaRetry}>Retry</button>}</p>
-          : <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" />{phoneTop}</p>)}
+        {ms.showTop && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{retryFn && <button type="button" onClick={retryFn}>Retry</button>}</p>
+          : <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{retryFn && <button type="button" onClick={retryFn}>Retry</button>}</p>)}
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
 
@@ -950,8 +928,8 @@ function OceanMap({section, go}: ViewProps) {
 
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
-        {ms.showDark && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window{phone ? ms.darkExtras.map((t) => ` · ${t}`).join('') : ''}{phone && seaRetry && <button type="button" className="xdark-retry" onClick={seaRetry}>Retry</button>}</p>}
-        {ms.showCacheChip && <p className="xdark xcache" role="status">{cacheNote[0].toUpperCase() + cacheNote.slice(1)}</p>}
+        {ms.showDark && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window{phone ? ms.darkExtras.map((t) => ` · ${t}`).join('') : ''}{phone && retryFn && <button type="button" className="xdark-retry" onClick={retryFn}>Retry</button>}</p>}
+        {ms.showCacheChip && <p className="xdark xcache" role="status">{cacheNote[0].toUpperCase() + cacheNote.slice(1)}{cacheRetry && <button type="button" className="xdark-retry" onClick={cacheRetry}>Retry</button>}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { lastScrub.current = Date.now(); setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
@@ -968,7 +946,6 @@ function OceanMap({section, go}: ViewProps) {
       {pt && createPortal(<PinLabel layer={def.short === 'Offshore waves' ? 'Waves' : def.short} icon={def.icon} line={line} why={noValueWhy} periodFromPoint={perFromPoint} expanded={panel}
         onExpand={() => setPanel(!panel)} onClose={() => { closedAt.current = Date.now(); setPt(null); setPanel(false); }} />, popupEl)}
       {!phone && callout$ && createPortal(callout$, spotPopEl)}
-      {group$ && createPortal(group$, groupPopEl)}
       {tip$ && eng && createPortal(tip$, eng.container)}
     </div>
   );
