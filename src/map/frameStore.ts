@@ -24,13 +24,13 @@ export const fieldKeyOf = (spec: SpatialSpec): string => [spec.dataset, spec.sca
 /** sea-field (B8): writing a frame (structured clone of a ~10 MB grid) and the trim's read-back on every hour of a scrub cost ~15 ms per step on the main thread. Only the frame still on screen
  *  once the hour has settled is written (the cache is only a first-paint picture, so the last settled frame is the one worth keeping). */
 const SAVE_SETTLE_MS = 2000;
-const pendingSave = new Map<FrameGroup, ReturnType<typeof setTimeout>>();
+const pendingSave = new Map<string, ReturnType<typeof setTimeout>>();   // keyed by group and field, so waves then wind within 2 s both get saved
 /** Stores a frame under its own valid time (fire and forget, once the hour has settled) and trims the store to the newest KEEP rows. */
 export function saveFrame(group: FrameGroup, spec: SpatialSpec, frame: SpatialFrame): void {
   if (frame.cached) return; // never re-store a cached picture as if it were fresh
-  clearTimeout(pendingSave.get(group));
+  const pk = `${group}|${fieldKeyOf(spec)}`; clearTimeout(pendingSave.get(pk));
   const idle = typeof window !== 'undefined' ? (window as unknown as {requestIdleCallback?: (cb: () => void, o?: {timeout: number}) => number}).requestIdleCallback : undefined;
-  pendingSave.set(group, setTimeout(() => { pendingSave.delete(group); if (idle) idle(() => writeFrame(group, spec, frame), {timeout: 10_000}); else writeFrame(group, spec, frame); }, SAVE_SETTLE_MS));
+  pendingSave.set(pk, setTimeout(() => { pendingSave.delete(pk); if (idle) idle(() => writeFrame(group, spec, frame), {timeout: 10_000}); else writeFrame(group, spec, frame); }, SAVE_SETTLE_MS));
 }
 function writeFrame(group: FrameGroup, spec: SpatialSpec, frame: SpatialFrame): void {
   void open().then(async (db) => {
