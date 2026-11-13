@@ -8,12 +8,17 @@ export function withOpenMeteoKey(url, key) {
   return url;
 }
 /** A fetch that routes Open-Meteo calls to the paid endpoint when getKey() returns a key. On a 401/403 from the paid endpoint (bad or lapsed key) it retries the free URL once, so a key problem degrades to today's behaviour instead of breaking the forecast. */
+// What the last Open-Meteo calls used, for /api/health (no key, no URL): 'paid' (customer endpoint answered), 'fallback' (paid refused, free used), 'free' (no key).
+const status = {plan: 'free', paidOk: 0, fallbacks: 0, lastPaidStatus: null, at: null};
+export const openMeteoStatus = () => ({...status});
 export function openMeteoFetcher(getKey, base = fetch) {
   return async (input, init) => {
     const key = getKey(), url = typeof input === 'string' ? input : input?.url;
     const paid = withOpenMeteoKey(url, key);
-    if (paid === url) return base(input, init);
+    if (paid === url) { if (/open-meteo\.com/.test(url ?? '')) { status.plan = 'free'; status.at = new Date().toISOString(); } return base(input, init); }
     const r = await base(paid, init);
-    return r.status === 401 || r.status === 403 ? base(url, init) : r;
+    status.lastPaidStatus = r.status; status.at = new Date().toISOString();
+    if (r.status === 401 || r.status === 403) { status.plan = 'fallback'; status.fallbacks++; return base(url, init); }
+    status.plan = 'paid'; status.paidOk++; return r;
   };
 }

@@ -1,4 +1,5 @@
 import {createSrfServe} from './srf-serve.mjs';
+import {openMeteoStatus} from './open-meteo-key.mjs';
 import {retryAfterMs,failureCategory,forecastRange,clippedGridURL} from './provider-policy.mjs';
 import {createHowRight} from './how-right.mjs';
 import {createCoastRatings} from './coast-ratings.mjs';
@@ -215,7 +216,7 @@ export function createForecastService({assets={},fetcher=fetch,now=Date.now,rand
   })();pointJobs.set(key,job);try{return await job}finally{pointJobs.delete(key)}
  }
 const handle=async function(request,env={},ctx={waitUntil:()=>{}}){const url=new URL(request.url);try{
-  if(url.pathname==='/api/health'){const obj=await fromBucket(env,'forecast/v8/status.json');return json({service:'SURF forecast ingestion',version:'0.8',revision:'0.10',persistent:persistent(env),refresh:obj??manifest,scheduler:'Configured/executed status must be verified from the linked automation, separately from this readback.'});}
+  if(url.pathname==='/api/health'){const obj=await fromBucket(env,'forecast/v8/status.json');return json({service:'SURF forecast ingestion',version:'0.8',revision:'0.10',openMeteo:openMeteoStatus(),persistent:persistent(env),refresh:obj??manifest,scheduler:'Configured/executed status must be verified from the linked automation, separately from this readback.'});}
   if(url.pathname==='/api/diagnostics')return json({checkedAt:new Date(now()).toISOString(),persistent:persistent(env),providers:await diagnostics(env)});
   if(url.pathname==='/api/refresh'){if(request.method!=='POST')return json({error:'POST required'},405);const origin=request.headers.get('origin');if(origin&&origin!==url.origin)return json({error:'Origin rejected'},403);if(env.REFRESH_TOKEN&&request.headers.get('authorization')!=='Bearer '+env.REFRESH_TOKEN)return json({error:'Refresh authorization required'},403);return json(await refresh(env));}
   if(url.pathname==='/api/providers'){touch(env,ctx,(url.searchParams.get('keys')??'').split(',').filter(Boolean).slice(0,BATCH_MAX));const keys=[...new Set((url.searchParams.get('keys')??'').split(',').filter(Boolean))];if(!keys.length)return json({error:'keys required'},400);if(keys.length>BATCH_MAX)return json({error:'At most '+BATCH_MAX+' keys per request'},400);const targets=ingestionTargets(now(),spots),results={};let next=0;const one=async()=>{while(next<keys.length){const key=keys[next++],target=targets.find(t=>t.key===key&&!t.field);if(!target){results[key]={status:400,error:'Unknown fixed provider key'};continue}try{results[key]={status:200,body:await retrieve(target,env)}}catch(e){results[key]={status:502,error:e.message??'Forecast service unavailable',category:e.category??failureCategory(e),retryAt:e.retryAt??null}}}};await Promise.all(Array.from({length:Math.min(BATCH_UPSTREAM_PARALLEL,keys.length)},one));return json({results})}
