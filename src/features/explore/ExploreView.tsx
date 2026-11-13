@@ -37,6 +37,7 @@ import {CompareSpots} from './Compare';
 import {FindSpots} from './FindSpots';
 import {parseMapUrl, writeMapUrl} from './mapUrl';
 import {createEngine, engineKind, type DotIcon, type MapDot, type MapEngine, type MarkerHandle} from '../../map/engine';
+import {mapStatus} from './mapStatus';
 import {DOT_ZOOM, KIND_WORDS, dotFace, inkFor, swellFrom, type Band, type DotFace} from './dots';
 import {currentTheme} from '../../map/basemap';
 import {DayStrip, DotKey, DotKeyList, LayerList, LegendChip, ModelChip, SpotRow} from './Panels';
@@ -357,7 +358,10 @@ function OceanMap({section, go}: ViewProps) {
     const x = map.current; if (!x) return;
     const upd = () => {
       const z = x.getView().zoom, band = z < DOT_ZOOM.groupsFrom ? 0 : z < DOT_ZOOM.spotsFrom ? 1 : 2, b = x.getBounds(), cur = dotBoxRef.current;
-      if (cur && cur.band === band && b.south >= cur.s && b.north <= cur.n && b.west >= cur.w && b.east <= cur.e) return;
+      // (review) refresh while the view is still a margin inside the box, so a cluster at the view's edge never misses spots just outside the box (the margin, 15% of
+      // the view, is well over the 46 px cluster radius on any screen)
+      const my = (b.north - b.south) * 0.15, mx = (b.east - b.west) * 0.15;
+      if (cur && cur.band === band && b.south - my >= cur.s && b.north + my <= cur.n && b.west - mx >= cur.w && b.east + mx <= cur.e) return;
       const dy = (b.north - b.south) / 2, dx = (b.east - b.west) / 2, nb = {s: b.south - dy, n: b.north + dy, w: b.west - dx, e: b.east + dx, band} as const;
       dotBoxRef.current = nb; setDotBox(nb);
     };
@@ -892,9 +896,7 @@ function OceanMap({section, go}: ViewProps) {
   // (data-honesty review) no label is ever dropped by the one-status rule: the one message on a phone FOLDS the others in. A real failure is the forecast
   // unavailable or the sea layer failed; 'Limited: …' (a source stale for some spots) and 'Demonstration' are labels, carried by whichever note shows.
   const cacheNote = cache && cacheDrawn && opts.heat ? cache.chip : '';
-  const failNote = !!srcWarn || (seaFailed && !!heldNote);   // a source unavailable or limited is the prominent message (it leads the note, and the note carries 'after dark')
-  const statusNow: 'fail' | 'dark' | 'note' | null = failNote ? 'fail' : darkNow ? 'dark' : srcWarn || seaNote ? 'note' : null;
-  const phoneTop = [srcWarn, seaNote, seaNote && !/cached/.test(seaNote) ? cacheNote : '', darkNow && failNote ? 'after dark · not a surf window' : ''].filter(Boolean).join(' · ');   // the source warning first, then what the sea shows, then the hour
+  const ms = mapStatus({phone, srcWarn, heldNote, seaNote, fallbackName, cacheNote, darkNow, seaFailed}), statusNow = ms.status, phoneTop = ms.top;   // mapStatus.ts: one message, no label dropped
   // the warning sits in the top bar: pills and labels lay out again when it appears or changes, so none sits under it
   useEffect(() => { const id = requestAnimationFrame(() => declutterRef.current()); return () => cancelAnimationFrame(id); }, [srcWarn, seaNote]);
   return (
@@ -916,7 +918,7 @@ function OceanMap({section, go}: ViewProps) {
       ) : null}
       <div className="xsearchbox">
         {topBar}
-        {phone && (statusNow === 'fail' || statusNow === 'note') && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{seaRetry && <button type="button" onClick={seaRetry}>Retry</button>}</p>
+        {ms.showTop && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{seaRetry && <button type="button" onClick={seaRetry}>Retry</button>}</p>
           : <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" />{phoneTop}</p>)}
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
@@ -933,7 +935,7 @@ function OceanMap({section, go}: ViewProps) {
         const showing = held ? ` · showing ${heldName ? `${heldName}, ` : ''}${weekdayPT(held, mapZone())} ${hourLabel(held, mapZone())} ${mapZoneAbbr(held)}` : '';
         const retry = () => { setSlow(false); spatial.retry(); };
         if (failed) return <p className="xload err" role="alert">Couldn't load {def.short.toLowerCase()} for {when}{showing} <button type="button" onClick={retry}>Retry</button></p>;
-        if (slow && anyLoading && !darkNow) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
+        if (slow && anyLoading) return <p className="xload" role="status">Still loading {def.short.toLowerCase()} for {when}…{heldName ? ` Showing ${heldName} meanwhile.` : ''} <button type="button" onClick={retry}>Retry</button></p>;
         return null;
       })()}
       {/* T-117 (Windy): the layers down the right edge as labelled round thumbnails (a menu button and sheet on phones), the zoom and centre controls under them. */}
@@ -948,16 +950,16 @@ function OceanMap({section, go}: ViewProps) {
 
       {/* T-116: one bottom strip (Windy): the time scrubber and the legend, plus one quiet mark when the hour is dark. */}
       <div className="xbottom">
-        {darkNow && (phone ? statusNow === 'dark' : !seaFailed) && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window{phone ? [fallbackName, cacheNote].filter(Boolean).map((t) => ` · ${t}`).join('') : ''}</p>}
-        {cache && cacheDrawn && opts.heat && (!phone || statusNow === null) && <p className="xdark xcache" role="status">{cache.chip[0].toUpperCase() + cache.chip.slice(1)}</p>}
+        {ms.showDark && <p className="xdark" role="status">After dark<span className="xdark-l"> at this hour</span> · not a surf window{phone ? ms.darkExtras.map((t) => ` · ${t}`).join('') : ''}{phone && seaRetry && <button type="button" className="xdark-retry" onClick={seaRetry}>Retry</button>}</p>}
+        {ms.showCacheChip && <p className="xdark xcache" role="status">{cacheNote[0].toUpperCase() + cacheNote.slice(1)}</p>}
         <DayStrip times={times} index={ti} playing={playing} onPlay={() => setPlaying(!playing)} onScrub={(i) => { lastScrub.current = Date.now(); setPlaying(false); view.selectTime(times[i]); }}
           valueText={view.selectedTime ? `${weekdayPT(view.selectedTime, mapZone())} ${hourLabel(view.selectedTime, mapZone())} ${mapZoneAbbr(view.selectedTime)}` : ''} />
         <div className="xb-right">
           {!phone && <DotKey unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} />}
           {opts.heat && <ModelChip name={modelName} sub={cacheDrawn ? cache?.chip : undefined} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={LEGEND_NAMES[paintedDef.id].full} short={LEGEND_NAMES[paintedDef.id].short} word={LEGEND_NAMES[paintedDef.id].word} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} ><DotKeyList unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} /></LegendChip>
-          : <p className="xchip xstatus" role="status" data-loading={spatial.loading || globe.loading ? 'true' : undefined} data-open={statusOpen ? 'true' : undefined} title={opts.heat ? status : undefined}
-              onClick={() => setStatusOpen((v) => !v)}>{opts.heat ? status : 'Sea color off'}</p>}
+          : <button type="button" className="xchip xstatus" aria-live="polite" aria-expanded={statusOpen} data-loading={spatial.loading || globe.loading ? 'true' : undefined} data-open={statusOpen ? 'true' : undefined} title={opts.heat ? status : undefined}
+              onClick={() => setStatusOpen((v) => !v)}>{opts.heat ? status : 'Sea color off'}</button>}
         </div>
       </div>
       {pt && panel && <ForecastPanel pt={pt} data={point.data} error={point.error} time={view.selectedTime} p={p} bundle={view.ocean.bundle}

@@ -85,7 +85,7 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
     const feat = (d: MapDot) => {
       const key = dotKey(d.icon);
       if (!map.hasImage(key)) { const img = drawDot(d.icon); if (img) map.addImage(key, img, {pixelRatio: DOT_PR}); }
-      return {type: 'Feature' as const, properties: {id: d.id, layer: d.layer, i: key, k: -d.prio, name: d.name, dim: d.dim, band: d.band ?? 'none', hide: !!d.hide}, geometry: {type: 'Point' as const, coordinates: [d.lon, d.lat]}};
+      return {type: 'Feature' as const, properties: {id: d.id, layer: d.layer, i: key, k: -d.prio, name: d.name, dim: d.dim, band: d.band ?? 'none'}, geometry: {type: 'Point' as const, coordinates: [d.lon, d.lat]}};
     };
     const sel = {type: 'FeatureCollection' as const, features: dots.filter((d) => d.layer === 'sel').map(feat)}, spots = {type: 'FeatureCollection' as const, features: dots.filter((d) => d.layer === 'spot').map(feat)};
     const colours = ringColours(), to = (o.clusterTo ?? o.spotsFrom) - ZOFF, sameOpts = dotOpts && dotOpts.groupsFrom === o.groupsFrom && dotOpts.spotsFrom === o.spotsFrom && dotOpts.namesFrom === o.namesFrom && dotOpts.pad === o.pad && cluTo === to;
@@ -104,7 +104,7 @@ export async function createMaplibreEngine(el: HTMLElement, o: EngineOptions): P
     const cluImage = ['concat', 'swc|', ['get', 'good'], '|', ['get', 'fair'], '|', ['get', 'poor'], '|', ['get', 'none'], '|', Object.values(colours).join('|')];
     if (themeChanged && map.getLayer('swello-clu')) map.setLayoutProperty('swello-clu', 'icon-image', cluImage);
     if (!map.getLayer('swello-clu')) map.addLayer({id: 'swello-clu', type: 'symbol', source: CLU_SRC, filter: ['has', 'point_count'], minzoom: o.groupsFrom - ZOFF, layout: {'icon-image': cluImage, 'icon-anchor': 'center', 'icon-allow-overlap': false, 'icon-ignore-placement': false, 'symbol-sort-key': ['-', 0, ['get', 'point_count']]}, paint: {'icon-opacity': ['case', ['==', ['get', 'dark'], 1], 0.65, 1]}} as unknown as maplibregl.AddLayerObject);
-    if (!map.getLayer('swello-dots-spot')) map.addLayer({id: 'swello-dots-spot', type: 'symbol', source: CLU_SRC, filter: ['all', ['!', ['has', 'point_count']], ['!', ['get', 'hide']]], minzoom: o.groupsFrom - ZOFF, layout: {...base, ...text, 'icon-allow-overlap': false, 'text-field': ['step', ['zoom'], '', o.namesFrom - ZOFF, ['get', 'name']]}, paint} as unknown as maplibregl.AddLayerObject);
+    if (!map.getLayer('swello-dots-spot')) map.addLayer({id: 'swello-dots-spot', type: 'symbol', source: CLU_SRC, filter: ['!', ['has', 'point_count']], minzoom: o.groupsFrom - ZOFF, layout: {...base, ...text, 'icon-allow-overlap': false, 'text-field': ['step', ['zoom'], '', o.namesFrom - ZOFF, ['get', 'name']]}, paint} as unknown as maplibregl.AddLayerObject);
     if (!map.getLayer('swello-dots-sel')) map.addLayer({id: 'swello-dots-sel', type: 'symbol', source: DOT_SRC, minzoom: o.groupsFrom - ZOFF, layout: {...base, ...text, 'icon-allow-overlap': true, 'text-field': ['get', 'name'], 'text-size': 13, 'text-radial-offset': 1.45}, paint} as unknown as maplibregl.AddLayerObject);
     else for (const l of ['swello-dots-spot', 'swello-dots-sel']) { map.setPaintProperty(l, 'text-color', o.text); map.setPaintProperty(l, 'text-halo-color', o.halo); }
   };

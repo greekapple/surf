@@ -2,7 +2,7 @@
 // (spec docs/specs/2026-11-12-map-dots.md, -forecast-order-and-map-clusters.md B):
 // - est: a pill filled with the rating colour, the surf range in the person's unit ('3–4 ft'); an unrated estimate is an outline pill;
 // - nws: a dashed-outline pill with the NWS range (theirs, not ours);
-// - off: a hollow pill reading 'off' (offshore height only: never a size);
+// - off: a hollow, empty pill (offshore height only: never a size; the tooltip and screen readers say so);
 // - snap: a striped pill, no number (the daily forecast, not live);
 // - none: a small grey ring (not loaded, or nothing this hour).
 // A tick on the rim points where the swell comes from. Faded = a saved or stale copy. The selected spot is bigger and ringed.
@@ -36,7 +36,7 @@ function tick(g: CanvasRenderingContext2D, i: DotIcon, cx: number, cy: number, e
 
 /** The pill (est, nws, off, snap): a rounded bar sized to its text, with room around it for the selection ring and the swell tick. */
 function drawPill(i: DotIcon): ImageData | null {
-  const sel = i.sel, fs = sel ? 13 : 11.5, h = sel ? 24 : 20, text = i.kind === 'off' ? 'off' : i.kind === 'snap' ? '' : i.pill ?? '';
+  const sel = i.sel, fs = sel ? 13 : 11.5, h = sel ? 24 : 20, text = i.kind === 'off' || i.kind === 'snap' ? '' : i.pill ?? '';   // (review) offshore-only is a hollow pill with no word: 'off' read as offshore wind
   const g0 = canvas(8, 8); if (!g0) return null; g0.font = `700 ${fs}px ${FONT}`; tabular(g0);
   const tw = text ? Math.ceil(g0.measureText(text).width) : 14, w = Math.max(h, tw + (sel ? 18 : 14)), M = 10, W = w + 2 * M, H = h + 2 * M;
   const g = canvas(W, H); if (!g) return null;

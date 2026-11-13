@@ -57,9 +57,9 @@ test('map-clusters: layers only, kind styling kept, selected spot apart, far zoo
   assert.match(eng, /id: 'swello-dots-sel', type: 'symbol', source: DOT_SRC/, 'the selected spot is its own unclustered source');
   assert.match(eng, /minzoom: o\.groupsFrom - ZOFF/, 'nothing below the cluster zoom (far out stays clean)');
   for (const k of ["i.kind === 'nws'", "i.kind === 'off'", "i.kind === 'snap'", 'setLineDash']) assert.ok(icon.includes(k), `pill keeps ${k}`);
-  assert.match(icon, /text = i\.kind === 'off' \? 'off' : i\.kind === 'snap' \? '' : i\.pill/, 'offshore says "off", never a size; the daily forecast has no number');
+  assert.match(icon, /text = i\.kind === 'off' \|\| i\.kind === 'snap' \? '' : i\.pill/, 'offshore and daily forecast pills carry no size');
   assert.match(read('../features/explore/explore.css'), /\.xb-right:has\(> \.xstatus\) \{ flex: 1 1 100%; order: 3; min-width: 0; max-width: 100%; \}/);
-  // (data-honesty review) the ring counts only live ratings ('none' for a dot that shows nothing or the daily forecast), the selected spot is counted in its cluster,
+  // (data-honesty review) the ring counts only live ratings ('none' for a dot that shows nothing or the daily forecast), the selected spot is drawn on its own (not clustered),
   // a night cluster is dimmed like the pills, and 'none' is a hairline (never a grey arc that reads as 'poor')
   const ev = read('../features/explore/ExploreView.tsx');
   assert.match(ev, /band: face\.kind === 'none' \|\| face\.kind === 'snap' \? 'none' : band\}\);/);   // the selected spot is drawn on its own (not over its cluster)
@@ -72,7 +72,7 @@ test('map-load: one status at a time, folded so no label is lost; slow only afte
   assert.match(ev, /export const SLOW_MS = 20000;/);
   assert.doesNotMatch(ev.replace(/\/\/.*$/gm, ''), /not loading/i, 'no text on screen says "not loading" (only a real failure says it could not load); comments aside');
   assert.match(ev, /\(taking longer than usual\)/);
-  assert.match(ev, /const statusNow: 'fail' \| 'dark' \| 'note' \| null = failNote \? 'fail' : darkNow \? 'dark'/, 'failure > after dark > notes');
-  assert.match(ev, /const phoneTop = \[srcWarn, seaNote,/, 'the one phone note leads with the source warning and carries the sea note, the cached map and the hour');
-  assert.match(ev, /not a surf window\{phone \? \[fallbackName, cacheNote\]/, 'the after-dark note carries the model and cache labels at night');
+  assert.match(read('../features/explore/mapStatus.ts'), /const status = failNote \? 'fail' : i\.darkNow \? 'dark'/, 'failure > after dark > notes');
+  assert.match(read('../features/explore/mapStatus.ts'), /const top = \[i\.srcWarn, i\.seaNote,/, 'the one phone note leads with the source warning');
+  assert.match(ev, /not a surf window\{phone \? ms\.darkExtras/, 'the after-dark note carries the sea, model and cache labels at night');
 });

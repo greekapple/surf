@@ -1017,3 +1017,6 @@ button.xstatus { cursor: pointer; font: inherit; }
   /* the credit moves up while the after-dark note is shown, so the note (which may take two lines) never sits on it */
   .xmap:has(.xbottom .xdark:not(.xcache)) .xcredit { bottom: calc(var(--peek, 0px) + 184px); }
 }
+/* map-labels: the sea's Retry rides in the after-dark note on phones; the status line is a button (keyboard-reachable) that looks like the chip */
+.xbottom .xdark .xdark-retry { pointer-events: auto; margin-left: 8px; min-height: 32px; padding: 0 10px; border-radius: 999px; border: 1px solid currentColor; background: none; color: inherit; font: inherit; font-weight: 650; }
+button.xchip.xstatus { font: inherit; font-size: 12px; text-align: left; border: 1px solid var(--xc-line); }

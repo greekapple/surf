@@ -138,14 +138,14 @@ export function DotKeyList({unit = 'ft', hawaiian = false}: {unit?: 'ft' | 'm'; 
   const rows: [string, ReactNode, string][] = [
     ['est', `3–4 ${unit}`, `Our surf estimate, in ${unit}${hawaiian ? ' (Hawaiian scale, marked (H))' : ''}: the spot page\u2019s own range (model)`],
     ['nws', `≤5 ${unit}`, `NWS surf forecast: theirs, not ours, for the whole zone and day (${unit === 'm' ? 'its feet in m' : 'ft as published'}, never Hawaiian)`],
-    ['off', 'off', 'Offshore height only: no surf size'],
+    ['off', null, 'Hollow: offshore wave height only, no surf size here'],
     ['snap', null, 'Daily forecast, not live'],
     ['none', null, 'Not loaded yet, or nothing this hour'],
   ];
   return (
     <div className="xdk-l">
       <ul>{rows.map(([k, n, t]) => <li key={k}><i className={`xg-dot k-${k}`} style={{'--c': k === 'none' ? 'var(--muted)' : 'var(--good)', color: k === 'est' ? '#fff' : undefined} as CSSProperties} aria-hidden="true">{n}</i><span>{t}</span></li>)}</ul>
-      <p className="xdk-note">Color is our rating at this hour (green good, amber fair, grey poor); an outlined number has no rating this hour. The tick on the rim points where the swell comes from. Faded: a saved or older copy. Dimmed: after dark. Zoomed out, spots join into circles: the number is how many spots the circle holds, and its thick ring is split by their ratings this hour (green good, amber fair, grey poor); a thin line is the share with no live rating yet (not loaded, or a daily forecast). Dimmed: after dark. Tap a circle to zoom to its spots.</p>
+      <p className="xdk-note">Color is our rating at this hour (green good, amber fair, grey poor); an outlined number has no rating this hour. The tick on the rim points where the swell comes from. Faded: a saved or older copy. Dimmed: after dark. Zoomed out, spots join into circles: the number is how many spots the circle holds, and its thick ring is split by their ratings this hour (green good, amber fair, grey poor); a thin line is the share with no live rating yet (not loaded, or a daily forecast). Tap a circle to zoom to its spots.</p>
     </div>
   );
 }
