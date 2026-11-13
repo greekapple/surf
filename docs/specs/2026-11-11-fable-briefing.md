@@ -30,7 +30,7 @@ The user's bar: **"exponentially better than Surfline"**. Their focus order:
    - journeys 8/8 and the toolkit checks for the area you touched pass;
    - you looked at the 1440 and 390 screenshots against the references in `docs/design/`.
 
-## Where the app is (updated 2026-11-12, live version 23b0166a)
+## Where the app is (updated night of 2026-11-12, live version 6f4bfffc)
 Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C is live. Since then, also live:
 - **1,078 spots:** Oregon, Washington and Sitka; the East Coast, Gulf and Puerto Rico; minus 3 merged duplicates. One slug system, a 404 page and "Spot not found".
 - **The surf number, in order of trust:**
@@ -65,6 +65,14 @@ Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C 
   - **Atlantic 7 s minimum period (user approved):** 412 US Atlantic profiles use 7 s, 490 keep 8 s; labelled "our own evidence" (`docs/forecast/ATLANTIC-8S.md`). Re-check 6 s around 2026-12-03.
   - **How-right all-spots scorecard fix:** scoring ran out of hourly stages (420 of ~763); the cron now runs 00:20–13:20 UTC. The first full v2 card lands about 2026-11-13 13:20 UTC.
   - **3D:** the clean-room wave is the default (no licensed input).
+- **Live since (evening 2026-11-12, latest 6f4bfffc):**
+  - **California lock-in:** CDIP MOP for 128 more California spots (66 facing-matched, 62 nearest-point "chosen by us"); 198 MOP points ingested. California offshore-only went 143 → 14, and those 14 show the NWS range for the NWS's ~3 days (docs/forecast/CA-MOP.md). The NWS parser now reads multi-day blocks ("THIS AFTERNOON THROUGH FRIDAY", SGX).
+  - **Open-Meteo Standard (commercial) plan:** key in the Worker secret OPEN_METEO_KEY; /api/health → openMeteo.plan. Cold Home first content is 6–10 s (was ~15 s), still over the 6 s budget: Track 0's first speed item (the app loads every spot's providers at once).
+  - **Forecast charts:** the week fits the width, with one shared hour cursor and readout, and day zoom.
+  - **Profile setup:** "Why we ask", an age band (under 13 saves nothing), 7 skill-level cards, an optional sex question with a female figure, and weight → Board Match volume.
+  - **HDOnTap snapshot block:** Venice is live, with the switcher for spots with 2+ cameras; the other 16 wait on Tim's links (docs/forecast/CAMS.md). **Snapshot analysis is NOT allowed until HDOnTap agrees in writing.**
+  - **Other:** chunk-reload after deploys; hero "now"; Atlantic 7 s; How-right cron 00:20–13:20 UTC.
+- **Specs written today:** docs/specs/2026-11-12-forecast-order-and-map-clusters.md (in progress tonight: forecast-order, map-clusters), 2026-11-12-profile-setup.md, LAUNCH-GATE.md (legal checklist; the user runs /code-review ultra before publishing).
 - **In flight (check before touching):** product-term: journey 3's End-key "NaN" at Ocean Beach (time-dependent, fails before the Atlantic merge too). eng-term: Europe land check (2,075 of 4,002; resumes after 00:00 UTC) and the local SWAN capture loop.
 - **Decided since:** HDOnTap: the user sent their own reply (stills now, partnership later). Map attribution stays as is (full at open, folded to an (i) at the first interaction; OSMF).
 - **Known open from the last design critique:** the sea-field scrub cost on the map (audit B8; glField texImage2D, buildField and getShaderParameter on every step; engineering's code).
