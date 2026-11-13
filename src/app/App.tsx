@@ -49,10 +49,10 @@ export default function App() {
 }
 
 function Shell({route, navigate}: {route: Route; navigate: Go}) {
-  const {spot, missingSpot, data} = useSwello();
+  const {spot, missingSpot, hiddenSpot, data} = useSwello();
   const {area, section} = route;
   // Audit B2: an unknown path, or a Forecast URL whose ?spot= names no spot (or several), shows "not found" with search, never another page or spot.
-  const notFound = route.notFound ? 'page' as const : area === 'forecast' && missingSpot ? 'spot' as const : null;
+  const notFound = route.notFound ? 'page' as const : area === 'forecast' && hiddenSpot ? 'region' as const : area === 'forecast' && missingSpot ? 'spot' as const : null;
   // Audit R20: one document title per route ("Ocean Beach surf forecast · Swello").
   useEffect(() => { document.title = docTitle(area, section, {spotName: spot.name, notFound}); }, [area, section, spot.name, notFound]);
   // The ocean map is full-bleed under the bar; its own panels hold its controls. There are no section pills anywhere (T-022):

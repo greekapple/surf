@@ -7,9 +7,10 @@ const SECTION_TITLES: Record<string, Record<string, string>> = {
     units: 'Units', appearance: 'Appearance', privacy: 'Privacy', terms: 'Terms', credits: 'Data sources & credits'},
 };
 /** `spotName`: the spot in view on Forecast pages. `notFound`: the route or the spot is unknown. */
-export function docTitle(area: string, section: string, opts: {spotName?: string | null; notFound?: 'page' | 'spot' | null} = {}): string {
+export function docTitle(area: string, section: string, opts: {spotName?: string | null; notFound?: 'page' | 'spot' | 'region' | null} = {}): string {
   if (opts.notFound === 'page') return `Page not found · ${BRAND}`;
   if (opts.notFound === 'spot') return `Spot not found · ${BRAND}`;
+  if (opts.notFound === 'region') return `This region isn't open yet · ${BRAND}`;
   if (area === 'home') return `${BRAND} · Surf forecasts and ocean intelligence`;
   if (area === 'forecast') {
     const name = opts.spotName?.trim();

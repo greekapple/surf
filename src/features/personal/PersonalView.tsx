@@ -2,7 +2,6 @@ import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type ReactNode
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {allSpots as spots} from '../../data/catalog';
-import {evidenceSpots} from '../../ocean/spots';
 import {ZONES, zoneOf, regionWithState} from '../../data/zones';
 import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
 import {StateMessage} from '../../ui/common';
@@ -17,7 +16,7 @@ import {isFlat} from '../../services/flatSurf';
 import {rateForecast} from '../../ratings/adapters';
 import {compass, heightRange} from '../../utils/units';
 import {PIcon, type PName} from './icons';
-import {Choice, SpotCover, entryDate} from './parts';
+import {Choice, SpotCover, Toggle, entryDate} from './parts';
 import {AlertsManager} from './AlertsPanels';
 import {parseRestore, type AppState, type RestorePreview} from '../../utils/storage';
 import {JournalList, LogForm, type LogInput} from './JournalPanels';
@@ -80,7 +79,8 @@ const SCALE_NAMES = {'Face height': 'Surf height (as reports quote it)', Hawaiia
 
 
 export function PersonalView({section, go}: ViewProps) {
-  const {data, view, setSpot, now, spotOptions} = useSwello();
+  const {data, view, setSpot, now, spotOptions, gate} = useSwello();
+  const evidenceSpots = gate.evidence;   // ca-only: the gated list
   const [themePref, setThemePref] = useThemePref();
   const [mapStyle, setMapStyle] = useState<BasemapPref>(() => readBasemapPref());
   // Restore from backup: the file is read and checked first; nothing changes until the person confirms the replace.
@@ -97,7 +97,7 @@ export function PersonalView({section, go}: ViewProps) {
   const [hash, setHash] = useState(() => location.hash);
   // Favorite spots page: search, region chips, favourites and spots near the selected spot first, and 40 cards at a time (a window, never the whole catalogue in the DOM).
   const [spotQ, setSpotQ] = useState(''), [spotZone, setSpotZone] = useState('All'), [spotPage, setSpotPage] = useState(0);
-  const orderedSpots = useMemo(() => orderSpots(spots, evidenceSpots, view.selected, data.state.favorites, spotQ, spotZone), [spotQ, spotZone, view.selected, data.state.favorites]); // eslint-disable-line react-hooks/exhaustive-deps
+  const orderedSpots = useMemo(() => orderSpots(spotOptions, evidenceSpots, view.selected, data.state.favorites, spotQ, spotZone), [spotOptions, spotQ, spotZone, view.selected, data.state.favorites]); // eslint-disable-line react-hooks/exhaustive-deps
   const [rules, setRulesState] = useState<AlertRule[]>(loadRules);
   const [extras, setExtras] = useState<JournalExtras>(loadExtras);
   const [prefs, setPrefsState] = useState<BoardPrefs>(loadBoardPrefs);
@@ -141,7 +141,7 @@ export function PersonalView({section, go}: ViewProps) {
     return best;
   };
 
-  const favSpots = data.state.favorites.map((id) => spots.find((s) => s.id === id)).filter((s): s is NonNullable<typeof s> => !!s);
+  const favSpots = data.state.favorites.map((id) => spotOptions.find((s) => s.id === id)).filter((s): s is NonNullable<typeof s> => !!s);
   const name = p.displayName?.trim() || 'Your profile';
   const initials = p.displayName?.trim() ? p.displayName.trim().split(/\s+/).slice(0, 2).map((w) => w[0]).join('').toUpperCase() : '';
   const onThemeKey = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -399,7 +399,7 @@ export function PersonalView({section, go}: ViewProps) {
             <p className="fine">{sessions.length} sessions · on this device</p>
             <SawList spotName={spotName} />
             <div className="pz-journal">
-              <LogForm spots={spots} boards={boards} defaultSpot={view.selected} heightUnit={p.heightUnit === 'm' ? 'm' : 'ft'} onSubmit={logSession} onObserve={() => go('forecast')} error={obsError} />
+              <LogForm spots={spotOptions} boards={boards} defaultSpot={view.selected} heightUnit={p.heightUnit === 'm' ? 'm' : 'ft'} onSubmit={logSession} onObserve={() => go('forecast')} error={obsError} />
               <JournalList sessions={sessions} extras={extras} spotName={spotName} onRemove={removeSession} />
             </div>
           </Page>

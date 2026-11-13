@@ -12,7 +12,6 @@ import {useSwello} from '../../app/store';
 import {useSpatial} from '../../hooks/useSpatial';
 import {useGlobe} from '../../hooks/useGlobe';
 import {dataPhase} from '../../services/dataPhase';
-import {evidenceSpots} from '../../ocean/spots';
 import {allSpots as spots} from '../../data/catalog';
 import {rateForecast} from '../../ratings/adapters';
 import {Icon, type IconName} from '../../ui/Icon';
@@ -68,8 +67,6 @@ const PHONE = '(max-width: 860px)';
 const isPhone = () => typeof matchMedia === 'function' && matchMedia(PHONE).matches;
 
 /** 4E coast groups: the nodes (regions, zones, coasts, seaboards) with their spots, the regions the layout starts from, and one pill's DOM. */
-const COAST_NODES = buildNodes(evidenceSpots);   // the coast groups (regions, zones, coasts); map-clusters replaced their dots with MapLibre clusters
-const SPOT_BY_ID = new Map(evidenceSpots.map((e) => [e.id, e] as const));
 type Detent = 'peek' | 'half' | 'full';
 const DETENTS: Detent[] = ['peek', 'half', 'full'];
 
@@ -149,7 +146,11 @@ export function ExploreView({section, go}: ViewProps) {
 }
 
 function OceanMap({section, go}: ViewProps) {
-  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots, fillSpots, mapFocused, setMapFocused} = useSwello();
+  const {view, data, spot, setSpot, now, live, reportVisible, requestSpots, fillSpots, mapFocused, setMapFocused, gate} = useSwello();
+  // ca-only: every list on the map (dots, clusters, "N spots in view", search, the region chips) reads the gated list, never the whole catalogue
+  const evidenceSpots = gate.evidence;
+  const COAST_NODES = useMemo(() => buildNodes(evidenceSpots), [evidenceSpots]);   // the coast groups (regions, zones, coasts); map-clusters replaced their dots with MapLibre clusters
+  const SPOT_BY_ID = useMemo(() => new Map(evidenceSpots.map((e) => [e.id, e] as const)), [evidenceSpots]);
   // 1B: the map's focus (the app's selected spot stays when it is cleared). `focused` = the spot the map highlights, or null.
   const focused = mapFocused ? spot.id : null;
   useEffect(() => { writeMapUrl({focus: mapFocused ? null : 'none'}); }, [mapFocused]);
@@ -402,7 +403,7 @@ function OceanMap({section, go}: ViewProps) {
     x.container.dataset.dots = String(dots.length);   // the dots are set (QA waits on [data-dots]; they are drawn on the map canvas, not as DOM)
     x.container.dataset.dotsAt = view.selectedTime ?? '';   // map-clusters (QA): the hour the dots were built for
     declutterRef.current();
-  }, [eng, fontsOk, dotBox, themeKey, view.mapRecords, view.selectedTime, snap, focused, p.heightUnit, p.scale, data.state.favorites.join('|')]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [eng, fontsOk, dotBox, themeKey, view.mapRecords, view.selectedTime, snap, focused, p.heightUnit, p.scale, data.state.favorites.join('|'), evidenceSpots]); // eslint-disable-line react-hooks/exhaustive-deps
   // taps and hover on the dots: a spot dot opens its callout (as the pin did), a group dot its list; hover names the dot
   useEffect(() => {
     const x = map.current; if (!x?.onDot) return;
@@ -633,7 +634,7 @@ function OceanMap({section, go}: ViewProps) {
   const hiAt = (id: string) => { const r = recAt(id), h = r ? headlineSurf(id, r, {bundle: view.ocean.bundle, nowMs: now}) : null; return h?.kind === 'estimate' ? h.hiFt : -1; };
   // §6: typing searches every spot with the shared matcher (prefix, word starts, region, one typo; accents and apostrophes ignored), favourites and recent picks first among equals
   // the zone filter applies BEFORE the limit of 20 (so a zone's spots are never cut by matches elsewhere); the zone lists are built once each (the matcher's index is per list)
-  const zoneSpots = useMemo(() => (zone === 'All' || zone === 'In view' ? evidenceSpots : evidenceSpots.filter((e) => zoneOf(e.region) === zone)), [zone]);
+  const zoneSpots = useMemo(() => (zone === 'All' || zone === 'In view' ? evidenceSpots : evidenceSpots.filter((e) => zoneOf(e.region) === zone)), [zone, evidenceSpots]);
   const hits = needle ? searchSpots(zoneSpots, q, {favorites: data.state.favorites, recents, limit: 20}) : [];
   const list = byView
     ? evidenceSpots.filter((e) => inView?.has(e.id)).map((e) => ({e, s: score(e.id), h: hiAt(e.id)}))

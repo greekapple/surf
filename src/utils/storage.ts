@@ -29,6 +29,7 @@ export function validateState(raw:unknown):AppState{
  if(p.skillLevel!==undefined&&!isLevel(p.skillLevel))return fail('Invalid skill level.');
  if(p.weightKg!==undefined&&p.weightKg!==null&&!validKg(p.weightKg))return fail('Invalid weight.');
  if(p.ageBand!==undefined&&p.ageBand!==null&&p.ageBand!=='13-17'&&p.ageBand!=='18+')return fail('Invalid age answer.');
+ if(p.previewRegions!==undefined&&typeof p.previewRegions!=='boolean')return fail('Invalid preview setting.');
  if(p.personalData!==undefined&&typeof p.personalData!=='boolean')return fail('Invalid personal-data setting.');
  if(p.sex!==undefined&&p.sex!==null&&!['female','male','prefer-not'].includes(p.sex))return fail('Invalid sex answer.');
  const ids=new Set<string>();

@@ -6,6 +6,7 @@ The user, 2026-11-12: run the multi-agent ultra review before publishing anythin
 
 ## 1. Dependencies that must be gone first
 - ~~**Open-Meteo:** the free API is non-commercial.~~ **Done 2026-11-12:** Standard commercial plan bought; the key lives in the Worker secret `OPEN_METEO_KEY` (never in a file); `/api/health` shows `openMeteo.plan`.
+- **Owner tools off (ca-only, 2026-11-13):** with the flag off the app lists California only and ignores a stored `previewRegions` (the "Preview regions not open yet" switch lives in the Owner tools section, which also does not exist then). Check the launch `dist` has no "Preview regions" text and that a profile with `previewRegions: true` still shows California only. The flag rule itself is the next item.
 - **Licensed 3D assets:** the clean-room wave is now the default. Remove the TurboSquid-derived atlas and meshes from the public build (`public/media/scale3d-atlas`, `scale3d-live`), and anything else built from them (surfer.glb provenance included).
 - **Duck FRF:** private use only. Hide it from public builds.
 - **Data licences:** re-check every source on the Credits page for commercial use (CDIP, PacIOOS, NOAA, OSM/OpenFreeMap attribution, guide facts as cited facts only).

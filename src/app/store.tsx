@@ -5,7 +5,8 @@ import {useForecast, type ForecastState} from '../hooks/useForecast';
 import {useNow} from '../hooks/useNow';
 import {spots} from '../data/demo';
 import {allSpots} from '../data/catalog';
-import {evidenceSpots} from '../ocean/spots';
+import {previewActive, visibleEvidence, visibleSpot, hiddenSpotId, type GateSpot} from '../ocean/regionGate';
+import type {SpotEvidence} from '../ocean/types';
 import {useArchive} from '../hooks/useArchive';
 import {useModelSpread} from '../hooks/useModelSpread';
 import type {SurfSpot} from '../models/index';
@@ -33,6 +34,10 @@ export interface Swello {
   spreadV: number;
   spot: SurfSpot;
   spotOptions: SurfSpot[];
+  /** ca-only: the one region gate (ocean/regionGate.ts). `evidence` is the spot list every screen reads (California; everything when the owner's preview is on); `visible` tests a spot or a catalogue row. */
+  gate: {preview: boolean; evidence: SpotEvidence[]; visible: (spot: GateSpot) => boolean};
+  /** ca-only: a shared ?spot= link names a spot in a region that is not open yet (id), so Forecast says so and links to California instead of showing the spot or "not found". */
+  hiddenSpot: string | null;
   series: HourSample[];
   selected: HourSample | null;
   live: boolean;
@@ -83,7 +88,9 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   }, [prefs]);
 
   const live = view.dataMode === 'Retrieved';
-  const spotOptions = useMemo(() => (live ? evidenceSpots.map((e) => allSpots.find((s) => s.id === e.id)!).filter(Boolean) : spots), [live]);
+  const profile = data.state.profile, preview = previewActive(profile);
+  const gate = useMemo(() => ({preview, evidence: visibleEvidence(profile), visible: (s: GateSpot) => visibleSpot(s, profile)}), [preview]); // eslint-disable-line react-hooks/exhaustive-deps
+  const spotOptions = useMemo(() => (live ? gate.evidence.map((e) => allSpots.find((s) => s.id === e.id)!).filter(Boolean) : spots.filter(gate.visible)), [live, gate]);
 
   const [sharedT, setSharedT] = useState<string | null>(null), [shareNote, setShareNote] = useState('');
   // Spot deep link: ?spot=ocean-beach (one-way on load; afterwards the store owns the spot).
@@ -94,16 +101,19 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
     const t = hourFromParam(new URLSearchParams(location.search).get('t'));   // a shared plan: /forecast?spot=<slug>&t=<ISO hour> opens that spot at that hour
     if (id && t) { view.selectTime(t); setSharedT(t); }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  // ca-only: a slug that names a spot in a hidden region is "not open yet", not "not found"
+  const hiddenOf = (slug: string | null) => { if (!slug) return null; const m = matchSpotSlug(slug); return m.kind === 'spot' ? hiddenSpotId(m.id, profile) : null; };
+  const [hiddenSpot, setHiddenSpot] = useState<string | null>(() => (typeof location === 'undefined' ? null : hiddenOf(new URLSearchParams(location.search).get('spot'))));
   const [missingSpot, setMissingSpot] = useState<Swello['missingSpot']>(() => {
     const slug = typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('spot');
-    if (!slug) return null;
+    if (!slug || hiddenOf(slug)) return null;
     const m = matchSpotSlug(slug, shown);
     return m.kind === 'spot' ? null : {slug, ids: m.kind === 'ambiguous' ? m.ids : []};
   });
   // review fix: when ?spot= leaves the URL (back/forward), the "not found" state goes with it; a new unknown slug brings it back
   useEffect(() => {
-    const onPop = () => { const slug = new URLSearchParams(location.search).get('spot'); const m = slug ? matchSpotSlug(slug, shown) : null;
-      setMissingSpot(!slug || !m || m.kind === 'spot' ? null : {slug, ids: m.kind === 'ambiguous' ? m.ids : []}); };
+    const onPop = () => { const slug = new URLSearchParams(location.search).get('spot'), hid = hiddenOf(slug), m = slug && !hid ? matchSpotSlug(slug, shown) : null;
+      setHiddenSpot(hid); setMissingSpot(!slug || !m || m.kind === 'spot' ? null : {slug, ids: m.kind === 'ambiguous' ? m.ids : []}); };
     addEventListener('popstate', onPop);
     return () => removeEventListener('popstate', onPop);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
@@ -120,6 +130,7 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   const setSpot = (id: string) => {
     setMapFocused(true);   // choosing a spot (pin, list, search, Home, the strip) focuses it on the map again
     if (missingSpot) setMissingSpot(null);
+    if (hiddenSpot) setHiddenSpot(null);
     const q = new URLSearchParams(location.search);
     if (id === view.selected && (!q.has('spot') || q.get('spot') === slugFor(id))) return;   // a wrong ?spot= slug is replaced even when the spot is unchanged
     if (id !== view.selected) view.selectSpot(id);
@@ -135,6 +146,6 @@ export function SwelloProvider({children, area = 'home', section = ''}: {childre
   // 1A: set before the children render (the map's time helpers read it), like setActiveZone in useForecast
   const labelZone = setMapZone(labelZoneFor(area, section, timeZoneOf(view.spot), mapFocused));
 
-  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, fillSpots, mapFocused, setMapFocused, labelZone, missingSpot};
+  const value: Swello = {data, view, now, spreadV, spot: view.spot, spotOptions, gate, hiddenSpot, series, selected, live, setSpot, prefs, setPrefs, reportVisible, shareNote, requestSpots, fillSpots, mapFocused, setMapFocused, labelZone, missingSpot};
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

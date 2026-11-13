@@ -1,7 +1,9 @@
 import {computeScope} from '../ocean/spotScope';
+import {hiddenSpotId} from '../ocean/regionGate';
+import {loadState} from '../utils/storage';
 import {spotIdForSlug} from '../app/routes';
 /** B7: a deep link (?spot=<slug>) opens on THAT spot's own data: the first load is scoped to it, not to the default Ocean Beach and its NorCal neighbours. */
-const initialSpot=():string=>{try{const id=spotIdForSlug(new URLSearchParams(location.search).get('spot'));return id&&evidenceSpots.some(s=>s.id===id)?id:'spot-2'}catch{return 'spot-2'}};
+const initialSpot=():string=>{try{const id=spotIdForSlug(new URLSearchParams(location.search).get('spot'));const profile=(()=>{try{return loadState(localStorage).state.profile}catch{return null}})();return id&&evidenceSpots.some(s=>s.id===id)&&!hiddenSpotId(id,profile)?id:'spot-2'}catch{return 'spot-2'}};   // ca-only: a shared link into a hidden region opens the default spot, never the hidden one
 import {useEffect,useMemo,useRef,useState,type SetStateAction} from 'react';
 import type {MapCamera,MapLayer,MapVariable} from '../map/types';
 import {mapVariables} from '../map/model';

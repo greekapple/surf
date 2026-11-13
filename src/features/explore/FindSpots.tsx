@@ -7,7 +7,6 @@ import {hourFreshness} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
-import {evidenceSpots} from '../../ocean/spots';
 import {rateForecast} from '../../ratings/adapters';
 import {Icon} from '../../ui/Icon';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from '../forecast/model';
@@ -28,7 +27,8 @@ type Anchor = {lat: number; lon: number; label: string; kind: 'location' | 'regi
 
 /** Find spots around you: where you are (or your home region), then what is worth the trip right now. */
 export function FindSpots({go}: {go: ViewProps['go']}) {
-  const {view, data, spot, spotOptions, setSpot, now, requestSpots} = useSwello();
+  const {view, data, spot, spotOptions, setSpot, now, requestSpots, gate} = useSwello();
+  const evidenceSpots = gate.evidence;   // ca-only: the gated list
   const p = data.state.profile, fav = data.state.favorites;
   const [geo, setGeo] = useState<{lat: number; lon: number} | null>(null);
   const [geoState, setGeoState] = useState<'idle' | 'asking' | 'denied' | 'unavailable'>('idle');
@@ -36,7 +36,7 @@ export function FindSpots({go}: {go: ViewProps['go']}) {
   const home = useMemo(() => {
     const inRegion = evidenceSpots.filter((e) => e.region === p.region);
     return inRegion.length ? {lat: inRegion.reduce((a, e) => a + e.latitude, 0) / inRegion.length, lon: inRegion.reduce((a, e) => a + e.longitude, 0) / inRegion.length} : null;
-  }, [p.region]);
+  }, [p.region, evidenceSpots]);
   const sel = evidenceSpots.find((e) => e.id === spot.id);
   const anchor: Anchor | null = geo ? {...geo, label: 'your location', kind: 'location'} : home ? {...home, label: p.region, kind: 'region'} : sel ? {lat: sel.latitude, lon: sel.longitude, label: sel.name, kind: 'spot'} : null;
   const locate = () => {

@@ -7,7 +7,7 @@ import {LEVELS, levelInfo, levelOf, pickLevel, suggestLevel, suggestedVolume, va
 import {WaveGlyph} from '../../ui/WaveGlyph';
 import {figureOf} from '../../ui/PersonShape';
 import {ZONES} from '../../data/zones';
-import {allSpots} from '../../data/catalog';
+import {useSwello} from '../../app/store';
 import {AVATAR_KEY} from './journal';
 import './profile.css';
 
@@ -145,10 +145,12 @@ export function SizeField({p, set}: {p: UserProfile; set: Set}) {
 }
 
 export function RegionField({p, set}: {p: UserProfile; set: Set}) {
+  const {spotOptions} = useSwello();   // ca-only: only the regions of the spots the gate lets through are offered
+  const offered = new Set(spotOptions.map((x) => x.region)), value = p.region === 'All regions' || offered.has(p.region) ? p.region : 'All regions';   // a stored hidden-region home shows as "not set"
   return <label className="field pf-q"><span>Home region</span>
-    <select value={p.region} onChange={(e) => set({region: e.target.value})} aria-describedby="pf-region-why">
+    <select value={value} onChange={(e) => set({region: e.target.value})} aria-describedby="pf-region-why">
       <option value="All regions">Not set (use my location)</option>
-      {ZONES.map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => allSpots.some((x) => x.region === c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
+      {ZONES.filter(([, counties]) => counties.some((c) => offered.has(c))).map(([z, counties]) => <optgroup key={z} label={z}>{counties.filter((c) => offered.has(c)).map((c) => <option key={c} value={c}>{c}</option>)}</optgroup>)}
     </select>
     <Why k="region" id="pf-region-why" />
   </label>;

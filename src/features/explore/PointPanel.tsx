@@ -5,7 +5,7 @@ import type {PointValue} from '../../map/field';
 import {DirArrow, Icon, type IconName} from '../../ui/Icon';
 import {compass, ht, windColor, windVal} from '../forecast/helpers';
 import {timeLabelPT, weekdayPT} from '../forecast/format';
-import {evidenceSpots} from '../../ocean/spots';
+import {useSwello} from '../../app/store';
 import {tideStationForSpot, SF_STATION} from '../../ocean/tideStations';
 import {pointInUs} from '../../ocean/coverage';
 import type {PointData, Pt} from './PointCard';
@@ -40,7 +40,8 @@ const hourCol = (t: number) => new Date(t * 1000).toISOString();
 export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpenSpot}: {
   pt: Pt; data: PointData | null; error: string | null; time: string | null; p: UserProfile; bundle: OceanBundle | null | undefined; onClose: () => void; onOpenSpot: (id: string) => void;
 }) {
-  const near = evidenceSpots.map((e) => ({e, km: kmBetween(pt, e)})).sort((a, b) => a.km - b.km)[0];
+  const {gate} = useSwello();   // ca-only: the nearest spot to a tapped point comes from the gated list
+  const near = gate.evidence.map((e) => ({e, km: kmBetween(pt, e)})).sort((a, b) => a.km - b.km)[0];
   // A7 (audit M1): in enclosed water (bays, harbours, estuaries) the sea-state model has no meaningful value (CONTRACTS), and the point label above already says so:
   // the marine rows are left out and the panel says why; wind and tide stay
   const enclosed = enclosedCovers(pt.lat, pt.lon) && isEnclosedWater(pt.lat, pt.lon);

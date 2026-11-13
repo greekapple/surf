@@ -5,7 +5,7 @@ import {suggestSpots} from '../app/slugs';
 import {Icon} from './Icon';
 
 /** Audit B2: an unknown page, or a ?spot= slug that names no spot (or several), says so and offers search. Never another spot's forecast under a foreign URL. */
-export function NotFound({kind, go}: {kind: 'page' | 'spot'; go: Go}) {
+export function NotFound({kind, go}: {kind: 'page' | 'spot' | 'region'; go: Go}) {
   const {spotOptions, setSpot, missingSpot} = useSwello();
   const [q, setQ] = useState('');
   const open = (id: string) => { setSpot(id); go('forecast'); };
@@ -21,6 +21,14 @@ export function NotFound({kind, go}: {kind: 'page' | 'spot'; go: Go}) {
     </ul>
   );
   const name = candidates[0]?.name;
+  // ca-only: a shared link to a spot in a region that is not open yet: plain words and a way back to California, never a crash or a half-shown spot
+  if (kind === 'region') return (
+    <article className="legal nf">
+      <h1>This region isn't open yet</h1>
+      <p>SWELLO covers California for now. The spot in this link is in another region, which opens later.</p>
+      <p className="nf-links"><a href="/explore" onClick={(e) => { e.preventDefault(); go('explore'); }}>See California on the map</a> · <a href="/" onClick={(e) => { e.preventDefault(); go('home'); }}>Home</a></p>
+    </article>
+  );
   return (
     <article className="legal nf">
       <h1>{kind === 'page' ? 'Page not found' : ambiguous ? `Which ${name ?? 'spot'}?` : 'Spot not found'}</h1>

@@ -22,7 +22,6 @@ import {OWNER_TOOLS, showSetupReminder} from '../../services/profileFields';
 import {Welcome, bestBet} from './Welcome';
 import {hourCall} from '../../services/call';
 import type {SurfSpot} from '../../models/index';
-import {evidenceSpots} from '../../ocean/spots';
 import {callFor, isDark} from '../forecast/trustApi';
 import './home.css';
 
@@ -55,7 +54,8 @@ function Ribbon({hours, name, tz}: {hours: RibbonHour[]; name: string; tz: strin
 
 /** Home (T-047, T-051; T-106 six items: name, rating, number, line, wind · tide, the call's window; T-119: the line is the 7-day surf estimate), a 12-hour rating ribbon on hover or tap, and a ranking you can move in time. */
 export function HomeView({go}: ViewProps) {
-  const {data, now, spotOptions, view, setSpot, spot, spreadV, requestSpots} = useSwello();
+  const {data, now, spotOptions, view, setSpot, spot, spreadV, requestSpots, gate} = useSwello();
+  const evidenceSpots = gate.evidence;   // ca-only: the gated list
   const saved = data.state.favorites, personal = saved.length > 0, profile = data.state.profile;
   const bundle = view.ocean.bundle, ctx = useMemo(() => ({bundle, extrema: bundle?.extrema, spreadV}), [bundle, spreadV]); // spreadV: a wave-model spread arrived, so the ranges are recomputed
   const ids = (personal ? saved : POPULAR).filter((id) => spotOptions.some((s) => s.id === id)).slice(0, MAX_CARDS);
