@@ -18,6 +18,10 @@ export function validateState(raw:unknown):AppState{
  if(!object(raw)||raw.version!==1||!object(raw.profile)||!Array.isArray(raw.boards)||!Array.isArray(raw.favorites)||!Array.isArray(raw.sessions))return fail('Expected a version 1 Surf backup with profile, boards, favorites and sessions.');
  if(raw.boards.length>500||raw.favorites.length>100||raw.sessions.length>10000)return fail('Backup exceeds supported limits.');
  const p={...defaultProfile,...raw.profile} as UserProfile;
+ if(raw.profile.setupState===undefined||(raw.profile.setupState==='new'&&raw.profile.onboarded===true))p.setupState=raw.profile.onboarded===true?'done':'new';   // first-run migration: finished before this field existed = done (also a hand-set onboarded: true, as the QA scripts do); otherwise setup is still to be shown
+ if(!['new','skipped','done'].includes(p.setupState))return fail('Invalid setup state.');
+ if(p.setupReminderDismissed!==undefined&&typeof p.setupReminderDismissed!=='boolean')return fail('Invalid setup reminder setting.');
+ if(typeof p.onboarded==='boolean')p.onboarded=p.setupState!=='new';   // `onboarded` follows setupState for anything else that reads it
  for(const [key,values] of Object.entries({skill:['Beginner','Intermediate','Expert'],region:['All regions',...new Set(spots.map(s=>s.region))],scale:['Face height','Hawaiian'],heightUnit:['ft','m'],windUnit:['mph','kn','km/h'],style:['All-around','Performance surfing','Cruising','Longboarding','Small-wave surfing'],breakType:['Any','Beach','Point','Reef'],character:['Any','Soft','Peaky','Steep','Powerful']}))if(!values.includes(String(p[key as keyof UserProfile])))return fail(`Invalid profile field: ${key}.`);
  if(![p.minWave,p.maxWave,p.comfort].every(v=>number(v,0,40))||p.minWave>p.maxWave)return fail('Invalid wave preferences.');
  if(typeof p.onboarded!=='boolean'||typeof p.personalization!=='boolean'||!Array.isArray(p.preferredBoards)||!p.preferredBoards.every(v=>boardTypes.includes(v)))return fail('Invalid personalization settings.');
@@ -47,7 +51,7 @@ export function saveState(storage:Pick<Storage,'setItem'>,state:AppState){try{st
  *  the file must be exactly the export's shape (the five top-level keys, known profile keys only, version 1), so a foreign or hand-edited JSON
  *  file is rejected rather than half-read. Throws a message for the person; nothing is changed until the caller replaces the state. */
 const BACKUP_KEYS=['version','profile','boards','favorites','sessions'];
-const PROFILE_KEYS=new Set([...Object.keys(defaultProfile),'displayName','personalization','heightIn','skillLevel','weightKg','ageBand','personalData','sex']);
+const PROFILE_KEYS=new Set([...Object.keys(defaultProfile),'displayName','personalization','setupReminderDismissed','heightIn','skillLevel','weightKg','ageBand','personalData','sex']);
 export interface RestorePreview {boards:number;exampleBoards:number;sessions:number;favorites:number;settings:number}
 export function parseRestore(text:string):{state:AppState;preview:RestorePreview}{
  if(text.length>5_000_000)throw new Error('This file is larger than 5 MB, so it is not a SWELLO backup.');

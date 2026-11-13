@@ -15,6 +15,13 @@ export const WHY: Record<'age' | 'sex' | 'height' | 'weight' | 'skill' | 'size' 
   region: 'The Map\'s Find spots ranks spots by distance from your home region (when your location isn\'t shared).',
   units: 'Wave heights and wind speeds on screen.',
 };
+/** The private (owner) build, VITE_OWNER_TOOLS=true: the first-run setup never opens by itself there (it is for the published build), and Personal shows Owner tools. */
+export const OWNER_TOOLS: boolean = (import.meta as unknown as {env?: Record<string, string | undefined>}).env?.VITE_OWNER_TOOLS === 'true';
+export const PREVIEW_SETUP_EVENT = 'swello:preview-setup';
+/** What first run shows. Launch build: the flow while setupState is 'new'. Owner build: never automatically ('new' is treated like 'skipped'), only the preview. */
+export const showSetupFlow = (p: Pick<UserProfile, 'setupState'>, ownerTools: boolean, preview = false): boolean => preview || (!ownerTools && p.setupState === 'new');
+/** The Home reminder: only after a skip, until dismissed; never in the owner build. */
+export const showSetupReminder = (p: Pick<UserProfile, 'setupState' | 'setupReminderDismissed'>, ownerTools: boolean): boolean => !ownerTools && p.setupState === 'skipped' && !p.setupReminderDismissed;
 /** The fields that are personal information: never saved when setup said under 13 (`personalData: false`). */
 export const PERSONAL_KEYS = ['displayName', 'heightIn', 'weightKg', 'ageBand', 'sex'] as const;
 /** Applies a profile change. Under 13 (`personalData` false, now or in this change) no personal field is saved, and any already saved is removed. */
@@ -27,7 +34,7 @@ export function guardProfile(cur: UserProfile, patch: Partial<UserProfile>): Use
 /** The age answer. Under 13: personal data off (and cleared), nothing about age stored; setup then ends on its own message (ProfileSetup's 'child' step). */
 export const ageAnswer = (a: 'under-13' | '13-17' | '18+'): Partial<UserProfile> => (a === 'under-13' ? {personalData: false, ageBand: null} : {personalData: true, ageBand: a});
 /** "Delete my profile": every profile answer back to the defaults (boards, favorites and the journal are kept; they have their own delete). Setup is not shown again. */
-export const deletedProfile = (): Partial<UserProfile> => ({...defaultProfile, preferredBoards: [], onboarded: true, displayName: undefined, heightIn: undefined, weightKg: undefined, sex: undefined, skillLevel: undefined, ageBand: undefined, personalData: undefined});
+export const deletedProfile = (): Partial<UserProfile> => ({...defaultProfile, preferredBoards: [], onboarded: true, setupState: 'done', setupReminderDismissed: undefined, displayName: undefined, heightIn: undefined, weightKg: undefined, sex: undefined, skillLevel: undefined, ageBand: undefined, personalData: undefined});
 /** Where the shown level comes from: picked (no tag), an old three-value setting the person changed ("from your earlier setting"), or the default ("default"). */
 export const levelSource = (p: Pick<UserProfile, 'skill' | 'skillLevel'>): string => (p.skillLevel ? '' : p.skill !== defaultProfile.skill ? ' (from your earlier setting)' : ' (default)');
 /** The comfortable size is the untouched default (no level picked and the default range). */

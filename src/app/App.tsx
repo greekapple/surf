@@ -1,10 +1,12 @@
-import {lazy, Suspense, useEffect} from 'react';
+import {lazy, Suspense, useEffect, useState} from 'react';
 import {SwelloProvider, useSwello} from './store';
 import {docTitle} from './titles';
 import {useRoute, type Go, type Route} from './routes';
 import {TabBar, TopNav} from './Nav';
 import {SpotStrip} from '../features/home/SpotStrip';
 import {ErrorBoundary, StateMessage} from '../ui/common';
+import {ProfileSetup} from '../features/personal/ProfileSetup';
+import {OWNER_TOOLS, PREVIEW_SETUP_EVENT, showSetupFlow} from '../services/profileFields';
 import {HomeView} from '../features/home/HomeView';
 import {useThemeSync} from '../ui/theme';
 import {Footer, Legal} from '../ui/Legal';
@@ -47,7 +49,7 @@ export default function App() {
 }
 
 function Shell({route, navigate}: {route: Route; navigate: Go}) {
-  const {spot, missingSpot} = useSwello();
+  const {spot, missingSpot, data} = useSwello();
   const {area, section} = route;
   // Audit B2: an unknown path, or a Forecast URL whose ?spot= names no spot (or several), shows "not found" with search, never another page or spot.
   const notFound = route.notFound ? 'page' as const : area === 'forecast' && missingSpot ? 'spot' as const : null;
@@ -61,6 +63,15 @@ function Shell({route, navigate}: {route: Route; navigate: Go}) {
   // The saved-spots strip sits under the bar on Forecast (Surfline's favourites bar); Home is itself the spots dashboard (T-047).
   const strip = !notFound && area === 'forecast' && section === '';
   const label = {home: 'Home', forecast: 'Forecast', explore: 'Map', quiver: 'Quiver', personal: 'Personal'}[area];
+  // First open: the setup flow comes before everything (the privacy, terms and credits pages stay readable). Skipping or finishing carries on to the page asked for.
+  const [preview, setPreview] = useState(false);   // Owner tools: "Preview the first-run setup" shows the flow once, setupState untouched
+  useEffect(() => { const on = () => setPreview(true); window.addEventListener(PREVIEW_SETUP_EVENT, on); return () => window.removeEventListener(PREVIEW_SETUP_EVENT, on); }, []);
+  const legalPage = area === 'personal' && (section === 'privacy' || section === 'terms' || section === 'credits');
+  if (preview || (showSetupFlow(data.state.profile, OWNER_TOOLS) && !legalPage)) {
+    // a preview only closes the flow; answers still save to the profile like Personal > Profile, but setupState and onboarded are never changed
+    const set = preview ? (v: Partial<typeof data.state.profile>) => { if ('setupState' in v) setPreview(false); else data.profile(v); } : data.profile;
+    return <ProfileSetup p={data.state.profile} set={set} onEdit={() => { setPreview(false); navigate('personal', 'profile'); }} />;
+  }
   return (
     <div className={`shell${photoTop ? ' photo-top' : ''}${strip ? ' has-strip' : ''}${bleed ? ' is-map' : ''}`}>
       <a className="skip-link" href="#main">Skip to content</a>

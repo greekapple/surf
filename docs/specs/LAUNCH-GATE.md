@@ -10,6 +10,7 @@ The user, 2026-11-12: run the multi-agent ultra review before publishing anythin
 - **Duck FRF:** private use only. Hide it from public builds.
 - **Data licences:** re-check every source on the Credits page for commercial use (CDIP, PacIOOS, NOAA, OSM/OpenFreeMap attribution, guide facts as cited facts only).
 - **Cameras:** HDOnTap snapshot terms only (attribution, logo link, per-camera links). No analysis until HDOnTap agrees in writing.
+- **Accounts:** email sign-up becomes the first setup step; needs the data inventory, COPPA age gate, privacy update. (Code: `STEPS` in `src/features/personal/ProfileSetup.tsx` is where an `account` step slots in first.)
 - **Name:** if the name changes, check trademark availability (USPTO search, app stores, domains) before buying anything or printing it anywhere.
 
 ## 2. Legal checklist (from the saved reels: Alex Yates Dc7PlCYMzpW, Adilet DdyqycEINNe)

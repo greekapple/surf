@@ -8,7 +8,7 @@ const exportText = (s: AppState) => JSON.stringify(s, null, 2);
 
 function populated(): AppState {
   const s = freshState();
-  s.profile = {...s.profile, displayName: 'Sam', skill: 'Expert', heightUnit: 'm', windUnit: 'kn', minWave: 3, maxWave: 8, onboarded: true, personalization: true, preferredBoards: ['Fish'], heightIn: 70};
+  s.profile = {...s.profile, displayName: 'Sam', skill: 'Expert', heightUnit: 'm', windUnit: 'kn', minWave: 3, maxWave: 8, onboarded: true, setupState: 'done', personalization: true, preferredBoards: ['Fish'], heightIn: 70};
   s.boards = [...s.boards, {id: 'b-own', name: 'My twin', manufacturer: 'Local shaper', model: 'Twin', type: 'Fish', length: 68, width: 21, thickness: 2.5, volume: 33, favorite: true, demo: false, notes: 'Keel fins'}];
   s.boards[0] = {...s.boards[0], favorite: true};
   s.favorites = [allSpots[0].id, allSpots[1].id];

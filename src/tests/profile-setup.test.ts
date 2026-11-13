@@ -116,9 +116,10 @@ test('storage: the new fields load and are validated; an impossible value is ref
   assert.throws(() => validateState({...freshState(), profile: prof({ageBand: '12' as never})}), /age/);
 });
 
-test('first run: setup shows on Home until finished or skipped, inline (never a modal), with Skip on every step', () => {
+test('first run: setup is a full-screen flow before Home (never a modal), with Skip on every step', () => {
   const home = read('../features/home/HomeView.tsx'), setup = read('../features/personal/ProfileSetup.tsx');
-  assert.match(home, /\{!profile\.onboarded && <ProfileSetup/);
+  assert.doesNotMatch(home, /<ProfileSetup/, 'Home no longer carries the setup card (see first-run.test.ts)');
+  assert.match(read('../app/App.tsx'), /showSetupFlow\(/, 'the flow is shown by the app shell before Home');
   assert.doesNotMatch(setup, /role="dialog"|aria-modal/);
   assert.equal((setup.match(/\{skip\}/g) ?? []).length, 3, 'Skip for now on Welcome, About you and How you surf');
   assert.match(setup, /disabled=\{!ageDone\}/, 'the age question is the one required answer');

@@ -33,6 +33,7 @@ import {boardPickFor} from '../quiver/fit';
 import {AgeQuestion, HeightField, SexQuestion, Why, LevelPicker, RegionField, SizeField, UnitNumber, UnitsField, VolumeHint, WeightField} from './ProfileFields';
 import {deletedProfile, levelSource} from '../../services/profileFields';
 import {levelInfo, levelOf} from '../../services/skillLevels';
+import {OwnerTools} from './OwnerTools';
 import './personal.css';
 
 function loadAvatar() { try { return localStorage.getItem(AVATAR_KEY) ?? ''; } catch { return ''; } }
@@ -452,6 +453,7 @@ export function PersonalView({section, go}: ViewProps) {
               <p className="fine">The backup covers profile, boards, favorites and session text. Journal photos, tags, alerts and the profile photo stay in this browser only.</p>
             </div>
             <Group title="Legal"><Row icon="shield" label="Privacy" onClick={() => go('personal', 'privacy')} /><Row icon="doc" label="Terms" onClick={() => go('personal', 'terms')} /></Group>
+          <OwnerTools />
           </Page>
         );
       default:
