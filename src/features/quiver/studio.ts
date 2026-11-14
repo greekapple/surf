@@ -288,6 +288,7 @@ export class Studio {
   private down: {x: number; y: number; t: number} | null = null;
   /** quiver-lock: the board's free turn (any axis, from dragging or the keys), applied in world space on top of the preset's yaw; the camera only zooms. */
   private turnQ = new THREE.Quaternion();
+  private settleFit = false;                   // a turn just ended: check the board is still inside the frame
   private vel = {x: 0, y: 0};                 // inertia, radians per second about the world up axis (x) and the camera's right axis (y)
   private drag: {id: number; x: number; y: number; t: number; sx: number; sy: number; moved: boolean} | null = null;
   private lastTap = {t: 0, x: 0, y: 0};
@@ -371,6 +372,19 @@ export class Studio {
     if (this.spinOn) { this.spinAngle += dt * 0.28; draw = true; }
     if (!this.drag && (Math.abs(this.vel.x) > 0.02 || Math.abs(this.vel.y) > 0.02)) {   // inertia after a release: decays by half every ~0.17 s; none under reduced motion
       this.turnBy(this.vel.x * dt, this.vel.y * dt); const k = Math.pow(0.5, dt / 0.17); this.vel.x *= k; this.vel.y *= k; draw = true; moving = true;
+    }
+    if (this.mode === 'focus' && this.settleFit && !this.drag && !this.tween && Math.abs(this.vel.x) <= 0.02 && Math.abs(this.vel.y) <= 0.02) {
+      // After a turn comes to rest, a board that now pokes out of the frame (stood on end in a wide stage) is brought back inside by backing the camera off; resetting returns to the tight framing.
+      this.settleFit = false;
+      for (const rig of this.rigs.values()) this.pose(rig);
+      const b = this.selectedBox();
+      if (b) {
+        const over = Math.max(0, 0.05 - b.x0, b.x1 - 0.95, 0.05 - b.y0, b.y1 - 0.95);
+        if (over > 0) {
+          const c = this.controls, off = this.camera.position.clone().sub(c.target), want = Math.min(c.maxDistance, off.length() * (1 + over * 2.4 + 0.04));
+          this.limits(); off.setLength(want); this.camera.position.copy(c.target).add(off); this.camera.lookAt(c.target); this.controls.update(); draw = true;
+        }
+      }
     }
     if (this.tween) {
       const k = Math.min(1, (now - this.tween.t0) / this.tween.dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, tw = this.tween;
@@ -691,11 +705,12 @@ export class Studio {
   // ----------------------------------------------------------------- free turning (quiver-lock)
   /** Turn the board about the world's vertical axis by `yaw` and about the camera's horizontal axis by `pitch` (radians): a trackball, so any side, the rails and the underside are reachable. */
   private turnBy(yaw: number, pitch: number) {
-    if (this.mode !== 'focus') return;
+    if (this.mode !== 'focus' || !Number.isFinite(yaw) || !Number.isFinite(pitch)) return;
     const right = new THREE.Vector3(1, 0, 0).applyQuaternion(this.camera.quaternion);
     if (yaw) this.turnQ.premultiply(new THREE.Quaternion().setFromAxisAngle(Studio.Y, yaw));
     if (pitch) this.turnQ.premultiply(new THREE.Quaternion().setFromAxisAngle(right, pitch));
-    this.turnQ.normalize(); this.preset = null; this.dirty = true; this.kick();
+    this.turnQ.normalize(); if (![this.turnQ.x, this.turnQ.y, this.turnQ.z, this.turnQ.w].every(Number.isFinite)) { this.turnQ.identity(); this.vel.x = this.vel.y = 0; }
+    this.preset = null; this.dirty = true; this.kick();
   }
   /** The board's footprint on the floor: its eight bounding-box corners (nose to tail, deck to bottom, rail to rail) projected down, as a principal axis and half-extents; `density` falls as the board stands on end. */
   private footprint(rig: Rig) {
@@ -719,6 +734,8 @@ export class Studio {
     const d = this.drag; if (!d || e.pointerId !== d.id) return;
     const dx = e.clientX - d.x, dy = e.clientY - d.y, now = performance.now(), dt = Math.max(1, now - d.t), K = 0.0085;   // radians per pixel: a full turn across about 740 px
     if (!d.moved && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) < 3) return;
+    // Phone, not full screen: a swipe that starts more up-and-down than sideways belongs to the page (it scrolls); the viewer lets go of it.
+    if (!d.moved && e.pointerType === 'touch' && this.canvas.style.touchAction === 'pan-y' && Math.abs(e.clientY - d.sy) > Math.abs(e.clientX - d.sx)) { this.drag = null; try { this.canvas.releasePointerCapture(e.pointerId); } catch { /* already released */ } return; }
     if (!d.moved) { d.moved = true; this.tween = null; this.spinOn = false; this.preset = null; this.opts.onUserMove(); }
     this.turnBy(dx * K, dy * K);
     // smoothed release velocity (rad/s)
@@ -730,6 +747,7 @@ export class Studio {
     try { this.canvas.releasePointerCapture(e.pointerId); } catch { /* already released */ }
     if (this.reduced || performance.now() - d.t > 90) { this.vel.x = this.vel.y = 0; }   // a pause before letting go means no fling
     else { const m = 6; this.vel.x = THREE.MathUtils.clamp(this.vel.x, -m, m); this.vel.y = THREE.MathUtils.clamp(this.vel.y, -m, m); this.kick(); }
+    if (d.moved) { this.settleFit = true; this.kick(); }
     // a quick second tap or click in the same place resets the view
     if (!d.moved) { const now = performance.now(); if (now - this.lastTap.t < 320 && Math.hypot(e.clientX - this.lastTap.x, e.clientY - this.lastTap.y) < 28) { this.lastTap.t = 0; this.reset(); } else this.lastTap = {t: now, x: e.clientX, y: e.clientY}; }
   };
