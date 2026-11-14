@@ -6,6 +6,7 @@ import {DirArrow, Icon, type IconName} from '../../ui/Icon';
 import {compass, ht, windColor, windVal} from '../forecast/helpers';
 import {timeLabelPT, weekdayPT} from '../forecast/format';
 import {useSwello} from '../../app/store';
+import {savedTurnText} from '../../services/freshness';
 import {tideStationForSpot, SF_STATION} from '../../ocean/tideStations';
 import {pointInUs} from '../../ocean/coverage';
 import type {PointData, Pt} from './PointCard';
@@ -55,6 +56,7 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
   const v = (arr: (number | null)[] | undefined, i: number) => (arr ? arr[i] ?? null : null);
   const h = (m: number | null) => (m === null ? '—' : ht(m * FT, p, 0));
   const wind = (ms: number | null) => (ms === null ? null : Number(windVal(ms * MPH, p)));
+  const savedTurn = turns.find((e) => e.height.source?.delivery === 'saved');   // tide-label: the high/low feed can be a saved copy; one source line says so
   const tideAt = (t: number) => turns.find((e) => { const x = Date.parse(e.timestamp) / 1000; return x >= t - 5400 && x < t + 5400 && e.height.value !== null; });
   return (
     <section className="xpanel" id="xpanel" aria-label="Hourly forecast at this point">
@@ -81,10 +83,11 @@ export function ForecastPanel({pt, data, error, time, p, bundle, onClose, onOpen
               <tr><th scope="row">Swell 2 <small>{p.heightUnit}</small></th>{cols.map(({t, i}) => { const d = v(data.swell2Direction, i); return <td key={t}>{d !== null && <DirArrow from={d} size={11} />}{h(v(data.swell2Height, i))}</td>; })}</tr>
               <tr><th scope="row">Period <small>s</small></th>{cols.map(({t, i}) => { const x = v(data.wavePeriod, i) ?? v(data.swellPeriod, i); return <td key={t}>{x === null ? '—' : Math.round(x)}</td>; })}</tr></>}
               {enclosed && <tr className="xp-encl"><th scope="row">Waves</th><td colSpan={Math.max(1, cols.length)}>The wave model does not resolve enclosed water (bays, harbors, estuaries): enclosed waters in California are left blank.</td></tr>}
-              <tr><th scope="row">Tide <small>{station ? `${station.station.name} (NOAA)` : 'no station ≤ 40 km'}</small></th>{cols.map(({t}) => { const e = tideAt(t);
+              <tr><th scope="row">Tide <small>{station ? `${station.station.name} (NOAA)${savedTurn ? ' · saved' : ''}` : 'no station ≤ 40 km'}</small></th>{cols.map(({t}) => { const e = tideAt(t);
                 return <td key={t} className="xp-tide">{e ? <><b>{e.type === 'High' ? 'H' : 'L'}</b> {timeLabelPT(e.timestamp, tz).replace(':00', '').replace(' ', '').toLowerCase()}</> : ''}</td>; })}</tr>
             </tbody>
           </table>
+          {savedTurn && <p className="fine xp-saved" role="note">Tide highs and lows{savedTurnText(savedTurn.height.source)}</p>}
         </div>
       )}
       <p className="xpanel-f">{enclosed ? 'Enclosed water in California: wind from the weather forecast only, no wave values' : 'Offshore model values at this point, not surf size'}{station ? ` · tide: NOAA prediction at ${station.station.name}, ${station.distanceKm} km away, not at this point` : ''}</p>

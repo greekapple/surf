@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {saveTide, lastGoodTide, usableTide} from '../ocean/tideLastGood.ts';
 import {normalizeTides} from '../ocean/noaa.ts';
 import {loadOcean} from '../ocean/pipeline.ts';
+import fs from 'node:fs';
+const require_ = (f: string) => fs.readFileSync(new URL(`../../${f}`, import.meta.url), 'utf8');
 import {tideStationFor} from '../ocean/tideStations.ts';
 import {evidenceSpot} from '../ocean/spots.ts';
 
@@ -36,7 +38,7 @@ test('loadOcean: with the NOAA tide fetch down, Ocean Beach\'s tide comes from t
   const store = memory(); const realLS = (globalThis as any).localStorage, realFetch = globalThis.fetch;
   (globalThis as any).localStorage = store;
   const at = '2026-11-14T01:30:00.000Z'; const own = tideStationFor(evidenceSpot('spot-2'))!.station.id, keys = own === '9414290' ? ['tides', 'tide-extrema'] : ['tides', 'tide-extrema', 'tides-' + own, 'tide-extrema-' + own];
-  for (const k of keys) saveTide(k, {predictions: rows(hourMs - 3600000, 72).map((r, i) => (k.includes('extrema') ? {...r, type: i % 2 ? 'H' : 'L'} : r))}, at, store);
+  for (const k of keys) saveTide(k, {predictions: rows(hourMs - 3600000, 72).map((r, i) => (k.includes('extrema') ? {...r, type: i % 2 ? 'H' : 'L'} : r))}, at, store, /^tide(s|-extrema)$/.test(k) ? '9414290' : own);
   const times = Array.from({length: 30}, (_, i) => Math.floor((hourMs - 3 * 3600000) / 1000) + i * 3600);
   const marine = (lat: number) => ({latitude: lat, longitude: -122.6, hourly: {time: times, wave_height: times.map(() => 1.5), swell_wave_height: times.map(() => 1.4), swell_wave_direction: times.map(() => 270), swell_wave_period: times.map(() => 13), secondary_swell_wave_height: times.map(() => null), secondary_swell_wave_direction: times.map(() => null), secondary_swell_wave_period: times.map(() => null), sea_surface_temperature: times.map(() => 14)}, hourly_units: {wave_height: 'm', swell_wave_height: 'm', swell_wave_direction: '°', swell_wave_period: 's', secondary_swell_wave_height: 'm', secondary_swell_wave_direction: '°', secondary_swell_wave_period: 's', sea_surface_temperature: '°C'}});
   const weather = {latitude: 37.76, longitude: -122.51, hourly: {time: times, wind_speed_10m: times.map(() => 8), wind_direction_10m: times.map(() => 300), wind_gusts_10m: times.map(() => 12)}, hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°', wind_gusts_10m: 'mp/h'}};
@@ -71,4 +73,46 @@ test('ingestion: tide predictions begin yesterday (UTC), so a Pacific spot\'s wh
   // the browser's own request starts on the same date
   const b = new URL(ingestionTargets(Date.parse('2026-11-14T02:40:00Z'), serviceSpots).find((t: any) => t.key === 'tides')!.url).searchParams.get('begin_date');
   assert.equal(b, '20261113');
+});
+
+test('tideLastGood: a copy is for ITS station: another station\'s feed, or a copy saved without one, is never used when a station is asked for', () => {
+  const s = memory(), at = '2026-11-14T02:00:00.000Z', good = {predictions: rows(hourMs - 3600000, 48)};
+  saveTide('tides-9414131', good, at, s, '9414131'); assert.ok(lastGoodTide('tides-9414131', hourMs, s, '9414131'));
+  assert.equal(lastGoodTide('tides-9414131', hourMs, s, '9414275'), null, 'same key, different station: refused');
+  saveTide('tides-old', good, at, s); assert.equal(lastGoodTide('tides-old', hourMs, s, '9414290'), null, 'a copy with no recorded station is refused when a station is asked for');
+  assert.ok(lastGoodTide('tides-old', hourMs, s), 'and still readable when no station is asked for (the unit API)');
+  assert.match(require_('src/ocean/pipeline.ts'), /saveTide\(id,payload,.*stationOf\(url\)\)/); assert.match(require_('src/ocean/pipeline.ts'), /lastGoodTide\(id,Date\.now\(\),undefined,stationOf\(url\)\)/);
+});
+
+// tide-label: a saved (or stale) tide is labelled on every surface that shows a tide, not only the Now value, the hourly table, the chart readout and the share card
+import {tideStaleOf, savedTurnText, savedTurnWord, staleWord, staleText} from '../services/freshness.ts';
+import {tideOf} from '../services/spotHour.ts';
+const hourWith = (delivery: string, retrievedAt: string) => ({forecast: {evidence: {tide: {source: {delivery, retrievedAt, provider: 'NOAA CO-OPS 9414275', kind: 'forecast'}}}}});
+test('tide-label helpers: tideStaleOf finds a saved tide among hours; savedTurnText/Word mark a saved turn; a live one is unmarked', () => {
+  const now = Date.parse('2026-11-14T03:00:00Z'), live = hourWith('direct', '2026-11-14T02:30:00.000Z'), saved = hourWith('saved', '2026-11-14T01:00:00.000Z');
+  assert.equal(tideStaleOf([live, live], now), null); const s = tideStaleOf([live, saved], now); assert.equal(s?.reason, 'saved'); assert.equal(staleWord(s), 'saved'); assert.match(staleText(s!), /SAVED copy retrieved 2026-11-14 01:00 UTC/);
+  assert.equal(tideStaleOf([hourWith('direct', '2026-11-13T05:00:00.000Z')], now)?.reason, 'old', 'a tide older than 7 h is stale');
+  assert.equal(savedTurnText({delivery: 'direct', retrievedAt: 'x'}), ''); assert.match(savedTurnText({delivery: 'saved', retrievedAt: '2026-11-14T01:00:00.000Z'}), /^ · saved copy, retrieved 2026-11-14 01:00 UTC$/);
+  assert.equal(savedTurnWord({delivery: 'saved'}), 'saved'); assert.equal(savedTurnWord(undefined), '');
+  const f: any = {tide: {height: 1.2, trend: 'Falling'}, evidence: {tide: {source: {delivery: 'saved', retrievedAt: '2026-11-14T01:00:00.000Z'}}}};
+  const v = tideOf(f, {heightUnit: 'ft'} as any, now); assert.match(v!.heightLabel!, /saved copy/); assert.equal(v!.stale?.reason, 'saved');
+});
+test('tide-label: every surface that shows a tide marks a saved copy (one check per surface)', () => {
+  const r = require_;
+  // 1 Today ribbon row and its title/aria; ForecastView passes the day's tide freshness
+  const rb = r('src/features/forecast/TodayRibbon.tsx'); assert.match(rb, /NOAA\{tideStale \? ` · \$\{staleWord\(tideStale\)\}` : ''\}/); assert.match(rb, /title=\{tideStale \? `\$\{tideLabel\}\. \$\{staleText\(tideStale\)\}`/); assert.match(rb, /saved copy/);
+  assert.match(r('src/features/forecast/ForecastView.tsx'), /tideStale=\{tideStaleOf\(dayHours, now\)\}/); assert.match(r('src/features/forecast/ForecastView.tsx'), /<TideDay [^>]*now=\{now\}/);
+  // 2 tide charts (Tide tab and day chart) and the small curve caption
+  const ch = r('src/features/forecast/charts.tsx'); assert.match(ch, /Tide for the selected day\$\{tideStale \? \(tideStale\.reason === 'saved' \? ' \(saved copy\)'/); assert.match(ch, /<StaleTag s=\{tideStale\} \/> \{staleText\(tideStale\)\}/);
+  assert.match(ch, /tideStaleTl = tab === 'tide' && hasTide \? tideStaleOf\(vis, now\)/); assert.match(ch, /Tide chart \(\$\{tideStaleTl\.reason === 'saved' \? 'saved copy'/); assert.match(ch, /<StaleTag s=\{tideStaleTl\} \/> \{staleText\(tideStaleTl\)\}/);
+  const sp = r('src/features/forecast/SpotPage.tsx'); assert.match(sp, /const ts = tideStaleOf\(dayHours, now\); return ts \? ` · \$\{staleText\(ts\)\}` : ''/);
+  // 3 the highs and lows are their own feed: the Now next-turn line and the station card
+  assert.match(sp, /\{htSigned\(nextTurn\.height\.value!, p\)\} \{u\}\{savedTurnText\(nextTurn\.height\.source\)\}/); assert.match(sp, /not at the beach\{savedTurnText\(next\[0\]\.height\.source\)\}/);
+  // 4 Home: the card's tide words and the Welcome next-tide cell
+  assert.match(r('src/features/home/HomeView.tsx'), /\$\{c\.tide\.stale \? ` · \$\{staleWord\(c\.tide\.stale\)\}` : ''\}/); assert.match(r('src/services/homeDash.ts'), /\.\.\.\(hr\.tide\.stale \? \{stale: hr\.tide\.stale\} : \{\}\)/);
+  const wl = r('src/features/home/Welcome.tsx'); assert.match(wl, /saved: e\.height\.source\?\.delivery === 'saved'/); assert.match(wl, /\{nextTide\.saved \? ' \(saved data\)' : ''\}/);
+  // 5 the map's point panel: one source line when the highs and lows are saved
+  const pp = r('src/features/explore/PointPanel.tsx'); assert.match(pp, /savedTurn = turns\.find\(\(e\) => e\.height\.source\?\.delivery === 'saved'\)/); assert.match(pp, /Tide highs and lows\{savedTurnText\(savedTurn\.height\.source\)\}/);
+  // 6 the rating's words use the one tide accessor (saved/stale mark included)
+  assert.match(sp, /const tv = tideOf\(f, p, nowMs\)/); assert.match(sp, /heightLabel: tv\?\.heightLabel \?\? /);
 });

@@ -19,7 +19,7 @@ export interface DashCard {
   surf: {headline: HeadlineSurf; value: string; label: string; words: string | null; tag: string; offshoreLabel: string | null; tuned?: string; /** T-118: the confidence word and its reason (estimates only). */ confidenceText?: string; confidenceDetail?: string};
   rating: {category: string; score: number | null; bars: number};
   wind: {label: string; relation: string} | null;
-  tide: {state: 'rising' | 'falling' | 'unknown'; label: string | null} | null;
+  tide: {state: 'rising' | 'falling' | 'unknown'; label: string | null; /** tide-label: a saved or stale tide (services/freshness.ts) */ stale?: import('./freshness.ts').Stale} | null;
   window: {label: string; category: string; start: string; end: string} | null;
 }
 export interface DashContext {bundle?: Pick<OceanBundle, 'nearshore' | 'mop' | 'srf'> | null; extrema?: TidePrediction[]}
@@ -66,7 +66,7 @@ export function dashCard(spot: SurfSpot, records: Forecast[], now: number, profi
     surf: {headline, value: text.value, label: text.label, words: text.words, tag: text.tag, ...(headline.kind === 'estimate' && headline.calibration ? {tuned: 'tuned to your reports'} : {}), offshoreLabel: offshore, confidenceText: text.confidenceText, confidenceDetail: text.confidenceDetail},
     rating: {category: String(rating.category), score: finite(rating.score) ? rating.score : null, bars: ratingBars(rating.score)},
     wind: hr.wind ? {label: hr.wind.label, relation: hr.wind.relation} : null,
-    tide: hr.tide ? {state: hr.tide.state, label: hr.tide.heightLabel} : null,
+    tide: hr.tide ? {state: hr.tide.state, label: hr.tide.heightLabel, ...(hr.tide.stale ? {stale: hr.tide.stale} : {})} : null,
     window: bestWindowToday(spot, mine, now),
   };
 }

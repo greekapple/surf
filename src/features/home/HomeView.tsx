@@ -8,6 +8,7 @@ import {nearIds, SCOPE_NEAR_KM, SCOPE_NEAR_N} from '../../ocean/spotScope';
 import {isFlat, nowcastNearby, NOWCAST_NEARBY_TEXT} from '../../services/flatSurf';
 import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
+import {staleWord} from '../../services/freshness';
 import {BAND_COLOR, bandOf} from '../forecast/model';
 import {conditionWord} from '../../ui/Condition';
 import {bestNearbyAt, dashCard, ribbon12, rankLabel, type DashCard, type RankWhen, type RibbonHour} from '../../services/homeDash';
@@ -146,7 +147,7 @@ export function HomeView({go}: ViewProps) {
                     <SurfSpark points={sp} p={profile} />
                     <span className="dc-surf">{surfOf(c, true)}{c.surf.headline.kind !== 'estimate' && c.surf.headline.kind !== 'offshore' && c.surf.headline.kind !== 'official' && <span className="dc-sub">{c.surf.headline.label}</span>}</span>
                   </span>
-                  <span className="dc-line">{c.wind ? `Wind ${c.wind.label} · ${c.wind.relation}` : 'Wind —'} · {c.tide ? `Tide ${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}` : 'Tide —'}</span>
+                  <span className="dc-line">{c.wind ? `Wind ${c.wind.label} · ${c.wind.relation}` : 'Wind —'} · {c.tide ? `Tide ${c.tide.state === 'unknown' ? 'trend unknown' : c.tide.state}${c.tide.stale ? ` · ${staleWord(c.tide.stale)}` : ''}` : 'Tide —'}</span>
                   {k ? <CallBar call={k} compact tz={timeZoneOf(c.id)} /> : <span className="dc-line">{c.window ? `Best ${differsFromViewer(timeZoneOf(c.id), c.window.start) ? fmtIn(timeZoneOf(c.id), {weekday: 'short'}).format(new Date(c.window.start)) : 'today'} ${c.window.label}${viewerTag(timeZoneOf(c.id), c.window.start)}` : 'No good daylight window left'}</span>}
                 </span>
               </a>

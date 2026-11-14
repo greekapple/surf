@@ -13,7 +13,7 @@ import {DirArrow, Icon} from '../../ui/Icon';
 import {rankBoards, recommended} from '../quiver/fit';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
-import {dayRange} from '../../services/spotHour';
+import {dayRange, tideOf} from '../../services/spotHour';
 import {dayCertainty, certainLabel} from '../../services/certainty';
 import {dayText} from '../../services/weekCell';
 import {dateIn} from '../../ocean/time';
@@ -26,7 +26,7 @@ import {compass, ht, htSigned, monotonePath, windVal, spotLatLon, type Day} from
 import {partitionKind, partitionNotes, shownPartitions} from '../../services/swellParts';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
-import {hourFreshness} from '../../services/freshness';
+import {hourFreshness, tideStaleOf, staleText, savedTurnText} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
 import {headlineSurf, headlineText, transferTag, type HeadlineSurf} from '../../services/headlineSurf';
 import {formatHeight, userHeight} from '../../services/heightMath';
@@ -157,7 +157,7 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
         <section className="sp-nc" aria-label={`Tide${hourTag}`} data-card="tide"><h2>Tide</h2>
           {tideOk && ownTide ? <>
             <p className="v sp-v">{htSigned(f.tide.height, p)}<small>{u}</small><StaleTag s={hourFreshness(f, now).tide} /><span className="sp-trend">{f.tide.trend === 'Rising' ? '▲ rising' : f.tide.trend === 'Falling' ? '▼ falling' : ''}</span></p>
-            {nextTurn && <p className="sp-s"><b>{nextTurn.type}</b> {sameDay(nextTurn.timestamp) ? '' : `${weekdayPT(nextTurn.timestamp, tz)} `}{timeLabelPT(nextTurn.timestamp, tz)} · {htSigned(nextTurn.height.value!, p)} {u}</p>}
+            {nextTurn && <p className="sp-s"><b>{nextTurn.type}</b> {sameDay(nextTurn.timestamp) ? '' : `${weekdayPT(nextTurn.timestamp, tz)} `}{timeLabelPT(nextTurn.timestamp, tz)} · {htSigned(nextTurn.height.value!, p)} {u}{savedTurnText(nextTurn.height.source)}</p>}
             <p className="sp-f">{ownIsSf ? `regional prediction · San Francisco · ${ownTide.distanceKm} km · not at the beach` : `NOAA prediction · ${ownTide.station.name} · ${ownTide.distanceKm} km${hourlyTideStationIds.includes(ownTide.station.id) ? '' : ' · interpolated'} · not at the beach`}</p>
             {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> times and range differ from the open beach</p>}
           </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} compact />}
@@ -207,7 +207,7 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
       <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk && ownTide ? <>
           <TideMini hours={dayHours} at={h.timestamp} extrema={extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
-          <p className="sp-f">{ownIsSf ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${ownTide.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(ownTide.station.id) ? 'hourly' : 'interpolated', stationName: ownTide.station.name, stationId: ownTide.station.id, distanceKm: ownTide.distanceKm})}</p>
+          <p className="sp-f">{ownIsSf ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${ownTide.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(ownTide.station.id) ? 'hourly' : 'interpolated', stationName: ownTide.station.name, stationId: ownTide.station.id, distanceKm: ownTide.distanceKm})}{(() => { const ts = tideStaleOf(dayHours, now); return ts ? ` · ${staleText(ts)}` : ''; })()}</p>
           {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {ownTide.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
         </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} />}
       </Card>
@@ -233,7 +233,7 @@ function StationTideNext({spot, bundle, p, now, compact = false}: {spot: SurfSpo
   const tz = timeZoneOf(spot);
   return <>
     <ul className="sp-tn" aria-label={`Next tides at ${st.station.name}`}>{next.map((e) => <li key={e.timestamp}><b>{e.type}</b> {weekdayPT(e.timestamp, tz)} {timeLabelPT(e.timestamp, tz)} · {htSigned(e.height.value!, p)} {p.heightUnit}</li>)}</ul>
-    <p className="sp-f">NOAA CO-OPS prediction at {st.station.name}, {st.distanceKm} km away, not at the beach</p>
+    <p className="sp-f">NOAA CO-OPS prediction at {st.station.name}, {st.distanceKm} km away, not at the beach{savedTurnText(next[0].height.source)}</p>
     {st.fallback && compact && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> times and range differ from the open beach</p>}
     {st.fallback && !compact && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {st.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
   </>;
@@ -448,13 +448,14 @@ export function ScalePanel({hs, p, board, outsideNote, onOpen}: {hs: HeadlineSur
 }
 
 /** explainRating for one hour, with the wind relation and tide this page already shows. */
-export function ratingWhy(spot: SurfSpot, h: HourSample, p: UserProfile) {
+export function ratingWhy(spot: SurfSpot, h: HourSample, p: UserProfile, nowMs: number = Date.now()) {
   const f = h.forecast, windOk = f.availability.wind !== false && fin(f.wind.speed);
   const tideOk = f.availability.tide !== false && fin(f.tide.height);
+  const tv = tideOf(f, p, nowMs);   // tide-label: the one tide accessor, so a saved or stale tide keeps its mark in the rating's words
   return explainRating(h.rating, {
     spotId: spot.id,
     wind: windOk ? {mph: f.wind.speed, relation: windRelationship(spot, f)} : null,
-    tide: tideOk ? {trend: f.tide.trend === 'Rising' ? 'rising' : f.tide.trend === 'Falling' ? 'falling' : 'unknown', heightLabel: `${ht(f.tide.height, p)} ${p.heightUnit}`} : null,
+    tide: tideOk ? {trend: f.tide.trend === 'Rising' ? 'rising' : f.tide.trend === 'Falling' ? 'falling' : 'unknown', heightLabel: tv?.heightLabel ?? `${ht(f.tide.height, p)} ${p.heightUnit}`} : null,
     fmtWind: (mph) => windText(mph, p),
   });
 }

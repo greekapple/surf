@@ -36,3 +36,11 @@ export function hourFreshness(f: {evidence?: any} | null | undefined, nowMs: num
 }
 /** The short mark shown beside a stale value: "saved" for a saved copy, "stale" otherwise. */
 export const staleWord = (s: Stale | null | undefined) => (s ? (s.reason === 'saved' ? 'saved' : 'stale') : '');
+
+/** tide-label: the worst tide staleness among the hours a screen plots or lists (a saved copy before an old one); null when every hour's tide is live. */
+export const tideStaleOf = (hours: readonly {forecast?: {evidence?: any}}[], nowMs: number): Stale | null =>
+  firstStale(hours.map((h) => h.forecast?.evidence?.tide?.source), nowMs, TIDE_MAX_AGE_MS);
+/** tide-label: the high/low turns are their own feed, saved while the hourly one is live (or the reverse). The mark for a turn: "" for a live one, " · saved copy, retrieved <time>" for a device-saved or Worker-saved one. */
+export const savedTurnText = (src: {delivery?: string; retrievedAt?: string} | null | undefined): string => (src?.delivery === 'saved' ? ` · saved copy, retrieved ${when(String(src.retrievedAt ?? ''))}` : '');
+/** The short word for a turn's source: "saved" or "". */
+export const savedTurnWord = (src: {delivery?: string} | null | undefined): string => (src?.delivery === 'saved' ? 'saved' : '');

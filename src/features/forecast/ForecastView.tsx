@@ -11,6 +11,7 @@ import type {ViewProps} from '../../app/routes';
 import {useSwello} from '../../app/store';
 import {StateMessage} from '../../ui/common';
 import {Icon} from '../../ui/Icon';
+import {tideStaleOf} from '../../services/freshness';
 import {PolarSwell, TideDay} from './charts';
 import {ForecastCharts} from './ForecastCharts';
 import {bestDaylight, groupDays, spotLatLon} from './helpers';
@@ -157,7 +158,7 @@ export function ForecastView({go}: ViewProps) {
       {/* signature A (phone pass): the Today ribbon replaces the four daylight times: daylight band, surf shape, wind to the beach, tide and the call's window on one hour axis */}
       <TodayRibbon spot={spot} hours={dayHours} band={band} daylight={daylight} win={windowOnDay(spot, dateIn(timeZoneOf(spot), selected.timestamp), p, {records, bundle, nowMs: now}, Math.min(now, Date.parse(selected.timestamp)))} today={dateIn(timeZoneOf(spot), selected.timestamp) === dateIn(timeZoneOf(spot), new Date(now).toISOString())} selected={view.selectedTime} p={p} onSelect={view.selectTime}
         tideLabel={(() => { const [la, lo] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: la, longitude: lo}); if (!st || selected.forecast.availability.tide === false || !Number.isFinite(selected.forecast.tide.height)) return null;   // as the Tide card: only with its station, in its own words
-          return st.station.id === SF_STATION ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${st.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(st.station.id) ? 'hourly' : 'interpolated', stationName: st.station.name, stationId: st.station.id, distanceKm: st.distanceKm}) + (st.fallback ? ` · ${st.fallbackLabel ?? 'inlet or bay-side station'}` : ''); })()} />
+          return st.station.id === SF_STATION ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${st.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(st.station.id) ? 'hourly' : 'interpolated', stationName: st.station.name, stationId: st.station.id, distanceKm: st.distanceKm}) + (st.fallback ? ` · ${st.fallbackLabel ?? 'inlet or bay-side station'}` : ''); })()} tideStale={tideStaleOf(dayHours, now)} />
       {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
       <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
       {/* hdontap-snaps: HDOnTap's live-updating snapshots (src/ocean/hdontapCams.ts); the camera step of the page (after the ribbon, before the charts). Nothing for a spot without one. */}
@@ -172,7 +173,7 @@ export function ForecastView({go}: ViewProps) {
       {observing && <ObservePanel key={spot.id} spotName={spot.name} spotId={spot.id} p={p} env={env} onDone={(o) => { setObserving(false); setSaved(o ? `Saved: you saw ~${sawWords(o.word)}` : ''); }} />}
       <p className="sr-only" role="status" aria-live="polite">{saved}</p>
       {openCard && <CardDetail k={openCard} spot={spot} h={selected} p={p} dayHours={dayHours} onSelect={view.selectTime} onClose={() => setOpenCard(null)}
-        Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} />}
+        Tide={<TideDay hours={dayHours} selected={view.selectedTime} extrema={extrema} spot={spot} p={p} onSelect={view.selectTime} now={now} />}
         Polar={<PolarSwell hours={dayHours} selected={view.selectedTime} facing={facingOf(spot.id)} onSelect={view.selectTime} />} />}
       {/* lead triage (design re-critique): no board suggestion under a Skip (or after dark with no window ahead): 'Ride your …' there reads as advice to paddle out */}
       {!(call.verdict === 'Skip' || (call.verdict === 'Dark' && !call.nextWindow)) && <BoardLine boards={data.state.boards} choice={choice} f={selected.forecast} p={p} hs={hs} onOpen={() => go('quiver', 'match')} onQuiver={() => go('quiver')} />}

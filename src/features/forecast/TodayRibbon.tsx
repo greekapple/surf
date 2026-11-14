@@ -6,6 +6,7 @@ import type {SurfBandPoint} from '../../services/surfSeries';
 import {windRelationship} from '../../recommendation/sqi';
 import {timeLabelPT, localHour} from './format';
 import {relClass} from './SpotPage';
+import {staleText, staleWord, type Stale} from '../../services/freshness';
 
 /** Signature A (phone pass, spec docs/specs/2026-11-10-phone-pass.md; critique "Today ribbon"): one compact strip for the selected day that answers "when",
  *  along one hour axis: the daylight band (night shaded, first light to last light clear), the surf (the same estimate band as the Surf graph), the wind
@@ -15,9 +16,9 @@ export interface RibbonHour {timestamp: string; forecast: {wind: {speed: number;
 const MIN_HOUR_W = 22, gutFor = (w: number) => (w >= 600 ? 104 : 64), H = {surf: 36, wind: 26, tide: 28}, PAD = 6;
 const fin = (n: unknown): n is number => typeof n === 'number' && Number.isFinite(n);
 
-export function TodayRibbon({spot, hours, band, daylight, win, today = false, selected, p, tideLabel, onSelect}: {
+export function TodayRibbon({spot, hours, band, daylight, win, today = false, selected, p, tideLabel, tideStale = null, onSelect}: {
   spot: SurfSpot; hours: RibbonHour[]; band: SurfBandPoint[]; daylight: Daylight; /** the day's window (windowOnDay: independent of the selected hour, with its own verdict) */ win: CallWindow | null; /** the day is today: a window that already ended is not returned, so 'none LEFT today' */ today?: boolean; selected: string | null; p: UserProfile;
-  /** the Tide card's own source words, shortened (e.g. "NOAA Point Reyes, 9 km"); null with no tide */ tideLabel: string | null; onSelect: (t: string) => void;
+  /** the Tide card's own source words, shortened (e.g. "NOAA Point Reyes, 9 km"); null with no tide */ tideLabel: string | null; /** tide-label: the day's tide is a saved or stale copy (services/freshness.ts tideStaleOf): the row says "NOAA · saved" */ tideStale?: Stale | null; onSelect: (t: string) => void;
 }) {
   // the hours fill the card's width (at least 22 px each: below that the strip scrolls sideways)
   const box = useRef<HTMLDivElement>(null), [cw, setCw] = useState(0);
@@ -62,7 +63,7 @@ export function TodayRibbon({spot, hours, band, daylight, win, today = false, se
   // the ribbon draws SHAPES only (when it is bigger, when the wind turns, when the tide is low); the numbers stay on the cards, in the person's scale
   const ticks = hours.map((h, i) => ({i, hr: localHour(h.timestamp)})).filter((x) => x.hr % 3 === 0);
   const label = (hr: number) => (hr === 0 ? '12a' : hr === 12 ? '12p' : hr < 12 ? `${hr}a` : `${hr - 12}p`);
-  const aria = `Today ribbon: ${win ? `${win.verdict ?? 'window'} ${win.label}; ` : today ? 'no window left today; ' : 'no window this day; '}first light ${timeLabelPT(daylight.firstLight)}, sunrise ${timeLabelPT(daylight.sunrise)}, sunset ${timeLabelPT(daylight.sunset)}, last light ${timeLabelPT(daylight.lastLight)}; ${est ? 'surf estimate band (model estimate, its shape through the day)' : off ? 'offshore height only, not surf size' : demo ? 'demonstration data, not drawn' : 'no surf height'}; wind arrows coloured offshore, cross or onshore for this beach; ${tidePath ? `tide curve (${tideLabel})` : 'no tide'}. Tap an hour on the ribbon to select it.`;
+  const aria = `Today ribbon: ${win ? `${win.verdict ?? 'window'} ${win.label}; ` : today ? 'no window left today; ' : 'no window this day; '}first light ${timeLabelPT(daylight.firstLight)}, sunrise ${timeLabelPT(daylight.sunrise)}, sunset ${timeLabelPT(daylight.sunset)}, last light ${timeLabelPT(daylight.lastLight)}; ${est ? 'surf estimate band (model estimate, its shape through the day)' : off ? 'offshore height only, not surf size' : demo ? 'demonstration data, not drawn' : 'no surf height'}; wind arrows coloured offshore, cross or onshore for this beach; ${tidePath ? `tide curve (${tideLabel}${tideStale ? `; ${staleWord(tideStale) === 'saved' ? 'saved copy' : 'stale copy'}` : ''})` : 'no tide'}. Tap an hour on the ribbon to select it.`;
   return (
     <section className="rb" aria-label={aria}>
       <div ref={box} className="rb-scroll" tabIndex={0} role="group" aria-label="Hours of the day (scrolls sideways)">
@@ -70,7 +71,7 @@ export function TodayRibbon({spot, hours, band, daylight, win, today = false, se
           <div className="rb-gut" aria-hidden="true">
             <span style={{top: PAD, height: H.surf}}>{est ? 'Surf est.' : off ? 'Offshore' : demo ? 'Demo' : 'Surf'}<small>{est ? 'model, shape' : off ? 'not surf' : demo ? 'not live' : 'no height'}</small></span>
             <span style={{top: PAD + H.surf + 4, height: H.wind}}>Wind<small>vs. this beach</small></span>
-            <span style={{top: yT0, height: H.tide}}>Tide{tideLabel ? <small title={tideLabel}>NOAA</small> : <small>none</small>}</span>
+            <span style={{top: yT0, height: H.tide}}>Tide{tideLabel ? <small title={tideStale ? `${tideLabel}. ${staleText(tideStale)}` : tideLabel}>NOAA{tideStale ? ` · ${staleWord(tideStale)}` : ''}</small> : <small>none</small>}</span>
           </div>
           <svg className="rb-svg" width={W} height={total} viewBox={`0 0 ${W} ${total}`} aria-hidden="true">
             {/* night and twilight */}
