@@ -44,3 +44,14 @@ export const tideStaleOf = (hours: readonly {forecast?: {evidence?: any}}[], now
 export const savedTurnText = (src: {delivery?: string; retrievedAt?: string} | null | undefined): string => (src?.delivery === 'saved' ? ` · saved copy, retrieved ${when(String(src.retrievedAt ?? ''))}` : '');
 /** The short word for a turn's source: "saved" or "". */
 export const savedTurnWord = (src: {delivery?: string} | null | undefined): string => (src?.delivery === 'saved' ? 'saved' : '');
+
+/** tide-label-2: the high/low feed is its own source (saved while the hourly curve is live, or the reverse). The first saved turn's mark, " · saved copy, retrieved <time>", or "". */
+export const savedExtremaText = (extrema: readonly {height?: {source?: {delivery?: string; retrievedAt?: string}}}[] | null | undefined): string => savedTurnText((extrema ?? []).find((e) => e.height?.source?.delivery === 'saved')?.height?.source);
+/** ONE note for a tide chart: the hourly curve's own staleness (staleText says SAVED/STALE once) and, when the high/low times are saved, their mark. Null when both are live. Said once, so a screen reader hears it once. */
+export const tideChartNote = (hourly: Stale | null, extrema: readonly {height?: {source?: {delivery?: string; retrievedAt?: string}}}[] | null | undefined): string | null => {
+  const saved = (extrema ?? []).find((e) => e.height?.source?.delivery === 'saved')?.height?.source, turns = savedTurnText(saved);
+  // the same saved copy behind both (same retrieval time): said once
+  const same = hourly?.reason === 'saved' && !!saved && hourly.retrievedAt === String(saved.retrievedAt ?? '');
+  const parts = [hourly ? `Tide: ${staleText(hourly)}` : '', turns && !same ? `High and low times${turns}` : ''].filter(Boolean);
+  return parts.length ? parts.join('. ') : null;
+};

@@ -103,8 +103,8 @@ test('tide-label: every surface that shows a tide marks a saved copy (one check 
   const rb = r('src/features/forecast/TodayRibbon.tsx'); assert.match(rb, /NOAA\{tideStale \? ` · \$\{staleWord\(tideStale\)\}` : ''\}/); assert.match(rb, /title=\{tideStale \? `\$\{tideLabel\}\. \$\{staleText\(tideStale\)\}`/); assert.match(rb, /saved copy/);
   assert.match(r('src/features/forecast/ForecastView.tsx'), /tideStale=\{tideStaleOf\(dayHours, now\)\}/); assert.match(r('src/features/forecast/ForecastView.tsx'), /<TideDay [^>]*now=\{now\}/);
   // 2 tide charts (Tide tab and day chart) and the small curve caption
-  const ch = r('src/features/forecast/charts.tsx'); assert.match(ch, /Tide for the selected day\$\{tideStale \? \(tideStale\.reason === 'saved' \? ' \(saved copy\)'/); assert.match(ch, /<StaleTag s=\{tideStale\} \/> \{staleText\(tideStale\)\}/);
-  assert.match(ch, /tideStaleTl = tab === 'tide' && hasTide \? tideStaleOf\(vis, now\)/); assert.match(ch, /Tide chart \(\$\{tideStaleTl\.reason === 'saved' \? 'saved copy'/); assert.match(ch, /<StaleTag s=\{tideStaleTl\} \/> \{staleText\(tideStaleTl\)\}/);
+  const ch = r('src/features/forecast/charts.tsx'); assert.match(ch, /Tide for the selected day\$\{tideStale \? \(tideStale\.reason === 'saved' \? ' \(saved copy\)'/); assert.match(ch, /tideNote = tideChartNote\(tideStale, extrema\)/);
+  assert.match(ch, /tideStaleTl = tab === 'tide' && hasTide \? tideStaleOf\(vis, now\)/); assert.match(ch, /Tide chart \(\$\{tideStaleTl \? \(tideStaleTl\.reason === 'saved' \? 'saved copy'/); assert.match(ch, /tideNoteTl = tab === 'tide' && hasTide \? tideChartNote\(tideStaleTl, extrema\)/);
   const sp = r('src/features/forecast/SpotPage.tsx'); assert.match(sp, /const ts = tideStaleOf\(dayHours, now\); return ts \? ` · \$\{staleText\(ts\)\}` : ''/);
   // 3 the highs and lows are their own feed: the Now next-turn line and the station card
   assert.match(sp, /\{htSigned\(nextTurn\.height\.value!, p\)\} \{u\}\{savedTurnText\(nextTurn\.height\.source\)\}/); assert.match(sp, /not at the beach\{savedTurnText\(next\[0\]\.height\.source\)\}/);
@@ -115,4 +115,25 @@ test('tide-label: every surface that shows a tide marks a saved copy (one check 
   const pp = r('src/features/explore/PointPanel.tsx'); assert.match(pp, /savedTurn = turns\.find\(\(e\) => e\.height\.source\?\.delivery === 'saved'\)/); assert.match(pp, /Tide highs and lows\{savedTurnText\(savedTurn\.height\.source\)\}/);
   // 6 the rating's words use the one tide accessor (saved/stale mark included)
   assert.match(sp, /const tv = tideOf\(f, p, nowMs\)/); assert.match(sp, /heightLabel: tv\?\.heightLabel \?\? /);
+});
+
+// tide-label-2: the high/low feed's own mark on the charts, and one note (not the tag plus the text)
+import {tideChartNote, savedExtremaText} from '../services/freshness.ts';
+const turn = (delivery: string, at: string) => ({height: {source: {delivery, retrievedAt: at}}});
+test('tide-label-2: hourly live + high/low saved gives a high/low mark; both live gives none; hourly saved says SAVED once', () => {
+  const now = Date.parse('2026-11-14T03:00:00Z'), liveHour = tideStaleOf([hourWith('direct', '2026-11-14T02:30:00.000Z')], now), savedHour = tideStaleOf([hourWith('saved', '2026-11-14T01:00:00.000Z')], now);
+  const live = [turn('direct', '2026-11-14T02:30:00.000Z')], saved = [turn('direct', '2026-11-14T02:30:00.000Z'), turn('saved', '2026-11-14T01:00:00.000Z')];
+  assert.equal(tideChartNote(liveHour, live), null); assert.equal(tideChartNote(null, []), null);
+  assert.equal(tideChartNote(liveHour, saved), 'High and low times · saved copy, retrieved 2026-11-14 01:00 UTC', 'the hourly curve is live, the highs and lows are saved: the mark is on the highs and lows');
+  assert.match(savedExtremaText(saved), /^ · saved copy, retrieved 2026-11-14 01:00 UTC$/); assert.equal(savedExtremaText(live), ''); assert.equal(savedExtremaText(undefined), '');
+  const one = tideChartNote(savedHour, live)!; assert.match(one, /^Tide: SAVED copy retrieved 2026-11-14 01:00 UTC/); assert.equal((one.match(/saved/gi) ?? []).length, 1, 'said once: no tag word plus the sentence');
+  const same = tideChartNote(savedHour, saved)!; assert.equal((same.match(/saved/gi) ?? []).length, 1, 'the same saved copy behind the curve and the turns is said once');
+  const diff = tideChartNote(savedHour, [turn('saved', '2026-11-14T00:30:00.000Z')])!; assert.match(diff, /High and low times · saved copy, retrieved 2026-11-14 00:30 UTC/, 'a different saved copy for the turns is said too');
+});
+test('tide-label-2: the charts and the spot page mini curve use the one note and mark the high/low times', () => {
+  const r = require_, ch = r('src/features/forecast/charts.tsx'), sp = r('src/features/forecast/SpotPage.tsx');
+  assert.doesNotMatch(ch, /StaleTag/, 'no tag beside the sentence on the chart notes'); assert.doesNotMatch(ch, /Tide <StaleTag/);
+  assert.match(ch, /\{tideNote && <p className="fine tide-stale-note" role="note">\{tideNote\}<\/p>\}/); assert.match(ch, /\{tideNoteTl && <p className="fine tide-stale-note" role="note">\{tideNoteTl\}<\/p>\}/);
+  assert.match(ch, /savedExtremaText\(extrema\) \? ' \(high and low times: saved copy\)'/); assert.match(ch, /'high and low times: saved copy'/);
+  assert.match(sp, /\{savedExtremaText\(extrema\) && ` · high and low times\$\{savedExtremaText\(extrema\)\}`\}/); assert.match(sp, /<TideMini turnsSaved=\{!!savedExtremaText\(extrema\)\}/); assert.match(sp, /turnsSaved \? ' \(high and low times: saved copy\)'/);
 });

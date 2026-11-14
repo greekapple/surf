@@ -1,5 +1,4 @@
-import {tideStaleOf, staleText} from '../../services/freshness';
-import {StaleTag} from '../../ui/StaleTag';
+import {tideStaleOf, tideChartNote, savedExtremaText} from '../../services/freshness';
 import {noTideCurveText} from './tideNote';
 import {partitionKind} from '../../services/swellParts';
 import {useEffect, useMemo, useRef, useState} from 'react';
@@ -146,9 +145,10 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
   const every = Math.max(1, Math.ceil(20 / pxh));
   const wc = windInk;
   const tideStaleTl = tab === 'tide' && hasTide ? tideStaleOf(vis, now) : null;   // tide-label: a saved or stale tide is said on the Tide tab, under the chart and in its readable label
+  const tideNoteTl = tab === 'tide' && hasTide ? tideChartNote(tideStaleTl, extrema) : null;   // tide-label-2: the high/low feed's own mark, one note
 
   return (
-    <div className="tl-panel" ref={body} {...(tideStaleTl ? {role: 'group', 'aria-label': `Tide chart (${tideStaleTl.reason === 'saved' ? 'saved copy' : 'stale copy'})`} : {})}>
+    <div className="tl-panel" ref={body} {...(tideNoteTl ? {role: 'group', 'aria-label': `Tide chart (${tideStaleTl ? (tideStaleTl.reason === 'saved' ? 'saved copy' : 'stale copy') : 'high and low times: saved copy'})`} : {})}>
       <svg viewBox={`0 0 ${W} ${height}`} style={{height}} aria-hidden="true" className="tl-svg">
         <defs>
           <linearGradient id="gHs" x1="0" x2="0" y1="0" y2="1"><stop offset="0" stopColor="var(--hs-hi)" stopOpacity="0.5" /><stop offset="1" stopColor="var(--hs)" stopOpacity="0.03" /></linearGradient>
@@ -268,7 +268,7 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
             : room > 30 ? <text key={d.key} className="tl-dlab" x={Math.max(X(d.start - 0.5), G) + 4} y={14}>{weekdayPT(d.t)}</text> : null; })}</g>}
         {title && <text className="tl-title" x={0} y={showDays ? (unitInTitle ? 31 : 14) : 13}>{title}{unitInTitle && <tspan className="tl-unit"> · {unit}</tspan>}</text>}
       </svg>
-      {tideStaleTl && <p className="fine tide-stale-note" role="note">Tide <StaleTag s={tideStaleTl} /> {staleText(tideStaleTl)}</p>}
+      {tideNoteTl && <p className="fine tide-stale-note" role="note">{tideNoteTl}</p>}
     </div>
   );
 }
@@ -362,10 +362,10 @@ export function TideDay({hours, selected, extrema, spot, p, onSelect, now = Date
   const pts = hours.map((h) => [X(Date.parse(h.timestamp)), Yv(h.forecast.tide.height)] as [number, number]);
   const [lat, lon] = spotLatLon(spot), {rise, set} = sunTimes(hours[0].timestamp, lat, lon);
   const k = hours.findIndex((h) => h.timestamp === selected);
-  const tideStale = tideStaleOf(hours, now);   // tide-label: a saved or stale copy is said under the chart and in its label
+  const tideStale = tideStaleOf(hours, now), tideNote = tideChartNote(tideStale, extrema);   // tide-label: a saved or stale copy is said under the chart and in its label (one note, tide-label-2)
   return (
     <>
-    <svg viewBox="0 0 360 172" style={{width: '100%', height: 190, cursor: 'pointer'}} role="img" aria-label={`Tide for the selected day${tideStale ? (tideStale.reason === 'saved' ? ' (saved copy)' : ' (stale copy)') : ''}`}
+    <svg viewBox="0 0 360 172" style={{width: '100%', height: 190, cursor: 'pointer'}} role="img" aria-label={`Tide for the selected day${tideStale ? (tideStale.reason === 'saved' ? ' (saved copy)' : ' (stale copy)') : savedExtremaText(extrema) ? ' (high and low times: saved copy)' : ''}`}
       onClick={(e) => { const r = (e.currentTarget as SVGElement).getBoundingClientRect(); const ms = t0 + ((((e.clientX - r.left) / r.width) * 360 - 8) / 344) * span; const best = hours.reduce((b, h) => (Math.abs(Date.parse(h.timestamp) - ms) < Math.abs(Date.parse(b.timestamp) - ms) ? h : b)); onSelect(best.timestamp); }}>
       <rect x={8} y={10} width={Math.max(0, X(rise) - 8)} height={146} fill="var(--ch-night)" /><rect x={X(set)} y={10} width={Math.max(0, 352 - X(set))} height={146} fill="var(--ch-night)" />
       <path d={`${monotonePath(pts)} L352,156 L8,156Z`} fill="var(--tide)" fillOpacity={0.1} /><path d={monotonePath(pts)} fill="none" stroke="var(--tide)" strokeWidth={1.75} strokeLinejoin="round" />
@@ -376,7 +376,7 @@ export function TideDay({hours, selected, extrema, spot, p, onSelect, now = Date
       {k >= 0 && <g><line x1={pts[k][0]} x2={pts[k][0]} y1={10} y2={156} stroke="var(--ch-ink)" strokeWidth={1} /><circle cx={pts[k][0]} cy={pts[k][1]} r={4} fill="var(--ch-ink)" /></g>}
       <text x={X(rise)} y={169} fontSize={11} fill="var(--dim)" textAnchor="middle">↑ {timeLabelPT(rise)}</text><text x={X(set)} y={169} fontSize={11} fill="var(--dim)" textAnchor="middle">↓ {timeLabelPT(set)}</text>
     </svg>
-    {tideStale && <p className="fine tide-stale-note" role="note">Tide <StaleTag s={tideStale} /> {staleText(tideStale)}</p>}
+    {tideNote && <p className="fine tide-stale-note" role="note">{tideNote}</p>}
     </>
   );
 }

@@ -26,7 +26,7 @@ import {compass, ht, htSigned, monotonePath, windVal, spotLatLon, type Day} from
 import {partitionKind, partitionNotes, shownPartitions} from '../../services/swellParts';
 import {conditionWord} from './Condition';
 import {timeLabelPT, weekdayPT, dayNumPT} from './format';
-import {hourFreshness, tideStaleOf, staleText, savedTurnText} from '../../services/freshness';
+import {hourFreshness, tideStaleOf, staleText, savedTurnText, savedExtremaText} from '../../services/freshness';
 import {StaleTag} from '../../ui/StaleTag';
 import {headlineSurf, headlineText, transferTag, type HeadlineSurf} from '../../services/headlineSurf';
 import {formatHeight, userHeight} from '../../services/heightMath';
@@ -206,8 +206,8 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
       </Card>
       <Card k="tide" title="Tide" open={open === 'tide'} onToggle={() => onToggle('tide')}>
         {tideOk && ownTide ? <>
-          <TideMini hours={dayHours} at={h.timestamp} extrema={extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
-          <p className="sp-f">{ownIsSf ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${ownTide.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(ownTide.station.id) ? 'hourly' : 'interpolated', stationName: ownTide.station.name, stationId: ownTide.station.id, distanceKm: ownTide.distanceKm})}{(() => { const ts = tideStaleOf(dayHours, now); return ts ? ` · ${staleText(ts)}` : ''; })()}</p>
+          <TideMini turnsSaved={!!savedExtremaText(extrema)} hours={dayHours} at={h.timestamp} extrema={extrema.filter((e) => e.height.value !== null).map((e) => ({timestamp: e.timestamp, v: e.height.value!, type: e.type}))} p={p} />
+          <p className="sp-f">{ownIsSf ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${ownTide.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(ownTide.station.id) ? 'hourly' : 'interpolated', stationName: ownTide.station.name, stationId: ownTide.station.id, distanceKm: ownTide.distanceKm})}{(() => { const ts = tideStaleOf(dayHours, now); return ts ? ` · ${staleText(ts)}` : ''; })()}{savedExtremaText(extrema) && ` · high and low times${savedExtremaText(extrema)}`}</p>
           {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {ownTide.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
         </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} />}
       </Card>
@@ -238,7 +238,7 @@ function StationTideNext({spot, bundle, p, now, compact = false}: {spot: SurfSpo
     {st.fallback && !compact && <p className="sp-f" role="note"><b>{st.fallbackLabel ?? 'Inlet or bay-side station'}:</b> {st.fallbackDetail ?? 'times and range differ from the open beach (no open-coast station is within 40 km).'}</p>}
   </>;
 }
-function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; extrema: {timestamp: string; v: number; type: string}[]; p: UserProfile}) {
+function TideMini({hours, at, extrema, p, turnsSaved = false}: {hours: HourSample[]; at: string; extrema: {timestamp: string; v: number; type: string}[]; p: UserProfile; /** tide-label-2: the high/low feed is a saved copy (the hourly curve may be live) */ turnsSaved?: boolean}) {
   // phone pass 6: after layout (and on resize) a time label that would overlap the one before it is hidden, so none overprints at any width
   const labs = useRef<HTMLParagraphElement>(null);
   useLayoutEffect(() => { const el = labs.current; if (!el) return;
@@ -257,7 +257,7 @@ function TideMini({hours, at, extrema, p}: {hours: HourSample[]; at: string; ext
   const selMs = k ? Date.parse(k.timestamp) : t0, pri = new Map([...ex].sort((a, b) => { const da = Date.parse(a.timestamp) - selMs, db = Date.parse(b.timestamp) - selMs; return (da >= 0 ? da : 1e12 - da) - (db >= 0 ? db : 1e12 - db); }).map((e, n) => [e.timestamp, n]));
   return (
     <div className="sp-tide-w">
-    <svg className="sp-tide" viewBox={`0 0 ${W} ${H - 14}`} preserveAspectRatio="none" role="img" aria-label={`Tide today: ${ex.map((e) => `${e.type.toLowerCase()} ${ht(e.v, p)} ${p.heightUnit} at ${timeLabelPT(e.timestamp)}`).join(', ') || 'no highs or lows listed'}`}>
+    <svg className="sp-tide" viewBox={`0 0 ${W} ${H - 14}`} preserveAspectRatio="none" role="img" aria-label={`Tide today: ${ex.map((e) => `${e.type.toLowerCase()} ${ht(e.v, p)} ${p.heightUnit} at ${timeLabelPT(e.timestamp)}`).join(', ') || 'no highs or lows listed'}${turnsSaved ? ' (high and low times: saved copy)' : ''}`}>
       <path d={`${line} L${W},${H - 14} L0,${H - 14}Z`} fill="var(--tide)" fillOpacity={0.12} /><path d={line} fill="none" stroke="var(--tide)" strokeWidth={1.6} vectorEffect="non-scaling-stroke" />
 
     </svg>
