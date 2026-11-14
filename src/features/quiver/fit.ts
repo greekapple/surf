@@ -1,11 +1,14 @@
 import type {Forecast, Surfboard, SurfSpot, UserProfile} from '../../models/index';
 import {boardRanges, scoreBoard} from '../../recommendation/board.ts';
+import {coarseSkill, levelOf} from '../../services/skillLevels.ts';
 import {spotHourOf, type HourContext} from '../../services/spotHour.ts';
 import {periodFit, type PeriodFit} from '../../services/boardPeriod.ts';
 
 /** T-050 "today's match" per board, from real numbers only: the board's own wave range (its min/max if recorded, else its category's
  *  documented range in recommendation/board.ts) against the selected spot-hour's estimated face range. No range estimate → no verdict. */
 export type SizeFit = {state: 'in' | 'edge' | 'big' | 'small'; label: string; board: [number, number]; source: 'board' | 'category'} | {state: 'none'; label: string};
+/** Where a board's wave range comes from, in words: the person's own range for the board, or OUR rule for its type (recommendation/board.ts boardRanges; not a published standard). */
+export const rangeSourceText = (s: SizeFit, type: string): string => (s.state === 'none' ? '' : s.source === 'board' ? 'your range' : `our rule for a ${type.toLowerCase()}`);
 
 export function sizeFit(b: Surfboard, est: [number, number] | null): SizeFit {
   if (!est) return {state: 'none', label: 'No surf estimate here now'};
@@ -35,6 +38,8 @@ export interface BoardPick {board: Surfboard; size: SizeFit; period: PeriodFit |
 export const rangeDistance = (s: SizeFit, est: [number, number] | null) =>
   s.state === 'none' || !est ? Infinity : Math.max(0, s.board[0] - est[1], est[0] - s.board[1]);
 export const outOfRange = (x: BoardPick) => x.size.state === 'big' || x.size.state === 'small';
+/** A fixed tie-break (favourite first, then name, then id), so the same quiver gives the same answer in any order. */
+const tie = (a: Surfboard, b: Surfboard) => a.name.localeCompare(b.name) || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
 export function rankBoards(boards: Surfboard[], est: [number, number] | null, periodS: number | null): BoardPick[] {
   return boards.map((b) => {
     const size = sizeFit(b, est), period = periodS !== null && Number.isFinite(periodS) ? periodFit(periodKind(b.type), periodS, b.length) : null;
@@ -44,7 +49,7 @@ export function rankBoards(boards: Surfboard[], est: [number, number] | null, pe
     const ao = a.size.state === 'in' || a.size.state === 'edge' ? 0 : 1, bo = b.size.state === 'in' || b.size.state === 'edge' ? 0 : 1;
     if (ao !== bo) return ao - bo;
     if (ao === 1 && a.distance !== b.distance) return a.distance - b.distance;
-    return b.rank - a.rank || (a.board.favorite === b.board.favorite ? 0 : a.board.favorite ? -1 : 1);
+    return b.rank - a.rank || (a.board.favorite === b.board.favorite ? 0 : a.board.favorite ? -1 : 1) || tie(a.board, b.board);
   });
 }
 /** Review MEDIUM: score-mode Board Match orders like size mode: boards the surf is in or at the edge of (or with no range verdict) by score,
@@ -52,14 +57,21 @@ export function rankBoards(boards: Surfboard[], est: [number, number] | null, pe
 export function orderScored<T extends {board: Surfboard; score: number}>(scored: T[], est: [number, number] | null): (T & {size: SizeFit; distance: number})[] {
   return scored.map((m) => { const size = sizeFit(m.board, est); return {...m, size, distance: rangeDistance(size, est)}; })
     .sort((a, b) => { const ao = a.size.state === 'big' || a.size.state === 'small' ? 1 : 0, bo = b.size.state === 'big' || b.size.state === 'small' ? 1 : 0;
-      return ao - bo || (ao === 1 ? a.distance - b.distance : 0) || b.score - a.score; });
+      return ao - bo || (ao === 1 ? a.distance - b.distance : 0) || b.score - a.score || tie(a.board, b.board); });
 }
 /** Review P2: the pick's heading. An edge fit is the closest fit, not "best": it says which end of its range the surf is at. */
 export function pickHeading(size: SizeFit, est: [number, number] | null, best: string): string {
   if (size.state !== 'edge' || !est) return best;
   return `Closest fit · ${est[1] > size.board[1] ? 'top' : 'bottom'} of its range`;
 }
-export const recommended = (picks: BoardPick[]) => picks.filter((x) => x.size.state === 'in' || x.size.state === 'edge');
+/** The ability gate, the same one scoreBoard applies (its "Experience" factor): a board category asks for a minimum of the old three skills (boardRanges' last column: 0 any, 1 intermediate,
+ *  2 expert), and the surfer's seven levels map onto them as levels 1-3 beginner, 4-5 intermediate, 6-7 expert (skillLevels.ts coarseSkill). Size-only mode applies it too, so a beginner is never
+ *  told to take a step-up just because the surf is big. */
+const ASKS: Record<string, number> = {Beginner: 0, Intermediate: 1, Expert: 2};
+export const abilityOk = (b: Pick<Surfboard, 'type'>, p: Pick<UserProfile, 'skill' | 'skillLevel'>): boolean => (ASKS[coarseSkill(levelOf(p))] ?? 0) >= (boardRanges[b.type]?.[3] ?? 0);
+/** The one rule for a board that suits the hour by size: the surf is inside its range or at its edge. */
+export const suits = (s: SizeFit) => s.state === 'in' || s.state === 'edge';
+export const recommended = (picks: BoardPick[]) => picks.filter((x) => suits(x.size));
 
 /** T-099: THE board pick, used by Home's quiver pick, Board Match and Personal, so one spot-hour gives one answer everywhere.
  *  The size is the hour's headline (spotHourOf(...).surf.headline, as every surface shows it). When the record carries a measured face value
@@ -76,9 +88,13 @@ export function boardPickFor(boards: Surfboard[], spot: SurfSpot, f: Forecast | 
   const ranked = rankBoards(boards, est, period);
   const faceOk = ((f.availability?.face && Number.isFinite(f.face)) || !!est) && !!f.character && f.character !== 'Unknown';
   if (faceOk) {
-    const scored = boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score);
-    return {mode: 'score', est, scored, ranked, pick: scored.find((x) => x.eligible)?.board ?? null};
+    const scored = boards.map((b) => scoreBoard(b, f, p, est)).sort((a, b) => b.score - a.score || (a.board.favorite === b.board.favorite ? 0 : a.board.favorite ? -1 : 1) || tie(a.board, b.board));
+    // quiver-lock: ONE rule for "this board suits the hour", the same in score mode and size mode (and so on Home, the spot page, Personal and Quiver): the surf is inside
+    // the board's range or at its edge. A board scoreBoard calls eligible because it is within a foot OUTSIDE its range is NOT a pick (Home and the spot page said nothing for
+    // it while Board Match named it).
+    const sizeEst = est ?? (f.availability?.face && Number.isFinite(f.face) ? [f.face, f.face] as [number, number] : null);
+    return {mode: 'score', est, scored, ranked, pick: scored.find((x) => x.eligible && suits(sizeFit(x.board, sizeEst)))?.board ?? null};
   }
   if (!est) return {mode: 'none', est: null, scored: [], ranked, pick: null};
-  return {mode: 'size', est, scored: [], ranked, pick: recommended(ranked)[0]?.board ?? null};
+  return {mode: 'size', est, scored: [], ranked, pick: recommended(ranked).find((x) => abilityOk(x.board, p))?.board ?? null};
 }

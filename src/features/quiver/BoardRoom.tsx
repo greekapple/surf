@@ -1,23 +1,23 @@
-import {useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent as RPointerEvent, type ReactNode} from 'react';
+import {useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEvent, type ReactNode} from 'react';
 import type {Surfboard} from '../../models/index';
 import {Icon} from '../../ui/Icon';
-import {surfRange, lengthLabel, validDimensions} from '../../utils/units';
+import {lengthLabel, validDimensions} from '../../utils/units';
 import {useSwello} from '../../app/store';
 import {inches} from './format';
 import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, trimFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
 import {referenceTpl, tracedTpl} from './traced';
-import {MODELLED_NOTE, exampleLabel, referenceFor} from '../../data/referenceBoards';
-import {Studio, type Anchor, type BoardEntry, type Preset} from './studio';
+import {isVolumeEstimate, referenceFor} from '../../data/referenceBoards';
+import {Studio, type BoardEntry, type Preset} from './studio';
 import {BoardOutline} from './BoardOutline';
-import type {SizeFit} from './fit';
 
-/* T-035 board room (reference: the Porsche 911 configurator, docs/design/REFERENCES-2026-10-31.md §1).
- * One board, large, on a light set; real-time three.js from the board's numbers and outline (traced or category).
- * Options change the model live as a draft; only Save writes them to the board. Hotspots show facts from the board record. */
+/* T-035 board room, rebuilt in quiver-lock (2026-11-14, docs/specs/2026-11-14-quiver-polish.md section 4): ONE interactive 3D stage for the selected board.
+ * Drag turns the board freely on both axes with inertia, the wheel or a pinch zooms, a double tap resets, the arrow keys turn it; the view shortcuts (Deck, Bottom, Rail, Tail, Nose) are a
+ * secondary row; no step counter, no auto-spin, no hotspots. The model is built from the board's own numbers and outline (traced, example or category). In Edit the options change the
+ * model live as a draft; only Save writes them to the board. */
 
 type Dims = {length: number; width: number; thickness: number; volume: number};
-const ANGLES: {id: Exclude<Preset, '360'>; label: string}[] = [
+const ANGLES: {id: Preset; label: string}[] = [
   {id: 'three', label: '¾ view'}, {id: 'deck', label: 'Deck'}, {id: 'bottom', label: 'Bottom'}, {id: 'rail', label: 'Rail'}, {id: 'tail', label: 'Tail'}, {id: 'nose', label: 'Nose'},
 ];
 const FIN_SETS: {id: FinSet; label: string}[] = [{id: 'single', label: 'Single'}, {id: 'twin', label: 'Twin'}, {id: 'thruster', label: 'Thruster'}, {id: 'quad', label: 'Quad'}, {id: 'none', label: 'None'}];
@@ -42,142 +42,72 @@ const readDrafts = (): Record<string, Draft> => { try { const v = JSON.parse(ses
 const keepDraft = (dr: Draft | null, id: string) => { try { const all = readDrafts(); if (dr) all[id] = dr; else delete all[id]; sessionStorage.setItem(DRAFTS, JSON.stringify(all)); } catch { /* no session storage: the draft lasts while the board room is open */ } };
 const fresh = (b: Surfboard): Draft => { const k = readDrafts()[b.id]; return k && k.id === b.id && k.dims && k.look ? k : savedOf(b); };
 
-/** A tiny board drawn from one camera angle, for the angle thumbnails. */
-function AngleGlyph({id}: {id: Exclude<Preset, '360'>}) {
-  const board = 'M6 20 C 14 10, 44 9, 58 20 C 44 31, 14 30, 6 20 Z';
-  const body = id === 'rail' ? <path d="M4 21 C 20 17, 44 17, 60 20 L 60 22 C 44 23, 20 24, 4 22 Z" />
-    : id === 'tail' ? <path d="M-10 6 C 20 6, 40 10, 40 20 C 40 30, 20 34, -10 34 Z" />
-    : id === 'nose' ? <path d="M74 6 C 44 6, 24 12, 20 20 C 24 28, 44 34, 74 34 Z" />
-    : id === 'three' ? <path d={board} transform="rotate(-14 32 20) skewX(-18) translate(6 0)" />
-    : <path d={board} />;
-  return (
-    <svg viewBox="0 0 64 40" aria-hidden="true" className={`br-glyph${id === 'bottom' ? ' bottom' : ''}`}>
-      {body}
-      {id === 'deck' || id === 'three' ? <line x1="8" y1="20" x2="56" y2="20" className="str" transform={id === 'three' ? 'rotate(-14 32 20) skewX(-18) translate(6 0)' : undefined} /> : null}
-      {id === 'bottom' && <><circle cx="13" cy="17" r="1.6" /><circle cx="13" cy="23" r="1.6" /></>}
-    </svg>
-  );
-}
-
 function Swatch({on, label, onClick, children, style}: {on: boolean; label: string; onClick: () => void; children?: ReactNode; style?: CSSProperties}) {
   return <button type="button" className="br-sw" aria-pressed={on} aria-label={label} title={label} onClick={onClick} style={style}>{children}</button>;
 }
 
 interface Props {
-  board: Surfboard; boards: Surfboard[];
+  board: Surfboard;
   onSave: (b: Surfboard) => void; onFail: () => void;
-  match: ReactNode; matchAction: ReactNode;
-  /** T-050: pick another board from the rail (it flies onto the stage); its size fit for the selected spot-hour. */
-  onPick?: (id: string) => void; fits?: Map<string, SizeFit>;
+  /** read mode: the spec list (and its actions), shown beside or under the stage */
+  side: ReactNode;
+  /** Edit: the controls replace the spec list; Save and Discard end it */
+  editing: boolean; onDone: () => void; onDetails: () => void;
+  /** under the stage (a phone's board strip) */
+  under?: ReactNode;
 }
+const HINT_KEY = 'swello-quiver-turn-hint-v1';
+const hintSeen = () => { try { return localStorage.getItem(HINT_KEY) === '1'; } catch { return false; } };
 
-export default function BoardRoom({board, boards, onSave, onFail, match, matchAction, onPick, fits}: Props) {
-  const profile = useSwello().data.state.profile; // B12: ranges in the user's height unit
+export default function BoardRoom({board, onSave, onFail, side, editing, onDone, onDetails, under}: Props) {
+  useSwello();   // the room lives inside the store's provider (ranges and units are read by the parent)
   const uid = useId();
   const wrap = useRef<HTMLDivElement>(null), host = useRef<HTMLDivElement>(null), canvas = useRef<HTMLCanvasElement>(null), studio = useRef<Studio | null>(null);
-  const hot = useRef<Partial<Record<Anchor, HTMLButtonElement | null>>>({});
   const [draft, setDraftState] = useState<Draft>(() => fresh(board));
   const d = draft.id === board.id ? draft : fresh(board);
   if (draft.id !== board.id) setDraftState(d); // another board selected: its own saved values, or its unsaved draft from this session
   const setDraft = (next: Draft) => { setDraftState(next); keepDraft(next, next.id); };
-  const [angle, setAngle] = useState(0);
-  const angleRef = useRef(0); angleRef.current = angle;
-  const [compare, setCompare] = useState<string | null>(null);
-  const [spin, setSpin] = useState(false);
-  const spinRef = useRef(false); spinRef.current = spin;
-  const canFull = typeof document !== 'undefined' && !!document.fullscreenEnabled;
   const [full, setFull] = useState(false);
-  const [open, setOpenState] = useState<Anchor | null>(null);
-  const setOpen = (k: Anchor | null) => { openRef.current = k; setOpenState(k); };
   const [ready, setReady] = useState(false);
   const [status, setStatus] = useState('');
+  const [hint, setHint] = useState(() => !hintSeen());
   const noMotion = useRef(reduced()).current;
+  const dismissHint = () => { setHint(false); try { localStorage.setItem(HINT_KEY, '1'); } catch { /* remembered for this visit only */ } };
 
-  // Hotspots follow the board every rendered frame (written straight to the DOM, no React re-render per frame).
-  const openRef = useRef<Anchor | null>(null);
-  const place = () => {
-    const a = studio.current?.anchors();
-    if (openRef.current && !a?.[openRef.current]?.on) { openRef.current = null; setOpen(null); }
-    for (const k of ['nose', 'tail', 'fins', 'rail'] as Anchor[]) {
-      const el = hot.current[k]; if (!el) continue;
-      const p = a?.[k];
-      el.style.transform = p ? `translate(${p.x}px, ${p.y}px)` : '';
-      el.dataset.on = p?.on ? '1' : '0';
-    }
-  };
   useEffect(() => {
     let s: Studio;
     try {
-      s = new Studio(canvas.current!, host.current!, {reducedMotion: noMotion, onUserMove: () => { setSpin(false); }, onReady: () => setReady(true), onError: onFail, onPick: () => {}, onFrame: place}, 'focus');
+      s = new Studio(canvas.current!, host.current!, {reducedMotion: noMotion, onUserMove: () => dismissHint(), onReady: () => setReady(true), onError: onFail, onPick: () => {}}, 'focus');
     } catch (e) { console.error('board room', e); onFail(); return; }
     studio.current = s;
-    if (import.meta.env.DEV) Object.assign(window, {__studio: s}); // browser QA reads the camera and anchors; stripped from builds
+    if (import.meta.env.DEV) Object.assign(window, {__studio: s}); // browser QA reads the camera; stripped from builds
     return () => { s.dispose(); studio.current = null; };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // The selected board follows the draft live; Compare adds a second board at true relative length.
-  const other = compare ? boards.find((b) => b.id === compare && b.id !== board.id) ?? null : null;
-  const entry = (b: Surfboard, mine: boolean): BoardEntry => {
-    const dims = mine ? d.dims : pickDims(b), tpl = templateFor({type: b.type, length: dims.length}), o = loadOutline(b.id), tail = mine ? d.tail : b.tail;
-    // an example model (no outline of the person's own): its own hull at its own numbers, its procedural deck pattern along its traced outline
+  // The selected board follows the draft live.
+  const entry = (b: Surfboard): BoardEntry => {
+    const dims = d.dims, tpl = templateFor({type: b.type, length: dims.length}), o = loadOutline(b.id), tail = d.tail;
+    // an example board (no outline of the person's own): its own hull at its own numbers, its procedural deck pattern along its outline
     const ref = o ? null : referenceFor(b), rt = ref ? referenceTpl(b, dims, tail) : null, tr = rt ?? (o ? tracedTpl(b.id, tpl, o) : null);
-    return {id: b.id, spec: {template: tpl, ...dims, tail, ...(rt ? {exact: true, softTop: !!ref?.softTop} : {})}, look: mine ? d.look : loadLook(b), trim: trimFor(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {}), ...(ref ? {patternHw: ref.hw} : {})};
+    return {id: b.id, spec: {template: tpl, ...dims, tail, ...(rt ? {exact: true, softTop: !!ref?.softTop} : {})}, look: d.look, trim: trimFor(b), ...(tr ? {tpl: tr.tpl, tplKey: tr.key} : {}), ...(o?.tex ? {deckTex: o.tex} : {}), ...(ref ? {patternHw: ref.hw} : {})} as BoardEntry;
   };
-  // T-072 (Porsche pattern): the angle thumbnails are rendered from the live scene, so they show this board as configured right now.
-  const [thumbs, setThumbs] = useState<Record<string, string>>({}), thumbTimer = useRef(0);
-  const refreshThumbs = () => { window.clearTimeout(thumbTimer.current); thumbTimer.current = window.setTimeout(() => { const s = studio.current; if (s && !shown.current) { const t = s.snapshot(ANGLES.map((a) => a.id)); if (Object.keys(t).length) setThumbs(t); } }, 900); };
-  useEffect(() => () => window.clearTimeout(thumbTimer.current), []);
-  const shown = useRef<string | null | undefined>(undefined); // what the stage last showed: undefined (nothing yet), null (one board) or the compared id
+  const shown = useRef('');
   useEffect(() => {
     const s = studio.current; if (!s) return;
-    const was = shown.current, now = other?.id ?? null; shown.current = now;
-    s.setMode(now ? 'lineup' : 'focus');
-    void s.setBoards(now ? [entry(board, true), entry(other!, false)] : [entry(board, true)], board.id).then(() => {
-      if (now) { if (was !== now) s.frame('all'); return; }
-      // First view, or back from Compare: the chosen angle, still (setMode starts an auto-spin we do not want here).
-      if (was !== null) { if (spinRef.current) s.goTo('360'); else { s.setSpin(false); s.goTo(ANGLES[angleRef.current].id); } }
-      refreshThumbs();
-    });
-  }, [board.id, other?.id, d.dims.length, d.dims.width, d.dims.thickness, d.dims.volume, d.tail, JSON.stringify(d.look)]); // eslint-disable-line react-hooks/exhaustive-deps
+    const first = shown.current !== board.id; shown.current = board.id;
+    void s.setBoards([entry(board)], board.id).then(() => { if (first) s.goTo('three'); });
+  }, [board.id, d.dims.length, d.dims.width, d.dims.thickness, d.dims.volume, d.tail, JSON.stringify(d.look)]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    const f = () => setFull(document.fullscreenElement === wrap.current);
-    document.addEventListener('fullscreenchange', f); return () => document.removeEventListener('fullscreenchange', f);
-  }, []);
-  useEffect(() => { setOpen(null); }, [board.id, angle, compare]);
+  useEffect(() => { studio.current?.setFull(full); }, [full]);
+  useEffect(() => { if (!full) return; const k = (e: globalThis.KeyboardEvent) => { if (e.key === 'Escape') setFull(false); }; addEventListener('keydown', k); const o = document.body.style.overflow; document.body.style.overflow = 'hidden'; return () => { removeEventListener('keydown', k); document.body.style.overflow = o; }; }, [full]);
 
-  const go = (i: number) => {
-    const n = (i + ANGLES.length) % ANGLES.length;
-    setAngle(n); setCompare(null); setSpin(false); studio.current?.goTo(ANGLES[n].id); setStatus(`${ANGLES[n].label}`);
-  };
-  const toggleSpin = () => { if (compare) setCompare(null); const on = !spin; setSpin(on); if (on) studio.current?.goTo('360'); else studio.current?.setSpin(false); setStatus(on ? '360° turning' : '360° stopped'); };
-  const reset = () => { setSpin(false); studio.current?.setSpin(false); studio.current?.reset(ANGLES[angle].id); setStatus('View reset'); };
-  const toggleFull = () => { (document.fullscreenElement ? document.exitFullscreen() : wrap.current?.requestFullscreen?.())?.catch(() => setStatus('Full screen is not available here')); };
-  const startCompare = () => {
-    if (compare) { setCompare(null); return; }
-    const pick = boards.filter((b) => b.id !== board.id).sort((a, b) => Math.abs(a.length - board.length) - Math.abs(b.length - board.length))[0]; // the closest length first
-    if (pick) { setSpin(false); setCompare(pick.id); setStatus(`Comparing with ${pick.name}`); }
-  };
-
-  // Phones: a quick sideways flick on the stage steps the angle; slower drags orbit.
-  const flick = useRef<{x: number; y: number; t: number} | null>(null);
-  const hotTimer = useRef(0);
-  useEffect(() => () => window.clearTimeout(hotTimer.current), []);
-  const onDown = (e: RPointerEvent) => {
-    if (e.pointerType === 'touch') flick.current = {x: e.clientX, y: e.clientY, t: performance.now()};
-    // quiver-look: a touch on the board itself (not the stage's controls) shows the hotspots for a while; hover and focus show them on desktop
-    if (e.pointerType !== 'mouse' && e.target instanceof HTMLCanvasElement) { const st = wrap.current; st?.classList.add('hot-on'); window.clearTimeout(hotTimer.current); hotTimer.current = window.setTimeout(() => st?.classList.remove('hot-on'), 4000); }
-  };
-  const onUp = (e: RPointerEvent) => {
-    const f = flick.current; flick.current = null;
-    if (!f || compare || performance.now() - f.t > 350) return;
-    const dx = e.clientX - f.x, dy = e.clientY - f.y;
-    if (Math.abs(dx) > 50 && Math.abs(dy) < 40) go(angle + (dx < 0 ? 1 : -1));
-  };
+  const go = (p: Preset, label: string) => { studio.current?.goTo(p); dismissHint(); setStatus(`${label} view`); };
+  const reset = () => { studio.current?.reset(); setStatus('View reset'); };
   const onKeys = (e: KeyboardEvent) => {
     const s = studio.current; if (!s) return;
-    const map: Record<string, [number, number, number]> = {ArrowLeft: [-0.16, 0, 1], ArrowRight: [0.16, 0, 1], ArrowUp: [0, 0.1, 1], ArrowDown: [0, -0.1, 1], '+': [0, 0, 0.9], '=': [0, 0, 0.9], '-': [0, 0, 1.1]};
-    if (map[e.key]) { e.preventDefault(); s.nudge(...map[e.key]); setSpin(false); s.setSpin(false); }
+    const map: Record<string, [number, number, number]> = {ArrowLeft: [-0.16, 0, 1], ArrowRight: [0.16, 0, 1], ArrowUp: [0, -0.16, 1], ArrowDown: [0, 0.16, 1], '+': [0, 0, 0.9], '=': [0, 0, 0.9], '-': [0, 0, 1.1], '_': [0, 0, 1.1]};
+    if (map[e.key]) { e.preventDefault(); s.nudge(...map[e.key]); dismissHint(); }
+    else if (e.key === 'Home') { e.preventDefault(); reset(); }
   };
 
   // Draft editing; Save writes the board record and the look together.
@@ -189,91 +119,44 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
   const save = () => {
     if (!valid) return;
     const finsChanged = d.look.fins !== saved.look.fins;
-    onSave({...board, ...d.dims, tail: d.tail || board.tail, construction: d.construction || board.construction, fins: finsChanged ? finWord(d.look.fins) : board.fins});
+    onSave({...board, ...d.dims, volumeEstimated: d.dims.volume === board.volume ? board.volumeEstimated : false, tail: d.tail || board.tail, construction: d.construction || board.construction, fins: finsChanged ? finWord(d.look.fins) : board.fins});
     const lookStored = saveLook(board.id, d.look); keepDraft(null, board.id);
     setStatus(lookStored ? 'Saved to this board' : 'Saved the numbers, fins and tail. The color and finish could not be stored in this browser, so they last only for this visit.');
+    onDone();
   };
-  const discard = () => { keepDraft(null, board.id); setDraftState(savedOf(board)); setStatus('Changes discarded'); };
-
-  // Hotspot facts come from the saved record; a draft change says so.
-  const facts: Record<Anchor, {k: string; v: string; note?: string}> = {
-    fins: {k: 'Fins', v: said(board.fins) ?? 'Not recorded', note: d.look.fins !== saved.look.fins ? `Showing ${finWord(d.look.fins).toLowerCase()}, not saved` : undefined},
-    tail: {k: 'Tail', v: said(board.tail) ? `${said(board.tail)} tail` : 'Not recorded', note: d.tail !== saved.tail ? `Showing ${d.tail.toLowerCase()}, not saved` : undefined},
-    nose: {k: 'Nose and rocker', v: said(board.rocker) ?? 'Not recorded'},
-    rail: {k: 'Rails', v: said(board.rails) ?? 'Not recorded'},
-  };
-  const maker = [board.manufacturer, board.model].filter(Boolean).join(' · ') || 'Shaper not recorded';
+  const discard = () => { keepDraft(null, board.id); setDraftState(savedOf(board)); setStatus('Changes discarded'); onDone(); };
   const outline = loadOutline(board.id);
-  const shapeNote = outline?.tex ? 'Deck from your photo; outline traced from it.' : outline ? 'Outline traced from your photo.' : referenceFor(board) ? `${MODELLED_NOTE}: the outline traced from the maker's product photo, scaled to these numbers; foil, rails and bottom are typical for the type, not the exact shape.` : `${board.type} category shape scaled to these numbers, not a scan.`;
-  const cmpBoard = other;
-
-  const pill = (
-    <div className="br-pill" role="toolbar" aria-label="Stage">
-      <button type="button" aria-pressed={!compare && !spin} onClick={() => go(angle)}>Angles</button>
-      <button type="button" aria-pressed={!!compare} onClick={startCompare} disabled={boards.length < 2}>Compare</button>
-      <button type="button" aria-pressed={spin} onClick={toggleSpin} disabled={noMotion} title={noMotion ? 'Off: reduced motion' : undefined}>360°</button>
-      <span className="br-sep" aria-hidden="true" />
-      <button type="button" className="ic" aria-label="Reset view" onClick={reset}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 4v3.5h3.5" /></svg></button>
-      {canFull && <button type="button" className="ic" aria-label={full ? 'Exit full screen' : 'Full screen'} aria-pressed={full} onClick={toggleFull}><svg viewBox="0 0 20 20" aria-hidden="true"><path d={full ? 'M8 3v5H3M12 3v5h5M8 17v-5H3M12 17v-5h5' : 'M3 8V3h5M17 8V3h-5M3 12v5h5M17 12v5h-5'} /></svg></button>}
-    </div>
-  );
+  const shapeNote = outline?.tex ? 'Deck from your photo; outline traced from it.' : outline ? 'Outline traced from your photo.' : 'The 3D shape is approximate, built from this board\'s dimensions.';
 
   return (
     <div className="br">
       <div className="br-stagecol">
-        <div className={`br-stage${full ? ' full' : ''}`} ref={wrap} onPointerDown={onDown} onPointerUp={onUp} onKeyDown={(e) => { if (e.key === 'Escape' && open) setOpen(null); }}>
+        <div className={`br-stage${full ? ' full' : ''}`} ref={wrap}>
           <div className="br-canvas" ref={host}>
-            <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={cmpBoard ? `${board.name} and ${cmpBoard.name} side by side at true relative length.` : `3D view of ${board.name}. ${shapeNote} Drag or use the arrow keys to turn it, plus and minus to zoom.`} />
+            <canvas ref={canvas} tabIndex={0} onKeyDown={onKeys} aria-label={`3D view of ${board.name}. ${shapeNote} Drag to turn it on any axis, the arrow keys to turn, plus and minus to zoom, Home to reset.`} />
           </div>
-          {/* T-109: while the model loads, the board's own outline (faded, pulsing) instead of a grey block; the hotspots appear only once it has loaded. */}
+          {/* while the model loads, the board's own outline (faded, pulsing) instead of a grey block */}
           {!ready && <div className="br-load" aria-hidden="true"><BoardOutline b={board} scale={4} /></div>}
-          {ready && !cmpBoard && (['fins', 'tail', 'nose', 'rail'] as Anchor[]).map((k) => (
-            <button key={k} type="button" ref={(el) => { hot.current[k] = el; }} className="br-hot" data-k={k} data-on="0" aria-expanded={open === k} aria-controls={`${uid}-pop`}
-              aria-label={`${facts[k].k}: ${facts[k].v}`} onClick={() => setOpen(open === k ? null : k)}><i aria-hidden="true" /></button>
-          ))}
-          {open && !cmpBoard && (
-            <div id={`${uid}-pop`} className="br-pop" role="status" aria-label={facts[open].k}>
-              <span className="k">{facts[open].k}</span><b>{facts[open].v}</b>{facts[open].note && <span className="n">{facts[open].note}</span>}
-              <button type="button" className="x" aria-label="Close" onClick={() => setOpen(null)}><Icon name="close" size={14} /></button>
-            </div>
-          )}
-          {cmpBoard && (
-            <div className="br-cmp" role="group" aria-label="Compare with">
-              <span>{board.name} · {lengthLabel(board.length)}</span><span className="vs">vs</span>
-              <select aria-label="Compare with" value={cmpBoard.id} onChange={(e) => setCompare(e.target.value)}>
-                {boards.filter((b) => b.id !== board.id).map((b) => <option key={b.id} value={b.id}>{b.name} · {lengthLabel(b.length)}</option>)}
-              </select>
-            </div>
-          )}
-          {!cmpBoard && <div className="br-count" aria-hidden="true"><button type="button" tabIndex={-1} onClick={() => go(angle - 1)}>‹</button><span>{angle + 1} / {ANGLES.length}</span><button type="button" tabIndex={-1} onClick={() => go(angle + 1)}>›</button></div>}
-          {pill}
+          {ready && hint && <p className="br-hint" aria-hidden="true">Drag to turn</p>}
+          <div className="br-corner" role="toolbar" aria-label="3D view controls">
+            <button type="button" className="br-ic" aria-label="Reset the view" title="Reset view (Home)" onClick={reset}><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10a6 6 0 1 0 2-4.5M4 4v3.5h3.5" /></svg></button>
+            <button type="button" className="br-ic" aria-label={full ? 'Close full screen' : 'Full screen'} aria-pressed={full} title={full ? 'Close full screen' : 'Full screen'} onClick={() => setFull(!full)}>
+              <svg viewBox="0 0 20 20" aria-hidden="true"><path d={full ? 'M8 3v5H3M12 3v5h5M8 17v-5H3M12 17v-5h5' : 'M3 8V3h5M12 3h5v5M17 12v5h-5M8 17H3v-5'} /></svg></button>
+          </div>
           <p className="sr-only" role="status" aria-live="polite">{status}</p>
         </div>
-        <div className="br-thumbs" role="group" aria-label="Camera angle">
-          {ANGLES.map((a, i) => (
-            <button key={a.id} type="button" aria-pressed={!compare && !spin && angle === i} onClick={() => go(i)}>{thumbs[a.id] ? <img className="br-th-img" src={thumbs[a.id]} alt="" width={100} height={64} /> : <AngleGlyph id={a.id} />}<span>{a.label}</span></button>
-          ))}
+        <div className="br-views" role="group" aria-label="Jump to a view">
+          {ANGLES.map((a) => <button key={a.id} type="button" onClick={() => go(a.id, a.label)}>{a.label}</button>)}
         </div>
-        {onPick && boards.length > 1 && (
-          <nav className="br-rail" aria-label="Your boards">
-            {boards.map((b) => { const maxL = Math.max(...boards.map((x) => x.length)), ft = fits?.get(b.id); return (
-              <button key={b.id} type="button" className="br-rail-b" aria-pressed={b.id === board.id} onClick={() => onPick(b.id)}
-                aria-label={`${b.name}, ${lengthLabel(b.length)}${ft && ft.state !== 'none' ? `, ${ft.label.toLowerCase()} today` : ''}${b.id === board.id ? ', on the stage' : ''}`}>
-                <span className="br-rail-o" aria-hidden="true"><BoardOutline b={b} scale={58 / maxL} look={b.id === board.id ? d.look : undefined} /></span>
-                <span className="br-rail-t"><b>{b.name}</b><small>{lengthLabel(b.length)}</small>{ft && ft.state !== 'none' && <em className={`qv-fit ${ft.state}`}>{ft.label}</em>}</span>
-              </button>
-            ); })}
-          </nav>
-        )}
+        <p className="br-note">{shapeNote}</p>
+        {under}
       </div>
 
-      <aside className="br-panel" aria-label={`Configure ${board.name}`}>
-        <header className="br-h">
-          <h2><span className="br-name">{board.name}</span></h2>
-          <p>{[board.type, maker || null, board.demo ? exampleLabel(board) : null].filter(Boolean).join(' · ')}</p>
-          {(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <p className="br-fit"><em className={`qv-fit ${ft.state}`}>{ft.label}</em> <span>today · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {surfRange(ft.board[0], ft.board[1], profile)}</span></p> : null; })()}
-          <p className="br-match">{match}</p>
-        </header>
+      {!editing ? <div className="br-side">{side}</div> : (
+      <aside className="br-panel" aria-label={`Edit ${board.name}`}>
+        <header className="br-h"><h2><span className="br-name">Edit {board.name}</span></h2>
+          <p className="fine">Changes show on the model first and are saved only when you press Save.</p>
+          <button type="button" className="btn" onClick={onDetails}>Name, maker, notes or delete…</button></header>
 
         <section className="br-group" aria-labelledby={`${uid}-g-dims`}>
           <h3 id={`${uid}-g-dims`}>Dimensions</h3>
@@ -282,7 +165,7 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
               <span className="k">{LABEL[k]}</span>
               <div className="c">
                 <button type="button" aria-label={`Decrease ${LABEL[k].toLowerCase()}`} onClick={() => setDims(k, d.dims[k] - STEP[k])}>−</button>
-                <output aria-live="polite">{FMT[k](d.dims[k])}</output>
+                <output aria-live="polite">{FMT[k](d.dims[k])}{k === 'volume' && isVolumeEstimate(board) && d.dims.volume === board.volume ? ' (estimate)' : ''}</output>
                 <button type="button" aria-label={`Increase ${LABEL[k].toLowerCase()}`} onClick={() => setDims(k, d.dims[k] + STEP[k])}>+</button>
               </div>
             </div>
@@ -322,19 +205,14 @@ export default function BoardRoom({board, boards, onSave, onFail, match, matchAc
           ))}</div>
         </section>
 
+
         <div className="br-save">
           <button type="button" className="btn primary" disabled={!dirty || !valid} onClick={save}>Save to board</button>
-          <button type="button" className="btn" disabled={!dirty} onClick={discard}>Discard</button>
-          <span className="br-note">{dirty ? 'Unsaved changes: the model shows them, the board does not have them yet.' : 'Changes show on the model first and save only when you press Save.'}</span>
+          <button type="button" className="btn" onClick={discard}>{dirty ? 'Discard changes' : 'Done'}</button>
+          <span className="br-note">{dirty ? 'Unsaved changes: the model shows them, the board does not have them yet.' : ''}</span>
         </div>
-        <p className="br-note">{shapeNote}</p>
       </aside>
-
-      <div className="br-bar" role="region" aria-label="Board Match today">
-        {/* T-099: on phones the fit line lives here (it sat under this fixed bar); the long Board Match sentence stays on its own page. */}
-        <p>{(() => { const ft = fits?.get(board.id); return ft && ft.state !== 'none' ? <><b>Today:</b> <em className={`qv-fit ${ft.state}`}>{ft.label}</em> · {ft.source === 'board' ? 'your range' : `${board.type.toLowerCase()} range`} {surfRange(ft.board[0], ft.board[1], profile)}</> : match; })()}</p>
-        {dirty ? <button type="button" className="btn primary" disabled={!valid} onClick={save}>Save</button> : matchAction}
-      </div>
+      )}
     </div>
   );
 }

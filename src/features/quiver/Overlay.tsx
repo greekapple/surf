@@ -49,7 +49,7 @@ export function Strip({boards, selectedId, onSelect}: {boards: Surfboard[]; sele
     <ul className="qv-strip" aria-label="Choose a board">{boards.map((b) => (
       <li key={b.id}><button type="button" aria-pressed={b.id === selectedId} aria-label={`${b.name}, ${lengthLabel(b.length)}`} title={b.name} onClick={() => onSelect(b.id)}>
         <BoardPicture b={b} px={54 / maxLen} outline={wallOutline(b)} /> {/* T-053: the same picture as the wall, not the 3D colour */}
-      </button></li>
+      </button><span className="qv-strip-n" aria-hidden="true">{b.name}</span></li>
     ))}</ul>
   );
 }

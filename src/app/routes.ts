@@ -24,8 +24,8 @@ export const AREAS: AreaDef[] = [
     {id: 'discover', label: 'Find Spots', hint: 'Spots near you by distance and conditions'},
   ]},
   {id: 'quiver', label: 'Quiver', sections: [
-    {id: '', label: 'My Boards', hint: 'Your collection'},
-    {id: 'showroom', label: 'Showroom', hint: 'Inspect one board'},
+    {id: '', label: 'Quiver', hint: 'Your boards and the one to take today'},
+    {id: 'showroom', label: 'Showroom', hint: 'Inspect one board in 3D', hidden: true},   // quiver-lock: the Quiver is one page now; this link opens it in 3D
     {id: 'match', label: 'Board Match', hint: 'Which board for these conditions'},
     {id: 'compare', label: 'Compare Boards', hint: 'Two boards side by side'},
   ]},

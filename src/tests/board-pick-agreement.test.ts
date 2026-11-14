@@ -12,7 +12,7 @@ const marine = (hs: number) => ({latitude: 37.75, longitude: -122.6, hourly_unit
   hourly: {time: times, wave_height: times.map(() => hs + 0.05), swell_wave_height: times.map(() => hs), swell_wave_direction: times.map(() => 263.49), swell_wave_period: times.map(() => 14), secondary_swell_wave_height: times.map(() => 0), secondary_swell_wave_direction: times.map(() => 0), secondary_swell_wave_period: times.map(() => 0), sea_surface_temperature: times.map(() => 14)}});
 const weather = {hourly_units: {wind_speed_10m: 'mp/h', wind_direction_10m: '°', wind_gusts_10m: 'mp/h'}, hourly: {time: times, wind_speed_10m: times.map(() => 4), wind_direction_10m: times.map(() => 90), wind_gusts_10m: times.map(() => 4)}};
 import fs from 'node:fs';
-import {boardPickFor, rankBoards, recommended} from '../features/quiver/fit.ts';
+import {boardPickFor, rankBoards, recommended, abilityOk, suits, sizeFit} from '../features/quiver/fit.ts';
 import {scoreBoard} from '../recommendation/board.ts';
 
 // T-099: Home's quiver pick, Board Match and Personal call ONE function (boardPickFor) for a spot-hour, so for the same spot-hour and height
@@ -26,7 +26,7 @@ for (const [id, name] of [['spot-2', 'Ocean Beach'], ['spot-3', 'Linda Mar']] as
       const h = spotHourOf(s, f, NOW, defaultProfile, {}).surf.headline;
       const est: [number, number] | null = h.kind === 'estimate' ? [h.loFt, h.hiFt] : null;
       assert.deepEqual(choice.est, est, `${name} ${hs} m: the pick uses the same headline as every surface`);
-      if (choice.mode === 'size') assert.equal(choice.pick?.id ?? null, recommended(rankBoards(demoBoards, est, f.primary?.period ?? null))[0]?.board.id ?? null);
+      if (choice.mode === 'size') assert.equal(choice.pick?.id ?? null, recommended(rankBoards(demoBoards, est, f.primary?.period ?? null)).find((x) => abilityOk(x.board, defaultProfile))?.board.id ?? null);   // quiver-lock: size mode applies the ability gate too
       if (choice.pick) { const r = choice.ranked.find((x) => x.board.id === choice.pick!.id)!; if (choice.mode === 'size') assert.ok(r.size.state === 'in' || r.size.state === 'edge', 'the pick suits the size'); }
       // the same inputs give the same answer (Home, Board Match and Personal pass exactly these)
       assert.equal(boardPickFor(demoBoards, s, f, NOW, defaultProfile, {}).pick?.id, choice.pick?.id);
@@ -36,7 +36,8 @@ for (const [id, name] of [['spot-2', 'Ocean Beach'], ['spot-3', 'Linda Mar']] as
     const f: any = {...recFor(id, 1.5), face: 5, character: 'Peaky', availability: {face: true, swell: true, wind: true, tide: true, organization: true}};
     const choice = boardPickFor(demoBoards, s, f, NOW, defaultProfile, {});
     assert.equal(choice.mode, 'score');
-    const top = demoBoards.map((b) => scoreBoard(b, f, defaultProfile, choice.est)).sort((a, b) => b.score - a.score).find((x) => x.eligible)?.board.id ?? null;
+    const sizeEst = choice.est ?? (f.availability.face && Number.isFinite(f.face) ? [f.face, f.face] as [number, number] : null);
+    const top = choice.scored.find((x) => x.eligible && suits(sizeFit(x.board, sizeEst)))?.board.id ?? null;   // quiver-lock: eligible AND the surf is in or at the edge of its range
     assert.equal(choice.pick?.id ?? null, top);
   });
 }

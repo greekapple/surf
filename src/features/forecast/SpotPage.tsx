@@ -8,7 +8,6 @@ import {useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode} fr
 import type {Forecast, Surfboard, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
-import {scoreBoard} from '../../recommendation/board';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {CoastTile, CoastCredit} from './CoastTile';
 import {periodStep} from '../../services/coastTile';
@@ -25,7 +24,8 @@ import {dayText} from '../../services/weekCell';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
-import {wind as windText} from '../../utils/units';
+import {surfRange, wind as windText} from '../../utils/units';
+import {rangeSourceText} from '../quiver/fit';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, htSigned, monotonePath, windVal, spotLatLon, type Day} from './helpers';
@@ -270,12 +270,6 @@ function TideMini({hours, at, extrema, p, turnsSaved = false}: {hours: HourSampl
   );
 }
 
-/** Board Match in one line (Surfline's "Ride an all-rounder"): the best board from the user's quiver for this hour, or why there is none. */
-/** The best eligible board in the quiver for this hour (Board Match), or null. */
-export function bestBoard(boards: import('../../models/index').Surfboard[], f: Forecast, p: UserProfile, hs: HeadlineSurf) {
-  const range: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
-  return boards.map((b) => scoreBoard(b, f, p, range)).filter((m) => m.eligible).sort((a, b) => b.score - a.score)[0] ?? null;
-}
 export const feetInches = (inches: number) => `${Math.floor(inches / 12)}'${Math.round(inches % 12)}"`;
 
 /** T-065: the board for these waves, from size + period (wave shape is unknown). No row at all when nothing can be recommended. */
@@ -286,7 +280,7 @@ export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('.
   if (!top || top.size.state === 'none') return null;
   return (
     <section className="sp-board" aria-label="Board Match">
-      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}.` : '.'} <span className="fine">Wave shape unknown.</span></p>
+      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {surfRange(top.size.board[0], top.size.board[1], p)} ({rangeSourceText(top.size, top.board.type)}){top.board.demo ? ', an example board' : ''}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}.` : '.'} {choice.mode === 'size' && <span className="fine">Wave shape unknown.</span>}</p>
       <button className="sp-link" onClick={onOpen}>Board Match</button>
     </section>
   );

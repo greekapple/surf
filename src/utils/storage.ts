@@ -36,6 +36,7 @@ export function validateState(raw:unknown):AppState{
  for(const value of raw.boards){if(!object(value))return fail('Invalid board.');const b=value as unknown as Surfboard;
  if(![b.id,b.name].every(v=>text(v,100)&&v.trim().length>0)||![b.manufacturer,b.model].every(v=>text(v,100))||ids.has(b.id)||!boardTypes.includes(b.type)||typeof b.favorite!=='boolean'||!validDimensions(b.length,b.width,b.thickness,b.volume))return fail('Invalid board identity, type, or dimensions.');ids.add(b.id);
  for(const key of ['tail','fins','construction','rocker','rails','character','notes','catalogId','specificationSource'] as const)if(b[key]!==undefined&&!text(b[key]))return fail(`Invalid board ${key}.`);
+ if(b.volumeEstimated!==undefined&&typeof b.volumeEstimated!=='boolean')return fail('Invalid board volume flag.');
  for(const v of [b.minWave,b.maxWave])if(v!==undefined&&!number(v,0,40))return fail('Invalid board wave range.');
  if(b.minWave!==undefined&&b.maxWave!==undefined&&b.minWave>b.maxWave)return fail('Board wave range is reversed.');
  if([b.photoDataURL,b.backPhotoDataURL].some(v=>v!==undefined&&!validBoardPhoto(v)))return fail('Invalid board photo; only bounded local JPEG, PNG and WebP images are supported.');

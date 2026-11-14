@@ -17,7 +17,7 @@ import {DRAWN_CAPTION, WaveGlyph} from '../../ui/WaveGlyph';
 import {heroMediaFor} from './heroMedia';
 import type {OwnCam} from '../../data/cams';
 import {NwsBanner} from '../forecast/Trust';
-import {boardPickFor} from '../quiver/fit';
+import {boardPickFor, rangeSourceText} from '../quiver/fit';
 import {heroEstimateText} from '../../services/headlineLabel';
 import {certaintyOf, wideText, HORIZON_HOURS} from '../../services/certainty';
 import {greetingLine} from './greeting';
@@ -112,7 +112,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const altAt = alt && cv?.level === 'low' ? spotHourOf(alt.spot, alt.rec, nowMs, profile, {bundle}) : null, altCv = alt && altAt ? certaintyOf(alt.spot.id, altAt.surf.headline, alt.rec.timestamp, nowMs) : null;
   const altText = alt && altAt?.surf.headline.kind === 'estimate' ? `${alt.spot.name}, ${alt.when === bet?.when ? '' : `${alt.when} `}${alt.window.label}${viewerTag(timeZoneOf(alt.spot), alt.window.start)}, ${altAt.surf.value}${altCv?.disagree ? ' (models differ)' : ''}${altCv && altCv.level !== 'too-far' ? `, ${altCv.word}` : ''}` : null;
   // only a board the surf is inside (or at the edge of) its range; in size-only mode the wave shape is unknown and the line says so
-  const boardText = bet?.sized && pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? `${pick.board.name}` : null, boardNote = boardText && choice?.mode === 'size' ? ' (by size; wave shape unknown)' : '';
+  const boardText = bet?.sized && pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? `${pick.board.name}` : null,
+    // quiver-lock: an example board is said to be one (it is not the surfer's), with a way to add their own
+    boardNote = boardText ? `${choice?.mode === 'size' ? ' (by size; wave shape unknown)' : ''}${pick?.board.demo ? ' · an example board: add your own in Quiver' : ''}` : '';
   // T-106: the hero draws the hour the sentence talks about (the bet's first hour), else the spot's current hour; same headline as the number.
   const [camFailed, setCamFailed] = useState(false), media = camFailed ? {kind: 'drawn' as const} : heroMediaFor(spot.id);
   const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
@@ -147,7 +149,7 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
         <div><dt>Sunset</dt><dd>{clock(today.sunset, tz)}{viewerTag(tz, today.sunset)}</dd></div>
         <div><dt>Next tide</dt><dd title={nextTide && station ? `NOAA CO-OPS prediction at ${station.station.name}, ${station.distanceKm} km away; not at the beach${nextTide.saved ? '; saved copy, the latest refresh did not succeed' : ''}` : station ? 'No prediction loaded for the nearest station' : noTideNote(spot.id).replace('near this spot.', 'within range.')}>{nextTide && station ? <>{nextTide.type.toLowerCase()} {clock(nextTide.t, tz)}{viewerTag(tz, nextTide.t)}{nextTide.saved ? ' (saved data)' : ''} <small>{station.station.name} station, {station.distanceKm} km{(station as {fallback?: boolean}).fallback ? ` · ${((station as {fallbackLabel?: string}).fallbackLabel ?? 'inlet or bay-side station').toLowerCase()}: times and range may differ from the open beach` : ''}</small></> : (regionNote(spot, 'tide') ?? '—')}</dd></div>
         <div><dt>Water</dt><dd>{water !== null ? `${water}°F` : '—'}</dd></div>
-        <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? <>{pick.board.name} <small>suits {surfRange(pick.size.board[0], pick.size.board[1], profile)}{choice?.mode === 'size' ? ', wave shape unknown' : ''}</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
+        <div className="wel-pick"><dt>Your quiver's pick</dt><dd>{pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? <>{pick.board.name} <small>suits {surfRange(pick.size.board[0], pick.size.board[1], profile)} ({rangeSourceText(pick.size, pick.board.type)}){choice?.mode === 'size' ? ', wave shape unknown' : ''}</small></> : boards.length ? <small>No board fits a known surf estimate here</small> : <small>Add boards to get a pick</small>}</dd></div>
       </dl>
     </section>
   );
