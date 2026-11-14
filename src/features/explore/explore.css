@@ -196,8 +196,9 @@
 
 /* Phones: search lives in a bottom sheet with three detents (peek = the selected spot, half, full list) */
 @media (max-width: 860px) {
-  .xmap { height: calc(100dvh - var(--nav-h) - var(--tab-h) - env(safe-area-inset-bottom)); --peek: 214px; }
-  .xsheet.phone { position: absolute; z-index: 1002; left: 0; right: 0; bottom: 0; height: auto; border-radius: 16px 16px 0 0; border-width: 1px 0 0; transition: height 260ms var(--ease); }
+  /* phone shell: the map runs to the bottom of the screen, behind the floating tab bar; --tabs is the bar's footprint, and every bottom-anchored overlay (all keyed to --peek, the sheet's height) is lifted by it */
+  .xmap { height: calc(100dvh - var(--nav-h)); --tabs: calc(var(--tab-h) + env(safe-area-inset-bottom)); --peek: calc(214px + var(--tabs)); }
+  .xsheet.phone { position: absolute; z-index: 1002; left: 0; right: 0; bottom: 0; box-sizing: border-box; height: auto; border-radius: 16px 16px 0 0; border-width: 1px 0 var(--tabs); border-bottom-color: var(--xc); /* the bottom border is the room for the tab bar: content clips above it, the sheet's ground shows behind the bar */ transition: height 260ms var(--ease); }
   .xsheet.phone[data-d='peek'] { max-height: 50%; }
   .xsheet.phone[data-d='half'] { height: 52%; }
   .xsheet.phone[data-d='full'] { height: calc(100% - 12px); }
@@ -493,7 +494,7 @@ button.xstatus { cursor: pointer; font: inherit; }
   .xbottom .xtime.open { left: 0; right: 0; bottom: 0; position: absolute; }
   .xleaf .leaflet-bottom { bottom: calc(var(--peek) + 104px); }
   /* The peek is the selected spot's essentials only, at most a quarter of the map's height; tap or drag the handle for the list. */
-  .xsheet.phone[data-d='peek'] { max-height: 25%; overflow: hidden; }
+  .xsheet.phone[data-d='peek'] { max-height: calc(25% + var(--tabs)); overflow: hidden; }
   .xsheet.phone[data-d='peek'] .xco-photo, .xsheet.phone[data-d='peek'] .xco-words { display: none; } /* the label (surf height · model estimate) and the wind stay */
   .xsheet.phone[data-d='peek'] .xgrab { margin-bottom: 4px; }
   .xsheet.phone[data-d='peek'] .xco { padding-bottom: 8px; }

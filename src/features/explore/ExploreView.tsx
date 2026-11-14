@@ -558,7 +558,7 @@ function OceanMap({section, go}: ViewProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     const el = sheetRef.current, root = rootRef.current;
-    if (root && (!phone || !sheetOn)) root.style.setProperty('--peek', '0px'); // T-117: no spot sheet, so the strip sits on the map's bottom edge
+    if (root && (!phone || !sheetOn)) root.style.setProperty('--peek', phone ? 'var(--tabs)' : '0px'); // T-117: no spot sheet, so the strip sits on the map's bottom edge (phone shell: just above the floating tab bar, which the map runs behind)
     if (!phone || !el || !root || typeof ResizeObserver !== 'function') return;
     const ro = new ResizeObserver(() => { if (detent === 'peek') root.style.setProperty('--peek', `${Math.round(el.getBoundingClientRect().height)}px`); });
     ro.observe(el); return () => ro.disconnect();

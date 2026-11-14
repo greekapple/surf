@@ -39,7 +39,7 @@ test('the tab bar floats above the safe area and the page, footer and map reserv
   assert.match(bar, /bottom: calc\(env\(safe-area-inset-bottom\) \+ 10px\)/); assert.match(bar, /left: 12px; right: 12px/); assert.match(bar, /border-radius: 30px/);
   assert.match(css, /backdrop-filter: blur\(22px\)/); assert.match(css, /@supports \(\(backdrop-filter: blur\(1px\)\) or \(-webkit-backdrop-filter: blur\(1px\)\)\)/); assert.match(bar, /background: var\(--tab-bg\)/, 'a solid background before @supports');
   assert.match(css, /\.page \{ padding-bottom: calc\(var\(--tab-h\) \+ env\(safe-area-inset-bottom\)/); assert.match(css, /\.foot \{ padding-bottom: calc\(var\(--tab-h\) \+ env\(safe-area-inset-bottom\)/);
-  assert.match(read('src/features/explore/explore.css'), /\.xmap \{ height: calc\(100dvh - var\(--nav-h\) - var\(--tab-h\) - env\(safe-area-inset-bottom\)\)/);
+  assert.match(read('src/features/explore/explore.css'), /\.xmap \{ height: calc\(100dvh - var\(--nav-h\)\); --tabs: calc\(var\(--tab-h\) \+ env\(safe-area-inset-bottom\)\); --peek: calc\(214px \+ var\(--tabs\)\)/); // the map runs behind the bar; overlays lift by --tabs
   assert.match(css, /display-mode: standalone[\s\S]*env\(safe-area-inset-top\)/);
   const tok = read('src/ui/tokens.css'); assert.ok((tok.match(/--tab-glass:/g) ?? []).length === 2 && (tok.match(/--tab-bg:/g) ?? []).length === 2, 'light and dark tab tokens');
 });
