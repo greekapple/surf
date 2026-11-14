@@ -112,6 +112,23 @@ Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C 
   - map-dots' snapshot check prints SKIP once the recorded day on 5194 expires (record a newer day).
 - **Deliverable:** a table of job × width × theme with pass or fail, before and after; the toolkit gaining a check for every bug you fix.
 
+### Track 0.5: the five-second Today call (user, 2026-11-14, after reviewing a competitor's phone app)
+**Goal:** on a phone, the first card answers "go or not, how big, what's the surface like, which board" in one read, then Share. Our own design (docs/design/RULES.md); copy nothing.
+- One **Today call card** at the top of Home and of the spot page:
+  - the verdict as a big pill in our rating colour;
+  - a one-line reason chip from the Call's own reason (e.g. "held back by wind");
+  - a plain-language headline built from data: body-height words plus the surface word (Glassy / Clean / Textured / Choppy, our labelled rule, from the week-bars work), e.g. "Chest to head high, textured";
+  - two short sentences: wind, tide now and next, best window;
+  - a **"Bring your <board>"** row from Board Match with an honest fit note;
+  - a **"Send today's call"** share button.
+  Ranges, not one-decimal numbers. Every estimate keeps its label (model estimate / NWS / offshore).
+- **Map:** favourite-spot chips across the top (name, range, body words, rating colour; tap to fly there), and a "Best near your spots right now" card above the dots on phones. Both are gated to California, as the app is.
+- **Hourly row on the Today card:** the next 6 daylight hours as small cards (time, size range, body words, surface word). Start at the current hour, never midnight.
+- **Acceptance:**
+  - the brief-check answer is readable without scrolling at 390×844;
+  - journeys, t034, phone-pass and the data-honesty review pass;
+  - 390 and 1440, light and dark.
+
 ### Track 1: declutter, and stop it looking AI-made
 The user, again: avoid overcrowding.
 - **Screen budget:**
