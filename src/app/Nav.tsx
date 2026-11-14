@@ -14,6 +14,7 @@ import {limitedText} from '../services/sourceStatus';
 import {AutofillInput} from '../ui/AutofillInput';
 import {completion, recentSpots, rememberSpot, searchSpots} from '../services/spotSearch';
 import {conditionWord} from '../ui/Condition';
+import {useCollapsedTitle, useTabBarAutoHide} from '../ui/phoneShell';
 
 type Go = (area: Area, section?: string) => void;
 const linkProps = (go: Go, area: Area, section = '') => ({
@@ -207,9 +208,12 @@ export function TopNav({area, section, go}: {area: Area; section: string; go: Go
   const {data} = useSwello();
   const first = data.state.profile.displayName?.trim().split(/\s+/)[0] || 'You';
   const def = (id: Area) => AREAS.find((a) => a.id === id)!;
+  // phone shell: Personal, Quiver and the Forecast sub-pages move their title into the bar once the heading scrolls away (the spot page keeps its own header)
+  const title = useCollapsedTitle(area === 'personal' || area === 'quiver' || (area === 'forecast' && section !== ''), `${area}/${section}`);
   return (
     <header className="topnav">
       <a className="wordmark" aria-label="Swello home" aria-current={area === 'home' ? 'page' : undefined} {...linkProps(go, 'home')}><svg className="wm-mark" viewBox="0 0 24 24" aria-hidden="true"><path d="M2 17c3.5 0 5-2.2 6.4-5.4C10 8 12 5 16 5c3 0 5 2 5 4.6 0 2-1.5 3.4-3.3 3.4-1.5 0-2.6-1-2.6-2.4 0-1 .6-1.8 1.5-2.1" /><path d="M2 20.5c2.2 0 3.6-.8 5-.8s2.8.8 5 .8 3.6-.8 5-.8 2.8.8 5 .8" /></svg>Swello</a>
+      <span className="nav-title" aria-hidden="true" data-on={title ? 'true' : 'false'}>{title}</span>
       <nav aria-label="Primary"><ul className="areas">
         {(['forecast', 'explore', 'quiver'] as const).map((id) => <AreaMenu key={id} def={def(id)} current={id === area} section={section} go={go} />)}
       </ul></nav>
@@ -317,6 +321,7 @@ function Search({go}: {go: Go}) {
 }
 
 export function TabBar({area, go}: {area: Area; go: Go}) {
+  useTabBarAutoHide(area);
   return (
     <nav className="tabbar" aria-label="Primary">
       {AREAS.map((def) => (

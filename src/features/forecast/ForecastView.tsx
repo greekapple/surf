@@ -146,6 +146,7 @@ export function ForecastView({go}: ViewProps) {
           </div>
         </div>
       </SpotBand>
+      {narrow && <ShareWindow card={nowCard} fab />}{/* phone: the same Share (same card) as a round button above the tab bar; it steps aside while the header's Share is on screen */}
       {shareNote && <p className="sp-sharenote" role="status">{shareNote}</p>}
       {/* forecast-order (user, 2026-11-12): the page runs in the order of a brief check: the Now block (the call and the key numbers), one NWS line, the week, today hour by hour, the camera, the charts; research sits below "More detail". Nothing is removed; every number shows once. */}
       <section className="sp-now" aria-label="Now">

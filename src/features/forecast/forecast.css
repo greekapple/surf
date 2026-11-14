@@ -605,6 +605,16 @@ p.sp-wn { display: block; }
 @media (max-width: 860px) {
   .sp-band .sp-when .sp-share { grid-area: share; align-self: end; }
 }
+/* phone shell: the floating Share (round, bottom right, above the tab bar). It steps aside while the header's Share is on screen, and drops to the corner when the tab bar hides. */
+.share-fab-w { display: none; }
+@media (max-width: 860px) {
+  .share-fab-w { display: block; position: fixed; right: 16px; bottom: calc(env(safe-area-inset-bottom) + 82px); z-index: 1150; transition: transform 260ms var(--ease), opacity 160ms var(--ease), visibility 0s; }
+  html[data-tabbar='hidden'] .share-fab-w { transform: translateY(66px); }
+  .share-fab-w[data-away='true'] { opacity: 0; visibility: hidden; pointer-events: none; transition: transform 260ms var(--ease), opacity 160ms var(--ease), visibility 0s 160ms; }
+  .share-fab { display: grid; place-items: center; width: 52px; height: 52px; padding: 0; border: 0; border-radius: 50%; background: var(--text); color: var(--bg); box-shadow: 0 6px 18px var(--tab-shadow); cursor: pointer; }
+  .share-fab:active { transform: scale(0.94); }
+  .share-fab-w .share-toast { position: absolute; right: 0; bottom: calc(100% + 8px); max-width: 70vw; white-space: nowrap; color: var(--text); background: var(--s1); border: 1px solid var(--line); padding: 4px 8px; border-radius: var(--r1); }
+}
 /* water quality line */
 .sp-wq { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; font-size: 14px; }
 .sp-wq b { font-weight: 600; }

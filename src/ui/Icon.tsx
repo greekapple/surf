@@ -28,6 +28,7 @@ const PATHS = {
   tide: 'M12 3v10M8.5 9.5 12 13l3.5-3.5M3 18c2 0 2.5-2 4.5-2s2.5 2 4.5 2 2.5-2 4.5-2 2.5 2 4.5 2',
   locate: 'M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3',
   alert: 'M12 4 2.8 19.5h18.4zM12 10v4.5M12 17v.01',
+  share: 'M12 15V3.5M8 7l4-3.5L16 7M7 10.5H5.5V20h13v-9.5H17',
   thermo: 'M10 14.5V5a2 2 0 1 1 4 0v9.5a4 4 0 1 1-4 0z',
 } as const;
 export type IconName = keyof typeof PATHS;

@@ -98,7 +98,8 @@
   --tip-bg: rgb(255 255 255 / 0.97);
   --shadow: rgb(14 26 34 / 0.18);
   --nav-bg: rgb(251 251 253 / 0.8);
-  --tab-bg: rgb(255 255 255 / 0.95);
+  --tab-bg: #ffffff; /* floating tab bar: solid fallback where backdrop-filter is missing */
+  --tab-glass: rgb(255 255 255 / 0.74); --tab-line: rgb(14 26 34 / 0.1); --tab-shadow: rgb(14 26 34 / 0.16); --tab-active: rgb(255 90 31 / 0.13);
   --chip-bg: rgb(14 26 34 / 0.07);
   --stage-a: #f7fafb;
   --stage-b: #c5d4da;
@@ -153,7 +154,8 @@
   --tip-bg: rgb(16 32 44 / 0.96);
   --shadow: rgb(0 0 0 / 0.5);
   --nav-bg: rgb(7 17 26 / 0.72);
-  --tab-bg: rgb(7 17 26 / 0.94);
+  --tab-bg: #101b26;
+  --tab-glass: rgb(16 28 40 / 0.72); --tab-line: rgb(255 255 255 / 0.12); --tab-shadow: rgb(0 0 0 / 0.5); --tab-active: rgb(255 90 31 / 0.22);
   --chip-bg: rgb(255 255 255 / 0.08);
   --stage-a: #1f3546;
   --stage-b: #0a1620;
