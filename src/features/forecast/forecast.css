@@ -1039,7 +1039,7 @@ p.sp-wn { display: block; }
 .sp-wbmore > summary::-webkit-details-marker { display: none; }
 .sp-wbmore > summary::after { content: ''; flex: none; width: 7px; height: 7px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin: -4px 4px 0 auto; transition: transform 160ms var(--ease); }
 .sp-wbmore[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
-.sp-wbmore > summary > :first-child, .sp-wbmore > summary { white-space: nowrap; }
+.sp-wbmore > summary { white-space: nowrap; }
 .sp-wbmore-s { min-width: 0; flex: 1 1 0; font-size: 12px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sp-wbmore > .sp-wbkey { margin-top: 0; }
 .sp-wbmore > .sp-dayrange { margin-top: 6px; }
@@ -1074,7 +1074,7 @@ p.sp-wn { display: block; }
   .sp-grid { row-gap: 0; }
   .sp { gap: 6px; }
   .sp-scalep { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-  .sp-grid .hr { margin: 4px 0 6px; }
+  .sp-grid .hr { margin: 4px 0 10px; }
 }
 @media (max-width: 600px) {
   .sp-scalep { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
@@ -1088,3 +1088,5 @@ p.sp-wn { display: block; }
 .sp-src summary { justify-content: flex-start; min-height: 44px; align-items: center; }
 .sp { padding-bottom: 8px; }
 @media (max-width: 860px) { .sp { padding-bottom: 4px; } }
+/* the toggle's subtitle wraps (two short lines on a phone) rather than being cut with an ellipsis */
+.sp-wbmore-s { white-space: normal; overflow: visible; text-overflow: clip; line-height: 15px; }

@@ -392,16 +392,23 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick,
   const tideDrawn = tHi - tLo >= 0.1 && days.some((d) => series.slice(d.start, d.end + 1).filter((x) => x.hour >= 5 && x.hour <= 16 && fin(x.forecast.tide.height)).length >= 6);
   const all = cols.flat(), kinds2 = new Set(all.map((c) => c.bar.kind)), rated = kinds2.has('est') || kinds2.has('flat');
   const verdictKey = plan.some((x) => x.w) || plan.some((x) => !x.far && !x.todayPassed) ? <p className="sp-wbkey sp-vkey"><span>best window:</span><span><i className="vm" style={{borderColor: BAND_COLOR.good}} />Go</span><span><i className="vm" style={{borderColor: BAND_COLOR.fair}} />Worth a look</span><span><i className="vm" style={{borderColor: BAND_COLOR.poor}} />Skip</span>
-    {plan.some((x) => x.surface) && <span>surface: our rule from the wind</span>}{plan.some((x) => x.board) && <span>board: your Board Match pick</span>}<span>provisional, our rules</span></p> : null;
+    {plan.some((x) => x.surface) && <span>surface: our rule from the wind</span>}{plan.some((x) => x.board) && <span>board: your Board Match pick</span>}<span>{rated ? 'verdicts and bar ratings provisional, our rules' : 'provisional, our rules'}</span></p> : null;
   const barKey = <p className="sp-wbkey">{rated && <><span><i className="sw" style={{background: BAND_COLOR.good}} />good</span><span><i className="sw" style={{background: BAND_COLOR.fair}} />fair</span><span><i className="sw" style={{background: BAND_COLOR.poor}} />poor</span><span>ratings provisional</span></>}
-    {[...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') && <span><i className="wb-r" style={{background: BAND_COLOR.fair}} />dot: rating where the bar is not our estimate</span>}
-    {kinds2.has('est') && <span>solid: typical wave to sets</span>}{kinds2.has('off') && <span><i className="sw off" />offshore Hs, not surf size</span>}{kinds2.has('nws') && <span><i className="sw nws" />NWS forecast, for the day</span>}{kinds2.has('demo') && <span><i className="sw demo" />demonstration</span>}
-    {all.some((c) => c.dark && c.bar.kind !== 'none') && <span><i className="sw dk" />after dark</span>}{all.some((c) => c.far && c.bar.kind !== 'none') && <span><i className="sw fr" />too far out</span>}
+    {kinds2.has('est') && <span>solid: typical wave to sets</span>}
     <span>6a 9a 12p 3p · grid {stepText(heightValue(scale.step, p, hawaiian))} {p.heightUnit}{hawaiian ? ` ≈ Hawaiian${kinds2.has('nws') ? ' (estimates; NWS bars in published feet)' : ''}` : ''}</span><span>arrows: wind (shore relation), then swell (period)</span>
     {tst && tideDrawn && <span><i className="tl" />tide: NOAA {tst.station.name}{hourlyTideStationIds.includes(tst.station.id) ? '' : ', interpolated'}, above MLLW, not at the beach</span>}</p>;
+  // data-honesty review: the marks only some bars carry (not our estimate: offshore, NWS, demonstration; after dark; too far out) stay in view beside the verdict key;
+  // only the always-present key (rating colours, the solid part, the grid, the arrows, the tide line) folds
+  const marks = [...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') || all.some((c) => (c.dark || c.far) && c.bar.kind !== 'none');
+  const markKey = marks ? <p className="sp-wbkey sp-mkey">
+    {[...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') && <span><i className="wb-r" style={{background: BAND_COLOR.fair}} />dot: rating where the bar is not our estimate</span>}
+    {kinds2.has('off') && <span><i className="sw off" />offshore Hs, not surf size</span>}{kinds2.has('nws') && <span><i className="sw nws" />NWS forecast, for the day</span>}{kinds2.has('demo') && <span><i className="sw demo" />demonstration</span>}
+    {all.some((c) => c.dark && c.bar.kind !== 'none') && <span><i className="sw dk" />after dark</span>}{all.some((c) => c.far && c.bar.kind !== 'none') && <span><i className="sw fr" />too far out</span>}
+  </p> : null;
+
   // space-tighten (user, 2026-11-14: "soooo much blank space"): the verdict key and the per-day confidence line stay in view; the bar key and the selected day's
   // confidence note (its reason and the daylight range) sit under one "Key and day detail" toggle, folded on a phone, open on a wide screen. Nothing is removed.
-  return <>{strip}{verdictKey}{keyLine && <p className="sp-days-k">{keyLine}</p>}
+  return <>{strip}{verdictKey}{markKey}{keyLine && <p className="sp-days-k">{keyLine}</p>}
     <details className="sp-wbmore" open={keyOpen}><summary>Key and day detail<span className="sp-wbmore-s">bar colours, grid, arrows, tide{selNote ? ' · this day\'s confidence and range' : ''}</span></summary>{barKey}{selNote && <p className="sp-dayrange">{selNote}</p>}</details></>;
 }
 
