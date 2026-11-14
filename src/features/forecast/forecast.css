@@ -888,3 +888,57 @@ p.sp-wn { display: block; }
    1199 px it is drawn smaller in the top-right corner, above them. */
 @media (min-width: 861px) { .sp-band.is-drawn .sp-drawn .wglyph { top: 10px; height: 52px; right: 24px; } }
 @media (min-width: 1200px) { .sp-band.is-drawn .sp-drawn .wglyph { top: 16px; height: 88px; right: 400px; } }
+
+/* forecast-visuals A (user, 2026-11-13: "more visual cues ... a little box that shows the coastline"): the coast tiles (CoastTile.tsx). A tile sits at the right of its
+   Now card, beside the number; the Wind card's detail shows a larger one with its caption; each other swell has a small one. One arrow per tile, one stroke, the
+   swell in its swell colour and the wind in its shore-relation colour. */
+.ct { margin: 0; flex: none; display: grid; gap: 2px; justify-items: center; }
+.ct svg { display: block; border-radius: 10px; box-shadow: inset 0 0 0 1px var(--line); overflow: hidden; }
+.ct-big svg { border-radius: 14px; }
+.ct-arrow path { stroke: currentColor; fill: currentColor; }
+.ct-arrow path:first-child { fill: none; }
+.ct-sw1 { color: var(--sw1); } .ct-sw2 { color: var(--sw2); } .ct-sw3 { color: var(--sw3); }
+:root[data-theme='dark'] .ct-sw1 { color: #e8f2fb; }
+.ct-off { color: var(--good-ink, var(--good)); } .ct-cross { color: var(--fair-ink, var(--fair)); } .ct-on { color: var(--bad-ink, var(--bad)); } .ct-unk { color: var(--muted); }
+.ct-cap { font-size: 11px; line-height: 14px; color: var(--muted); text-align: center; }
+.ct-cap a { color: inherit; }
+.ct-big .ct-cap { max-width: 132px; }
+.ct-osm { font-size: 10px; line-height: 12px; }
+.sp-nc.has-tile { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; align-content: start; }
+.sp-nc.has-tile > * { grid-column: 1; }
+.sp-nc.has-tile > .ct { grid-column: 2; grid-row: 1 / span 4; align-self: start; }
+.sp-tilerow { display: flex; align-items: flex-start; gap: 14px; }
+.sp-tilerow .sp-s { margin: 0; }
+.sp-swells li .ct { display: inline-grid; vertical-align: middle; margin-right: 8px; }
+.sp-swells li .ct-osm { display: none; } /* the Other swells card's footer credits the coastline once (below) */
+@media (max-width: 600px) { .sp-nc.has-tile > .ct svg { width: 52px; height: 52px; } .sp-nc.has-tile > .ct { width: 52px !important; } }
+/* forecast-visuals: the chart arrows (charts.tsx ChartArrow): one glyph, one size; 3 colour steps each, named in the panel key */
+.ca path { stroke: var(--bg); stroke-width: 0.8; stroke-linejoin: round; }
+.ca-off path { fill: var(--good-ink, var(--good)); } .ca-cross path { fill: var(--fair-ink, var(--fair)); } .ca-on path { fill: var(--bad-ink, var(--bad)); } .ca-unk path { fill: var(--muted); }
+.ca-short path { fill: color-mix(in srgb, var(--sw1) 50%, var(--bg)); } .ca-mid path { fill: color-mix(in srgb, var(--sw1) 68%, var(--bg)); } .ca-long path { fill: var(--sw1); }
+:root[data-theme='dark'] .ca-long path { fill: #e8f2fb; } :root[data-theme='dark'] .ca-mid path { fill: color-mix(in srgb, #e8f2fb 66%, var(--bg)); } :root[data-theme='dark'] .ca-short path { fill: color-mix(in srgb, #e8f2fb 48%, var(--bg)); }
+.fc-key .fk-arr { display: inline-flex; gap: 10px; }
+.fc-key .fk-arr > span { display: inline-flex; align-items: center; gap: 3px; }
+.fk-a { display: block; }
+.fc-akey { flex-wrap: wrap; row-gap: 2px; }
+.fc-akey .fk-arr b { font-weight: 600; color: var(--text); margin-right: 2px; }
+/* the Other swells rows: the swell's tile first, then height, period and direction */
+.sp-swells li:has(> .ct) { grid-template-columns: 52px 64px 44px 1fr; align-items: center; column-gap: 0; }
+.sp-swells li > .ct { margin: 0; }
+@media (max-width: 860px) { .sp-swells li:has(> .ct) { grid-template-columns: 52px 56px 36px 1fr; } }
+/* review: the tile's arrow takes the chart arrows' colour steps (the same key) */
+.ct-arrow.ca-short, .ct-arrow.ca-mid, .ct-arrow.ca-long, .ct-arrow.ca-off, .ct-arrow.ca-cross, .ct-arrow.ca-on, .ct-arrow.ca-unk { color: initial; }
+.ct-arrow.ca-short path, .ct-arrow.ca-mid path, .ct-arrow.ca-long path, .ct-arrow.ca-off path, .ct-arrow.ca-cross path, .ct-arrow.ca-on path, .ct-arrow.ca-unk path { stroke: none; }
+.ct-arrow[class*='ca-'] path:first-child { fill: none; }
+.ct-arrow.ca-short path:first-child { stroke: color-mix(in srgb, var(--sw1) 50%, var(--bg)); } .ct-arrow.ca-mid path:first-child { stroke: color-mix(in srgb, var(--sw1) 68%, var(--bg)); } .ct-arrow.ca-long path:first-child { stroke: var(--sw1); }
+:root[data-theme='dark'] .ct-arrow.ca-long path:first-child { stroke: #e8f2fb; } :root[data-theme='dark'] .ct-arrow.ca-mid path:first-child { stroke: color-mix(in srgb, #e8f2fb 66%, var(--bg)); } :root[data-theme='dark'] .ct-arrow.ca-short path:first-child { stroke: color-mix(in srgb, #e8f2fb 48%, var(--bg)); }
+.ct-arrow.ca-off path:first-child { stroke: var(--good-ink, var(--good)); } .ct-arrow.ca-cross path:first-child { stroke: var(--fair-ink, var(--fair)); } .ct-arrow.ca-on path:first-child { stroke: var(--bad-ink, var(--bad)); } .ct-arrow.ca-unk path:first-child { stroke: var(--muted); }
+.ct-osm { white-space: nowrap; font-size: 9.5px; }
+/* t034: captions at 12 px; credit links get 44 px tap targets without changing the line */
+.ct-cap, .ct-osm { font-size: 12px; line-height: 16px; }
+.ct-cap a, .sp-coastcredit a, [data-card=swell] .sp-f a { display: inline-block; padding: 14px 0; margin: -14px 0; }
+.sp-coastcredit { margin: 4px 0 0; font-size: 12px; color: var(--muted); }
+.sp-coastcredit:empty { display: none; }
+.sp-coastcredit a { color: inherit; }
+.fc-akey .fk-arr { flex-wrap: wrap; row-gap: 2px; }
+.sp-coastcredit { padding: 0 0 8px; }

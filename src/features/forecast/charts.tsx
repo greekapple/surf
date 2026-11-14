@@ -12,6 +12,8 @@ import type {SurfBandPoint} from './trustApi';
 import {estimateBand, hasEstimateBand} from './trustRules';
 import {surfReadout} from './chartReadout';
 import {type Certainty} from '../../services/certainty';
+import {windRelationship} from '../../recommendation/sqi';
+import {arrowStepH, periodStep} from '../../services/coastTile';
 
 /** certainty (2026-11-06): how strongly the surf band is drawn per hour (a mask; our own choice of steps, matching the day cards' fade). */
 const SURE_OPACITY: Record<Certainty, number> = {high: 1, medium: 0.82, low: 0.5, 'too-far': 0.32};
@@ -111,7 +113,7 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
   // of its own (under the day names when they show), so it is never clipped. PT is set from it, after the ticks (Y reads PT only when it is called).
   const topTick = ticks.length ? `${tab === 'tide' && ticks[ticks.length - 1] > 0 ? '+' : ''}${tickText(ticks[ticks.length - 1])} ${unit}` : '';
   const unitInTitle = !!title && topTick.length * 6.6 > G - 10;
-  const PT = (showDays ? 30 : 12) + (title && (!showDays || unitInTitle) ? 12 : 0) + padTop, RB = showRibbon ? (showHours ? height - 36 : height - 12) : (showHours ? height - 24 : height - 2), PB = RB - (showRibbon || tab === 'wind' ? 26 : 8);
+  const PT = (showDays ? 30 : 12) + (title && (!showDays || unitInTitle) ? 12 : 0) + padTop, RB = showRibbon ? (showHours ? height - 36 : height - 12) : (showHours ? height - 24 : height - 2), PB = RB - (showRibbon || tab === 'wind' || tab === 'swell' ? 26 : 8);
   const top = stacked ? 0 : PT - 8, bottom = stacked ? (showHours ? height - 20 : height) : RB; // night shading / day lines / selection span the whole chart when stacked
   const val = (h: HourSample) => (tab === 'wind' ? h.forecast.wind.speed || 0 : tab === 'tide' ? (Number.isFinite(h.forecast.tide.height) ? h.forecast.tide.height : 0) : tab === 'swell' ? h.forecast.primary?.height ?? 0
     : surfBand && bAt(h) ? (bAt(h)!.lo + bAt(h)!.hi) / 2 : h.heightFt ?? 0);
@@ -142,10 +144,9 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
   if (!n) return null;
   const selH = series[sel], hover = hoverIndex !== null && hoverIndex >= 0 && hoverIndex < n ? {i: hoverIndex} : null;
   const stepH = [1, 2, 3, 6, 12, 24].find((s) => s * pxh >= 46) ?? 24;
-  const every = Math.max(1, Math.ceil(20 / pxh));
-  const wc = windInk;
   const tideStaleTl = tab === 'tide' && hasTide ? tideStaleOf(vis, now) : null;   // tide-label: a saved or stale tide is said on the Tide tab, under the chart and in its readable label
   const tideNoteTl = tab === 'tide' && hasTide ? tideChartNote(tideStaleTl, extrema) : null;   // tide-label-2: the high/low feed's own mark, one note
+  const arrowEvery = arrowStepH(pxh, W >= 700);   // forecast-visuals: 3 h on a wide chart, 6 h on a phone (12 h only if even 6 h would crowd)
 
   return (
     <div className="tl-panel" ref={body} {...(tideNoteTl ? {role: 'group', 'aria-label': `Tide chart (${tideStaleTl ? (tideStaleTl.reason === 'saved' ? 'saved copy' : 'stale copy') : 'high and low times: saved copy'})`} : {})}>
@@ -214,29 +215,28 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
                 if (!vis.some((h) => comp(h))) return null;
                 const runs: [number, number][][] = []; let cur: [number, number][] = [];
                 vis.forEach((h, j) => { const c = comp(h); if (c && Number.isFinite(c.height)) cur.push([X(i0 + j), Y(c.height)]); else if (cur.length) { runs.push(cur); cur = []; } }); if (cur.length) runs.push(cur);
-                const every = pxh * 6 < 34 ? 12 : 6, labelEvery = [6, 12, 24].find((s) => pxh * s >= 30) ?? 24;
+                const every = 1, labelEvery = [6, 12, 24].find((s) => pxh * s >= 30) ?? 24;
                 return <g key={k} className={`tl-sw ${cls}`}>
                   {runs.map((r) => <path key={r[0][0]} d={monotonePath(r.filter((_, j) => j % 2 === 0 || j === r.length - 1))} />)}
                   {vis.map((h, j) => { const c = comp(h); if (!c || !Number.isFinite(c.height) || localHour(h.timestamp) % every) return null;
                     const x = X(i0 + j), y = Y(c.height);
-                    return <g key={h.timestamp}>
-                      <g transform={`translate(${x} ${y}) rotate(${(c.direction + 180) % 360})`}><path className="tl-sw-dir" d="M0 -5 L3.6 4 L0 2.2 L-3.6 4Z" /></g>
-                      {k === 'primary' && localHour(h.timestamp) % labelEvery === 0 && <text className="tl-pk" x={x} y={y - 9} textAnchor="middle">{Math.round(c.period)}s{partitionKind(c, true) === 'chop' ? ' chop' : ''}</text>}
-                    </g>; })}
+                    return k === 'primary' && localHour(h.timestamp) % labelEvery === 0 ? <text key={h.timestamp} className="tl-pk" x={x} y={y - 9} textAnchor="middle">{Math.round(c.period)}s{partitionKind(c, true) === 'chop' ? ' chop' : ''}</text> : null; })}
                 </g>; })}
+              {/* forecast-visuals: the primary swell's direction as ONE arrow glyph on one baseline under the lines (it used to ride on each line), every 3 h (6 h on a
+                  phone), pointing where it travels, coloured in 3 period steps (the key says which) */}
+              {vis.map((h, k) => { const c = h.forecast.primary; if (!c || partitionKind(c, true) === 'noise' || !Number.isFinite(c.direction) || localHour(h.timestamp) % arrowEvery) return null;
+                return <ChartArrow key={`s${h.timestamp}`} x={X(i0 + k)} y={PB + 15} to={(c.direction + 180) % 360} cls={`ca-${periodStep(Math.round(c.period))}`} small={W < 700} />; })}
             </>}
             {tab === 'wind' && <>
               <path d={areaD} fill="url(#gWd)" />
               <path d={line((h) => h.forecast.wind.gusts ?? h.forecast.wind.speed ?? 0)} fill="none" stroke="var(--muted)" strokeWidth={1.2} strokeDasharray="3 4" />
               <path d={mainPath} fill="none" stroke="var(--accent)" strokeWidth={2} strokeLinejoin="round" />
-              {vis.map((h, k) => {
-                const i = i0 + k, w = h.forecast.wind;
-                if (i % every || !Number.isFinite(w.direction)) return null;
-                const c = wc(w.speed), len = 5 + Math.min(5, w.speed / 3);
-                return <g key={`w${h.timestamp}`} transform={`translate(${X(i)},${PB + 15}) rotate(${(w.direction + 180) % 360})`}>
-                  <line y1={len} y2={-len} stroke={c} strokeWidth={1.6} strokeLinecap="round" /><path d={`M-3.5,${-len + 4.5} L0,${-len} L3.5,${-len + 4.5}`} fill="none" stroke={c} strokeWidth={1.6} strokeLinecap="round" strokeLinejoin="round" />
-                </g>;
-              })}
+              {/* forecast-visuals: one arrow glyph, one size, every 3 h on the clock (6 h on a phone), on one baseline; coloured by how the wind meets THIS beach
+                  (offshore, cross-shore, onshore: the Wind card's word), not by speed (the speed is the line) */}
+              {vis.map((h, k) => { const w = h.forecast.wind;
+                if (localHour(h.timestamp) % arrowEvery || !Number.isFinite(w.direction) || h.forecast.availability.wind === false) return null;
+                const rel = windRelationship(spot, h.forecast), cls = /^offshore/i.test(rel) ? 'off' : /cross/i.test(rel) ? 'cross' : /onshore/i.test(rel) ? 'on' : 'unk';
+                return <ChartArrow key={`w${h.timestamp}`} x={X(i0 + k)} y={PB + 15} to={(w.direction + 180) % 360} cls={`ca-${cls}`} small={W < 700} />; })}
             </>}
             {tab === 'tide' && (hasTide ? <>
               <path d={areaD} fill="url(#gTd)" />
@@ -382,3 +382,8 @@ export function TideDay({hours, selected, extrema, spot, p, onSelect, now = Date
 }
 
 export {groupDays};
+
+/** forecast-visuals: THE chart arrow (wind and swell rows): one glyph, one size, pointing where it travels; the colour class says the step (see the panel key). */
+export function ChartArrow({x, y, to, cls, small = false}: {x: number; y: number; to: number; cls: string; small?: boolean}) {
+  return <g className={`ca ${cls}`} transform={`translate(${x} ${y}) rotate(${to})${small ? ' scale(0.8)' : ''}`}><path d="M0 -6.5 L4.6 3.5 L0 1.4 L-4.6 3.5Z" /></g>;
+}

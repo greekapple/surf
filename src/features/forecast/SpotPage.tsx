@@ -10,6 +10,8 @@ import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
 import {DirArrow, Icon} from '../../ui/Icon';
+import {CoastTile, CoastCredit} from './CoastTile';
+import {periodStep} from '../../services/coastTile';
 import {rankBoards, recommended} from '../quiver/fit';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
@@ -65,17 +67,6 @@ function Card({k, title, aside, children, className = '', open, onToggle}: {k: s
 export const facingOf = (spotId: string) => evidenceSpots.find((e) => e.id === spotId)?.orientation ?? null;
 
 /** Mini wind compass: the arrow points where the wind blows; the beach facing (when surveyed) is the dashed line, offshore side shaded. */
-function WindDial({from, facing, cls}: {from: number; facing: number | null; cls: string}) {
-  return (
-    <svg className="sp-mini" viewBox="-30 -30 60 60" aria-hidden="true">
-      <circle r={26} fill="none" stroke="var(--line-2)" />
-      {facing !== null && <g transform={`rotate(${facing})`}><path d="M0 0 L-26 0 A26 26 0 0 1 26 0Z" transform="rotate(180)" fill="color-mix(in srgb, var(--good) 12%, transparent)" /><line x1={-26} x2={26} y1={0} y2={0} stroke="var(--muted)" strokeDasharray="3 2" transform="rotate(90)" /></g>}
-      <text y={-17} fontSize={8} textAnchor="middle" fill="var(--dim)">N</text>
-      <g transform={`rotate(${from + 180})`} className={`sp-rel-ink ${cls}`}><line x1={0} y1={18} x2={0} y2={-14} stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" /><path d="M-6 -9 L0 -19 L6 -9" fill="none" stroke="currentColor" strokeWidth={2.4} strokeLinecap="round" strokeLinejoin="round" /></g>
-    </svg>
-  );
-}
-
 /** Mini swell rose: one arrow per partition, travelling toward the centre from where it comes; width and length by energy (H² × T). */
 function SwellRose({swells, facing}: {swells: {height: number; period: number; direction: number}[]; facing: number | null}) {
   const e = swells.map((s) => s.height * s.height * s.period), max = Math.max(...e, 1e-6);
@@ -140,7 +131,7 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
     const nextTurn = extrema.filter((e) => e.height.value !== null && Date.parse(e.timestamp) > Date.parse(h.timestamp)).sort((a, b) => Date.parse(a.timestamp) - Date.parse(b.timestamp))[0];
     const hourTag = Date.parse(h.timestamp) === Math.floor(now / 3600000) * 3600000 ? '' : `, ${weekdayPT(h.timestamp, tz)} ${timeLabelPT(h.timestamp, tz)}`;
     const sameDay = (ts: string) => dateIn(tz, ts) === dateIn(tz, h.timestamp);
-    return (
+    return (<>
       <div className="sp-ng">
         <section className="sp-nc sp-nc-surf" aria-label={`Surf${hourTag}`} data-card="surf"><h2>Surf</h2>{surfNum}{hs.kind === 'estimate' && (hs.method === 'mop-v2' || hs.transfer) && assignmentFor(spot.id)?.caveat && <p className="sp-f sp-cav">model point caveat · full text under More detail</p>}<HowRightLine spotId={spot.id} p={p} short /></section>
         <section className="sp-nc" aria-label={`Rating${hourTag}`} data-card="rating"><h2>Rating</h2>
@@ -148,9 +139,10 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
           <RatingBar score={r.score} category={r.category} />
           <p className="sp-f">provisional · {r.reliability.category.toLowerCase()} reliability</p>
         </section>
-        <section className="sp-nc" aria-label={`Wind${hourTag}`} data-card="wind"><h2>Wind</h2>
+        <section className={`sp-nc${f.availability.wind !== false && fin(f.wind.speed) && fin(f.wind.direction) ? ' has-tile' : ''}`} aria-label={`Wind${hourTag}`} data-card="wind"><h2>Wind</h2>
           {f.availability.wind !== false && fin(f.wind.speed) ? <>
-            <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small><StaleTag s={hourFreshness(f, now).wind} />{fin(f.wind.direction) && <span className="sp-dir"><DirArrow from={f.wind.direction} size={16} /> {compass(f.wind.direction)}</span>}</p>
+            {fin(f.wind.direction) && <CoastTile spotId={spot.id} facing={facing} arrow={{from: f.wind.direction, tone: relClass(rel) as 'off' | 'cross' | 'on' | 'unk'}} label={`Wind ${windVal(f.wind.speed, p)} ${p.windUnit}, ${relWord(rel)}`} />}
+            <p className="v sp-v">{windVal(f.wind.speed, p)}<small>{p.windUnit}</small><StaleTag s={hourFreshness(f, now).wind} />{fin(f.wind.direction) && <span className="sp-dir">from {compass(f.wind.direction)}</span>}</p>
             <p className="sp-s"><span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}</p>
           </> : <p className="sp-s">Wind not in this record.</p>}
         </section>
@@ -162,10 +154,11 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
             {ownTide.fallback && <p className="sp-f" role="note"><b>{ownTide.fallbackLabel ?? 'Inlet or bay-side station'}:</b> times and range differ from the open beach</p>}
           </> : <StationTideNext spot={spot} bundle={bundle} p={p} now={now} compact />}
         </section>
-        <section className="sp-nc" aria-label={`Main swell${hourTag}`} data-card="swell"><h2>Main swell</h2>
+        <section className={`sp-nc${sw0 ? ' has-tile' : ''}`} aria-label={`Main swell${hourTag}`} data-card="swell"><h2>Main swell</h2>
           {sw0 ? <>
+            <CoastTile spotId={spot.id} facing={facing} arrow={{from: sw0.direction, tone: periodStep(Math.round(sw0.period))}} label={`Main swell (offshore model, not surf size) ${ht(sw0.height, p)} ${u} at ${Math.round(sw0.period)} s${sw0.kind === 'chop' ? ' (wind chop)' : ''}`} />
             <p className="v sp-v">{ht(sw0.height, p)}<small>{u}</small> <span className="sp-per">{Math.round(sw0.period)}<small>s{sw0.kind === 'chop' ? ' wind chop' : ''}</small></span></p>
-            <p className="sp-s"><span className="sp-dir"><DirArrow from={sw0.direction} size={14} color="var(--sw1)" /> {compass(sw0.direction)} {Math.round(sw0.direction)}°</span></p>
+            <p className="sp-s"><span className="sp-dir">from {compass(sw0.direction)} {Math.round(sw0.direction)}°</span></p>
             <p className="sp-f">offshore model, not surf size</p>
           </> : <p className="sp-s">{partNotes.onlyNoise ? 'Only model noise (under 2 s) in this record.' : 'No swell partitions in this record.'}</p>}
         </section>
@@ -177,7 +170,8 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
           </> : <p className="sp-s">Water temperature not in this record.</p>}
         </section>
       </div>
-    );
+      <p className="sp-f sp-coastcredit"><CoastCredit spotId={spot.id} prefix="Swell and wind maps: " /></p>
+    </>);
   }
   return (
     <div className="sp-grid">
@@ -199,7 +193,8 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
       </Card>
       <Card k="wind" title="Wind" open={open === 'wind'} onToggle={() => onToggle('wind')}>
         {f.availability.wind !== false && fin(f.wind.speed) ? <>
-          {fin(f.wind.direction) && <WindDial from={f.wind.direction} facing={facing} cls={relClass(rel)} />}
+          {fin(f.wind.direction) && <div className="sp-tilerow"><CoastTile spotId={spot.id} facing={facing} arrow={{from: f.wind.direction, tone: relClass(rel) as 'off' | 'cross' | 'on' | 'unk'}} label={`Wind ${windVal(f.wind.speed, p)} ${p.windUnit} from the ${compass(f.wind.direction)}, ${relWord(rel)}`} size={132} caption />
+            <p className="sp-s"><b>{windVal(f.wind.speed, p)} {p.windUnit}</b> from {compass(f.wind.direction)} {Math.round(f.wind.direction)}° · <span className={`sp-rel ${relClass(rel)}`}>{relWord(rel)}</span>{fin(f.wind.gusts) && <> · gusts {windVal(f.wind.gusts, p)} {p.windUnit}</>}<br /><span className="sp-f">arrow: blows from the {compass(f.wind.direction)} toward the beach, coloured by how it meets this beach (offshore, cross-shore, onshore)</span></p></div>}
         </> : <p className="sp-s">Wind not in this record.</p>}
         {windDay && <p className="sp-s">Model forecast, 6 AM–7 PM (hours still ahead): {windVal(windDay.lo.v, p)}–{windVal(windDay.hi.v, p)} {p.windUnit}, strongest around {timeLabelPT(windDay.hi.t, timeZoneOf(spot))}</p>}
         <WindNow spot={spot} hours={dayHours} now={now} p={p} />
@@ -213,10 +208,10 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
       </Card>
       <Card k="swell" title="Other swells" open={open === 'swell'} onToggle={() => onToggle('swell')}>
         {swells.length > 1 ? <ul className="sp-swells">{swells.slice(1).map((s, i) => (
-          <li key={i}><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s{s.kind === 'chop' ? ' wind chop' : ''}</small></span><span className="sp-dir"><DirArrow from={s.direction} size={13} color="var(--sw2)" /> {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
+          <li key={i}><CoastTile spotId={spot.id} facing={facing} arrow={{from: s.direction, tone: i === 0 ? 'sw2' : 'sw3'}} label={`${i === 0 ? 'Second' : 'Third'} swell (offshore model) ${ht(s.height, p)} ${u} at ${Math.round(s.period)} s`} size={44} /><b>{ht(s.height, p)}<small>{u}</small></b><span>{Math.round(s.period)}<small>s{s.kind === 'chop' ? ' wind chop' : ''}</small></span><span className="sp-dir">from {compass(s.direction)}<span className="sp-deg"> {Math.round(s.direction)}°</span></span></li>
         ))}</ul> : <p className="sp-s">{swells.length ? 'No other swell partition in this record (the main swell is above).' : partNotes.onlyNoise ? 'Only model noise (under 2 s) in this record.' : 'No swell partitions in this record.'}</p>}
         {swells.length > 0 && <SwellRose swells={swells} facing={facing} />}
-        <p className="sp-f">Offshore model partitions{partNotes.smallHidden ? ' · small partitions under 0.5 ft hidden' : ''}</p>
+        <p className="sp-f">Offshore model partitions{partNotes.smallHidden ? ' · small partitions under 0.5 ft hidden' : ''}{swells.length > 1 && <CoastCredit spotId={spot.id} />}</p>
       </Card>
     </div>
   );
@@ -368,8 +363,8 @@ export function HourTable({hours, spot, p, bundle, now, selected, onSelect}: {ho
               <th scope="row"><button onClick={() => onSelect(x.timestamp)}>{hourLabel(x.timestamp)}</button></th>
               <td className="st-surf"><b>{t.value}</b><small>{isFlat(hs) ? '(model estimate)' : hs.kind === 'estimate' ? 'est.' : hs.kind === 'offshore' ? 'offshore' : hs.kind === 'official' ? (hs.stale ? 'NWS (older)' : 'NWS') : hs.kind === 'demonstration' ? 'demo' : ''}</small></td>
               <td><span className="st-q" style={{background: BAND_COLOR[bandOf(x.rating.category)]}} />{conditionWord(x.rating.category)}{x.rating.dark && <small> · after dark</small>}</td>
-              <td>{f.primary && partitionKind(f.primary, true) !== 'noise' ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /></> : '—'}</td>
-              <td>{f.secondary && partitionKind(f.secondary) !== 'noise' ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /></> : '—'}</td>
+              <td>{f.primary && partitionKind(f.primary, true) !== 'noise' ? <>{ht(f.primary.height, p)} {u} · {Math.round(f.primary.period)} s <DirArrow from={f.primary.direction} size={12} /> {compass(f.primary.direction)}</> : '—'}</td>
+              <td>{f.secondary && partitionKind(f.secondary) !== 'noise' ? <>{ht(f.secondary.height, p)} {u} · {Math.round(f.secondary.period)} s <DirArrow from={f.secondary.direction} size={12} /> {compass(f.secondary.direction)}</> : '—'}</td>
               <td className={`st-wind ${relClass(rel)}`}>{fin(f.wind.speed) ? <>{fin(f.wind.direction) && <DirArrow from={f.wind.direction} size={12} />} {windVal(f.wind.speed, p)} {p.windUnit}<small>{fin(f.wind.gusts) ? `gust ${windVal(f.wind.gusts, p)} · ` : ''}{relWord(rel)}</small><StaleTag s={hourFreshness(f, now).wind} /></> : '—'}</td>
               <td>{fin(f.tide.height) ? <>{`${htSigned(f.tide.height, p)} ${u}`}<StaleTag s={hourFreshness(f, now).tide} /></> : '—'}</td>
             </tr>

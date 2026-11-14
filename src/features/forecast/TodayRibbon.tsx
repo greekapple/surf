@@ -84,8 +84,8 @@ export function TodayRibbon({spot, hours, band, daylight, win, today = false, se
             {offLine && <path className="rb-off" d={`M${offLine}`} />}
             {hours.map((h, i) => {
               const w = h.forecast.wind; if (i % 2 || !fin(w.direction) || !fin(w.speed)) return null;
-              const cls = relClass(windRelationship(spot, h.forecast as never)), x = X(h.timestamp), len = Math.min(8, 4 + w.speed / 4);
-              return <g key={h.timestamp} className={`rb-wind sp-rel-ink ${cls}`} transform={`translate(${x.toFixed(1)},${yW}) rotate(${(w.direction + 180) % 360})`}><line y1={len} y2={-len} /><path d={`M-3,${-len + 3} L0,${-len} L3,${-len + 3}`} /></g>;
+              const cls = relClass(windRelationship(spot, h.forecast as never)), x = X(h.timestamp);   // forecast-visuals: the one chart arrow glyph, one size (the speed is in the readout and the Wind card)
+              return <g key={h.timestamp} className={`ca ca-${cls}`} transform={`translate(${x.toFixed(1)},${yW}) rotate(${(w.direction + 180) % 360})`}><path d="M0 -6.5 L4.6 3.5 L0 1.4 L-4.6 3.5Z" /></g>;
             })}
             {tidePath && <path className="rb-tide" d={`M${tidePath}`} />}
             {sel >= 0 && <line className="rb-cur" x1={X(hours[sel].timestamp)} x2={X(hours[sel].timestamp)} y1={0} y2={total - 14} />}

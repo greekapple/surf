@@ -1,8 +1,10 @@
+import {windRelationship} from '../../recommendation/sqi';
+import {PERIOD_STEP_WORDS} from '../../services/coastTile';
 import {useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent, type ReactNode} from 'react';
 import type {SurfSpot, UserProfile} from '../../models/index';
 import type {TidePrediction} from '../../ocean/types';
 import type {SurfBandPoint} from './trustApi';
-import {CH_G, CH_PAD, Timeline, hourValueText, useAnimatedRange, windInk, type ChartTab} from './charts';
+import {CH_G, CH_PAD, Timeline, hourValueText, useAnimatedRange, type ChartTab} from './charts';
 import {compass, ht, type Day} from './helpers';
 import {hourLabel, type HourSample} from './model';
 import {dayNumPT, weekdayPT} from './format';
@@ -113,6 +115,10 @@ export function ForecastCharts({series, days, curDay, spot, p, band, extrema, no
       </div>
       {/* the rating strip's colours (the readout's chip names the hour's own rating) */}
       <p className="fc-key fc-rkey"><span><i style={{background: BAND_COLOR.good}} />rating good+</span><span><i style={{background: BAND_COLOR.fair}} />fair</span><span><i style={{background: BAND_COLOR.poor}} />poor</span><span className="fk-t">ratings provisional</span></p>
+      {/* forecast-visuals: ONE small key for the arrows of every panel (one glyph, pointing where it travels; 3 colour steps each) */}
+      <p className="fc-key fc-rkey fc-akey"><span className="fk-t">Arrows point where it travels.</span>
+        <span className="fk-arr"><b>Wind</b>{([['off', 'offshore'], ['cross', 'cross-shore'], ['on', 'onshore']] as const).map(([k, w]) => <span key={k}><KeyArrow cls={`ca-${k}`} />{w}</span>)}{series.some((h) => Number.isFinite(h.forecast.wind.direction) && windRelationship(spot, h.forecast) === 'Unknown') && <span><KeyArrow cls="ca-unk" />shore relation unknown</span>}</span>
+        <span className="fk-arr"><b>Primary swell</b>{(['short', 'mid', 'long'] as const).map((k) => <span key={k}><KeyArrow cls={`ca-${k}`} />{PERIOD_STEP_WORDS[k]}</span>)}</span></p>
     </>}
   </section>;
 }
@@ -120,7 +126,10 @@ export function ForecastCharts({series, days, curDay, spot, p, band, extrema, no
 /** The panel's own key, small, at its top right: replaces the legend list. Every kind the panel draws is named. */
 function PanelKey({tab, p, hasEstimates, band, series}: {tab: ChartTab; p: UserProfile; hasEstimates: boolean; band: SurfBandPoint[]; series: HourSample[]}) {
   if (tab === 'surf') return <p className="fc-key">{hasEstimates ? <><span><i className="fk-band" />surf est. (model)</span><span><i className="fk-off" />offshore Hs</span><span className="fk-t">fainter = less sure</span>{band.some((b) => b.wide) && <span><i className="fk-wide" />models differ</span>}{band.some((b) => b.certainty === 'too-far') && <span><i className="fk-far" />too far out</span>}</> : <><span><i className="fk-off" />offshore Hs · not surf size</span>{band.some((b) => b.certainty === 'too-far') && <span className="fk-t">later hours: too far out</span>}</>}</p>;
-  if (tab === 'swell') return <p className="fc-key"><span><i style={{background: 'var(--sw1)'}} />primary</span><span><i style={{background: 'var(--sw2)'}} />2nd</span>{series.some((h) => h.forecast.tertiary) && <span><i style={{background: 'var(--sw3)'}} />3rd</span>}<span className="fk-t">s = period · ▲ travels</span></p>;
-  if (tab === 'wind') return <p className="fc-key"><span><i style={{background: 'var(--accent)'}} />speed</span><span><i className="fk-gust" />gusts</span><span><i style={{width: 30, background: `linear-gradient(90deg,${[0, 6, 10, 14, 18, 24].map(windInk).join(',')})`}} />Arrows 0 to {windWhole(24, p).replace(' ', '+ ')}</span></p>;
+  if (tab === 'swell') return <p className="fc-key"><span><i style={{background: 'var(--sw1)'}} />primary</span><span><i style={{background: 'var(--sw2)'}} />2nd</span>{series.some((h) => h.forecast.tertiary) && <span><i style={{background: 'var(--sw3)'}} />3rd</span>}<span className="fk-t">s = period · arrows: primary</span></p>;
+  if (tab === 'wind') return <p className="fc-key"><span><i style={{background: 'var(--accent)'}} />speed</span><span><i className="fk-gust" />gusts</span></p>;
   return <p className="fc-key"><span><i style={{background: 'var(--tide)'}} />predicted, {p.heightUnit} above MLLW</span></p>;
 }
+
+/** forecast-visuals: the key's sample of the chart arrow (same glyph and colour classes). */
+function KeyArrow({cls}: {cls: string}) { return <svg className="fk-a" viewBox="-7 -7 14 14" width={12} height={12} aria-hidden="true"><g className={`ca ${cls}`} transform="rotate(90)"><path d="M0 -6.5 L4.6 3.5 L0 1.4 L-4.6 3.5Z" /></g></svg>; }

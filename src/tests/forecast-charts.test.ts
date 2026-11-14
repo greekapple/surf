@@ -59,7 +59,7 @@ test('forecast-charts: day zoom by a day button, the 7 days button, Escape, Ente
 test('forecast-charts: the legend list is gone and each panel names what it draws, every honesty label kept', () => {
   const fc = read('../features/forecast/ForecastCharts.tsx'), fv = read('../features/forecast/ForecastView.tsx');
   assert.doesNotMatch(fv, /className="legend"/);
-  for (const w of ['surf est. (model)', 'offshore Hs', 'offshore Hs · not surf size', 'fainter = less sure', 'models differ', 'above MLLW', 'gusts', 'Arrows 0 to']) assert.ok(fc.includes(w), `panel key names "${w}"`);
+  for (const w of ['surf est. (model)', 'offshore Hs', 'offshore Hs · not surf size', 'fainter = less sure', 'models differ', 'above MLLW', 'gusts', 'Arrows point where it travels.', 'cross-shore', 'onshore', 'offshore']) assert.ok(fc.includes(w), `panel key names "${w}"`);
   assert.match(read('../features/forecast/charts.tsx'), /too far out to call/, 'the hatched horizon keeps its words in the plot');
   assert.match(fc, /MLLW\{td\.trend/, 'the readout tide says MLLW');
 });

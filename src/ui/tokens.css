@@ -92,6 +92,7 @@
   --ch-band-line: rgb(14 26 34 / 0.55);
   --ch-ring: rgb(14 26 34 / 0.24);
   --ch-wedge: rgb(27 108 168 / 0.1);
+  --tile-sea: #dcebf5; --tile-land: #efe8d8; --tile-shore: #b3a47f; --tile-window: rgb(27 108 168 / 0.13); /* forecast-visuals: the coast tiles */
   --wind-darken: 38%; /* wind palette is pastel; mixed toward black on light grounds */
   --glass: rgb(255 255 255 / 0.92);
   --tip-bg: rgb(255 255 255 / 0.97);
@@ -146,6 +147,7 @@
   --ch-band-line: rgb(255 255 255 / 0.45);
   --ch-ring: rgb(255 255 255 / 0.14);
   --ch-wedge: rgb(92 179 255 / 0.1);
+  --tile-sea: #12324d; --tile-land: #2b3138; --tile-shore: #6d7884; --tile-window: rgb(92 179 255 / 0.16);
   --wind-darken: 0%;
   --glass: rgb(9 20 29 / 0.78);
   --tip-bg: rgb(16 32 44 / 0.96);
