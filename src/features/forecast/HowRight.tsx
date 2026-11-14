@@ -50,7 +50,8 @@ function HowRightMop({spotId, p, short = false}: {spotId: string; p: UserProfile
   if (!s) return <p className="hr hr-quiet">How right we've been: this spot is not in today's check.</p>;
   const line = howRightLine(s, load.card.shownSince, unit);
   // the buoy is carried to our point by CDIP's model: never worded as a direct check at the break
-  if (short) return <p className="hr hr-short" data-hr="short">{line.text.replace(/ buoy([:\s(])/, ' buoy (via CDIP\'s model)$1')}</p>;
+  // space-tighten: the Now block carries the claim only; while there is no number yet (still collecting) it says nothing, and the full line under More detail says why
+  if (short) return line.hasNumber ? <p className="hr hr-short" data-hr="short">{line.text.replace(/ buoy([:\s(])/, ' buoy (via CDIP\'s model)$1')}</p> : null;
   return (
     <div className="hr">
       <p className="hr-line">

@@ -1090,3 +1090,14 @@ p.sp-wn { display: block; }
 @media (max-width: 860px) { .sp { padding-bottom: 4px; } }
 /* the toggle's subtitle wraps (two short lines on a phone) rather than being cut with an ellipsis */
 .sp-wbmore-s { white-space: normal; overflow: visible; text-overflow: clip; line-height: 15px; }
+@media (max-width: 600px) {
+  /* the scale drawing at its own size (about 170 px square), its words take the rest of the row */
+  .sp-scalep { grid-template-columns: minmax(0, 172px) minmax(0, 1fr); }
+  .sp-scalep svg { max-height: 168px; }
+  .sp-nc { padding: 5px 0; }
+}
+/* the in-view key reads as one flowing line (each item stays whole), not a row of boxes that leaves each line's end empty */
+.sp-wbkey.sp-vkey { display: block; }
+.sp-wbkey.sp-vkey > span { display: inline; margin-right: 10px; }
+.sp-wbkey.sp-vkey > span > i { display: inline-block; vertical-align: -1px; margin-right: 4px; }
+.sp-wbkey.sp-vkey > span > i.vm { vertical-align: 0; }
