@@ -26,7 +26,7 @@ export interface ReferenceBoard {
   look: {deck: string; bottom: string; fade: number; finish: 'gloss' | 'matte'; pattern?: DeckPattern};
 }
 
-export const MODELLED_NOTE = 'Example board: typical size and shape for its type · approximate';
+export const MODELLED_NOTE = 'Example board: example size and shape for its type · approximate';
 
 export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
   // Everyday shortboard example: 5'10" x 19 1/4" x 2 5/8", 29.4 L. A carbon-look deck inside white rails.
@@ -77,9 +77,13 @@ export function exampleLabel(_b?: Parameters<typeof referenceFor>[0]): string {
 }
 
 /** The volume as displayed: a number from a retailer photo carries that qualifier while the record is still the published one. */
-export function volumeLabel(b: Parameters<typeof referenceFor>[0] & {volume?: number}, v: number | undefined = b.volume): string {
+export function volumeLabel(b: Parameters<typeof referenceFor>[0] & {volume?: number; volumeEstimated?: boolean; specificationSource?: string}, v: number | undefined = b.volume): string {
   const note = referenceFor(b)?.volumeNote;
-  return typeof v === 'number' && Number.isFinite(v) ? `${+v.toFixed(1)} L${note && v === b.volume ? ` (${note})` : ''}` : 'Not recorded';
+  return typeof v === 'number' && Number.isFinite(v) ? `${+v.toFixed(1)} L${note && v === b.volume ? ` (${note})` : ''}${isVolumeEstimate(b) && v === b.volume ? ' (estimate)' : ''}` : 'Not recorded';
+}
+/** True when the board's volume was estimated from its dimensions (the flag; boards saved before the flag carry it in their source text). */
+export function isVolumeEstimate(b: {volumeEstimated?: boolean; specificationSource?: string}): boolean {
+  return b.volumeEstimated ?? /volume estimated/i.test(b.specificationSource ?? '');
 }
 
 /** The four fictional records the app shipped before the real models (git history: the 'Demo Workshop' examples), frozen. A saved board

@@ -3,12 +3,11 @@ export const defaultProfile:UserProfile={skill:'Intermediate',region:'All region
 const rows:[string,string,SurfSpot['type'],SurfSpot['skill'],number,number,string,string[]][]=[
 ['Bolinas','Marin','Beach','Beginner',225,220,'Soft',['Currents','Shorebreak']],['Stinson Beach','Marin','Beach','Intermediate',250,240,'Peaky',['Strong currents','Shorebreak']],['Ocean Beach','San Francisco','Beach','Expert',285,270,'Powerful',['Strong currents','Heavy shorebreak']],['Linda Mar','San Mateo','Beach','Beginner',250,250,'Soft',['Currents','Crowds']],['Montara','San Mateo','Beach','Expert',275,270,'Powerful',['Strong currents','Heavy shorebreak']],['Mavericks','San Mateo','Reef','Expert',290,270,'Powerful',['Extreme surf','Rocks','Shallow reef']],['Steamer Lane','Santa Cruz','Point','Expert',250,200,'Steep',['Rocks','Strong currents','Crowds']],['Cowell’s','Santa Cruz','Point','Beginner',210,190,'Soft',['Rocks','Crowds']],['Pleasure Point','Santa Cruz','Reef','Intermediate',230,200,'Peaky',['Shallow reef','Rocks']],['Davenport','Santa Cruz','Beach','Expert',280,270,'Steep',['Strong currents','Rocks']]];
 export const spots:SurfSpot[]=rows.map((r,i)=>({id:`spot-${i}`,name:r[0],region:r[1],type:r[2],skill:r[3],idealDirection:r[4],exposure:[.55,.8,1.3,.6,1.1,2.8,1,.45,.85,1.05][i],period:[9,18],tides:i%2?['Rising','High']:['Low','Rising'],seaward:r[5],character:r[6],hazards:r[7],illustrative:true,waveRange:([[1,4],[2,6],[4,10],[1,4],[3,8],[10,22],[3,8],[.5,3],[2,7],[3,8]] as [number,number][])[i],windTolerance:i%3===0?.9:1,organizationPreference:70}));
-// The example quiver: four real retail models (user decision 2026-11-11; src/data/referenceBoards.ts for the traced outlines and the sources), shown
-// as "Example board (retail model)". Dimensions as published (Seaside, Inferno 72, Ghost checked against the maker's site 2026-11-11; the Wavestorm
-// is the retailer's listing, marked unverified in its notes);
-// rocker, rails, wave ranges and the board's character are not published, so they stay unset (the category's typical values are used). Never an exact replica.
-const MODELLED='Example board: typical size and shape for its type · approximate';
-const EX='Example board with typical dimensions for its type. Replace it with your own board to get a match you can rely on.';
+// The example quiver (quiver-lock, 2026-11-14): four generic example boards, no maker, model or retailer shown. Their outlines are traced from four common
+// production boards (src/data/referenceBoards.ts) and their sizes follow those boards, so they are example sizes for the type, not a product.
+// Rocker, rails, wave ranges and character are not stated, so they stay unset (the category's typical values are used). Never an exact replica.
+const MODELLED='Example board: example size and shape for its type · approximate';
+const EX='Example board with example dimensions for its type. Replace it with your own board to get a match you can rely on.';
 export const demoBoards:Surfboard[]=[
 {id:'demo-fish',name:'Small-day fish',manufacturer:'',model:'Example',type:'Fish',length:71,width:22.75,thickness:2.75,volume:41.1,tail:'Swallow',fins:'Quad',construction:'EPS / epoxy',favorite:false,demo:true,specificationSource:MODELLED,notes:EX},
 {id:'demo-short',name:'Everyday shortboard',manufacturer:'',model:'Example',type:'Performance shortboard',length:70,width:19.25,thickness:2.625,volume:29.4,tail:'Squash',fins:'Thruster',construction:'Carbon-reinforced',favorite:false,demo:true,specificationSource:MODELLED,notes:EX},

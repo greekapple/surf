@@ -18,7 +18,7 @@ import {spotPhase} from '../../services/dataPhase';
 import {titleCase} from '../forecast/model';
 import {inches} from './format';
 import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outline';
-import {MODELLED_NOTE, exampleLabel, referenceFor, volumeLabel} from '../../data/referenceBoards';
+import {MODELLED_NOTE, exampleLabel, isVolumeEstimate, referenceFor, volumeLabel} from '../../data/referenceBoards';
 import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
 import {Strip} from './Overlay';
@@ -64,7 +64,7 @@ function BoardForm({initial, onSave, onCancel, onDirty, onDelete, presetType}: {
     const id = initial?.id ?? crypto.randomUUID(), o = path === 'scan' ? scan?.outline ?? null : null;
     if (!saveOutline(id, o) && o?.tex) saveOutline(id, {v: 1, hw: o.hw});
     onSave({...(initial ?? {favorite: false}), id, name: f.name.trim() || f.type, manufacturer: f.manufacturer.trim(), model: f.model.trim(), type: f.type,
-      length, width: w, thickness, volume: vol, fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false,
+      length, width: w, thickness, volume: vol, volumeEstimated: estimating || volumeBlank || (!!initial && isVolumeEstimate(initial) && vol === initial.volume), fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false,
       specificationSource: path === 'scan' && scan ? (estimating ? 'From your photo (volume estimated)' : 'From your photo') : volumeBlank ? 'Entered by you (volume estimated)' : 'Entered by you'});
   };
   const [tried, setTried] = useState(false);
@@ -115,7 +115,7 @@ const okN = (n: number | undefined): n is number => typeof n === 'number' && Num
 /** The stored numbers, as recorded (never filled in). */
 function specRows(b: Surfboard): [string, string][] {
   return [['Length', okN(b.length) ? lengthLabel(b.length) : 'Not recorded'], ['Width', okN(b.width) ? inches(b.width) : 'Not recorded'],
-    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? `${volumeLabel(b)}${/volume estimated/i.test(b.specificationSource ?? '') ? ' (estimate)' : ''}` : 'Not recorded'],
+    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? volumeLabel(b) : 'Not recorded'],
     ['Fins', b.fins?.trim() || 'Not recorded'], ['Tail', b.tail?.trim() || 'Not recorded']];
 }
 
@@ -221,7 +221,7 @@ export function QuiverView({section, go}: ViewProps) {
     </div>
   );
   // volume against the weight and level (display only, ours): shown with the board's own volume
-  const vnote = sel ? volumeNote(sel.volume, p.weightKg, levelOf(p)) : null;
+  const vnote = sel ? volumeNote(sel.volume, p.weightKg, levelOf(p), isVolumeEstimate(sel)) : null;
   const fitOf = sel ? fits.get(sel.id) : undefined;
   const fitsDiffer = new Set([...fits.values()].map((x) => x.state)).size > 1;   // identical chips on every board say nothing: the verdict band says it once
   const estShort = pending || !est ? null : isFlat(hs) ? FLAT_ESTIMATE_TEXT : headlineText(hs, p).value;
@@ -232,7 +232,7 @@ export function QuiverView({section, go}: ViewProps) {
       <header className="qv-side-h">
         <h2>{sel.name}</h2>
         <p className="fine">{[sel.type, sel.demo ? 'Example' : [sel.manufacturer, sel.model].filter(Boolean).join(' ') || null].filter(Boolean).join(' · ')}</p>
-        {sel.demo && <p className="fine">{exampleLabel(sel)}: typical dimensions for its type. <button type="button" className="qv-link" onClick={() => { replacing.current = sel.id; openForm('new'); }}>Replace with your board</button></p>}
+        {sel.demo && <p className="fine">{exampleLabel(sel)}: example dimensions for its type. <button type="button" className="qv-link" onClick={() => { replacing.current = sel.id; openForm('new'); }}>Replace with your board</button></p>}
       </header>
       <dl className="qv-spec-l">{specRows(sel).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
       {fitOf && fitOf.state !== 'none' && !pending && <p className="qv-fitline">Today: <em className={`qv-fit ${fitOf.state}`}>{fitOf.label}</em> <span className="fine">· {surfRange(fitOf.board[0], fitOf.board[1], p)} ({rangeSourceText(fitOf, sel.type)})</span></p>}
@@ -294,7 +294,7 @@ export function QuiverView({section, go}: ViewProps) {
                     <div className="qv-rank-t">
                       <span className="qv-rank-n">{x.board.id === choice.pick?.id ? pickHeading(x.size, est, 'Best for this size') : outOfRange(x) ? 'Not for this size' : `#${k + 1}`}</span>
                       <h2>{x.board.name}</h2>
-                      <p className="fine">{x.board.type} · {lengthLabel(x.board.length)} · {x.board.volume} L</p>
+                      <p className="fine">{x.board.type} · {lengthLabel(x.board.length)} · {volumeLabel(x.board)}</p>
                       <p><em className={`qv-fit ${x.size.state}`}>{x.size.label}</em>{x.size.state !== 'none' && <span className="fine"> · {x.size.source === 'board' ? 'your range' : `${x.board.type.toLowerCase()} range`} {surfRange(x.size.board[0], x.size.board[1], p)}</span>}</p>
                       {x.period && period !== null && <p className="fine">{Math.round(period)} s period: {x.period.note}.</p>}
                     </div>
@@ -315,7 +315,7 @@ export function QuiverView({section, go}: ViewProps) {
                   <div className="qv-rank-t">
                     <span className="qv-rank-n">{m.board.id === choice.pick?.id ? pickHeading(m.size, scoreEst, 'Best match') : m.size.state === 'big' || m.size.state === 'small' ? 'Not for this size' : !m.eligible ? 'Not for your ability' : `#${k + 1}`}</span>
                     <h2>{m.board.name}</h2>
-                    <p className="fine">{m.board.type} · {lengthLabel(m.board.length)} · {m.board.volume} L{m.eligible ? '' : ' · outside your ability or range'}{m.limited ? ' · limited board data' : ''}</p>
+                    <p className="fine">{m.board.type} · {lengthLabel(m.board.length)} · {volumeLabel(m.board)}{m.eligible ? '' : ' · outside your ability or range'}{m.limited ? ' · limited board data' : ''}</p>
                     <ul className="factors">{m.factors.map((fc) => <li key={fc.name}><span>{fc.name} <span className="fine">· weight {Math.round(fc.weight * 100)}%</span></span><span>{Math.round(fc.score)}</span><span className="bar"><i style={{width: `${fc.score}%`}} /></span><span className="fine" style={{gridColumn: '1 / -1'}}>{fc.reason}</span></li>)}</ul>
                   </div>
                   <div className="qv-score" aria-label={`Score ${Math.round(m.score)} out of 100`}><b>{Math.round(m.score)}</b><span>/100</span></div>
@@ -337,7 +337,7 @@ export function QuiverView({section, go}: ViewProps) {
           </div>
           <div className="tscroll" role="region" tabIndex={0} aria-label="Board comparison (scrolls sideways)"><table className="cmp"><thead><tr><th>Spec</th>{cmp.map((id, k) => <th key={k}>{boards.find((b) => b.id === id)?.name ?? '—'}</th>)}</tr></thead><tbody>
             {(['type', 'length', 'width', 'thickness', 'volume', 'fins'] as const).map((key) => <tr key={key}><td>{titleCase(key)}</td>{cmp.map((id, j) => { const v = boards.find((x) => x.id === id)?.[key];
-              return <td key={j}>{v === undefined ? '—' : key === 'length' ? lengthLabel(v as number) : key === 'width' || key === 'thickness' ? inches(v as number) : key === 'volume' ? `${v} L` : String(v)}</td>; })}</tr>)}
+              return <td key={j}>{v === undefined ? '—' : key === 'length' ? lengthLabel(v as number) : key === 'width' || key === 'thickness' ? inches(v as number) : key === 'volume' ? volumeLabel(boards.find((x) => x.id === id)!) : String(v)}</td>; })}</tr>)}
           </tbody></table></div>
         </section>
       )}

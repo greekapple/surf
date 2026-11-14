@@ -110,3 +110,14 @@ test('verdict: a pick, "none fits" with the closest board, "fits but above your 
   assert.equal(boardVerdict({choice, boards: QUIVER, spotName: 'X', estText: est, pending: true, fmtRange: fmt, profile: pAdv}).tone, 'loading'); assert.equal(boardVerdict({choice, boards: QUIVER, spotName: 'X', estText: est, failed: true, fmtRange: fmt, profile: pAdv}).tone, 'failed');
   assert.doesNotMatch(JSON.stringify([v, vb]), /Firewire|Wavestorm|Pyzel|Sharp ?Eye/i);
 });
+
+test('volume: an estimated volume is labelled "(estimate)" by the one label helper, from the flag or from older boards\' source text, and a measured one is not', async () => {
+  const {volumeLabel, isVolumeEstimate} = await import('../data/referenceBoards.ts');
+  const base = {manufacturer: '', model: '', type: 'Fish', volume: 34.2};
+  assert.equal(volumeLabel({...base, volumeEstimated: true}), '34.2 L (estimate)');
+  assert.equal(volumeLabel({...base, volumeEstimated: false, specificationSource: 'Entered by you (volume estimated)'}), '34.2 L');   // the flag wins once it is set
+  assert.equal(volumeLabel({...base, specificationSource: 'Entered by you (volume estimated)'}), '34.2 L (estimate)');                  // boards saved before the flag
+  assert.equal(volumeLabel({...base, specificationSource: 'Entered by you'}), '34.2 L');
+  assert.equal(isVolumeEstimate({}), false);
+  assert.match(volumeNote(38, 75, 4, true)!.text, /^38 L \(estimate\) against about 38 L/);
+});

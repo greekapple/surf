@@ -7,7 +7,7 @@ import {inches} from './format';
 import {SWATCHES, finsFromText, loadLook, resolvedLook, saveLook, templateFor, trimFor, type Finish, type FinSet, type Look} from './looks';
 import {loadOutline} from './outline';
 import {referenceTpl, tracedTpl} from './traced';
-import {referenceFor} from '../../data/referenceBoards';
+import {isVolumeEstimate, referenceFor} from '../../data/referenceBoards';
 import {Studio, type BoardEntry, type Preset} from './studio';
 import {BoardOutline} from './BoardOutline';
 
@@ -119,7 +119,7 @@ export default function BoardRoom({board, onSave, onFail, side, editing, onDone,
   const save = () => {
     if (!valid) return;
     const finsChanged = d.look.fins !== saved.look.fins;
-    onSave({...board, ...d.dims, tail: d.tail || board.tail, construction: d.construction || board.construction, fins: finsChanged ? finWord(d.look.fins) : board.fins});
+    onSave({...board, ...d.dims, volumeEstimated: d.dims.volume === board.volume ? board.volumeEstimated : false, tail: d.tail || board.tail, construction: d.construction || board.construction, fins: finsChanged ? finWord(d.look.fins) : board.fins});
     const lookStored = saveLook(board.id, d.look); keepDraft(null, board.id);
     setStatus(lookStored ? 'Saved to this board' : 'Saved the numbers, fins and tail. The color and finish could not be stored in this browser, so they last only for this visit.');
     onDone();
@@ -165,7 +165,7 @@ export default function BoardRoom({board, onSave, onFail, side, editing, onDone,
               <span className="k">{LABEL[k]}</span>
               <div className="c">
                 <button type="button" aria-label={`Decrease ${LABEL[k].toLowerCase()}`} onClick={() => setDims(k, d.dims[k] - STEP[k])}>−</button>
-                <output aria-live="polite">{FMT[k](d.dims[k])}</output>
+                <output aria-live="polite">{FMT[k](d.dims[k])}{k === 'volume' && isVolumeEstimate(board) && d.dims.volume === board.volume ? ' (estimate)' : ''}</output>
                 <button type="button" aria-label={`Increase ${LABEL[k].toLowerCase()}`} onClick={() => setDims(k, d.dims[k] + STEP[k])}>+</button>
               </div>
             </div>

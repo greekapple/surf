@@ -105,7 +105,7 @@ test('real boards (honesty): an edited example board loses the published-specs l
     assert.ok(referenceFor(d), d.id);
     for (const edit of [{length: d.length + 1}, {width: d.width + 0.25}, {thickness: d.thickness + 0.125}, {demo: false}, {demo: undefined}] as Partial<Surfboard>[]) assert.equal(referenceFor({...d, ...edit}), null, `${d.id} ${Object.keys(edit)[0]}`);
     assert.equal(d.character, undefined, `${d.id}: character is not published, so it is unset`);
-    assert.match(d.notes ?? '', /Example board with typical dimensions/, `${d.id}: the note says it is an example with typical dimensions`); assert.doesNotMatch(d.notes ?? '', /https?:\/\//, `${d.id}: no retailer link`);
+    assert.match(d.notes ?? '', /Example board with example dimensions/, `${d.id}: the note says it is an example with example dimensions`); assert.doesNotMatch(d.notes ?? '', /https?:\/\//, `${d.id}: no retailer link`);
   }
   const fish = demoBoards.find((d) => d.id === 'demo-fish')!;
   assert.equal(volumeLabel(fish), '41.1 L', 'no volume qualifier on an example'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L');

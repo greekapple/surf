@@ -24,7 +24,8 @@ import {dayText} from '../../services/weekCell';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
 import {explainRating, type FactorExplanation} from '../../ratings/explain';
-import {wind as windText} from '../../utils/units';
+import {surfRange, wind as windText} from '../../utils/units';
+import {rangeSourceText} from '../quiver/fit';
 import {evidenceSpots} from '../../ocean/spots';
 import {BAND_COLOR, bandOf, hourLabel, type HourSample} from './model';
 import {compass, ht, htSigned, monotonePath, windVal, spotLatLon, type Day} from './helpers';
@@ -279,7 +280,7 @@ export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('.
   if (!top || top.size.state === 'none') return null;
   return (
     <section className="sp-board" aria-label="Board Match">
-      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {top.size.board[0]}–{top.size.board[1]} {p.heightUnit === 'm' ? 'ft' : 'ft'}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}.` : '.'} <span className="fine">Wave shape unknown.</span></p>
+      <p>Ride your <b>{top.board.name}</b> ({feetInches(top.board.length)} {top.board.type.toLowerCase()}): it suits {surfRange(top.size.board[0], top.size.board[1], p)} ({rangeSourceText(top.size, top.board.type)}){top.board.demo ? ', an example board' : ''}{period !== null && top.period ? `; ${partitionKind(f.primary, true) === 'chop' ? top.period.note.replace(' swell ', ' wind chop ') : top.period.note}.` : '.'} {choice.mode === 'size' && <span className="fine">Wave shape unknown.</span>}</p>
       <button className="sp-link" onClick={onOpen}>Board Match</button>
     </section>
   );
