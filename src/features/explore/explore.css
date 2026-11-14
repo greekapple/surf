@@ -404,7 +404,7 @@ button.xstatus { cursor: pointer; font: inherit; }
 @media (max-width: 860px) { .xlm-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .xlm-grid button { min-height: 52px; } }
 /* T-099: on phones the map credits line drew over an open Model point / spot card (popups sit below Leaflet's controls layer). It hides only
    while a card is open, and is back as soon as the card closes. */
-@media (max-width: 860px) { .xleaf:has(.leaflet-popup, .xpopup.on) :is(.leaflet-control-attribution, .xcredit) { visibility: hidden; } }
+/* map-launch P0: the credit is never hidden while a popup is open (it was, on phones); folded it is a 44 px (i), open it draws above the popup */
 
 /* ---------- T-109 Compare: a header row at desktop, the whole row is the link, compact two-line rows and one scrolling chip row on phones ---------- */
 .cmpx-list li { display: block; padding: 0; }
@@ -1033,3 +1033,11 @@ button.xchip.xstatus { font: inherit; font-size: 12px; text-align: left; border:
   .xsearchbox .xsrcwarn[data-open] { white-space: normal; border-radius: 14px; }
   .xsearchbox .xsrcwarn[data-open] .xsw-t { white-space: normal; overflow: visible; }
 }
+.xcredit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+/* map-launch P1: no network (or no engine): one clear message over the map instead of a blank one */
+.xoffline { position: absolute; z-index: 1002; left: 50%; top: 40%; translate: -50% -50%; display: grid; gap: 6px; justify-items: center; width: min(360px, calc(100% - 32px)); box-sizing: border-box; padding: 16px 18px; border-radius: 12px; background: var(--bg); color: var(--text); box-shadow: 0 0 0 1px var(--line); text-align: center; font-size: 14px; line-height: 20px; }
+.xoffline b { font-size: 16px; }
+.xoffline span { color: var(--muted); }
+.xoffline button { min-height: 44px; padding: 0 16px; border-radius: 10px; border: 1px solid var(--line-2); background: var(--s1); color: var(--text); font: 600 14px/1 var(--sans); cursor: pointer; }
+/* map-launch P1-5: while the map has keyboard focus its centre is marked (Enter opens the forecast there) */
+.xleaf:has(canvas:focus-visible, .leaflet-container:focus-visible)::after { content: ''; position: absolute; z-index: 500; left: 50%; top: 50%; width: 22px; height: 22px; translate: -50% -50%; border-radius: 50%; border: 2px solid var(--text); box-shadow: 0 0 0 2px var(--bg); pointer-events: none; }

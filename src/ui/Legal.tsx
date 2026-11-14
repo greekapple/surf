@@ -6,7 +6,7 @@ export function Legal({page, go}: {page: 'privacy' | 'terms'; go: Go}) {
   return page === 'privacy' ? (
     <article className="legal">
       <h1>Privacy</h1>
-      <p>Last updated November 12, 2026.</p>
+      <p>Last updated November 14, 2026.</p>
       <h2>What stays on your device</h2>
       <p>There is no account and nothing you enter is uploaded to us. Everything below is kept in this browser's own storage on this device. Clearing the site's data removes all of it.</p>
       <ul>
@@ -39,7 +39,7 @@ export function Legal({page, go}: {page: 'privacy' | 'terms'; go: Go}) {
       <ul>
         <li>Forecasts, tides, buoys and map layers: Open-Meteo, NOAA (CO-OPS tides, NDBC buoys, GFS-Wave), CDIP and the PacIOOS ERDDAP server are asked through Swello's own server; if the server cannot answer, your browser may ask the source directly.</li>
         <li>Hazard alerts: the National Weather Service (api.weather.gov), asked directly by your browser for the spot you open.</li>
-        <li>Map: the default map loads its tiles and style from OpenFreeMap (tiles.openfreemap.org) directly in your browser. Esri (server.arcgisonline.com) is contacted only for the satellite view or when the map falls back to its older engine.</li>
+        <li>Map: the default map loads its tiles and style from OpenFreeMap (tiles.openfreemap.org) directly in your browser. Esri (server.arcgisonline.com) is contacted only when the map falls back to its older engine. The map's wave pictures load from GitHub Pages (greekapple.github.io).</li>
         <li>Cameras: a USGS camera still is loaded by your browser from USGS's own host, and its age is checked through Swello's server. A YouTube stream loads nothing from YouTube or Google until you tap it; then YouTube's player and its script load from youtube.com. HDOnTap cameras are links, unless HDOnTap allows this site, in which case its player loads only when you tap. Where HDOnTap provides a snapshot for Swello, your browser loads that picture from HDOnTap's own host (portal.hdontap.com) when the camera block comes on screen, and again about once a minute while it stays there, so HDOnTap sees your IP address and that the request came from Swello; Swello does not copy or store the picture.</li>
       </ul>
       <h2>Hosting</h2>

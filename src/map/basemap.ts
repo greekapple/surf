@@ -1,6 +1,8 @@
 import L from 'leaflet';
 import './basemap.css';
 import {readBasemapPref, basemapFor, type BasemapKind} from './basemapPref';
+/** map-launch: the Satellite choice is hidden in Personal (it never worked on the default engine), so a saved 'satellite' is ignored too: no imagery the person cannot switch off */
+const SATELLITE_OFFERED = false;
 
 /** Basemaps for the Explore map (T-042). Light and dark are quiet Esri Canvas styles (pale land, soft water, restrained labels);
  *  satellite stays an option. Every layer sets `maxNativeZoom`, so past the last real tile level the tiles are upscaled instead of going blank,
@@ -31,7 +33,7 @@ export function addBasemap(map: L.Map, onKind?: (k: BasemapKind) => void) {
   let base: L.TileLayer | null = null, labels: L.TileLayer | null = null, world: L.TileLayer | null = null, shown: BasemapKind | null = null;
   const show = () => {
     // T-115: with the sea-state field on, the light theme gets the Esri DARK grey canvas underneath (Windy draws its ramp on a dark grey base; a light base washes the colours out). The field sets data-heat on the container.
-    const heat = map.getContainer().dataset.heat === 'on', pref = readBasemapPref(), kind = pref === 'satellite' ? 'satellite' : heat ? 'dark' : basemapFor(pref, currentTheme());
+    const heat = map.getContainer().dataset.heat === 'on', pref = readBasemapPref(), kind = pref === 'satellite' && SATELLITE_OFFERED ? 'satellite' : heat ? 'dark' : basemapFor(pref, currentTheme());
     if (kind === shown) return;
     base?.remove(); labels?.remove(); world?.remove(); shown = kind;
     const def = BASEMAPS[kind], c = map.getContainer();

@@ -16,7 +16,7 @@ const MODEL_NAMES: Record<string, string> = {meteofrance_wave: 'Météo-France M
 
 const SOURCES: Source[] = [
   {name: 'Open-Meteo', supplies: `Marine (wave and swell) and weather (wind) forecasts for every spot, and the wave-model spread (${SPREAD_MODELS.map((m) => MODEL_NAMES[m] ?? m).join(', ')}).`,
-    licence: 'Creative Commons Attribution 4.0 (CC BY 4.0). Free public API for non-commercial use.', credit: 'Weather and marine data by Open-Meteo.com, from the national weather services and model centers it serves.',
+    licence: 'Data under Creative Commons Attribution 4.0 (CC BY 4.0). Swello\'s server uses Open-Meteo\'s paid commercial API plan; if the server cannot answer, your browser may ask Open-Meteo\'s free public API directly.', credit: 'Weather and marine data by Open-Meteo.com, from the national weather services and model centers it serves.',
     links: [['Open-Meteo', 'https://open-meteo.com/'], ['License', 'https://open-meteo.com/en/licence'], ['Terms', 'https://open-meteo.com/en/terms']]},
   {name: 'NOAA CO-OPS (Tides & Currents)', supplies: 'Tide predictions (highs, lows and hourly) and water-level observations at the station each spot names.',
     licence: 'U.S. Government work: public domain. NOAA disclaimer applies.', links: [['Tides & Currents', 'https://tidesandcurrents.noaa.gov/'], ['NOAA disclaimer', 'https://www.noaa.gov/disclaimer']]},
@@ -24,6 +24,8 @@ const SOURCES: Source[] = [
     licence: 'U.S. federal public data: public domain. NOAA disclaimer applies.', links: [['NDBC', 'https://www.ndbc.noaa.gov/']]},
   {name: 'NOAA National Weather Service', supplies: 'Hazard alerts (api.weather.gov) for the spot you open.', licence: 'U.S. Government work: public domain.', links: [['weather.gov', 'https://www.weather.gov/']]},
   {name: 'NOAA NCEP GFS-Wave and GFS', supplies: 'The map\'s global swell, period and wind layers.', licence: 'U.S. Government work: public domain.', links: [['NCEP', 'https://www.nco.ncep.noaa.gov/']]},
+  {name: 'Swello map frames (GitHub Pages)', supplies: 'The map\'s wave, swell and wind pictures: NOAA GFS-Wave grids that Swello\'s own job converts to images every few hours and publishes on GitHub Pages (greekapple.github.io/surf), which your browser loads directly. When they are missing or older than 18 hours the map uses the PacIOOS grids below and says so.',
+    licence: 'The data is NOAA\'s (U.S. Government work: public domain). Hosted by GitHub Pages under GitHub\'s terms.', links: [['GitHub Pages', 'https://pages.github.com/'], ['NCEP', 'https://www.nco.ncep.noaa.gov/']]},
   {name: 'PacIOOS / University of Hawaiʻi', supplies: 'The ERDDAP server the map\'s regional WaveWatch III and GFS grids are read from.',
     licence: '"The data may be used and redistributed for free but is not intended for legal use." No warranty.', credit: 'PacIOOS, funded by NOAA as an IOOS Regional Association, coordinated by the University of Hawaiʻi SOEST.',
     links: [['PacIOOS', 'https://www.pacioos.hawaii.edu/']]},
@@ -34,7 +36,8 @@ const SOURCES: Source[] = [
     credit: 'U.S. Geological Survey, Pacific Coastal and Marine Science Center.', links: [['USGS CoastCam', 'https://www.usgs.gov/centers/pcmsc']]},
   {name: 'OpenFreeMap, OpenMapTiles and OpenStreetMap', supplies: 'The default map (vector tiles, places and coastline).', licence: 'Map data © OpenStreetMap contributors, Open Database License (ODbL); tiles by OpenFreeMap; schema © OpenMapTiles.',
     links: [['OpenFreeMap', 'https://openfreemap.org/'], ['OpenMapTiles', 'https://www.openmaptiles.org/'], ['OpenStreetMap copyright', 'https://www.openstreetmap.org/copyright']]},
-  {name: 'Esri', supplies: 'Satellite imagery, and the base map of the fallback map engine.', licence: 'Esri terms of use.', credit: 'Imagery © Esri, Maxar, Earthstar Geographics. Fallback base map: Tiles © Esri; Esri, HERE, Garmin, FAO, NOAA, USGS, © OpenStreetMap contributors.', links: [['Esri', 'https://www.esri.com/']]},
+  {name: 'OpenStreetMap land polygons', supplies: 'The small coastline maps beside the swell and wind on spot pages (land within 2.5 km of each pin, simplified), built by Swello\'s own tool.', licence: 'Open Database License (ODbL) 1.0: © OpenStreetMap contributors; the derived coastline file is offered under the same licence.', links: [['OSM land polygons', 'https://osmdata.openstreetmap.de/data/land-polygons.html'], ['OpenStreetMap copyright', 'https://www.openstreetmap.org/copyright']]},
+  {name: 'Esri', supplies: 'The base map of the fallback map engine, used only when the default map cannot start.', licence: 'Esri terms of use.', credit: 'Tiles © Esri; Esri, HERE, Garmin, FAO, NOAA, USGS, © OpenStreetMap contributors.', links: [['Esri', 'https://www.esri.com/']]},
   {name: 'Natural Earth', supplies: 'Coastline and land outlines.', licence: 'Public domain.', links: [['Natural Earth', 'https://www.naturalearthdata.com/']]},
   {name: 'Iowa Environmental Mesonet (Iowa State University)', supplies: 'Airport (ASOS) wind observations, used by "How right were we?" to check the wind forecast.', licence: 'Redistributed NWS/FAA observations, provided as is (IEM disclaimer).',
     links: [['IEM', 'https://mesonet.agron.iastate.edu/'], ['Disclaimer', 'https://mesonet.agron.iastate.edu/disclaimer.php']]},
@@ -52,7 +55,7 @@ export function Credits({go}: {go: Go}) {
     <article className="legal credits">
       <p className="fine"><a href="/personal" onClick={(e) => { e.preventDefault(); go('personal'); }}>‹ Personal</a></p>
       <h1>Data sources & credits</h1>
-      <p>Last updated November 12, 2026. Swello is built on public data. Each source below is what the app actually uses, with its license and the credit its owner asks for.</p>
+      <p>Last updated November 14, 2026. Swello is built on public data. Each source below is what the app actually uses, with its license and the credit its owner asks for.</p>
       <h2>Forecast, tide, buoy and map data</h2>
       <ul className="cr-list">{SOURCES.map((s) => (
         <li key={s.name}>

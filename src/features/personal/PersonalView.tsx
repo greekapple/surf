@@ -79,6 +79,8 @@ function Page({title, onBack, children, action}: {title: string; onBack: () => v
 const SCALE_NAMES = {'Face height': 'Surf height (as reports quote it)', Hawaiian: 'Hawaiian (about half)'} as const;
 
 
+/** map-launch P1-6: the Map style choice (Standard / Satellite) stays hidden until the default MapLibre map draws a satellite basemap. */
+const SHOW_MAP_STYLE = false;
 export function PersonalView({section, go}: ViewProps) {
   const {data, view, setSpot, now, spotOptions, gate} = useSwello();
   const evidenceSpots = gate.evidence;   // ca-only: the gated list
@@ -388,10 +390,11 @@ export function PersonalView({section, go}: ViewProps) {
               </div>
               <p className="fine">White is the default. System follows your device.</p>
             </div>
-            <div className="pz-panel">
+            {/* map-launch P1-6: the Satellite style works only on the fallback map engine, so the choice is hidden until the default map supports it */}
+            {SHOW_MAP_STYLE && <div className="pz-panel">
               <Choice label="Map style" value={mapStyle === 'satellite' ? 'Satellite' : 'Standard'} options={['Standard', 'Satellite'] as const} onChange={(v) => { const n = v === 'Satellite' ? 'satellite' : 'auto'; saveBasemapPref(n); setMapStyle(n); }} />
               <p className="fine">Standard is a light, quiet map that follows your theme. Satellite shows imagery. Takes effect the next time the map opens.</p>
-            </div>
+            </div>}
           </Page>
         );
       case 'journal':

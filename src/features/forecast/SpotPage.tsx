@@ -293,6 +293,8 @@ export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('.
 }
 
 const median = (v: number[]) => { const a = [...v].sort((x, y) => x - y), m = a.length >> 1; return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
+/** the board's type in a word that fits a phone day card: shortboard SB, longboard LB, else its last word ("fish", "midlength") */
+const shortType = (t: string) => { const w = t.toLowerCase().split(' ').pop() ?? t; return w === 'shortboard' ? 'SB' : w === 'longboard' ? 'LB' : w; };
 /** 7-day strip (Surfline): day, surf range, AM/midday/PM rating segments, three wind arrows, best day star. */
 export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick, boards = []}: {days: Day[]; series: HourSample[]; spot: SurfSpot; p: UserProfile; bundle: OceanBundle | null | undefined; now: number; cur: number; best: number; onPick: (k: number) => void; boards?: Surfboard[]}) {
   const today = weekdayPT(new Date(now).toISOString());
@@ -327,7 +329,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick,
     if (far) return {w: null, surface: null, board: null, far: true, todayPassed: false};
     const mid = inWin[Math.floor(inWin.length / 2)], f = mid?.forecast, surface = f && f.availability.wind !== false ? surfaceWord(f.wind.speed, windRelationship(spot, f), f.wind.gusts) : null;
     const pick = boards.length && f ? boardPickFor(boards, spot, f, now, p, {bundle}).pick : null;
-    return {w, surface, far: false, todayPassed: false, board: pick ? {short: `${lengthLabel(pick.length)} ${pick.type.toLowerCase().split(' ').pop()}`, name: pick.name} : null}; });
+    return {w, surface, far: false, todayPassed: false, board: pick ? {short: `${lengthLabel(pick.length).replace(' ', '')} ${shortType(pick.type)}`, name: pick.name} : null}; });
   const strip = (
     <nav className="sp-days days" aria-label="Forecast days" data-scrub={scrub.current || undefined}
       onPointerDown={(e) => { if (e.pointerType === 'mouse' && e.button === 0) scrub.current = true; }}
