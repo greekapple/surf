@@ -65,3 +65,24 @@ test('a cold batch is bounded: at most 3 keys of a batch are fetched upstream at
   let inflight = 0, peakB = 0; const b = createProviderBatcher((async (u: string) => { inflight++; peakB = Math.max(peakB, inflight); await wait(6); inflight--; return Response.json({results: Object.fromEntries(keysOf(u).map((k) => [k, {status: 200, body: body(k)}]))}); }) as unknown as typeof fetch, 2);
   await Promise.all(Array.from({length: BATCH_MAX * 5}, (_, i) => b('/api/provider?key=marine-p' + i))); assert.ok(peakB <= BATCH_PARALLEL && peakB >= 2, `batch requests in flight ${peakB}`);
 });
+// cold-tail (docs/specs/2026-11-14-cold-tail.md): three stuck CDIP MOP keys held the whole batch until the browser's 20 s abort
+test('Worker: stuck keys answer at the per-key deadline (504, or the saved copy marked stale) and do not hold the other keys', async () => {
+  const stuck = /SF015|SF053|SM402/;
+  const up = (async (u: any) => { const s = String(u); if (stuck.test(s)) return new Promise(() => {}); if (/ndbc/.test(s)) return new Response('#YY MM DD hh mm\n'); return Response.json({hourly: {time: [T0 / 1000], wave_height: [1.5], wind_speed_10m: [5]}}); }) as unknown as typeof fetch;
+  const svc = createForecastService({fetcher: up, now: () => T0, sleep: async () => {}, keyDeadlineMs: 40});
+  const keys = ['nearshore-SF015-forecast', 'nearshore-SF053-forecast', 'nearshore-SM402-forecast', 'marine-spot-2', 'weather-spot-2', 'ndbc-46012'];
+  const t = Date.now(), out = (await (await svc(new Request('https://surf.test/api/providers?keys=' + keys.join(',')), {})).json()).results, took = Date.now() - t;
+  assert.ok(took < 1000, `answered in ${took} ms`);
+  for (const k of keys.slice(0, 3)) { assert.equal(out[k].status, 504); assert.equal(out[k].category, 'timeout'); }
+  for (const k of keys.slice(3)) assert.equal(out[k].status, 200, k);
+});
+test('Worker: a refresh that never settles (its request was cancelled) is not joined forever; past the age limit a fresh refresh starts', async () => {
+  let clock = T0, calls = 0;
+  const up = (async () => { calls++; if (calls === 1) return new Promise(() => {}); return Response.json({hourly: {time: [T0 / 1000], wave_height: [1.5], wind_speed_10m: [5]}}); }) as unknown as typeof fetch;
+  const svc = createForecastService({fetcher: up, now: () => clock, sleep: async () => {}, timeoutMs: 1000});
+  const first = svc(new Request('https://surf.test/api/provider?key=marine-spot-2'), {}); void first; await wait(5);
+  assert.equal(calls, 1);
+  clock += 1000 * 2 + 2001;
+  const res = await svc(new Request('https://surf.test/api/provider?key=marine-spot-2'), {});
+  assert.equal(res.status, 200); assert.equal(calls, 2);
+});
