@@ -95,8 +95,10 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
   /** The hour's surf-estimate band, or undefined: offshore and demonstration points are not surf estimates (CONTRACTS.md), so they never become bars. */
   const bAt = (h: HourSample) => estimateBand(bandAt.get(h.timestamp));
   // T-119: the Swell tab scales to the swells alone (the surf band's top squashed them into the bottom third).
-  const hsMax = Math.max(1, ...series.map((h) => tab === 'swell' ? Math.max(h.forecast.primary?.height ?? 0, h.forecast.secondary?.height ?? 0, h.forecast.tertiary?.height ?? 0)
-    : Math.max(h.heightFt ?? 0, h.forecast.primary?.height ?? 0, bAt(h)?.hi ?? 0))) * 1.12;
+  // a missing value (null or NaN from a provider) never sets the scale: NaN here made every y NaN or far off the chart (prod 2026-11-13)
+  const fv = (v: number | null | undefined) => (typeof v === 'number' && Number.isFinite(v) ? v : 0);
+  const hsMax = Math.max(1, ...series.map((h) => tab === 'swell' ? Math.max(fv(h.forecast.primary?.height), fv(h.forecast.secondary?.height), fv(h.forecast.tertiary?.height))
+    : Math.max(fv(h.heightFt), fv(h.forecast.primary?.height), fv(bAt(h)?.hi)))) * 1.12;
   const wMax = Math.max(10, ...series.map((h) => Math.max(h.forecast.wind.speed || 0, h.forecast.wind.gusts || 0))) * 1.12;
   const [lo, hi] = tab === 'wind' ? [0, wMax] : tab === 'tide' ? [tLo - (tHi - tLo || 1) * 0.15, tHi + (tHi - tLo || 1) * 0.2] : [0, hsMax];
   const Y = (v: number) => PB - ((v - lo) / (hi - lo || 1)) * (PB - PT);
@@ -118,7 +120,8 @@ export function Timeline({series, spot, p, selectedTime, now, extrema, height = 
   const t0 = n ? Date.parse(series[0].timestamp) : 0, XT = (ms: number) => X((ms - t0) / 3600000);
   const i0 = Math.max(0, Math.floor(a) - 1), i1 = Math.min(n - 1, Math.ceil(b) + 1);
   const vis = series.slice(i0, i1 + 1);
-  const line = (f: (h: HourSample) => number) => monotonePath(vis.map((h, k) => [X(i0 + k), Y(f(h))]));
+  // hours with no value are left out of the line (never drawn as 0, never NaN in the path)
+  const line = (f: (h: HourSample) => number) => monotonePath(vis.map((h, k): [number, number] => [X(i0 + k), Y(f(h))]).filter(([, y]) => Number.isFinite(y)));
   // T-109: runs of consecutive hours that have a surf estimate, as [x, lo, hi]; the band and median are drawn per run so a gap is never bridged.
   const estRuns: [number, number, number][][] = [];
   vis.forEach((h, k) => { const b = bAt(h), ok = b && b.lo !== null && b.hi !== null; if (!ok) { if (estRuns.length && estRuns[estRuns.length - 1].length) estRuns.push([]); return; }
