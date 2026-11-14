@@ -15,6 +15,7 @@ description: The lead's merge routine for SWELLO worker branches (product/engine
 
 Never push while `tools/review/licence-guard.sh` blocks (public repo).
 
-## After a green merge (night of 2026-11-02 onward)
-- Fast-forward `rebuild/swello-v0.16` to `forecast-trust` (local only; its history still holds licensed GLBs, never upload it).
-- Run `tools/review/port-to-clean.sh` to replay the new integration commits onto the scrubbed public line `swello-v0.17`, then upload that one branch explicitly (`git` + `push origin swello-v0.17`, no flags). The licence guard checks it; never bypass, never force.
+## Integration branch (from 2026-11-14)
+- The integration branch is the clean public line **`swello-v0.17`** (no licensed files anywhere in its history). Merge worker branches into it, deploy from it, and push it with `git push origin swello-v0.17` as its own command. No port step.
+- `forecast-trust` and `rebuild/swello-v0.16` are FROZEN archives (their history holds licensed GLBs). Never push them, never delete them, never merge them or anything branched from them into swello-v0.17.
+- A worker branch that was cut from forecast-trust must be rebased first: `git rebase --onto swello-v0.17 <its fork point on forecast-trust> <branch>`. The trees matched at the switch (forecast-trust 25658c78-equivalent). Then merge as usual.

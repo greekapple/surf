@@ -9,6 +9,7 @@ The user describes outcomes in plain language ("the Explore map looks terrible",
 - Never fake data or labels; follow the data-honesty rules in `PRODUCT.md` and `docs/agents/CONTRACTS.md`.
 - Done means verified: the journey works in a real browser and the 1440/390 screenshots were looked at against the references. Compiling, rendering, passing tests or an agent saying "done" is not completion. Report incomplete work as incomplete.
 - Full autonomy (user, 2026-11-02): commits, merges, pushes, installs and dependencies are pre-approved. Hard limits: no destructive git on `surf-history` (force-push/delete), nothing secret pushed, ask before spending money. Deploying the private site with `npm run deploy` is pre-approved (user, 2026-11-12) after a green merge, followed by a live check at 1440 and 390.
+- **Integration branch: `swello-v0.17`** (since 2026-11-14; clean history). `forecast-trust` / `rebuild/swello-v0.16` are frozen archives with licensed history: never push, merge from or delete them.
 - **This repo is PUBLIC.** Never push licensed third-party assets or anything derived from them: the TurboSquid wave meshes and the `public/media/scale3d-live/*.glb` waves built from them stay local (git-ignored) until a private asset host exists.
 - Obsidian notes (`~/Knowledge/AI-Knowledge/10-Projects/SWELLO/`) hold durable decisions; write and update them directly.
 - Knowledge lookup: read `~/Knowledge/AI-Knowledge/00-MAP.md` first, then the one `45-Wiki/` page it names. Design work follows `docs/design/RULES.md`.
