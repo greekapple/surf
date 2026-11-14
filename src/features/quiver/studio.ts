@@ -367,7 +367,8 @@ export class Studio {
   private loop = (now: number) => {
     this.raf = 0;
     if (this.disposed || document.hidden || !this.visible) return;
-    const dt = Math.min(0.05, (now - this.last) / 1000); this.last = now;
+    // rAF hands the frame's start time, which can be earlier than the performance.now() kick() stored: a negative step grew the fling (k > 1) and turned the board backwards each frame, the "frantic" drag. Never below zero.
+    const dt = Math.max(0, Math.min(0.05, (now - this.last) / 1000)); this.last = Math.max(this.last, now);
     let draw = this.dirty, moving = false;
     if (this.spinOn) { this.spinAngle += dt * 0.28; draw = true; }
     if (!this.drag && (Math.abs(this.vel.x) > 0.02 || Math.abs(this.vel.y) > 0.02)) {   // inertia after a release: decays by half every ~0.17 s; none under reduced motion
@@ -387,7 +388,7 @@ export class Studio {
       }
     }
     if (this.tween) {
-      const k = Math.min(1, (now - this.tween.t0) / this.tween.dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, tw = this.tween;
+      const k = Math.max(0, Math.min(1, (now - this.tween.t0) / this.tween.dur)), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, tw = this.tween;
       const s = new THREE.Spherical(THREE.MathUtils.lerp(tw.from.radius, tw.to.radius, e), THREE.MathUtils.lerp(tw.from.phi, tw.to.phi, e), THREE.MathUtils.lerp(tw.from.theta, tw.to.theta, e));
       const t = tw.fromT.clone().lerp(tw.toT, e);
       this.controls.target.copy(t); this.camera.position.setFromSpherical(s).add(t); this.camera.lookAt(t);
@@ -732,7 +733,8 @@ export class Studio {
   };
   private onTurnMove = (e: PointerEvent) => {
     const d = this.drag; if (!d || e.pointerId !== d.id) return;
-    const dx = e.clientX - d.x, dy = e.clientY - d.y, now = performance.now(), dt = Math.max(1, now - d.t), K = 0.0085;   // radians per pixel: a full turn across about 740 px
+    const dx = e.clientX - d.x, dy = e.clientY - d.y, now = performance.now(), dt = Math.max(12, now - d.t), K = 0.0085;   // a step under ~12 ms (coalesced events on a busy machine) no longer reads as a huge flick
+      // radians per pixel: a full turn across about 740 px
     if (!d.moved && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) < 3) return;
     // Phone, not full screen: a swipe that starts more up-and-down than sideways belongs to the page (it scrolls); the viewer lets go of it.
     if (!d.moved && e.pointerType === 'touch' && this.canvas.style.touchAction === 'pan-y' && Math.abs(e.clientY - d.sy) > Math.abs(e.clientX - d.sx)) { this.drag = null; try { this.canvas.releasePointerCapture(e.pointerId); } catch { /* already released */ } return; }
@@ -746,7 +748,7 @@ export class Studio {
     const d = this.drag; if (!d || e.pointerId !== d.id) return; this.drag = null;
     try { this.canvas.releasePointerCapture(e.pointerId); } catch { /* already released */ }
     if (this.reduced || performance.now() - d.t > 90) { this.vel.x = this.vel.y = 0; }   // a pause before letting go means no fling
-    else { const m = 6; this.vel.x = THREE.MathUtils.clamp(this.vel.x, -m, m); this.vel.y = THREE.MathUtils.clamp(this.vel.y, -m, m); this.kick(); }
+    else { const m = 4; this.vel.x = THREE.MathUtils.clamp(this.vel.x, -m, m); this.vel.y = THREE.MathUtils.clamp(this.vel.y, -m, m); this.kick(); }
     if (d.moved) { this.settleFit = true; this.kick(); }
     // a quick second tap or click in the same place resets the view
     if (!d.moved) { const now = performance.now(); if (now - this.lastTap.t < 320 && Math.hypot(e.clientX - this.lastTap.x, e.clientY - this.lastTap.y) < 28) { this.lastTap.t = 0; this.reset(); } else this.lastTap = {t: now, x: e.clientX, y: e.clientY}; }
