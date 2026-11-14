@@ -1031,3 +1031,73 @@ p.sp-wn { display: block; }
 .vm { flex: none; display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; box-sizing: border-box; }
 .sd-v i.vm { width: 8px; height: 8px; }
 .sd-none { color: var(--muted); font-weight: 500; }
+
+/* space-tighten (user, 2026-11-14: "soooo much blank space ... on Forecast especially on phone"): the same content in less height. Nothing that carries data or
+   provenance is removed; long keys fold under one toggle (DayStrip "Key and day detail"), side-by-side where a column sat empty. */
+.sp-wbmore { min-width: 0; }
+.sp-wbmore > summary { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; list-style: none; font: 600 13px/1.3 var(--sans); color: var(--text); }
+.sp-wbmore > summary::-webkit-details-marker { display: none; }
+.sp-wbmore > summary::after { content: ''; flex: none; width: 7px; height: 7px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin: -4px 4px 0 auto; transition: transform 160ms var(--ease); }
+.sp-wbmore[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
+.sp-wbmore > summary { white-space: nowrap; }
+.sp-wbmore-s { min-width: 0; flex: 1 1 0; font-size: 12px; font-weight: 500; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sp-wbmore > .sp-wbkey { margin-top: 0; }
+.sp-wbmore > .sp-dayrange { margin-top: 6px; }
+@media (min-width: 861px) { .sp-wbmore > summary { min-height: 32px; } }
+/* the detail grid on a wide screen: the tall cards (wave scale, wind) span both rows; the short ones stack beside them, so no column runs empty */
+@media (min-width: 1101px) {
+  .sp-grid { grid-template-columns: minmax(0, 0.95fr) minmax(0, 0.85fr) minmax(0, 1.1fr) minmax(0, 1.1fr); grid-template-areas: 'surf scale wind tide' 'rating scale wind swell'; }
+}
+@media (max-width: 860px) {
+  .sp { padding-bottom: 4px; }
+  .sp-grid > .sp-card { padding-top: 10px; padding-bottom: 10px; }
+  .sp-more { margin-top: 4px; }
+  /* Sources & data: one row, the title beside its line, no label column */
+  .sp-src summary { display: block; min-height: 44px; }
+  .sp-src summary h2 { display: inline; margin-right: 8px; }
+  .sp-src summary span { line-height: 1.4; }
+  .sp > .card.sp-src { padding-top: 10px; }
+}
+@media (max-width: 600px) {
+  /* wave scale: the drawing on the left, its words beside it (the drawing's right side was empty) */
+  .sp-scalep { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: end; column-gap: 12px; }
+  .sp-scalep svg { max-height: 190px; }
+  /* wind: the tile, then the words beside it at full height; the tile's caption runs under both as one line */
+  .sp-tilerow { display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 4px 12px; align-items: start; }
+  .sp-tilerow > .ct-big { display: contents; }
+  .sp-tilerow > .ct-big svg { width: 104px; height: 104px; grid-column: 1; grid-row: 1; }
+  .sp-tilerow > p { grid-column: 2; grid-row: 1; }
+  .sp-tilerow > .ct-big .ct-cap { grid-column: 1 / -1; grid-row: 2; max-width: none; text-align: left; }
+}
+@media (max-width: 600px) {
+  /* the detail cards already part with a rule and 10 px either side: no extra row gap on top of that */
+  .sp-grid { row-gap: 0; }
+  .sp { gap: 6px; }
+  .sp-scalep { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .sp-grid .hr { margin: 4px 0 10px; }
+}
+@media (max-width: 600px) {
+  .sp-scalep { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+  .sp-tilerow { grid-template-columns: 96px minmax(0, 1fr); }
+  .sp-tilerow > .ct-big svg { width: 96px; height: 96px; }
+}
+@media (max-width: 600px) {
+  .sp-grid > .sp-card { padding-top: 8px; padding-bottom: 8px; }
+}
+/* Sources & data: its line sits beside the title (not pushed to the far edge); less empty page between it and the footer */
+.sp-src summary { justify-content: flex-start; min-height: 44px; align-items: center; }
+.sp { padding-bottom: 8px; }
+@media (max-width: 860px) { .sp { padding-bottom: 4px; } }
+/* the toggle's subtitle wraps (two short lines on a phone) rather than being cut with an ellipsis */
+.sp-wbmore-s { white-space: normal; overflow: visible; text-overflow: clip; line-height: 15px; }
+@media (max-width: 600px) {
+  /* the scale drawing at its own size (about 170 px square), its words take the rest of the row */
+  .sp-scalep { grid-template-columns: minmax(0, 172px) minmax(0, 1fr); }
+  .sp-scalep svg { max-height: 168px; }
+  .sp-nc { padding: 5px 0; }
+}
+/* the in-view key reads as one flowing line (each item stays whole), not a row of boxes that leaves each line's end empty */
+.sp-wbkey.sp-vkey { display: block; }
+.sp-wbkey.sp-vkey > span { display: inline; margin-right: 10px; }
+.sp-wbkey.sp-vkey > span > i { display: inline-block; vertical-align: -1px; margin-right: 4px; }
+.sp-wbkey.sp-vkey > span > i.vm { vertical-align: 0; }

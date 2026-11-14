@@ -174,7 +174,7 @@ export function ConditionsGrid({part, spot, h, p, dayHours, extrema, bundle, now
           </> : <p className="sp-s">Water temperature not in this record.</p>}
         </section>
       </div>
-      <p className="sp-f sp-coastcredit"><CoastCredit spotId={spot.id} prefix="Swell and wind maps: " /></p>
+      <p className="sp-f sp-coastcredit"><CoastCredit spotId={spot.id} prefix="Maps: " /></p>
     </>);
   }
   return (
@@ -290,7 +290,7 @@ const median = (v: number[]) => { const a = [...v].sort((x, y) => x - y), m = a.
 /** the board's type in a word that fits a phone day card: shortboard SB, longboard LB, else its last word ("fish", "midlength") */
 const shortType = (t: string) => { const w = t.toLowerCase().split(' ').pop() ?? t; return w === 'shortboard' ? 'SB' : w === 'longboard' ? 'LB' : w; };
 /** 7-day strip (Surfline): day, surf range, AM/midday/PM rating segments, three wind arrows, best day star. */
-export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick, boards = []}: {days: Day[]; series: HourSample[]; spot: SurfSpot; p: UserProfile; bundle: OceanBundle | null | undefined; now: number; cur: number; best: number; onPick: (k: number) => void; boards?: Surfboard[]}) {
+export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick, boards = [], keyOpen = true}: {days: Day[]; series: HourSample[]; spot: SurfSpot; p: UserProfile; bundle: OceanBundle | null | undefined; now: number; cur: number; best: number; onPick: (k: number) => void; boards?: Surfboard[]; /** space-tighten: the bar key and the selected day's confidence note start open (wide) or folded (phone) */ keyOpen?: boolean}) {
   const today = weekdayPT(new Date(now).toISOString());
   // Drag across the strip with a mouse to scrub days; every card follows the selected hour live.
   const scrub = useRef(false);
@@ -391,15 +391,25 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick,
   // forecast-visuals B: ONE short key line for the bars (the Stage A key's style): ratings, the scale step, the arrows, the tide; the offshore and NWS swatches only when a bar uses them
   const tideDrawn = tHi - tLo >= 0.1 && days.some((d) => series.slice(d.start, d.end + 1).filter((x) => x.hour >= 5 && x.hour <= 16 && fin(x.forecast.tide.height)).length >= 6);
   const all = cols.flat(), kinds2 = new Set(all.map((c) => c.bar.kind)), rated = kinds2.has('est') || kinds2.has('flat');
-  const verdictKey = plan.some((x) => x.w) || plan.some((x) => !x.far && !x.todayPassed) ? <p className="sp-wbkey sp-vkey"><span>best window:</span><span><i className="vm" style={{borderColor: BAND_COLOR.good}} />Go</span><span><i className="vm" style={{borderColor: BAND_COLOR.fair}} />Worth a look</span><span><i className="vm" style={{borderColor: BAND_COLOR.poor}} />Skip</span>
-    {plan.some((x) => x.surface) && <span>surface: our rule from the wind</span>}{plan.some((x) => x.board) && <span>board: your Board Match pick</span>}<span>provisional, our rules</span></p> : null;
+  const verdictKey = plan.some((x) => x.w) || plan.some((x) => !x.far && !x.todayPassed) ? <><span>best window:</span><span><i className="vm" style={{borderColor: BAND_COLOR.good}} />Go</span><span><i className="vm" style={{borderColor: BAND_COLOR.fair}} />Worth a look</span><span><i className="vm" style={{borderColor: BAND_COLOR.poor}} />Skip</span>
+    {plan.some((x) => x.surface) && <span>surface: our rule from the wind</span>}{plan.some((x) => x.board) && <span>board: your Board Match pick</span>}<span>{rated ? 'verdicts and bar ratings provisional, our rules' : 'provisional, our rules'}</span></> : null;
   const barKey = <p className="sp-wbkey">{rated && <><span><i className="sw" style={{background: BAND_COLOR.good}} />good</span><span><i className="sw" style={{background: BAND_COLOR.fair}} />fair</span><span><i className="sw" style={{background: BAND_COLOR.poor}} />poor</span><span>ratings provisional</span></>}
-    {[...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') && <span><i className="wb-r" style={{background: BAND_COLOR.fair}} />dot: rating where the bar is not our estimate</span>}
-    {kinds2.has('est') && <span>solid: typical wave to sets</span>}{kinds2.has('off') && <span><i className="sw off" />offshore Hs, not surf size</span>}{kinds2.has('nws') && <span><i className="sw nws" />NWS forecast, for the day</span>}{kinds2.has('demo') && <span><i className="sw demo" />demonstration</span>}
-    {all.some((c) => c.dark && c.bar.kind !== 'none') && <span><i className="sw dk" />after dark</span>}{all.some((c) => c.far && c.bar.kind !== 'none') && <span><i className="sw fr" />too far out</span>}
-    <span>6a 9a 12p 3p · grid {stepText(heightValue(scale.step, p, hawaiian))} {p.heightUnit}{hawaiian ? ` ≈ Hawaiian${kinds2.has('nws') ? ' (estimates; NWS bars in published feet)' : ''}` : ''}</span><span>arrows: wind (shore relation), then swell (period)</span>
+    {kinds2.has('est') && <span>solid: typical wave to sets</span>}
+    <span>6a 9a 12p 3p · grid {stepText(heightValue(scale.step, p, hawaiian))} {p.heightUnit}{hawaiian ? ' ≈ Hawaiian' : ''}</span><span>arrows: wind (shore relation), then swell (period)</span>
     {tst && tideDrawn && <span><i className="tl" />tide: NOAA {tst.station.name}{hourlyTideStationIds.includes(tst.station.id) ? '' : ', interpolated'}, above MLLW, not at the beach</span>}</p>;
-  return <>{strip}{verdictKey}{barKey}{keyLine && <p className="sp-days-k">{keyLine}</p>}{selNote && <p className="sp-dayrange">{selNote}</p>}</>;
+  // data-honesty review: the marks only some bars carry (not our estimate: offshore, NWS, demonstration; after dark; too far out) stay in view beside the verdict key;
+  // only the always-present key (rating colours, the solid part, the grid, the arrows, the tide line) folds
+  const marks = [...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') || all.some((c) => (c.dark || c.far) && c.bar.kind !== 'none');
+  const markKey = marks ? <>
+    {[...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') && <span><i className="wb-r" style={{background: BAND_COLOR.fair}} />dot: rating where the bar is not our estimate</span>}
+    {kinds2.has('off') && <span><i className="sw off" />offshore Hs, not surf size</span>}{kinds2.has('nws') && <span><i className="sw nws" />NWS forecast, for the day{hawaiian ? ' (in published feet; our estimates ≈ Hawaiian)' : ''}</span>}{kinds2.has('demo') && <span><i className="sw demo" />demonstration</span>}
+    {all.some((c) => c.dark && c.bar.kind !== 'none') && <span><i className="sw dk" />after dark</span>}{all.some((c) => c.far && c.bar.kind !== 'none') && <span><i className="sw fr" />too far out</span>}
+  </> : null;
+
+  // space-tighten (user, 2026-11-14: "soooo much blank space"): the verdict key and the per-day confidence line stay in view; the bar key and the selected day's
+  // confidence note (its reason and the daylight range) sit under one "Key and day detail" toggle, folded on a phone, open on a wide screen. Nothing is removed.
+  return <>{strip}{verdictKey || markKey ? <p className="sp-wbkey sp-vkey">{verdictKey}{markKey}</p> : null}{keyLine && <p className="sp-days-k">{keyLine}</p>}
+    <details className="sp-wbmore" open={keyOpen}><summary>Key and day detail<span className="sp-wbmore-s">bar colours, grid, arrows, tide{selNote ? ' · this day\'s confidence and range' : ''}</span></summary>{barKey}{selNote && <p className="sp-dayrange">{selNote}</p>}</details></>;
 }
 
 /** Magicseaweed-style 3-hour table for the selected day: wind cells coloured by shore relation. */
@@ -461,15 +471,17 @@ export function ScalePanel({hs, p, board, outsideNote, onOpen}: {hs: HeadlineSur
   const ticks: number[] = []; for (let v = step; (m ? v / 0.3048 : v) <= top; v += step) ticks.push(v);
   const yy = (u: number) => y(m ? u / 0.3048 : u);
   const ph = (personFt / top) * H, px = 118, pw = ph * 0.3;
+  // space-tighten: the drawing ends a little past the board (or the person): no empty grid on its right (it was a fixed 220 wide)
+  const R = Math.round(Math.max(170, (board ? px + pw + 18 + 11 : px + pw) + 16));
   const label = flat ? `${FLAT_ESTIMATE_TEXT}: still water beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall` : est ? `Estimated surf height ${ht(est.loFt, p, 0)} to ${ht(est.hiFt, p, 0)} ${p.heightUnit} beside a surfer ${formatHeight(me.inches, p.heightUnit)} tall${board ? ` and a ${feetInches(board.length)} board` : ''}` : 'No surf estimate this hour; surfer and board only';
   // T-098 (Codex P2): the caption describes THIS card's drawing: the estimate's range (outer = high bound, inner = low bound) beside the
   // person's own height (userHeight), not the 3D view's single face and fixed 5'9" surfer. Offshore-only hours say there is no breaking-wave estimate.
   const scaleLine = flat ? `${FLAT_ESTIMATE_TEXT}: the nearshore model has under half a foot here` : est ? "The estimate's range, drawn to scale beside you"
     : hs.kind === 'offshore' ? `No breaking-wave estimate · ${ht(hs.ft, p)} ${p.heightUnit} offshore swell, not surf size${outsideNote ? ` · ${outsideNote}` : ''}` : hs.kind === 'official' ? `No breaking-wave estimate of ours · the NWS surf forecast for the zone is shown in the header, not drawn to scale` : 'No breaking-wave estimate for this hour';
   const chart = (
-      <svg viewBox="0 0 220 168" role="img" aria-hidden="true">
-        {ticks.map((t) => <g key={t}><line x1={22} x2={214} y1={yy(t)} y2={yy(t)} stroke="var(--line)" strokeWidth={1} /><text x={18} y={yy(t) + 4} fontSize={10} textAnchor="end" fill="var(--dim)">{t}</text></g>)}
-        <line x1={22} x2={214} y1={base} y2={base} stroke="var(--line-2)" strokeWidth={1.2} />
+      <svg viewBox={`0 0 ${R} 168`} preserveAspectRatio="xMinYMax meet" role="img" aria-hidden="true">
+        {ticks.map((t) => <g key={t}><line x1={22} x2={R - 4} y1={yy(t)} y2={yy(t)} stroke="var(--line)" strokeWidth={1} /><text x={18} y={yy(t) + 4} fontSize={10} textAnchor="end" fill="var(--dim)">{t}</text></g>)}
+        <line x1={22} x2={R - 4} y1={base} y2={base} stroke="var(--line-2)" strokeWidth={1.2} />
         {est && <g>
           {/* A wave face drawn to scale: the outer shape reaches the high bound, the darker inner one the low bound. */}
           {[est.hiFt, est.loFt].map((ft, i) => { const t = y(ft), h = base - t, x0 = 24, x1 = 104; return (
