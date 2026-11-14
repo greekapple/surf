@@ -256,7 +256,7 @@ export function PersonalView({section, go}: ViewProps) {
   const boardRow: {value: ReactNode; sub?: ReactNode} = !boards.length ? {value: 'No boards yet', sub: 'Add one in the Quiver'}
     : boardPending ? {value: <SkelInline label={`Loading the board pick for ${spotName(refSpot)}`} width="7em" />}
     : boardPhase === 'failed' ? {value: 'No pick', sub: `The forecast for ${spotName(refSpot)} did not load`}
-    : choice?.pick ? {value: choice.pick.name, sub: `Board Match pick for ${at}`}
+    : choice?.pick ? {value: choice.pick.name, sub: `Board Match pick for ${at}${choice.pick.demo ? ' · an example board' : ''}`}
     : choice?.est ? {value: 'None suits it', sub: `No board suits the estimate at ${at}`} : {value: 'No pick', sub: `No surf estimate at ${at}`};
   const activeAlerts = rules.filter((r) => r.enabled).length;
 

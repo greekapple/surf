@@ -6,7 +6,7 @@ import {quiverTemplate} from '../scale/boardObject';
 import {STRIPE_BANDS, TINTS, type Look, type Template} from './looks';
 
 /** Scene units are inches: floor at y = 0. A board's own axes: +X nose, +Y deck, Z width. */
-export type Preset = 'deck' | 'bottom' | 'rail' | 'tail' | 'nose' | 'three' | '360';
+export type Preset = 'deck' | 'bottom' | 'rail' | 'tail' | 'nose' | 'three';
 export type Anchor = 'nose' | 'tail' | 'fins' | 'rail';
 /** Screen position of a hotspot anchor in canvas CSS pixels; `on` is false when the board hides it or it is off screen. */
 export interface AnchorPos {x: number; y: number; on: boolean}
@@ -189,7 +189,7 @@ const isDarkTheme = () => typeof document !== 'undefined' && document.documentEl
 /** The gallery floor's soft pool of light, fading into the CSS stage: warm white on the light stage, a dark neutral on the dark one (T-109). */
 const floorPool = (dark: boolean) => radialTexture(256, dark
   ? [[0, 'rgba(70,73,78,0.9)'], [0.35, 'rgba(56,59,63,0.6)'], [0.75, 'rgba(42,45,49,0.18)'], [1, 'rgba(38,41,45,0)']]
-  : [[0, 'rgba(255,253,249,0.92)'], [0.35, 'rgba(250,248,243,0.62)'], [0.75, 'rgba(240,237,230,0.18)'], [1, 'rgba(236,233,226,0)']]);
+  : [[0, 'rgba(226,231,234,0.9)'], [0.4, 'rgba(212,218,222,0.58)'], [0.8, 'rgba(198,205,210,0.16)'], [1, 'rgba(192,199,204,0)']]);   // quiver-lock: a mid-light neutral, so a white board has an edge against it
 function radialTexture(size: number, stops: [number, string][]) {
   const c = document.createElement('canvas'); c.width = c.height = size;
   const g = c.getContext('2d')!, grad = g.createRadialGradient(size / 2, size / 2, 0, size / 2, size / 2, size / 2);
@@ -217,7 +217,7 @@ function weaveNormal(size = 256, cells = 8) {
   const t = new THREE.CanvasTexture(c); t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(1 / (cells / 4), 1 / (cells / 4)); t.anisotropy = 4; t.colorSpace = THREE.NoColorSpace; return t;
 }
 
-interface Tween {t0: number; dur: number; from: THREE.Spherical; to: THREE.Spherical; fromT: THREE.Vector3; toT: THREE.Vector3; fromFlip: number; toFlip: number; fromSpin: number; toSpin: number}
+interface Tween {t0: number; dur: number; from: THREE.Spherical; to: THREE.Spherical; fromT: THREE.Vector3; toT: THREE.Vector3; fromFlip: number; toFlip: number; fromSpin: number; toSpin: number; fromQ: THREE.Quaternion; toQ: THREE.Quaternion}
 interface CamPose {s: THREE.Spherical; target: THREE.Vector3; flip: number}
 
 /** One board on the rack: its own geometry, materials, fins and floor shadow. */
@@ -279,13 +279,20 @@ export class Studio {
   private framing: 'all' | 'sel' | null = 'all';
   private spinOn = false;
   private tween: Tween | null = null;
-  private preset: Preset | null = 'deck';
+  private preset: Preset | null = 'three';
   private flipAngle = 0;
   private spinAngle = 0.4;
   private reduced: boolean;
   private opts: StudioOptions;
   private ready = false;
   private down: {x: number; y: number; t: number} | null = null;
+  /** quiver-lock: the board's free turn (any axis, from dragging or the keys), applied in world space on top of the preset's yaw; the camera only zooms. */
+  private turnQ = new THREE.Quaternion();
+  private vel = {x: 0, y: 0};                 // inertia, radians per second about the world up axis (x) and the camera's right axis (y)
+  private drag: {id: number; x: number; y: number; t: number; sx: number; sy: number; moved: boolean} | null = null;
+  private lastTap = {t: 0, x: 0, y: 0};
+  private coarse = typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches;
+  private lastFit = 0;
 
   constructor(private canvas: HTMLCanvasElement, private host: HTMLElement, opts: StudioOptions, mode: Mode = 'lineup') {
     this.opts = opts; this.reduced = opts.reducedMotion; this.mode = mode;
@@ -317,12 +324,16 @@ export class Studio {
     this.controls = new OrbitControls(this.camera, canvas);
     this.controls.enablePan = false; this.controls.enableDamping = !this.reduced; this.controls.dampingFactor = 0.08;
     this.controls.rotateSpeed = 0.7;
+    // quiver-lock: in Focus the board turns, not the camera (so the underside is as reachable as the top); OrbitControls keeps only the zoom (wheel, pinch). Lineup keeps its orbit.
+    this.controls.enableRotate = mode === 'lineup'; this.controls.zoomSpeed = 0.8; this.controls.touches = {ONE: THREE.TOUCH.ROTATE, TWO: THREE.TOUCH.DOLLY_PAN};
     this.controls.addEventListener('start', () => { this.tween = null; this.preset = null; this.framing = null; this.spinOn = false; this.opts.onUserMove(); });
     this.controls.addEventListener('change', () => { this.dirty = true; });
     this.limits();
-    // Phones: vertical swipes scroll the page, horizontal swipes turn the view.
-    if (window.matchMedia('(pointer: coarse)').matches) canvas.style.touchAction = 'pan-y';
+    // Phones: a vertical swipe that starts on the stage scrolls the page (pan-y); one that starts sideways turns the board and then follows the finger on both axes. In full screen (setFull) every drag turns it.
+    canvas.style.touchAction = this.coarse ? 'pan-y' : 'none';
     canvas.addEventListener('pointerdown', this.onDown); canvas.addEventListener('pointerup', this.onUp); canvas.addEventListener('pointermove', this.onHover);
+    canvas.addEventListener('pointerdown', this.onTurnDown); canvas.addEventListener('pointermove', this.onTurnMove); canvas.addEventListener('pointerup', this.onTurnUp); canvas.addEventListener('pointercancel', this.onTurnUp);
+    canvas.addEventListener('dblclick', this.onDbl); canvas.addEventListener('webglcontextlost', this.onLost);
 
     this.ro = new ResizeObserver(() => this.resize()); this.ro.observe(host);
     this.io = new IntersectionObserver((e) => { this.visible = e[0]?.isIntersecting ?? true; if (this.visible) this.kick(); }, {threshold: 0});
@@ -358,6 +369,9 @@ export class Studio {
     const dt = Math.min(0.05, (now - this.last) / 1000); this.last = now;
     let draw = this.dirty, moving = false;
     if (this.spinOn) { this.spinAngle += dt * 0.28; draw = true; }
+    if (!this.drag && (Math.abs(this.vel.x) > 0.02 || Math.abs(this.vel.y) > 0.02)) {   // inertia after a release: decays by half every ~0.17 s; none under reduced motion
+      this.turnBy(this.vel.x * dt, this.vel.y * dt); const k = Math.pow(0.5, dt / 0.17); this.vel.x *= k; this.vel.y *= k; draw = true; moving = true;
+    }
     if (this.tween) {
       const k = Math.min(1, (now - this.tween.t0) / this.tween.dur), e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2, tw = this.tween;
       const s = new THREE.Spherical(THREE.MathUtils.lerp(tw.from.radius, tw.to.radius, e), THREE.MathUtils.lerp(tw.from.phi, tw.to.phi, e), THREE.MathUtils.lerp(tw.from.theta, tw.to.theta, e));
@@ -365,6 +379,7 @@ export class Studio {
       this.controls.target.copy(t); this.camera.position.setFromSpherical(s).add(t); this.camera.lookAt(t);
       this.flipAngle = THREE.MathUtils.lerp(tw.fromFlip, tw.toFlip, e);
       this.spinAngle = THREE.MathUtils.lerp(tw.fromSpin, tw.toSpin, e);
+      this.turnQ.copy(tw.fromQ).slerp(tw.toQ, e);
       if (k >= 1) this.tween = null;
       draw = true;
     }
@@ -387,6 +402,10 @@ export class Studio {
   private resize() {
     const w = Math.max(1, this.host.clientWidth), h = Math.max(1, this.host.clientHeight);
     this.renderer.setSize(w, h, false); this.camera.aspect = w / h; this.camera.updateProjectionMatrix();
+    // quiver-lock: on a resize or a rotation of the phone the board is refit; a zoom the person made is kept in proportion (the whole board stays inside the stage)
+    const sp0 = this.sel()?.spec, fit = sp0 && this.mode === 'focus' ? this.sphereDist(Math.hypot(sp0.length / 2, sp0.width / 2, sp0.thickness / 2)) : 0;
+    if (fit && this.lastFit && this.preset === null && !this.tween) { const c = this.controls, s = new THREE.Spherical().setFromVector3(this.camera.position.clone().sub(c.target)); s.radius *= fit / this.lastFit; this.limits(); s.radius = THREE.MathUtils.clamp(s.radius, c.minDistance, c.maxDistance); this.camera.position.setFromSpherical(s).add(c.target); this.camera.lookAt(c.target); }
+    if (fit) this.lastFit = fit;
     if (!this.tween && this.ready) this.snapFrame();
     this.dirty = true; this.kick();
   }
@@ -409,6 +428,7 @@ export class Studio {
     for (const r of list) { r.x = x + r.spec.width / 2; x += r.spec.width + GAP; }
   }
   /** local +X (nose) to world +Y, local +Y (deck) to world +Z (toward the viewer), local Z to world +X; then the top leans back. */
+  private static Y = new THREE.Vector3(0, 1, 0);
   private static UP = (() => {
     const q = new THREE.Quaternion().setFromRotationMatrix(new THREE.Matrix4().makeBasis(new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, 1), new THREE.Vector3(1, 0, 0)));
     return new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), -LEAN).multiply(q);
@@ -418,10 +438,11 @@ export class Studio {
     const L = rig.spec.length, mat = rig.shadow.material as THREE.MeshBasicMaterial;
     if (this.mode === 'focus') {
       rig.root.visible = rig.id === this.selectedId;
-      rig.root.position.set(0, FOCUS_Y, 0); rig.root.rotation.y = this.spinAngle;
+      rig.root.position.set(0, FOCUS_Y, 0); rig.root.quaternion.setFromAxisAngle(Studio.Y, this.spinAngle).premultiply(this.turnQ);
       rig.orient.quaternion.identity(); rig.flip.rotation.x = this.flipAngle;
-      rig.shadowRoot.visible = rig.root.visible; rig.shadowRoot.position.set(0, 0.05, 0); rig.shadowRoot.rotation.y = this.spinAngle;
-      rig.shadow.scale.set(L * 1.12, rig.spec.width * 1.9, 1); mat.opacity = 0.62;
+      rig.shadowRoot.visible = rig.root.visible; rig.shadowRoot.position.set(0, 0.05, 0);
+      // a tight contact shadow: the board's footprint on the floor (its eight corners projected down), as an ellipse along its principal axis, fading as the board stands on end
+      const fp = this.footprint(rig); rig.shadowRoot.rotation.y = fp.angle; rig.shadow.scale.set(fp.a * 1.75, fp.b * 2.2, 1); mat.opacity = 0.6 * fp.density;
     } else {
       rig.root.visible = true;
       const x = Number.isFinite(rig.cx) ? rig.cx : rig.x;
@@ -440,7 +461,8 @@ export class Studio {
       c.minDistance = 40; c.maxDistance = 700;
     } else {
       c.minAzimuthAngle = -Infinity; c.maxAzimuthAngle = Infinity; c.minPolarAngle = 0; c.maxPolarAngle = 1.5;
-      const L = this.sel()?.spec.length ?? 72; c.minDistance = L * 0.28; c.maxDistance = L * 3;
+      // zoom: never inside the board's bounding sphere (the camera would clip it), never so far out that it is a dot
+      const sp = this.sel()?.spec, R = sp ? Math.hypot(sp.length / 2, sp.width / 2, sp.thickness / 2) : 40, fit = this.sphereDist(R); c.minDistance = Math.max(R * 1.25, fit * 0.45); c.maxDistance = fit * 1.8;
     }
   }
 
@@ -493,7 +515,7 @@ export class Studio {
     // stage half empty (T-016: the board filled ~55% of the stage height).
     const R = Math.hypot(L / 2, (sp?.width ?? 20) / 2, (sp?.thickness ?? 3) / 2);
     // (Deck and Bottom: a phone's stage has pills over its top and bottom, so the board gets more vertical room there.)
-    const d = p === 'tail' || p === 'nose' ? this.sphereDist(R * (this.camera.aspect < 1.3 ? 0.82 : 0.55)) : p === 'deck' || p === 'bottom' ? this.fitDist((sp?.width ?? 20) * 1.5, L * (this.camera.aspect < 1.3 ? 1.75 : 1.16)) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
+    const d = p === 'deck' || p === 'bottom' ? Math.max(this.fitDist((sp?.width ?? 20) * 1.5, L * 1.16), this.sphereDist(R * 0.62)) : p !== 'three' && p !== 'rail' ? this.sphereDist(R) : this.fitDist(L * 1.16, (L * Math.sin(THREE.MathUtils.degToRad(q.el)) + (sp?.thickness ?? 3) + (sp?.width ?? 20) * Math.cos(THREE.MathUtils.degToRad(q.el)) * 0.5) * 1.12);
     return {s: new THREE.Spherical(Math.max(d, 20), Math.PI / 2 - THREE.MathUtils.degToRad(q.el), THREE.MathUtils.degToRad(q.az)), target: q.target, flip: q.flip};
   }
   private currentPose() {
@@ -514,7 +536,7 @@ export class Studio {
     this.still();
     const {s, target, flip} = this.currentPose();
     this.controls.target.copy(target); this.camera.position.setFromSpherical(s).add(target); this.camera.lookAt(target);
-    if (this.mode === 'focus') { this.flipAngle = flip; if (this.preset !== '360') this.spinAngle = this.presetPose(this.preset ?? 'deck').spin; }
+    if (this.mode === 'focus') { this.flipAngle = flip; this.spinAngle = this.presetPose(this.preset ?? 'three').spin; }
     this.limits(); this.controls.update(); this.dirty = true; this.kick();
   }
   /** Drops any orbit inertia left from a drag, so a scripted move (preset, reset, framing) lands exactly where it was aimed. Without this,
@@ -524,12 +546,13 @@ export class Studio {
     this.still(); this.limits();
     if (this.reduced) {
       this.controls.target.copy(pose.target); this.camera.position.setFromSpherical(pose.s).add(pose.target); this.camera.lookAt(pose.target);
-      this.flipAngle = pose.flip; if (spinTo !== undefined) this.spinAngle = spinTo; this.controls.update(); this.dirty = true; this.kick(); return;
+      this.flipAngle = pose.flip; if (spinTo !== undefined) this.spinAngle = spinTo; this.turnQ.identity(); this.vel.x = this.vel.y = 0; this.controls.update(); this.dirty = true; this.kick(); return;
     }
     const from = new THREE.Spherical().setFromVector3(this.camera.position.clone().sub(this.controls.target));
     let dTheta = pose.s.theta - from.theta; dTheta = Math.atan2(Math.sin(dTheta), Math.cos(dTheta));
     this.tween = {t0: performance.now(), dur: 950, from, to: new THREE.Spherical(pose.s.radius, pose.s.phi, from.theta + dTheta), fromT: this.controls.target.clone(), toT: pose.target,
-      fromFlip: this.flipAngle, toFlip: pose.flip, fromSpin: this.spinAngle, toSpin: spinTo ?? this.spinAngle};
+      fromFlip: this.flipAngle, toFlip: pose.flip, fromSpin: this.spinAngle, toSpin: spinTo ?? this.spinAngle, fromQ: this.turnQ.clone(), toQ: new THREE.Quaternion()};
+    this.vel.x = this.vel.y = 0;
     this.kick();
   }
 
@@ -570,9 +593,9 @@ export class Studio {
   /** Focus presets (deck, bottom, rail, tail, nose, three-quarter, 360). */
   goTo(p: Preset) {
     if (this.mode !== 'focus') return;
-    this.preset = p; this.spinOn = p === '360' && !this.reduced;
+    this.preset = p; this.spinOn = false;
     const rest = this.presetPose(p).spin, turn = 2 * Math.PI; // nearest equivalent of the rest angle, so the board turns the short way
-    this.glide(this.focusPose(p), p === '360' ? this.spinAngle : rest + Math.round((this.spinAngle - rest) / turn) * turn);
+    this.glide(this.focusPose(p), rest + Math.round((this.spinAngle - rest) / turn) * turn);
   }
   /** Lineup views: the whole rack, or the selected board. */
   frame(which: 'all' | 'sel') {
@@ -583,10 +606,11 @@ export class Studio {
   setMode(mode: Mode) {
     if (mode === this.mode) return;
     this.mode = mode; this.tween = null;
-    if (mode === 'focus') { this.preset = 'deck'; this.spinOn = !this.reduced; this.spinAngle = 0.4; this.flipAngle = 0; }
+    if (mode === 'focus') { this.preset = 'three'; this.spinOn = false; this.spinAngle = this.presetPose('three').spin; this.flipAngle = 0; this.turnQ.identity(); this.vel.x = this.vel.y = 0; }
     else { this.framing = 'all'; this.spinOn = false; this.preset = null; }
     this.floor.visible = !(this.room && mode === 'lineup'); for (const b of this.roomBits) b.visible = !!this.room && mode === 'lineup';
     this.catcher.visible = mode === 'focus'; this.key.castShadow = mode === 'focus'; // T-072: the cast shadow belongs to the focus set
+    this.controls.enableRotate = mode === 'lineup';
     this.layout();
     for (const r of this.rigs.values()) this.pose(r);
     this.snapFrame(); this.dirty = true; this.kick();
@@ -652,12 +676,67 @@ export class Studio {
   /** Keyboard alternative to dragging: turn, tilt and zoom in small steps. */
   nudge(dAz: number, dEl: number, zoom: number) {
     this.tween = null; this.preset = null; this.framing = null;
+    if (this.mode === 'focus') {   // quiver-lock: arrows turn the board about the vertical and the horizontal axis; plus and minus zoom
+      if (dAz || dEl) this.turnBy(dAz, dEl);
+      if (zoom !== 1) { const c = this.controls, s = new THREE.Spherical().setFromVector3(this.camera.position.clone().sub(c.target)); s.radius = THREE.MathUtils.clamp(s.radius * zoom, c.minDistance, c.maxDistance); this.camera.position.setFromSpherical(s).add(c.target); this.camera.lookAt(c.target); }
+      this.dirty = true; this.kick(); return;
+    }
     const c = this.controls, s = new THREE.Spherical().setFromVector3(this.camera.position.clone().sub(c.target));
     s.theta = THREE.MathUtils.clamp(s.theta + dAz, c.minAzimuthAngle, c.maxAzimuthAngle);
     s.phi = THREE.MathUtils.clamp(s.phi - dEl, Math.max(0.05, c.minPolarAngle), c.maxPolarAngle); s.radius = THREE.MathUtils.clamp(s.radius * zoom, c.minDistance, c.maxDistance);
     this.camera.position.setFromSpherical(s).add(c.target); this.camera.lookAt(c.target);
     this.dirty = true; this.kick();
   }
+
+  // ----------------------------------------------------------------- free turning (quiver-lock)
+  /** Turn the board about the world's vertical axis by `yaw` and about the camera's horizontal axis by `pitch` (radians): a trackball, so any side, the rails and the underside are reachable. */
+  private turnBy(yaw: number, pitch: number) {
+    if (this.mode !== 'focus') return;
+    const right = new THREE.Vector3(1, 0, 0).applyQuaternion(this.camera.quaternion);
+    if (yaw) this.turnQ.premultiply(new THREE.Quaternion().setFromAxisAngle(Studio.Y, yaw));
+    if (pitch) this.turnQ.premultiply(new THREE.Quaternion().setFromAxisAngle(right, pitch));
+    this.turnQ.normalize(); this.preset = null; this.dirty = true; this.kick();
+  }
+  /** The board's footprint on the floor: its eight bounding-box corners (nose to tail, deck to bottom, rail to rail) projected down, as a principal axis and half-extents; `density` falls as the board stands on end. */
+  private footprint(rig: Rig) {
+    const sp = rig.spec, hx = sp.length / 2, hy = Math.max(1, sp.thickness / 2), hz = sp.width / 2, q = new THREE.Quaternion().setFromAxisAngle(Studio.Y, this.spinAngle).premultiply(this.turnQ);
+    q.multiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(1, 0, 0), this.flipAngle));
+    const pts: [number, number][] = []; const v = new THREE.Vector3();
+    for (const sx of [-1, 1]) for (const sy of [-1, 1]) for (const sz of [-1, 1]) { v.set(sx * hx, sy * hy, sz * hz).applyQuaternion(q); pts.push([v.x, v.z]); }
+    let cxx = 0, czz = 0, cxz = 0; for (const [x, z] of pts) { cxx += x * x; czz += z * z; cxz += x * z; }
+    const angle = 0.5 * Math.atan2(2 * cxz, cxx - czz);   // principal axis in the floor plane
+    const c = Math.cos(angle), s = Math.sin(angle); let a = 0.5, b = 0.5;
+    for (const [x, z] of pts) { a = Math.max(a, Math.abs(x * c + z * s)); b = Math.max(b, Math.abs(-x * s + z * c)); }
+    const flat = Math.min(1, (hx * hz * 4) / Math.max(1, a * b * 4 * 1.0)), up = new THREE.Vector3(0, 1, 0).applyQuaternion(q.clone().invert());   // how close the deck normal is to vertical
+    return {angle: -angle, a: Math.max(a, 6), b: Math.max(b, 4), density: THREE.MathUtils.clamp(0.35 + 0.65 * Math.abs(up.y) * (flat > 0 ? 1 : 1), 0.35, 1)};
+  }
+  private onTurnDown = (e: PointerEvent) => {
+    if (this.mode !== 'focus' || this.drag || (e.pointerType === 'mouse' && e.button !== 0)) return;
+    this.drag = {id: e.pointerId, x: e.clientX, y: e.clientY, t: performance.now(), sx: e.clientX, sy: e.clientY, moved: false}; this.vel.x = this.vel.y = 0;
+    try { this.canvas.setPointerCapture(e.pointerId); } catch { /* not capturable (synthetic) */ }
+  };
+  private onTurnMove = (e: PointerEvent) => {
+    const d = this.drag; if (!d || e.pointerId !== d.id) return;
+    const dx = e.clientX - d.x, dy = e.clientY - d.y, now = performance.now(), dt = Math.max(1, now - d.t), K = 0.0085;   // radians per pixel: a full turn across about 740 px
+    if (!d.moved && Math.hypot(e.clientX - d.sx, e.clientY - d.sy) < 3) return;
+    if (!d.moved) { d.moved = true; this.tween = null; this.spinOn = false; this.preset = null; this.opts.onUserMove(); }
+    this.turnBy(dx * K, dy * K);
+    // smoothed release velocity (rad/s)
+    const a = 0.5; this.vel.x = this.vel.x * (1 - a) + ((dx * K) / dt) * 1000 * a; this.vel.y = this.vel.y * (1 - a) + ((dy * K) / dt) * 1000 * a;
+    d.x = e.clientX; d.y = e.clientY; d.t = now;
+  };
+  private onTurnUp = (e: PointerEvent) => {
+    const d = this.drag; if (!d || e.pointerId !== d.id) return; this.drag = null;
+    try { this.canvas.releasePointerCapture(e.pointerId); } catch { /* already released */ }
+    if (this.reduced || performance.now() - d.t > 90) { this.vel.x = this.vel.y = 0; }   // a pause before letting go means no fling
+    else { const m = 6; this.vel.x = THREE.MathUtils.clamp(this.vel.x, -m, m); this.vel.y = THREE.MathUtils.clamp(this.vel.y, -m, m); this.kick(); }
+    // a quick second tap or click in the same place resets the view
+    if (!d.moved) { const now = performance.now(); if (now - this.lastTap.t < 320 && Math.hypot(e.clientX - this.lastTap.x, e.clientY - this.lastTap.y) < 28) { this.lastTap.t = 0; this.reset(); } else this.lastTap = {t: now, x: e.clientX, y: e.clientY}; }
+  };
+  private onDbl = () => { if (this.mode === 'focus') this.reset(); };
+  private onLost = (e: Event) => { e.preventDefault(); if (!this.disposed) this.opts.onError(); };
+  /** Full screen on a phone: every drag turns the board (the page does not scroll behind it). */
+  setFull(on: boolean) { this.canvas.style.touchAction = on || !this.coarse ? 'none' : 'pan-y'; }
 
   // ----------------------------------------------------------------- picking
   private pickAt(e: PointerEvent): string | null {
@@ -917,6 +996,7 @@ export class Studio {
     this.disposed = true; cancelAnimationFrame(this.raf);
     document.removeEventListener('visibilitychange', this.onVis);
     this.canvas.removeEventListener('pointerdown', this.onDown); this.canvas.removeEventListener('pointerup', this.onUp); this.canvas.removeEventListener('pointermove', this.onHover);
+    for (const [ev, fn] of [['pointerdown', this.onTurnDown], ['pointermove', this.onTurnMove], ['pointerup', this.onTurnUp], ['pointercancel', this.onTurnUp], ['dblclick', this.onDbl], ['webglcontextlost', this.onLost]] as [string, EventListener][]) this.canvas.removeEventListener(ev, fn);
     this.ro.disconnect(); this.io.disconnect(); this.themeMo.disconnect(); this.controls.dispose();
     // Template and fin geometry stay cached for the session; everything the scene owns is released here.
     for (const rig of [...this.rigs.values()]) this.removeRig(rig);

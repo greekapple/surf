@@ -11,9 +11,9 @@ test('a new board form starts with every dimension blank; the examples are place
 });
 
 test('saving a name alone is refused: the missing fields are named', () => {
-  assert.deepEqual(missingBoardFields({...emptyForm, name: 'Fish'}), ['length', 'width', 'thickness', 'volume']);
-  assert.deepEqual(missingBoardFields({...emptyForm}), ['name', 'length', 'width', 'thickness', 'volume']);
-  assert.deepEqual(missingBoardFields({name: 'x', length: `5'10"`, width: '20', thickness: '2.5', volume: ' '}), ['volume']);
+  assert.deepEqual(missingBoardFields({...emptyForm, name: 'Fish'}), ['length', 'width', 'thickness']);
+  assert.deepEqual(missingBoardFields({...emptyForm}), ['length', 'width', 'thickness'], 'name and volume are optional');
+  assert.deepEqual(missingBoardFields({name: 'x', length: `5'10"`, width: '20', thickness: '2.5', volume: ' '}), [], 'a blank volume is estimated');
   assert.deepEqual(missingBoardFields({name: 'x', length: `5'10"`, width: '20', thickness: '2.5', volume: '31'}), []);
 });
 

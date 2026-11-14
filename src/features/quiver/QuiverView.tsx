@@ -7,7 +7,9 @@ import {boardTypes, type BoardType, type Surfboard} from '../../models/index';
 import {scoreBoard} from '../../recommendation/board';
 import {headlineSurf, headlineText} from '../../services/headlineSurf';
 import {isFlat, FLAT_ESTIMATE_TEXT} from '../../services/flatSurf';
-import {boardPickFor, orderScored, outOfRange, pickHeading, sizeFit} from './fit';
+import {boardPickFor, orderScored, outOfRange, pickHeading, rangeSourceText, sizeFit} from './fit';
+import {boardVerdict} from '../../services/boardVerdict';
+import {estimateVolume as boxVolume, TYPICAL, volumeNote} from '../../services/boardVolume';
 import {lengthLabel, parseDimension, surfRange, validDimensions} from '../../utils/units';
 import {Icon} from '../../ui/Icon';
 import {StateMessage} from '../../ui/common';
@@ -19,7 +21,7 @@ import {estimateVolume, loadOutline, saveOutline, widthFromTrace} from './outlin
 import {MODELLED_NOTE, exampleLabel, referenceFor, volumeLabel} from '../../data/referenceBoards';
 import {BoardOutline} from './BoardOutline';
 import {Rack} from './Rack';
-import {SpecCard, StageArrows, Strip} from './Overlay';
+import {Strip} from './Overlay';
 import {ScanPanel, type Scan} from './ScanPanel';
 import {emptyForm, missingBoardFields, PLACEHOLDER} from './boardForm';
 import './quiver.css';
@@ -30,11 +32,11 @@ const BoardRoom = lazy(() => import('./BoardRoom'));
 type Path = 'dims' | 'scan';
 const eighth = (n: number) => String(Math.round(n * 8) / 8);
 
-function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void; onDirty?: (dirty: boolean) => void; onDelete?: () => void}) {
+function BoardForm({initial, onSave, onCancel, onDirty, onDelete, presetType}: {initial?: Surfboard; onSave: (b: Surfboard) => void; onCancel: () => void; onDirty?: (dirty: boolean) => void; onDelete?: () => void; presetType?: BoardType}) {
   const [confirmDel, setConfirmDel] = useState(false);
   const [f, setF] = useState(() => initial ? {name: initial.name, manufacturer: initial.manufacturer, model: initial.model, type: initial.type,
     length: `${Math.floor(initial.length / 12)}'${+(initial.length % 12).toFixed(2)}"`, width: String(initial.width), thickness: String(initial.thickness),
-    volume: String(initial.volume), fins: initial.fins ?? '', tail: initial.tail ?? '', notes: initial.notes ?? ''} : emptyForm);
+    volume: String(initial.volume), fins: initial.fins ?? '', tail: initial.tail ?? '', notes: initial.notes ?? ''} : {...emptyForm, ...(presetType ? {type: presetType} : {})});
   const [err, setErr] = useState('');
   const saved = initial ? loadOutline(initial.id) : null;
   const [path, setPath] = useState<Path>(saved ? 'scan' : 'dims');
@@ -48,24 +50,27 @@ function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Su
   const lengthIn = parseDimension(f.length, true), derive = path === 'scan' && !!scan && scan.aspect > 0;
   const width = derive && !touched.width && Number.isFinite(lengthIn) ? eighth(widthFromTrace(lengthIn, scan.aspect)) : f.width;
   const estimating = derive && !touched.volume && Number.isFinite(lengthIn);
-  const volume = estimating ? String(estimateVolume(scan.outline, lengthIn, parseDimension(f.thickness))) : f.volume;
+  const photoVolume = estimating ? String(estimateVolume(scan.outline, lengthIn, parseDimension(f.thickness))) : null;
+  // quiver-lock: a blank volume is estimated from length x width x thickness by type (our rough rule, services/boardVolume.ts), saved as an estimate and shown as one
+  const boxEst = boxVolume(lengthIn, parseDimension(width), parseDimension(f.thickness), f.type);
+  const volumeBlank = !f.volume.trim() && !estimating, volume = photoVolume ?? (volumeBlank && boxEst !== null ? String(boxEst) : f.volume);
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const length = parseDimension(f.length, true), w = parseDimension(width), thickness = parseDimension(f.thickness), vol = Number(volume);
     const missing = missingBoardFields({...f, width, volume});
     setTried(true);
-    if (missing.length) return setErr(`Add the board's ${missing.length > 1 ? `${missing.slice(0, -1).join(', ')} and ${missing[missing.length - 1]}` : missing[0]}.${missing.includes('volume') ? ' Volume is usually printed on the stringer; the photo scan can estimate it.' : ''}`);
+    if (missing.length) return setErr(`Add the board's ${missing.length > 1 ? `${missing.slice(0, -1).join(', ')} and ${missing[missing.length - 1]}` : missing[0]}. Volume is optional: leave it blank and it is estimated.`);
     if (!validDimensions(length, w, thickness, vol)) return setErr(`Check the dimensions: length like 6'0", width and thickness in inches (fractions allowed), volume in litres that fits those dimensions.`);
     const id = initial?.id ?? crypto.randomUUID(), o = path === 'scan' ? scan?.outline ?? null : null;
     if (!saveOutline(id, o) && o?.tex) saveOutline(id, {v: 1, hw: o.hw});
-    onSave({...(initial ?? {favorite: false}), id, name: f.name.trim(), manufacturer: f.manufacturer.trim(), model: f.model.trim(), type: f.type,
+    onSave({...(initial ?? {favorite: false}), id, name: f.name.trim() || f.type, manufacturer: f.manufacturer.trim(), model: f.model.trim(), type: f.type,
       length, width: w, thickness, volume: vol, fins: f.fins || undefined, tail: f.tail || undefined, notes: f.notes || undefined, demo: false,
-      specificationSource: path === 'scan' && scan ? (estimating ? 'From your photo (volume estimated)' : 'From your photo') : 'Entered by you'});
+      specificationSource: path === 'scan' && scan ? (estimating ? 'From your photo (volume estimated)' : 'From your photo') : volumeBlank ? 'Entered by you (volume estimated)' : 'Entered by you'});
   };
   const [tried, setTried] = useState(false);
   const blank = tried ? new Set(missingBoardFields({...f, width, volume})) : new Set<string>();
   const req = <i className="qv-req">Required</i>;
-  const field = (k: keyof typeof f, label: string, extra = {}, required = false) => <label className="field"><span>{label}{required && req}</span><input value={f[k]} placeholder={PLACEHOLDER[k]} aria-required={required || undefined} aria-invalid={blank.has(k) || undefined} onChange={(e) => setF({...f, [k]: e.target.value})} {...extra} /></label>;
+  const field = (k: keyof typeof f, label: string, extra = {}, required = false) => <label className="field"><span>{label}{required && req}</span><input value={f[k]} placeholder={k === 'length' || k === 'thickness' ? TYPICAL[f.type][k] : PLACEHOLDER[k]} aria-required={required || undefined} aria-invalid={blank.has(k) || undefined} onChange={(e) => setF({...f, [k]: e.target.value})} {...extra} /></label>;
   return (
     <form className="card qv-form" onSubmit={submit} noValidate aria-label={initial ? 'Edit board' : 'Add board'}>
       <div className="card-h"><h2>{initial ? `Edit ${initial.name}` : 'Add a board'}</h2></div>
@@ -74,16 +79,19 @@ function BoardForm({initial, onSave, onCancel, onDirty, onDelete}: {initial?: Su
         <button type="button" role="radio" aria-checked={path === 'dims'} onClick={() => setPath('dims')}><b>Enter dimensions</b><span>From the stringer or the shaper</span></button>
       </div>
       <div className="form-grid">
-        {field('name', 'Name', {maxLength: 40}, true)}{field('manufacturer', 'Shaper / brand')}{field('model', 'Model')}
         <label className="field"><span>Type</span><select value={f.type} onChange={(e) => setF({...f, type: e.target.value as BoardType})}>{boardTypes.map((t) => <option key={t}>{t}</option>)}</select></label>
+        <label className="field"><span>Name <i className="qv-req">Optional</i></span><input value={f.name} maxLength={40} placeholder={f.type} onChange={(e) => setF({...f, name: e.target.value})} /></label>
+        {field('manufacturer', 'Shaper / brand')}{field('model', 'Model')}
+        <div className="qv-typical" style={{gridColumn: '1 / -1'}}><button type="button" className="qv-link" onClick={() => { setF({...f, length: TYPICAL[f.type].length, width: TYPICAL[f.type].width, thickness: TYPICAL[f.type].thickness}); setTouched({...touched, width: true}); }}>Use typical {f.type.toLowerCase()} sizes: {TYPICAL[f.type].length} × {TYPICAL[f.type].width}″ × {TYPICAL[f.type].thickness}″</button> <span className="fine">Round numbers for the type: replace them with your board's.</span></div>
         {field('length', 'Length (ft and in)', {}, true)}
-        <label className="field"><span>Width (in){derive && !touched.width ? ' · from photo' : ''}{req}</span><input value={width} placeholder={PLACEHOLDER.width} aria-required aria-invalid={blank.has('width') || undefined} onChange={(e) => { setF({...f, width: e.target.value}); setTouched({...touched, width: true}); }} /></label>
+        <label className="field"><span>Width (in){derive && !touched.width ? ' · from photo' : ''}{req}</span><input value={width} placeholder={TYPICAL[f.type].width} aria-required aria-invalid={blank.has('width') || undefined} onChange={(e) => { setF({...f, width: e.target.value}); setTouched({...touched, width: true}); }} /></label>
         {field('thickness', 'Thickness (in)', {}, true)}
-        <label className="field"><span>{estimating ? 'Volume (L) · estimate' : 'Volume (L)'}{req}</span><input value={volume} placeholder={PLACEHOLDER.volume} inputMode="decimal" aria-required aria-invalid={blank.has('volume') || undefined} onChange={(e) => { setF({...f, volume: e.target.value}); setTouched({...touched, volume: true}); }} /></label>
+        <label className="field"><span>{estimating ? 'Volume (L) · estimate' : 'Volume (L)'}<i className="qv-req">Optional</i></span><input value={estimating ? (photoVolume ?? '') : f.volume} placeholder={boxEst !== null ? `≈ ${boxEst} (estimate)` : PLACEHOLDER.volume} inputMode="decimal" aria-invalid={blank.has('volume') || undefined} onChange={(e) => { setF({...f, volume: e.target.value}); setTouched({...touched, volume: true}); }} /></label>
         {field('fins', 'Fins')}{field('tail', 'Tail')}
       </div>
       {path === 'scan' && <ScanPanel lengthText={f.length} value={scan} onChange={(s) => { setScan(s); if (s) setTouched({width: false, volume: false}); }} />}
       {estimating && <p className="fine">Volume is an estimate from the outline and thickness. Replace it with the number on the board if you have it.</p>}
+      {volumeBlank && boxEst !== null && <p className="fine">Volume left blank: about {boxEst} L, estimated from length × width × thickness for a {f.type.toLowerCase()} (our rough rule; it is saved and shown as an estimate). Type the number printed on the stringer to replace it.</p>}
       <label className="field" style={{marginTop: 12}}><span>Notes</span><textarea value={f.notes} onChange={(e) => setF({...f, notes: e.target.value})} /></label>
       {err && <p role="alert" style={{color: 'var(--warn)', marginTop: 8}}>{err}</p>}
       <div style={{display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12}}><button className="btn primary" type="submit">Save board</button><button className="btn" type="button" onClick={onCancel}>Cancel</button>
@@ -107,22 +115,32 @@ const okN = (n: number | undefined): n is number => typeof n === 'number' && Num
 /** The stored numbers, as recorded (never filled in). */
 function specRows(b: Surfboard): [string, string][] {
   return [['Length', okN(b.length) ? lengthLabel(b.length) : 'Not recorded'], ['Width', okN(b.width) ? inches(b.width) : 'Not recorded'],
-    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? volumeLabel(b) : 'Not recorded'],
+    ['Thickness', okN(b.thickness) ? inches(b.thickness) : 'Not recorded'], ['Volume', okN(b.volume) ? `${volumeLabel(b)}${/volume estimated/i.test(b.specificationSource ?? '') ? ' (estimate)' : ''}` : 'Not recorded'],
     ['Fins', b.fins?.trim() || 'Not recorded'], ['Tail', b.tail?.trim() || 'Not recorded']];
 }
 
 const TITLES: Record<string, {h: string; sub: string}> = {
-  '': {h: 'My boards', sub: 'Your collection'},
-  showroom: {h: 'Showroom', sub: 'Inspect and configure one board'},
+  '': {h: 'Quiver', sub: ''},
+  showroom: {h: 'Quiver', sub: ''},   // legacy link: opens the Quiver in 3D
   match: {h: 'Board match', sub: 'Which board for these conditions'},
   compare: {h: 'Compare boards', sub: 'Two boards side by side, same scale'},
 };
+/** "3 boards", "4 example boards" (nothing of the person's own yet), "2 boards · 4 examples" (examples are not counted among the person's boards). */
+const countText = (boards: Surfboard[]) => { const own = boards.filter((b) => !b.demo).length, ex = boards.length - own;
+  return own === 0 ? `${ex} example ${ex === 1 ? 'board' : 'boards'}` : `${own} ${own === 1 ? 'board' : 'boards'}${ex ? ` · ${ex} ${ex === 1 ? 'example' : 'examples'}` : ''}`; };
+const usePhone = () => { const [m, setM] = useState(() => typeof matchMedia === 'function' && matchMedia('(max-width: 860px)').matches);
+  useEffect(() => { const q = matchMedia('(max-width: 860px)'), f = () => setM(q.matches); q.addEventListener('change', f); return () => q.removeEventListener('change', f); }, []); return m; };
 
 export function QuiverView({section, go}: ViewProps) {
   const {data, view, prefs, setPrefs, now} = useSwello();
   const boards = data.state.boards, p = data.state.profile;
   const [editing, setEditing] = useState<Surfboard | 'new' | null>(null);
   const [flat, setFlat] = useState(false);
+  const phone = usePhone();
+  // one page, two stages: the 2D picture or the 3D viewer (deep link ?board=<id>&view=3d); a phone starts in 2D (no WebGL until asked), a desktop in 3D
+  const [view3d, setView3d] = useState(() => { const v = typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('view'); return v === '3d' ? true : v === '2d' ? false : typeof matchMedia === 'function' && !matchMedia('(max-width: 860px)').matches; });
+  const [stepEdit, setStepEdit] = useState(false);
+  const replacing = useRef<string | null>(null);   // an example board the person is replacing with their own
   const [cmp, setCmp] = useState<[string, string]>([boards[0]?.id ?? '', boards[1]?.id ?? boards[0]?.id ?? '']);
   const sel = boards.find((b) => b.id === prefs.selectedBoardId) ?? boards[0];
   const select = (id: string) => { setPrefs({selectedBoardId: id}); };
@@ -154,6 +172,14 @@ export function QuiverView({section, go}: ViewProps) {
     if (dirty.current) setLeaving(section); else closeForm();
   }, [section]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // the old Showroom link opens the Quiver in 3D; the board and the stage are kept in the URL (?board=<id>&view=3d) so a reload or a shared link restores them
+  useEffect(() => { if (section === 'showroom') { setView3d(true); go('quiver', ''); } }, [section]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { const id = typeof location === 'undefined' ? null : new URLSearchParams(location.search).get('board'); if (id && id !== sel?.id && boards.some((b) => b.id === id)) select(id); }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (section !== '' || typeof location === 'undefined') return;
+    const q = new URLSearchParams(location.search); if (sel) q.set('board', sel.id); q.set('view', view3d ? '3d' : '2d');
+    history.replaceState(null, '', `${location.pathname}?${q}`);
+  }, [sel?.id, view3d, section]); // eslint-disable-line react-hooks/exhaustive-deps
   if (editing) return (
     <div className="qv">
       {leaving !== null && (
@@ -165,11 +191,11 @@ export function QuiverView({section, go}: ViewProps) {
           </div>
         </div>
       )}
-      <BoardForm initial={editing === 'new' ? undefined : editing} onCancel={closeForm} onDirty={(d) => { dirty.current = d; }} onSave={(b) => { data.saveBoard(b); select(b.id); closeForm(); }}
+      <BoardForm initial={editing === 'new' ? undefined : editing} presetType={editing === 'new' && replacing.current ? boards.find((x) => x.id === replacing.current)?.type : undefined} onCancel={() => { replacing.current = null; closeForm(); }} onDirty={(d) => { dirty.current = d; }} onSave={(b) => { data.saveBoard(b); select(b.id); if (replacing.current && replacing.current !== b.id) { data.deleteBoard(replacing.current); replacing.current = null; } closeForm(); }}
         onDelete={editing && editing !== 'new' ? () => { data.deleteBoard(editing.id); closeForm(); } : undefined} />
     </div>
   );
-  if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add your first board</button>} />;
+  if (!boards.length) return <StateMessage title="Your quiver is empty" action={<button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add your first board</button>}>Add a board and Swello says which one to take for the surf at your spot, by size and swell period.</StateMessage>;
 
   const t = TITLES[section] ?? TITLES[''];
   const outline = sel ? loadOutline(sel.id) : null, traced = !!outline;
@@ -194,61 +220,62 @@ export function QuiverView({section, go}: ViewProps) {
       <button className="btn" onClick={() => openForm(b)}><Icon name="edit" size={16} />Edit</button>
     </div>
   );
+  // volume against the weight and level (display only, ours): shown with the board's own volume
+  const vnote = sel ? volumeNote(sel.volume, p.weightKg, levelOf(p)) : null;
+  const fitOf = sel ? fits.get(sel.id) : undefined;
+  const fitsDiffer = new Set([...fits.values()].map((x) => x.state)).size > 1;   // identical chips on every board say nothing: the verdict band says it once
+  const estShort = pending || !est ? null : isFlat(hs) ? FLAT_ESTIMATE_TEXT : headlineText(hs, p).value;
+  const verdict = boardVerdict({choice, boards, spotName: view.spot.name, estText: estShort, pending, failed, fmtRange: (lo, hi) => surfRange(lo, hi, p), profile: p});
+  const eyebrow = `Board Match · ${view.spot.name}${estShort ? ` · est. ${estShort}` : ''}${period !== null ? ` · ${Math.round(period)} s` : ''}`;
+  const readSide = sel && (
+    <section className="qv-side" aria-label={`${sel.name}, selected board`}>
+      <header className="qv-side-h">
+        <h2>{sel.name}</h2>
+        <p className="fine">{[sel.type, sel.demo ? 'Example' : [sel.manufacturer, sel.model].filter(Boolean).join(' ') || null].filter(Boolean).join(' · ')}</p>
+        {sel.demo && <p className="fine">{exampleLabel(sel)}: typical dimensions for its type. <button type="button" className="qv-link" onClick={() => { replacing.current = sel.id; openForm('new'); }}>Replace with your board</button></p>}
+      </header>
+      <dl className="qv-spec-l">{specRows(sel).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+      {fitOf && fitOf.state !== 'none' && !pending && <p className="qv-fitline">Today: <em className={`qv-fit ${fitOf.state}`}>{fitOf.label}</em> <span className="fine">· {surfRange(fitOf.board[0], fitOf.board[1], p)} ({rangeSourceText(fitOf, sel.type)})</span></p>}
+      {vnote && <p className="fine qv-vol">{vnote.text}</p>}
+      {sel.notes && !sel.demo && <p className="fine">{linkify(sel.notes)}</p>}
+      <div className="qv-actions"><button className="btn" onClick={() => go('quiver', 'compare')}>Compare</button><button className="btn primary" onClick={() => { setView3d(true); setStepEdit(true); }}><Icon name="edit" size={16} />Edit</button></div>
+    </section>
+  );
+  const stage2d = sel && (
+    <div className="br"><div className="br-stagecol">
+      <div className="br-stage br-flat"><div className="br-flat-b"><BoardOutline b={sel} scale={Math.min(6.4, (phone ? 330 : 430) / sel.length)} /></div></div>
+      {phone && <Strip boards={boards} selectedId={sel.id} onSelect={select} />}
+    </div><div className="br-side">{readSide}</div></div>
+  );
   return (
     <div className="qv">
       <header className="qv-head">
-        <div><h1>{t.h}</h1><p className="fine">{t.sub} · {boards.length} {boards.length === 1 ? 'board' : 'boards'}</p></div>
+        <div><h1>{t.h}</h1><p className="fine">{section === '' || section === 'showroom' ? countText(boards) : `${t.sub} · ${countText(boards)}`}</p></div>
         <button className="btn primary" onClick={() => openForm('new')}><Icon name="plus" size={16} />Add board</button>
       </header>
 
-      {section === '' && (
-        sel && (
-          <>
-            <Rack boards={boards} selected={sel} onSelect={select} fits={fits} estText={estText} />
-            <section className="qv-selected qv-spec" aria-label={`${sel.name}, selected board`}>
-              <div className="qv-spec-h">
-                <h2>{sel.name}</h2>
-                <p className="fine">{[[sel.manufacturer, sel.model].filter(Boolean).join(' ') || null, sel.type, sel.demo ? exampleLabel(sel) : null].filter(Boolean).join(' · ')}</p>
-              </div>
-              <dl className="qv-spec-l">
-                {specRows(sel).map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-              </dl>
-              <p className="qv-matchline">{matchLine}</p>
-              <div className="qv-actions"><button className="btn primary" onClick={() => { select(sel.id); go('quiver', 'showroom'); }}>View in 3D</button><button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button>{A(sel)}</div>
-            </section>
-          </>
-        )
-      )}
-
-      {section === 'showroom' && sel && (
-        <section className="qv-show" aria-label="Board showroom">
-          {flat ? (
-            <div className="qv-studio flat">
-              <p className="fine qv-flat-note" role="status">The 3D view is not available on this device, so boards are shown as flat outlines.</p>
-              <div className="qv-stagewrap">
-                <div className="qv-lineup" role="group" aria-label="Boards lined up at the same scale">
-                  <div className="qv-row">{boards.map((b) => (
-                    <button key={b.id} className="qv-stand" aria-pressed={b.id === sel.id} aria-label={`${b.name}, ${lengthLabel(b.length)}`} onClick={() => select(b.id)}>
-                      <BoardOutline b={b} scale={Math.min(6, 430 / maxLen)} />
-                    </button>
-                  ))}</div>
-                  <StageArrows onStep={step} />
-                </div>
-                <SpecCard board={sel} dims={sel} action={null} />
-              </div>
-              <Strip boards={boards} selectedId={sel.id} onSelect={select} />
+      {(section === '' || section === 'showroom') && sel && (
+        <>
+          <section className={`qv-verdict ${verdict.tone}`} aria-label="Board Match for the selected hour">
+            <p className="qv-v-k">{eyebrow}</p>
+            <p className="qv-v-s">{verdict.tone === 'loading' ? <SkelInline label={`Loading Board Match for ${view.spot.name}`} width="18em" /> : verdict.sentence}</p>
+            {verdict.caveat && <p className="fine">{verdict.caveat}</p>}
+            <div className="qv-v-a"><button type="button" className="qv-link" onClick={() => go('quiver', 'match')}>How it was decided</button><button type="button" className="qv-link" onClick={() => go('forecast')}>Change spot or hour</button></div>
+          </section>
+          {!phone && <Rack boards={boards} selected={sel} onSelect={select} fits={fitsDiffer ? fits : undefined} estText={fitsDiffer ? estText : null} />}
+          <div className="qv-tools" role="group" aria-label="Board view">
+            <div className="qv-seg" role="radiogroup" aria-label="Stage">
+              <button type="button" role="radio" aria-checked={!view3d && !stepEdit} onClick={() => { setView3d(false); setStepEdit(false); }}>2D</button>
+              <button type="button" role="radio" aria-checked={view3d || stepEdit} onClick={() => setView3d(true)}>3D</button>
             </div>
-          ) : (
-            <Suspense fallback={<div className="qv-studio"><div className="qv-stagewrap"><div className="qv-stage" role="status" aria-label={`Loading the 3D view of ${sel.name}`}><div className="br-load" aria-hidden="true"><BoardOutline b={sel} scale={4} /></div></div><SpecCard board={sel} dims={sel} action={null} /></div></div>}>
-              <BoardRoom board={sel} boards={boards} onPick={select} fits={fits} onSave={data.saveBoard} onFail={() => setFlat(true)} match={matchLine} matchAction={<button className="btn" onClick={() => go('quiver', 'match')}>Open Board Match</button>} />
-            </Suspense>
-          )}
-          <div className="qv-showbar">
-            <div className="qv-actions">{A(sel)}<button className="btn" onClick={() => go('quiver', 'match')}>Board Match</button></div>
-            {sel.notes && <p className="fine">{linkify(sel.notes)}</p>}
           </div>
-          {flat && <p className="fine">{sel.demo ? `${exampleLabel(sel)}. ` : ''}{!outline && referenceFor(sel) ? `${MODELLED_NOTE}: the outline is traced from the maker's product photo and scaled to the published size; foil, rails and bottom are typical for the type${referenceFor(sel)?.rocker ? ' (the rocker is measured from the side-profile photo)' : ''}. Not an exact replica.` : outline?.tex ? `The deck is your photo of the board; the outline is traced from it. Rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : traced && !flat ? `The outline is traced from your photo; rocker, rails and thickness are the ${sel.type.toLowerCase()} category's, scaled to these numbers.` : `The ${flat ? 'outline' : '3D shape'} is a ${sel.type.toLowerCase()} category approximation scaled to these numbers, not an exact scan of the board.`}</p>}
-        </section>
+          {(view3d || stepEdit) && !flat ? (
+            <Suspense fallback={stage2d}>
+              <BoardRoom board={sel} onSave={data.saveBoard} onFail={() => setFlat(true)} side={readSide} editing={stepEdit} onDone={() => setStepEdit(false)} onDetails={() => { setStepEdit(false); openForm(sel); }}
+                under={phone ? <Strip boards={boards} selectedId={sel.id} onSelect={select} /> : null} />
+            </Suspense>
+          ) : <>{flat && <p className="fine qv-flat-note" role="status">3D is not available on this device.</p>}{stage2d}</>}
+        </>
       )}
 
       {section === 'match' && (

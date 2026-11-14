@@ -18,6 +18,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
   const [avail, setAvail] = useState(380);
   const [phone, setPhone] = useState(() => matchMedia('(max-width: 860px)').matches);
   const [said, setSaid] = useState('');
+  const [overflow, setOverflow] = useState(false);   // the prev/next arrows exist only when the rack really overflows
   const idx = Math.max(0, boards.findIndex((b) => b.id === selected.id)), n = boards.length;
   const maxLen = Math.max(...boards.map((b) => b.length));
   const outlines = useMemo(() => new Map(boards.map((b) => [b.id, wallOutline(b)])), [boards]);
@@ -25,7 +26,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
   useEffect(() => { const m = matchMedia('(max-width: 860px)'), f = () => setPhone(m.matches); m.addEventListener('change', f); return () => m.removeEventListener('change', f); }, []);
   useEffect(() => {
     const el = row.current; if (!el) return;
-    const ro = new ResizeObserver(() => setAvail(Math.max(220, el.clientHeight - 28))); ro.observe(el); setAvail(Math.max(220, el.clientHeight - 28));
+    const ro = new ResizeObserver(() => { setAvail(Math.max(220, el.clientHeight - 28)); setOverflow(el.scrollWidth > el.clientWidth + 4); }); ro.observe(el); setAvail(Math.max(220, el.clientHeight - 28)); setOverflow(el.scrollWidth > el.clientWidth + 4);
     return () => ro.disconnect();
   }, []);
   const step = (d: number) => onSelect(boards[(idx + d + n) % n].id);
@@ -80,7 +81,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
               <li key={b.id} ref={(el) => { if (el) items.current.set(b.id, el); else items.current.delete(b.id); }} className={b.id === selected.id ? 'on' : ''}>
                 <button type="button" className="qv-rack-b" aria-pressed={b.id === selected.id} tabIndex={b.id === selected.id ? 0 : -1} aria-label={`${b.name}, ${lengthLabel(b.length)}, board ${i + 1} of ${n}${b.demo ? `, ${exampleLabel(b).toLowerCase()}` : ''}`} onClick={() => onSelect(b.id)}>
                   <BoardPicture b={b} px={base} outline={outlines.get(b.id) ?? null} />
-                  <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>
+                  <span className="qv-rl"><b>{b.name}</b><small>{lengthLabel(b.length)} · {b.type.toLowerCase()}</small>{b.demo && <small className="qv-ex">Example</small>}
                     {fits && (() => { const ft = fits.get(b.id); return ft ? <em className={`qv-fit ${ft.state}`} title={ft.state !== 'none' ? `${ft.source === 'board' ? 'Your range' : 'Category range'} ${surfRange(ft.board[0], ft.board[1], profile)}` : undefined}>{ft.label}</em> : null; })()}
                     {/* phone pass 12: on a phone the 'size fit for …' line sits under the selected board's fit, not floating in the stage beside the ruler */}
                     {estText && b.id === selected.id && <small className="qv-fit-for">for {estText}</small>}
@@ -90,7 +91,7 @@ export function Rack({boards, selected, onSelect, fits, estText}: {boards: Surfb
             ))}
           </ul>
         </div>
-        <StageArrows onStep={step} />
+        {overflow && <StageArrows onStep={step} />}
       </div>
       {phone && <Strip boards={boards} selectedId={selected.id} onSelect={onSelect} />} {/* phones see one board at a time; the wall shows them all at 1440 */}
       <p className="sr-only" role="status" aria-live="polite">{said}</p>

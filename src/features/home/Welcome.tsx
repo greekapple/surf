@@ -112,7 +112,9 @@ export function Welcome({name, spots, refSpot, records, profile, bundle, extrema
   const altAt = alt && cv?.level === 'low' ? spotHourOf(alt.spot, alt.rec, nowMs, profile, {bundle}) : null, altCv = alt && altAt ? certaintyOf(alt.spot.id, altAt.surf.headline, alt.rec.timestamp, nowMs) : null;
   const altText = alt && altAt?.surf.headline.kind === 'estimate' ? `${alt.spot.name}, ${alt.when === bet?.when ? '' : `${alt.when} `}${alt.window.label}${viewerTag(timeZoneOf(alt.spot), alt.window.start)}, ${altAt.surf.value}${altCv?.disagree ? ' (models differ)' : ''}${altCv && altCv.level !== 'too-far' ? `, ${altCv.word}` : ''}` : null;
   // only a board the surf is inside (or at the edge of) its range; in size-only mode the wave shape is unknown and the line says so
-  const boardText = bet?.sized && pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? `${pick.board.name}` : null, boardNote = boardText && choice?.mode === 'size' ? ' (by size; wave shape unknown)' : '';
+  const boardText = bet?.sized && pick && (pick.size.state === 'in' || pick.size.state === 'edge') ? `${pick.board.name}` : null,
+    // quiver-lock: an example board is said to be one (it is not the surfer's), with a way to add their own
+    boardNote = boardText ? `${choice?.mode === 'size' ? ' (by size; wave shape unknown)' : ''}${pick?.board.demo ? ' · an example board: add your own in Quiver' : ''}` : '';
   // T-106: the hero draws the hour the sentence talks about (the bet's first hour), else the spot's current hour; same headline as the number.
   const [camFailed, setCamFailed] = useState(false), media = camFailed ? {kind: 'drawn' as const} : heroMediaFor(spot.id);
   const heroRec = bet?.rec ?? nowRec, heroHour = at ?? (nowRec ? spotHourOf(spot, nowRec, nowMs, profile, {bundle}) : null), me = userHeight(profile);
