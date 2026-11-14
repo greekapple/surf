@@ -114,6 +114,21 @@ Read `docs/reviews/2026-11-10-audit-summary.md` first: the audit set A, B and C 
 
 ### Track 1: declutter, and stop it looking AI-made
 The user, again: avoid overcrowding.
+- **The day in one sentence (user, 2026-11-14; our own idea, not a competitor's layout):**
+  - Directly under the Call on the spot page (and under Home's best bet), one plain sentence summing up the day, e.g. "Head high and clean at dawn, getting choppy by noon as the wind turns onshore; tide dropping to a 2 PM low. Best before 9."
+  - **Built from data with fixed rules, not an LLM.** One pure function in src/services takes the day's hours and returns the sentence plus the facts behind each clause. Every clause maps to a number on the page:
+    - size: the body words of the estimate range;
+    - surface: Glassy / Clean / Textured / Choppy, the labelled rule from the week bars;
+    - wind turn: the hour the shore relation changes;
+    - tide: the next turn;
+    - best window: the Call's own window.
+  - It says "about" or leaves a clause out when the data is missing or low-confidence. NWS-only or offshore-only spots get a sentence that says what the number is.
+  - Tests:
+    - a fixture per pattern;
+    - no clause without its source value;
+    - a phrase bank capped so it never reads AI-written.
+  - The **board pick** (Board Match's top board for the best window, name only, with a link to the reason) moves up beside the sentence on the spot page. Home already has it.
+  - Keep SWELLO's own layout; no pills or stacked "call cards".
 - **Screen budget:**
   - The phone spot page's first screen shows exactly: name, time, the call (word plus reason), the surf number with its kind, and one row of wind, tide and swell. Everything else is below or behind one tap.
   - Home's first screen shows the best bet and at most 3 other spots.
