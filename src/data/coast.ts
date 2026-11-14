@@ -391,7 +391,7 @@ export const COAST_ROWS: Row[] = [
   ['w-usw-del-monte-beach', 'Del Monte Beach', 'Monterey', 'Beach', 36.605, -121.87, 338, 'America/Los_Angeles', 'US'],
   ['w-usw-monterey-wall', 'Monterey Wall', 'Monterey', null, 36.602, -121.889, 23, 'America/Los_Angeles', 'US'],
   ['w-usw-ghost-tree', 'Ghost Tree', 'Monterey', 'Reef', 36.56, -121.952, 158, 'America/Los_Angeles', 'US'],
-  ['cs-carmel', 'Carmel Beach', 'Monterey', 'Beach', 36.553, -121.928, 260],
+  ['cs-carmel', 'Carmel Beach', 'Monterey', 'Beach', 36.554, -121.932, 260],   // pin-check 2026-11-13: moved 364 m west from 36.553, -121.928 (217 m inside the OSM land polygon) to the mean of the two guides' pins, both in the water 71 and 133 m off the shore: docs/forecast/PIN-CHECK.md
   ['w-us-corolla-lighthouse', 'Corolla Lighthouse', 'Outer Banks', 'Beach', 36.378, -75.823, 68, 'America/New_York', 'US'],
   ['cs-andrew-molera', 'Andrew Molera', 'Monterey', 'Point', 36.28, -121.859, 203],
   ['w-us-duck-pier', 'Duck Pier', 'Outer Banks', 'Beach', 36.182, -75.75, 68, 'America/New_York', 'US'],
