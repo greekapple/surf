@@ -18,6 +18,7 @@ export function measure(value:unknown,unit:Measurement['unit'],source:SourceInfo
  if(n===null||(unit==='ft'&&n<0)||(unit==='mph'&&n<0)||(unit==='s'&&n<=0)||(unit==='deg'&&(n<0||n>360)))return {value:null,unit,source,reason};
  if(!expectedNative.includes(source.nativeUnit))return {value:null,unit,source,reason:`Unsupported provider unit: ${source.nativeUnit||'unspecified'}.`};
  const result=unit==='ft'&&source.nativeUnit==='m'?n/.3048:unit==='F'&&source.nativeUnit==='°C'?n*9/5+32:n;
+ if(!Number.isFinite(result))return {value:null,unit,source,reason};   // prod-nan: a conversion can overflow (a fill value near 1e308 / .3048 is Infinity): that is a missing value, never a number
  return {value:result,unit,source};
 }
 export const absent=(unit:Measurement['unit'],source:SourceInfo,reason:string):Measurement=>({value:null,unit,source,reason});
