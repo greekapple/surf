@@ -952,3 +952,82 @@ p.sp-wn { display: block; }
 .sp-coastcredit a { color: inherit; }
 .fc-akey .fk-arr { flex-wrap: wrap; row-gap: 2px; }
 .sp-coastcredit { padding: 0 0 8px; }
+
+/* forecast-visuals B: the day cards carry the week's bars (SpotPage DayStrip): four hours per day on ONE scale, each bar the hour's surf range filled with its
+   rating colour; soft gridlines (one per scale step, named in the key line); the wind and primary swell arrows under each bar (Stage A glyph and colours);
+   the day's tide as a thin line. Bars sit fully inside the card. */
+.sp .sp-day .sd-t { white-space: nowrap; }
+.wb { display: grid; gap: 4px; width: 100%; margin-top: 6px; }
+.wb-bars { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 3px; width: 100%; box-sizing: border-box; padding: 0 2px; }
+.wb-col { display: grid; justify-items: center; gap: 2px; min-width: 0; }
+.wb-track { position: relative; width: 100%; height: 72px; border-radius: 4px;
+  background: linear-gradient(to top, color-mix(in srgb, var(--line) 70%, transparent) 1px, transparent 1px) 0 100% / 100% var(--gs, 33%); }
+.wb-bar { position: absolute; left: 12%; right: 12%; min-height: 3px; border-radius: 3px; background: var(--c, var(--none)); }
+.wb-bar.k-flat { min-height: 2px; height: 2px !important; }
+.wb-bar.k-nws { background: color-mix(in srgb, var(--c) 55%, transparent); outline: 1.5px dashed var(--c); outline-offset: -1.5px; }
+.wb-bar.k-off { left: 22%; right: 22%; background: var(--muted); opacity: 0.55; }
+.wb-bar.k-demo { background: repeating-linear-gradient(135deg, var(--muted) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--muted); }
+.wb-bar.dark { background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 0.28) 0 2px, transparent 2px 5px); opacity: 0.6; }
+:root[data-theme='dark'] .wb-bar.dark { background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 0.45) 0 2px, transparent 2px 5px); }
+.sp .sp-day.is-too-far .wb-bar { opacity: 0.4; }
+.wb-a { width: 14px; height: 14px; display: block; overflow: visible; }
+.wb-tide { width: 100%; height: 14px; display: block; }
+.wb-tide path { fill: none; stroke: var(--tide); stroke-width: 1.5; vector-effect: non-scaling-stroke; stroke-linejoin: round; }
+.sp-wbkey { margin: 2px 2px 0; font-size: 12px; line-height: 18px; color: var(--muted); display: flex; flex-wrap: wrap; align-items: center; gap: 2px 12px; }
+.sp-wbkey > span { display: inline-flex; align-items: center; gap: 4px; }
+.sp-wbkey i.sw { display: inline-block; width: 8px; height: 12px; border-radius: 2px; }
+.sp-wbkey i.sw.off { background: var(--muted); opacity: 0.55; }
+.sp-wbkey i.sw.nws { outline: 1.5px dashed var(--muted); outline-offset: -1.5px; }
+.sp-wbkey i.tl { display: inline-block; width: 14px; height: 0; border-top: 1.5px solid var(--tide); }
+@media (max-width: 860px) {
+  .sp .sp-day { flex-basis: 86px; }
+  .sp .sp-day .sd-t { font-size: 12px; }
+  .wb-track { height: 60px; }
+  .wb-bars { gap: 2px; padding: 0; }
+}
+/* a surf bar rises from the baseline: solid over the hour's range (low to high), a light tint of the same colour below it, so heights compare at a glance */
+.wb-bar.k-est { background: linear-gradient(to bottom, var(--c) 0 var(--split, 100%), color-mix(in srgb, var(--c) 28%, transparent) var(--split, 100%)); }
+.wb-bar.k-nws { background: linear-gradient(to bottom, color-mix(in srgb, var(--c) 60%, transparent) 0 var(--split, 100%), color-mix(in srgb, var(--c) 18%, transparent) var(--split, 100%)); }
+.wb-bar.k-est.dark, .wb-bar.k-nws.dark { background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 0.28) 0 2px, transparent 2px 5px), linear-gradient(to bottom, var(--c) 0 var(--split, 100%), color-mix(in srgb, var(--c) 28%, transparent) var(--split, 100%)); }
+/* forecast-visuals B: the "Detailed charts" toggle */
+.sp-detailed > summary { display: flex; align-items: baseline; gap: 10px; min-height: 44px; align-items: center; cursor: pointer; list-style: none; font: 650 15px/1.3 var(--sans); color: var(--text); border-top: 1px solid var(--line); }
+.sp-detailed > summary::-webkit-details-marker { display: none; }
+.sp-detailed > summary::after { content: ''; width: 8px; height: 8px; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(45deg); margin: -4px 4px 0 auto; transition: transform 160ms var(--ease); }
+.sp-detailed[open] > summary::after { transform: rotate(-135deg); margin-top: 4px; }
+.sp-detailed-s { font-size: 12px; font-weight: 500; color: var(--muted); }
+@media (max-width: 600px) { .sp-detailed-s { display: none; } }
+/* critique pass (forecast-visuals B): quieter bars (the tint under the range lighter), a smaller tile in the wide Now block so its text keeps one line, no stray indent on "from W" */
+.wb-bar.k-est { background: linear-gradient(to bottom, var(--c) 0 var(--split, 100%), color-mix(in srgb, var(--c) 17%, transparent) var(--split, 100%)); }
+.sp-nc .sp-dir { margin-left: 0; }
+.sp-nc.has-tile > .ct svg { width: 52px; height: 52px; } .sp-nc.has-tile > .ct { width: 52px !important; }
+.sp-wbkey { gap: 2px 10px; }
+/* review fixes: the fade is per hour (an hour past the horizon), not the day; the after-dark hatch only on our estimates and NWS (a demonstration bar keeps its stripes);
+   a rating dot under bars that are not our estimate (offshore, NWS, demonstration); key swatches for every mark a bar can carry */
+.sp .sp-day.is-too-far .wb-bar { opacity: 1; }
+.wb-bar.far { opacity: 0.4 !important; }
+.wb-bar.dark { background-image: none; opacity: 1; }
+.wb-bar.k-est.dark, .wb-bar.k-flat.dark, .wb-bar.k-nws.dark { opacity: 0.62; }
+.wb-bar.k-nws { background: color-mix(in srgb, var(--muted) 22%, transparent); outline: 1.5px dashed var(--muted); outline-offset: -1.5px; }
+.wb-bar.k-nws.dark { background-image: repeating-linear-gradient(135deg, rgb(0 0 0 / 0.28) 0 2px, transparent 2px 5px); }
+.wb-bar.k-demo.dark { opacity: 0.6; }
+.wb-r { display: block; width: 6px; height: 6px; border-radius: 50%; }
+.wb-r.none { visibility: hidden; }
+.sp-wbkey i.wb-r { display: inline-block; }
+.sp-wbkey i.sw.demo { background: repeating-linear-gradient(135deg, var(--muted) 0 2px, transparent 2px 5px); box-shadow: inset 0 0 0 1px var(--muted); }
+.sp-wbkey i.sw.dk { background: repeating-linear-gradient(135deg, rgb(0 0 0 / 0.28) 0 2px, transparent 2px 5px), var(--fair); opacity: 0.62; }
+.sp-wbkey i.sw.fr { background: var(--fair); opacity: 0.4; }
+/* lead (2026-11-14): the day's plan on each card: the window's verdict mark and word, the surface word, the Board Match pick */
+.sd-plan { display: grid; justify-items: center; gap: 1px; max-width: 100%; font-size: 12px; line-height: 16px; }
+.sd-v { display: inline-flex; align-items: center; gap: 4px; font-weight: 600; color: var(--text); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.sd-v i { flex: none; width: 7px; height: 7px; border-radius: 50%; }
+.sd-b { color: var(--muted); white-space: nowrap; max-width: 100%; overflow: hidden; text-overflow: ellipsis; }
+.sp-vkey { margin-top: 4px; }
+.sd-s { color: var(--text); font-weight: 500; }
+/* the bars share one baseline across the row whatever the lines above them (the plan, "too far out", the kind line): the bar block sits at the card's bottom */
+.sp .sp-day .wb { margin-top: auto; }
+.sp .sp-days { align-items: stretch; }
+@media (max-width: 860px) { .sd-b { white-space: normal; text-align: center; line-height: 14px; } }
+/* the verdict mark is a ring (not the rating's filled swatch), so the two legends never read as one */
+.vm { flex: none; display: inline-block; width: 8px; height: 8px; border-radius: 50%; border: 2px solid; box-sizing: border-box; }
+.sd-v i.vm { width: 8px; height: 8px; }
+.sd-none { color: var(--muted); font-weight: 500; }

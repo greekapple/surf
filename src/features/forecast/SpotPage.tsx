@@ -5,18 +5,22 @@ import {tideStationFor, SF_STATION, noTideNote, hourlyTideStationIds} from '../.
 import {tideCurveWords} from '../../ocean/stationTide';
 import {regionNote} from '../../ocean/coverage';
 import {useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode} from 'react';
-import type {Forecast, SurfSpot, UserProfile} from '../../models/index';
+import type {Forecast, Surfboard, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
 import {scoreBoard} from '../../recommendation/board';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {CoastTile, CoastCredit} from './CoastTile';
 import {periodStep} from '../../services/coastTile';
-import {rankBoards, recommended} from '../quiver/fit';
+import {BAR_BLOCKS, barOf, barWords, pct, stepText, weekScale, type BarKind} from '../../services/weekBars';
+import {boardPickFor, rankBoards, recommended} from '../quiver/fit';
+import {windowOnDay} from '../../services/call';
+import {surfaceWord} from '../../services/surfaceWord';
 import {isDark} from './trustApi';
 import {SCALE_BANDS, selectScaleBand} from '../../services/waveScale';
 import {dayRange, tideOf} from '../../services/spotHour';
-import {dayCertainty, certainLabel} from '../../services/certainty';
+import {dayCertainty, certainLabel, certaintyOf} from '../../services/certainty';
+import {heightValue, lengthLabel} from '../../utils/units';
 import {dayText} from '../../services/weekCell';
 import {dateIn} from '../../ocean/time';
 import {timeZoneOf} from '../../ocean/spotZone';
@@ -289,9 +293,8 @@ export function BoardLine({boards, choice, f, p, hs, onOpen}: {boards: import('.
 }
 
 const median = (v: number[]) => { const a = [...v].sort((x, y) => x - y), m = a.length >> 1; return a.length % 2 ? a[m] : (a[m - 1] + a[m]) / 2; };
-const BLOCKS = [{label: 'AM', hour: 7}, {label: 'Midday', hour: 12}, {label: 'PM', hour: 17}] as const;
 /** 7-day strip (Surfline): day, surf range, AM/midday/PM rating segments, three wind arrows, best day star. */
-export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}: {days: Day[]; series: HourSample[]; spot: SurfSpot; p: UserProfile; bundle: OceanBundle | null | undefined; now: number; cur: number; best: number; onPick: (k: number) => void}) {
+export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick, boards = []}: {days: Day[]; series: HourSample[]; spot: SurfSpot; p: UserProfile; bundle: OceanBundle | null | undefined; now: number; cur: number; best: number; onPick: (k: number) => void; boards?: Surfboard[]}) {
   const today = weekdayPT(new Date(now).toISOString());
   // Drag across the strip with a mouse to scrub days; every card follows the selected hour live.
   const scrub = useRef(false);
@@ -299,6 +302,32 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
   // phone pass 8: the kind and confidence words ("est. · high confidence") were repeated in every column; they are said once under the strip, as runs of
   // days ("est. · high confidence Today–Thu · medium confidence Fri"). Each day's button keeps its own words in its accessible name.
   const kw: {name: string; label: string | null}[] = [];
+  // forecast-visuals B: the day cards ARE the week's bars: four hours per day (dawn, morning, noon, afternoon) on one scale for the whole week, each from that
+  // hour's own headline (the Surf card's engine), filled with its rating colour; the wind and primary swell arrows under each; the day's tide as a thin line.
+  // review: each bar's own certainty (an hour past the horizon is faded and says so), its saved-copy word, and the person's scale on estimates (as the day card)
+  const cols = days.map((d) => { const hrs = series.slice(d.start, d.end + 1); return BAR_BLOCKS.map((b) => { const h = hrs.find((x) => x.hour === b.hour), hs = h ? surfOf(spot, h.forecast, p, bundle, now).h : null;
+    const far = !!h && !!hs && certaintyOf(spot.id, hs, h.timestamp, now)?.level === 'too-far', saved = !!hs && 'saved' in hs && !!hs.saved;
+    return {...b, h, bar: barOf(hs), far, dark: !!h && isDark(spot.id, h.timestamp), tag: [far ? 'too far out to call, the model says this' : '', saved ? 'saved copy' : ''].filter(Boolean).join(', ')}; }); });
+  // the week's scale from the bars that are surf forecasts within the horizon (an offshore or too-far height never shrinks them; pct clamps the rest)
+  const scale = weekScale(cols.flat().filter((c) => (c.bar.kind === 'est' || c.bar.kind === 'nws') && !c.far).map((c) => c.bar));
+  const tides = series.map((x) => x.forecast.tide.height).filter(fin), tLo = tides.length ? Math.min(...tides) : 0, tHi = tides.length ? Math.max(...tides) : 1;
+  const scaled = (k: BarKind) => k === 'est' || k === 'flat' || k === 'demo', hawaiian = p.scale === 'Hawaiian';
+  const fmt = (ft: number, k: BarKind) => { const v = heightValue(ft, p, scaled(k)); return p.heightUnit === 'm' ? v.toFixed(1) : String(Math.round(v)); };
+  const unitOf = (k: BarKind) => `${p.heightUnit}${hawaiian && scaled(k) ? ' ≈ Hawaiian' : ''}`;
+  const [tla, tlo] = spotLatLon(spot), tst = tideStationFor({id: spot.id, latitude: tla, longitude: tlo});
+  // lead (2026-11-14): each day's best window (the Call's own windowOnDay: Go, else Worth a look; none = Skip), the surface word at its middle hour (our rule from the
+  // wind, services/surfaceWord.ts) and the Board Match pick for that hour when the person has boards
+  const records = series.map((x) => x.forecast), wctx = {records, bundle, nowMs: now};
+  const tz = timeZoneOf(spot), todayKey = dateIn(tz, new Date(now).toISOString());
+  const plan = days.map((d) => { const dk = dateIn(tz, d.t), w = windowOnDay(spot, dk, p, wctx, now), isToday = dk === todayKey;
+    if (!w) return {w: null, surface: null, board: null, far: false, todayPassed: isToday};
+    // the window's own hours (an hour that overlaps it: end exclusive, a first-light start kept); none of it past the horizon (no verdict built on a number we do not show)
+    const a = Date.parse(w.start), z = Date.parse(w.end), inWin = series.filter((x) => { const t = Date.parse(x.timestamp); return t + 3600000 > a && t < z; });
+    const far = inWin.some((x) => certaintyOf(spot.id, surfOf(spot, x.forecast, p, bundle, now).h, x.timestamp, now)?.level === 'too-far');
+    if (far) return {w: null, surface: null, board: null, far: true, todayPassed: false};
+    const mid = inWin[Math.floor(inWin.length / 2)], f = mid?.forecast, surface = f && f.availability.wind !== false ? surfaceWord(f.wind.speed, windRelationship(spot, f), f.wind.gusts) : null;
+    const pick = boards.length && f ? boardPickFor(boards, spot, f, now, p, {bundle}).pick : null;
+    return {w, surface, far: false, todayPassed: false, board: pick ? {short: `${lengthLabel(pick.length)} ${pick.type.toLowerCase().split(' ').pop()}`, name: pick.name} : null}; });
   const strip = (
     <nav className="sp-days days" aria-label="Forecast days" data-scrub={scrub.current || undefined}
       onPointerDown={(e) => { if (e.pointerType === 'mouse' && e.button === 0) scrub.current = true; }}
@@ -319,7 +348,7 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         // T-112: the main number is the SAME text the week grid shows (dayText: the midday hour's headline value, in the person's unit and scale); the demo week keeps its own median.
         const dt = dayText(ty), lo = range ? ht(range[0], p, 0) : null, hi = range ? ht(range[1], p, 0) : null, mainNum = dr.kind === 'official' && (dr.officialHalves?.length ?? 0) > 1 ? dr.officialHalves!.map((x) => officialRange(x, p.heightUnit === 'm' ? 'm' : 'ft').replace(/\s*(ft|m)$/, '')).join(' / ') : dt ? dt.numbers : lo === hi ? (lo ?? '—') : `${lo}–${hi}`, unitSuffix = dt ? dt.full.slice(dt.numbers.length).trim() : p.heightUnit;
         const envBase = env && dr.label ? dr.label.replace(/^Est\. /, '').replace(/ offshore$/, '') : null, envText = envBase ? `${envBase}${dr.kind === 'offshore' && !/\b(ft|m)$/.test(envBase) ? ` ${p.heightUnit}` : ''}` : null;   // the offshore label can already carry its unit ("9.2 to 9.8 ft ft")
-        const blocks = BLOCKS.map((b) => ({...b, h: hrs.find((x) => x.hour === b.hour)}));
+        const blocks = cols[k];
         // certainty (2026-11-06): the midday hour's level. Past the horizon the card says "too far out" (the model's number moves to the note under the strip and the tooltips); where the models disagree the band stays the number, with "models differ" and what it could be in the detail.
         const cv = dr.kind === 'none' ? null : dayCertainty(spot.id, dr, now), far = cv?.level === 'too-far', shown = certainLabel(mainNum, unitSuffix, cv, p);
         if (k === cur && env) selNote = `${cv ? `${far ? 'Too far out to call' : `${cv.word.replace(/^\w/, (c) => c.toUpperCase())}${shown.note ? `, ${shown.note}` : ''}`}: ${cv.why}. ${far ? `The model says ${(shown.detail ?? '').replace(/^the model says /, '')} at ${ty?.short ?? 'midday'}. ` : shown.detail ? `${shown.detail.replace(/^\w/, (c) => c.toUpperCase())}. ` : ''}` : ''}${dr.kind === 'official' ? `NWS surf zone forecast, one range for the day (${dr.basis})` : `Range over daylight: ${envText} (${kind === 'est.' || tyFlat ? 'estimated' : kind}, ${dr.hours} daylight hours)`}`;
@@ -327,12 +356,30 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
         const sumLabel = range && cv && !far ? `${kind} · ${shown.note ?? cv.word}` : null; kw.push({name, label: sumLabel});
         return (
           <button key={d.key} className={`sp-day day${cv ? ` is-${cv.level}` : ''}`} data-k={k} aria-pressed={k === cur} onClick={() => onPick(k)} data-certainty={cv?.level}
-            aria-label={`${name}: ${range ? `${far ? `too far out to call, ${shown.detail}` : `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${shown.text.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}`}${cv && !far ? `, ${cv.word}` : ''}${shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${b.label} ${b.h ? conditionWord(b.h.rating.category) : 'no rating'}`).join(', ')}${k === best ? '; best day' : ''}`}>
+            aria-label={`${name}: ${range ? `${far ? `too far out to call, ${shown.detail}` : `typically ${tyFlat ? FLAT_ESTIMATE_TEXT : `${shown.text.replace('–', ' to ')} ${unitSuffix} ${kind === 'est.' ? 'estimated' : kind}`}`}${cv && !far ? `, ${cv.word}` : ''}${shown.note ? `, ${shown.note}${shown.detail ? ` (${shown.detail})` : ''}` : ''}${ty ? `, ${ty.aria}` : ''}${envText ? `; range over daylight ${envText.replace('–', ' to ')}` : ''}` : 'no height'}; ${blocks.map((b) => `${barWords(b.label, b.bar, fmt, unitOf, b.tag)}, ${b.h ? `${conditionWord(b.h.rating.category).toLowerCase()}${b.dark ? ' (after dark)' : ''}` : 'no rating'}`).join('; ')}${plan[k].w ? `; ${plan[k].w!.verdict ?? 'window'} window ${plan[k].w!.label}` : ''}${plan[k].surface ? `, surface ${plan[k].surface} (our rule from the wind)` : ''}${plan[k].board ? `, Board Match ${plan[k].board!.name}` : ''}${k === best ? '; best day' : ''}`}>
             <span className="sd-t">{name}{k === best && <span className="sd-star" role="img" aria-label="Best day of the week" title="Best day of the week for you: the highest average rating over its 6 AM–7 PM hours, among the next few days that have a Go or Worth-a-look window for your skill range. The call's window above is the best stretch within one day."><Icon name="star" size={12} /></span>}</span>
             <span className={`sd-h${dr.kind === 'offshore' ? ' sd-off' : ''}`} title={cv ? `${sumLabel && ty ? `${ty.aria}; ` : ''}${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : undefined}>{range ? (far ? <span className="sd-far">too far out</span> : <>{shown.text}<small>{unitSuffix}</small></>) : '—'}</span>
+            {(() => { const pl = plan[k]; if (pl.far || far) return null; if (!pl.w && pl.todayPassed) return range ? <span className="sd-plan"><span className="sd-s sd-none">no window left today</span></span> : null;
+              const v = pl.w?.verdict ?? (range ? 'Skip' : null); if (!v) return null; const band = v === 'Go' ? 'good' : v === 'Worth a look' ? 'fair' : 'poor';
+              return <span className="sd-plan" title={`${pl.w ? `${v} window ${pl.w.label} (provisional)` : 'Skip: no window this day (provisional)'}${pl.surface ? ` · surface: ${pl.surface} (our rule from the wind)` : ''}${pl.board ? ` · Board Match: ${pl.board.name}` : ''}`}>
+                <span className="sd-v"><i className="vm" style={{borderColor: BAND_COLOR[band]}} />{v}</span>{pl.surface && <span className="sd-s">{pl.surface}</span>}{pl.board && <span className="sd-b">{pl.board.short}</span>}</span>; })()}
             <span className="sd-k" title={ty ? `${ty.aria}${cv ? `; ${cv.word}: ${cv.why}${shown.detail ? `. ${shown.detail}` : ''}` : ''}` : undefined}>{sumLabel ? null : `${kind}${ty ? ` · ${ty.short}` : ''}`}</span>
-            <span className="sd-w" aria-hidden="true">{blocks.map((b) => b.h && fin(b.h.forecast.wind.direction) ? <i key={b.label} className={`sp-rel-ink ${relClass(windRelationship(spot, b.h.forecast))}`}><DirArrow from={b.h.forecast.wind.direction} size={12} /></i> : <i key={b.label} />)}</span>
-            <span className="sd-q" aria-hidden="true">{blocks.map((b) => { const dark = !!b.h && isDark(spot.id, b.h.timestamp); return <i key={b.label} className={dark ? 'dark' : undefined} title={dark && b.h ? `${b.label}: ${conditionWord(b.h.rating.category).toLowerCase()} conditions, after dark` : undefined} style={{background: b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : 'var(--none)'}} />; })}</span>
+            <span className="wb" aria-hidden="true">
+              <span className="wb-bars" style={{'--gs': `${(scale.step / scale.max) * 100}%`} as CSSProperties}>{blocks.map((b) => {
+                const bar = b.bar, dark = b.dark, w = b.h?.forecast.wind, sw = b.h?.forecast.primary;
+                const lo = bar.lo !== null ? pct(bar.lo, scale.max) : 0, hi = bar.hi !== null ? pct(bar.hi, scale.max) : 0;
+                // our rating colours OUR estimate only; the NWS range is theirs (neutral, dashed), offshore and demonstration are grey; those hours show the rating as a dot
+                const rating = b.h ? BAND_COLOR[bandOf(b.h.rating.category)] : undefined, colour = bar.kind === 'est' || bar.kind === 'flat' ? rating ?? 'var(--none)' : bar.kind === 'nws' ? 'var(--muted)' : undefined;
+                return <span key={b.label} className="wb-col" title={`${barWords(b.label, bar, fmt, unitOf, b.tag)}${b.h ? ` · ${conditionWord(b.h.rating.category).toLowerCase()}${dark ? ', after dark' : ''}` : ''}`}>
+                  <span className="wb-track">{bar.kind !== 'none' && <i className={`wb-bar k-${bar.kind}${dark ? ' dark' : ''}${b.far ? ' far' : ''}`} style={(bar.kind === 'est' || bar.kind === 'nws' ? {bottom: 0, height: `${hi}%`, '--c': colour, '--split': `${hi > 0 ? ((hi - lo) / hi) * 100 : 100}%`} : {bottom: `${lo}%`, height: `${Math.max(0, hi - lo)}%`, '--c': colour}) as unknown as CSSProperties} />}</span>
+                  {b.h && bar.kind !== 'est' && bar.kind !== 'flat' && bar.kind !== 'none' ? <i className="wb-r" style={{background: rating}} /> : <i className="wb-r none" />}
+                  <svg className="wb-a" viewBox="-7 -7 14 14">{w && fin(w.direction) && b.h?.forecast.availability.wind !== false && <g className={`ca ca-${relClass(windRelationship(spot, b.h!.forecast))}`} transform={`rotate(${(w.direction + 180) % 360})`}><path d="M0 -6.5 L4.6 3.5 L0 1.4 L-4.6 3.5Z" /></g>}</svg>
+                  <svg className="wb-a" viewBox="-7 -7 14 14">{sw && fin(sw.direction) && partitionKind(sw, true) !== 'noise' && <g className={`ca ca-${periodStep(Math.round(sw.period))}`} transform={`rotate(${(sw.direction + 180) % 360})`}><path d="M0 -6.5 L4.6 3.5 L0 1.4 L-4.6 3.5Z" /></g>}</svg>
+                </span>; })}</span>
+              {(() => { const pts = hrs.filter((x) => x.hour >= 5 && x.hour <= 16 && fin(x.forecast.tide.height)); if (pts.length < 6 || tHi - tLo < 0.1) return null;   // the tide under the bars' own hours (5 AM to 4 PM, 6a at the first bar's centre, 3p at the last's)
+                const d = pts.map((x, i) => `${i ? 'L' : 'M'}${(12.5 + ((x.hour - 6) / 9) * 75).toFixed(1)},${(17 - ((x.forecast.tide.height - tLo) / (tHi - tLo)) * 14).toFixed(1)}`).join('');
+                return <svg className="wb-tide" viewBox="0 0 100 20" preserveAspectRatio="none"><path d={d} /></svg>; })()}
+            </span>
           </button>
         );
       })}
@@ -345,7 +392,18 @@ export function DayStrip({days, series, spot, p, bundle, now, cur, best, onPick}
   kw.forEach((d, i) => { if (!d.label) return; const g = groups.get(d.label) ?? []; const last = g[g.length - 1]; if (last && last.i === i - 1) { last.to = d.name; last.i = i; } else g.push({from: d.name, to: d.name, i}); groups.set(d.label, g); });
   const kinds = new Set([...groups.keys()].map((l) => l.split(' · ')[0]));
   const keyLine = groups.size ? [...groups].map(([label, rs], k) => `${kinds.size > 1 || k === 0 ? label : label.split(' · ').slice(1).join(' · ')} ${rs.map((r) => (r.from === r.to ? r.from : `${r.from}–${r.to}`)).join(', ')}`).join('; ') : null;
-  return <>{strip}{keyLine && <p className="sp-days-k">{keyLine}</p>}{selNote && <p className="sp-dayrange">{selNote}</p>}</>;
+  // forecast-visuals B: ONE short key line for the bars (the Stage A key's style): ratings, the scale step, the arrows, the tide; the offshore and NWS swatches only when a bar uses them
+  const tideDrawn = tHi - tLo >= 0.1 && days.some((d) => series.slice(d.start, d.end + 1).filter((x) => x.hour >= 5 && x.hour <= 16 && fin(x.forecast.tide.height)).length >= 6);
+  const all = cols.flat(), kinds2 = new Set(all.map((c) => c.bar.kind)), rated = kinds2.has('est') || kinds2.has('flat');
+  const verdictKey = plan.some((x) => x.w) || plan.some((x) => !x.far && !x.todayPassed) ? <p className="sp-wbkey sp-vkey"><span>best window:</span><span><i className="vm" style={{borderColor: BAND_COLOR.good}} />Go</span><span><i className="vm" style={{borderColor: BAND_COLOR.fair}} />Worth a look</span><span><i className="vm" style={{borderColor: BAND_COLOR.poor}} />Skip</span>
+    {plan.some((x) => x.surface) && <span>surface: our rule from the wind</span>}{plan.some((x) => x.board) && <span>board: your Board Match pick</span>}<span>provisional, our rules</span></p> : null;
+  const barKey = <p className="sp-wbkey">{rated && <><span><i className="sw" style={{background: BAND_COLOR.good}} />good</span><span><i className="sw" style={{background: BAND_COLOR.fair}} />fair</span><span><i className="sw" style={{background: BAND_COLOR.poor}} />poor</span><span>ratings provisional</span></>}
+    {[...kinds2].some((k) => k === 'off' || k === 'demo' || k === 'nws') && <span><i className="wb-r" style={{background: BAND_COLOR.fair}} />dot: rating where the bar is not our estimate</span>}
+    {kinds2.has('est') && <span>solid: typical wave to sets</span>}{kinds2.has('off') && <span><i className="sw off" />offshore Hs, not surf size</span>}{kinds2.has('nws') && <span><i className="sw nws" />NWS forecast, for the day</span>}{kinds2.has('demo') && <span><i className="sw demo" />demonstration</span>}
+    {all.some((c) => c.dark && c.bar.kind !== 'none') && <span><i className="sw dk" />after dark</span>}{all.some((c) => c.far && c.bar.kind !== 'none') && <span><i className="sw fr" />too far out</span>}
+    <span>6a 9a 12p 3p · grid {stepText(heightValue(scale.step, p, hawaiian))} {p.heightUnit}{hawaiian ? ` ≈ Hawaiian${kinds2.has('nws') ? ' (estimates; NWS bars in published feet)' : ''}` : ''}</span><span>arrows: wind (shore relation), then swell (period)</span>
+    {tst && tideDrawn && <span><i className="tl" />tide: NOAA {tst.station.name}{hourlyTideStationIds.includes(tst.station.id) ? '' : ', interpolated'}, above MLLW, not at the beach</span>}</p>;
+  return <>{strip}{verdictKey}{barKey}{keyLine && <p className="sp-days-k">{keyLine}</p>}{selNote && <p className="sp-dayrange">{selNote}</p>}</>;
 }
 
 /** Magicseaweed-style 3-hour table for the selected day: wind cells coloured by shore relation. */

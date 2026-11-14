@@ -31,6 +31,8 @@ sessions; persisted to localStorage key `surf-prototype-v1`), `data.favorite(id)
 - Ratings are provisional and uncalibrated; say so where shown.
 - No live camera imagery unless an authorised feed exists.
 
+- **Surface word** (`src/services/surfaceWord.ts`, the spot page's day cards): Glassy / Clean / Textured / Choppy is OUR rule from the model's wind (mean speed, gusts, and the shore relation at the day's best window), not an observation of the water; labelled "surface: our rule from the wind"; no word where the shore relation is unknown. The window verdict and the Board Match pick beside it are provisional and say so; none is shown on a day past the forecast horizon.
+
 ## Photography (`src/ui/photos.ts`)
 Every displayed photo comes from `PHOTOS` and shows photographer and licence. Generic photos say they are not the spot.
 

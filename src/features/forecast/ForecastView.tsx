@@ -71,6 +71,7 @@ export function ForecastView({go}: ViewProps) {
   const toggleCard = (k: CardKey) => setOpenCard((o) => (o === k ? null : k));
   // Phones: the shell's spot switcher already names the spot, so the h1 is for screen readers only (the name shows once).
   const [narrow, setNarrow] = useState(() => matchMedia('(max-width: 860px)').matches);
+  const [chartsOpen, setChartsOpen] = useState<boolean | null>(null);   // null: the default for this width
   useEffect(() => { const mq = matchMedia('(max-width: 860px)'), on = () => setNarrow(mq.matches); mq.addEventListener('change', on); return () => mq.removeEventListener('change', on); }, []);
   const nowHour = Math.floor(now / 3600000); // the star is recomputed on the hour, not on every clock tick
   const bestK = useMemo(() => {
@@ -154,7 +155,7 @@ export function ForecastView({go}: ViewProps) {
         <ConditionsGrid part="now" spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       </section>
       <NwsBanner spotId={spot.id} />
-      <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} />
+      <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} boards={boards} />
 
       {/* signature A (phone pass): the Today ribbon replaces the four daylight times: daylight band, surf shape, wind to the beach, tide and the call's window on one hour axis */}
       <TodayRibbon spot={spot} hours={dayHours} band={band} daylight={daylight} win={windowOnDay(spot, dateIn(timeZoneOf(spot), selected.timestamp), p, {records, bundle, nowMs: now}, Math.min(now, Date.parse(selected.timestamp)))} today={dateIn(timeZoneOf(spot), selected.timestamp) === dateIn(timeZoneOf(spot), new Date(now).toISOString())} selected={view.selectedTime} p={p} onSelect={view.selectTime}
@@ -165,9 +166,14 @@ export function ForecastView({go}: ViewProps) {
       {/* hdontap-snaps: HDOnTap's live-updating snapshots (src/ocean/hdontapCams.ts); the camera step of the page (after the ribbon, before the charts). Nothing for a spot without one. */}
       <HdontapSnaps spotId={spot.id} zone={timeZoneOf(spot)} />
       {/* forecast-charts (user, 2026-11-12): the four panels as one instrument that fits the screen, one cursor, one readout, a day zoom (ForecastCharts.tsx) */}
-      <ForecastCharts series={series} days={days} curDay={curDay} spot={spot} p={p} band={band} extrema={extrema} now={now} selectedTime={view.selectedTime} onSelect={view.selectTime} onZoomDay={pickDay}
+      {/* forecast-visuals B: the detailed line charts sit under one toggle, nothing removed: open by default on wide screens, closed on phones (the bars above
+          carry the brief check); a person's choice holds while the page is open */}
+      <details className="sp-detailed" open={chartsOpen ?? !narrow} onToggle={(e) => setChartsOpen((e.currentTarget as HTMLDetailsElement).open)}>
+        <summary>Detailed charts<span className="sp-detailed-s">surf, swell, wind and tide by the hour · table</span></summary>
+      {(chartsOpen ?? !narrow) && <ForecastCharts series={series} days={days} curDay={curDay} spot={spot} p={p} band={band} extrema={extrema} now={now} selectedTime={view.selectedTime} onSelect={view.selectTime} onZoomDay={pickDay}
         narrow={narrow} hasEstimates={hasEstimates} dayHoursLabel={`${weekdayPT(selected.timestamp)} ${dayNumPT(selected.timestamp)} · every 3 hours · wind colored by shore relation`}
-        table={<HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />} />
+        table={<HourTable hours={dayHours} spot={spot} p={p} bundle={bundle} now={now} selected={view.selectedTime} onSelect={view.selectTime} />} />}
+      </details>
 
       <h2 className="sp-more" id="sp-more">More detail</h2>
       <ConditionsGrid part="detail" spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />

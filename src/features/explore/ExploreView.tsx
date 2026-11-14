@@ -348,7 +348,7 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => { let on = true; const done = () => { if (on) setFontsOk(true); }; const t = window.setTimeout(done, 1500); (document.fonts?.load('700 12px Archivo') ?? Promise.resolve()).then(done, done); return () => { on = false; window.clearTimeout(t); }; }, []);
   /** what each dot stands for (spots by id, groups by node id), for the tooltip and the group list */
   const dotInfo = useRef(new Map<string, {name: string; face: DotFace; band: Band; word: string; dark: boolean; ink: string; /** groups: the spot the dot stands for */ best?: string}>());
-  const [statusOpen, setStatusOpen] = useState(false);   // map-clusters (lead): the status line is one line with an ellipsis; a tap shows all of it
+  const [statusOpen, setStatusOpen] = useState(false), [srcOpen, setSrcOpen] = useState(false);   // map-warn (lead, 2026-11-13): the phone's top source warning is one line too, a tap shows all of it   // map-clusters (lead): the status line is one line with an ellipsis; a tap shows all of it
   // B8 (scrub): the dots are built only for the part of the world around the view (the view plus half a screen each side), refreshed when a settled move
   // leaves that box or crosses a zoom band; far out (no dots) nothing is built. A scrub step then rates tens of spots, not all 1,168.
   const [dotBox, setDotBox] = useState<{s: number; n: number; w: number; e: number; band: 0 | 1 | 2} | null>(null), dotBoxRef = useRef<typeof dotBox>(null);
@@ -903,8 +903,8 @@ function OceanMap({section, go}: ViewProps) {
       ) : null}
       <div className="xsearchbox">
         {topBar}
-        {ms.showTop && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{retryFn && <button type="button" onClick={retryFn}>Retry</button>}</p>
-          : <p className="xsrcwarn" role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" /><span>{phoneTop}</span>{retryFn && <button type="button" onClick={retryFn}>Retry</button>}</p>)}
+        {ms.showTop && (seaNote ? <p className={`xsrcwarn info${seaFailed && heldNote ? ' err' : ''}`} data-open={srcOpen ? 'true' : undefined} role={seaFailed && heldNote ? 'alert' : 'status'} data-fallback={fallbackName ? 'true' : undefined} title={srcWarnTitle || undefined}><i aria-hidden="true" /><button type="button" className="xsw-t" aria-expanded={srcOpen} onClick={() => setSrcOpen((v) => !v)}>{phoneTop}</button>{retryFn && <button type="button" onClick={retryFn}>Retry</button>}</p>
+          : <p className="xsrcwarn" data-open={srcOpen ? 'true' : undefined} role="status" title={srcWarnTitle || undefined}><i aria-hidden="true" /><button type="button" className="xsw-t" aria-expanded={srcOpen} onClick={() => setSrcOpen((v) => !v)}>{phoneTop}</button>{retryFn && <button type="button" onClick={retryFn}>Retry</button>}</p>)}
         {!phone && open && <section ref={sheetRef} className="xsheet" id="xsheet" aria-label="Spots">{listBody}</section>}
       </div>
 
