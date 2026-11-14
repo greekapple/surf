@@ -23,7 +23,7 @@ Home · Forecast · Explore · Quiver · Wave Scale · Personal (each with secti
 - Provisional brand SWELLO (wordmark "Swello") in the UI; repository, packages and hosting stay named SURF until renamed with approval.
 - Visual direction "coast bulletin" (from the Home redesign, 2026-10-28): the forecast read as a plain sentence over authentic, credited location photography; data graphics set directly on a cool fog ground rather than in cards; dense instrument views (Forecast timeline) stay dark until each area is redesigned.
 - Typography: Archivo (SIL OFL, self-hosted in `public/fonts`), one family; expanded widths for display, normal width with tabular numerals for data.
-- Colour: fog ground, Pacific ink, one International Orange accent for navigation state and links; rating colours are semantic only. No teal-heavy palettes, glassmorphism, decorative gradients, eyebrow labels or marketing slogans.
+- Colour: fog ground, Pacific ink, one SWELLO blue accent for navigation state and links (orange dropped, user 2026-11-14); rating colours are semantic only. No teal-heavy palettes, glassmorphism, decorative gradients, eyebrow labels or marketing slogans.
 - Earlier SURF/SWELLO screenshots, mockups and the 9C/10C card dashboard are historical references, not visual targets.
 
 ## Camera rule (amended 2026-11-10, user decision)
