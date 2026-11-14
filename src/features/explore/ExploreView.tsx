@@ -910,7 +910,7 @@ function OceanMap({section, go}: ViewProps) {
       </div>}
       {/* The MapLibre engine draws no credit control: the page shows the basemap's attribution (same place and style as Leaflet's). */}
       {/* map-launch P0 (OpenFreeMap / OpenMapTiles / ODbL terms): the basemap credit as LINKS, OpenStreetMap to its copyright page; on a phone it stays on screen with a popup open */}
-      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay=""><span className="xcr-t"><a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a></span></p>}
+      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay=""><span className="xcr-t"><a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a></span></p>}
 
       {phone && sheetOn ? (
         <section ref={sheetRef} className="xsheet phone" id="xsheet" data-d={detent} aria-label="Spots"

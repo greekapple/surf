@@ -1034,7 +1034,6 @@ button.xchip.xstatus { font: inherit; font-size: 12px; text-align: left; border:
   .xsearchbox .xsrcwarn[data-open] .xsw-t { white-space: normal; overflow: visible; }
 }
 .xcredit a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-@media (max-width: 860px) { .xcredit.open a { display: inline-block; padding: 13px 0; margin: -13px 0; } }
 /* map-launch P1: no network (or no engine): one clear message over the map instead of a blank one */
 .xoffline { position: absolute; z-index: 1002; left: 50%; top: 40%; translate: -50% -50%; display: grid; gap: 6px; justify-items: center; width: min(360px, calc(100% - 32px)); box-sizing: border-box; padding: 16px 18px; border-radius: 12px; background: var(--bg); color: var(--text); box-shadow: 0 0 0 1px var(--line); text-align: center; font-size: 14px; line-height: 20px; }
 .xoffline b { font-size: 16px; }
