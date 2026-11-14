@@ -504,3 +504,11 @@ main .qv h1, main .sc h1, main .disc-h h1, main .cmpx-h h1, main .fs-h h1, main 
 @media (prefers-reduced-motion: reduce) {
   .tabbar, .tabbar a, .topnav .nav-title, .share-fab-w, .share-fab { transition: none; }
 }
+
+/* space-tighten (2026-11-14): on a phone the footer already carries the tab bar's clearance (its padding-bottom), so the page under it does not add a second
+   one (that left about 100 px of empty page below the footer); a shorter rule above the footer. */
+@media (max-width: 860px) {
+  .page:has(> .foot:last-child) { padding-bottom: 0; }
+  .foot { margin-top: 20px; padding-top: 10px; }
+}
+@media (min-width: 861px) { .foot { margin-top: 32px; } }

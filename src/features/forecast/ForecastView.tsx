@@ -34,7 +34,6 @@ import {CallBar, FeltRight, NwsBanner} from './Trust';
 import {TodayRibbon} from './TodayRibbon';
 import {extremaForOwnStation} from '../../ocean/stationTide';
 import {tideStationFor, SF_STATION, hourlyTideStationIds} from '../../ocean/tideStations';
-import {tideCurveWords} from '../../ocean/stationTide';
 import {CALL_WINDOW_DAYS} from '../../services/call';
 import {HORIZON_HOURS} from '../../services/certainty';
 import {callFor, daylightFor, surfBandSeries, windowOnDay} from './trustApi';
@@ -155,12 +154,13 @@ export function ForecastView({go}: ViewProps) {
         <ConditionsGrid part="now" spot={spot} h={selected} p={p} dayHours={dayHours} extrema={extrema} bundle={bundle} now={now} open={openCard} onToggle={toggleCard} observe={<><ObservedLine spotId={spot.id} nowMs={now} />{hs.kind !== 'official' && <FeltRight spotId={spot.id} at={selected.timestamp} env={env} nowMs={now} />}</>} breaker={call.breaker.type !== 'unknown' ? BREAKER_WORD[call.breaker.type] : null} observeEntry={<ObserveEntry onOpen={() => setObserving(true)} />} scale={<ScalePanel hs={hs} p={p} board={scaleBoard} outsideNote={outsideFacingForHour(spot.id, selected.forecast)} onOpen={() => go('forecast', 'wave-scale')} />} />
       </section>
       <NwsBanner spotId={spot.id} />
-      <DayStrip days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} boards={boards} />
+      <DayStrip keyOpen={!narrow} days={days} series={series} spot={spot} p={p} bundle={bundle} now={now} cur={curDay} best={bestK} onPick={pickDay} boards={boards} />
 
       {/* signature A (phone pass): the Today ribbon replaces the four daylight times: daylight band, surf shape, wind to the beach, tide and the call's window on one hour axis */}
       <TodayRibbon spot={spot} hours={dayHours} band={band} daylight={daylight} win={windowOnDay(spot, dateIn(timeZoneOf(spot), selected.timestamp), p, {records, bundle, nowMs: now}, Math.min(now, Date.parse(selected.timestamp)))} today={dateIn(timeZoneOf(spot), selected.timestamp) === dateIn(timeZoneOf(spot), new Date(now).toISOString())} selected={view.selectedTime} p={p} onSelect={view.selectTime}
         tideLabel={(() => { const [la, lo] = spotLatLon(spot), st = tideStationFor({id: spot.id, latitude: la, longitude: lo}); if (!st || selected.forecast.availability.tide === false || !Number.isFinite(selected.forecast.tide.height)) return null;   // as the Tide card: only with its station, in its own words
-          return st.station.id === SF_STATION ? `NOAA CO-OPS prediction at San Francisco (${SF_STATION}), a regional reference, ${st.distanceKm} km from this spot, not at the beach` : tideCurveWords({kind: hourlyTideStationIds.includes(st.station.id) ? 'hourly' : 'interpolated', stationName: st.station.name, stationId: st.station.id, distanceKm: st.distanceKm}) + (st.fallback ? ` · ${st.fallbackLabel ?? 'inlet or bay-side station'}` : ''); })()} tideStale={tideStaleOf(dayHours, now)} />
+          // space-tighten: the ribbon's line is the short form (the Tide cards above and below carry the full sentence): source, station, distance, interpolated, not at the beach
+          return st.station.id === SF_STATION ? `NOAA San Francisco (${SF_STATION}), a regional reference · ${st.distanceKm} km · not at the beach` : `NOAA ${st.station.name} · ${st.distanceKm} km${hourlyTideStationIds.includes(st.station.id) ? '' : ' · interpolated'} · not at the beach` + (st.fallback ? ` · ${st.fallbackLabel ?? 'inlet or bay-side station'}` : ''); })()} tideStale={tideStaleOf(dayHours, now)} />
       {/* bayarea-cams-wire: the usable-now cameras (display; a still or a click-to-load YouTube player, with its credit and an honest live status; never analysed). Only spots with a camera row get the panel. */}
       <LiveCamPanel spotId={spot.id} zone={timeZoneOf(spot)} />
       {/* hdontap-snaps: HDOnTap's live-updating snapshots (src/ocean/hdontapCams.ts); the camera step of the page (after the ribbon, before the charts). Nothing for a spot without one. */}
