@@ -279,6 +279,9 @@ function OceanMap({section, go}: ViewProps) {
     return () => { live = false; clearTimeout(timer); };
   }, [view.selectedTime]);
 
+  // map-launch P1 (offline): the map needs the network for its basemap and sea; with none it says so instead of staying blank. `engineFailed`: neither engine started.
+  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine), [engineFailed, setEngineFailed] = useState(false), offlineAtStart = useRef(!online);
+  useEffect(() => { const on = () => setOnline(true), off = () => setOnline(false); addEventListener('online', on); addEventListener('offline', off); return () => { removeEventListener('online', on); removeEventListener('offline', off); }; }, []);
   useEffect(() => {
     if (!mapEl.current) return;
     const small = matchMedia('(max-width: 860px)').matches, el = mapEl.current; let alive = true, made: MapEngine | null = null;
@@ -286,7 +289,8 @@ function OceanMap({section, go}: ViewProps) {
       minZoom: minZoomFor(el.clientWidth || window.innerWidth), maxZoom: mapConfig.view.maxZoom, theme: currentTheme()};
     // If the requested engine cannot start (no WebGL, or its code failed to load), fall back to the Leaflet engine: the map never stays empty.
     const kind = engineKind();
-    void createEngine(kind, el, init).catch((err) => { if (kind === 'leaflet') throw err; console.warn('Map engine', kind, 'unavailable, using Leaflet:', err); el.replaceChildren(); return createEngine('leaflet', el, init); }).then((x) => {
+    void createEngine(kind, el, init).catch((err) => { if (kind === 'leaflet') throw err; console.warn('Map engine', kind, 'unavailable, using Leaflet:', err); el.replaceChildren(); return createEngine('leaflet', el, init); }).catch((err) => { console.warn('Map engine failed:', err); if (alive) setEngineFailed(true); return null; }).then((x) => {
+      if (!x) return;
       if (!alive) { x.dispose(); return; }
       made = x; map.current = x; fieldCtl.current = x.field;
       const z = () => setZoom(x.getView().zoom); x.on('zoomend', z); z();
@@ -348,7 +352,7 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => { let on = true; const done = () => { if (on) setFontsOk(true); }; const t = window.setTimeout(done, 1500); (document.fonts?.load('700 12px Archivo') ?? Promise.resolve()).then(done, done); return () => { on = false; window.clearTimeout(t); }; }, []);
   /** what each dot stands for (spots by id, groups by node id), for the tooltip and the group list */
   const dotInfo = useRef(new Map<string, {name: string; face: DotFace; band: Band; word: string; dark: boolean; ink: string; /** groups: the spot the dot stands for */ best?: string}>());
-  const [statusOpen, setStatusOpen] = useState(false), [srcOpen, setSrcOpen] = useState(false);   // map-warn (lead, 2026-11-13): the phone's top source warning is one line too, a tap shows all of it   // map-clusters (lead): the status line is one line with an ellipsis; a tap shows all of it
+  const [statusOpen, setStatusOpen] = useState(false), [srcOpen, setSrcOpen] = useState(false), [liveStatus, setLiveStatus] = useState('');   // map-warn (lead, 2026-11-13): the phone's top source warning is one line too, a tap shows all of it   // map-clusters (lead): the status line is one line with an ellipsis; a tap shows all of it
   // B8 (scrub): the dots are built only for the part of the world around the view (the view plus half a screen each side), refreshed when a settled move
   // leaves that box or crosses a zoom band; far out (no dots) nothing is built. A scrub step then rates tens of spots, not all 1,168.
   const [dotBox, setDotBox] = useState<{s: number; n: number; w: number; e: number; band: 0 | 1 | 2} | null>(null), dotBoxRef = useRef<typeof dotBox>(null);
@@ -680,6 +684,8 @@ function OceanMap({section, go}: ViewProps) {
     : spatial.loading && !frame ? (paintedFrame && opts.heat ? `Loading model… still showing ${FIELDS.find((f) => f.layer === paintedFrame.layer)?.label ?? 'the previous layer'} for ${weekdayPT(paintedFrame.validAt, mapZone())} ${hourLabel(paintedFrame.validAt, mapZone())} ${mapZoneAbbr(paintedFrame.validAt)}` : 'Loading model…')
     : frame || gframe ? `${def.label} · ${shownPacked ? shownFrame!.provider : `${def.layer === 'WIND' ? 'GFS' : 'WW3'}${viaHosts(shownUrls)}`}${shownPacked ? '' : ` · ${gframe ? `global ${gframe.resolution}°` : `${(frame as SpatialFrame).resolution}°`}${frame && gframe ? ' grid (California subset, same model)' : ''}${interpNote ? ` · ${interpNote}` : ''}`} · valid ${weekdayPT(shownFrame!.validAt, mapZone())} ${hourLabel(shownFrame!.validAt, mapZone())} ${mapZoneAbbr(shownFrame!.validAt)}${stepNote}${spatial.loading || globe.loading ? ' · updating…' : ''}`
     : spatial.status;
+  // map-launch P1-5: the live region speaks only once the map has settled for a moment (not every loading flicker)
+  useEffect(() => { if (spatial.loading || globe.loading) return; const t = window.setTimeout(() => setLiveStatus(opts.heat ? status : 'Sea color off'), 1200); return () => window.clearTimeout(t); }, [status, spatial.loading, globe.loading, opts.heat]);
   const paintedDef = (opts.heat && painted && FIELDS.find((f) => f.layer === painted)) || def; // legend (label + ramp) follows the frame actually painted
   const legend = legendModel(scaleKeyOfField(paintedDef.id), {heightUnit: p.heightUnit, windUnit: p.windUnit}, themeNow());
   const ends = frame || gframe || (opts.heat && painted) ? ([legend.lo, legend.hi] as const) : null;
@@ -886,9 +892,24 @@ function OceanMap({section, go}: ViewProps) {
   useEffect(() => { const id = requestAnimationFrame(() => declutterRef.current()); return () => cancelAnimationFrame(id); }, [srcWarn, seaNote]);
   return (
     <div ref={rootRef} className="xmap" data-d={phone ? detent : undefined}>
-      <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Drag to pan; use the zoom buttons or scroll to zoom." />
+      {/* map-launch P1-5: keyboard routes the pointer had alone: Enter opens the point forecast at the map's centre (the centre is marked while the map has focus);
+          L opens the list of the spots in view (what every cluster holds) */}
+      <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Arrow keys pan, plus and minus zoom. Enter opens the forecast at the centre of the map; L lists the spots in view."
+        onKeyDown={(e) => {
+          if (e.target instanceof HTMLElement && e.target.closest('input, textarea, button, a, [role="dialog"]')) return;
+          if (e.key === 'Enter' && map.current) { e.preventDefault(); const v = map.current.getView(); setCallout(null); setPanel(false); setPt({lat: v.lat, lon: v.lon}); }
+          else if ((e.key === 'l' || e.key === 'L') && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); setQ(''); setZone('In view'); if (phone) { setSheetOn(true); setDetent('half'); } else setOpen(true); }
+        }} />
+      {/* the map's status for screen readers: a calm live region (settled states only), not the status button itself */}
+      <p className="sr-only" role="status" aria-live="polite">{liveStatus}</p>
+      {(!online || engineFailed) && <div className="xoffline" role="status">
+        <b>{!online ? 'No network connection' : 'The map could not load'}</b>
+        <span>{!online ? 'The map needs a connection to draw the sea and the spots. It loads again when you are back online.' : 'The basemap service did not answer. Spot forecasts are still under Forecast.'}</span>
+        {(engineFailed || offlineAtStart.current) && online && <button type="button" onClick={() => location.reload()}>Reload the map</button>}
+      </div>}
       {/* The MapLibre engine draws no credit control: the page shows the basemap's attribution (same place and style as Leaflet's). */}
-      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay=""><span className="xcr-t">{eng.attribution()}</span></p>}
+      {/* map-launch P0 (OpenFreeMap / OpenMapTiles / ODbL terms): the basemap credit as LINKS, OpenStreetMap to its copyright page; on a phone it stays on screen with a popup open */}
+      {eng?.kind === 'maplibre' && <p className="xcredit" data-map-overlay=""><span className="xcr-t"><a href="https://openfreemap.org" target="_blank" rel="noopener noreferrer">OpenFreeMap</a> © <a href="https://www.openmaptiles.org/" target="_blank" rel="noopener noreferrer">OpenMapTiles</a> Data from <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a></span></p>}
 
       {phone && sheetOn ? (
         <section ref={sheetRef} className="xsheet phone" id="xsheet" data-d={detent} aria-label="Spots"
@@ -943,7 +964,7 @@ function OceanMap({section, go}: ViewProps) {
           {!phone && <DotKey unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} />}
           {opts.heat && <ModelChip name={modelName} sub={cacheDrawn ? cache?.chip : undefined} note={<>{status} {ENCLOSED_NOTE}</>} />}
         {opts.heat && ends ? <LegendChip unit={unitLabel} ramp={legend.gradient} ticks={legend.ticks} lo={ends[0]} hi={ends[1]} label={LEGEND_NAMES[paintedDef.id].full} short={LEGEND_NAMES[paintedDef.id].short} word={LEGEND_NAMES[paintedDef.id].word} loading={spatial.loading || globe.loading || paintedDef.id !== def.id} onCycle={cycleUnit} ><DotKeyList unit={p.heightUnit === 'm' ? 'm' : 'ft'} hawaiian={p.scale === 'Hawaiian'} /></LegendChip>
-          : <button type="button" className="xchip xstatus" aria-live="polite" aria-expanded={statusOpen} data-loading={spatial.loading || globe.loading ? 'true' : undefined} data-open={statusOpen ? 'true' : undefined} title={opts.heat ? status : undefined}
+          : <button type="button" className="xchip xstatus" aria-expanded={statusOpen} data-loading={spatial.loading || globe.loading ? 'true' : undefined} data-open={statusOpen ? 'true' : undefined} title={opts.heat ? status : undefined}
               onClick={() => setStatusOpen((v) => !v)}>{opts.heat ? status : 'Sea color off'}</button>}
         </div>
       </div>
