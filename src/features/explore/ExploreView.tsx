@@ -280,8 +280,8 @@ function OceanMap({section, go}: ViewProps) {
   }, [view.selectedTime]);
 
   // map-launch P1 (offline): the map needs the network for its basemap and sea; with none it says so instead of staying blank. `engineFailed`: neither engine started.
-  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine), [engineFailed, setEngineFailed] = useState(false), offlineAtStart = useRef(!online);
-  useEffect(() => { const on = () => setOnline(true), off = () => setOnline(false); addEventListener('online', on); addEventListener('offline', off); return () => { removeEventListener('online', on); removeEventListener('offline', off); }; }, []);
+  const [online, setOnline] = useState(() => typeof navigator === 'undefined' || navigator.onLine), [engineFailed, setEngineFailed] = useState(false), offlineAtStart = useRef(!online), retrySeaRef = useRef<() => void>(() => {});   // back online mid-session: the sea frames are asked for again
+  useEffect(() => { const on = () => { setOnline(true); retrySeaRef.current(); }, off = () => setOnline(false); addEventListener('online', on); addEventListener('offline', off); return () => { removeEventListener('online', on); removeEventListener('offline', off); }; }, []);
   useEffect(() => {
     if (!mapEl.current) return;
     const small = matchMedia('(max-width: 860px)').matches, el = mapEl.current; let alive = true, made: MapEngine | null = null;
@@ -878,6 +878,7 @@ function OceanMap({section, go}: ViewProps) {
     : seaFailed ? `Couldn't load ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}${showing}`
     : slow && anyLoading ? `Still loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'} (taking longer than usual)${paintedFrame ? showing : ' · spots still work'}`
     : isHeld ? `Loading ${LEGEND_NAMES[def.id as keyof typeof LEGEND_NAMES]?.word.toLowerCase() ?? 'the layer'}…${showing}` : '';
+  retrySeaRef.current = () => spatial.retry();
   const seaRetry = !!heldNote && (seaFailed || (slow && anyLoading)) ? () => { setSlow(false); spatial.retry(); } : null;
   // (lead P2) over a cached map heldNote is '': the cache label says 'not updated' (or is slow), and its note gets the Retry instead
   const cacheRetry = !seaRetry && !!cache && cacheDrawn && opts.heat && live && (!anyLoading || slow) ? () => { setSlow(false); spatial.retry(); } : null, retryFn = seaRetry ?? cacheRetry;
@@ -896,16 +897,16 @@ function OceanMap({section, go}: ViewProps) {
           L opens the list of the spots in view (what every cluster holds) */}
       <div ref={mapEl} className="xleaf" role="application" aria-label="Ocean map. Arrow keys pan, plus and minus zoom. Enter opens the forecast at the centre of the map; L lists the spots in view."
         onKeyDown={(e) => {
-          if (e.target instanceof HTMLElement && e.target.closest('input, textarea, button, a, [role="dialog"]')) return;
-          if (e.key === 'Enter' && map.current) { e.preventDefault(); const v = map.current.getView(); setCallout(null); setPanel(false); setPt({lat: v.lat, lon: v.lon}); }
+          if (e.defaultPrevented || (e.target instanceof HTMLElement && e.target.closest('input, textarea, button, a, [role="dialog"], .xpick'))) return;
+          if (e.key === 'Enter' && map.current) { e.preventDefault(); const v = map.current.getView(); setCallout(null); setPanel(false); setPt({lat: v.lat, lon: ((((v.lon + 180) % 360) + 360) % 360) - 180}); }   // the centre wrapped to -180..180, as a tap is
           else if ((e.key === 'l' || e.key === 'L') && !e.metaKey && !e.ctrlKey && !e.altKey) { e.preventDefault(); setQ(''); setZone('In view'); if (phone) { setSheetOn(true); setDetent('half'); } else setOpen(true); }
         }} />
       {/* the map's status for screen readers: a calm live region (settled states only), not the status button itself */}
       <p className="sr-only" role="status" aria-live="polite">{liveStatus}</p>
-      {(!online || engineFailed) && <div className="xoffline" role="status">
-        <b>{!online ? 'No network connection' : 'The map could not load'}</b>
-        <span>{!online ? 'The map needs a connection to draw the sea and the spots. It loads again when you are back online.' : 'The basemap service did not answer. Spot forecasts are still under Forecast.'}</span>
-        {(engineFailed || offlineAtStart.current) && online && <button type="button" onClick={() => location.reload()}>Reload the map</button>}
+      {(!online || engineFailed || offlineAtStart.current) && <div className="xoffline" role="status">
+        <b>{!online ? 'No network connection' : offlineAtStart.current ? 'Back online' : 'The map could not start'}</b>
+        <span>{!online ? 'The map needs a connection to draw the sea and the spots. Once you are back online, reload the map.' : offlineAtStart.current ? 'The map started without a connection. Reload it to draw the sea and the spots.' : 'Spot forecasts are still under Forecast.'}</span>
+        {online && <button type="button" onClick={() => location.reload()}>Reload the map</button>}
       </div>}
       {/* The MapLibre engine draws no credit control: the page shows the basemap's attribution (same place and style as Leaflet's). */}
       {/* map-launch P0 (OpenFreeMap / OpenMapTiles / ODbL terms): the basemap credit as LINKS, OpenStreetMap to its copyright page; on a phone it stays on screen with a popup open */}

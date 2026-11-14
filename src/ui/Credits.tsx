@@ -16,7 +16,7 @@ const MODEL_NAMES: Record<string, string> = {meteofrance_wave: 'Météo-France M
 
 const SOURCES: Source[] = [
   {name: 'Open-Meteo', supplies: `Marine (wave and swell) and weather (wind) forecasts for every spot, and the wave-model spread (${SPREAD_MODELS.map((m) => MODEL_NAMES[m] ?? m).join(', ')}).`,
-    licence: 'Data under Creative Commons Attribution 4.0 (CC BY 4.0). Used through Open-Meteo\'s paid commercial API plan.', credit: 'Weather and marine data by Open-Meteo.com, from the national weather services and model centers it serves.',
+    licence: 'Data under Creative Commons Attribution 4.0 (CC BY 4.0). Swello\'s server uses Open-Meteo\'s paid commercial API plan; if the server cannot answer, your browser may ask Open-Meteo\'s free public API directly.', credit: 'Weather and marine data by Open-Meteo.com, from the national weather services and model centers it serves.',
     links: [['Open-Meteo', 'https://open-meteo.com/'], ['License', 'https://open-meteo.com/en/licence'], ['Terms', 'https://open-meteo.com/en/terms']]},
   {name: 'NOAA CO-OPS (Tides & Currents)', supplies: 'Tide predictions (highs, lows and hourly) and water-level observations at the station each spot names.',
     licence: 'U.S. Government work: public domain. NOAA disclaimer applies.', links: [['Tides & Currents', 'https://tidesandcurrents.noaa.gov/'], ['NOAA disclaimer', 'https://www.noaa.gov/disclaimer']]},
@@ -24,7 +24,7 @@ const SOURCES: Source[] = [
     licence: 'U.S. federal public data: public domain. NOAA disclaimer applies.', links: [['NDBC', 'https://www.ndbc.noaa.gov/']]},
   {name: 'NOAA National Weather Service', supplies: 'Hazard alerts (api.weather.gov) for the spot you open.', licence: 'U.S. Government work: public domain.', links: [['weather.gov', 'https://www.weather.gov/']]},
   {name: 'NOAA NCEP GFS-Wave and GFS', supplies: 'The map\'s global swell, period and wind layers.', licence: 'U.S. Government work: public domain.', links: [['NCEP', 'https://www.nco.ncep.noaa.gov/']]},
-  {name: 'Swello map frames (GitHub Pages)', supplies: 'The map\'s wave and swell pictures: NOAA GFS-Wave grids that Swello\'s own job converts to images every few hours and publishes on GitHub Pages (greekapple.github.io/surf), which your browser loads directly. When they are missing or older than 18 hours the map uses the PacIOOS grids below and says so.',
+  {name: 'Swello map frames (GitHub Pages)', supplies: 'The map\'s wave, swell and wind pictures: NOAA GFS-Wave grids that Swello\'s own job converts to images every few hours and publishes on GitHub Pages (greekapple.github.io/surf), which your browser loads directly. When they are missing or older than 18 hours the map uses the PacIOOS grids below and says so.',
     licence: 'The data is NOAA\'s (U.S. Government work: public domain). Hosted by GitHub Pages under GitHub\'s terms.', links: [['GitHub Pages', 'https://pages.github.com/'], ['NCEP', 'https://www.nco.ncep.noaa.gov/']]},
   {name: 'PacIOOS / University of Hawaiʻi', supplies: 'The ERDDAP server the map\'s regional WaveWatch III and GFS grids are read from.',
     licence: '"The data may be used and redistributed for free but is not intended for legal use." No warranty.', credit: 'PacIOOS, funded by NOAA as an IOOS Regional Association, coordinated by the University of Hawaiʻi SOEST.',
