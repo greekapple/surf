@@ -8,7 +8,6 @@ import {useLayoutEffect, useMemo, useRef, type CSSProperties, type ReactNode} fr
 import type {Forecast, Surfboard, SurfSpot, UserProfile} from '../../models/index';
 import type {ObservationSet, TidePrediction} from '../../ocean/types';
 import {windRelationship} from '../../recommendation/sqi';
-import {scoreBoard} from '../../recommendation/board';
 import {DirArrow, Icon} from '../../ui/Icon';
 import {CoastTile, CoastCredit} from './CoastTile';
 import {periodStep} from '../../services/coastTile';
@@ -270,12 +269,6 @@ function TideMini({hours, at, extrema, p, turnsSaved = false}: {hours: HourSampl
   );
 }
 
-/** Board Match in one line (Surfline's "Ride an all-rounder"): the best board from the user's quiver for this hour, or why there is none. */
-/** The best eligible board in the quiver for this hour (Board Match), or null. */
-export function bestBoard(boards: import('../../models/index').Surfboard[], f: Forecast, p: UserProfile, hs: HeadlineSurf) {
-  const range: [number, number] | null = hs.kind === 'estimate' ? [hs.loFt, hs.hiFt] : null;
-  return boards.map((b) => scoreBoard(b, f, p, range)).filter((m) => m.eligible).sort((a, b) => b.score - a.score)[0] ?? null;
-}
 export const feetInches = (inches: number) => `${Math.floor(inches / 12)}'${Math.round(inches % 12)}"`;
 
 /** T-065: the board for these waves, from size + period (wave shape is unknown). No row at all when nothing can be recommended. */
