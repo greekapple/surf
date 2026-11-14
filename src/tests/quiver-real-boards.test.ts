@@ -11,12 +11,12 @@ const IN = 0.0254;
 const byId = (id: string) => demoBoards.find((b) => b.id === id)!;
 const params = (b: Surfboard) => boardParamsFor(b, null, referenceFor(b));
 
-test('real boards: the published numbers, the real names, no fictional wording', () => {
+test('example boards (quiver-lock): typical numbers, generic names, no maker or model, no fictional wording', () => {
   const want: Record<string, [string, string, number, number, number, number, string, string]> = {
-    'demo-short': ['Sharp Eye', 'Inferno 72 C1 Carbon', 70, 19.25, 2.625, 29.4, 'Squash', 'Thruster'],
-    'demo-fish': ['Firewire', 'Seaside (Helium)', 71, 22.75, 2.75, 41.1, 'Swallow', 'Quad'],
-    'demo-long': ['Wavestorm', "8' Classic", 96, 22.5, 3.25, 86, 'Round', 'Thruster'],
-    'demo-step': ['Pyzel', 'Ghost', 78, 20.5, 3, 40.1, 'Squash', 'Thruster'],
+    'demo-short': ['', 'Example', 70, 19.25, 2.625, 29.4, 'Squash', 'Thruster'],
+    'demo-fish': ['', 'Example', 71, 22.75, 2.75, 41.1, 'Swallow', 'Quad'],
+    'demo-long': ['', 'Example', 96, 22.5, 3.25, 86, 'Round', 'Thruster'],
+    'demo-step': ['', 'Example', 78, 20.5, 3, 40.1, 'Squash', 'Thruster'],
   };
   assert.equal(demoBoards.length, 4);
   for (const b of demoBoards) {
@@ -25,6 +25,7 @@ test('real boards: the published numbers, the real names, no fictional wording',
     assert.ok(validDimensions(b.length, b.width, b.thickness, b.volume), b.id);
     assert.equal(b.specificationSource, MODELLED_NOTE); assert.ok(b.demo);
     assert.ok(!/fictional|Demo Workshop/i.test(JSON.stringify(b)), 'no fictional wording');
+    assert.ok(!/Firewire|Sharp ?Eye|Wavestorm|Pyzel|Seaside|Inferno|Ghost|Helium|https?:/i.test(JSON.stringify(b)), `${b.id}: no real brand, model or retailer link`);
     assert.equal(b.rocker, undefined, 'rocker is not published: left unset');
   }
 });
@@ -71,7 +72,7 @@ test('real boards: buildBoard params per board (photo fields, tail, fins, soft-t
 test('real boards: the reference follows the model, looks and fins', () => {
   assert.ok(referenceFor(byId('demo-short')));
   assert.equal(referenceFor({...byId('demo-short'), model: 'My own board'}), null, 'a re-purposed example board loses the reference shape');
-  assert.equal(referenceFor({id: 'mine', model: 'Ghost'}), null); assert.equal(referenceFor({id: 'demo-short', model: 'Inferno 72 C1 Carbon'}), null, 'without demo and the published dimensions there is no reference');
+  assert.equal(referenceFor({id: 'mine', model: 'Example'}), null); assert.equal(referenceFor({id: 'demo-short', model: 'Example'}), null, 'without demo and the published dimensions there is no reference');
   assert.equal(defaultLook(byId('demo-short')).pattern, 'carbon');
   assert.equal(defaultLook(byId('demo-long')).pattern, 'stripes'); assert.equal(defaultLook(byId('demo-long')).finish, 'matte');
   assert.equal(defaultLook(byId('demo-fish')).fins, 'quad'); assert.equal(defaultLook(byId('demo-step')).pattern, undefined);
@@ -86,7 +87,7 @@ test('real boards: saved fictional example boards migrate (same ids, favourite k
     {id: 'mine', name: 'Mine', manufacturer: 'Me', model: 'X', type: 'Fish', length: 66, width: 21, thickness: 2.5, volume: 33, favorite: false},
   ];
   const m = migrateDemoBoards(old);
-  assert.equal(m[0].model, 'Seaside (Helium)'); assert.equal(m[0].favorite, true); assert.equal(m[0].id, 'demo-fish');
+  assert.equal(m[0].model, 'Example'); assert.equal(m[0].manufacturer, ''); assert.equal(m[0].favorite, true); assert.equal(m[0].id, 'demo-fish');
   assert.equal(m[1], old[1]); assert.equal(m[2], old[2]);
   assert.deepEqual(migrateDemoBoards(structuredClone(demoBoards)), demoBoards, 'the new records are stable');
   // an edited example board (the showroom saves keep demo:true) is left alone, whatever field the person changed
@@ -95,7 +96,7 @@ test('real boards: saved fictional example boards migrate (same ids, favourite k
   }
   // the other three old records migrate when untouched (frozen table)
   const oldStep: Surfboard = {id: 'demo-step', name: 'Bigger-day option', manufacturer: 'Demo Workshop', model: 'Reach (fictional)', type: 'Step-up', length: 78, width: 19.5, thickness: 2.75, volume: 35, rocker: 'High', character: 'Powerful', favorite: false, demo: true};
-  assert.equal(migrateDemoBoards([oldStep])[0].model, 'Ghost'); assert.equal(migrateDemoBoards([{...oldStep, tail: 'Squash'}])[0].tail, 'Squash', 'a step-up that gained a tail was edited');
+  assert.equal(migrateDemoBoards([oldStep])[0].model, 'Example'); assert.equal(migrateDemoBoards([{...oldStep, tail: 'Squash'}])[0].tail, 'Squash', 'a step-up that gained a tail was edited');
   assert.equal(migrateDemoBoards([{...oldStep, tail: 'Squash'}])[0].model, 'Reach (fictional)');
 });
 
@@ -104,18 +105,24 @@ test('real boards (honesty): an edited example board loses the published-specs l
     assert.ok(referenceFor(d), d.id);
     for (const edit of [{length: d.length + 1}, {width: d.width + 0.25}, {thickness: d.thickness + 0.125}, {demo: false}, {demo: undefined}] as Partial<Surfboard>[]) assert.equal(referenceFor({...d, ...edit}), null, `${d.id} ${Object.keys(edit)[0]}`);
     assert.equal(d.character, undefined, `${d.id}: character is not published, so it is unset`);
-    assert.match(d.notes ?? '', /https?:\/\//, `${d.id}: the exact source URL is in the notes`);
-    for (const u of (d.notes ?? '').match(/https?:\/\/\S+/g) ?? []) assert.ok(!/[?#]/.test(u), `${d.id}: plain link, no tracking or affiliate parameters (${u})`);
-    assert.ok(/maker's|not verified against the maker/i.test(d.notes ?? ''), `${d.id}: the notes say whether the specs were checked against the maker`);
+    assert.match(d.notes ?? '', /Example board with typical dimensions/, `${d.id}: the note says it is an example with typical dimensions`); assert.doesNotMatch(d.notes ?? '', /https?:\/\//, `${d.id}: no retailer link`);
   }
   const fish = demoBoards.find((d) => d.id === 'demo-fish')!;
-  assert.equal(volumeLabel(fish), '41.1 L', 'the maker publishes 41.1 L, so no retailer-photo qualifier'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L');
+  assert.equal(volumeLabel(fish), '41.1 L', 'no volume qualifier on an example'); assert.equal(volumeLabel({...fish, length: 72}), '41.1 L');
   assert.equal(volumeLabel(demoBoards.find((d) => d.id === 'demo-short')!), '29.4 L');
-  for (const d of demoBoards) { assert.equal(exampleLabel(d), 'Example board (retail model)', d.id); assert.equal(exampleLabel({...d, model: 'Something else'}), 'Example board', `${d.id}: an edited example is not called a retail model`); }
+  for (const d of demoBoards) { assert.equal(exampleLabel(d), 'Example board', d.id); assert.equal(exampleLabel({...d, model: 'Something else'}), 'Example board'); assert.doesNotMatch(exampleLabel(d), /retail|model/i); }
 });
 
 test('real boards: the small-day band accepts a soft-top (where Longboard was listed), and boardForBand still picks the Ghost for a big day', async () => {
   const {BANDS, bandFor, boardForBand} = await import('../features/scale/surfSceneConfig.ts');
   assert.ok(BANDS[0].boardTypes.includes('Soft-top'));
   assert.equal(boardForBand(bandFor(12), 12, demoBoards, 5 + 10 / 12), 'demo-step', 'a 12 ft day gets the Ghost, not the Inferno');
+});
+
+test('example boards (quiver-lock): a saved retail-model example (brand and model) becomes the generic example; an edited one keeps its numbers and loses the brand; own boards are untouched', () => {
+  const retailFish: Surfboard = {id: 'demo-fish', name: 'Small-day fish', manufacturer: 'Firewire', model: 'Seaside (Helium)', type: 'Fish', length: 71, width: 22.75, thickness: 2.75, volume: 41.1, tail: 'Swallow', fins: 'Quad', construction: 'Helium (EPS / epoxy)', favorite: true, demo: true, specificationSource: 'Modelled from published specs and product photos · approximate', notes: "Maker's published specs (5'11\" x ...): https://example.test/x"};
+  const m = migrateDemoBoards([retailFish])[0]; assert.deepEqual([m.manufacturer, m.model, m.favorite], ['', 'Example', true]); assert.doesNotMatch(JSON.stringify(m), /Firewire|Seaside|Helium|https?:/); assert.deepEqual({...m, favorite: false}, demoBoards.find((d) => d.id === 'demo-fish'));
+  const edited = migrateDemoBoards([{...retailFish, length: 70, notes: 'my own note'}])[0]; assert.equal(edited.length, 70); assert.equal(edited.manufacturer, ''); assert.equal(edited.model, 'Example'); assert.equal(edited.notes, 'my own note', 'the person\'s own note stays');
+  const own: Surfboard = {id: 'mine', name: 'Mine', manufacturer: 'Firewire', model: 'Seaside (Helium)', type: 'Fish', length: 66, width: 21, thickness: 2.5, volume: 33, favorite: false};
+  assert.equal(migrateDemoBoards([own])[0], own, 'a board the person entered keeps its real brand: it is their own data');
 });

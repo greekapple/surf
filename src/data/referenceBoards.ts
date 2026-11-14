@@ -1,8 +1,9 @@
-/** The four example boards are real production models (spec docs/specs/2026-11-05-quiver-real-boards.md): the Sharp Eye Inferno 72 (C1
- *  Carbon), the Firewire Seaside (Helium), the Wavestorm 8' Classic and the Pyzel Ghost. Their dimensions are the published ones; their
- *  outlines were traced from each model's top-down deck product photo (locally, the photos are never committed) and scaled to the published
- *  length and width; the Wavestorm's rocker was measured from its side-profile product photo. Everything else (foil, rails, concaves, the
- *  other boards' rocker) is the category's typical value. These are approximations of the models, never exact replicas.
+/** The four example boards (quiver-lock 2026-11-14: GENERIC, no maker or model is named anywhere in the app; the earlier brand names were removed on
+ *  purpose, see docs/specs/2026-11-14-quiver-polish.md section 5): a small-day fish, an everyday shortboard, a soft-top cruiser and a bigger-day option.
+ *  Their dimensions are typical for the type. The outline shapes were traced (locally, the photos are never committed) from top-down deck
+ *  photos of four common production boards of those types and scaled to the example's length and width; the soft-top's rocker was measured from a
+ *  side-profile photo. Everything else (foil, rails, concaves, the other boards' rocker) is the category's typical value. These are
+ *  approximations of a type of board, never a replica of any maker's model.
  *
  *  Only numbers live here: 40 half-widths per board (fractions of the length, nose to tail, as `Outline.hw`), the measured rocker, the
  *  soft-top flag, and a look in the spirit of each board (colours and a procedural pattern; no logos, brand graphics or text). */
@@ -25,40 +26,38 @@ export interface ReferenceBoard {
   look: {deck: string; bottom: string; fade: number; finish: 'gloss' | 'matte'; pattern?: DeckPattern};
 }
 
-export const MODELLED_NOTE = 'Modelled from published specs and product photos · approximate';
+export const MODELLED_NOTE = 'Example board: typical size and shape for its type · approximate';
 
 export const REFERENCE_BOARDS: Record<string, ReferenceBoard> = {
-  // Sharp Eye Inferno 72, C1 Carbon, 5'10" x 19 1/4" x 2 5/8", 29.4 L. Deck photo: sharpeyesurfboards.com.au. A carbon deck inside white rails.
+  // Everyday shortboard example: 5'10" x 19 1/4" x 2 5/8", 29.4 L. A carbon-look deck inside white rails.
   'demo-short': {
-    model: 'Inferno 72 C1 Carbon',
+    model: 'Example',
     hw: [0.0048, 0.0256, 0.0405, 0.0541, 0.0655, 0.0762, 0.085, 0.0938, 0.1012, 0.1075, 0.1137, 0.1194, 0.1228, 0.1273, 0.1301, 0.1324, 0.1347, 0.1358, 0.1358, 0.1375,
       0.1364, 0.1364, 0.1364, 0.1364, 0.1352, 0.1347, 0.133, 0.1313, 0.1284, 0.1245, 0.1211, 0.116, 0.1109, 0.1046, 0.0982, 0.0893, 0.0802, 0.0695, 0.0559, 0.0196],
     look: {deck: '#f3f1ec', bottom: '#1d1f23', fade: 0.35, finish: 'gloss', pattern: 'carbon'},
   },
-  // Firewire Seaside (Helium), 5'11" x 22 3/4" x 2 3/4", 41.1 L (the maker's size chart; deck photo cleanlinesurf.com). White.
+  // Small-day fish example: 5'11" x 22 3/4" x 2 3/4", 41.1 L. White.
   'demo-fish': {
-    model: 'Seaside (Helium)',
+    model: 'Example',
     hw: [0.0114, 0.035, 0.0569, 0.0735, 0.0883, 0.1007, 0.1112, 0.1199, 0.1285, 0.1346, 0.141, 0.1451, 0.1497, 0.1515, 0.155, 0.1585, 0.1599, 0.1602, 0.1602, 0.1602,
       0.1602, 0.1585, 0.1585, 0.1567, 0.155, 0.1515, 0.1497, 0.1462, 0.1433, 0.1396, 0.1359, 0.1322, 0.1287, 0.1234, 0.1182, 0.1112, 0.105, 0.0972, 0.081, 0.067],
     // quiver-polish: the last two stations re-measured on the deck photo (the first trace dipped into the notch, which rounded the lobes off);
     // the tip's radius (about 3 cm) and the notch depth (about 2.1", 3% of the length) measured on the deck and bottom photos.
     tipRIn: 1.2, notchIn: 2.1,
-    // boards-restore: 41.1 L is the maker's published volume (firewiresurfboards.com/products/seaside, checked 2026-11-11), so no qualifier
     look: {deck: '#f4f3ef', bottom: '#f4f3ef', fade: 0.35, finish: 'gloss'},
   },
-  // Wavestorm 8' Classic, 8'0" x 22 1/2" x 3 1/4", 86 L (ridershack.com, costco.co.uk). Soft-top: blue stripes on a white foam deck, blue rails,
-  // a white slick bottom. Rocker measured on the side-profile photo (fit rms 0.2"): about 5" nose, 2.3" tail, the flat spot near the middle.
+  // Soft-top cruiser example: 8'0" x 22 1/2" x 3 1/4", 86 L. Blue stripes on a white foam deck, blue rails, a white slick bottom. Rocker measured on a side-profile photo (fit rms 0.2"): about 5" nose, 2.3" tail, the flat spot near the middle.
   'demo-long': {
-    model: "8' Classic",
+    model: 'Example',
     hw: [0.0132, 0.0608, 0.0748, 0.0856, 0.0935, 0.0981, 0.102, 0.106, 0.1086, 0.1113, 0.114, 0.1152, 0.1165, 0.1165, 0.1165, 0.1165, 0.1172, 0.1165, 0.1165, 0.1152,
       0.1152, 0.1139, 0.1124, 0.1106, 0.1086, 0.1073, 0.1051, 0.103, 0.1007, 0.0974, 0.0952, 0.0915, 0.0869, 0.081, 0.0753, 0.0704, 0.0625, 0.054, 0.0436, 0.0263],
     rocker: {noseIn: 5.05, tailIn: 2.3, flatFromTail: 0.48},
     softTop: true,
     look: {deck: '#1d3f8f', bottom: '#f2f3f4', fade: 0.3, finish: 'matte', pattern: 'stripes'},   // quiver-polish: the rail band in the photo's deep navy
   },
-  // Pyzel Ghost, 6'6" x 20 1/2" x 3", 40.1 L (cleanlinesurf.com; the spec card in the retailer's photo). White.
+  // Bigger-day option example: 6'6" x 20 1/2" x 3", 40.1 L. White.
   'demo-step': {
-    model: 'Ghost',
+    model: 'Example',
     hw: [0.0078, 0.0233, 0.0374, 0.0513, 0.0635, 0.074, 0.0827, 0.0914, 0.0983, 0.1036, 0.1088, 0.114, 0.1175, 0.121, 0.1244, 0.1262, 0.1279, 0.1297, 0.1314, 0.1314,
       0.1314, 0.1314, 0.1297, 0.1279, 0.1279, 0.1262, 0.1227, 0.1192, 0.1175, 0.114, 0.1088, 0.1036, 0.0983, 0.0931, 0.0853, 0.0775, 0.0682, 0.0566, 0.0409, 0.02],
     look: {deck: '#f4f3f6', bottom: '#f4f3f6', fade: 0.35, finish: 'gloss'},
@@ -72,10 +71,9 @@ export function referenceFor(b: Pick<Surfboard, 'id'> & Partial<Pick<Surfboard, 
   return r && pub && b.demo === true && b.model === r.model && b.length === pub.length && b.width === pub.width && b.thickness === pub.thickness ? r : null;
 }
 
-/** The visible label of an example board (user decision 2026-11-11: the examples are real retail models). Only a record that still carries
- *  the published model and size says "retail model"; an example the person has edited is just an example board. */
-export function exampleLabel(b: Parameters<typeof referenceFor>[0]): string {
-  return referenceFor(b) ? 'Example board (retail model)' : 'Example board';
+/** The visible label of an example board: "Example board" (no maker or model; quiver-lock 2026-11-14). */
+export function exampleLabel(_b?: Parameters<typeof referenceFor>[0]): string {
+  return 'Example board';
 }
 
 /** The volume as displayed: a number from a retailer photo carries that qualifier while the record is still the published one. */
@@ -99,8 +97,23 @@ const isOldRecord = (b: Surfboard) => { const o = OLD_DEMO[b.id]; return !!o && 
  *  old shipped record. Anything else (edited examples, the person's own boards) is untouched. */
 export function migrateDemoBoards(boards: Surfboard[]): Surfboard[] {
   return boards.map((b) => {
-    if (!b.demo || !isOldRecord(b)) return b;
+    if (!b.demo) return b;
     const next = demoBoards.find((d) => d.id === b.id);
-    return next ? {...structuredClone(next), favorite: b.favorite} : b;
+    if (next && isOldRecord(b)) return {...structuredClone(next), favorite: b.favorite};
+    // quiver-lock: the example boards that carried a real maker and model (the retail-model records) lose them; an edited example keeps its numbers and notes,
+    // and a record that is exactly the retail one becomes the new generic example
+    const retail = RETAIL_EXAMPLE[b.id];
+    if (retail && b.manufacturer === retail.manufacturer && b.model === retail.model) {
+      if (next && b.length === next.length && b.width === next.width && b.thickness === next.thickness && b.volume === next.volume) return {...structuredClone(next), favorite: b.favorite};
+      return {...b, manufacturer: '', model: 'Example', ...(retail.noteStart && b.notes?.startsWith(retail.noteStart) ? {notes: next?.notes} : {}), ...(b.specificationSource?.startsWith('Modelled from published') ? {specificationSource: next?.specificationSource} : {}), ...(b.construction === retail.construction ? {construction: next?.construction} : {})};
+    }
+    return b;
   });
 }
+/** The retail-model example records of 2026-11-11 to 2026-11-13 (frozen), so a saved copy can drop the maker and model (quiver-lock). */
+const RETAIL_EXAMPLE: Record<string, {manufacturer: string; model: string; construction?: string; noteStart?: string}> = {
+  'demo-fish': {manufacturer: 'Firewire', model: 'Seaside (Helium)', construction: 'Helium (EPS / epoxy)', noteStart: "Maker's published specs"},
+  'demo-short': {manufacturer: 'Sharp Eye', model: 'Inferno 72 C1 Carbon', construction: 'C1 Carbon', noteStart: "Maker's size chart"},
+  'demo-long': {manufacturer: 'Wavestorm', model: "8' Classic", construction: 'Soft-top', noteStart: 'Specs as listed by the retailer'},
+  'demo-step': {manufacturer: 'Pyzel', model: 'Ghost', noteStart: "Maker's published specs"},
+};
