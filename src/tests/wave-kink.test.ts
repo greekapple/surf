@@ -1,5 +1,5 @@
 /** The kink and streak at the curl (spec 2026-11-06-wave-kink-at-curl, docs/3d/wave-kink-findings.md): the drawn surface must be continuous
- *  across the peel boundary. Sampled on the REAL atlases (git-ignored, licensed-derived: public/media/scale3d-atlas and scale3d-proc; the
+ *  across the peel boundary. Sampled on the REAL atlas (public/media/scale3d-clean; the
  *  cases skip when the files are absent, e.g. in a clean checkout) through the viewer's own bucket blend / scaling / period, faces 1-25 ft,
  *  several times through the cycle, the strip from 3 face heights up the shoulder to 2 down the broken side of the break point. Left and
  *  right draw the same crest-frame surface (a right is the model matrix mirrored), so one sweep covers both.
@@ -10,7 +10,7 @@ import fs from 'node:fs';
 import {ATLAS_BANDS, type Atlas, type AtlasMeta, ampAt, bendW, bendZ, blendAtlas, breakX, bucketsFor, faceDistanceAt, makeAtlas, profileAt, scaleAtlas, sections, stageAt, stripX, withPeriod} from '../features/scale/waveAtlas.ts';
 
 const ROOT = process.env.SWELLO_ATLAS_ROOT ?? new URL('../../public/media/', import.meta.url).pathname;   // the env var: another checkout's atlases (before/after runs)
-const KINDS = ['scale3d-atlas', 'scale3d-proc', 'scale3d-clean'];   // wave-clean: drawn from scratch (tools/blender/CLEAN-WAVE.md)
+const KINDS = ['scale3d-clean'];   // the only atlas the app uses (licensed-derived atlases removed 2026-11-14)
 const load = (dir: string, id: string): Atlas | null => {
   const j = `${ROOT}${dir}/${id}.json`, b = `${ROOT}${dir}/${id}.bin`;
   if (!fs.existsSync(j) || !fs.existsSync(b)) return null;

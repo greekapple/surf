@@ -4,6 +4,7 @@ Sources: the user's reference videos ("30 reasons your site looks vibecoded", Ap
 
 ## Do not (reads as AI-generated)
 - Glass/blur panels ("liquid glass") except a nav over photography; frosted cards everywhere.
+  - Exception (user, 2026-11-14): the phone floating tab bar may use a light backdrop blur, with a solid fallback; it is the one native-app chrome element. No other glass.
 - Big soft radii on everything. Radius scale is 4 / 8 / 12 px; photos and the 3D stage may use 12; pills only for true toggles.
 - Decorative drop shadows; gradients as decoration; radial orbs; dot grids; sparkle icons.
 - Rows of 3-4 identical feature cards; bento grids; coloured left/top stripes on cards.

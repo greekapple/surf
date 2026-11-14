@@ -26,12 +26,9 @@ import type {Surfboard} from '../../models/index';
  *  Loaded lazily; Spin360 stays the fallback (no WebGL, reduced motion, or no atlas files). */
 const BASE = import.meta.env.BASE_URL ?? '/';
 export const LIVE_ROOT = BASE + 'media/scale3d-live/';
-/** wave-proc: the break-cycle atlas from splines traced off the licensed rows (tools/blender/proc_source.py, still licensed-derived) next to
- *  the licensed one; wave-clean: the atlas from cross-sections drawn from scratch (tools/blender/clean_source.py, CLEAN-WAVE.md; no licensed
- *  input). `?atlas=proc` / `?atlas=clean` picks one while they are compared; the default stays the licensed atlas. */
-const ATLAS_KIND = typeof location !== 'undefined' ? new URLSearchParams(location.search).get('atlas') : null;
-// The default wave is the clean-room atlas (tools/blender/CLEAN-WAVE.md): no licensed input. ?atlas=licensed / ?atlas=proc compare against the old TurboSquid-derived atlases on a local dev server only (never deployed since 2026-11-13).
-export const ATLAS_ROOT = BASE + (ATLAS_KIND === 'proc' ? 'media/scale3d-proc/' : ATLAS_KIND === 'licensed' ? 'media/scale3d-atlas/' : 'media/scale3d-clean/');
+/** The wave is the clean-room atlas only (tools/blender/CLEAN-WAVE.md: cross-sections drawn from scratch, no licensed input).
+ *  The old TurboSquid-derived atlases and their ?atlas= switch were removed on 2026-11-14; they stay git-ignored on the owner's machine only. */
+export const ATLAS_ROOT = BASE + 'media/scale3d-clean/';
 /** The light comes from the sun's position at the spot and hour (P5a); null keeps a neutral daylight. */
 export interface LiveLight {spotId: string; iso: string}
 
